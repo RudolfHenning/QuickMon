@@ -2009,6 +2009,10 @@ namespace QuickMon
             deleteActionScriptToolStripButton.Enabled = lvwActionScriptsEdit.SelectedItems.Count > 0;
             runToolStripButton.Enabled = lvwActionScriptsEdit.SelectedItems.Count > 0;
         }
+        private void lvwActionScripts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmdRunActionScript.Enabled = lvwActionScripts.SelectedItems.Count > 0;
+        }
         private void addActionScriptToolStripButton_Click(object sender, EventArgs e)
         {
             EditActionScript editActionScript = new EditActionScript();
@@ -2062,34 +2066,18 @@ namespace QuickMon
         }
         private void runToolStripButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (lvwActionScriptsEdit.SelectedItems.Count == 1)
-                {
-                    ActionScript asc = (ActionScript)lvwActionScriptsEdit.SelectedItems[0].Tag;
-                    asc.Run();
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Error running script!\r\n" + ex.Message, "Run script", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+            RunSelectedActionScripts(lvwActionScriptsEdit);            
         }
-
-        private void lvwActionScripts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cmdRunActionScript.Enabled = lvwActionScripts.SelectedItems.Count > 0;
-        }
-        private void cmdRunActionScript_Click(object sender, EventArgs e)
+        private void RunSelectedActionScripts(ListViewEx lvw, bool withPause = false)
         {
             try
             {
-                if (lvwActionScripts.SelectedItems.Count > 0)
+                if (lvw.SelectedItems.Count > 0)
                 {
-                    foreach (ListViewItem lvi in lvwActionScripts.SelectedItems)
+                    foreach (ListViewItem lvi in lvw.SelectedItems)
                     {
                         ActionScript asc = (ActionScript)lvi.Tag;
-                        asc.Run();
+                        asc.Run(withPause);
                     }
                 }
             }
@@ -2098,14 +2086,52 @@ namespace QuickMon
                 MessageBox.Show("Error running script!\r\n" + ex.Message, "Run script", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+        private void cmdRunActionScript_Click(object sender, EventArgs e)
+        {
+            RunSelectedActionScripts(lvwActionScripts);
+        }
         private void lvwActionScriptsEdit_DoubleClick(object sender, EventArgs e)
         {
-            editActionScriptToolStripButton_Click(sender, e);
+            RunSelectedActionScripts(lvwActionScriptsEdit);
         }
 
         private void lvwActionScripts_DoubleClick(object sender, EventArgs e)
         {
-            cmdRunActionScript_Click(sender, e);
+            RunSelectedActionScripts(lvwActionScripts);
+        }
+
+        private void runActionScriptToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (actionScriptListContextSource != null && actionScriptListContextSource is ListViewEx)
+            {
+                if (((ListViewEx)actionScriptListContextSource).Name == "lvwActionScripts")
+                {
+                    RunSelectedActionScripts(lvwActionScripts);
+                }
+                else if (((ListViewEx)actionScriptListContextSource).Name == "lvwActionScriptsEdit")
+                {
+                    RunSelectedActionScripts(lvwActionScriptsEdit);
+                }
+            }
+        }
+        private void runActionScriptWithPauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (actionScriptListContextSource != null && actionScriptListContextSource is ListViewEx)
+            {
+                if (((ListViewEx)actionScriptListContextSource).Name == "lvwActionScripts")
+                {
+                    RunSelectedActionScripts(lvwActionScripts, true);
+                }
+                else if (((ListViewEx)actionScriptListContextSource).Name == "lvwActionScriptsEdit")
+                {
+                    RunSelectedActionScripts(lvwActionScriptsEdit, true);
+                }
+            }
+        }
+        private Control actionScriptListContextSource = null;
+        private void actionScriptsContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            actionScriptListContextSource = actionScriptsContextMenuStrip.SourceControl;
         }
         #endregion
 

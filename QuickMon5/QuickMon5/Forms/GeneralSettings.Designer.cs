@@ -69,23 +69,26 @@
             this.txtApplicationMasterKeyFilePath = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.cmdPasswordManagementToggle = new System.Windows.Forms.Button();
+            this.panelRemoteHostServiceAndFirewall = new System.Windows.Forms.Panel();
+            this.flowLayoutPanelSettingsContent = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.llblServiceState = new System.Windows.Forms.LinkLabel();
+            this.lblIsQuickMonServiceInstalled = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.llblInstallQuickMonService = new System.Windows.Forms.LinkLabel();
+            this.lblServiceState = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lblFirewallPortRuleInstalled = new System.Windows.Forms.Label();
+            this.llblInstallFirewallPortRule = new System.Windows.Forms.LinkLabel();
+            this.cmdRemoteHostServiceAndFirewallToggle = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.panelRemoteHostServiceAndFirewall = new System.Windows.Forms.Panel();
-            this.cmdRemoteHostServiceAndFirewallToggle = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.lblIsQuickMonServiceInstalled = new System.Windows.Forms.Label();
-            this.llblInstallQuickMonService = new System.Windows.Forms.LinkLabel();
-            this.llblInstallFirewallPortRule = new System.Windows.Forms.LinkLabel();
-            this.lblFirewallPortRuleInstalled = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.lblServiceState = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.llblServiceState = new System.Windows.Forms.LinkLabel();
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.flowLayoutPanelSettingsContent = new System.Windows.Forms.Panel();
+            this.lblMonitorPackListFile = new System.Windows.Forms.Label();
+            this.lblMonitorPackListExists = new System.Windows.Forms.Label();
+            this.llblEditMonitorPackList = new System.Windows.Forms.LinkLabel();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
             this.panelTvwDetailTextAlign.SuspendLayout();
@@ -602,6 +605,158 @@
             this.cmdPasswordManagementToggle.UseVisualStyleBackColor = false;
             this.cmdPasswordManagementToggle.Click += new System.EventHandler(this.cmdPasswordManagementToggle_Click);
             // 
+            // panelRemoteHostServiceAndFirewall
+            // 
+            this.panelRemoteHostServiceAndFirewall.Controls.Add(this.flowLayoutPanelSettingsContent);
+            this.panelRemoteHostServiceAndFirewall.Controls.Add(this.cmdRemoteHostServiceAndFirewallToggle);
+            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 618);
+            this.panelRemoteHostServiceAndFirewall.Name = "panelRemoteHostServiceAndFirewall";
+            this.panelRemoteHostServiceAndFirewall.Size = new System.Drawing.Size(495, 170);
+            this.panelRemoteHostServiceAndFirewall.TabIndex = 2;
+            // 
+            // flowLayoutPanelSettingsContent
+            // 
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.llblEditMonitorPackList);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.lblMonitorPackListExists);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.lblMonitorPackListFile);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.label10);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.llblServiceState);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.lblIsQuickMonServiceInstalled);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.label14);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.llblInstallQuickMonService);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.lblServiceState);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.label12);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.label13);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.lblFirewallPortRuleInstalled);
+            this.flowLayoutPanelSettingsContent.Controls.Add(this.llblInstallFirewallPortRule);
+            this.flowLayoutPanelSettingsContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelSettingsContent.Location = new System.Drawing.Point(0, 33);
+            this.flowLayoutPanelSettingsContent.Name = "flowLayoutPanelSettingsContent";
+            this.flowLayoutPanelSettingsContent.Size = new System.Drawing.Size(495, 137);
+            this.flowLayoutPanelSettingsContent.TabIndex = 10;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(35, 26);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(288, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Default QuickMon 5 Service installed (Remote host service)";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // llblServiceState
+            // 
+            this.llblServiceState.AutoSize = true;
+            this.llblServiceState.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblServiceState.Location = new System.Drawing.Point(409, 46);
+            this.llblServiceState.Name = "llblServiceState";
+            this.llblServiceState.Size = new System.Drawing.Size(29, 13);
+            this.llblServiceState.TabIndex = 6;
+            this.llblServiceState.TabStop = true;
+            this.llblServiceState.Text = "Start";
+            this.llblServiceState.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblServiceState_LinkClicked);
+            // 
+            // lblIsQuickMonServiceInstalled
+            // 
+            this.lblIsQuickMonServiceInstalled.AutoSize = true;
+            this.lblIsQuickMonServiceInstalled.Location = new System.Drawing.Point(332, 26);
+            this.lblIsQuickMonServiceInstalled.Name = "lblIsQuickMonServiceInstalled";
+            this.lblIsQuickMonServiceInstalled.Size = new System.Drawing.Size(21, 13);
+            this.lblIsQuickMonServiceInstalled.TabIndex = 2;
+            this.lblIsQuickMonServiceInstalled.Text = "No";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(252, 46);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(71, 13);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "Service State";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // llblInstallQuickMonService
+            // 
+            this.llblInstallQuickMonService.AutoSize = true;
+            this.llblInstallQuickMonService.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblInstallQuickMonService.Location = new System.Drawing.Point(408, 26);
+            this.llblInstallQuickMonService.Name = "llblInstallQuickMonService";
+            this.llblInstallQuickMonService.Size = new System.Drawing.Size(34, 13);
+            this.llblInstallQuickMonService.TabIndex = 3;
+            this.llblInstallQuickMonService.TabStop = true;
+            this.llblInstallQuickMonService.Text = "Install";
+            this.llblInstallQuickMonService.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblInstallQuickMonService_LinkClicked);
+            // 
+            // lblServiceState
+            // 
+            this.lblServiceState.AutoSize = true;
+            this.lblServiceState.Location = new System.Drawing.Point(332, 46);
+            this.lblServiceState.Name = "lblServiceState";
+            this.lblServiceState.Size = new System.Drawing.Size(47, 13);
+            this.lblServiceState.TabIndex = 5;
+            this.lblServiceState.Text = "Stopped";
+            this.lblServiceState.DoubleClick += new System.EventHandler(this.lblServiceState_DoubleClick);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 90);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(314, 13);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Default QuickMon 5 Remote host port (48191) allowed on firewall";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label13
+            // 
+            this.label13.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label13.ForeColor = System.Drawing.Color.Crimson;
+            this.label13.Location = new System.Drawing.Point(0, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(495, 26);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Changes to this section require that this application runs in Admin mode";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFirewallPortRuleInstalled
+            // 
+            this.lblFirewallPortRuleInstalled.AutoSize = true;
+            this.lblFirewallPortRuleInstalled.Location = new System.Drawing.Point(332, 89);
+            this.lblFirewallPortRuleInstalled.Name = "lblFirewallPortRuleInstalled";
+            this.lblFirewallPortRuleInstalled.Size = new System.Drawing.Size(21, 13);
+            this.lblFirewallPortRuleInstalled.TabIndex = 11;
+            this.lblFirewallPortRuleInstalled.Text = "No";
+            // 
+            // llblInstallFirewallPortRule
+            // 
+            this.llblInstallFirewallPortRule.AutoSize = true;
+            this.llblInstallFirewallPortRule.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblInstallFirewallPortRule.Location = new System.Drawing.Point(409, 89);
+            this.llblInstallFirewallPortRule.Name = "llblInstallFirewallPortRule";
+            this.llblInstallFirewallPortRule.Size = new System.Drawing.Size(46, 13);
+            this.llblInstallFirewallPortRule.TabIndex = 12;
+            this.llblInstallFirewallPortRule.TabStop = true;
+            this.llblInstallFirewallPortRule.Text = "Add rule";
+            this.llblInstallFirewallPortRule.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblInstallFirewallPortRule_LinkClicked);
+            // 
+            // cmdRemoteHostServiceAndFirewallToggle
+            // 
+            this.cmdRemoteHostServiceAndFirewallToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdRemoteHostServiceAndFirewallToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdRemoteHostServiceAndFirewallToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRemoteHostServiceAndFirewallToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdRemoteHostServiceAndFirewallToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdRemoteHostServiceAndFirewallToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdRemoteHostServiceAndFirewallToggle.Name = "cmdRemoteHostServiceAndFirewallToggle";
+            this.cmdRemoteHostServiceAndFirewallToggle.Size = new System.Drawing.Size(495, 33);
+            this.cmdRemoteHostServiceAndFirewallToggle.TabIndex = 1;
+            this.cmdRemoteHostServiceAndFirewallToggle.Text = "Remote Host Service and Firewall settings";
+            this.cmdRemoteHostServiceAndFirewallToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdRemoteHostServiceAndFirewallToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdRemoteHostServiceAndFirewallToggle.UseVisualStyleBackColor = false;
+            this.cmdRemoteHostServiceAndFirewallToggle.Click += new System.EventHandler(this.cmdRemoteHostServiceAndFirewallToggle_Click);
+            // 
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -625,133 +780,6 @@
             this.columnHeader2.Text = "User name cache";
             this.columnHeader2.Width = 356;
             // 
-            // panelRemoteHostServiceAndFirewall
-            // 
-            this.panelRemoteHostServiceAndFirewall.Controls.Add(this.flowLayoutPanelSettingsContent);
-            this.panelRemoteHostServiceAndFirewall.Controls.Add(this.cmdRemoteHostServiceAndFirewallToggle);
-            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 618);
-            this.panelRemoteHostServiceAndFirewall.Name = "panelRemoteHostServiceAndFirewall";
-            this.panelRemoteHostServiceAndFirewall.Size = new System.Drawing.Size(495, 200);
-            this.panelRemoteHostServiceAndFirewall.TabIndex = 2;
-            // 
-            // cmdRemoteHostServiceAndFirewallToggle
-            // 
-            this.cmdRemoteHostServiceAndFirewallToggle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cmdRemoteHostServiceAndFirewallToggle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdRemoteHostServiceAndFirewallToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRemoteHostServiceAndFirewallToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdRemoteHostServiceAndFirewallToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdRemoteHostServiceAndFirewallToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdRemoteHostServiceAndFirewallToggle.Name = "cmdRemoteHostServiceAndFirewallToggle";
-            this.cmdRemoteHostServiceAndFirewallToggle.Size = new System.Drawing.Size(495, 33);
-            this.cmdRemoteHostServiceAndFirewallToggle.TabIndex = 1;
-            this.cmdRemoteHostServiceAndFirewallToggle.Text = "Remote Host Service and Firewall settings";
-            this.cmdRemoteHostServiceAndFirewallToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdRemoteHostServiceAndFirewallToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdRemoteHostServiceAndFirewallToggle.UseVisualStyleBackColor = false;
-            this.cmdRemoteHostServiceAndFirewallToggle.Click += new System.EventHandler(this.cmdRemoteHostServiceAndFirewallToggle_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 8);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(288, 13);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Default QuickMon 5 Service installed (Remote host service)";
-            // 
-            // lblIsQuickMonServiceInstalled
-            // 
-            this.lblIsQuickMonServiceInstalled.AutoSize = true;
-            this.lblIsQuickMonServiceInstalled.Location = new System.Drawing.Point(326, 8);
-            this.lblIsQuickMonServiceInstalled.Name = "lblIsQuickMonServiceInstalled";
-            this.lblIsQuickMonServiceInstalled.Size = new System.Drawing.Size(21, 13);
-            this.lblIsQuickMonServiceInstalled.TabIndex = 1;
-            this.lblIsQuickMonServiceInstalled.Text = "No";
-            // 
-            // llblInstallQuickMonService
-            // 
-            this.llblInstallQuickMonService.AutoSize = true;
-            this.llblInstallQuickMonService.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblInstallQuickMonService.Location = new System.Drawing.Point(403, 8);
-            this.llblInstallQuickMonService.Name = "llblInstallQuickMonService";
-            this.llblInstallQuickMonService.Size = new System.Drawing.Size(34, 13);
-            this.llblInstallQuickMonService.TabIndex = 2;
-            this.llblInstallQuickMonService.TabStop = true;
-            this.llblInstallQuickMonService.Text = "Install";
-            this.llblInstallQuickMonService.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblInstallQuickMonService_LinkClicked);
-            // 
-            // llblInstallFirewallPortRule
-            // 
-            this.llblInstallFirewallPortRule.AutoSize = true;
-            this.llblInstallFirewallPortRule.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblInstallFirewallPortRule.Location = new System.Drawing.Point(404, 47);
-            this.llblInstallFirewallPortRule.Name = "llblInstallFirewallPortRule";
-            this.llblInstallFirewallPortRule.Size = new System.Drawing.Size(46, 13);
-            this.llblInstallFirewallPortRule.TabIndex = 8;
-            this.llblInstallFirewallPortRule.TabStop = true;
-            this.llblInstallFirewallPortRule.Text = "Add rule";
-            this.llblInstallFirewallPortRule.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblInstallFirewallPortRule_LinkClicked);
-            // 
-            // lblFirewallPortRuleInstalled
-            // 
-            this.lblFirewallPortRuleInstalled.AutoSize = true;
-            this.lblFirewallPortRuleInstalled.Location = new System.Drawing.Point(327, 47);
-            this.lblFirewallPortRuleInstalled.Name = "lblFirewallPortRuleInstalled";
-            this.lblFirewallPortRuleInstalled.Size = new System.Drawing.Size(21, 13);
-            this.lblFirewallPortRuleInstalled.TabIndex = 7;
-            this.lblFirewallPortRuleInstalled.Text = "No";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(4, 48);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(314, 13);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "Default QuickMon 5 Remote host port (48191) allowed on firewall";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.ForeColor = System.Drawing.Color.Crimson;
-            this.label13.Location = new System.Drawing.Point(4, 78);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(341, 13);
-            this.label13.TabIndex = 9;
-            this.label13.Text = "Changes to this section require that this application runs in Admin mode";
-            // 
-            // lblServiceState
-            // 
-            this.lblServiceState.AutoSize = true;
-            this.lblServiceState.Location = new System.Drawing.Point(327, 28);
-            this.lblServiceState.Name = "lblServiceState";
-            this.lblServiceState.Size = new System.Drawing.Size(47, 13);
-            this.lblServiceState.TabIndex = 4;
-            this.lblServiceState.Text = "Stopped";
-            this.lblServiceState.DoubleClick += new System.EventHandler(this.lblServiceState_DoubleClick);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(247, 28);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(71, 13);
-            this.label14.TabIndex = 3;
-            this.label14.Text = "Service State";
-            // 
-            // llblServiceState
-            // 
-            this.llblServiceState.AutoSize = true;
-            this.llblServiceState.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblServiceState.Location = new System.Drawing.Point(404, 28);
-            this.llblServiceState.Name = "llblServiceState";
-            this.llblServiceState.Size = new System.Drawing.Size(29, 13);
-            this.llblServiceState.TabIndex = 5;
-            this.llblServiceState.TabStop = true;
-            this.llblServiceState.Text = "Start";
-            this.llblServiceState.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblServiceState_LinkClicked);
-            // 
             // quickMonServiceOpenFileDialog
             // 
             this.quickMonServiceOpenFileDialog.DefaultExt = "exe";
@@ -759,23 +787,37 @@
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
             // 
-            // flowLayoutPanelSettingsContent
+            // lblMonitorPackListFile
             // 
-            this.flowLayoutPanelSettingsContent.Controls.Add(this.label10);
-            this.flowLayoutPanelSettingsContent.Controls.Add(this.llblServiceState);
-            this.flowLayoutPanelSettingsContent.Controls.Add(this.lblIsQuickMonServiceInstalled);
-            this.flowLayoutPanelSettingsContent.Controls.Add(this.label14);
-            this.flowLayoutPanelSettingsContent.Controls.Add(this.llblInstallQuickMonService);
-            this.flowLayoutPanelSettingsContent.Controls.Add(this.lblServiceState);
-            this.flowLayoutPanelSettingsContent.Controls.Add(this.label12);
-            this.flowLayoutPanelSettingsContent.Controls.Add(this.label13);
-            this.flowLayoutPanelSettingsContent.Controls.Add(this.lblFirewallPortRuleInstalled);
-            this.flowLayoutPanelSettingsContent.Controls.Add(this.llblInstallFirewallPortRule);
-            this.flowLayoutPanelSettingsContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelSettingsContent.Location = new System.Drawing.Point(0, 33);
-            this.flowLayoutPanelSettingsContent.Name = "flowLayoutPanelSettingsContent";
-            this.flowLayoutPanelSettingsContent.Size = new System.Drawing.Size(495, 167);
-            this.flowLayoutPanelSettingsContent.TabIndex = 10;
+            this.lblMonitorPackListFile.AutoSize = true;
+            this.lblMonitorPackListFile.Location = new System.Drawing.Point(210, 66);
+            this.lblMonitorPackListFile.Name = "lblMonitorPackListFile";
+            this.lblMonitorPackListFile.Size = new System.Drawing.Size(113, 13);
+            this.lblMonitorPackListFile.TabIndex = 7;
+            this.lblMonitorPackListFile.Text = "MonitorPackList.txt file";
+            this.lblMonitorPackListFile.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblMonitorPackListFile.DoubleClick += new System.EventHandler(this.lblMonitorPackListFile_DoubleClick);
+            // 
+            // lblMonitorPackListExists
+            // 
+            this.lblMonitorPackListExists.AutoSize = true;
+            this.lblMonitorPackListExists.Location = new System.Drawing.Point(332, 66);
+            this.lblMonitorPackListExists.Name = "lblMonitorPackListExists";
+            this.lblMonitorPackListExists.Size = new System.Drawing.Size(51, 13);
+            this.lblMonitorPackListExists.TabIndex = 8;
+            this.lblMonitorPackListExists.Text = "No found";
+            // 
+            // llblEditMonitorPackList
+            // 
+            this.llblEditMonitorPackList.AutoSize = true;
+            this.llblEditMonitorPackList.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblEditMonitorPackList.Location = new System.Drawing.Point(408, 66);
+            this.llblEditMonitorPackList.Name = "llblEditMonitorPackList";
+            this.llblEditMonitorPackList.Size = new System.Drawing.Size(25, 13);
+            this.llblEditMonitorPackList.TabIndex = 9;
+            this.llblEditMonitorPackList.TabStop = true;
+            this.llblEditMonitorPackList.Text = "Edit";
+            this.llblEditMonitorPackList.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblEditMonitorPackList_LinkClicked);
             // 
             // GeneralSettings
             // 
@@ -876,5 +918,8 @@
         private System.Windows.Forms.Label lblServiceState;
         private System.Windows.Forms.OpenFileDialog quickMonServiceOpenFileDialog;
         private System.Windows.Forms.Panel flowLayoutPanelSettingsContent;
+        private System.Windows.Forms.LinkLabel llblEditMonitorPackList;
+        private System.Windows.Forms.Label lblMonitorPackListExists;
+        private System.Windows.Forms.Label lblMonitorPackListFile;
     }
 }

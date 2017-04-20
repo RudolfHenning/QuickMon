@@ -229,6 +229,7 @@
             this.optAgentStates = new System.Windows.Forms.RadioButton();
             this.cmdCollectorEdit = new System.Windows.Forms.Button();
             this.lvwActionScripts = new QuickMon.ListViewEx();
+            this.nameActionScriptColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
             this.cmdRunActionScript = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -237,7 +238,9 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
-            this.nameActionScriptColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.actionScriptsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.runActionScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runActionScriptWithPauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -298,6 +301,7 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelTop.SuspendLayout();
+            this.actionScriptsContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtName
@@ -2070,6 +2074,7 @@
             this.warningColumnHeader,
             this.errorColumnHeader,
             this.descriptiomColumnHeader});
+            this.lvwActionScriptsEdit.ContextMenuStrip = this.actionScriptsContextMenuStrip;
             this.lvwActionScriptsEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwActionScriptsEdit.FullRowSelect = true;
             this.lvwActionScriptsEdit.Location = new System.Drawing.Point(3, 30);
@@ -2548,10 +2553,13 @@
             // 
             this.lvwActionScripts.AutoResizeColumnEnabled = false;
             this.lvwActionScripts.AutoResizeColumnIndex = 0;
+            this.lvwActionScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvwActionScripts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameActionScriptColumnHeader});
+            this.lvwActionScripts.ContextMenuStrip = this.actionScriptsContextMenuStrip;
             this.lvwActionScripts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwActionScripts.FullRowSelect = true;
+            this.lvwActionScripts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lvwActionScripts.Location = new System.Drawing.Point(2, 25);
             this.lvwActionScripts.Name = "lvwActionScripts";
             this.lvwActionScripts.Size = new System.Drawing.Size(198, 615);
@@ -2560,6 +2568,10 @@
             this.lvwActionScripts.View = System.Windows.Forms.View.Details;
             this.lvwActionScripts.SelectedIndexChanged += new System.EventHandler(this.lvwActionScripts_SelectedIndexChanged);
             this.lvwActionScripts.DoubleClick += new System.EventHandler(this.lvwActionScripts_DoubleClick);
+            // 
+            // nameActionScriptColumnHeader
+            // 
+            this.nameActionScriptColumnHeader.Text = "Name";
             // 
             // panel2
             // 
@@ -2644,9 +2656,30 @@
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
             // 
-            // nameActionScriptColumnHeader
+            // actionScriptsContextMenuStrip
             // 
-            this.nameActionScriptColumnHeader.Text = "Name";
+            this.actionScriptsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.runActionScriptToolStripMenuItem,
+            this.runActionScriptWithPauseToolStripMenuItem});
+            this.actionScriptsContextMenuStrip.Name = "actionScriptsContextMenuStrip";
+            this.actionScriptsContextMenuStrip.Size = new System.Drawing.Size(229, 70);
+            this.actionScriptsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.actionScriptsContextMenuStrip_Opening);
+            // 
+            // runActionScriptToolStripMenuItem
+            // 
+            this.runActionScriptToolStripMenuItem.Image = global::QuickMon.Properties.Resources.rungreen24x24;
+            this.runActionScriptToolStripMenuItem.Name = "runActionScriptToolStripMenuItem";
+            this.runActionScriptToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.runActionScriptToolStripMenuItem.Text = "Run Action Script";
+            this.runActionScriptToolStripMenuItem.Click += new System.EventHandler(this.runActionScriptToolStripMenuItem_Click);
+            // 
+            // runActionScriptWithPauseToolStripMenuItem
+            // 
+            this.runActionScriptWithPauseToolStripMenuItem.Image = global::QuickMon.Properties.Resources.rungreen24x24;
+            this.runActionScriptWithPauseToolStripMenuItem.Name = "runActionScriptWithPauseToolStripMenuItem";
+            this.runActionScriptWithPauseToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.runActionScriptWithPauseToolStripMenuItem.Text = "Run Action Script With Pause";
+            this.runActionScriptWithPauseToolStripMenuItem.Click += new System.EventHandler(this.runActionScriptWithPauseToolStripMenuItem_Click);
             // 
             // CollectorDetails
             // 
@@ -2746,6 +2779,7 @@
             this.panel2.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
+            this.actionScriptsContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2959,5 +2993,8 @@
         private System.Windows.Forms.ColumnHeader adminColumnHeader;
         private System.Windows.Forms.ToolStripButton runToolStripButton;
         private System.Windows.Forms.ColumnHeader nameActionScriptColumnHeader;
+        private System.Windows.Forms.ContextMenuStrip actionScriptsContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem runActionScriptToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runActionScriptWithPauseToolStripMenuItem;
     }
 }

@@ -88,27 +88,15 @@ namespace QuickMon
 
             flowLayoutPanelSettingsContent.Enabled = Security.UACTools.IsInAdminMode();
             CheckQuickMonServiceInstalled();
+            CheckMonitorPackListExists();
             CheckQuickMonRemoteHostFirewallPort();
         }
-
-        private void CheckQuickMonRemoteHostFirewallPort()
+        private void GeneralSettings_Shown(object sender, EventArgs e)
         {
-            bool isFWRuleInstalled = false;
-            try
-            {
-                Microsoft.Win32.RegistryKey fwrules = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules");
-                object regVal = fwrules.GetValue("{F811AB2E-286C-4DB6-8512-4C991A8A55EA}");
-                if (regVal != null)
-                {
-                    string quickMonRule = regVal.ToString();
-                    if (quickMonRule.Length > 0)
-                        isFWRuleInstalled = true;
-                }
-            }
-            catch { }
-            lblFirewallPortRuleInstalled.Text = isFWRuleInstalled ? "Yes" : "No";
-            llblInstallFirewallPortRule.Enabled = !isFWRuleInstalled;
+            flowLayoutPanelSettings_Resize(null, null);
+            lvwUserNameCache.AutoResizeColumnEnabled = true;
         }
+
 
         private void CheckQuickMonServiceInstalled()
         {
@@ -132,11 +120,44 @@ namespace QuickMon
             llblInstallQuickMonService.Enabled = lblIsQuickMonServiceInstalled.Text == "No";
             llblServiceState.Enabled = lblIsQuickMonServiceInstalled.Text == "Yes";
         }
-
-        private void GeneralSettings_Shown(object sender, EventArgs e)
+        private void CheckQuickMonRemoteHostFirewallPort()
         {
-            flowLayoutPanelSettings_Resize(null, null);
-            lvwUserNameCache.AutoResizeColumnEnabled = true;
+            bool isFWRuleInstalled = false;
+            try
+            {
+                Microsoft.Win32.RegistryKey fwrules = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules");
+                object regVal = fwrules.GetValue("{F811AB2E-286C-4DB6-8512-4C991A8A55EA}");
+                if (regVal != null)
+                {
+                    string quickMonRule = regVal.ToString();
+                    if (quickMonRule.Length > 0)
+                        isFWRuleInstalled = true;
+                }
+            }
+            catch { }
+            lblFirewallPortRuleInstalled.Text = isFWRuleInstalled ? "Yes" : "No";
+            llblInstallFirewallPortRule.Enabled = !isFWRuleInstalled;
+        }
+        private void CheckMonitorPackListExists()
+        {
+            bool found = false;
+            string filePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\MonitorPackList.txt";
+            if (System.IO.File.Exists(filePath))
+                found = true;
+            else
+            {
+                filePath = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Hen IT\\QuickMon 5\\MonitorPackList.txt";
+                if (System.IO.File.Exists(filePath))
+                    found = true;
+                else
+                {
+                    filePath = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Hen IT\\QuickMon 5\\MonitorPackList.txt";
+                    if (System.IO.File.Exists(filePath))
+                        found = true;
+                }
+            }
+            lblMonitorPackListExists.Text = found ? "Found" : "No found";
+            llblEditMonitorPackList.Enabled = found;
         }
 
         private void cmdAppSettingsToggle_Click(object sender, EventArgs e)
@@ -428,6 +449,38 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void llblEditMonitorPackList_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            bool found = false;
+            string filePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\MonitorPackList.txt";
+            if (System.IO.File.Exists(filePath))
+                found = true;
+            else
+            {
+                filePath = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Hen IT\\QuickMon 5\\MonitorPackList.txt";
+                if (System.IO.File.Exists(filePath))
+                    found = true;
+                else
+                {
+                    filePath = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Hen IT\\QuickMon 5\\MonitorPackList.txt";
+                    if (System.IO.File.Exists(filePath))
+                        found = true;
+                }
+            }
+            if (found)
+            {
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo("notepad.exe");
+                p.StartInfo.Arguments = filePath;
+                p.Start();
+            }
+        }
+
+        private void lblMonitorPackListFile_DoubleClick(object sender, EventArgs e)
+        {
+            CheckMonitorPackListExists();
         }
     }
 }

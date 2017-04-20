@@ -31,7 +31,7 @@ Corrective scripts/Action scripts
 
 *****************************************************************************************************
 Next
-
+	Edit MonitorPackList.txt file link/button on Settings window
 	Detail view for Collector History clicking
 
 	DataSet views for all Collectors!!

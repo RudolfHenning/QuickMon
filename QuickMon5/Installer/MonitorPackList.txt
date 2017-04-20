@@ -1,0 +1,1 @@
+#This file is used by QuickMonService to specify Monitor packs that must be loaded to do monitoring.

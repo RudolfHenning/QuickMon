@@ -2086,8 +2086,10 @@ namespace QuickMon
                             mpVisible = false;
                         if (mpVisible)
                         {
-                            string entryDisplayName = filePath;
-                            if (!Properties.Settings.Default.ShowFullPathForQuickRecentist)
+                            string entryDisplayName;
+                            if (Properties.Settings.Default.ShowFullPathForQuickRecentist)
+                                entryDisplayName = summary.Name + " (" + filePath + ")";
+                            else
                                 entryDisplayName = summary.Name;
 
                             if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(entryDisplayName + "........", cboRecentMonitorPacks.Font).Width && entryDisplayName.Length > 20)
