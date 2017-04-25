@@ -8,6 +8,7 @@
       <ComponentRef Id='ProductComponent' />
       <ComponentRef Id='QuickMonConfigFiles' />
       <ComponentRef Id='readmetxt' />
+      <ComponentRef Id='firstTimeOnly' />
       <ComponentRef Id='ProgramMenuDir' />      
     </Feature>
 
@@ -32,8 +33,7 @@
               <File Id="QuickMonServiceEXE" Name="QuickMonService.exe" Source="QuickMonService.exe" KeyPath="no" />
               <File Id="FastColoredTextBoxDll" Name="FastColoredTextBox.dll" Source="FastColoredTextBox.dll" KeyPath="no" />
               <File Id="QuickMonCoreDll" Name="QuickMonCore.dll" Source="QuickMonCore.dll" KeyPath="no" />
-              <File Id="QuickMonCoreUIDll" Name="QuickMonCoreUI.dll" Source="QuickMonCore.dll" KeyPath="no" />
-              <File Id="MonitorPackListtxt" Name="MonitorPackList.txt" Source="MonitorPackList.txt" KeyPath="no" />
+              <File Id="QuickMonCoreUIDll" Name="QuickMonCoreUI.dll" Source="QuickMonCoreUI.dll" KeyPath="no" />              
               <File Id="System.Management.Automation.dll" Source="System.Management.Automation.dll"  KeyPath="no" />
             </Component>
             <Component Id="QuickMonConfigFiles" Guid="59162023-5478-4668-5D08-41ca40000000" NeverOverwrite="yes" Permanent="yes" Win64="yes">
@@ -45,7 +45,10 @@
                 <File Id="readme.txt" Source="readme.txt" KeyPath="yes">
                   <Shortcut Id="startmenuQuickMon5readme" Directory="ProgramMenuDir" Name="QuickMon 5 read me" WorkingDirectory="INSTALLDIR" Advertise="yes" />
                 </File>
-            </Component>            
+            </Component>
+            <Component Id="firstTimeOnly" Guid="59162023-5478-4668-5D08-41ca4f145100" NeverOverwrite="yes" Permanent="yes" Win64="yes">
+              <File Id="MonitorPackListtxt" Name="MonitorPackList.txt" Source="MonitorPackList.txt" KeyPath="no" />
+            </Component>
           </Directory>
         </Directory>
       </Directory>
@@ -76,23 +79,23 @@
     <UI>
       <UIRef Id="WixUI_InstallDir" />
 
+      <!--
       <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="CustomizeDlg" Order="2">1</Publish>
       <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
       <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
       <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg" Order="2">1</Publish>     
+      -->
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
 
       <!-- Show Launch app checkbox -->
-      <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction"
-          Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+      <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
     </UI>
     <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch QuickMon 5" />
     <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="Installation is complete." />
     <!-- Step 3: Include the custom action -->
     <Property Id="WixShellExecTarget" Value="[#QuickMonEXE]" />
-    <CustomAction Id="LaunchApplication"
-        BinaryKey="WixCA"
-        DllEntry="WixShellExec"
-        Impersonate="yes" />
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
 
     <WixVariable Id="WixUIBannerBmp" Value="InstallBanner.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="DialogBkground.bmp" />
