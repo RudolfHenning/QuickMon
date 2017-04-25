@@ -30,7 +30,7 @@ namespace QuickMon
             }
             if (Properties.Settings.Default.ApplicationUserNameCacheFilePath == null || Properties.Settings.Default.ApplicationUserNameCacheFilePath == "")
             {
-                Properties.Settings.Default.ApplicationUserNameCacheFilePath = System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "QM4MasterKeys.qmmxml");
+                Properties.Settings.Default.ApplicationUserNameCacheFilePath = System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "QM5MasterKeys.qmmxml");
             }
             if (Properties.Settings.Default.ApplicationUserNameCache == null)
             {
@@ -59,8 +59,14 @@ namespace QuickMon
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (args.Length > 0 && System.IO.File.Exists(args[0]) && (args[0].ToLower().EndsWith(".qmp") || args[0].ToLower().EndsWith(".qmp4")))
-                Properties.Settings.Default.LastMonitorPack = args[0];
+            if (args.Length > 0 && args[0].ToLower().Contains(".qmp")) 
+            {
+                string qmpFile = args[0];
+                if (System.IO.File.Exists(qmpFile))
+                {
+                    Properties.Settings.Default.LastMonitorPack = qmpFile;
+                }
+            }
 
             try
             {
@@ -80,7 +86,8 @@ namespace QuickMon
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message, "Templates", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            Application.Run(new MainForm());
+            MainForm mainForm = new MainForm();
+            Application.Run(mainForm);
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {

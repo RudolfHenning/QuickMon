@@ -245,3 +245,9 @@ ModelManifest.xml
 .fake/
 *.exe
 *.dll
+/QuickMon5/Installer/QuickMonRemoteHostCMD.exe.config
+/QuickMon5/Installer/QuickMon5x64.wixpdb
+/QuickMon5/Installer/QuickMon5x64.winobj
+/QuickMon5/Installer/QuickMon5x64.msi
+/QuickMon5/Installer/QuickMon5.winobj
+/QuickMon5/Installer/QuickMon5.0.0x64.msi
