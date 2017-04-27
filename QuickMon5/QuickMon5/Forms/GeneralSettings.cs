@@ -87,6 +87,7 @@ namespace QuickMon
             }
 
             flowLayoutPanelSettingsContent.Enabled = Security.UACTools.IsInAdminMode();
+            cmdRecreateAdminModeStartTask.Enabled = Security.UACTools.IsInAdminMode();
             CheckQuickMonServiceInstalled();
             CheckMonitorPackListExists();
             CheckQuickMonRemoteHostFirewallPort();
@@ -252,7 +253,7 @@ namespace QuickMon
                 {
                     HenIT.Security.AdminModeTools.DeleteAdminLaunchTask(AppGlobals.AppTaskId);
                 }
-                else if (Security.UACTools.IsInAdminMode() && !HenIT.Security.AdminModeTools.CheckIfAdminLaunchTaskExist(AppGlobals.AppTaskId))
+                else if (Security.UACTools.IsInAdminMode() && !chkDisableAutoAdminMode.Checked && !HenIT.Security.AdminModeTools.CheckIfAdminLaunchTaskExist(AppGlobals.AppTaskId))
                 {
                     HenIT.Security.AdminModeTools.CreateAdminLaunchTask(AppGlobals.AppTaskId);
                 }
@@ -350,6 +351,8 @@ namespace QuickMon
             quickMonServiceOpenFileDialog.InitialDirectory = localPath;
             if (quickMonServiceOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                llblInstallQuickMonService.Text = "Installing...";
+                Application.DoEvents();
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
                 p.StartInfo = new System.Diagnostics.ProcessStartInfo();
                 p.StartInfo.FileName = quickMonServiceOpenFileDialog.FileName;
@@ -367,14 +370,24 @@ namespace QuickMon
 
                 try
                 {
+                    llblInstallQuickMonService.Text = "Starting...";
+                    Application.DoEvents();
                     System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 5 Service");
                     if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
                     {
                         qsvrc.Start();
-                        qsvrc.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running);
+                        qsvrc.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0,0,30));
                     }
 
-                    lblServiceState.Text = qsvrc.Status.ToString();
+                    if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Running)
+                    {
+                        lblServiceState.Text = qsvrc.Status.ToString();                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("The installation/start up process of the service may be taking a while. Please wait a few more seconds and refresh this window again", "Service set up", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    CheckQuickMonServiceInstalled();
                 }
                 catch { }
             }
@@ -481,6 +494,30 @@ namespace QuickMon
         private void lblMonitorPackListFile_DoubleClick(object sender, EventArgs e)
         {
             CheckMonitorPackListExists();
+        }
+
+        private void cmdRefreshServiceState_Click(object sender, EventArgs e)
+        {
+            CheckMonitorPackListExists();
+            CheckQuickMonRemoteHostFirewallPort();
+            CheckQuickMonServiceInstalled();
+        }
+
+        private void cmdRecreateAdminModeStartTask_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (HenIT.Security.AdminModeTools.CheckIfAdminLaunchTaskExist(AppGlobals.AppTaskId))
+                {
+                    HenIT.Security.AdminModeTools.DeleteAdminLaunchTask(AppGlobals.AppTaskId);
+                    HenIT.Security.AdminModeTools.CreateAdminLaunchTask(AppGlobals.AppTaskId);
+                    MessageBox.Show("Done", "Recreate Auto Admin mode task", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Recreate Auto Admin mode task", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

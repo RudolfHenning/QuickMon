@@ -1310,12 +1310,12 @@ namespace QuickMon
             TreeNodeEx collectorNode;
             if (collector.CollectorAgents == null || collector.CollectorAgents.Count == 0)
             {
-                collectorNode = new TreeNodeEx(collector.DisplayName, 1, 1);
+                collectorNode = new TreeNodeEx(collector.DisplayName, collectorFolderImage, collectorFolderImage);
                 collectorNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             }
             else
             {
-                collectorNode = new TreeNodeEx(collector.DisplayName, 2, 2);
+                collectorNode = new TreeNodeEx(collector.DisplayName, collectorNAstateImage, collectorNAstateImage);
                 collectorNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular);
             }
             collectorNode.Tag = collector;

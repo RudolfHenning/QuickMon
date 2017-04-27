@@ -32,10 +32,10 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdResetTemplates = new System.Windows.Forms.Button();
+            this.chkShowCustomConfig = new System.Windows.Forms.CheckBox();
             this.lvwAgentType = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chkShowCustomConfig = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -67,13 +67,26 @@
             // 
             this.cmdResetTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cmdResetTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdResetTemplates.Location = new System.Drawing.Point(12, 332);
+            this.cmdResetTemplates.Location = new System.Drawing.Point(246, 332);
             this.cmdResetTemplates.Name = "cmdResetTemplates";
             this.cmdResetTemplates.Size = new System.Drawing.Size(105, 23);
             this.cmdResetTemplates.TabIndex = 10;
             this.cmdResetTemplates.Text = "Reset templates";
             this.cmdResetTemplates.UseVisualStyleBackColor = true;
+            this.cmdResetTemplates.Visible = false;
             this.cmdResetTemplates.Click += new System.EventHandler(this.cmdResetTemplates_Click);
+            // 
+            // chkShowCustomConfig
+            // 
+            this.chkShowCustomConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkShowCustomConfig.AutoSize = true;
+            this.chkShowCustomConfig.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkShowCustomConfig.Location = new System.Drawing.Point(12, 335);
+            this.chkShowCustomConfig.Name = "chkShowCustomConfig";
+            this.chkShowCustomConfig.Size = new System.Drawing.Size(218, 17);
+            this.chkShowCustomConfig.TabIndex = 11;
+            this.chkShowCustomConfig.Text = "Show custom config editor after selection";
+            this.chkShowCustomConfig.UseVisualStyleBackColor = true;
             // 
             // lvwAgentType
             // 
@@ -82,15 +95,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvwAgentType.AutoResizeColumnEnabled = false;
             this.lvwAgentType.AutoResizeColumnIndex = 1;
+            this.lvwAgentType.BackgroundImage = global::QuickMon.Properties.Resources.LongBlueShadeHorisontal;
+            this.lvwAgentType.BackgroundImageTiled = true;
             this.lvwAgentType.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.detailsColumnHeader});
             this.lvwAgentType.FullRowSelect = true;
             this.lvwAgentType.HideSelection = false;
-            this.lvwAgentType.Location = new System.Drawing.Point(2, 3);
+            this.lvwAgentType.Location = new System.Drawing.Point(-1, 3);
             this.lvwAgentType.MultiSelect = false;
             this.lvwAgentType.Name = "lvwAgentType";
-            this.lvwAgentType.Size = new System.Drawing.Size(571, 323);
+            this.lvwAgentType.Size = new System.Drawing.Size(574, 323);
             this.lvwAgentType.TabIndex = 9;
             this.lvwAgentType.UseCompatibleStateImageBehavior = false;
             this.lvwAgentType.View = System.Windows.Forms.View.Details;
@@ -106,18 +121,6 @@
             // 
             this.detailsColumnHeader.Text = "Details";
             this.detailsColumnHeader.Width = 264;
-            // 
-            // chkShowCustomConfig
-            // 
-            this.chkShowCustomConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkShowCustomConfig.AutoSize = true;
-            this.chkShowCustomConfig.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkShowCustomConfig.Location = new System.Drawing.Point(142, 335);
-            this.chkShowCustomConfig.Name = "chkShowCustomConfig";
-            this.chkShowCustomConfig.Size = new System.Drawing.Size(218, 17);
-            this.chkShowCustomConfig.TabIndex = 11;
-            this.chkShowCustomConfig.Text = "Show custom config editor after selection";
-            this.chkShowCustomConfig.UseVisualStyleBackColor = true;
             // 
             // SelectNewEntityType
             // 

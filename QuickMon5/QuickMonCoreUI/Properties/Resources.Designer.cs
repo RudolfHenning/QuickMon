@@ -121,11 +121,23 @@ namespace QuickMon.Properties {
         ///CREATE TABLE [dbo].[AlertLevels](
         ///	[AlertLevel] [tinyint] NOT NULL,
         ///	[Description] [nvarchar](50) NOT NULL,
-        /// CONSTRAINT [PK_AlertLevels] PRIMARY KEY CLUSTERED  [rest of string was truncated]&quot;;.
+        /// CONSTRAINT [PK_AlertLevels] PRIMARY KEY CLUSTERED 
+        ///(
+        ///	[AlertLeve [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ExampleSqlDatabaseCreateScript {
             get {
                 return ResourceManager.GetString("ExampleSqlDatabaseCreateScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LongBlueShadeHorisontal {
+            get {
+                object obj = ResourceManager.GetObject("LongBlueShadeHorisontal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

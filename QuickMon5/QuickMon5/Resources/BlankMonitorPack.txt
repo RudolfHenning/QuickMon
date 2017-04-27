@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0" name="&lt;New Monitor Pack&gt;" typeName="" enabled="True" pollingFreqSecOverride="60" >
+<monitorPack version="5.0.0" name="&lt;New Monitor Pack&gt;" typeName="" enabled="True" pollingFreqSecOverride="30" >
 	<configVars />
 	<collectorHosts />
     <notifierHosts>

@@ -846,6 +846,24 @@ namespace QuickMon
 
                     }
                 }
+                else if (lvwHistory.Focused)
+                {
+                    if (lvwHistory.SelectedItems.Count == 1)
+                    {
+                        object selectedObject = lvwHistory.SelectedItems[0].Tag;
+                        if (selectedObject is MonitorState)
+                        {
+                            MonitorState c = (MonitorState)selectedObject;
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(c.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(c.State.ToString());
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration: ").FontStyle(FontStyle.Regular).AppendLine(c.CallDurationMS.ToString() + " ms");
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Alert count: ").FontStyle(FontStyle.Regular).AppendLine(c.AlertsRaised.Count.ToString());
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(c.ExecutedOnHostComputer));
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(c.RanAs));
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(c.ReadValues());
+                        }
+                    }
+                }
 
                 rtxDetails.Rtf = rtfBuilder.ToString();
                 rtxDetails.SelectionStart = 0;

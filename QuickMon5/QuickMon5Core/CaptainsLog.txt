@@ -30,10 +30,14 @@ Corrective scripts/Action scripts
 	   UI: separate window to manage scripts of all collector hosts so it allows for copy/paste etc. - Future
 
 Edit MonitorPackList.txt file link/button on Settings window - Done
+Install service from UI app - improvements
+		UI automatically update after service install
+
+Run as Admin must make sure current exe path is the one that is run - added recreate task button
+Newly created collector must have status of N/A (UI) - done
 
 *****************************************************************************************************
 Next
-	
 	Detail view for Collector History clicking
 
 	DataSet views for all Collectors!!

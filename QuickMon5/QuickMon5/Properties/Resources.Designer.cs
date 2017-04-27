@@ -150,7 +150,10 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;collectorAgent name=&quot;&quot; type=&quot;&quot; enabled=&quot;True&quot;&gt;
+        ///&lt;config&gt;
+        ///&lt;/config&gt;
+        ///&lt;/collectorAgent&gt;.
         /// </summary>
         internal static string BlankTemplateCollectorAgent {
             get {
@@ -159,7 +162,13 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;collectorHost uniqueId=&quot;&quot; dependOnParentId=&quot;&quot; name=&quot;&quot; enabled=&quot;True&quot; expandOnStart=&quot;Auto&quot; childCheckBehaviour=&quot;OnlyRunOnSuccess&quot; runAsEnabled=&quot;False&quot; runAs=&quot;&quot;&gt;
+        ///    &lt;!-- Alerting --&gt;
+        ///    &lt;alerting&gt;
+        ///        &lt;suppression repeatAlertInXMin=&quot;0&quot; alertOnceInXMin=&quot;0&quot; delayErrWarnAlertForXSec=&quot;0&quot; repeatAlertInXPolls=&quot;0&quot; alertOnceInXPolls=&quot;0&quot; delayErrWarnAlertForXPolls=&quot;0&quot; alertsPaused=&quot;False&quot; /&gt;
+        ///        &lt;texts&gt;&lt;header /&gt;&lt;footer /&gt;&lt;error /&gt;&lt;warning /&gt;&lt;good /&gt;&lt;/texts&gt;
+        ///    &lt;/alerting&gt;
+        ///    &lt;!-- Collector Agents - [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BlankTemplateCollectorHost {
             get {
@@ -168,7 +177,18 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;5.0.0&quot; name=&quot;&quot; typeName=&quot;&quot; enabled=&quot;True&quot; pollingFreqSecOverride=&quot;60&quot; &gt;
+        ///	&lt;configVars /&gt;
+        ///	&lt;collectorHosts /&gt;
+        ///    &lt;notifierHosts&gt;
+        ///		&lt;notifierHost name=&quot;Default Notifier&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;Detail&quot; attendedOptionOverride=&quot;OnlyAttended&quot;&gt;
+        ///			&lt;notifierAgents&gt;
+        ///				&lt;notifierAgent name=&quot;Memory agent&quot; type=&quot;InMemoryNotifier&quot;&gt;
+        ///					&lt;config&gt;&lt;inMemory maxEntryCount=&quot;99999&quot; /&gt;&lt;/config&gt;
+        ///				&lt;/notifierAgent&gt;
+        ///			&lt;/notifierAgents&gt;
+        ///		&lt;/notifierHost&gt;
+        ///	&lt;/notifierHos [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BlankTemplateMonitorPack {
             get {
@@ -177,7 +197,10 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;notifierAgent name=&quot;&quot; type=&quot;&quot; enabled=&quot;True&quot;&gt;
+        ///&lt;config&gt;
+        ///&lt;/config&gt;
+        ///&lt;/notifierAgent&gt;.
         /// </summary>
         internal static string BlankTemplateNotifierAgent {
             get {
@@ -186,7 +209,15 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;notifierHost name=&quot;&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;Detail&quot; attendedOptionOverride=&quot;OnlyAttended&quot;&gt;
+        ///	&lt;notifierAgents&gt;
+        ///		&lt;notifierAgent name=&quot;Memory agent&quot; type=&quot;QuickMon.Notifiers.InMemoryNotifier&quot; enabled=&quot;True&quot;&gt;
+        ///			&lt;config&gt;
+        ///				&lt;inMemory maxEntryCount=&quot;99999&quot; /&gt;
+        ///			&lt;/config&gt;
+        ///		&lt;/notifierAgent&gt;
+        ///	&lt;/notifierAgents&gt;
+        ///&lt;/notifierHost&gt;.
         /// </summary>
         internal static string BlankTemplateNotifierHost {
             get {
@@ -882,6 +913,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap remote24x24 {
             get {
                 object obj = ResourceManager.GetObject("remote24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Restart24x24 {
+            get {
+                object obj = ResourceManager.GetObject("Restart24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
