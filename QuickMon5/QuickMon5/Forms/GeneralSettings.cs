@@ -85,6 +85,7 @@ namespace QuickMon
                     }
                 }
             }
+            chkEnableAutoRefreshCollectorDetailAutomatically.Checked = Properties.Settings.Default.EnableAutoRefreshCollectorDetailAutomatically;
 
             flowLayoutPanelSettingsContent.Enabled = Security.UACTools.IsInAdminMode();
             cmdRecreateAdminModeStartTask.Enabled = Security.UACTools.IsInAdminMode();
@@ -283,6 +284,7 @@ namespace QuickMon
             {
                 Properties.Settings.Default.ApplicationUserNameCache.Add(userName.Text);
             }
+            Properties.Settings.Default.EnableAutoRefreshCollectorDetailAutomatically = chkEnableAutoRefreshCollectorDetailAutomatically.Checked;
 
             Properties.Settings.Default.Save();
             DialogResult = System.Windows.Forms.DialogResult.OK;

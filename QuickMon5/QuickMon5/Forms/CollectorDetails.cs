@@ -128,6 +128,11 @@ namespace QuickMon
             LoadEditControls();
             splitContainerMain.Panel2Collapsed = true;
             SetActivePanel(panelAgentStates);
+
+            if (Properties.Settings.Default.EnableAutoRefreshCollectorDetailAutomatically)
+            {
+                AutoRefreshEnabled = true;              
+            }
             UpdateStatusBar();
         }
         private void CollectorDetails_FormClosing(object sender, FormClosingEventArgs e)
@@ -166,6 +171,8 @@ namespace QuickMon
                 this.Size = new Size(this.Size.Width, 450);
             }
             collectorDetailSplitContainer.Panel2Collapsed = true;
+            chkRAWDetails.Checked = false;
+            chkRAWDetails.Image = chkRAWDetails.Checked ? global::QuickMon.Properties.Resources._133 : global::QuickMon.Properties.Resources._131;
             optAgentStates.Enabled = false;
             optMetrics.Enabled = false;
             txtName.ReadOnly = false;
@@ -174,7 +181,7 @@ namespace QuickMon
             SetActivePanel(panelEditing);
             EnableAgentContextMenuItems();
             
-            CheckOkEnabled();
+            CheckOkEnabled();            
         }
         private void StopEditMode()
         {
@@ -860,7 +867,7 @@ namespace QuickMon
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("Alert count: ").FontStyle(FontStyle.Regular).AppendLine(c.AlertsRaised.Count.ToString());
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(c.ExecutedOnHostComputer));
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(c.RanAs));
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(c.ReadValues());
+                            rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(c.ReadAgentValues());
                         }
                     }
                 }

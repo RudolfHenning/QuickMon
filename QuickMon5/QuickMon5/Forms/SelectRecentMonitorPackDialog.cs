@@ -225,8 +225,8 @@ namespace QuickMon.UI
         private void llblImportMonitorPacks_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
-            fd.DefaultExt = "qmp4";
-            fd.Filter = "Monitor Pack files|*qmp4";
+            fd.DefaultExt = "qmp";
+            fd.Filter = "Monitor Pack files|*qmp";
             fd.Multiselect = true;
             fd.Title = "Import Monitor Packs";
             if (fd.ShowDialog() == DialogResult.OK)

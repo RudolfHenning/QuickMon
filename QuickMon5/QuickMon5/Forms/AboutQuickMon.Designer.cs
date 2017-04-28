@@ -38,6 +38,7 @@
             this.lblThree = new System.Windows.Forms.Label();
             this.lblCoreVersion = new System.Windows.Forms.Label();
             this.latestVersionCheckBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.lblReleaseState = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +60,7 @@
             this.lblCreateDate.AutoSize = true;
             this.lblCreateDate.BackColor = System.Drawing.Color.Transparent;
             this.lblCreateDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreateDate.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblCreateDate.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblCreateDate.Location = new System.Drawing.Point(25, 235);
             this.lblCreateDate.Name = "lblCreateDate";
             this.lblCreateDate.Size = new System.Drawing.Size(86, 21);
@@ -72,7 +73,7 @@
             this.lblCompany.AutoSize = true;
             this.lblCompany.BackColor = System.Drawing.Color.Transparent;
             this.lblCompany.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompany.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblCompany.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblCompany.Location = new System.Drawing.Point(25, 206);
             this.lblCompany.Name = "lblCompany";
             this.lblCompany.Size = new System.Drawing.Size(85, 21);
@@ -96,7 +97,7 @@
             this.lblVersionInfo.AutoSize = true;
             this.lblVersionInfo.BackColor = System.Drawing.Color.Transparent;
             this.lblVersionInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersionInfo.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblVersionInfo.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblVersionInfo.Location = new System.Drawing.Point(25, 151);
             this.lblVersionInfo.Name = "lblVersionInfo";
             this.lblVersionInfo.Size = new System.Drawing.Size(62, 21);
@@ -108,6 +109,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel1.ForeColor = System.Drawing.Color.DarkBlue;
             this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabel1.LinkColor = System.Drawing.Color.SteelBlue;
             this.linkLabel1.Location = new System.Drawing.Point(26, 271);
@@ -136,7 +138,7 @@
             this.lblCoreVersion.AutoSize = true;
             this.lblCoreVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblCoreVersion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCoreVersion.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblCoreVersion.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblCoreVersion.Location = new System.Drawing.Point(45, 176);
             this.lblCoreVersion.Name = "lblCoreVersion";
             this.lblCoreVersion.Size = new System.Drawing.Size(43, 21);
@@ -147,6 +149,18 @@
             // 
             this.latestVersionCheckBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.latestVersionCheckBackgroundWorker_DoWork);
             // 
+            // lblReleaseState
+            // 
+            this.lblReleaseState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblReleaseState.AutoSize = true;
+            this.lblReleaseState.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblReleaseState.ForeColor = System.Drawing.Color.Red;
+            this.lblReleaseState.Location = new System.Drawing.Point(314, 266);
+            this.lblReleaseState.Name = "lblReleaseState";
+            this.lblReleaseState.Size = new System.Drawing.Size(72, 25);
+            this.lblReleaseState.TabIndex = 7;
+            this.lblReleaseState.Text = "Alpha";
+            // 
             // AboutQuickMon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,6 +169,7 @@
             this.BackgroundImage = global::QuickMon.Properties.Resources.QuickMon5Background2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(398, 300);
+            this.Controls.Add(this.lblReleaseState);
             this.Controls.Add(this.lblCoreVersion);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.pictureBox1);
@@ -191,5 +206,6 @@
         private System.Windows.Forms.Label lblThree;
         private System.Windows.Forms.Label lblCoreVersion;
         private System.ComponentModel.BackgroundWorker latestVersionCheckBackgroundWorker;
+        private System.Windows.Forms.Label lblReleaseState;
     }
 }

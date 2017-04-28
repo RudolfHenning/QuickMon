@@ -488,5 +488,28 @@ namespace QuickMon
             else
             return sb.ToString();
         }
+        public string ReadAgentValues(bool trimCrLf = true)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (CurrentValue != null)
+            {
+                sb.Append(ForAgent + " : " + CurrentValue.ToString());
+                if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                {
+                    sb.Append(" " + CurrentValueUnit);
+                }
+                sb.AppendLine();
+            }
+            foreach (MonitorState cs in ChildStates)
+            {
+                string scValue = cs.ReadAgentValues(true);
+                if (scValue.Length > 0)
+                    sb.AppendLine(scValue);
+            }
+            if (trimCrLf)
+                return sb.ToString().Trim('\r', '\n');
+            else
+                return sb.ToString();
+        }
     }
 }

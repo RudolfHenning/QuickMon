@@ -283,5 +283,17 @@ namespace QuickMon.Properties {
                 this["MainWindowTreeViewExtraColumnTextAlign"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableAutoRefreshCollectorDetailAutomatically {
+            get {
+                return ((bool)(this["EnableAutoRefreshCollectorDetailAutomatically"]));
+            }
+            set {
+                this["EnableAutoRefreshCollectorDetailAutomatically"] = value;
+            }
+        }
     }
 }

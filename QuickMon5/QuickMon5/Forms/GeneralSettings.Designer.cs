@@ -93,6 +93,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkEnableAutoRefreshCollectorDetailAutomatically = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
             this.panelTvwDetailTextAlign.SuspendLayout();
@@ -139,6 +140,7 @@
             // 
             // panelAppSettings
             // 
+            this.panelAppSettings.Controls.Add(this.chkEnableAutoRefreshCollectorDetailAutomatically);
             this.panelAppSettings.Controls.Add(this.cmdRecreateAdminModeStartTask);
             this.panelAppSettings.Controls.Add(this.panelTvwDetailTextAlign);
             this.panelAppSettings.Controls.Add(this.label9);
@@ -155,7 +157,7 @@
             this.panelAppSettings.Controls.Add(this.cmdAppSettingsToggle);
             this.panelAppSettings.Location = new System.Drawing.Point(3, 3);
             this.panelAppSettings.Name = "panelAppSettings";
-            this.panelAppSettings.Size = new System.Drawing.Size(495, 187);
+            this.panelAppSettings.Size = new System.Drawing.Size(495, 205);
             this.panelAppSettings.TabIndex = 0;
             // 
             // cmdRecreateAdminModeStartTask
@@ -233,7 +235,7 @@
             // 
             this.chkDisplayFullPathForQuickRecentEntries.AutoSize = true;
             this.chkDisplayFullPathForQuickRecentEntries.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(9, 133);
+            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(9, 131);
             this.chkDisplayFullPathForQuickRecentEntries.Name = "chkDisplayFullPathForQuickRecentEntries";
             this.chkDisplayFullPathForQuickRecentEntries.Size = new System.Drawing.Size(184, 17);
             this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 10;
@@ -353,7 +355,7 @@
             this.panelPollingSettings.Controls.Add(this.freqSecNumericUpDown);
             this.panelPollingSettings.Controls.Add(this.concurrencyLevelNnumericUpDown);
             this.panelPollingSettings.Controls.Add(this.cmdPollingSettingsToggle);
-            this.panelPollingSettings.Location = new System.Drawing.Point(3, 196);
+            this.panelPollingSettings.Location = new System.Drawing.Point(3, 214);
             this.panelPollingSettings.Name = "panelPollingSettings";
             this.panelPollingSettings.Size = new System.Drawing.Size(495, 150);
             this.panelPollingSettings.TabIndex = 1;
@@ -492,7 +494,7 @@
             this.panelPasswordManagement.Controls.Add(this.txtApplicationMasterKeyFilePath);
             this.panelPasswordManagement.Controls.Add(this.label6);
             this.panelPasswordManagement.Controls.Add(this.cmdPasswordManagementToggle);
-            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 352);
+            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 370);
             this.panelPasswordManagement.Name = "panelPasswordManagement";
             this.panelPasswordManagement.Size = new System.Drawing.Size(495, 260);
             this.panelPasswordManagement.TabIndex = 0;
@@ -630,7 +632,7 @@
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.flowLayoutPanelSettingsContent);
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.label13);
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.cmdRemoteHostServiceAndFirewallToggle);
-            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 618);
+            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 636);
             this.panelRemoteHostServiceAndFirewall.Name = "panelRemoteHostServiceAndFirewall";
             this.panelRemoteHostServiceAndFirewall.Size = new System.Drawing.Size(495, 173);
             this.panelRemoteHostServiceAndFirewall.TabIndex = 2;
@@ -853,6 +855,17 @@
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
             // 
+            // chkEnableAutoRefreshCollectorDetailAutomatically
+            // 
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.AutoSize = true;
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Location = new System.Drawing.Point(9, 182);
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Name = "chkEnableAutoRefreshCollectorDetailAutomatically";
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Size = new System.Drawing.Size(246, 17);
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.TabIndex = 14;
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Text = "Enable Collector detaill Auto Refresh be default";
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.UseVisualStyleBackColor = true;
+            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -958,5 +971,6 @@
         private System.Windows.Forms.Button cmdRefreshServiceState;
         private System.Windows.Forms.Button cmdRecreateAdminModeStartTask;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox chkEnableAutoRefreshCollectorDetailAutomatically;
     }
 }
