@@ -43,7 +43,8 @@ namespace QuickMon
         private int operationalSplitContainerHeight = 0;
         private int alertsSplitContainerHeight = 0;
         private int configVariSplitContainerHeight = 0;
-        
+
+        private string currentSelectedControl = "";
         #endregion
 
         #region TreeNodeImage contants
@@ -80,6 +81,8 @@ namespace QuickMon
             if (SelectedCollectorHost != null)
             {
                 LoadControls();
+                if (currentSelectedControl != "")
+                    UpdateRawView();
             }
         }
         public void DeRegisterChildWindow()
@@ -803,7 +806,7 @@ namespace QuickMon
                 updateAgentsDetailViewBusy = true;
                 RTFBuilder rtfBuilder = new RTFBuilder();
 
-                if (tlvAgentStates.Focused)
+                if (currentSelectedControl == "" || currentSelectedControl == "tlvAgentStates")
                 {
                     if (tlvAgentStates.SelectedItems.Count == 0)
                     {                        
@@ -823,13 +826,13 @@ namespace QuickMon
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("Agent");
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.State.ToString());
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.ReadPrimaryUIValue());
-
+                            rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.ReadAgentValues());
 
                         }
                         else if (selectedObject is ICollectorConfigEntry)
                         {
-
+                            ICollectorConfigEntry c = (ICollectorConfigEntry)selectedObject;
+                            
                         }
                         else if (selectedObject is ICollectorConfigSubEntry)
                         {
@@ -842,7 +845,7 @@ namespace QuickMon
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("State");
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(ms.State.ToString());
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadPrimaryOrFirstUIValue());
+                            rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadAgentValues());
 
                             //rtfBuilder.AppendLine(((MonitorState)selectedObject).RawDetails);
                         }
@@ -853,7 +856,7 @@ namespace QuickMon
 
                     }
                 }
-                else if (lvwHistory.Focused)
+                else if (currentSelectedControl == "lvwHistory")
                 {
                     if (lvwHistory.SelectedItems.Count == 1)
                     {
@@ -1158,11 +1161,15 @@ namespace QuickMon
             if (lvwHistory.SelectedItems.Count == 1)
             {
                 UpdateAgentStateTree();
+                if (lvwHistory.Focused)
+                    currentSelectedControl = "lvwHistory";
                 UpdateRawView();
             }            
         }
         private void tlvAgentStates_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (tlvAgentStates.Focused)
+                currentSelectedControl = "tlvAgentStates";
             UpdateRawView();
         }
         private static bool updateAgentsDetailViewBusy = false;

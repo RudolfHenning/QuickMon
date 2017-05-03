@@ -37,6 +37,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Renci.SshNet, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Renci.SshNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -76,6 +80,9 @@
     <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollector.cs" />
     <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollector.cs" />
     <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollector.cs" />
+    <Compile Include="Agents\Collectors\SSH\SSHBaseConfigEntry.cs" />
+    <Compile Include="Agents\Collectors\SSH\SSHClientTools.cs" />
+    <Compile Include="Agents\Collectors\SSH\SSHCommand\SSHCommand.cs" />
     <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollector.cs" />
     <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollector.cs" />
     <Compile Include="Agents\Collectors\WMIQuery\WMIQueryParser.cs" />
@@ -174,6 +181,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Libs\Renci.SshNet.zip" />
     <None Include="Resources\QuickMon5DefaultTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +189,7 @@
     <None Include="Resources\QuickMon5DefaultTemplateOLD.txt" />
     <None Include="Resources\SelectDatabaseSizeScript.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
