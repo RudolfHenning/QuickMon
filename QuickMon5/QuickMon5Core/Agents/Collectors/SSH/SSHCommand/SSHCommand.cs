@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickMon.SSH;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -40,88 +41,82 @@ namespace QuickMon.Collectors
             config.LoadXml(configurationString);
             Entries.Clear();
             XmlElement root = config.DocumentElement;
-
-            foreach (XmlElement host in root.SelectNodes("entries/carvcesEntries"))
+            
+            //version 5 config
+            foreach (XmlElement carvceEntryNode in root.SelectNodes("carvcesEntries/carvceEntry"))
             {
+                XmlNode dataSourceNode = carvceEntryNode.SelectSingleNode("dataSource");
                 SSHCommandCollectorConfigEntry sshEntry = new SSHCommandCollectorConfigEntry();
-                //hostEntry.PingType = PingCollectorTypeHelper.FromText(host.ReadXmlElementAttr("pingMethod", "Ping"));
-                //hostEntry.Address = host.ReadXmlElementAttr("address");
-                //hostEntry.DescriptionLocal = host.ReadXmlElementAttr("description");
-                //int tmp = 0;
-                //if (int.TryParse(host.ReadXmlElementAttr("maxTimeMS", "1000"), out tmp))
-                //    hostEntry.MaxTimeMS = tmp;
-                //if (int.TryParse(host.ReadXmlElementAttr("timeOutMS", "5000"), out tmp))
-                //    hostEntry.TimeOutMS = tmp;
+                sshEntry.Name = dataSourceNode.ReadXmlElementAttr("name", "");
+                sshEntry.PrimaryUIValue = dataSourceNode.ReadXmlElementAttr("primaryUIValue", false);
+                sshEntry.OutputValueUnit = dataSourceNode.ReadXmlElementAttr("outputValueUnit", "");
+                sshEntry.SSHConnection = SSHConnectionDetails.FromXmlElement((XmlElement)dataSourceNode);
+                
 
-                //hostEntry.HttpHeaderUserName = host.ReadXmlElementAttr("httpHeaderUser");
-                //hostEntry.HttpHeaderPassword = host.ReadXmlElementAttr("httpHeaderPwd");
+                XmlNode stateQueryNode = dataSourceNode.SelectSingleNode("stateQuery");
+                sshEntry.ValueReturnType = SSHCommandValueReturnTypeConverter.FromString(stateQueryNode.ReadXmlElementAttr("valueReturnType", "RawValue"));
+                sshEntry.CommandString = stateQueryNode.InnerText;                
 
-                //hostEntry.HttpProxyServer = host.ReadXmlElementAttr("httpProxyServer");
-                //hostEntry.HttpProxyUserName = host.ReadXmlElementAttr("httpProxyUser");
-                //hostEntry.HttpProxyPassword = host.ReadXmlElementAttr("httpProxyPwd");
+                XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
+                if (testConditionsNode != null)
+                {
+                    sshEntry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(testConditionsNode.ReadXmlElementAttr("testSequence", "gwe"));
+                    XmlNode goodScriptNode = testConditionsNode.SelectSingleNode("success");
+                    sshEntry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("testType", "match"));
+                    sshEntry.GoodValue = goodScriptNode.InnerText;
 
-                //if (hostEntry.PingType == PingCollectorType.HTTP)
-                //{
-                //    XmlNode htmlContentMatchNode = host.SelectSingleNode("htmlContentMatch");
-                //    if (htmlContentMatchNode != null)
-                //    {
-                //        hostEntry.HTMLContentContain = htmlContentMatchNode.InnerText;
-                //    }
-                //}
+                    XmlNode warningScriptNode = testConditionsNode.SelectSingleNode("warning");
+                    sshEntry.WarningResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningScriptNode.ReadXmlElementAttr("testType", "match"));
+                    sshEntry.WarningValue = warningScriptNode.InnerText;
 
-                //if (int.TryParse(host.ReadXmlElementAttr("socketPort", "23"), out tmp))
-                //    hostEntry.SocketPort = tmp;
-                //if (int.TryParse(host.ReadXmlElementAttr("receiveTimeoutMS", "30000"), out tmp))
-                //    hostEntry.ReceiveTimeOutMS = tmp;
-                //if (int.TryParse(host.ReadXmlElementAttr("sendTimeoutMS", "30000"), out tmp))
-                //    hostEntry.SendTimeOutMS = tmp;
-                //bool btmp;
-                //if (bool.TryParse(host.ReadXmlElementAttr("useTelnetLogin", "false"), out btmp))
-                //    hostEntry.UseTelnetLogin = btmp;
-                //hostEntry.TelnetUserName = host.ReadXmlElementAttr("userName");
-                //hostEntry.TelnetPassword = host.ReadXmlElementAttr("password");
-                //hostEntry.IgnoreInvalidHTTPSCerts = host.ReadXmlElementAttr("ignoreInvalidHTTPSCerts", false);
-                //hostEntry.SocketPingMsgBody = host.ReadXmlElementAttr("socketPingMsgBody", "QuickMon Ping Test");
-                //hostEntry.PrimaryUIValue = host.ReadXmlElementAttr("primaryUIValue", false);
+                    XmlNode errorScriptNode = testConditionsNode.SelectSingleNode("error");
+                    sshEntry.ErrorResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorScriptNode.ReadXmlElementAttr("testType", "match"));
+                    sshEntry.ErrorValue = errorScriptNode.InnerText;
+                }
+                else
+                    sshEntry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.GWE;
 
-                //Entries.Add(hostEntry);
+                Entries.Add(sshEntry);
             }
         }
         public string ToXml()
         {
             XmlDocument config = new XmlDocument();
             config.LoadXml(GetDefaultOrEmptyXml());
-            XmlNode carvcesEntriesNode = config.SelectSingleNode("config/carvcesEntries");
-            foreach (PingCollectorHostEntry hostEntry in Entries)
+            XmlElement root = config.DocumentElement;
+            XmlNode carvcesEntriesNode = root.SelectSingleNode("carvcesEntries");
+            carvcesEntriesNode.InnerXml = "";
+            foreach (SSHCommandCollectorConfigEntry sshEntry in Entries)
             {
-                //XmlNode hostXmlNode = config.CreateElement("entry");
-                //hostXmlNode.SetAttributeValue("pingMethod", PingCollectorTypeHelper.ToString(hostEntry.PingType));
-                //hostXmlNode.SetAttributeValue("address", hostEntry.Address);
-                //hostXmlNode.SetAttributeValue("description", hostEntry.DescriptionLocal);
-                //hostXmlNode.SetAttributeValue("maxTimeMS", hostEntry.MaxTimeMS);
-                //hostXmlNode.SetAttributeValue("timeOutMS", hostEntry.TimeOutMS);
-                //hostXmlNode.SetAttributeValue("httpHeaderUser", hostEntry.HttpHeaderUserName);
-                //hostXmlNode.SetAttributeValue("httpHeaderPwd", hostEntry.HttpHeaderPassword);
-                //hostXmlNode.SetAttributeValue("httpProxyServer", hostEntry.HttpProxyServer);
-                //hostXmlNode.SetAttributeValue("httpProxyUser", hostEntry.HttpProxyUserName);
-                //hostXmlNode.SetAttributeValue("httpProxyPwd", hostEntry.HttpProxyPassword);
-                //hostXmlNode.SetAttributeValue("socketPort", hostEntry.SocketPort);
-                //hostXmlNode.SetAttributeValue("receiveTimeoutMS", hostEntry.ReceiveTimeOutMS);
-                //hostXmlNode.SetAttributeValue("sendTimeoutMS", hostEntry.SendTimeOutMS);
-                //hostXmlNode.SetAttributeValue("useTelnetLogin", hostEntry.UseTelnetLogin);
-                //hostXmlNode.SetAttributeValue("userName", hostEntry.TelnetUserName);
-                //hostXmlNode.SetAttributeValue("password", hostEntry.TelnetPassword);
-                //hostXmlNode.SetAttributeValue("ignoreInvalidHTTPSCerts", hostEntry.IgnoreInvalidHTTPSCerts);
-                //hostXmlNode.SetAttributeValue("socketPingMsgBody", hostEntry.SocketPingMsgBody);
-                //hostXmlNode.SetAttributeValue("primaryUIValue", hostEntry.PrimaryUIValue);
+                XmlElement carvceEntryNode = config.CreateElement("carvceEntry");
+                XmlElement dataSourceNode = config.CreateElement("dataSource");
 
-                //if (hostEntry.PingType == PingCollectorType.HTTP && hostEntry.HTMLContentContain.Trim().Length > 0)
-                //{
-                //    XmlNode htmlContentMatchNode = config.CreateElement("htmlContentMatch");
-                //    htmlContentMatchNode.InnerText = hostEntry.HTMLContentContain;
-                //    hostXmlNode.AppendChild(htmlContentMatchNode);
-                //}
-                //hostsListNode.AppendChild(hostXmlNode);
+                dataSourceNode.SetAttributeValue("name", sshEntry.Name);                
+                dataSourceNode.SetAttributeValue("primaryUIValue", sshEntry.PrimaryUIValue);
+                dataSourceNode.SetAttributeValue("outputValueUnit", sshEntry.OutputValueUnit);
+                sshEntry.SSHConnection.SaveToXmlElementAttr(dataSourceNode);
+
+                XmlElement stateQueryNode = dataSourceNode.AppendElementWithText("stateQuery", sshEntry.CommandString);
+                stateQueryNode.SetAttributeValue("valueReturnType", sshEntry.ValueReturnType.ToString());
+                
+                XmlElement testConditionsNode = config.CreateElement("testConditions");
+                testConditionsNode.SetAttributeValue("testSequence", sshEntry.ReturnCheckSequence.ToString());
+                XmlElement successNode = config.CreateElement("success");
+                successNode.SetAttributeValue("testType", sshEntry.GoodResultMatchType.ToString());
+                successNode.InnerText = sshEntry.GoodValue;
+                XmlElement warningNode = config.CreateElement("warning");
+                warningNode.SetAttributeValue("testType", sshEntry.WarningResultMatchType.ToString());
+                warningNode.InnerText = sshEntry.WarningValue;
+                XmlElement errorNode = config.CreateElement("error");
+                errorNode.SetAttributeValue("testType", sshEntry.ErrorResultMatchType.ToString());
+                errorNode.InnerText = sshEntry.ErrorValue;
+
+                testConditionsNode.AppendChild(successNode);
+                testConditionsNode.AppendChild(warningNode);
+                testConditionsNode.AppendChild(errorNode);
+                carvceEntryNode.AppendChild(dataSourceNode);
+                carvceEntryNode.AppendChild(testConditionsNode);
+                carvcesEntriesNode.AppendChild(carvceEntryNode);
             }
             return config.OuterXml;
         }
@@ -130,7 +125,7 @@ namespace QuickMon.Collectors
             return "<config>" +
                "<carvcesEntries>" +
                "<carvceEntry name=\"\">" +
-               "<dataSource></dataSource>" +
+               "<dataSource><stateQuery /></dataSource>" +
                "<testConditions testSequence=\"GWE\">" +
                "<success testType=\"match\"></success>" +
                "<warning testType=\"match\"></warning>" +
@@ -145,7 +140,16 @@ namespace QuickMon.Collectors
             get
             {
                 StringBuilder sb = new StringBuilder();
-                
+                sb.Append(string.Format("{0} entry(s): ", Entries.Count));
+                if (Entries.Count == 0)
+                    sb.Append("None");
+                else
+                {
+                    foreach (ICollectorConfigEntry entry in Entries)
+                    {
+                        sb.Append(entry.Description + ", ");
+                    }
+                }
                 return sb.ToString().TrimEnd(' ', ',');
             }
         }
@@ -171,9 +175,9 @@ namespace QuickMon.Collectors
             get
             {
                 return string.Format("Success: {0} ({1}), Warn: {2} ({3}), Err: {4} ({5}), Check seq: {6}",
-                    SuccessValueOrMacro, SuccessMatchType,
-                    WarningValueOrMacro, WarningMatchType,
-                    ErrorValueOrMacro, ErrorMatchType, ValueReturnCheckSequence) +
+                    GoodValue, GoodResultMatchType,
+                    WarningValue, WarningResultMatchType,
+                    ErrorValue, ErrorResultMatchType, ReturnCheckSequence) +
                     (ValueReturnType == SSHCommandValueReturnType.ReturnedText ? ", Text" : "") +
                     (ValueReturnType == SSHCommandValueReturnType.LineCount ? ", Lines" : "") +
                     (ValueReturnType == SSHCommandValueReturnType.TextLength ? ", Length" : "");
@@ -183,13 +187,13 @@ namespace QuickMon.Collectors
         #region ICollectorConfigEntry Members
         public override MonitorState GetCurrentState()
         {
-            object wsData = null;
+            string returnedData = "";
             CollectorState agentState = CollectorState.NotAvailable;
             try
             {
-
-                wsData = GetValue();
-                CurrentAgentValue = FormatUtils.FormatArrayToString(wsData, "[null]");
+                returnedData = ExecuteCommand();
+                
+                CurrentAgentValue = FormatUtils.FormatArrayToString(returnedData, "[null]");
                 agentState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
                        GoodResultMatchType, GoodValue,
                        WarningResultMatchType, WarningValue,
@@ -199,14 +203,14 @@ namespace QuickMon.Collectors
             catch (Exception wsException)
             {
                 agentState = CollectorState.Error;
-                wsData = wsException.Message;
+                returnedData = wsException.Message;
             }
 
             MonitorState currentState = new MonitorState()
             {
                 ForAgent = Description,
                 State = agentState,
-                CurrentValue = wsData == null ? "N/A" : wsData.ToString(),
+                CurrentValue = returnedData == null ? "N/A" : returnedData,
                 CurrentValueUnit = OutputValueUnit
             };
 
@@ -223,10 +227,8 @@ namespace QuickMon.Collectors
                 {
                     try
                     {
-                        //if (sshClient.IsConnected)
-                        {
-                            output = sshClient.RunCommand(CommandString).Result;
-                        }
+                        output = sshClient.RunCommand(CommandString).Result;
+                        
                         SSHConnection.CloseConnection();
 
                         if (ValueReturnType == SSHCommandValueReturnType.LineCount)
@@ -260,5 +262,17 @@ namespace QuickMon.Collectors
         ReturnedText,
         LineCount,
         TextLength
+    }
+    public static class SSHCommandValueReturnTypeConverter
+    {
+        public static SSHCommandValueReturnType FromString(string value)
+        {
+            if (value.ToLower() == "linecount")
+                return SSHCommandValueReturnType.LineCount;
+            else if (value.ToLower() == "textlength")
+                return SSHCommandValueReturnType.TextLength;
+            else
+                return SSHCommandValueReturnType.ReturnedText;
+        }
     }
 }

@@ -70,6 +70,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SSHAgentTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuickMon5Core\QuickMonCore.csproj">
