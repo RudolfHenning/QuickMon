@@ -1,0 +1,654 @@
+<monitorPack version="5.0.0.1" name="QuickMon 5 Install" lastChanged="2017-04-25 14:09:02" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+  <configVars />
+  <collectorHosts runCorrectiveScripts="True" stateHistorySize="100" pollingFreqSecOverride="30">
+    <actionScripts />
+    <collectorHost uniqueId="971f8613-fdb5-482d-9caf-829224309267" dependOnParentId="" name="Installation in 'Program Files'" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 5\*.*" testDirectoryExistOnly="True" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="False" containsText="" useRegEx="False" warningFileCountMax="0" errorFileCountMax="0" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="False" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="1e5fc935-7abc-4d57-bdbd-0b2032aa5e11" dependOnParentId="971f8613-fdb5-482d-9caf-829224309267" name="QuickMon Core" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 5\QuickMonCore.dll" testDirectoryExistOnly="False" testFilesExistOnly="True" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="True" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="e5eaf747-1eca-4ce4-a202-06ab1f8fd731" dependOnParentId="971f8613-fdb5-482d-9caf-829224309267" name="QuickMon UI Core" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 5\QuickMonCoreUI.dll" testDirectoryExistOnly="False" testFilesExistOnly="True" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="True" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="47861474-8476-48da-a6a8-65c75c58a37f" dependOnParentId="971f8613-fdb5-482d-9caf-829224309267" name="QuickMon UI executable" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 5\QuickMon.exe" testDirectoryExistOnly="False" testFilesExistOnly="True" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="True" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="c13004d4-121c-4d4e-8639-5899965c0e8e" dependOnParentId="47861474-8476-48da-a6a8-65c75c58a37f" name="System.Management.Automation" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 5\System.Management.Automation.dll" testDirectoryExistOnly="False" testFilesExistOnly="True" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="True" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="1ddebc4b-e144-46ad-b35e-f552b19f068b" dependOnParentId="47861474-8476-48da-a6a8-65c75c58a37f" name="FastColoredTextBox" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 5\FastColoredTextBox.dll" testDirectoryExistOnly="False" testFilesExistOnly="True" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="True" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="26fd2c78-d340-48a7-835c-9189367d3b74" dependOnParentId="971f8613-fdb5-482d-9caf-829224309267" name="QuickMon Service" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 5\QuickMonService.exe" testDirectoryExistOnly="False" testFilesExistOnly="True" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="True" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="a910461c-4705-4cd3-936d-bb8491b6278d" dependOnParentId="26fd2c78-d340-48a7-835c-9189367d3b74" name="QuickMon Service config" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 5\QuickMonService.exe.config" testDirectoryExistOnly="False" testFilesExistOnly="True" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="True" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="85a1bae7-e10c-46be-ad5f-2da72e462483" dependOnParentId="26fd2c78-d340-48a7-835c-9189367d3b74" name="MonitorPackList.txt" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 5\MonitorPackList.txt" testDirectoryExistOnly="False" testFilesExistOnly="True" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="True" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="19fe04c4-00d5-4e53-a17c-b64a3b186977" dependOnParentId="" name="Registry" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All" />
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="2d499bc5-23cb-4949-9726-9165ff898505" dependOnParentId="19fe04c4-00d5-4e53-a17c-b64a3b186977" name="QuickMon 5 Service (default) registered" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="Registry Query Collector" type="QuickMon.Collectors.RegistryQueryCollector" enabled="True">
+          <config>
+            <carvcesEntries>
+              <carvceEntry>
+                <dataSource name="QuickMon Service" useRemoteServer="False" server="" registryHive="LocalMachine" path="SYSTEM\CurrentControlSet\Services\QuickMon 5 Service" keyName="DisplayName" expandEnvironmentNames="False" primaryUIValue="False" outputValueUnit="" />
+                <testConditions testSequence="GWE">
+                  <success testType="Match">QuickMon 5 Service</success>
+                  <warning testType="Match">[any]</warning>
+                  <error testType="Match">[null]</error>
+                </testConditions>
+              </carvceEntry>
+            </carvcesEntries>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="2846ca52-2421-4eeb-88b6-e82348c32ed3" dependOnParentId="2d499bc5-23cb-4949-9726-9165ff898505" name="Service set to AutoStart" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="Registry Query Collector" type="QuickMon.Collectors.RegistryQueryCollector" enabled="True">
+          <config>
+            <carvcesEntries>
+              <carvceEntry>
+                <dataSource name="QuickMon Service" useRemoteServer="False" server="" registryHive="LocalMachine" path="SYSTEM\CurrentControlSet\Services\QuickMon 5 Service" keyName="Start" expandEnvironmentNames="False" primaryUIValue="False" outputValueUnit="" />
+                <testConditions testSequence="GWE">
+                  <success testType="Match">2</success>
+                  <warning testType="Match">[any]</warning>
+                  <error testType="Match">[null]</error>
+                </testConditions>
+              </carvceEntry>
+            </carvcesEntries>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="db03a9d1-76ac-419e-950b-5a69a4a61485" dependOnParentId="19fe04c4-00d5-4e53-a17c-b64a3b186977" name=".qmp file extension" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="FirstError">
+        <collectorAgent name="Registry Query Collector" type="QuickMon.Collectors.RegistryQueryCollector" enabled="True">
+          <config>
+            <carvcesEntries>
+              <carvceEntry>
+                <dataSource name=",qmp File extension" useRemoteServer="False" server="" registryHive="ClassesRoot" path=".qmp" keyName="" expandEnvironmentNames="False" primaryUIValue="False" outputValueUnit="" />
+                <testConditions testSequence="GWE">
+                  <success testType="Match">QuickMon5</success>
+                  <warning testType="Match">[any]</warning>
+                  <error testType="Match">[null]</error>
+                </testConditions>
+              </carvceEntry>
+            </carvcesEntries>
+          </config>
+        </collectorAgent>
+        <collectorAgent name="Registry Query Collector" type="QuickMon.Collectors.RegistryQueryCollector" enabled="True">
+          <config>
+            <carvcesEntries>
+              <carvceEntry>
+                <dataSource name="qmp file icon set" useRemoteServer="False" server="" registryHive="ClassesRoot" path="QuickMon5\DefaultIcon" keyName="" expandEnvironmentNames="False" primaryUIValue="False" outputValueUnit="" />
+                <testConditions testSequence="GWE">
+                  <success testType="Contains">QuickMon.exe</success>
+                  <warning testType="Match">[any]</warning>
+                  <error testType="Match">[null]</error>
+                </testConditions>
+              </carvceEntry>
+            </carvcesEntries>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="168a03e4-e45b-4532-b527-6b7b88b8f2cc" dependOnParentId="19fe04c4-00d5-4e53-a17c-b64a3b186977" name=".qmp file association" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="FirstError">
+        <collectorAgent name="Registry Query Collector" type="QuickMon.Collectors.RegistryQueryCollector" enabled="True">
+          <config>
+            <carvcesEntries>
+              <carvceEntry>
+                <dataSource name=".qmp File association" useRemoteServer="False" server="" registryHive="ClassesRoot" path="QuickMon5\shell\open\command" keyName="" expandEnvironmentNames="False" primaryUIValue="False" outputValueUnit="" />
+                <testConditions testSequence="GWE">
+                  <success testType="Match">"C:\Program Files\Hen IT\QuickMon 5\QuickMon.exe" "%1"</success>
+                  <warning testType="Match">[any]</warning>
+                  <error testType="Match">[null]</error>
+                </testConditions>
+              </carvceEntry>
+            </carvcesEntries>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+  </collectorHosts>
+  <notifierHosts>
+    <notifierHost name="Default Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+      <!-- collectorHosts -->
+      <collectorHosts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Categories -->
+      <categories />
+      <!-- Config variables -->
+      <configVars />
+      <recordOnHosts />
+      <!-- notifierAgents -->
+      <notifierAgents>
+        <notifierAgent name="Memory agent" type="QuickMon.Notifiers.InMemoryNotifier" enabled="True">
+          <config>
+            <inMemory maxEntryCount="99999" />
+          </config>
+        </notifierAgent>
+      </notifierAgents>
+    </notifierHost>
+  </notifierHosts>
+  <logging enabled="False" loggingPath="" loggingCollectorEvents="False" loggingNotifierEvents="False" loggingAlertsRaised="False" loggingCorrectiveScriptRun="False" loggingPollingOverridesTriggered="False" loggingServiceWindowEvents="False" loggingKeepLogFilesXDays="180">
+    <collectorCategories>
+      <category>*</category>
+    </collectorCategories>
+  </logging>
+</monitorPack>

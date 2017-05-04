@@ -1,0 +1,116 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using QuickMon.Forms;
+using QuickMon.SSH;
+
+namespace QuickMon.Collectors
+{
+    public partial class EditSSHConnection : Form
+    {
+        public EditSSHConnection()
+        {
+            InitializeComponent();
+        }
+
+        public SSHConnectionDetails SSHConnectionDetails { get; set; }        
+
+        private void EditSSHConnection_Load(object sender, EventArgs e)
+        {
+            LoadEntryDetails();
+        }
+
+        #region Private methods
+        private void LoadEntryDetails()
+        {
+            txtMachineName.Text = SSHConnectionDetails.ComputerName;
+            sshPortNumericUpDown.SaveValueSet(SSHConnectionDetails.SSHPort);
+            optPrivateKey.Checked = SSHConnectionDetails.SSHSecurityOption == SSHSecurityOption.PrivateKey;
+            optKeyboardInteractive.Checked = SSHConnectionDetails.SSHSecurityOption == SSHSecurityOption.KeyboardInteractive;
+            txtUsername.Text = SSHConnectionDetails.UserName;
+            txtPassword.Text = SSHConnectionDetails.Password;
+            txtPrivateKeyFile.Text = SSHConnectionDetails.PrivateKeyFile;
+            txtPassPhrase.Text = SSHConnectionDetails.PassPhrase;
+            chkPersistent.Checked = SSHConnectionDetails.Persistent;
+        }
+        #endregion
+
+        #region Security options
+        private void optPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            txtPassword.ReadOnly = optPrivateKey.Checked;
+            txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
+            cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
+            txtPassPhrase.ReadOnly = !optPrivateKey.Checked;
+        }
+        private void optPrivateKey_CheckedChanged(object sender, EventArgs e)
+        {
+            txtPassword.ReadOnly = optPrivateKey.Checked;
+            txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
+            cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
+            txtPassPhrase.ReadOnly = !optPrivateKey.Checked;
+        }
+        private void optKeyboardInteractive_CheckedChanged(object sender, EventArgs e)
+        {
+            txtPassword.ReadOnly = optPrivateKey.Checked;
+            txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
+            cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
+            txtPassPhrase.ReadOnly = !optPrivateKey.Checked;
+        }
+        #endregion
+
+        #region Button events
+        private void cmdBrowsePrivateKeyFile_Click(object sender, EventArgs e)
+        {
+            if (txtPrivateKeyFile.Text.Length > 0 && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(txtPrivateKeyFile.Text)))
+            {
+                privateKeyOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtPrivateKeyFile.Text);
+            }
+            if (privateKeyOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtPrivateKeyFile.Text = privateKeyOpenFileDialog.FileName;
+            }
+        }
+
+        private void cmdOK_Click(object sender, EventArgs e)
+        {
+            SSHConnectionDetails.ComputerName = txtMachineName.Text;
+            SSHConnectionDetails.SSHPort = (int)sshPortNumericUpDown.Value;
+            SSHConnectionDetails.SSHSecurityOption = optPrivateKey.Checked ? SSHSecurityOption.PrivateKey : optPassword.Checked ? SSHSecurityOption.Password : SSHSecurityOption.KeyboardInteractive;
+            SSHConnectionDetails.UserName = txtUsername.Text;
+            SSHConnectionDetails.Password = txtPassword.Text;
+            SSHConnectionDetails.PrivateKeyFile = txtPrivateKeyFile.Text;
+            SSHConnectionDetails.PassPhrase = txtPassPhrase.Text;
+            SSHConnectionDetails.Persistent = chkPersistent.Checked;
+            DialogResult = System.Windows.Forms.DialogResult.OK;
+            Close();
+        }
+
+        private void cmdTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(optPrivateKey.Checked ? SSHSecurityOption.PrivateKey : optPassword.Checked ? SSHSecurityOption.Password : SSHSecurityOption.KeyboardInteractive, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text))
+                {
+                    if (sshClient.IsConnected)
+                    {
+                        MessageBox.Show(string.Format("Success\r\n{0}", sshClient.RunCommand("cat /proc/version").Result), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    sshClient.Disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Fail!\r\n{0}", ex.Message), "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        } 
+        #endregion
+
+
+    }
+}

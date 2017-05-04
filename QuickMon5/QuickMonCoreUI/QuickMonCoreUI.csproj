@@ -36,6 +36,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Renci.SshNet, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\QuickMon5Core\bin\Debug\Renci.SshNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -124,6 +128,19 @@
       <DependentUpon>RegistryQueryCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\SSH\EditSSHConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\SSH\EditSSHConnection.Designer.cs">
+      <DependentUpon>EditSSHConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\SSH\SSHCommand\SSHCommandCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\SSH\SSHCommand\SSHCommandCollectorEditEntry.Designer.cs">
+      <DependentUpon>SSHCommandCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\SSH\SSHCommand\SSHCommandCollectorUI.cs" />
     <Compile Include="Agents\Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -382,6 +399,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorEditEntry.resx">
       <DependentUpon>RegistryQueryCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\SSH\EditSSHConnection.resx">
+      <DependentUpon>EditSSHConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\SSH\SSHCommand\SSHCommandCollectorEditEntry.resx">
+      <DependentUpon>SSHCommandCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.resx">
       <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>

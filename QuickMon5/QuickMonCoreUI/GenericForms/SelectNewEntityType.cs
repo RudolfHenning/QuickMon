@@ -71,7 +71,7 @@ namespace QuickMon.UI
 
             ListViewGroup generalGroup = new ListViewGroup("General");
             lvwAgentType.Groups.Add(generalGroup);
-            ListViewItem lviEmptyCollector = new ListViewItem("Folder");
+            ListViewItem lviEmptyCollector = new ListViewItem("Folder/Blank collector");
             lviEmptyCollector.SubItems.Add("Creates a blank collector with no agents");
             lviEmptyCollector.Group = generalGroup;
             lviEmptyCollector.Tag = new CollectorHost() { Name = "Folder" };

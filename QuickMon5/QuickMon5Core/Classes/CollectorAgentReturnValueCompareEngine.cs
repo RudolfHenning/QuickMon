@@ -156,23 +156,23 @@ namespace QuickMon
             switch (tcmt)
             {
                 case CollectorAgentReturnValueCompareMatchType.Match:
-                    return matchFilter.ToLower() == resultToTest.ToString().ToLower();
+                    return matchFilter.ToLower() == resultToTest.ToString().Trim('\r', '\n').ToLower();
                 case CollectorAgentReturnValueCompareMatchType.DoesNotMatch:
-                    return matchFilter.ToLower() != resultToTest.ToString().ToLower();
+                    return matchFilter.ToLower() != resultToTest.ToString().Trim('\r', '\n').ToLower();
                 case CollectorAgentReturnValueCompareMatchType.Contains:
                     return resultToTest.ToString().ToLower().Contains(matchFilter.ToLower());
                 case CollectorAgentReturnValueCompareMatchType.DoesNotContain:
                     return !resultToTest.ToString().ToLower().Contains(matchFilter.ToLower());
                 case CollectorAgentReturnValueCompareMatchType.StartsWith:
-                    return resultToTest.ToString().ToLower().StartsWith(matchFilter.ToLower());
+                    return resultToTest.ToString().Trim('\r', '\n').ToLower().StartsWith(matchFilter.ToLower());
                 case CollectorAgentReturnValueCompareMatchType.DoesNotStartWith:
-                    return !resultToTest.ToString().ToLower().StartsWith(matchFilter.ToLower());
+                    return !resultToTest.ToString().Trim('\r', '\n').ToLower().StartsWith(matchFilter.ToLower());
                 case CollectorAgentReturnValueCompareMatchType.EndsWith:
-                    return resultToTest.ToString().ToLower().EndsWith(matchFilter.ToLower());
+                    return resultToTest.ToString().Trim('\r', '\n').ToLower().EndsWith(matchFilter.ToLower());
                 case CollectorAgentReturnValueCompareMatchType.DoesNotEndWith:
-                    return !resultToTest.ToString().ToLower().EndsWith(matchFilter.ToLower());
+                    return !resultToTest.ToString().Trim('\r', '\n').ToLower().EndsWith(matchFilter.ToLower());
                 case CollectorAgentReturnValueCompareMatchType.RegEx:
-                    System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(resultToTest.ToString(), matchFilter, System.Text.RegularExpressions.RegexOptions.Multiline);
+                    System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(resultToTest.ToString().Trim('\r', '\n'), matchFilter, System.Text.RegularExpressions.RegexOptions.Multiline);
                     return match.Success;
                 case CollectorAgentReturnValueCompareMatchType.IsNotANumber:
                     if (!resultToTest.IsNumber())

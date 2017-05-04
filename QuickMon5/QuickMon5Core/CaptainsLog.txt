@@ -21,6 +21,7 @@ Collector agents
 	SQL Query Editor Done
 	SQL DB size Editor Done
 	SQL Table size Editor Done
+	SSH Command Agent + Editor Done
 
 When editing template uniqueId and dependOnParentId should be blanked out automatically - Done
 Main window - Notifier agents with viewers -> double click to open - Done
@@ -49,6 +50,8 @@ Next
 	
 
 	SSH based agents
+		SSH Command Agent - Done
+		CPU/MEM/IO
 
 	Enterprise agents
 		BizTalk

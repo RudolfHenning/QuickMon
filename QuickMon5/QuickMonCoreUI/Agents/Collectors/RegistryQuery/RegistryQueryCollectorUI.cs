@@ -8,7 +8,7 @@ namespace QuickMon.UI
 {
     public class RegistryQueryCollectorUI : WinFormsUICollectorBase
     {
-        public override string AgentType { get { return "QuickMon.Collectors.RegistryQueryCollector"; } }
-        public override ICollectorConfigEntryEditWindow DetailEditor { get { return new RegistryQueryCollectorEditEntry(); } }
+        public override string AgentType { get { return "QuickMon.Collectors.SSHCommandCollector"; } }
+        public override ICollectorConfigEntryEditWindow DetailEditor { get { return new SSHCommandCollectorEditEntry(); } }
     }
 }

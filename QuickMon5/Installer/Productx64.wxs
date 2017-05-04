@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 5" Language="1033" Version="5.0.0.0003" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A279-41c950000000">
+  <Product Id="*" Name="QuickMon 5" Language="1033" Version="5.0.0.0004" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A279-41c950000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 5 Installer" Comments='QuickMon 5 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' Platform="x64" />
 
@@ -9,6 +9,7 @@
       <ComponentRef Id='QuickMonConfigFiles' />
       <ComponentRef Id='readmetxt' />
       <ComponentRef Id='firstTimeOnly' />
+      <ComponentRef Id='ExampleFiles' />
       <ComponentRef Id='ProgramMenuDir' />      
     </Feature>
 
@@ -35,6 +36,7 @@
               <File Id="QuickMonCoreDll" Name="QuickMonCore.dll" Source="QuickMonCore.dll" KeyPath="no" />
               <File Id="QuickMonCoreUIDll" Name="QuickMonCoreUI.dll" Source="QuickMonCoreUI.dll" KeyPath="no" />              
               <File Id="System.Management.Automation.dll" Source="System.Management.Automation.dll"  KeyPath="no" />
+              <File Id="Renci.SshNet.dll" Source="Renci.SshNet.dll"  KeyPath="no" />
             </Component>
             <Component Id="QuickMonConfigFiles" Guid="59162023-5478-4668-5D08-41ca40000000" NeverOverwrite="yes" Permanent="yes" Win64="yes">
               <File Id="QuickMonEXEConfig" Name="QuickMon.exe.config" Source="QuickMon.exe.config" KeyPath="no" />
@@ -48,6 +50,9 @@
             </Component>
             <Component Id="firstTimeOnly" Guid="59162023-5478-4668-5D08-41ca4f145100" NeverOverwrite="yes" Permanent="yes" Win64="yes">
               <File Id="MonitorPackListtxt" Name="MonitorPackList.txt" Source="MonitorPackList.txt" KeyPath="no" />
+            </Component>
+            <Component Id="ExampleFiles" Guid="59162023-5478-4668-5D08-41ca4f14510e" Win64="yes">
+              <File Id="QuickMon5Installqmp" Name="QuickMon 5 Install.qmp" Source="QuickMon 5 Install.qmp" KeyPath="no" />
             </Component>
           </Directory>
         </Directory>
