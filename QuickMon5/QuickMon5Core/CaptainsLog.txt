@@ -57,4 +57,24 @@ Next
 		BizTalk
 		Active Directory
 
-	
+	******
+	Core change ideas
+		Agents return property bag of properties
+		CHost can then flag one of these properties as Test for alert condition
+		Agent values for each refresh log to csv file.
+		Collector host name is a build in Variable
+			Plus some other standard variables that will always be filled in by system or can be overrided by user.
+				e.g. HostName - Localhost name
+		carvce Good/Warning/Error value text boxes must have context menu for general items like [Any]/[null] etc.
+
+		When there are multiple Agents for a host one can be flagged as Primary UI value
+
+		Service automatically open firewall port (for Domain/private network)
+
+	BUGS
+		Service install must be improved
+			Username/pwd must verified before dialog closes. Allow user to correct.
+			Service install state not updating after installed
+		Remote Excution failed.
+
+		Relook all Collector Detail Window More details

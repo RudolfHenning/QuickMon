@@ -531,13 +531,13 @@ namespace QuickMon
                 {
                     //attempting to run locally
                     resultMonitorState = GetStateFromLocal();
-                    resultMonitorState.RawDetails = string.Format("Remote excution failed. Attempting to run locally. {0}", resultMonitorState.RawDetails);
+                    resultMonitorState.RawDetails = string.Format("Remote Host failed. Attempting to run locally. {0}", resultMonitorState.RawDetails);
                 }
                 else
                 {
                     resultMonitorState.State = CollectorState.Error;
                     resultMonitorState.RawDetails = ex.ToString();
-                    resultMonitorState.CurrentValue = "Remote excution failed";
+                    resultMonitorState.CurrentValue = "Remote Host failed";
                     resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
                 }
             }
