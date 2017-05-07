@@ -95,6 +95,14 @@ namespace QuickMon
                     return;
                 }
             }
+            if (Properties.Settings.Default.AutoAddDefaultFireWallException)
+            {
+                if (!CheckQuickMonRemoteHostFirewallPort())
+                {
+                    AddDefaultFireWallException();
+                }
+            }
+
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
 			{ 
@@ -102,8 +110,7 @@ namespace QuickMon
 			};
             ServiceBase.Run(ServicesToRun);
         }
-
-
+        
         private static void ShowServiceStatus(string serviceName)
         {
             ServiceController sc = new ServiceController(serviceName);
@@ -177,5 +184,65 @@ namespace QuickMon
                 }
             }
         }
+
+        private static bool CheckQuickMonRemoteHostFirewallPort()
+        {
+            bool isFWRuleInstalled = false;
+            try
+            {
+                Microsoft.Win32.RegistryKey fwrules = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules");
+                object regVal = fwrules.GetValue("{F811AB2E-286C-4DB6-8512-4C991A8A55EA}");
+                if (regVal != null)
+                {
+                    string quickMonRule = regVal.ToString();
+                    if (quickMonRule.Length > 0)
+                        isFWRuleInstalled = true;
+                }
+            }
+            catch { }
+            return isFWRuleInstalled;
+        }
+        private static void AddDefaultFireWallException()
+        {
+            string regfile = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickMon5FirewallRule.reg");
+            try
+            {
+                if (System.IO.File.Exists(regfile))
+                    System.IO.File.Delete(regfile);
+                System.IO.File.WriteAllText(regfile, Properties.Resources.FireWallRule);
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo();
+                p.StartInfo.FileName = "REGEDIT.EXE";
+                p.StartInfo.Arguments = "/S " + regfile;
+                p.StartInfo.Verb = "runas";
+                try
+                {
+                    p.Start();
+                    p.WaitForExit();
+                }
+                catch (System.ComponentModel.Win32Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                }
+
+                try
+                {
+                    System.ServiceProcess.ServiceController firewallSrvs = new System.ServiceProcess.ServiceController("Windows Firewall");
+                    if (firewallSrvs.Status == System.ServiceProcess.ServiceControllerStatus.Running)
+                    {
+                        firewallSrvs.Stop();
+                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
+                        firewallSrvs.Start();
+                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+                    }
+                }
+                catch { }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Error adding default QuickMon 5 fire wall exception: {0}", ex.Message), System.Diagnostics.EventLogEntryType.Warning, 0);
+            }
+        }
+
     }
 }

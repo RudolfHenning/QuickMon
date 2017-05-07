@@ -126,5 +126,14 @@ namespace QuickMon.Properties {
                 return ((global::System.Collections.Specialized.StringCollection)(this["BlockedCollectorAgentTypes"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoAddDefaultFireWallException {
+            get {
+                return ((bool)(this["AutoAddDefaultFireWallException"]));
+            }
+        }
     }
 }

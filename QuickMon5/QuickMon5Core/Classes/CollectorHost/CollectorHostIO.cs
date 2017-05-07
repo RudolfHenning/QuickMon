@@ -271,6 +271,7 @@ namespace QuickMon
                     string name = collectorAgentNode.ReadXmlElementAttr("name", "");
                     string typeName = collectorAgentNode.ReadXmlElementAttr("type", "");
                     bool enabled = collectorAgentNode.ReadXmlElementAttr("enabled", true);
+                    bool primaryUIValue = collectorAgentNode.ReadXmlElementAttr("primaryUIValue", true);
                     string configXml = "";
                     XmlNode configNode = collectorAgentNode.SelectSingleNode("config");
                     if (configNode != null)
@@ -285,6 +286,7 @@ namespace QuickMon
                         {
                             newAgent.Name = name;
                             newAgent.Enabled = enabled;
+                            newAgent.PrimaryUIValue = primaryUIValue;
                             if (configXml.Length > 0)
                                 newAgent.InitialConfiguration = configXml;
                             else
@@ -761,7 +763,7 @@ namespace QuickMon
 
             foreach (ICollector c in collectorAgents)
             {
-                collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.AgentClassName, c.Enabled));
+                collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\" primaryUIValue=\"{3}\">", c.Name.EscapeXml(), c.AgentClassName.EscapeXml(), c.Enabled, c.PrimaryUIValue));
 #if DEBUG
                 System.Diagnostics.Trace.WriteLine("Initial config: " + c.InitialConfiguration);
                 System.Diagnostics.Trace.WriteLine("Active config: " + c.ActiveConfiguration);

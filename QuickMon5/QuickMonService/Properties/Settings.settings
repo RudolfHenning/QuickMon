@@ -38,5 +38,8 @@
   &lt;string&gt;PowerShellScriptRunnerCollector&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
+    <Setting Name="AutoAddDefaultFireWallException" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -612,6 +612,7 @@ namespace QuickMon
                     }
                     caMs.ForAgent = ca.Name;
                     caMs.ForAgentId = agentId;
+                    caMs.PrimaryUIValue = ca.PrimaryUIValue;
                     agentId++;
 
                     resultMonitorState.ChildStates.Add(caMs);

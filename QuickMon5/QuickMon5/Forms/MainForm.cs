@@ -502,8 +502,7 @@ namespace QuickMon
                 ch.Enabled = !ch.Enabled;
                 UpdateCollector(ch, true);
                 DoAutoSave();
-            }
-                
+            }                
         }
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2428,9 +2427,6 @@ namespace QuickMon
 
 
         #endregion
-
-
-
 
     }
 }

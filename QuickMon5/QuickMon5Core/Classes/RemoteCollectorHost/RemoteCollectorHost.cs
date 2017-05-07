@@ -44,42 +44,6 @@ namespace QuickMon
                 RunAs,
                 collectorAgentsXml
                 );
-
-
-            //StringBuilder collectorAgentsXml = new StringBuilder();
-            //collectorAgentsXml.AppendLine("<collectorAgents>");
-            //foreach (RemoteCollectorAgent c in Agents)
-            //{
-            //    collectorAgentsXml.AppendLine(c.ToXml());                
-            //}
-            //collectorAgentsXml.AppendLine("</collectorAgents>");
-
-            //return CollectorHost.ToXml(UniqueId,
-            //    Name,
-            //    Enabled,
-            //    ExpandOnStartOption.Auto, //true
-            //    "", //No parent
-            //    AgentCheckSequence,
-            //    ChildCheckBehaviour.OnlyRunOnSuccess,
-            //    0, 0, 0, 0, 0, 0, //alert suppression
-            //    true, "", "", "", false, //Corrective scripts
-            //    false, false, "", 48181, false, false, //Remote hosts
-            //    false, 0, false, 0, 0, 0, //Polling overides
-            //    false, //alerts paused
-            //    RunAsEnabled,
-            //    RunAs,
-            //    collectorAgentsXml.ToString(),
-            //    "", //action scripts
-            //    "", //Service windows
-            //    "", //config vars
-            //    "", //categories (blank for the moment)
-            //    "", //Notes,
-            //    "", //GeneralAlertText,
-            //    "", //ErrorAlertText,
-            //    "", //WarningAlertText,
-            //    ""  //GoodAlertText
-            //    );
-
         }
         public void FromCollectorHost(CollectorHost fullEntry)
         {

@@ -121,6 +121,7 @@ namespace QuickMon
             lblIsQuickMonServiceInstalled.Text = isInstalled ? "Yes" : "No";
             llblInstallQuickMonService.Enabled = lblIsQuickMonServiceInstalled.Text == "No";
             llblServiceState.Enabled = lblIsQuickMonServiceInstalled.Text == "Yes";
+            llblInstallQuickMonService.Text = isInstalled ? "Installed" : "Install";
         }
         private void CheckQuickMonRemoteHostFirewallPort()
         {

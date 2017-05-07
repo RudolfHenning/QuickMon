@@ -55,6 +55,7 @@ namespace QuickMon
             return returnState;
         }
         public virtual MonitorState CurrentState { get; set; }
+        public bool PrimaryUIValue { get; set; }
         #endregion
 
         public abstract List<System.Data.DataTable> GetDetailDataTables();
