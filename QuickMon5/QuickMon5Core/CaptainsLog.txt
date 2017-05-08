@@ -70,7 +70,7 @@ Next
 
 		When there are multiple Agents for a host one can be flagged as Primary UI value
 
-		
+		Remote host MP config  - string 'sign'ing to ensure it comes from legitimate server or something like that
 
 	BUGS
 		Service install must be improved
