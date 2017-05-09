@@ -80,6 +80,14 @@
     <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollector.cs" />
     <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollector.cs" />
     <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollector.cs" />
+    <Compile Include="Agents\Collectors\SSH\NIXCMDHelpers\CPUInfo.cs" />
+    <Compile Include="Agents\Collectors\SSH\NIXCMDHelpers\DiskInfo.cs" />
+    <Compile Include="Agents\Collectors\SSH\NIXCMDHelpers\DiskIOInfo.cs" />
+    <Compile Include="Agents\Collectors\SSH\NIXCMDHelpers\MemInfo.cs" />
+    <Compile Include="Agents\Collectors\SSH\NIXCMDHelpers\NicInfo.cs" />
+    <Compile Include="Agents\Collectors\SSH\NIXCMDHelpers\Parsers.cs" />
+    <Compile Include="Agents\Collectors\SSH\NIXCMDHelpers\ProcessInfo.cs" />
+    <Compile Include="Agents\Collectors\SSH\NIXCPU\NixCPU.cs" />
     <Compile Include="Agents\Collectors\SSH\SSHBaseConfigEntry.cs" />
     <Compile Include="Agents\Collectors\SSH\SSHClientTools.cs" />
     <Compile Include="Agents\Collectors\SSH\SSHCommand\SSHCommand.cs" />

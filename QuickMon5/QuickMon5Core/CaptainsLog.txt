@@ -47,6 +47,22 @@ Next
 	Connection sharing/caching in MP
 		SQL based agents
 		SSH based agents
+			CPU
+				cat /proc/stat
+				  2x delay 1 sec
+			MEM
+				cat /proc/meminfo
+			Disk info
+				df -Tk
+				  2x delay 1 sec
+			Disk IO
+				cat /proc/diskstats
+			NIC
+				ifconfig
+				  2x delay 1 sec
+			Process
+				ps aux
+
 	Agents/entries can be flagged for which one will be used for primary output value to screen	
 	
 
