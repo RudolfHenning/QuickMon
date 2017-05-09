@@ -23,7 +23,7 @@ namespace QuickMon.Collectors
             throw new NotImplementedException();
         }
     }
-    public class NixCPUCollectorConfig : IAgentConfig
+    public class NixCPUCollectorConfig : ICollectorConfig
     {
         public NixCPUCollectorConfig()
         {
@@ -43,27 +43,42 @@ namespace QuickMon.Collectors
             config.LoadXml(configurationString);
             XmlElement root = config.DocumentElement;
             Entries.Clear();
-            foreach (XmlElement pcNode in root.SelectNodes("nixCpu"))
+            foreach (XmlElement pcNode in root.SelectNodes("nixCpus/nixCpu"))
             {
                 NixCPUEntry entry = new NixCPUEntry();
                 entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
+                entry.SSHConnection = SSHConnectionDetails.FromXmlElement((XmlElement)pcNode);
                 entry.MSSampleDelay = pcNode.ReadXmlElementAttr("msSampleDelay", 200);
                 entry.UseOnlyTotalCPUvalue = pcNode.ReadXmlElementAttr("totalCPU", true);
                 entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "80"));
                 entry.ErrorValue = float.Parse(pcNode.ReadXmlElementAttr("errorValue", "99"));
-
+                
                 Entries.Add(entry);
             }
         }
         public string ToXml()
         {
             XmlDocument config = new XmlDocument();
+            config.LoadXml(GetDefaultOrEmptyXml());
+            XmlElement root = config.DocumentElement;
+            XmlNode nixCpusNode = root.SelectSingleNode("nixCpus");
+            nixCpusNode.InnerXml = "";
+            foreach (NixCPUEntry entry in Entries)
+            {
+                XmlElement nixCpuNode = config.CreateElement("nixCpu");
+                entry.SSHConnection.SaveToXmlElementAttr(nixCpuNode);
+                nixCpuNode.SetAttributeValue("msSampleDelay", entry.MSSampleDelay);
+                nixCpuNode.SetAttributeValue("totalCPU", entry.UseOnlyTotalCPUvalue);
+                nixCpuNode.SetAttributeValue("warningValue", entry.WarningValue);
+                nixCpuNode.SetAttributeValue("errorValue", entry.ErrorValue);
 
+                nixCpusNode.AppendChild(nixCpuNode);
+            }
             return config.OuterXml;
         }
         public string GetDefaultOrEmptyXml()
         {
-            return "<config><nixCpu /></config>";
+            return "<config><nixCpus /></config>";
         }
         public string ConfigSummary
         {
@@ -112,23 +127,73 @@ namespace QuickMon.Collectors
         {
             MonitorState currentState = new MonitorState()
             {
-                ForAgent = Description
-            };
+                ForAgent = Description,
+                State = CollectorState.Good,
+                CurrentValueUnit = "%"
+
+        };
 
             try
             {
-                foreach (CPUInfo cpuInfo in CPUInfo.GetCurrentCPUPerc(SSHConnection.GetConnection(), MSSampleDelay))
+                List<CPUInfo> cpuInfos = CPUInfo.GetCurrentCPUPerc(SSHConnection.GetConnection(), MSSampleDelay);
+                currentState.CurrentValue = CollectorState.NotAvailable;
+                if (cpuInfos.Count > 0)
                 {
+                    currentState.CurrentValue = cpuInfos[0].CPUPerc.ToString("0.0");
+                    currentState.State = GetState(cpuInfos[0].CPUPerc);
+                }
+                for (int i = 1; i < cpuInfos.Count; i++)
+                {
+                    CollectorState currentCPUState = GetState(cpuInfos[i].CPUPerc);
+                    if ((int)currentCPUState > (int)currentState.State)
+                    {
+                        currentState.State = currentCPUState;
+                    }
                     MonitorState cpuState = new MonitorState()
                     {
-                        ForAgent = cpuInfo.Name,
-                        State = GetState(cpuInfo.CPUPerc),
-                        CurrentValue = cpuInfo.CPUPerc,
+                        ForAgent = cpuInfos[i].Name,
+                        State = currentCPUState,
+                        CurrentValue = cpuInfos[i].CPUPerc.ToString("0.0"),
                         CurrentValueUnit = "%"
                     };
                     currentState.ChildStates.Add(cpuState);
                 }
 
+
+
+                //if (UseOnlyTotalCPUvalue)
+                //{
+                   
+                //    if (cpuInfos.Count > 0)
+                //    {
+                //        currentCPUState = GetState(cpuInfos[0].CPUPerc);
+                //        currentState.State = currentCPUState;
+                //        currentState.CurrentValue = cpuInfos[0].CPUPerc.ToString("0.0");
+                //    }
+                //}
+                //else
+                //{
+                //    if (cpuInfos.Count > 0)
+                //    {
+                //        currentState.CurrentValue = cpuInfos[0].CPUPerc.ToString("0.0");
+                //    }
+                //    for (int i = 1; i < cpuInfos.Count; i++)
+                //    {
+                //        CollectorState currentCPUState = GetState(cpuInfos[i].CPUPerc);
+                //        if ((int)currentCPUState > (int)currentState.State)
+                //        {
+                //            currentState.State = currentCPUState;
+                //        }
+                //        MonitorState cpuState = new MonitorState()
+                //        {
+                //            ForAgent = cpuInfos[i].Name,
+                //            State = currentCPUState,
+                //            CurrentValue = cpuInfos[i].CPUPerc.ToString("0.0"),
+                //            CurrentValueUnit = "%"
+                //        };
+                //        currentState.ChildStates.Add(cpuState);
+                //    }
+                //}
             }
             catch (Exception wsException)
             {
