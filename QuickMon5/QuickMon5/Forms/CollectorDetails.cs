@@ -911,6 +911,8 @@ namespace QuickMon
                         foreach (ICollectorConfigEntry entry in entryConfig.Entries)
                         {
                             TreeListViewItem tlvAgentEntry = new TreeListViewItem(entry.Description);
+                            if (entry.PrimaryUIValue)
+                                tlvAgentEntry.Font = new Font(agentsTreeListView.Font, FontStyle.Bold);
                             tlvAgentEntry.ImageIndex = 2;
                             tlvAgentEntry.SubItems.Add(entry.TriggerSummary);
                             tlvAgentEntry.Tag = entry;
@@ -1183,6 +1185,7 @@ namespace QuickMon
             {
                 collectorDetailSplitContainer.SplitterDistance = collectorDetailSplitContainer.Height - 100;
             }
+            UpdateRawView();
         }
 
         #region Editing
@@ -1431,6 +1434,8 @@ namespace QuickMon
             bool moveDownEnabled = false;
             bool agentEnabledEnabled = false;
             bool agentEDisabledEnabled = false;
+            bool agentEntrySelected = false;
+            bool isAgentPrimaryUI = false;
             if (agentsTreeListView.SelectedItems.Count == 1)
             {
                 TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
@@ -1449,6 +1454,7 @@ namespace QuickMon
                 }
                 else if (moveItem.Tag is ICollectorConfigEntry)
                 {
+                    agentEntrySelected = true;
                     ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
                     ICollector moveAgent = (ICollector)moveItem.Parent.Tag;
                     ICollectorConfig entryConfig = (ICollectorConfig)moveAgent.AgentConfig;
@@ -1456,6 +1462,7 @@ namespace QuickMon
                     moveUpEnabled = index > 0;
                     moveDownEnabled = index < entryConfig.Entries.Count - 1;
                     addAgentEntry = false;
+                    isAgentPrimaryUI = moveConfigEntry.PrimaryUIValue;
                 }
             }
             else
@@ -1474,6 +1481,7 @@ namespace QuickMon
                     {
                         agentEnabledEnabled = false;
                         agentEDisabledEnabled = false;
+                        isAgentPrimaryUI = true;
                         break;
                     }
                 }
@@ -1488,6 +1496,7 @@ namespace QuickMon
             moveUpToolStripMenuItem.Enabled = moveUpEnabled;
             moveDownAgentToolStripButton.Enabled = moveDownEnabled;
             moveDownToolStripMenuItem.Enabled = moveDownEnabled;
+            setAsDisplayValueToolStripMenuItem.Enabled = agentEntrySelected && !isAgentPrimaryUI;
             enableAgentToolStripButton.Enabled = agentEnabledEnabled;
             disableAgentToolStripButton.Enabled = agentEDisabledEnabled;
             enableToolStripMenuItem.Enabled = agentEnabledEnabled || agentEDisabledEnabled;
@@ -1595,7 +1604,6 @@ namespace QuickMon
             }
             return success;
         }
-
         private void SetEditingActionScripts()
         {
             editingCollectorHost.ActionScripts.Clear();
@@ -1604,6 +1612,30 @@ namespace QuickMon
                 if (lvi.Tag is ActionScript)
                 {
                     editingCollectorHost.ActionScripts.Add((ActionScript)lvi.Tag);
+                }
+            }
+        }
+        private void SetCurrentAgentEntryPrimaryUI()
+        {
+            if (agentsTreeListView.SelectedItems.Count == 1)
+            {
+                TreeListViewItem currentLviItem = agentsTreeListView.SelectedItems[0];
+                if (currentLviItem.Tag is ICollectorConfigEntry)
+                {
+                    ICollectorConfigEntry currentConfigEntry = (ICollectorConfigEntry)currentLviItem.Tag;
+
+                    //First reset all (including current) agent entries to No Primary UI 
+                    foreach (TreeListViewItem tlvi in agentsTreeListView.Items)
+                    {
+                        foreach (TreeListViewItem tlviEntries in tlvi.Items)
+                        {
+                            ICollectorConfigEntry entry = (ICollectorConfigEntry)tlviEntries.Tag;
+                            tlviEntries.Font = new Font(agentsTreeListView.Font, FontStyle.Regular);
+                            entry.PrimaryUIValue = false;    
+                        }                        
+                    }
+                    currentConfigEntry.PrimaryUIValue = true;
+                    currentLviItem.Font = new Font(agentsTreeListView.Font, FontStyle.Bold);
                 }
             }
         }
@@ -1744,6 +1776,10 @@ namespace QuickMon
         private void disableAgentToolStripButton_Click(object sender, EventArgs e)
         {
             DisableAgents();
+        }
+        private void setAsDisplayValueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetCurrentAgentEntryPrimaryUI();
         }
         private void enableToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2032,6 +2068,18 @@ namespace QuickMon
         }
         #endregion
 
+        #endregion
+
+        #region Context menus
+        private void rawViewCopyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtxDetails.Copy();
+        }
+
+        private void rawViewSelectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtxDetails.SelectAll();
+        }
         #endregion
 
         #region Action scripts
