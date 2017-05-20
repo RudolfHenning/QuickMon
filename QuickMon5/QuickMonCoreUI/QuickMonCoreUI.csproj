@@ -134,6 +134,13 @@
     <Compile Include="Agents\Collectors\SSH\EditSSHConnection.Designer.cs">
       <DependentUpon>EditSSHConnection.cs</DependentUpon>
     </Compile>
+    <Compile Include="Agents\Collectors\SSH\NIXCPU\NixCPUCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\SSH\NIXCPU\NixCPUCollectorEditEntry.Designer.cs">
+      <DependentUpon>NixCPUCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\SSH\NIXCPU\NIXCPUCollectorUI.cs" />
     <Compile Include="Agents\Collectors\SSH\SSHCommand\SSHCommandCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -403,6 +410,9 @@
     <EmbeddedResource Include="Agents\Collectors\SSH\EditSSHConnection.resx">
       <DependentUpon>EditSSHConnection.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\SSH\NIXCPU\NixCPUCollectorEditEntry.resx">
+      <DependentUpon>NixCPUCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\SSH\SSHCommand\SSHCommandCollectorEditEntry.resx">
       <DependentUpon>SSHCommandCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -539,6 +549,7 @@
   <ItemGroup>
     <None Include="Resources\LongBlueShadeHorisontal.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
