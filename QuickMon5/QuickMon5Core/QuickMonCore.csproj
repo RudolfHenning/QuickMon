@@ -88,6 +88,8 @@
     <Compile Include="Agents\Collectors\SSH\NIXCMDHelpers\Parsers.cs" />
     <Compile Include="Agents\Collectors\SSH\NIXCMDHelpers\ProcessInfo.cs" />
     <Compile Include="Agents\Collectors\SSH\NIXCPU\NixCPU.cs" />
+    <Compile Include="Agents\Collectors\SSH\NIXDiskSpace\NIXDiskSpace.cs" />
+    <Compile Include="Agents\Collectors\SSH\NIXMemory\NIXMemory.cs" />
     <Compile Include="Agents\Collectors\SSH\SSHBaseConfigEntry.cs" />
     <Compile Include="Agents\Collectors\SSH\SSHClientTools.cs" />
     <Compile Include="Agents\Collectors\SSH\SSHCommand\SSHCommand.cs" />

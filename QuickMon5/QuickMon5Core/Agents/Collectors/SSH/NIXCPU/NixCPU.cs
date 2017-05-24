@@ -47,7 +47,6 @@ namespace QuickMon.Collectors
             {
                 NixCPUEntry entry = new NixCPUEntry();
                 entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
-                entry.SSHConnection = SSHConnectionDetails.FromXmlElement((XmlElement)pcNode);
                 entry.MSSampleDelay = pcNode.ReadXmlElementAttr("msSampleDelay", 200);
                 entry.UseOnlyTotalCPUvalue = pcNode.ReadXmlElementAttr("totalCPU", true);
                 entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "80"));
@@ -130,13 +129,12 @@ namespace QuickMon.Collectors
                 ForAgent = Description,
                 State = CollectorState.Good,
                 CurrentValueUnit = "%"
-
-        };
+            };
 
             try
             {
                 List<CPUInfo> cpuInfos = CPUInfo.GetCurrentCPUPerc(SSHConnection.GetConnection(), MSSampleDelay);
-                currentState.CurrentValue = CollectorState.NotAvailable;
+                currentState.State = CollectorState.NotAvailable;
                 if (cpuInfos.Count > 0)
                 {
                     currentState.CurrentValue = cpuInfos[0].CPUPerc.ToString("0.0");
