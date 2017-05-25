@@ -43,7 +43,24 @@ namespace QuickMon.Collectors
             config.LoadXml(configurationString);
             XmlElement root = config.DocumentElement;
             Entries.Clear();
+            /*System.Xml.Linq.XDocument configDoc = System.Xml.Linq.XDocument.Load(configurationString);
+            foreach(var nixCpu in configDoc.Root.Descendants("nixCpu")){
+                nixCpu.Attribute["msSampleDelay"]
+            }
+            */
+
             foreach (XmlElement pcNode in root.SelectNodes("nixCpus/nixCpu"))
+            {
+                NixCPUEntry entry = new NixCPUEntry();
+                entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
+                entry.MSSampleDelay = pcNode.ReadXmlElementAttr("msSampleDelay", 200);
+                entry.UseOnlyTotalCPUvalue = pcNode.ReadXmlElementAttr("totalCPU", true);
+                entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "80"));
+                entry.ErrorValue = float.Parse(pcNode.ReadXmlElementAttr("errorValue", "99"));
+
+                Entries.Add(entry);
+            }
+            foreach (XmlElement pcNode in root.SelectNodes("nixCpu"))
             {
                 NixCPUEntry entry = new NixCPUEntry();
                 entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
@@ -60,8 +77,9 @@ namespace QuickMon.Collectors
             XmlDocument config = new XmlDocument();
             config.LoadXml(GetDefaultOrEmptyXml());
             XmlElement root = config.DocumentElement;
-            XmlNode nixCpusNode = root.SelectSingleNode("nixCpus");
-            nixCpusNode.InnerXml = "";
+            root.InnerXml = "";
+            //XmlNode nixCpusNode = root.SelectSingleNode("nixCpus");
+            //nixCpusNode.InnerXml = "";
             foreach (NixCPUEntry entry in Entries)
             {
                 XmlElement nixCpuNode = config.CreateElement("nixCpu");
@@ -71,13 +89,15 @@ namespace QuickMon.Collectors
                 nixCpuNode.SetAttributeValue("warningValue", entry.WarningValue);
                 nixCpuNode.SetAttributeValue("errorValue", entry.ErrorValue);
 
-                nixCpusNode.AppendChild(nixCpuNode);
+                //nixCpusNode.AppendChild(nixCpuNode);
+                root.AppendChild(nixCpuNode);
             }
             return config.OuterXml;
         }
         public string GetDefaultOrEmptyXml()
         {
-            return "<config><nixCpus /></config>";
+            return "<config></config>";
+            //return "<config><nixCpus /></config>";
         }
         public string ConfigSummary
         {
