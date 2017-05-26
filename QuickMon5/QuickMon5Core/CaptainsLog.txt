@@ -44,9 +44,21 @@ Next
 
 	DataSet views for all Collectors!!
 
+
 	Connection sharing/caching in MP
 		SQL based agents
 		SSH based agents
+
+		OR
+	Connection strings can be specified at MP level and agents can (optionally) then specify just a 'connection name' and read/parse string
+
+
+	Agents/entries can be flagged for which one will be used for primary output value to screen	
+	
+
+	SSH based agents
+		SSH Command Agent - Done
+		CPU/MEM/IO
 			CPU
 				cat /proc/stat
 				  2x delay 1 sec
@@ -62,13 +74,6 @@ Next
 				  2x delay 1 sec
 			Process
 				ps aux
-
-	Agents/entries can be flagged for which one will be used for primary output value to screen	
-	
-
-	SSH based agents
-		SSH Command Agent - Done
-		CPU/MEM/IO
 
 	Enterprise agents
 		BizTalk

@@ -93,6 +93,26 @@ namespace QuickMon
             }
 
         }
+        public static string FormatFileSizePerSec(long fileSize)
+        {
+            if (fileSize < 1024)
+            {
+                return fileSize.ToString() + " bytes/sec";
+            }
+            else if (fileSize < 1048576)
+            {
+                return (fileSize / 1024).ToString() + " KB/sec";
+            }
+            else if (fileSize < 1073741824)
+            {
+                return (fileSize / 1048576.0).ToString("0.00") + " MB/sec";
+            }
+            else
+            {
+                return (fileSize / 1073741824.00).ToString("0.00") + " GB/sec";
+            }
+
+        }
         public static string FormatArrayToString(object value, string defaultValue = "")
         {
             if (value == null)

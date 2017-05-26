@@ -11,21 +11,21 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("NIX Disk Free Space Collector"), Category("SSH")]
-    public class NIXDiskSpaceCollector : CollectorAgentBase
+   [Description("NIX Disk IO Collector"), Category("SSH")]
+   public  class NIXDiskIOCollector : CollectorAgentBase
     {
-        public NIXDiskSpaceCollector()
+        public NIXDiskIOCollector()
         {
-            AgentConfig = new NIXDiskSpaceCollectorConfig();
+            AgentConfig = new NIXDiskIOCollectorConfig();
         }
         public override List<DataTable> GetDetailDataTables()
         {
             throw new NotImplementedException();
         }
     }
-    public class NIXDiskSpaceCollectorConfig : ICollectorConfig
+    public class NIXDiskIOCollectorConfig : ICollectorConfig
     {
-        public NIXDiskSpaceCollectorConfig()
+        public NIXDiskIOCollectorConfig()
         {
             Entries = new List<ICollectorConfigEntry>();
         }
@@ -44,15 +44,15 @@ namespace QuickMon.Collectors
             XmlElement root = config.DocumentElement;
             Entries.Clear();
 
-            foreach (XmlElement pcNode in root.SelectNodes("nixDiskSpaces"))
+            foreach (XmlElement pcNode in root.SelectNodes("nixDiskIOs"))
             {
-                NIXDiskSpaceEntry entry = new NIXDiskSpaceEntry();
+                NIXDiskIOEntry entry = new NIXDiskIOEntry();
                 entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
                 entry.SubItems = new List<ICollectorConfigSubEntry>();
-                foreach (XmlElement fileSystemNode in pcNode.SelectNodes("fileSystem"))
+                foreach (XmlElement fileSystemNode in pcNode.SelectNodes("disk"))
                 {
-                    NIXDiskSpaceSubEntry fse = new NIXDiskSpaceSubEntry();
-                    fse.FileSystemName = fileSystemNode.ReadXmlElementAttr("name", "");
+                    NIXDiskIOSubEntry fse = new NIXDiskIOSubEntry();
+                    fse.DiskName = fileSystemNode.ReadXmlElementAttr("name", "");
                     fse.WarningValue = fileSystemNode.ReadXmlElementAttr("warningValue", 10.0d);
                     fse.ErrorValue = fileSystemNode.ReadXmlElementAttr("errorValue", 5.0d);
                     fse.PrimaryUIValue = fileSystemNode.ReadXmlElementAttr("primaryUIValue", false);
@@ -66,15 +66,15 @@ namespace QuickMon.Collectors
             XmlDocument config = new XmlDocument();
             config.LoadXml(GetDefaultOrEmptyXml());
             XmlElement root = config.DocumentElement;
-            root.InnerXml = "";            
-            foreach (NIXDiskSpaceEntry entry in Entries)
+            root.InnerXml = "";
+            foreach (NIXDiskIOEntry entry in Entries)
             {
-                XmlElement nixDiskSpacesNode = config.CreateElement("nixDiskSpaces");
+                XmlElement nixDiskSpacesNode = config.CreateElement("nixDiskIOs");
                 entry.SSHConnection.SaveToXmlElementAttr(nixDiskSpacesNode);
-                foreach (NIXDiskSpaceSubEntry fse in entry.SubItems)
+                foreach (NIXDiskIOSubEntry fse in entry.SubItems)
                 {
-                    XmlElement fileSystemNode = config.CreateElement("fileSystem");
-                    fileSystemNode.SetAttributeValue("name", fse.FileSystemName);
+                    XmlElement fileSystemNode = config.CreateElement("disk");
+                    fileSystemNode.SetAttributeValue("name", fse.DiskName);
                     fileSystemNode.SetAttributeValue("warningValue", fse.WarningValue);
                     fileSystemNode.SetAttributeValue("errorValue", fse.ErrorValue);
                     fileSystemNode.SetAttributeValue("primaryUIValue", fse.PrimaryUIValue);
@@ -108,9 +108,9 @@ namespace QuickMon.Collectors
         }
         #endregion
     }
-    public class NIXDiskSpaceEntry : SSHBaseConfigEntry
+    public class NIXDiskIOEntry : SSHBaseConfigEntry
     {
-        public NIXDiskSpaceEntry()
+        public NIXDiskIOEntry()
         {
             SubItems = new List<ICollectorConfigSubEntry>();
         }
@@ -131,39 +131,39 @@ namespace QuickMon.Collectors
             Renci.SshNet.SshClient sshClient = SSHConnection.GetConnection();
 
             #region Get Disk infos and states
-            List<DiskSpaceInfoState> fileSystemEntries = new List<DiskSpaceInfoState>();
+            List<DiskIOInfoState> diskEntries = new List<DiskIOInfoState>();
             //First see if ANY subentry is for all
-            bool addAll = (from NIXDiskSpaceSubEntry d in SubItems
-                           where d.FileSystemName == "*"
+            bool addAll = (from NIXDiskIOSubEntry d in SubItems
+                           where d.DiskName == "*"
                            select d).Count() > 0;
-            
+
             if (addAll)
             {
-                NIXDiskSpaceSubEntry alertDef = (from NIXDiskSpaceSubEntry d in SubItems
-                                                   where d.FileSystemName == "*"
-                                                   select d).FirstOrDefault();
+                NIXDiskIOSubEntry alertDef = (from NIXDiskIOSubEntry d in SubItems
+                                                 where d.DiskName == "*"
+                                                 select d).FirstOrDefault();
                 alertDef.PrimaryUIValue = false;
-                foreach (DiskInfo di in DiskInfo.FromDfTk(sshClient))
+                foreach (DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient, 250))
                 {
 
-                    DiskSpaceInfoState dis = new DiskSpaceInfoState() { FileSystemInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                    fileSystemEntries.Add(dis);
+                    DiskIOInfoState dis = new DiskIOInfoState() { DiskInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                    diskEntries.Add(dis);
                 }
             }
             else
             {
-                foreach (DiskInfo di in DiskInfo.FromDfTk(sshClient))
+                foreach (DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient, 250))
                 {
-                    NIXDiskSpaceSubEntry alertDef = (from NIXDiskSpaceSubEntry d in SubItems
-                                                       where d.FileSystemName.ToLower() == di.Name.ToLower()
-                                                       select d).FirstOrDefault();
+                    NIXDiskIOSubEntry alertDef = (from NIXDiskIOSubEntry d in SubItems
+                                                     where d.DiskName.ToLower() == di.Name.ToLower()
+                                                     select d).FirstOrDefault();
 
                     if (alertDef != null)
                     {
-                        if (!fileSystemEntries.Any(f => f.FileSystemInfo.Name.ToLower() == di.Name.ToLower()))
+                        if (!diskEntries.Any(f => f.DiskInfo.Name.ToLower() == di.Name.ToLower()))
                         {
-                            DiskSpaceInfoState dis = new DiskSpaceInfoState() { FileSystemInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                            fileSystemEntries.Add(dis);
+                            DiskIOInfoState dis = new DiskIOInfoState() { DiskInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                            diskEntries.Add(dis);
                         }
                     }
                 }
@@ -176,18 +176,16 @@ namespace QuickMon.Collectors
             int warnings = 0;
             int success = 0;
             double average = 0;
-            foreach (DiskSpaceInfoState dis in fileSystemEntries)
+            foreach (DiskIOInfoState dis in diskEntries)
             {
-                average += dis.FileSystemInfo.FreeSpacePerc;
-                if (dis.FileSystemInfo.FreeSpacePerc <= dis.AlertDefinition.ErrorValue)
+                average += dis.DiskInfo.BytesReadWritePerSec;
+                if (dis.DiskInfo.BytesReadWritePerSec >= dis.AlertDefinition.ErrorValue)
                 {
                     dis.State = CollectorState.Error;
-                    errors++;
                 }
-                else if (dis.FileSystemInfo.FreeSpacePerc <= dis.AlertDefinition.WarningValue)
+                else if (dis.DiskInfo.BytesReadWritePerSec >= dis.AlertDefinition.WarningValue)
                 {
                     dis.State = CollectorState.Warning;
-                    warnings++;
                 }
                 else
                 {
@@ -196,19 +194,19 @@ namespace QuickMon.Collectors
                 }
                 if (dis.AlertDefinition.PrimaryUIValue)
                 {
-                    currentState.CurrentValue = dis.FileSystemInfo.FreeSpacePerc.ToString("0.0");
-                    currentState.CurrentValueUnit = "%";
+                    currentState.CurrentValue = dis.DiskInfo.BytesReadWritePerSec.ToString("0.0");
+                    currentState.CurrentValueUnit = "Bytes/Sec";
                 }
 
-                MonitorState fileSystemState = new MonitorState()
+                MonitorState diskIOState = new MonitorState()
                 {
-                    ForAgent = dis.FileSystemInfo.Name,
+                    ForAgent = dis.DiskInfo.Name,
                     State = dis.State,
-                    CurrentValue = dis.FileSystemInfo.FreeSpacePerc.ToString("0.0"),
-                    CurrentValueUnit = "%",
+                    CurrentValue = dis.DiskInfo.BytesReadWritePerSec.ToString("0.0"),
+                    CurrentValueUnit = "Bytes/Sec",
                     PrimaryUIValue = dis.AlertDefinition.PrimaryUIValue
                 };
-                currentState.ChildStates.Add(fileSystemState);
+                currentState.ChildStates.Add(diskIOState);
             }
             if (errors > 0 && warnings == 0 && success == 0) // any errors
                 currentState.State = CollectorState.Error;
@@ -220,21 +218,23 @@ namespace QuickMon.Collectors
             if (currentState.CurrentValue.ToString() == "" && currentState.ChildStates.Count > 0)
             {
                 currentState.CurrentValue = (average / currentState.ChildStates.Count).ToString("0.0");
-                currentState.CurrentValueUnit = "% (avg)";
+                currentState.CurrentValueUnit = "Bytes/Sec (avg)";
             }
 
             return currentState;
         }
-        
+
     }
-    public class NIXDiskSpaceSubEntry : ICollectorConfigSubEntry
+
+    public class NIXDiskIOSubEntry : ICollectorConfigSubEntry
     {
-        public NIXDiskSpaceSubEntry()
+        public NIXDiskIOSubEntry()
         {
             WarningValue = 10;
             ErrorValue = 5;
         }
-        public string FileSystemName { get; set; }
+
+        public string DiskName { get; set; }
         public double WarningValue { get; set; }
         public double ErrorValue { get; set; }
         public bool PrimaryUIValue { get; set; }
@@ -242,14 +242,15 @@ namespace QuickMon.Collectors
         #region ICollectorConfigSubEntry Members
         public string Description
         {
-            get { return string.Format("{0} Warn:{1} Err:{2}", FileSystemName, WarningValue, ErrorValue); }
+            get { return string.Format("{0} Warn:{1} Err:{2}", DiskName, WarningValue, ErrorValue); }
         }
         #endregion
     }
-    internal class DiskSpaceInfoState
+
+    public class DiskIOInfoState
     {
-        public DiskInfo FileSystemInfo { get; set; }
-        public NIXDiskSpaceSubEntry AlertDefinition { get; set; }
+        public DiskIOInfo DiskInfo { get; set; }
+        public NIXDiskIOSubEntry AlertDefinition { get; set; }
         public CollectorState State { get; set; }
     }
 }
