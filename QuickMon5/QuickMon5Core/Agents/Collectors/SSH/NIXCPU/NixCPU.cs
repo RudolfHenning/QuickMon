@@ -153,7 +153,9 @@ namespace QuickMon.Collectors
 
             try
             {
-                List<CPUInfo> cpuInfos = CPUInfo.GetCurrentCPUPerc(SSHConnection.GetConnection(), MSSampleDelay);
+                Renci.SshNet.SshClient sshConnection = SSHConnection.GetConnection();
+                List<CPUInfo> cpuInfos = CPUInfo.GetCurrentCPUPerc(sshConnection, MSSampleDelay);
+                SSHConnection.CloseConnection();
                 currentState.State = CollectorState.NotAvailable;
                 if (cpuInfos.Count > 0)
                 {
@@ -176,42 +178,6 @@ namespace QuickMon.Collectors
                     };
                     currentState.ChildStates.Add(cpuState);
                 }
-
-
-
-                //if (UseOnlyTotalCPUvalue)
-                //{
-                   
-                //    if (cpuInfos.Count > 0)
-                //    {
-                //        currentCPUState = GetState(cpuInfos[0].CPUPerc);
-                //        currentState.State = currentCPUState;
-                //        currentState.CurrentValue = cpuInfos[0].CPUPerc.ToString("0.0");
-                //    }
-                //}
-                //else
-                //{
-                //    if (cpuInfos.Count > 0)
-                //    {
-                //        currentState.CurrentValue = cpuInfos[0].CPUPerc.ToString("0.0");
-                //    }
-                //    for (int i = 1; i < cpuInfos.Count; i++)
-                //    {
-                //        CollectorState currentCPUState = GetState(cpuInfos[i].CPUPerc);
-                //        if ((int)currentCPUState > (int)currentState.State)
-                //        {
-                //            currentState.State = currentCPUState;
-                //        }
-                //        MonitorState cpuState = new MonitorState()
-                //        {
-                //            ForAgent = cpuInfos[i].Name,
-                //            State = currentCPUState,
-                //            CurrentValue = cpuInfos[i].CPUPerc.ToString("0.0"),
-                //            CurrentValueUnit = "%"
-                //        };
-                //        currentState.ChildStates.Add(cpuState);
-                //    }
-                //}
             }
             catch (Exception wsException)
             {

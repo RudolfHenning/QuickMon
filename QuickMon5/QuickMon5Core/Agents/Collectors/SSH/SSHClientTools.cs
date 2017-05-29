@@ -40,92 +40,159 @@ namespace QuickMon.SSH
         public string PrivateKeyFile { get; set; }
         public string PassPhrase { get; set; }
         public bool Persistent { get; set; }
+        public string ConnectionName { get; set; }
         public bool UseConnectionString { get; set; }
+        public string ConnectionString { get; set; }
         private Renci.SshNet.SshClient currentConnection = null;
 
         public static string FormatSSHConnection(SSHConnectionDetails connection, bool forDisplayOnly = true)
         {
             string output = "";
             if (forDisplayOnly)
-                output = string.Format("Computer={0}:{1};SecOpt={2};User={3};PrivateKeyFile={4};Persistent={5}", 
+                output = string.Format("Name={0};Computer={1}:{2};SecOpt={3};User={4};PrivateKeyFile={5};Persistent={6}",
+                    connection.ConnectionName,
                     connection.ComputerName, 
                     connection.SSHPort, 
-                    connection.SSHSecurityOption == SSHSecurityOption.Password ? "Pwd" : "PrvtKey", 
+                    connection.SSHSecurityOption.ToString(), 
                     connection.UserName, 
                     connection.PrivateKeyFile, 
-                    connection.Persistent ? "Yes" : "No");
+                    connection.Persistent ? "True" : "False");
             else
-                output = string.Format("Computer={0}:{1};SecOpt={2};User={3};Pass={4};PrivateKeyFile={5};PassPhrase={6};Persistent={7}", 
+                output = string.Format("Name={0};Computer={1}:{2};SecOpt={3};User={4};Pass={5};PrivateKeyFile={6};PassPhrase={7};Persistent={8}",
+                    connection.ConnectionName,
                     connection.ComputerName, 
                     connection.SSHPort, 
-                    connection.SSHSecurityOption == SSHSecurityOption.Password ? "Pwd" : "PrvtKey", 
+                    connection.SSHSecurityOption.ToString(), 
                     connection.UserName,
                     connection.Password,
                     connection.PrivateKeyFile,
                     connection.PassPhrase,
-                    connection.Persistent ? "Yes" : "No");
+                    connection.Persistent ? "True" : "False");
             return output;
         }
 
+        public static void FromConnectionString(SSHConnectionDetails conn)
+        {
+            string sshConnectionString = conn.ConnectionString;
+            if (sshConnectionString.Length > 0)
+            {
+                if (System.IO.File.Exists(sshConnectionString))
+                {
+                    sshConnectionString = System.IO.File.ReadAllText(sshConnectionString);
+                }
+
+                string[] pa = sshConnectionString.Split(';');
+                foreach (string s in pa)
+                {
+                    if (s.ToLower().StartsWith("name="))
+                    {
+                        conn.ConnectionName = s.Substring("name=".Length);
+                    }
+                    if (s.ToLower().StartsWith("computer="))
+                    {
+                        string computerName = s.Substring("computer=".Length);
+                        int port = 22;
+                        if (computerName.Contains(':') && computerName.Split(':')[1].IsInteger())
+                        {
+                            port = int.Parse(computerName.Split(':')[1]);
+                            computerName = computerName.Split(':')[0];
+                        }
+                        conn.ComputerName = computerName;
+                        conn.SSHPort = port;
+                    }
+                    if (s.ToLower().StartsWith("secopt="))
+                    {
+                        conn.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(s.Substring("secopt=".Length));
+                    }
+                    if (s.ToLower().StartsWith("user="))
+                    {
+                        conn.UserName = s.Substring("user=".Length);
+                    }
+                    if (s.ToLower().StartsWith("pass="))
+                    {
+                        conn.Password = s.Substring("pass=".Length);
+                    }
+                    if (s.ToLower().StartsWith("privatekeyfile="))
+                    {
+                        conn.PrivateKeyFile = s.Substring("privatekeyfile=".Length);
+                    }
+                    if (s.ToLower().StartsWith("passphrase="))
+                    {
+                        conn.PassPhrase = s.Substring("passphrase=".Length);
+                    }
+                    if (s.ToLower().StartsWith("persistent="))
+                    {
+                        conn.Persistent = FormatUtils.NBool(s.Substring("persistent=".Length));
+                    }
+                }
+            }
+        }
         public static SSHConnectionDetails FromXmlElement(System.Xml.XmlElement node)
         {
             SSHConnectionDetails conn = new SSHConnectionDetails();
             conn.UseConnectionString = node.ReadXmlElementAttr("useConnStr", false);
+            conn.ConnectionString = node.ReadXmlElementAttr("connStr", "");
 
-            bool redConnectionString = true;
             if (conn.UseConnectionString)
             {
                 //Parse ConnectionString
-                string sshConnectionString = node.ReadXmlElementAttr("connStr", "");
-                if (sshConnectionString.Length == 0)
-                {
-                    redConnectionString = false;
-                }
-                else
-                {
-                    string[] pa = sshConnectionString.Split(';');
-                    foreach (string s in pa)
-                    {
-                        if (s.ToLower().StartsWith("computer="))
-                        {
-                            string computerName = s.Substring("computer=".Length);
-                            int port = 22;
-                            if (computerName.Contains(':') && computerName.Split(':')[1].IsInteger())
-                            {
-                                port = int.Parse(computerName.Split(':')[1]);
-                                computerName = computerName.Split(':')[0];
-                            }
-                            conn.ComputerName = computerName;
-                            conn.SSHPort = port;
-                        }
-                        if (s.ToLower().StartsWith("secopt="))
-                        {
-                            conn.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(s.Substring("secopt=".Length));
-                        }
-                        if (s.ToLower().StartsWith("user="))
-                        {
-                            conn.UserName = s.Substring("user=".Length);
-                        }
-                        if (s.ToLower().StartsWith("pass="))
-                        {
-                            conn.Password = s.Substring("pass=".Length);
-                        }
-                        if (s.ToLower().StartsWith("privatekeyfile="))
-                        {
-                            conn.PrivateKeyFile = s.Substring("privatekeyfile=".Length);
-                        }
-                        if (s.ToLower().StartsWith("passphrase="))
-                        {
-                            conn.PassPhrase = s.Substring("passphrase=".Length);
-                        }
-                        if (s.ToLower().StartsWith("persistent="))
-                        {
-                            conn.Persistent = FormatUtils.NBool(s.Substring("persistent=".Length));
-                        }
-                    }
-                }
+                FromConnectionString(conn);
+
+                //string sshConnectionString = conn.ConnectionString;
+                //if (sshConnectionString.Length > 0)                
+                //{
+                //    if (System.IO.File.Exists(sshConnectionString))
+                //    {
+                //        sshConnectionString = System.IO.File.ReadAllText(sshConnectionString);
+                //    }
+
+                //    string[] pa = sshConnectionString.Split(';');
+                //    foreach (string s in pa)
+                //    {
+                //        if (s.ToLower().StartsWith("name="))
+                //        {
+                //            conn.ConnectionName = s.Substring("name=".Length);
+                //        }
+                //        if (s.ToLower().StartsWith("computer="))
+                //        {
+                //            string computerName = s.Substring("computer=".Length);
+                //            int port = 22;
+                //            if (computerName.Contains(':') && computerName.Split(':')[1].IsInteger())
+                //            {
+                //                port = int.Parse(computerName.Split(':')[1]);
+                //                computerName = computerName.Split(':')[0];
+                //            }
+                //            conn.ComputerName = computerName;
+                //            conn.SSHPort = port;
+                //        }
+                //        if (s.ToLower().StartsWith("secopt="))
+                //        {
+                //            conn.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(s.Substring("secopt=".Length));
+                //        }
+                //        if (s.ToLower().StartsWith("user="))
+                //        {
+                //            conn.UserName = s.Substring("user=".Length);
+                //        }
+                //        if (s.ToLower().StartsWith("pass="))
+                //        {
+                //            conn.Password = s.Substring("pass=".Length);
+                //        }
+                //        if (s.ToLower().StartsWith("privatekeyfile="))
+                //        {
+                //            conn.PrivateKeyFile = s.Substring("privatekeyfile=".Length);
+                //        }
+                //        if (s.ToLower().StartsWith("passphrase="))
+                //        {
+                //            conn.PassPhrase = s.Substring("passphrase=".Length);
+                //        }
+                //        if (s.ToLower().StartsWith("persistent="))
+                //        {
+                //            conn.Persistent = FormatUtils.NBool(s.Substring("persistent=".Length));
+                //        }
+                //    }
+                //}
             }
-            if (!conn.UseConnectionString || !redConnectionString)
+            if (!conn.UseConnectionString || conn.ConnectionString.Length == 0)
             {
                 conn.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(node.ReadXmlElementAttr("sshSecOpt", "password"));
                 conn.ComputerName = node.ReadXmlElementAttr("machine", ".");
@@ -135,6 +202,7 @@ namespace QuickMon.SSH
                 conn.PrivateKeyFile = node.ReadXmlElementAttr("privateKeyFile", "");
                 conn.PassPhrase = node.ReadXmlElementAttr("passPhrase", "");
                 conn.Persistent = node.ReadXmlElementAttr("persistent", false);
+                conn.ConnectionName = node.ReadXmlElementAttr("name", "");
             }
 
             return conn;
@@ -153,10 +221,18 @@ namespace QuickMon.SSH
                 node.SetAttributeValue("privateKeyFile", PrivateKeyFile);
                 node.SetAttributeValue("passPhrase", PassPhrase);
                 node.SetAttributeValue("persistent", Persistent);
+                node.SetAttributeValue("name", ConnectionName);
             }
-            else
+            else 
             {
-                node.SetAttributeValue("connStr", FormatSSHConnection(this, true));
+                if (ConnectionString.Contains(";")) //if previous connection string contains ';'
+                {
+                    node.SetAttributeValue("connStr", FormatSSHConnection(this, false));
+                }
+                else
+                {
+                    node.SetAttributeValue("connStr", ConnectionString);
+                }
             }
         }
 
@@ -193,6 +269,10 @@ namespace QuickMon.SSH
         private static string keyBoardPassword = "";
         public static Renci.SshNet.SshClient GetSSHConnection(SSHConnectionDetails sshConnection)
         {
+            if (sshConnection.UseConnectionString)
+            {
+                SSHConnectionDetails.FromConnectionString(sshConnection);
+            }
             return GetSSHConnection(sshConnection.SSHSecurityOption, sshConnection.ComputerName, sshConnection.SSHPort, sshConnection.UserName, sshConnection.Password, sshConnection.PrivateKeyFile, sshConnection.PassPhrase);
         }
         public static Renci.SshNet.SshClient GetSSHConnection(SSHSecurityOption sshSecurityOption, string machineName, int sshPort, string userName, string password, string privateKeyFile, string passCodeOrPhrase)
