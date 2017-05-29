@@ -16,6 +16,31 @@ namespace QuickMon
             else
                 return anyValue.ToString();
         }
+        public static bool NBool(object anyVal, bool defaultValue = false)
+        {
+            if (anyVal == null || anyVal == DBNull.Value)
+                return defaultValue;
+            else if (anyVal is bool)
+                return (bool)anyVal;
+            else if (anyVal is int)
+                return (int)anyVal != 0;
+            else if (anyVal.ToString() == "0")
+                return false;
+            else if (anyVal.ToString() == "1")
+                return true;
+            else if (anyVal.ToString().ToLower() == "no")
+                return false;
+            else if (anyVal.ToString().ToLower() == "yes")
+                return true;
+            else
+            {
+                bool tmp;
+                if (bool.TryParse(anyVal.ToString(), out tmp))
+                    return tmp;
+                else
+                    return false;
+            }
+        }
         public static bool IsDouble(this string s)
         {
             if (s == null || s.Length == 0)

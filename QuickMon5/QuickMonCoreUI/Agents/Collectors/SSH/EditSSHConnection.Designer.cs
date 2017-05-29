@@ -43,6 +43,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.sshPortNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.optKeyboardInteractive = new System.Windows.Forms.RadioButton();
             this.optPrivateKey = new System.Windows.Forms.RadioButton();
             this.optPassword = new System.Windows.Forms.RadioButton();
             this.label21 = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.cmdTest = new System.Windows.Forms.Button();
             this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.chkPersistent = new System.Windows.Forms.CheckBox();
-            this.optKeyboardInteractive = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.sshPortNumericUpDown)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.SuspendLayout();
@@ -170,7 +170,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(371, 12);
+            this.label19.Location = new System.Drawing.Point(371, 10);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(50, 13);
             this.label19.TabIndex = 2;
@@ -179,7 +179,7 @@
             // 
             // sshPortNumericUpDown
             // 
-            this.sshPortNumericUpDown.Location = new System.Drawing.Point(370, 28);
+            this.sshPortNumericUpDown.Location = new System.Drawing.Point(370, 27);
             this.sshPortNumericUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -212,6 +212,17 @@
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Auhentication method";
+            // 
+            // optKeyboardInteractive
+            // 
+            this.optKeyboardInteractive.AutoSize = true;
+            this.optKeyboardInteractive.Location = new System.Drawing.Point(250, 21);
+            this.optKeyboardInteractive.Name = "optKeyboardInteractive";
+            this.optKeyboardInteractive.Size = new System.Drawing.Size(122, 17);
+            this.optKeyboardInteractive.TabIndex = 2;
+            this.optKeyboardInteractive.Text = "Keyboard interactive";
+            this.optKeyboardInteractive.UseVisualStyleBackColor = true;
+            this.optKeyboardInteractive.CheckedChanged += new System.EventHandler(this.optKeyboardInteractive_CheckedChanged);
             // 
             // optPrivateKey
             // 
@@ -281,17 +292,6 @@
             this.chkPersistent.TabIndex = 14;
             this.chkPersistent.Text = "Persistent (try to keep connection open for reuse)";
             this.chkPersistent.UseVisualStyleBackColor = true;
-            // 
-            // optKeyboardInteractive
-            // 
-            this.optKeyboardInteractive.AutoSize = true;
-            this.optKeyboardInteractive.Location = new System.Drawing.Point(250, 21);
-            this.optKeyboardInteractive.Name = "optKeyboardInteractive";
-            this.optKeyboardInteractive.Size = new System.Drawing.Size(122, 17);
-            this.optKeyboardInteractive.TabIndex = 2;
-            this.optKeyboardInteractive.Text = "Keyboard interactive";
-            this.optKeyboardInteractive.UseVisualStyleBackColor = true;
-            this.optKeyboardInteractive.CheckedChanged += new System.EventHandler(this.optKeyboardInteractive_CheckedChanged);
             // 
             // EditSSHConnection
             // 

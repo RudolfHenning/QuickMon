@@ -28,6 +28,10 @@ namespace QuickMon.SSH
 
     public class SSHConnectionDetails
     {
+        public SSHConnectionDetails()
+        {
+            UseConnectionString = false;
+        }
         public SSHSecurityOption SSHSecurityOption { get; set; }
         public string ComputerName { get; set; }
         public int SSHPort { get; set; }
@@ -36,37 +40,124 @@ namespace QuickMon.SSH
         public string PrivateKeyFile { get; set; }
         public string PassPhrase { get; set; }
         public bool Persistent { get; set; }
+        public bool UseConnectionString { get; set; }
         private Renci.SshNet.SshClient currentConnection = null;
 
-        public static string FormatSSHConnection(SSHConnectionDetails connection)
+        public static string FormatSSHConnection(SSHConnectionDetails connection, bool forDisplayOnly = true)
         {
-            return string.Format("Computer={0}:{1},Sec={2},User={3},PrvtKeyFile={4},Persistent={5}", connection.ComputerName, connection.SSHPort, connection.SSHSecurityOption == SSHSecurityOption.Password ? "Pwd" : "PrvtKey", connection.UserName, connection.PrivateKeyFile, connection.Persistent ? "Yes" : "No");
+            string output = "";
+            if (forDisplayOnly)
+                output = string.Format("Computer={0}:{1};SecOpt={2};User={3};PrivateKeyFile={4};Persistent={5}", 
+                    connection.ComputerName, 
+                    connection.SSHPort, 
+                    connection.SSHSecurityOption == SSHSecurityOption.Password ? "Pwd" : "PrvtKey", 
+                    connection.UserName, 
+                    connection.PrivateKeyFile, 
+                    connection.Persistent ? "Yes" : "No");
+            else
+                output = string.Format("Computer={0}:{1};SecOpt={2};User={3};Pass={4};PrivateKeyFile={5};PassPhrase={6};Persistent={7}", 
+                    connection.ComputerName, 
+                    connection.SSHPort, 
+                    connection.SSHSecurityOption == SSHSecurityOption.Password ? "Pwd" : "PrvtKey", 
+                    connection.UserName,
+                    connection.Password,
+                    connection.PrivateKeyFile,
+                    connection.PassPhrase,
+                    connection.Persistent ? "Yes" : "No");
+            return output;
         }
 
         public static SSHConnectionDetails FromXmlElement(System.Xml.XmlElement node)
         {
             SSHConnectionDetails conn = new SSHConnectionDetails();
-            conn.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(node.ReadXmlElementAttr("sshSecOpt", "password"));
-            conn.ComputerName = node.ReadXmlElementAttr("machine", ".");
-            conn.SSHPort = node.ReadXmlElementAttr("sshPort", 22);
-            conn.UserName = node.ReadXmlElementAttr("userName", "");
-            conn.Password = node.ReadXmlElementAttr("password", "");
-            conn.PrivateKeyFile = node.ReadXmlElementAttr("privateKeyFile", "");
-            conn.PassPhrase = node.ReadXmlElementAttr("passPhrase", "");
-            conn.Persistent = node.ReadXmlElementAttr("persistent", false);
+            conn.UseConnectionString = node.ReadXmlElementAttr("useConnStr", false);
+
+            bool redConnectionString = true;
+            if (conn.UseConnectionString)
+            {
+                //Parse ConnectionString
+                string sshConnectionString = node.ReadXmlElementAttr("connStr", "");
+                if (sshConnectionString.Length == 0)
+                {
+                    redConnectionString = false;
+                }
+                else
+                {
+                    string[] pa = sshConnectionString.Split(';');
+                    foreach (string s in pa)
+                    {
+                        if (s.ToLower().StartsWith("computer="))
+                        {
+                            string computerName = s.Substring("computer=".Length);
+                            int port = 22;
+                            if (computerName.Contains(':') && computerName.Split(':')[1].IsInteger())
+                            {
+                                port = int.Parse(computerName.Split(':')[1]);
+                                computerName = computerName.Split(':')[0];
+                            }
+                            conn.ComputerName = computerName;
+                            conn.SSHPort = port;
+                        }
+                        if (s.ToLower().StartsWith("secopt="))
+                        {
+                            conn.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(s.Substring("secopt=".Length));
+                        }
+                        if (s.ToLower().StartsWith("user="))
+                        {
+                            conn.UserName = s.Substring("user=".Length);
+                        }
+                        if (s.ToLower().StartsWith("pass="))
+                        {
+                            conn.Password = s.Substring("pass=".Length);
+                        }
+                        if (s.ToLower().StartsWith("privatekeyfile="))
+                        {
+                            conn.PrivateKeyFile = s.Substring("privatekeyfile=".Length);
+                        }
+                        if (s.ToLower().StartsWith("passphrase="))
+                        {
+                            conn.PassPhrase = s.Substring("passphrase=".Length);
+                        }
+                        if (s.ToLower().StartsWith("persistent="))
+                        {
+                            conn.Persistent = FormatUtils.NBool(s.Substring("persistent=".Length));
+                        }
+                    }
+                }
+            }
+            if (!conn.UseConnectionString || !redConnectionString)
+            {
+                conn.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(node.ReadXmlElementAttr("sshSecOpt", "password"));
+                conn.ComputerName = node.ReadXmlElementAttr("machine", ".");
+                conn.SSHPort = node.ReadXmlElementAttr("sshPort", 22);
+                conn.UserName = node.ReadXmlElementAttr("userName", "");
+                conn.Password = node.ReadXmlElementAttr("password", "");
+                conn.PrivateKeyFile = node.ReadXmlElementAttr("privateKeyFile", "");
+                conn.PassPhrase = node.ReadXmlElementAttr("passPhrase", "");
+                conn.Persistent = node.ReadXmlElementAttr("persistent", false);
+            }
+
             return conn;
         }
 
         public void SaveToXmlElementAttr(System.Xml.XmlElement node)
         {
-            node.SetAttributeValue("sshSecOpt", SSHSecurityOption.ToString());
-            node.SetAttributeValue("machine", ComputerName);
-            node.SetAttributeValue("sshPort", SSHPort);
-            node.SetAttributeValue("userName", UserName);
-            node.SetAttributeValue("password", Password);
-            node.SetAttributeValue("privateKeyFile", PrivateKeyFile);
-            node.SetAttributeValue("passPhrase", PassPhrase);
-            node.SetAttributeValue("persistent", Persistent);
+            node.SetAttributeValue("useConnStr", UseConnectionString);
+            if (!UseConnectionString)
+            {                
+                node.SetAttributeValue("sshSecOpt", SSHSecurityOption.ToString());
+                node.SetAttributeValue("machine", ComputerName);
+                node.SetAttributeValue("sshPort", SSHPort);
+                node.SetAttributeValue("userName", UserName);
+                node.SetAttributeValue("password", Password);
+                node.SetAttributeValue("privateKeyFile", PrivateKeyFile);
+                node.SetAttributeValue("passPhrase", PassPhrase);
+                node.SetAttributeValue("persistent", Persistent);
+            }
+            else
+            {
+                node.SetAttributeValue("connStr", FormatSSHConnection(this, true));
+            }
         }
 
         public Renci.SshNet.SshClient GetConnection()
