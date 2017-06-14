@@ -97,6 +97,6 @@ Next
 		Service install must be improved
 			Username/pwd must verified before dialog closes. Allow user to correct.
 			Service install state not updating after installed
-		Remote Excution failed.
+		Remote Execution failed.
 
 		Relook all Collector Detail Window More details

@@ -334,14 +334,83 @@ else {
     "Error"
     }
 }</dataSource>
-										<testConditions testSequence="GWE">
-											<success testType="Contains">Good</success>
-											<warning testType="Contains">Warning</warning>
-											<error testType="Contains">Error</error>
-										</testConditions>
-									</carvceEntry>
-								</carvcesEntries>
-							</config>
-						</collectorAgent>
-					</template>
-				</quickMonTemplate>
+						<testConditions testSequence="GWE">
+							<success testType="Contains">Good</success>
+							<warning testType="Contains">Warning</warning>
+							<error testType="Contains">Error</error>
+						</testConditions>
+					</carvceEntry>
+				</carvcesEntries>
+			</config>
+		</collectorAgent>
+	</template>
+	<template name="Eventlog Notifier" type="NotifierHost" class="NotifierHost" description="Eventlog Notifier">
+		<notifierHost name="Eventlog Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+			<!-- collectorHosts -->
+			<collectorHosts />
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Categories -->
+			<categories>
+				<category>*</category>
+			</categories>
+			<!-- Config variables -->
+			<configVars />
+			<recordOnHosts />
+			<!-- notifierAgents -->
+			<notifierAgents>
+				<notifierAgent name="Event Log Notifier" type="QuickMon.Notifiers.EventLogNotifier" enabled="True">
+					<config>
+						<eventLog computer="." eventLog="Application" eventSource="QuickMon" successEventID="0" warningEventID="1" errorEventID="2" />
+					</config>
+				</notifierAgent>
+			</notifierAgents>
+		</notifierHost>
+	</template>
+	<template name="Log file Notifier" type="NotifierHost" class="NotifierHost" description="Log file Notifier">
+		<notifierHost name="Log file Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+			<!-- collectorHosts -->
+			<collectorHosts />
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Categories -->
+			<categories>
+				<category>*</category>
+			</categories>
+			<!-- Config variables -->
+			<configVars />
+			<recordOnHosts />
+			<!-- notifierAgents -->
+			<notifierAgents>
+				<notifierAgent name="Log File Notifier" type="QuickMon.Notifiers.LogFileNotifier" enabled="True">
+					<config>
+						<logFile path="c:\Temp\QuickMonLog.log" createNewFileSizeKB="0" />
+					</config>
+				</notifierAgent>
+			</notifierAgents>
+		</notifierHost>
+	</template>
+	<template name="SMTP Notifier" type="NotifierHost" class="NotifierHost" description="SMTP Notifier">
+		<notifierHost name="SMTP Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+			<!-- collectorHosts -->
+			<collectorHosts />
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Categories -->
+			<categories>
+				<category>*</category>
+			</categories>
+			<!-- Config variables -->
+			<configVars />
+			<recordOnHosts />
+			<!-- notifierAgents -->
+			<notifierAgents>
+				<notifierAgent name="SMTP Notifier" type="QuickMon.Notifiers.SMTPNotifier" enabled="True">
+					<config>
+						<smtp hostServer="smtp.somewhere.com" useDefaultCredentials="True" domain="" userName="" password="" fromAddress="user.account@somewhere.com" toAddress="user.account@somewhere.com" senderAddress="user.account@somewhere.com" replyToAddress="user.account@somewhere.com" mailPriority="0" useTLS="False" isBodyHtml="True" port="25" subject="%AlertLevel% - %CollectorName%" body="QuickMon alert raised for &lt;b&gt;'%CollectorName%'&lt;/b&gt;&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Agents:&lt;/b&gt; %CollectorAgents%&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Details&lt;/b&gt;&lt;blockquote&gt;%Details%&lt;/blockquote&gt;" />
+					</config>
+				</notifierAgent>
+			</notifierAgents>
+		</notifierHost>
+	</template>
+</quickMonTemplate>
