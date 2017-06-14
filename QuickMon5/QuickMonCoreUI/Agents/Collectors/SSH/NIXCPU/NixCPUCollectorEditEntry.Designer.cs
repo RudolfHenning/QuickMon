@@ -58,10 +58,10 @@
             this.groupBox2.Controls.Add(this.warningNumericUpDown);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox2.Location = new System.Drawing.Point(12, 100);
+            this.groupBox2.Location = new System.Drawing.Point(12, 38);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(409, 57);
-            this.groupBox2.TabIndex = 16;
+            this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Alert triggering";
             // 
@@ -127,10 +127,10 @@
             this.chkUseOnlyTotalCPUvalue.Checked = true;
             this.chkUseOnlyTotalCPUvalue.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkUseOnlyTotalCPUvalue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseOnlyTotalCPUvalue.Location = new System.Drawing.Point(15, 77);
+            this.chkUseOnlyTotalCPUvalue.Location = new System.Drawing.Point(12, 12);
             this.chkUseOnlyTotalCPUvalue.Name = "chkUseOnlyTotalCPUvalue";
             this.chkUseOnlyTotalCPUvalue.Size = new System.Drawing.Size(124, 17);
-            this.chkUseOnlyTotalCPUvalue.TabIndex = 13;
+            this.chkUseOnlyTotalCPUvalue.TabIndex = 0;
             this.chkUseOnlyTotalCPUvalue.Text = "Total CPU value only";
             this.chkUseOnlyTotalCPUvalue.UseVisualStyleBackColor = true;
             // 
@@ -142,7 +142,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(346, 165);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 18;
+            this.cmdCancel.TabIndex = 9;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -153,7 +153,7 @@
             this.cmdOK.Location = new System.Drawing.Point(265, 165);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 17;
+            this.cmdOK.TabIndex = 8;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -162,25 +162,25 @@
             // 
             this.label2.AutoSize = true;
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label2.Location = new System.Drawing.Point(301, 79);
+            this.label2.Location = new System.Drawing.Point(298, 14);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(20, 13);
-            this.label2.TabIndex = 19;
+            this.label2.TabIndex = 3;
             this.label2.Text = "ms";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label1.Location = new System.Drawing.Point(151, 79);
+            this.label1.Location = new System.Drawing.Point(148, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 13);
-            this.label1.TabIndex = 14;
+            this.label1.TabIndex = 1;
             this.label1.Text = "2 Sample delay";
             // 
             // nudMSSampleDelay
             // 
-            this.nudMSSampleDelay.Location = new System.Drawing.Point(236, 77);
+            this.nudMSSampleDelay.Location = new System.Drawing.Point(233, 12);
             this.nudMSSampleDelay.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -193,7 +193,7 @@
             0});
             this.nudMSSampleDelay.Name = "nudMSSampleDelay";
             this.nudMSSampleDelay.Size = new System.Drawing.Size(59, 20);
-            this.nudMSSampleDelay.TabIndex = 15;
+            this.nudMSSampleDelay.TabIndex = 2;
             this.nudMSSampleDelay.Value = new decimal(new int[] {
             200,
             0,
@@ -205,10 +205,10 @@
             this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEditSSHConnection.AutoSize = true;
             this.lblEditSSHConnection.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblEditSSHConnection.Location = new System.Drawing.Point(396, 10);
+            this.lblEditSSHConnection.Location = new System.Drawing.Point(396, 98);
             this.lblEditSSHConnection.Name = "lblEditSSHConnection";
             this.lblEditSSHConnection.Size = new System.Drawing.Size(25, 13);
-            this.lblEditSSHConnection.TabIndex = 12;
+            this.lblEditSSHConnection.TabIndex = 6;
             this.lblEditSSHConnection.TabStop = true;
             this.lblEditSSHConnection.Text = "Edit";
             this.lblEditSSHConnection.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblEditSSHConnection_LinkClicked);
@@ -216,21 +216,21 @@
             // txtSSHConnection
             // 
             this.txtSSHConnection.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.txtSSHConnection.Location = new System.Drawing.Point(12, 26);
+            this.txtSSHConnection.Location = new System.Drawing.Point(12, 114);
             this.txtSSHConnection.Multiline = true;
             this.txtSSHConnection.Name = "txtSSHConnection";
             this.txtSSHConnection.ReadOnly = true;
             this.txtSSHConnection.Size = new System.Drawing.Size(409, 45);
-            this.txtSSHConnection.TabIndex = 11;
+            this.txtSSHConnection.TabIndex = 7;
             this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 10);
+            this.label9.Location = new System.Drawing.Point(12, 98);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(119, 13);
-            this.label9.TabIndex = 10;
+            this.label9.TabIndex = 5;
             this.label9.Text = "SSH Connection details";
             // 
             // NixCPUCollectorEditEntry

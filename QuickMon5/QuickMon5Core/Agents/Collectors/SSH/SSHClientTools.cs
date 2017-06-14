@@ -48,26 +48,46 @@ namespace QuickMon.SSH
         public static string FormatSSHConnection(SSHConnectionDetails connection, bool forDisplayOnly = true)
         {
             string output = "";
+
+
             if (forDisplayOnly)
-                output = string.Format("Name={0};Computer={1}:{2};SecOpt={3};User={4};PrivateKeyFile={5};Persistent={6}",
-                    connection.ConnectionName,
-                    connection.ComputerName, 
-                    connection.SSHPort, 
-                    connection.SSHSecurityOption.ToString(), 
-                    connection.UserName, 
-                    connection.PrivateKeyFile, 
-                    connection.Persistent ? "True" : "False");
+            {
+                if (connection.UseConnectionString && !connection.ConnectionString.Contains(';'))
+                {
+                    output = connection.ConnectionString;
+                }
+                else
+                {
+                    output = string.Format("Name={0};Computer={1}:{2};SecOpt={3};User={4};PrivateKeyFile={5};Persistent={6}",
+                        connection.ConnectionName,
+                        connection.ComputerName,
+                        connection.SSHPort,
+                        connection.SSHSecurityOption.ToString(),
+                        connection.UserName,
+                        connection.PrivateKeyFile,
+                        connection.Persistent ? "True" : "False");
+                }
+            }
             else
-                output = string.Format("Name={0};Computer={1}:{2};SecOpt={3};User={4};Pass={5};PrivateKeyFile={6};PassPhrase={7};Persistent={8}",
-                    connection.ConnectionName,
-                    connection.ComputerName, 
-                    connection.SSHPort, 
-                    connection.SSHSecurityOption.ToString(), 
-                    connection.UserName,
-                    connection.Password,
-                    connection.PrivateKeyFile,
-                    connection.PassPhrase,
-                    connection.Persistent ? "True" : "False");
+            {
+                if (connection.UseConnectionString)
+                {
+                    output = connection.ConnectionString;
+                }
+                else
+                {
+                    output = string.Format("Name={0};Computer={1}:{2};SecOpt={3};User={4};Pass={5};PrivateKeyFile={6};PassPhrase={7};Persistent={8}",
+                        connection.ConnectionName,
+                        connection.ComputerName,
+                        connection.SSHPort,
+                        connection.SSHSecurityOption.ToString(),
+                        connection.UserName,
+                        connection.Password,
+                        connection.PrivateKeyFile,
+                        connection.PassPhrase,
+                        connection.Persistent ? "True" : "False");
+                }
+            }
             return output;
         }
 
