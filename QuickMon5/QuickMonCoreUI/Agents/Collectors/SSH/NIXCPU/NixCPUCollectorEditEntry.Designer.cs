@@ -43,10 +43,12 @@
             this.lblEditSSHConnection = new System.Windows.Forms.LinkLabel();
             this.txtSSHConnection = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMSSampleDelay)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -139,7 +141,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 165);
+            this.cmdCancel.Location = new System.Drawing.Point(346, 191);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 9;
@@ -150,7 +152,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 165);
+            this.cmdOK.Location = new System.Drawing.Point(265, 191);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 8;
@@ -205,22 +207,23 @@
             this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEditSSHConnection.AutoSize = true;
             this.lblEditSSHConnection.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblEditSSHConnection.Location = new System.Drawing.Point(396, 98);
+            this.lblEditSSHConnection.Location = new System.Drawing.Point(296, 2);
             this.lblEditSSHConnection.Name = "lblEditSSHConnection";
-            this.lblEditSSHConnection.Size = new System.Drawing.Size(25, 13);
+            this.lblEditSSHConnection.Size = new System.Drawing.Size(109, 13);
             this.lblEditSSHConnection.TabIndex = 6;
             this.lblEditSSHConnection.TabStop = true;
-            this.lblEditSSHConnection.Text = "Edit";
+            this.lblEditSSHConnection.Text = "Edit connection string";
             this.lblEditSSHConnection.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblEditSSHConnection_LinkClicked);
             // 
             // txtSSHConnection
             // 
             this.txtSSHConnection.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.txtSSHConnection.Location = new System.Drawing.Point(12, 114);
+            this.txtSSHConnection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSSHConnection.Location = new System.Drawing.Point(3, 16);
             this.txtSSHConnection.Multiline = true;
             this.txtSSHConnection.Name = "txtSSHConnection";
             this.txtSSHConnection.ReadOnly = true;
-            this.txtSSHConnection.Size = new System.Drawing.Size(409, 45);
+            this.txtSSHConnection.Size = new System.Drawing.Size(403, 52);
             this.txtSSHConnection.TabIndex = 7;
             this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
             // 
@@ -233,12 +236,27 @@
             this.label9.TabIndex = 5;
             this.label9.Text = "SSH Connection details";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.lblEditSSHConnection);
+            this.groupBox1.Controls.Add(this.txtSSHConnection);
+            this.groupBox1.Location = new System.Drawing.Point(12, 114);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(409, 71);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "SSH Connection details";
+            // 
             // NixCPUCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 199);
+            this.ClientSize = new System.Drawing.Size(433, 225);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.chkUseOnlyTotalCPUvalue);
             this.Controls.Add(this.cmdCancel);
@@ -246,8 +264,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nudMSSampleDelay);
-            this.Controls.Add(this.lblEditSSHConnection);
-            this.Controls.Add(this.txtSSHConnection);
             this.Controls.Add(this.label9);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -262,6 +278,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMSSampleDelay)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,5 +301,6 @@
         private System.Windows.Forms.LinkLabel lblEditSSHConnection;
         private System.Windows.Forms.TextBox txtSSHConnection;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

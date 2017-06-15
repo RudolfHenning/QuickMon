@@ -28,6 +28,12 @@ namespace QuickMon.Collectors
         #region Private methods
         private void LoadEntryDetails()
         {
+            if (SSHConnectionDetails.ConnectionString != null && !SSHConnectionDetails.ConnectionString.Contains(';'))
+            {
+                txtConnectionString.Text = SSHConnectionDetails.ConnectionString;
+                SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(txtConnectionString.Text);
+            }
+
             txtMachineName.Text = SSHConnectionDetails.ComputerName;
             sshPortNumericUpDown.SaveValueSet(SSHConnectionDetails.SSHPort);
             optPrivateKey.Checked = SSHConnectionDetails.SSHSecurityOption == SSHSecurityOption.PrivateKey;
@@ -36,7 +42,7 @@ namespace QuickMon.Collectors
             txtPassword.Text = SSHConnectionDetails.Password;
             txtPrivateKeyFile.Text = SSHConnectionDetails.PrivateKeyFile;
             txtPassPhrase.Text = SSHConnectionDetails.PassPhrase;
-            chkPersistent.Checked = SSHConnectionDetails.Persistent;
+            chkPersistent.Checked = SSHConnectionDetails.Persistent;            
         }
         #endregion
 
@@ -87,6 +93,23 @@ namespace QuickMon.Collectors
             SSHConnectionDetails.PrivateKeyFile = txtPrivateKeyFile.Text;
             SSHConnectionDetails.PassPhrase = txtPassPhrase.Text;
             SSHConnectionDetails.Persistent = chkPersistent.Checked;
+            SSHConnectionDetails.ConnectionString = "";
+            SSHConnectionDetails.ConnectionString = SSHConnectionDetails.FormatSSHConnection(SSHConnectionDetails);
+            //SSHConnectionDetails.FormatSSHConnection(SSHConnectionDetails);
+            if (txtConnectionString.Text.Trim().Length > 0)
+            {                
+                try
+                {
+                    System.IO.File.WriteAllText(txtConnectionString.Text, SSHConnectionDetails.ConnectionString);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Saving connection", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+                SSHConnectionDetails.ConnectionString = txtConnectionString.Text;
+            }
+            
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }
@@ -108,9 +131,23 @@ namespace QuickMon.Collectors
             {
                 MessageBox.Show(string.Format("Fail!\r\n{0}", ex.Message), "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        } 
+        }
+
         #endregion
 
-
+        private void cmdOpenConnectionStringFile_Click(object sender, EventArgs e)
+        {
+            if (txtConnectionString.Text.Trim().Length > 0)
+            {
+                connectionStringFileOpenFileDialog.FileName = txtConnectionString.Text;
+                connectionStringFileOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtConnectionString.Text);
+            }
+            if (connectionStringFileOpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                
+                SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(connectionStringFileOpenFileDialog.FileName);
+                LoadEntryDetails();
+            }
+        }
     }
 }

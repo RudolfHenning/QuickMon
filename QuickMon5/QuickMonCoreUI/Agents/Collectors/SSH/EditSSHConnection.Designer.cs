@@ -51,6 +51,10 @@
             this.cmdTest = new System.Windows.Forms.Button();
             this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.chkPersistent = new System.Windows.Forms.CheckBox();
+            this.txtConnectionString = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmdOpenConnectionStringFile = new System.Windows.Forms.Button();
+            this.connectionStringFileOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.sshPortNumericUpDown)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +66,7 @@
             this.txtPassword.Location = new System.Drawing.Point(122, 138);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(299, 20);
+            this.txtPassword.Size = new System.Drawing.Size(309, 20);
             this.txtPassword.TabIndex = 8;
             // 
             // label24
@@ -79,7 +83,7 @@
             this.cmdBrowsePrivateKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowsePrivateKeyFile.Enabled = false;
             this.cmdBrowsePrivateKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowsePrivateKeyFile.Location = new System.Drawing.Point(380, 167);
+            this.cmdBrowsePrivateKeyFile.Location = new System.Drawing.Point(390, 167);
             this.cmdBrowsePrivateKeyFile.Name = "cmdBrowsePrivateKeyFile";
             this.cmdBrowsePrivateKeyFile.Size = new System.Drawing.Size(41, 23);
             this.cmdBrowsePrivateKeyFile.TabIndex = 11;
@@ -102,7 +106,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMachineName.Location = new System.Drawing.Point(12, 27);
             this.txtMachineName.Name = "txtMachineName";
-            this.txtMachineName.Size = new System.Drawing.Size(352, 20);
+            this.txtMachineName.Size = new System.Drawing.Size(362, 20);
             this.txtMachineName.TabIndex = 1;
             // 
             // txtPassPhrase
@@ -112,7 +116,7 @@
             this.txtPassPhrase.Location = new System.Drawing.Point(122, 195);
             this.txtPassPhrase.Name = "txtPassPhrase";
             this.txtPassPhrase.PasswordChar = '*';
-            this.txtPassPhrase.Size = new System.Drawing.Size(299, 20);
+            this.txtPassPhrase.Size = new System.Drawing.Size(309, 20);
             this.txtPassPhrase.TabIndex = 13;
             // 
             // label18
@@ -130,17 +134,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtUsername.Location = new System.Drawing.Point(122, 112);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(299, 20);
+            this.txtUsername.Size = new System.Drawing.Size(309, 20);
             this.txtUsername.TabIndex = 6;
             // 
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 243);
+            this.cmdOK.Location = new System.Drawing.Point(275, 284);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 16;
+            this.cmdOK.TabIndex = 19;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -150,10 +154,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 243);
+            this.cmdCancel.Location = new System.Drawing.Point(356, 284);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 17;
+            this.cmdCancel.TabIndex = 20;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -164,13 +168,14 @@
             this.txtPrivateKeyFile.Location = new System.Drawing.Point(122, 169);
             this.txtPrivateKeyFile.Name = "txtPrivateKeyFile";
             this.txtPrivateKeyFile.ReadOnly = true;
-            this.txtPrivateKeyFile.Size = new System.Drawing.Size(252, 20);
+            this.txtPrivateKeyFile.Size = new System.Drawing.Size(262, 20);
             this.txtPrivateKeyFile.TabIndex = 10;
             // 
             // label19
             // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(371, 10);
+            this.label19.Location = new System.Drawing.Point(377, 10);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(50, 13);
             this.label19.TabIndex = 2;
@@ -179,7 +184,8 @@
             // 
             // sshPortNumericUpDown
             // 
-            this.sshPortNumericUpDown.Location = new System.Drawing.Point(370, 27);
+            this.sshPortNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sshPortNumericUpDown.Location = new System.Drawing.Point(380, 27);
             this.sshPortNumericUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -208,7 +214,7 @@
             this.groupBox5.Controls.Add(this.optPassword);
             this.groupBox5.Location = new System.Drawing.Point(12, 54);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(409, 50);
+            this.groupBox5.Size = new System.Drawing.Size(419, 50);
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Auhentication method";
@@ -270,11 +276,11 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTest.Location = new System.Drawing.Point(18, 243);
+            this.cmdTest.Location = new System.Drawing.Point(12, 284);
             this.cmdTest.Name = "cmdTest";
-            this.cmdTest.Size = new System.Drawing.Size(75, 23);
-            this.cmdTest.TabIndex = 15;
-            this.cmdTest.Text = "Test";
+            this.cmdTest.Size = new System.Drawing.Size(105, 23);
+            this.cmdTest.TabIndex = 18;
+            this.cmdTest.Text = "Test connection";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
             // 
@@ -293,12 +299,51 @@
             this.chkPersistent.Text = "Persistent (try to keep connection open for reuse)";
             this.chkPersistent.UseVisualStyleBackColor = true;
             // 
+            // txtConnectionString
+            // 
+            this.txtConnectionString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtConnectionString.Location = new System.Drawing.Point(12, 258);
+            this.txtConnectionString.Name = "txtConnectionString";
+            this.txtConnectionString.Size = new System.Drawing.Size(372, 20);
+            this.txtConnectionString.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 241);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(309, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Connection string file (connectring string will be saved to this file)";
+            // 
+            // cmdOpenConnectionStringFile
+            // 
+            this.cmdOpenConnectionStringFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdOpenConnectionStringFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOpenConnectionStringFile.Location = new System.Drawing.Point(390, 256);
+            this.cmdOpenConnectionStringFile.Name = "cmdOpenConnectionStringFile";
+            this.cmdOpenConnectionStringFile.Size = new System.Drawing.Size(41, 23);
+            this.cmdOpenConnectionStringFile.TabIndex = 17;
+            this.cmdOpenConnectionStringFile.Text = "- - -";
+            this.cmdOpenConnectionStringFile.UseVisualStyleBackColor = true;
+            this.cmdOpenConnectionStringFile.Click += new System.EventHandler(this.cmdOpenConnectionStringFile_Click);
+            // 
+            // connectionStringFileOpenFileDialog
+            // 
+            this.connectionStringFileOpenFileDialog.DefaultExt = "txt";
+            this.connectionStringFileOpenFileDialog.Filter = "Files|*.txt";
+            this.connectionStringFileOpenFileDialog.Title = "Connection string file";
+            // 
             // EditSSHConnection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 277);
+            this.ClientSize = new System.Drawing.Size(443, 318);
+            this.Controls.Add(this.cmdOpenConnectionStringFile);
+            this.Controls.Add(this.txtConnectionString);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.chkPersistent);
             this.Controls.Add(this.cmdTest);
             this.Controls.Add(this.txtPassword);
@@ -357,5 +402,9 @@
         private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
         private System.Windows.Forms.CheckBox chkPersistent;
         private System.Windows.Forms.RadioButton optKeyboardInteractive;
+        private System.Windows.Forms.TextBox txtConnectionString;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button cmdOpenConnectionStringFile;
+        private System.Windows.Forms.OpenFileDialog connectionStringFileOpenFileDialog;
     }
 }
