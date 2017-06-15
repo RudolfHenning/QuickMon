@@ -303,10 +303,13 @@
             // 
             this.txtConnectionString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtConnectionString.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtConnectionString.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtConnectionString.Location = new System.Drawing.Point(12, 258);
             this.txtConnectionString.Name = "txtConnectionString";
             this.txtConnectionString.Size = new System.Drawing.Size(372, 20);
             this.txtConnectionString.TabIndex = 16;
+            this.txtConnectionString.Leave += new System.EventHandler(this.txtConnectionString_Leave);
             // 
             // label1
             // 

@@ -97,12 +97,20 @@ namespace QuickMon.Collectors
             SSHConnectionDetails.ConnectionString = SSHConnectionDetails.FormatSSHConnection(SSHConnectionDetails);
             //SSHConnectionDetails.FormatSSHConnection(SSHConnectionDetails);
             if (txtConnectionString.Text.Trim().Length > 0)
-            {                
+            {
                 try
                 {
-                    System.IO.File.WriteAllText(txtConnectionString.Text, SSHConnectionDetails.ConnectionString);
+                    DialogResult overwriteChoice = DialogResult.Yes;
+                    if (System.IO.File.Exists(txtConnectionString.Text))
+                    {
+                        overwriteChoice = MessageBox.Show("Overwrite the connection file?", "Connection file", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                        if (overwriteChoice == DialogResult.Cancel)
+                            return;
+                    }
+                    if (overwriteChoice == DialogResult.Yes)
+                        System.IO.File.WriteAllText(txtConnectionString.Text, SSHConnectionDetails.ConnectionString);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Saving connection", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
@@ -143,9 +151,17 @@ namespace QuickMon.Collectors
                 connectionStringFileOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtConnectionString.Text);
             }
             if (connectionStringFileOpenFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                
+            {                
                 SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(connectionStringFileOpenFileDialog.FileName);
+                LoadEntryDetails();
+            }
+        }
+
+        private void txtConnectionString_Leave(object sender, EventArgs e)
+        {
+            if (txtMachineName.Text.Length == 0 && System.IO.File.Exists(txtConnectionString.Text))
+            {
+                SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(txtConnectionString.Text);
                 LoadEntryDetails();
             }
         }

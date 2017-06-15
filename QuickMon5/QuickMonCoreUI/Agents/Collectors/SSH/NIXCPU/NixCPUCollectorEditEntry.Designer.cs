@@ -43,12 +43,10 @@
             this.lblEditSSHConnection = new System.Windows.Forms.LinkLabel();
             this.txtSSHConnection = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMSSampleDelay)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -60,10 +58,10 @@
             this.groupBox2.Controls.Add(this.warningNumericUpDown);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox2.Location = new System.Drawing.Point(12, 38);
+            this.groupBox2.Location = new System.Drawing.Point(12, 109);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(409, 57);
-            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Alert triggering";
             // 
@@ -129,10 +127,10 @@
             this.chkUseOnlyTotalCPUvalue.Checked = true;
             this.chkUseOnlyTotalCPUvalue.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkUseOnlyTotalCPUvalue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseOnlyTotalCPUvalue.Location = new System.Drawing.Point(12, 12);
+            this.chkUseOnlyTotalCPUvalue.Location = new System.Drawing.Point(12, 83);
             this.chkUseOnlyTotalCPUvalue.Name = "chkUseOnlyTotalCPUvalue";
             this.chkUseOnlyTotalCPUvalue.Size = new System.Drawing.Size(124, 17);
-            this.chkUseOnlyTotalCPUvalue.TabIndex = 0;
+            this.chkUseOnlyTotalCPUvalue.TabIndex = 3;
             this.chkUseOnlyTotalCPUvalue.Text = "Total CPU value only";
             this.chkUseOnlyTotalCPUvalue.UseVisualStyleBackColor = true;
             // 
@@ -141,7 +139,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 191);
+            this.cmdCancel.Location = new System.Drawing.Point(346, 175);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 9;
@@ -152,7 +150,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 191);
+            this.cmdOK.Location = new System.Drawing.Point(265, 175);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 8;
@@ -164,25 +162,25 @@
             // 
             this.label2.AutoSize = true;
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label2.Location = new System.Drawing.Point(298, 14);
+            this.label2.Location = new System.Drawing.Point(298, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(20, 13);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 6;
             this.label2.Text = "ms";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label1.Location = new System.Drawing.Point(148, 14);
+            this.label1.Location = new System.Drawing.Point(148, 85);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 13);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 4;
             this.label1.Text = "2 Sample delay";
             // 
             // nudMSSampleDelay
             // 
-            this.nudMSSampleDelay.Location = new System.Drawing.Point(233, 12);
+            this.nudMSSampleDelay.Location = new System.Drawing.Point(233, 83);
             this.nudMSSampleDelay.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -195,7 +193,7 @@
             0});
             this.nudMSSampleDelay.Name = "nudMSSampleDelay";
             this.nudMSSampleDelay.Size = new System.Drawing.Size(59, 20);
-            this.nudMSSampleDelay.TabIndex = 2;
+            this.nudMSSampleDelay.TabIndex = 5;
             this.nudMSSampleDelay.Value = new decimal(new int[] {
             200,
             0,
@@ -207,10 +205,10 @@
             this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEditSSHConnection.AutoSize = true;
             this.lblEditSSHConnection.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblEditSSHConnection.Location = new System.Drawing.Point(296, 2);
+            this.lblEditSSHConnection.Location = new System.Drawing.Point(309, 9);
             this.lblEditSSHConnection.Name = "lblEditSSHConnection";
             this.lblEditSSHConnection.Size = new System.Drawing.Size(109, 13);
-            this.lblEditSSHConnection.TabIndex = 6;
+            this.lblEditSSHConnection.TabIndex = 1;
             this.lblEditSSHConnection.TabStop = true;
             this.lblEditSSHConnection.Text = "Edit connection string";
             this.lblEditSSHConnection.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblEditSSHConnection_LinkClicked);
@@ -218,45 +216,31 @@
             // txtSSHConnection
             // 
             this.txtSSHConnection.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.txtSSHConnection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSSHConnection.Location = new System.Drawing.Point(3, 16);
+            this.txtSSHConnection.Location = new System.Drawing.Point(12, 25);
             this.txtSSHConnection.Multiline = true;
             this.txtSSHConnection.Name = "txtSSHConnection";
             this.txtSSHConnection.ReadOnly = true;
-            this.txtSSHConnection.Size = new System.Drawing.Size(403, 52);
-            this.txtSSHConnection.TabIndex = 7;
+            this.txtSSHConnection.Size = new System.Drawing.Size(409, 52);
+            this.txtSSHConnection.TabIndex = 2;
             this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 98);
+            this.label9.Location = new System.Drawing.Point(12, 9);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(119, 13);
-            this.label9.TabIndex = 5;
+            this.label9.TabIndex = 0;
             this.label9.Text = "SSH Connection details";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.lblEditSSHConnection);
-            this.groupBox1.Controls.Add(this.txtSSHConnection);
-            this.groupBox1.Location = new System.Drawing.Point(12, 114);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(409, 71);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "SSH Connection details";
             // 
             // NixCPUCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 225);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(433, 209);
+            this.Controls.Add(this.txtSSHConnection);
+            this.Controls.Add(this.lblEditSSHConnection);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.chkUseOnlyTotalCPUvalue);
             this.Controls.Add(this.cmdCancel);
@@ -278,8 +262,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMSSampleDelay)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,6 +283,5 @@
         private System.Windows.Forms.LinkLabel lblEditSSHConnection;
         private System.Windows.Forms.TextBox txtSSHConnection;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
