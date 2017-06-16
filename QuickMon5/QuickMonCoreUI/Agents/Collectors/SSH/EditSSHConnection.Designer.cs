@@ -68,6 +68,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(309, 20);
             this.txtPassword.TabIndex = 8;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
             // label24
             // 
@@ -108,6 +109,7 @@
             this.txtMachineName.Name = "txtMachineName";
             this.txtMachineName.Size = new System.Drawing.Size(362, 20);
             this.txtMachineName.TabIndex = 1;
+            this.txtMachineName.TextChanged += new System.EventHandler(this.txtMachineName_TextChanged);
             // 
             // txtPassPhrase
             // 
@@ -118,6 +120,7 @@
             this.txtPassPhrase.PasswordChar = '*';
             this.txtPassPhrase.Size = new System.Drawing.Size(309, 20);
             this.txtPassPhrase.TabIndex = 13;
+            this.txtPassPhrase.TextChanged += new System.EventHandler(this.txtPassPhrase_TextChanged);
             // 
             // label18
             // 
@@ -136,6 +139,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(309, 20);
             this.txtUsername.TabIndex = 6;
+            this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             // 
             // cmdOK
             // 
@@ -298,6 +302,7 @@
             this.chkPersistent.TabIndex = 14;
             this.chkPersistent.Text = "Persistent (try to keep connection open for reuse)";
             this.chkPersistent.UseVisualStyleBackColor = true;
+            this.chkPersistent.CheckedChanged += new System.EventHandler(this.chkPersistent_CheckedChanged);
             // 
             // txtConnectionString
             // 
@@ -309,6 +314,7 @@
             this.txtConnectionString.Name = "txtConnectionString";
             this.txtConnectionString.Size = new System.Drawing.Size(372, 20);
             this.txtConnectionString.TabIndex = 16;
+            this.txtConnectionString.TextChanged += new System.EventHandler(this.txtConnectionString_TextChanged);
             this.txtConnectionString.Leave += new System.EventHandler(this.txtConnectionString_Leave);
             // 
             // label1

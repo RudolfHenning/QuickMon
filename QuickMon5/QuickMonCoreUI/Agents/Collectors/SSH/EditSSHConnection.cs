@@ -18,6 +18,7 @@ namespace QuickMon.Collectors
             InitializeComponent();
         }
 
+        private bool changed = false;
         public SSHConnectionDetails SSHConnectionDetails { get; set; }        
 
         private void EditSSHConnection_Load(object sender, EventArgs e)
@@ -42,7 +43,9 @@ namespace QuickMon.Collectors
             txtPassword.Text = SSHConnectionDetails.Password;
             txtPrivateKeyFile.Text = SSHConnectionDetails.PrivateKeyFile;
             txtPassPhrase.Text = SSHConnectionDetails.PassPhrase;
-            chkPersistent.Checked = SSHConnectionDetails.Persistent;            
+            chkPersistent.Checked = SSHConnectionDetails.Persistent;
+
+            changed = false;
         }
         #endregion
 
@@ -53,6 +56,7 @@ namespace QuickMon.Collectors
             txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
             cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
             txtPassPhrase.ReadOnly = !optPrivateKey.Checked;
+            changed = true;
         }
         private void optPrivateKey_CheckedChanged(object sender, EventArgs e)
         {
@@ -60,6 +64,7 @@ namespace QuickMon.Collectors
             txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
             cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
             txtPassPhrase.ReadOnly = !optPrivateKey.Checked;
+            changed = true;
         }
         private void optKeyboardInteractive_CheckedChanged(object sender, EventArgs e)
         {
@@ -67,6 +72,7 @@ namespace QuickMon.Collectors
             txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
             cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
             txtPassPhrase.ReadOnly = !optPrivateKey.Checked;
+            changed = true;
         }
         #endregion
 
@@ -80,6 +86,7 @@ namespace QuickMon.Collectors
             if (privateKeyOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 txtPrivateKeyFile.Text = privateKeyOpenFileDialog.FileName;
+                changed = true;
             }
         }
 
@@ -95,25 +102,28 @@ namespace QuickMon.Collectors
             SSHConnectionDetails.Persistent = chkPersistent.Checked;
             SSHConnectionDetails.ConnectionString = "";
             SSHConnectionDetails.ConnectionString = SSHConnectionDetails.FormatSSHConnection(SSHConnectionDetails);
-            //SSHConnectionDetails.FormatSSHConnection(SSHConnectionDetails);
             if (txtConnectionString.Text.Trim().Length > 0)
             {
-                try
+                if (changed)
                 {
-                    DialogResult overwriteChoice = DialogResult.Yes;
-                    if (System.IO.File.Exists(txtConnectionString.Text))
+                    try
                     {
-                        overwriteChoice = MessageBox.Show("Overwrite the connection file?", "Connection file", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                        if (overwriteChoice == DialogResult.Cancel)
-                            return;
+                        DialogResult overwriteChoice = DialogResult.Yes;
+
+                        if (System.IO.File.Exists(txtConnectionString.Text))
+                        {
+                            overwriteChoice = MessageBox.Show("Overwrite the connection file?", "Connection file", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                            if (overwriteChoice == DialogResult.Cancel)
+                                return;
+                        }
+                        if (overwriteChoice == DialogResult.Yes)
+                            System.IO.File.WriteAllText(txtConnectionString.Text, SSHConnectionDetails.ConnectionString);
                     }
-                    if (overwriteChoice == DialogResult.Yes)
-                        System.IO.File.WriteAllText(txtConnectionString.Text, SSHConnectionDetails.ConnectionString);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Saving connection", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Saving connection", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
                 }
                 SSHConnectionDetails.ConnectionString = txtConnectionString.Text;
             }
@@ -164,6 +174,31 @@ namespace QuickMon.Collectors
                 SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(txtConnectionString.Text);
                 LoadEntryDetails();
             }
+        }
+
+        private void txtMachineName_TextChanged(object sender, EventArgs e)
+        {
+            changed = true;
+        }
+        private void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+            changed = true;
+        }
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+            changed = true;
+        }
+        private void txtPassPhrase_TextChanged(object sender, EventArgs e)
+        {
+            changed = true;
+        }
+        private void txtConnectionString_TextChanged(object sender, EventArgs e)
+        {
+            changed = true;
+        }
+        private void chkPersistent_CheckedChanged(object sender, EventArgs e)
+        {
+            changed = true;
         }
     }
 }

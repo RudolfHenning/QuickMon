@@ -45,7 +45,7 @@ namespace QuickMon.SSH
         public string ConnectionString { get; set; }
         private Renci.SshNet.SshClient currentConnection = null;
 
-        public static string FormatSSHConnection(SSHConnectionDetails connection) //, bool forDisplayOnly = true)
+        public static string FormatSSHConnection(SSHConnectionDetails connection)
         {
             string output = "";
             if (connection.ConnectionString != null && connection.ConnectionString.Length > 0 && !connection.ConnectionString.Contains(';'))
