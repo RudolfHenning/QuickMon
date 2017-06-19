@@ -45,6 +45,7 @@ namespace QuickMon
         private int configVariSplitContainerHeight = 0;
 
         private string currentSelectedControl = "";
+        private bool inEditMode = false;
         #endregion
 
         #region TreeNodeImage contants
@@ -169,6 +170,7 @@ namespace QuickMon
         }
         public void StartEditMode()
         {
+            inEditMode = true;
             if (this.Size.Height < 450)
             {
                 this.Size = new Size(this.Size.Width, 450);
@@ -196,6 +198,7 @@ namespace QuickMon
                 optAgentStates_CheckedChanged(null, null);
             else if (optMetrics.Checked)
                 optMetrics_CheckedChanged(null, null);
+            inEditMode = false;
         }
         private int GetNodeStateImageIndex(CollectorState state)
         {
@@ -248,7 +251,8 @@ namespace QuickMon
                 }
             }
             
-            txtName.Text = SelectedCollectorHost.Name;
+            if (!inEditMode)
+                txtName.Text = SelectedCollectorHost.Name;
             LoadMetrics();
             LoadHistory();
             LoadActionScripts();
