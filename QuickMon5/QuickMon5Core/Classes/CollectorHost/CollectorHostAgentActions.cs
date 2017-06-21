@@ -511,11 +511,11 @@ namespace QuickMon
                 //First set blank/NA state
                 foreach (ICollector ca in CollectorAgents)
                 {
-                    ca.CurrentState = new MonitorState() { ForAgent = ca.Name, State = CollectorState.NotAvailable, RawDetails = "Remote agent used", HtmlDetails = "<p>Remote agent used</p>" };
+                    ca.CurrentState = new MonitorState() { ForAgent = ca.Name, State = CollectorState.NotAvailable, RawDetails = "Calling Remote agent" };
                 }
                 resultMonitorState = RemoteCollectorHostService.GetCollectorHostState(this, currentHostAddress, currentHostPort);
 
-                //What is this doing???
+                //Setting agent states to returned MonitorState child states
                 foreach (var agentState in resultMonitorState.ChildStates)
                 {
                     if (agentState.ForAgentId > -1 && agentState.ForAgentId < CollectorAgents.Count)
@@ -531,13 +531,13 @@ namespace QuickMon
                 {
                     //attempting to run locally
                     resultMonitorState = GetStateFromLocal();
-                    resultMonitorState.RawDetails = string.Format("Remote Host failed. Attempting to run locally. {0}", resultMonitorState.RawDetails);
+                    resultMonitorState.RawDetails = string.Format("Remote Host call failed. Attempting to run locally. {0}", resultMonitorState.RawDetails);
                 }
                 else
                 {
                     resultMonitorState.State = CollectorState.Error;
                     resultMonitorState.RawDetails = ex.ToString();
-                    resultMonitorState.CurrentValue = "Remote Host failed";
+                    resultMonitorState.CurrentValue = "Remote Host call failed\r\n" + ex.Message;
                     resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
                 }
             }

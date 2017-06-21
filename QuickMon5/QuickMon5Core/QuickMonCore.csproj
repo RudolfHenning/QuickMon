@@ -175,6 +175,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Security\AESThenHMAC.cs" />
     <Compile Include="Security\CredentialManager.cs" />
     <Compile Include="Security\Impersonator.cs" />
     <Compile Include="Security\Security.cs" />
