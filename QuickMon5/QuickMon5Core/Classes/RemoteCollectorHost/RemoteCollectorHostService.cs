@@ -190,7 +190,8 @@ namespace QuickMon
                 {
                     foreach (string monitorPackPath in System.IO.File.ReadAllLines(MonitorPackFile))
                     {
-                        list.Add(monitorPackPath);
+                        if (!monitorPackPath.StartsWith("#"))
+                            list.Add(monitorPackPath);
                     }
                 }
             }

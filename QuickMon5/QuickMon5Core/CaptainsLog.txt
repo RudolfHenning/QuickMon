@@ -106,7 +106,11 @@ Next
 			Also requires a SMonitorState for secure response
 
 			CollectorHost.GetRemoteState() needs to check flag if securemode is enabled (could be per collector host/monitorpack/application)
-				
+		
+		Collector Idea
+			Powershell Template collector.
+				Like Powershell collector but gets script from templates/template like source
+					Can take Collector host Name as parameter
 
 	BUGS
 		Service install must be improved

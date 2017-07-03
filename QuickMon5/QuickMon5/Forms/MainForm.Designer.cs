@@ -122,6 +122,7 @@ namespace QuickMon
             this.statusStrip1.Size = new System.Drawing.Size(484, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.UseWaitCursor = false;
             // 
             // adminModeToolStripStatusLabel
             // 
@@ -206,6 +207,7 @@ namespace QuickMon
             this.lblVersion.TabIndex = 43;
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.lblVersion, "Version");
+            this.lblVersion.UseWaitCursor = false;
             this.lblVersion.Click += new System.EventHandler(this.cmdAbout_Click);
             // 
             // cmdRecentMonitorPacks
@@ -224,6 +226,7 @@ namespace QuickMon
             this.cmdRecentMonitorPacks.TabIndex = 2;
             this.toolTip1.SetToolTip(this.cmdRecentMonitorPacks, "Recent Monitor Packs");
             this.cmdRecentMonitorPacks.UseVisualStyleBackColor = false;
+            this.cmdRecentMonitorPacks.UseWaitCursor = false;
             this.cmdRecentMonitorPacks.Click += new System.EventHandler(this.cmdRecentMonitorPacks_Click);
             // 
             // cmdPauseRunMP
@@ -242,6 +245,7 @@ namespace QuickMon
             this.cmdPauseRunMP.TabIndex = 3;
             this.toolTip1.SetToolTip(this.cmdPauseRunMP, "Pause Auto refresh");
             this.cmdPauseRunMP.UseVisualStyleBackColor = false;
+            this.cmdPauseRunMP.UseWaitCursor = false;
             this.cmdPauseRunMP.Click += new System.EventHandler(this.cmdPauseRunMP_Click);
             // 
             // cmdRefresh
@@ -260,6 +264,7 @@ namespace QuickMon
             this.cmdRefresh.TabIndex = 1;
             this.toolTip1.SetToolTip(this.cmdRefresh, "Refresh current Monitor Pack");
             this.cmdRefresh.UseVisualStyleBackColor = false;
+            this.cmdRefresh.UseWaitCursor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
             // cmdAbout
@@ -279,6 +284,7 @@ namespace QuickMon
             this.cmdAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdAbout, "About");
             this.cmdAbout.UseVisualStyleBackColor = false;
+            this.cmdAbout.UseWaitCursor = false;
             this.cmdAbout.Click += new System.EventHandler(this.cmdAbout_Click);
             // 
             // cmdRemoteHosts
@@ -298,6 +304,7 @@ namespace QuickMon
             this.cmdRemoteHosts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdRemoteHosts, "Remote Hosts");
             this.cmdRemoteHosts.UseVisualStyleBackColor = false;
+            this.cmdRemoteHosts.UseWaitCursor = false;
             this.cmdRemoteHosts.Click += new System.EventHandler(this.cmdRemoteHosts_Click);
             // 
             // cmdOpen
@@ -317,6 +324,7 @@ namespace QuickMon
             this.cmdOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdOpen, "New  CTRL+O");
             this.cmdOpen.UseVisualStyleBackColor = false;
+            this.cmdOpen.UseWaitCursor = false;
             this.cmdOpen.Click += new System.EventHandler(this.cmdOpen_Click);
             // 
             // cmdNew
@@ -336,6 +344,7 @@ namespace QuickMon
             this.cmdNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdNew, "New  CTRL+N");
             this.cmdNew.UseVisualStyleBackColor = false;
+            this.cmdNew.UseWaitCursor = false;
             this.cmdNew.Click += new System.EventHandler(this.cmdNew_Click);
             // 
             // cmdMenu
@@ -358,6 +367,7 @@ namespace QuickMon
             this.cmdMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdMenu, "Menu  CTRL+M");
             this.cmdMenu.UseVisualStyleBackColor = false;
+            this.cmdMenu.UseWaitCursor = false;
             this.cmdMenu.Click += new System.EventHandler(this.cmdMenu_Click);
             // 
             // cmdTemplates
@@ -377,6 +387,7 @@ namespace QuickMon
             this.cmdTemplates.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdTemplates, "Templates");
             this.cmdTemplates.UseVisualStyleBackColor = false;
+            this.cmdTemplates.UseWaitCursor = false;
             this.cmdTemplates.Click += new System.EventHandler(this.cmdTemplates_Click);
             // 
             // cmdAdminMode
@@ -396,6 +407,7 @@ namespace QuickMon
             this.cmdAdminMode.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdAdminMode, "Admin Mode");
             this.cmdAdminMode.UseVisualStyleBackColor = false;
+            this.cmdAdminMode.UseWaitCursor = false;
             this.cmdAdminMode.Click += new System.EventHandler(this.cmdAdminMode_Click);
             // 
             // cmdSettings
@@ -415,6 +427,7 @@ namespace QuickMon
             this.cmdSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdSettings, "Settings");
             this.cmdSettings.UseVisualStyleBackColor = false;
+            this.cmdSettings.UseWaitCursor = false;
             this.cmdSettings.Click += new System.EventHandler(this.cmdSettings_Click);
             // 
             // settingsContextMenuStrip
@@ -623,6 +636,7 @@ namespace QuickMon
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(439, 23);
             this.panel2.TabIndex = 42;
+            this.panel2.UseWaitCursor = false;
             // 
             // lblCollectors
             // 
@@ -663,6 +677,7 @@ namespace QuickMon
             this.llblNotifierViewToggle.TabStop = true;
             this.llblNotifierViewToggle.Text = "► Show Notifiers";
             this.llblNotifierViewToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.llblNotifierViewToggle.UseWaitCursor = false;
             this.llblNotifierViewToggle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblNotifierViewToggle_LinkClicked);
             this.llblNotifierViewToggle.DoubleClick += new System.EventHandler(this.llblNotifierViewToggle_DoubleClick);
             // 
@@ -808,6 +823,7 @@ namespace QuickMon
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(439, 38);
             this.panel1.TabIndex = 3;
+            this.panel1.UseWaitCursor = false;
             // 
             // llblMonitorPack
             // 
@@ -822,6 +838,7 @@ namespace QuickMon
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "<New Monitor Pack>";
             this.llblMonitorPack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.llblMonitorPack.UseWaitCursor = false;
             this.llblMonitorPack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblMonitorPack_LinkClicked);
             this.llblMonitorPack.Click += new System.EventHandler(this.llblMonitorPack_Click);
             // 
@@ -837,6 +854,7 @@ namespace QuickMon
             this.cboRecentMonitorPacks.Name = "cboRecentMonitorPacks";
             this.cboRecentMonitorPacks.Size = new System.Drawing.Size(120, 24);
             this.cboRecentMonitorPacks.TabIndex = 4;
+            this.cboRecentMonitorPacks.UseWaitCursor = false;
             this.cboRecentMonitorPacks.SelectionChangeCommitted += new System.EventHandler(this.cboRecentMonitorPacks_SelectionChangeCommitted);
             this.cboRecentMonitorPacks.DropDownClosed += new System.EventHandler(this.cboRecentMonitorPacks_DropDownClosed);
             // 
@@ -860,6 +878,7 @@ namespace QuickMon
             this.panelSlimMenu.Name = "panelSlimMenu";
             this.panelSlimMenu.Size = new System.Drawing.Size(45, 469);
             this.panelSlimMenu.TabIndex = 2;
+            this.panelSlimMenu.UseWaitCursor = false;
             // 
             // splitButtonNotifiers
             // 
@@ -939,6 +958,7 @@ namespace QuickMon
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelSlimMenu);
             this.Controls.Add(this.statusStrip1);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(450, 430);
