@@ -94,7 +94,7 @@ Next
 		Remote host MP config  - string 'sign'ing to ensure it comes from legitimate server or something like that
 
 		Add Secure Remote Host calls
-			Password/Key for encryption must be stored application/service level (never in Monitor pack)
+			Password/Key for encryption must be stored application/service level (never in Monitor pack) - in progress
 				Optionally, state request/response can use different keys (as long as both calling app/service know both)
 				Password/Key could be date infused (date value can be used as part of key) but this requires more work for decrypting/error checking
 			Requires a new method in RemoteCollectorHostService (SGetState(QuickMon.SRemoteCollectorHost entry)) where SRemoteCollectorHost is just a string (B64)
