@@ -219,6 +219,7 @@ namespace QuickMon.Collectors
                 if (testConditionsNode != null)
                 {
                     queryEntry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(testConditionsNode.ReadXmlElementAttr("testSequence", "gwe"));
+                    queryEntry.ValueReturnType = DataBaseQueryValueReturnTypeConverter.FromString(testConditionsNode.ReadXmlElementAttr("valueReturnType", "RawValue"));
                     XmlNode goodScriptNode = testConditionsNode.SelectSingleNode("success");
                     queryEntry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("testType", "match"));
                     queryEntry.GoodValue = goodScriptNode.InnerText;
@@ -232,7 +233,10 @@ namespace QuickMon.Collectors
                     queryEntry.ErrorValue = errorScriptNode.InnerText;
                 }
                 else
+                {
                     queryEntry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.GWE;
+                    queryEntry.ValueReturnType = DataBaseQueryValueReturnType.RawValue;
+                }
 
                 Entries.Add(queryEntry);
             }
@@ -273,6 +277,7 @@ namespace QuickMon.Collectors
 
                 XmlElement testConditionsNode = config.CreateElement("testConditions");
                 testConditionsNode.SetAttributeValue("testSequence", queryEntry.ReturnCheckSequence.ToString());
+                testConditionsNode.SetAttributeValue("valueReturnType", queryEntry.ValueReturnType.ToString());
                 XmlElement successNode = config.CreateElement("success");
                 successNode.SetAttributeValue("testType", queryEntry.GoodResultMatchType.ToString());
                 successNode.InnerText = queryEntry.GoodValue;

@@ -121,3 +121,5 @@ Next
 		Relook all Collector Detail Window More details
 
 		While editing collector host - if name is not saved yet and refresh event happens name gets reset to previous saved value. - fixed.
+
+		SQL Query collector bug - did not save ValueReturnType attribute
