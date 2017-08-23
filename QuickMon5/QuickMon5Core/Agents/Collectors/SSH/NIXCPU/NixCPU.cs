@@ -162,11 +162,13 @@ namespace QuickMon.Collectors
                     currentState.CurrentValue = cpuInfos[0].CPUPerc.ToString("0.0");
                     currentState.State = GetState(cpuInfos[0].CPUPerc);
                 }
+
                 for (int i = 1; i < cpuInfos.Count; i++)
                 {
                     CollectorState currentCPUState = GetState(cpuInfos[i].CPUPerc);
-                    if ((int)currentCPUState > (int)currentState.State)
+                    if ((int)currentCPUState > (int)currentState.State && !UseOnlyTotalCPUvalue)
                     {
+                        currentState.CurrentValue = cpuInfos[i].CPUPerc.ToString("0.0");
                         currentState.State = currentCPUState;
                     }
                     MonitorState cpuState = new MonitorState()
@@ -177,7 +179,7 @@ namespace QuickMon.Collectors
                         CurrentValueUnit = "%"
                     };
                     currentState.ChildStates.Add(cpuState);
-                }
+                }                                
             }
             catch (Exception wsException)
             {
