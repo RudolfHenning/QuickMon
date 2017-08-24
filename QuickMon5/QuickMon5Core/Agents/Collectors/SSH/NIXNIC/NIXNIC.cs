@@ -182,10 +182,12 @@ namespace QuickMon.Collectors
                 if (dis.NICInfo.RTxBytesPerSec >= dis.AlertDefinition.ErrorValueKB * 1024)
                 {
                     dis.State = CollectorState.Error;
+                    errors++;
                 }
                 else if (dis.NICInfo.RTxBytesPerSec >= dis.AlertDefinition.WarningValueKB * 1024)
                 {
                     dis.State = CollectorState.Warning;
+                    warnings++;
                 }
                 else
                 {

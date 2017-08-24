@@ -1,5 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <quickMonTemplate>
+	<template name="Event Log Errors" type="CollectorHost" class="CollectorHost" description="Event Log Errors">
+		<collectorHost uniqueId="" dependOnParentId="" name="Event Log" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+			<!-- Alerting -->
+			<alerting>
+				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+				<texts>
+					<header />
+					<footer />
+					<error />
+					<warning />
+					<good />
+				</texts>
+			</alerting>
+			<!-- Collector Agents -->
+			<collectorAgents agentCheckSequence="All">
+				<collectorAgent name="Event Log Collector" type="QuickMon.Collectors.EventLogCollector" enabled="True" primaryUIValue="False">
+					<config>
+						<eventlogs>
+							<log computer="." eventLog="Application" typeInfo="False" typeWarn="False" typeErr="True" containsText="False" useRegEx="False" textFilter="" withInLastXEntries="1000" withInLastXMinutes="60" warningValue="1" errorValue="10" primaryUIValue="False">
+								<sources>
+									<source>QuickMon</source>
+								</sources>
+								<eventIds />
+							</log>
+						</eventlogs>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- Polling settings -->
+			<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+			<!-- Remote agent settings -->
+			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+			<!-- Corrective Scripts -->
+			<correctiveScripts enabled="True">
+				<warning warningMinRepeatTimeMin="0" />
+				<error errorMinRepeatTimeMin="0" />
+				<restoration restoreMinRepeatTimeMin="0" />
+			</correctiveScripts>
+			<!-- Action scripts -->
+			<actionScripts />
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Config variables -->
+			<configVars />
+			<!-- Categories -->
+			<categories />
+			<notes />
+		</collectorHost>
+	</template>
 	<template name="File/Directory check" type="CollectorHost" class="CollectorHost" description="Checks for file(s) or directory(s)">
 		<collectorHost uniqueId="" dependOnParentId="" name="File/Directory check" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
 			<!-- Alerting -->
@@ -35,6 +84,52 @@
 			</correctiveScripts>
 			<!-- Action scripts -->
 			<collectorActionScripts />
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Config variables -->
+			<configVars />
+			<!-- Categories -->
+			<categories />
+			<notes />
+		</collectorHost>
+	</template>
+	<template name="Performance Counters" type="CollectorHost" class="CollectorHost" description="Performance Counters">
+		<collectorHost uniqueId="" dependOnParentId="" name="System heath" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+			<!-- Alerting -->
+			<alerting>
+				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+				<texts>
+					<header />
+					<footer />
+					<error />
+					<warning />
+					<good />
+				</texts>
+			</alerting>
+			<!-- Collector Agents -->
+			<collectorAgents agentCheckSequence="All">
+				<collectorAgent name="System healh" type="QuickMon.Collectors.PerfCounterCollector" enabled="True" primaryUIValue="True">
+					<config>
+						<performanceCounters>
+							<performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="80" errorValue="90" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="" primaryUIValue="False" />
+							<performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="80" errorValue="90" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="" primaryUIValue="False" />
+							<performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" warningValue="15" errorValue="5" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="" primaryUIValue="False" />
+						</performanceCounters>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- Polling settings -->
+			<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+			<!-- Remote agent settings -->
+			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+			<!-- Corrective Scripts -->
+			<correctiveScripts enabled="True">
+				<warning warningMinRepeatTimeMin="0" />
+				<error errorMinRepeatTimeMin="0" />
+				<restoration restoreMinRepeatTimeMin="0" />
+			</correctiveScripts>
+			<!-- Action scripts -->
+			<actionScripts />
 			<!-- ServiceWindows -->
 			<serviceWindows />
 			<!-- Config variables -->
@@ -86,6 +181,164 @@
 			</correctiveScripts>
 			<!-- Action scripts -->
 			<collectorActionScripts />
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Config variables -->
+			<configVars />
+			<!-- Categories -->
+			<categories />
+			<notes />
+		</collectorHost>
+	</template>
+	<template name="Registry Query" type="CollectorHost" class="CollectorHost" description="Registry Query">
+		<collectorHost uniqueId="" dependOnParentId="" name="Registry Query" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+			<!-- Alerting -->
+			<alerting>
+				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+				<texts>
+					<header />
+					<footer />
+					<error />
+					<warning />
+					<good />
+				</texts>
+			</alerting>
+			<!-- Collector Agents -->
+			<collectorAgents agentCheckSequence="All">
+				<collectorAgent name="Registry Query Collector" type="QuickMon.Collectors.RegistryQueryCollector" enabled="True" primaryUIValue="False">
+					<config>
+						<carvcesEntries>
+							<carvceEntry>
+								<dataSource name="Registry Query" useRemoteServer="False" server="" registryHive="LocalMachine" path="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{16AC9CF6-208E-407F-BD74-C899287B4E85}" keyName="DisplayVersion" expandEnvironmentNames="False" primaryUIValue="False" outputValueUnit="" />
+								<testConditions testSequence="GEW">
+									<success testType="StartsWith">5.</success>
+									<warning testType="Match">[null]</warning>
+									<error testType="Match">[any]</error>
+								</testConditions>
+							</carvceEntry>
+						</carvcesEntries>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- Polling settings -->
+			<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+			<!-- Remote agent settings -->
+			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+			<!-- Corrective Scripts -->
+			<correctiveScripts enabled="True">
+				<warning warningMinRepeatTimeMin="0" />
+				<error errorMinRepeatTimeMin="0" />
+				<restoration restoreMinRepeatTimeMin="0" />
+			</correctiveScripts>
+			<!-- Action scripts -->
+			<actionScripts />
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Config variables -->
+			<configVars />
+			<!-- Categories -->
+			<categories />
+			<notes />
+		</collectorHost>
+	</template>
+	<template name="SQL Query" type="CollectorHost" class="CollectorHost" description="SQL Query">
+		<collectorHost uniqueId="" dependOnParentId="" name="SQL Query" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+			<!-- Alerting -->
+			<alerting>
+				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+				<texts>
+					<header />
+					<footer />
+					<error />
+					<warning />
+					<good />
+				</texts>
+			</alerting>
+			<!-- Collector Agents -->
+			<collectorAgents agentCheckSequence="All">
+				<collectorAgent name="Sql Query Collector" type="QuickMon.Collectors.SqlQueryCollector" enabled="True" primaryUIValue="False">
+					<config>
+						<carvcesEntries>
+							<carvceEntry>
+								<dataSource name="SQL Query" dataSourceType="SqlServer" connStr="" provider="" fileName="" server="localhost" database="master" integratedSec="True" userName="" password="" cmndTimeOut="60" usePersistentConnection="False" applicationName="QuickMon" primaryUIValue="False" outputValueUnit="row(s)">
+									<stateQuery useSP="False">select count(*) from SomeTable</stateQuery>
+									<detailQuery useSP="False">select * from SomeTable</detailQuery>
+								</dataSource>
+								<testConditions testSequence="GWE" valueReturnType="RawValue">
+									<success testType="SmallerThan">100</success>
+									<warning testType="Between">100 and 1000</warning>
+									<error testType="Match">[any]</error>
+								</testConditions>
+							</carvceEntry>
+						</carvcesEntries>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- Polling settings -->
+			<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+			<!-- Remote agent settings -->
+			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+			<!-- Corrective Scripts -->
+			<correctiveScripts enabled="True">
+				<warning warningMinRepeatTimeMin="0" />
+				<error errorMinRepeatTimeMin="0" />
+				<restoration restoreMinRepeatTimeMin="0" />
+			</correctiveScripts>
+			<!-- Action scripts -->
+			<actionScripts />
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Config variables -->
+			<configVars />
+			<!-- Categories -->
+			<categories />
+			<notes />
+		</collectorHost>
+	</template>
+	<template name="SSH Query" type="CollectorHost" class="CollectorHost" description="SSH Query">
+		<collectorHost uniqueId="7244cb11-e05b-4f65-bdd5-838673bc96e1" dependOnParentId="6dd52f01-3901-42be-b957-966f49ccfc9c" name="SSH Query" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+			<!-- Alerting -->
+			<alerting>
+				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+				<texts>
+					<header />
+					<footer />
+					<error />
+					<warning />
+					<good />
+				</texts>
+			</alerting>
+			<!-- Collector Agents -->
+			<collectorAgents agentCheckSequence="All">
+				<collectorAgent name="SSH Command Collector" type="QuickMon.Collectors.SSHCommandCollector" enabled="True" primaryUIValue="False">
+					<config>
+						<carvcesEntries>
+							<carvceEntry>
+								<dataSource name="" primaryUIValue="False" outputValueUnit="%" connStr="Name=;Computer=.:22;SecOpt=Password;User=notroot;Pass=;PrivateKeyFile=;PassPhrase=;Persistent=False">
+									<stateQuery valueReturnType="ReturnedText">cat &lt;(grep 'cpu ' /proc/stat) &lt;(sleep 0.25 &amp;&amp; grep 'cpu ' /proc/stat) | awk -v RS="" '{printf "%.2f\n", ($13-$2+$15-$4)*100/($13-$2+$15-$4+$16-$5)}'</stateQuery>
+								</dataSource>
+								<testConditions testSequence="GEW">
+									<success testType="SmallerThan">80</success>
+									<warning testType="Match">[any]</warning>
+									<error testType="LargerThan">95</error>
+								</testConditions>
+							</carvceEntry>
+						</carvcesEntries>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- Polling settings -->
+			<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+			<!-- Remote agent settings -->
+			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+			<!-- Corrective Scripts -->
+			<correctiveScripts enabled="True">
+				<warning warningMinRepeatTimeMin="0" />
+				<error errorMinRepeatTimeMin="0" />
+				<restoration restoreMinRepeatTimeMin="0" />
+			</correctiveScripts>
+			<!-- Action scripts -->
+			<actionScripts />
 			<!-- ServiceWindows -->
 			<serviceWindows />
 			<!-- Config variables -->
@@ -182,6 +435,104 @@
 			<!-- Config variables -->
 			<configVars>
 			</configVars>
+		</collectorHost>
+	</template>
+	<template name="Windows Service State" type="CollectorHost" class="CollectorHost" description="Windows Service State">
+		<collectorHost uniqueId="" dependOnParentId="" name="Windows Service State" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+			<!-- Alerting -->
+			<alerting>
+				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+				<texts>
+					<header />
+					<footer />
+					<error />
+					<warning />
+					<good />
+				</texts>
+			</alerting>
+			<!-- Collector Agents -->
+			<collectorAgents agentCheckSequence="All">
+				<collectorAgent name="Windows Service State Collector" type="QuickMon.Collectors.WindowsServiceStateCollector" enabled="True" primaryUIValue="False">
+					<config>
+						<machine name="." primaryUIValue="False">
+							<service name="QuickMon 5 Service" />
+						</machine>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- Polling settings -->
+			<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+			<!-- Remote agent settings -->
+			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+			<!-- Corrective Scripts -->
+			<correctiveScripts enabled="True">
+				<warning warningMinRepeatTimeMin="0" />
+				<error errorMinRepeatTimeMin="0" />
+				<restoration restoreMinRepeatTimeMin="0" />
+			</correctiveScripts>
+			<!-- Action scripts -->
+			<actionScripts />
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Config variables -->
+			<configVars />
+			<!-- Categories -->
+			<categories />
+			<notes />
+		</collectorHost>
+	</template>
+	<template name="WMI Query" type="CollectorHost" class="CollectorHost" description="WMI Query">
+		<collectorHost uniqueId="" dependOnParentId="" name="WMI Query" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+			<!-- Alerting -->
+			<alerting>
+				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+				<texts>
+					<header />
+					<footer />
+					<error />
+					<warning />
+					<good />
+				</texts>
+			</alerting>
+			<!-- Collector Agents -->
+			<collectorAgents agentCheckSequence="All">
+				<collectorAgent name="WMI Query Collector" type="QuickMon.Collectors.WMIQueryCollector" enabled="True" primaryUIValue="False">
+					<config>
+						<carvcesEntries>
+							<carvceEntry>
+								<dataSource name="WMI Query" namespace="root\cimv2" machineName="RHENNING" primaryUIValue="False" outputValueUnit="CPU(s)">
+									<stateQuery useRowCountAsValue="False">select NumberOfProcessors from Win32_ComputerSystem</stateQuery>
+									<detailQuery columnNames="NumberOfProcessors">select NumberOfProcessors from Win32_ComputerSystem</detailQuery>
+								</dataSource>
+								<testConditions testSequence="GWE">
+									<success testType="Match">[any]</success>
+									<warning testType="Match">[null]</warning>
+									<error testType="Match">0</error>
+								</testConditions>
+							</carvceEntry>
+						</carvcesEntries>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- Polling settings -->
+			<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+			<!-- Remote agent settings -->
+			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+			<!-- Corrective Scripts -->
+			<correctiveScripts enabled="True">
+				<warning warningMinRepeatTimeMin="0" />
+				<error errorMinRepeatTimeMin="0" />
+				<restoration restoreMinRepeatTimeMin="0" />
+			</correctiveScripts>
+			<!-- Action scripts -->
+			<actionScripts />
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Config variables -->
+			<configVars />
+			<!-- Categories -->
+			<categories />
+			<notes />
 		</collectorHost>
 	</template>
 	<template name="Drive space (C:)" type="CollectorAgent" class="QuickMon.Collectors.WMIQueryCollector" description="Disk free space check">

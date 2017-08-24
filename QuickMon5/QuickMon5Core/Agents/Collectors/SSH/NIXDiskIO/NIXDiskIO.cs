@@ -182,10 +182,12 @@ namespace QuickMon.Collectors
                 if (dis.DiskInfo.BytesReadWritePerSec >= dis.AlertDefinition.ErrorValue)
                 {
                     dis.State = CollectorState.Error;
+                    errors++;
                 }
                 else if (dis.DiskInfo.BytesReadWritePerSec >= dis.AlertDefinition.WarningValue)
                 {
                     dis.State = CollectorState.Warning;
+                    warnings++;
                 }
                 else
                 {

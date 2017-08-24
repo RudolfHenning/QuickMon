@@ -575,7 +575,7 @@ namespace QuickMon.Collectors
                 remoteKey = RegistryKey.OpenRemoteBaseKey(RegistryHive, Server);
             }
             else
-                remoteKey = RegistryKey.OpenBaseKey(RegistryHive, RegistryView.Default);
+                remoteKey = RegistryKey.OpenBaseKey(RegistryHive, RegistryView.Default);            
 
             if (remoteKey != null)
             {
@@ -584,10 +584,25 @@ namespace QuickMon.Collectors
                 {
                     result = valKey.GetValue(KeyName, "[notExists]", ExpandEnvironmentNames ? RegistryValueOptions.None : RegistryValueOptions.DoNotExpandEnvironmentNames);
                 }
-                else
+                else if (valKey == null && Environment.Is64BitOperatingSystem)
                 {
-                    result = "[notExists]";
+                    
+                    remoteKey = RegistryKey.OpenBaseKey(RegistryHive, RegistryView.Registry64);
+                    if (remoteKey != null)
+                    {
+                        valKey = remoteKey.OpenSubKey(Path);
+                        if (valKey != null)
+                        {
+                            result = valKey.GetValue(KeyName, "[notExists]", ExpandEnvironmentNames ? RegistryValueOptions.None : RegistryValueOptions.DoNotExpandEnvironmentNames);
+                        }
+                        else
+                        {
+                            result = "[notExists]";
+                        }
+                    }
                 }
+                else
+                    result = "[notExists]";
             }
             else
             {
