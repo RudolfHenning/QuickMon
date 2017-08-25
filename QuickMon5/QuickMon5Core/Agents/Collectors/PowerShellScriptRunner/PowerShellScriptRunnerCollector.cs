@@ -275,6 +275,8 @@ namespace QuickMon.Collectors
         public bool PrimaryUIValue { get; set; }
         #endregion
 
+        private static string lockObject = "";
+
         public string RunScript()
         {
             return RunScript(TestScript);
@@ -309,8 +311,10 @@ namespace QuickMon.Collectors
                         pipeline.Commands.Add("Out-String");
 
                         // execute the script
-
-                        results = pipeline.Invoke();
+                        lock (lockObject)
+                        {
+                            results = pipeline.Invoke();
+                        }
                     }
                     // close the runspace
 

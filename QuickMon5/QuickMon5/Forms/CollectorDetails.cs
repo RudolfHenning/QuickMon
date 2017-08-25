@@ -663,7 +663,7 @@ namespace QuickMon
                     {
                         int entryNodeStateIndex = GetNodeStateImageIndex(entryState.State);
                         HenIT.Windows.Controls.TreeListViewItem entryNode = new HenIT.Windows.Controls.TreeListViewItem(entryState.ForAgent, entryNodeStateIndex);
-                        entryNode.SubItems.Add(entryState.FormatValue());
+                        entryNode.SubItems.Add(entryState.ReadPrimaryOrFirstUIValue()); //.FormatValue());
                         entryNode.Tag = entryState;
                         agentNode.Items.Add(entryNode);
                         foreach (MonitorState subEntryState in entryState.ChildStates)

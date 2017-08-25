@@ -209,9 +209,9 @@
 					<config>
 						<carvcesEntries>
 							<carvceEntry>
-								<dataSource name="Registry Query" useRemoteServer="False" server="" registryHive="LocalMachine" path="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{16AC9CF6-208E-407F-BD74-C899287B4E85}" keyName="DisplayVersion" expandEnvironmentNames="False" primaryUIValue="False" outputValueUnit="" />
+								<dataSource name="Registry Query" useRemoteServer="False" server="" registryHive="ClassesRoot" path=".txt" keyName="" expandEnvironmentNames="False" primaryUIValue="False" outputValueUnit="" />
 								<testConditions testSequence="GEW">
-									<success testType="StartsWith">5.</success>
+									<success testType="StartsWith">txtfile</success>
 									<warning testType="Match">[null]</warning>
 									<error testType="Match">[any]</error>
 								</testConditions>
