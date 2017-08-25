@@ -263,7 +263,14 @@ namespace QuickMon.Collectors
                 tmp.Category = arr[1];
                 tmp.Counter = arr[2];
                 if (arr.Length > 3)
-                    tmp.Instance = arr[3]; //for when there is no instance (like Category 'Memory')
+                {
+                    tmp.Instance = "";
+                    for (int i = 3; i < arr.Length; i++)
+                    {
+                        tmp.Instance += arr[i] + "\\";
+                    }
+                    tmp.Instance = tmp.Instance.TrimEnd('\\'); //for when there is no instance (like Category 'Memory')
+                }
                 else
                     tmp.Instance = "";
                 return tmp;
