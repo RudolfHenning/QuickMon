@@ -39,6 +39,7 @@ namespace QuickMon
             if (SelectedMonitorPack == null)
                 SelectedMonitorPack = new MonitorPack();
             LoadFormControls();
+            lvwConfigVars.AutoResizeColumnEnabled = true;
             this.Size = new Size(600, 450);
         }
         private void MonitorPackEditor_Shown(object sender, EventArgs e)
@@ -640,5 +641,19 @@ namespace QuickMon
             }
         }
         #endregion
+
+        private void llblExpandConfigVarSection_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (panelVariables.Height == 300)
+            {
+                panelVariables.Height = 500;
+                panelVarEdit.Height = 328;
+            }
+            else
+            {
+                panelVariables.Height = 300;
+                panelVarEdit.Height = 128;
+            }
+        }
     }
 }

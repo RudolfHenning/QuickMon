@@ -41,5 +41,8 @@
     <Setting Name="AutoAddDefaultFireWallException" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="ScriptRepositoryDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\ProgramData\Hen IT\QuickMon 5\Scripts</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

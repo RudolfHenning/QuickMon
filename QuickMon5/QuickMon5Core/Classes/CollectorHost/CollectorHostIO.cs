@@ -357,6 +357,8 @@ namespace QuickMon
                         allConfigVars.Add(cv.Clone());
                     }
                 }
+                //Lastly apply static/hardcoded monitor pack variables
+                allConfigVars.Add(new ConfigVariable() { FindValue = "$QMScripts", ReplaceValue = ParentMonitorPack.ScriptsRepositoryDirectory });
             }           
 
             foreach (IAgent agent in CollectorAgents)

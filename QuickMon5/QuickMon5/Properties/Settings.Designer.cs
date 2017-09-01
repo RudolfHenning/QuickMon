@@ -295,5 +295,17 @@ namespace QuickMon.Properties {
                 this["EnableAutoRefreshCollectorDetailAutomatically"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\Hen IT\\QuickMon 5\\Scripts")]
+        public string ScriptRepositoryDirectory {
+            get {
+                return ((string)(this["ScriptRepositoryDirectory"]));
+            }
+            set {
+                this["ScriptRepositoryDirectory"] = value;
+            }
+        }
     }
 }

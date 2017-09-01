@@ -35,6 +35,7 @@ namespace QuickMon
                         Properties.Settings.Default.ApplicationMasterKey,
                         Properties.Settings.Default.ApplicationUserNameCacheFilePath,
                         blockedCollectorAgentTypes,
+                        Properties.Settings.Default.ScriptRepositoryDirectory,
                         "")
                 );
                 // Open the ServiceHost to start listening for messages. Since

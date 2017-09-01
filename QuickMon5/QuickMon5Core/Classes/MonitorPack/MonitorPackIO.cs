@@ -90,15 +90,7 @@ namespace QuickMon
 
                 /***************** Load config variables ****************/
                 #region Load config variables
-                XmlNode configVarsNode = root.SelectSingleNode("configVars");
-                ConfigVariables = new List<ConfigVariable>();
-                if (configVarsNode != null)
-                {
-                    foreach (XmlElement configVarNode in configVarsNode.SelectNodes("configVar"))
-                    {
-                        ConfigVariables.Add(ConfigVariable.FromXml(configVarNode));
-                    }
-                }
+                LoadConfigVars(root);               
                 #endregion
                 /***************** Load Collectors ****************/
                 #region Load Collectors
@@ -180,6 +172,20 @@ namespace QuickMon
             else
                 WriteLogging("Monitor config loaded with errors - " + LastMPLoadError);
         }
+
+        private void LoadConfigVars(XmlElement root)
+        {
+            XmlNode configVarsNode = root.SelectSingleNode("configVars");
+            ConfigVariables = new List<ConfigVariable>();
+            if (configVarsNode != null)
+            {
+                foreach (XmlElement configVarNode in configVarsNode.SelectNodes("configVar"))
+                {
+                    ConfigVariables.Add(ConfigVariable.FromXml(configVarNode));
+                }
+            }
+        }
+
         private void SetCollectorHostEvents(CollectorHost collectorHost)
         {
             //to ensure events are only subscribed once first unsubscribe any existing ones. This does not fail if no events have been subscribed already.

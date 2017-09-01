@@ -119,6 +119,7 @@ namespace QuickMon
                         Properties.Settings.Default.ApplicationMasterKey, 
                         Properties.Settings.Default.ApplicationUserNameCacheFilePath,
                         blockedCollectorAgentTypes,
+                        Properties.Settings.Default.ScriptRepositoryDirectory,
                         monitorPackFile)
                 );
                 wcfServiceHost.Open();

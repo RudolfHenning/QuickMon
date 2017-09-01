@@ -86,6 +86,14 @@ namespace QuickMon
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message, "Templates", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.ScriptRepositoryDirectory))
+            {
+                try
+                {
+                    System.IO.Directory.CreateDirectory(Properties.Settings.Default.ScriptRepositoryDirectory);
+                }
+                catch { }
+            }
             MainForm mainForm = new MainForm();
             Application.Run(mainForm);
         }

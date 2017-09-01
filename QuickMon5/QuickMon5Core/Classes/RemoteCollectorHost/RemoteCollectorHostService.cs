@@ -16,6 +16,7 @@ namespace QuickMon
         //Run time setting only
         public string ApplicationUserNameCacheMasterKey { get; set; }
         public string ApplicationUserNameCacheFilePath { get; set; }
+        public string ScriptsRepositoryDirectory { get; set; }
         #endregion
 
         #region Globally Disable/block Agent types if it is not supported for some reason
@@ -67,6 +68,7 @@ namespace QuickMon
                 m.ApplicationUserNameCacheMasterKey = ApplicationUserNameCacheMasterKey;
                 m.ApplicationUserNameCacheFilePath = ApplicationUserNameCacheFilePath;
                 m.BlockedCollectorAgentTypes.AddRange(BlockedCollectorAgentTypes.ToArray());
+                m.ScriptsRepositoryDirectory = ScriptsRepositoryDirectory;
                 if (m.CollectorHosts.Count == 1)
                 {
                     m.RefreshStates();
@@ -267,13 +269,15 @@ namespace QuickMon
         string applicationUserNameCacheMasterKey = "";
         string applicationUserNameCacheFilePath = "";
         string monitorPackFile = "";
+        string scriptsRepository = @"C:\ProgramData\Hen IT\QuickMon 5";
         List<string> blockedCollectorAgentTypes = new List<string>();
         public RemoteCollectorHostServiceInstanceProvider(string applicationUserNameCacheMasterKey, string applicationUserNameCacheFilePath,
-            List<string> blockedCollectorAgentTypes, string monitorPackFile)
+            List<string> blockedCollectorAgentTypes, string scriptsRepository, string monitorPackFile)
         {
             this.applicationUserNameCacheMasterKey = applicationUserNameCacheMasterKey;
             this.applicationUserNameCacheFilePath = applicationUserNameCacheFilePath;
             this.blockedCollectorAgentTypes.AddRange(blockedCollectorAgentTypes.ToArray());
+            this.scriptsRepository = scriptsRepository;
             this.monitorPackFile = monitorPackFile;
         }
 
@@ -301,13 +305,18 @@ namespace QuickMon
                 ApplicationUserNameCacheMasterKey = this.applicationUserNameCacheMasterKey, 
                 ApplicationUserNameCacheFilePath = applicationUserNameCacheFilePath ,
                 BlockedCollectorAgentTypes = blockedCollectorAgentTypes,
+                ScriptsRepositoryDirectory = scriptsRepository,
                 MonitorPackFile = monitorPackFile
             };
         }
 
         public object GetInstance(InstanceContext instanceContext)
         {
-            return new RemoteCollectorHostService { ApplicationUserNameCacheMasterKey = this.applicationUserNameCacheMasterKey, ApplicationUserNameCacheFilePath = applicationUserNameCacheFilePath };
+            return new RemoteCollectorHostService {
+                ApplicationUserNameCacheMasterKey = this.applicationUserNameCacheMasterKey,
+                ApplicationUserNameCacheFilePath = applicationUserNameCacheFilePath,
+                ScriptsRepositoryDirectory = scriptsRepository
+            };
         }
 
         public void ReleaseInstance(InstanceContext instanceContext, object instance)

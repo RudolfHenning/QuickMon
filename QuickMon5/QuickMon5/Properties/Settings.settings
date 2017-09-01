@@ -71,5 +71,8 @@
     <Setting Name="EnableAutoRefreshCollectorDetailAutomatically" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ScriptRepositoryDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\ProgramData\Hen IT\QuickMon 5\Scripts</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

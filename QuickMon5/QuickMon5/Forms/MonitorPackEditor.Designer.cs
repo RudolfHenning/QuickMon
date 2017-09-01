@@ -110,6 +110,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.llblExpandConfigVarSection = new System.Windows.Forms.LinkLabel();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelGeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
@@ -393,35 +394,34 @@
             this.panelVariables.Controls.Add(this.label42);
             this.panelVariables.Location = new System.Drawing.Point(3, 292);
             this.panelVariables.Name = "panelVariables";
-            this.panelVariables.Size = new System.Drawing.Size(549, 265);
+            this.panelVariables.Size = new System.Drawing.Size(549, 300);
             this.panelVariables.TabIndex = 2;
             // 
             // panelVarEdit
             // 
+            this.panelVarEdit.Controls.Add(this.llblExpandConfigVarSection);
             this.panelVarEdit.Controls.Add(this.txtConfigVarSearchFor);
             this.panelVarEdit.Controls.Add(this.label40);
             this.panelVarEdit.Controls.Add(this.txtConfigVarReplaceByValue);
             this.panelVarEdit.Controls.Add(this.label41);
             this.panelVarEdit.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelVarEdit.Location = new System.Drawing.Point(0, 210);
+            this.panelVarEdit.Location = new System.Drawing.Point(0, 143);
             this.panelVarEdit.Name = "panelVarEdit";
-            this.panelVarEdit.Size = new System.Drawing.Size(549, 26);
+            this.panelVarEdit.Size = new System.Drawing.Size(549, 128);
             this.panelVarEdit.TabIndex = 3;
             // 
             // txtConfigVarSearchFor
             // 
-            this.txtConfigVarSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtConfigVarSearchFor.Location = new System.Drawing.Point(91, 3);
+            this.txtConfigVarSearchFor.Location = new System.Drawing.Point(80, 3);
             this.txtConfigVarSearchFor.Name = "txtConfigVarSearchFor";
-            this.txtConfigVarSearchFor.Size = new System.Drawing.Size(173, 20);
+            this.txtConfigVarSearchFor.Size = new System.Drawing.Size(228, 20);
             this.txtConfigVarSearchFor.TabIndex = 1;
             this.txtConfigVarSearchFor.TextChanged += new System.EventHandler(this.txtConfigVarSearchFor_TextChanged);
             // 
             // label40
             // 
-            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(16, 6);
+            this.label40.Location = new System.Drawing.Point(5, 6);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(56, 13);
             this.label40.TabIndex = 0;
@@ -429,18 +429,21 @@
             // 
             // txtConfigVarReplaceByValue
             // 
-            this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtConfigVarReplaceByValue.Location = new System.Drawing.Point(345, 3);
+            this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtConfigVarReplaceByValue.Location = new System.Drawing.Point(80, 28);
+            this.txtConfigVarReplaceByValue.Multiline = true;
             this.txtConfigVarReplaceByValue.Name = "txtConfigVarReplaceByValue";
-            this.txtConfigVarReplaceByValue.Size = new System.Drawing.Size(173, 20);
+            this.txtConfigVarReplaceByValue.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtConfigVarReplaceByValue.Size = new System.Drawing.Size(457, 97);
             this.txtConfigVarReplaceByValue.TabIndex = 3;
             this.txtConfigVarReplaceByValue.TextChanged += new System.EventHandler(this.txtConfigVarReplaceByValue_TextChanged);
             // 
             // label41
             // 
-            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(270, 6);
+            this.label41.Location = new System.Drawing.Point(5, 31);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(69, 13);
             this.label41.TabIndex = 2;
@@ -532,19 +535,19 @@
             // 
             this.label42.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(0, 236);
+            this.label42.Location = new System.Drawing.Point(0, 271);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(549, 29);
             this.label42.TabIndex = 4;
-            this.label42.Text = "Suggestions: Use \'variable\' names that are unique in the config XML. e.g. %SomeVa" +
-    "lue%. Be careful when using quotes/doublequotes or any other characters that are" +
-    " \'special\' in XML.";
+            this.label42.Text = "Suggestions: Use \'variable\' names that are unique in the config. e.g. %SomeValue%" +
+    ". Be careful when using quotes/doublequotes or any other characters that are \'sp" +
+    "ecial\' in XML.";
             // 
             // panelSecuritySettings
             // 
             this.panelSecuritySettings.Controls.Add(this.groupBox2);
             this.panelSecuritySettings.Controls.Add(this.cmdSecuritySettingsToggle);
-            this.panelSecuritySettings.Location = new System.Drawing.Point(3, 563);
+            this.panelSecuritySettings.Location = new System.Drawing.Point(3, 598);
             this.panelSecuritySettings.Name = "panelSecuritySettings";
             this.panelSecuritySettings.Size = new System.Drawing.Size(549, 289);
             this.panelSecuritySettings.TabIndex = 3;
@@ -755,7 +758,7 @@
             this.panelLoggingSettings.Controls.Add(this.label12);
             this.panelLoggingSettings.Controls.Add(this.txtLoggingPath);
             this.panelLoggingSettings.Controls.Add(this.cmdLoggingSettingsToggle);
-            this.panelLoggingSettings.Location = new System.Drawing.Point(3, 858);
+            this.panelLoggingSettings.Location = new System.Drawing.Point(3, 893);
             this.panelLoggingSettings.Name = "panelLoggingSettings";
             this.panelLoggingSettings.Size = new System.Drawing.Size(549, 260);
             this.panelLoggingSettings.TabIndex = 4;
@@ -961,7 +964,7 @@
             // lvwConfigVars
             // 
             this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 0;
+            this.lvwConfigVars.AutoResizeColumnIndex = 1;
             this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.valueColumnHeader});
@@ -969,7 +972,7 @@
             this.lvwConfigVars.FullRowSelect = true;
             this.lvwConfigVars.Location = new System.Drawing.Point(0, 58);
             this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(549, 152);
+            this.lvwConfigVars.Size = new System.Drawing.Size(549, 85);
             this.lvwConfigVars.TabIndex = 2;
             this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
             this.lvwConfigVars.View = System.Windows.Forms.View.Details;
@@ -1022,6 +1025,19 @@
             this.columnHeader3.Text = "Decryptable";
             this.columnHeader3.Width = 82;
             // 
+            // llblExpandConfigVarSection
+            // 
+            this.llblExpandConfigVarSection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblExpandConfigVarSection.AutoSize = true;
+            this.llblExpandConfigVarSection.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblExpandConfigVarSection.Location = new System.Drawing.Point(6, 111);
+            this.llblExpandConfigVarSection.Name = "llblExpandConfigVarSection";
+            this.llblExpandConfigVarSection.Size = new System.Drawing.Size(43, 13);
+            this.llblExpandConfigVarSection.TabIndex = 4;
+            this.llblExpandConfigVarSection.TabStop = true;
+            this.llblExpandConfigVarSection.Text = "Expand";
+            this.llblExpandConfigVarSection.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExpandConfigVarSection_LinkClicked);
+            // 
             // MonitorPackEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1037,6 +1053,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "MonitorPackEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Monitor Pack Editor";
@@ -1149,5 +1166,6 @@
         private System.Windows.Forms.FolderBrowserDialog fbdLogging;
         private System.Windows.Forms.ImageList userCacheImageList;
         private System.Windows.Forms.OpenFileDialog qmmxmlOpenFileDialog;
+        private System.Windows.Forms.LinkLabel llblExpandConfigVarSection;
     }
 }

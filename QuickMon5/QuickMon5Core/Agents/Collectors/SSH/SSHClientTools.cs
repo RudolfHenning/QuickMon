@@ -359,7 +359,8 @@ namespace QuickMon.SSH
                 sshClient = new Renci.SshNet.SshClient(new Renci.SshNet.ConnectionInfo(machineName, sshPort, userName, pauth, kauth));
             }
 
-            sshClient.Connect();
+            if (machineName.Trim().Length > 0)
+                sshClient.Connect();
 
             return sshClient;
         }

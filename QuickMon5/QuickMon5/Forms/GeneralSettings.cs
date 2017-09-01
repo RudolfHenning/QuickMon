@@ -86,6 +86,7 @@ namespace QuickMon
                 }
             }
             chkEnableAutoRefreshCollectorDetailAutomatically.Checked = Properties.Settings.Default.EnableAutoRefreshCollectorDetailAutomatically;
+            txtScriptsRepository.Text = Properties.Settings.Default.ScriptRepositoryDirectory;
 
             flowLayoutPanelSettingsContent.Enabled = Security.UACTools.IsInAdminMode();
             cmdRecreateAdminModeStartTask.Enabled = Security.UACTools.IsInAdminMode();
@@ -286,6 +287,7 @@ namespace QuickMon
                 Properties.Settings.Default.ApplicationUserNameCache.Add(userName.Text);
             }
             Properties.Settings.Default.EnableAutoRefreshCollectorDetailAutomatically = chkEnableAutoRefreshCollectorDetailAutomatically.Checked;
+            Properties.Settings.Default.ScriptRepositoryDirectory = txtScriptsRepository.Text;
 
             Properties.Settings.Default.Save();
             DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -520,6 +522,18 @@ namespace QuickMon
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Recreate Auto Admin mode task", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmdScriptsRepository_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Select QuickMon script repository directory";
+            fbd.ShowNewFolderButton = true;
+            fbd.SelectedPath = txtScriptsRepository.Text;
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                txtScriptsRepository.Text = fbd.SelectedPath;
             }
         }
     }

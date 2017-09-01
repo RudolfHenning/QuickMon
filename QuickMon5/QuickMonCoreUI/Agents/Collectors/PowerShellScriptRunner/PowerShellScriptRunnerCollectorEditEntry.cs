@@ -74,7 +74,9 @@ namespace QuickMon.UI
                 PowerShellScriptRunnerEntry testEntry = new PowerShellScriptRunnerEntry();
                 testEntry.Name = txtName.Text;
                 testEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
+                //in case the static config vars are used
                 testEntry.TestScript = txtScript.Text;
+                testEntry.TestScript = testEntry.TestScript.Replace("$QMScripts", @"C:\ProgramData\Hen IT\QuickMon 5\Scripts");
                 testEntry.GoodScriptText = txtSuccess.Text;
                 testEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
                 testEntry.WarningScriptText = txtWarning.Text;

@@ -33,6 +33,10 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanelSettings = new System.Windows.Forms.FlowLayoutPanel();
             this.panelAppSettings = new System.Windows.Forms.Panel();
+            this.cmdScriptsRepository = new System.Windows.Forms.Button();
+            this.txtScriptsRepository = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.chkEnableAutoRefreshCollectorDetailAutomatically = new System.Windows.Forms.CheckBox();
             this.cmdRecreateAdminModeStartTask = new System.Windows.Forms.Button();
             this.panelTvwDetailTextAlign = new System.Windows.Forms.Panel();
             this.optTvwDetailRightAlign = new System.Windows.Forms.RadioButton();
@@ -93,7 +97,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chkEnableAutoRefreshCollectorDetailAutomatically = new System.Windows.Forms.CheckBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
             this.panelTvwDetailTextAlign.SuspendLayout();
@@ -140,6 +144,10 @@
             // 
             // panelAppSettings
             // 
+            this.panelAppSettings.Controls.Add(this.label15);
+            this.panelAppSettings.Controls.Add(this.cmdScriptsRepository);
+            this.panelAppSettings.Controls.Add(this.txtScriptsRepository);
+            this.panelAppSettings.Controls.Add(this.label11);
             this.panelAppSettings.Controls.Add(this.chkEnableAutoRefreshCollectorDetailAutomatically);
             this.panelAppSettings.Controls.Add(this.cmdRecreateAdminModeStartTask);
             this.panelAppSettings.Controls.Add(this.panelTvwDetailTextAlign);
@@ -157,8 +165,49 @@
             this.panelAppSettings.Controls.Add(this.cmdAppSettingsToggle);
             this.panelAppSettings.Location = new System.Drawing.Point(3, 3);
             this.panelAppSettings.Name = "panelAppSettings";
-            this.panelAppSettings.Size = new System.Drawing.Size(495, 205);
+            this.panelAppSettings.Size = new System.Drawing.Size(495, 251);
             this.panelAppSettings.TabIndex = 0;
+            // 
+            // cmdScriptsRepository
+            // 
+            this.cmdScriptsRepository.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdScriptsRepository.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdScriptsRepository.Location = new System.Drawing.Point(450, 203);
+            this.cmdScriptsRepository.Name = "cmdScriptsRepository";
+            this.cmdScriptsRepository.Size = new System.Drawing.Size(42, 23);
+            this.cmdScriptsRepository.TabIndex = 17;
+            this.cmdScriptsRepository.Text = "- - -";
+            this.cmdScriptsRepository.UseVisualStyleBackColor = true;
+            this.cmdScriptsRepository.Click += new System.EventHandler(this.cmdScriptsRepository_Click);
+            // 
+            // txtScriptsRepository
+            // 
+            this.txtScriptsRepository.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtScriptsRepository.Location = new System.Drawing.Point(164, 205);
+            this.txtScriptsRepository.Name = "txtScriptsRepository";
+            this.txtScriptsRepository.Size = new System.Drawing.Size(280, 20);
+            this.txtScriptsRepository.TabIndex = 16;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(7, 208);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(157, 13);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "Scripts repository ( $QMScripts )";
+            // 
+            // chkEnableAutoRefreshCollectorDetailAutomatically
+            // 
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.AutoSize = true;
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Location = new System.Drawing.Point(9, 182);
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Name = "chkEnableAutoRefreshCollectorDetailAutomatically";
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Size = new System.Drawing.Size(246, 17);
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.TabIndex = 14;
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Text = "Enable Collector detaill Auto Refresh be default";
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.UseVisualStyleBackColor = true;
             // 
             // cmdRecreateAdminModeStartTask
             // 
@@ -355,7 +404,7 @@
             this.panelPollingSettings.Controls.Add(this.freqSecNumericUpDown);
             this.panelPollingSettings.Controls.Add(this.concurrencyLevelNnumericUpDown);
             this.panelPollingSettings.Controls.Add(this.cmdPollingSettingsToggle);
-            this.panelPollingSettings.Location = new System.Drawing.Point(3, 214);
+            this.panelPollingSettings.Location = new System.Drawing.Point(3, 260);
             this.panelPollingSettings.Name = "panelPollingSettings";
             this.panelPollingSettings.Size = new System.Drawing.Size(495, 150);
             this.panelPollingSettings.TabIndex = 1;
@@ -494,7 +543,7 @@
             this.panelPasswordManagement.Controls.Add(this.txtApplicationMasterKeyFilePath);
             this.panelPasswordManagement.Controls.Add(this.label6);
             this.panelPasswordManagement.Controls.Add(this.cmdPasswordManagementToggle);
-            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 370);
+            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 416);
             this.panelPasswordManagement.Name = "panelPasswordManagement";
             this.panelPasswordManagement.Size = new System.Drawing.Size(495, 260);
             this.panelPasswordManagement.TabIndex = 0;
@@ -632,7 +681,7 @@
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.flowLayoutPanelSettingsContent);
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.label13);
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.cmdRemoteHostServiceAndFirewallToggle);
-            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 636);
+            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 682);
             this.panelRemoteHostServiceAndFirewall.Name = "panelRemoteHostServiceAndFirewall";
             this.panelRemoteHostServiceAndFirewall.Size = new System.Drawing.Size(495, 173);
             this.panelRemoteHostServiceAndFirewall.TabIndex = 2;
@@ -855,16 +904,15 @@
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
             // 
-            // chkEnableAutoRefreshCollectorDetailAutomatically
+            // label15
             // 
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.AutoSize = true;
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.Location = new System.Drawing.Point(9, 182);
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.Name = "chkEnableAutoRefreshCollectorDetailAutomatically";
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.Size = new System.Drawing.Size(246, 17);
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.TabIndex = 14;
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.Text = "Enable Collector detaill Auto Refresh be default";
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.UseVisualStyleBackColor = true;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(10, 228);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(486, 13);
+            this.label15.TabIndex = 18;
+            this.label15.Text = "Example: && \"$QMScripts\\GetFileVersion.ps1\" \"C:\\Program Files\\Hen IT\\QuickMon 5\\Q" +
+    "uickMon.exe\"";
             // 
             // GeneralSettings
             // 
@@ -972,5 +1020,9 @@
         private System.Windows.Forms.Button cmdRecreateAdminModeStartTask;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox chkEnableAutoRefreshCollectorDetailAutomatically;
+        private System.Windows.Forms.Button cmdScriptsRepository;
+        private System.Windows.Forms.TextBox txtScriptsRepository;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label15;
     }
 }

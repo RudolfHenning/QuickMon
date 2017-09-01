@@ -61,6 +61,11 @@ namespace QuickMon
         public List<NotifierHost> NotifierHosts { get; private set; }
         //public NotifierHost DefaultViewerNotifier { get; set; }
 
+        /// <summary>
+        /// The scripts repository is usable through config variables
+        /// Use the $QMScripts variable to access the value
+        /// </summary>
+        public string ScriptsRepositoryDirectory { get; set; } = @"C:\ProgramData\Hen IT\QuickMon 5";
         #region Dynamic Config Variables
         public List<ConfigVariable> ConfigVariables { get; set; }
         #endregion

@@ -476,8 +476,10 @@ namespace QuickMon
                 CollectorHost newCh = newType.SelectedCollectorHost;
                 if (parentNode != null)
                 {
-                    newCh.ParentCollectorId = ((CollectorHost)(parentNode.Tag)).UniqueId;                    
+                    newCh.ParentCollectorId = ((CollectorHost)(parentNode.Tag)).UniqueId;
                 }
+                else
+                    newCh.ParentCollectorId = "";
                 monitorPack.AddCollectorHost(newCh);
                 LoadCollectorNode(parentNode, newCh);
                 tvwCollectors.SelectedNode = (TreeNodeEx)newCh.Tag;
@@ -1132,7 +1134,10 @@ namespace QuickMon
                 LoadRecentMonitorPackList();
                 this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
                 if (monitorPack != null)
+                {
                     monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+                    monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
+                }
                 SetCollectorTreeViewProperties();
             }
         }
@@ -1177,6 +1182,7 @@ namespace QuickMon
             monitorPack.MonitorPackPath = "";
             LoadControlsFromMonitorPack();
             monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+            monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
             SetMonitorPackEvents();            
             monitorPackChanged = false;
             EditMonitorSettings();
@@ -1220,7 +1226,8 @@ namespace QuickMon
                 monitorPack = new MonitorPack();
 
                 monitorPack.Load(monitorPackPath);
-                foreach(var ch in monitorPack.CollectorHosts.GroupBy(c => c.UniqueId))
+                monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
+                foreach (var ch in monitorPack.CollectorHosts.GroupBy(c => c.UniqueId))
                 {
                     if (ch.Count() > 1)
                     {

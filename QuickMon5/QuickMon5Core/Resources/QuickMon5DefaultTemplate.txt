@@ -296,7 +296,7 @@
 		</collectorHost>
 	</template>
 	<template name="SSH Query" type="CollectorHost" class="CollectorHost" description="SSH Query">
-		<collectorHost uniqueId="7244cb11-e05b-4f65-bdd5-838673bc96e1" dependOnParentId="6dd52f01-3901-42be-b957-966f49ccfc9c" name="SSH Query" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+		<collectorHost uniqueId="7244cb11-e05b-4f65-bdd5-838673bc96e1" dependOnParentId="" name="SSH Query" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
 			<!-- Alerting -->
 			<alerting>
 				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />

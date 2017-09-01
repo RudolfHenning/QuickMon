@@ -135,5 +135,14 @@ namespace QuickMon.Properties {
                 return ((bool)(this["AutoAddDefaultFireWallException"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\Hen IT\\QuickMon 5\\Scripts")]
+        public string ScriptRepositoryDirectory {
+            get {
+                return ((string)(this["ScriptRepositoryDirectory"]));
+            }
+        }
     }
 }

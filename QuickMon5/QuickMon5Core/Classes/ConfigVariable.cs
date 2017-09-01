@@ -18,17 +18,33 @@ namespace QuickMon
         public string ToXml()
         {
             XmlDocument config = new XmlDocument();
-            config.LoadXml("<configVar find=\"\" replace=\"\" />");
+            config.LoadXml("<configVar><find/><replace/></configVar>");
+
+            //config.LoadXml("<configVar find=\"\" replace=\"\" />");
             XmlElement root = config.DocumentElement;
-            root.SetAttributeValue("find", FindValue);
-            root.SetAttributeValue("replace", ReplaceValue);
+            XmlNode findNode = root.SelectSingleNode("find");
+            XmlNode replaceNode = root.SelectSingleNode("replace");
+            findNode.InnerText = FindValue;
+            replaceNode.InnerText = ReplaceValue;
+            //root.SetAttributeValue("find", FindValue);
+            //root.SetAttributeValue("replace", ReplaceValue);
             return config.OuterXml;
         }
         public static ConfigVariable FromXml(XmlNode configVarNode)
         {
             ConfigVariable newConfigVariable = new ConfigVariable();
-            newConfigVariable.FindValue = configVarNode.ReadXmlElementAttr("find", "");
-            newConfigVariable.ReplaceValue = configVarNode.ReadXmlElementAttr("replace", "");
+            XmlNode findNode = configVarNode.SelectSingleNode("find");
+            XmlNode replaceNode = configVarNode.SelectSingleNode("replace");
+            if (findNode == null || replaceNode == null)
+            {
+                newConfigVariable.FindValue = configVarNode.ReadXmlElementAttr("find", "");
+                newConfigVariable.ReplaceValue = configVarNode.ReadXmlElementAttr("replace", "");
+            }
+            else
+            {
+                newConfigVariable.FindValue = findNode.InnerText;
+                newConfigVariable.ReplaceValue = replaceNode.InnerText;
+            }
             return newConfigVariable;
         }
         public static ConfigVariable FromXml(string xmlStr)
