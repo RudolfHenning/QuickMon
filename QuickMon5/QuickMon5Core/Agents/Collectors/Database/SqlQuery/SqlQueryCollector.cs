@@ -17,107 +17,30 @@ namespace QuickMon.Collectors
             AgentConfig = new SqlQueryCollectorConfig();
         }
 
-        //public override MonitorState RefreshState()
+        //public override List<System.Data.DataTable> GetDetailDataTables()
         //{
-        //    MonitorState returnState = new MonitorState();
-        //    string lastAction = "";
-        //    int errors = 0;
-        //    int warnings = 0;
-        //    int success = 0;
-
-        //    try
+        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+        //    SqlQueryCollectorConfig currentConfig = (SqlQueryCollectorConfig)AgentConfig;
+        //    int tableNo = 1;
+        //    foreach (SqlQueryCollectorEntry entry in currentConfig.Entries)
         //    {
-        //        SqlQueryCollectorConfig currentConfig = (SqlQueryCollectorConfig)AgentConfig;
-
-        //        returnState.RawDetails = string.Format("Running {0} queries", currentConfig.Entries.Count);
-        //        returnState.HtmlDetails = string.Format("<b>Running {0} queries</b>", currentConfig.Entries.Count);
-        //        returnState.CurrentValue = 0;
-        //        foreach (SqlQueryCollectorEntry entry in currentConfig.Entries)
-        //        {
-        //            object value = entry.GetStateQueryValue();
-        //            CollectorState currentState = CollectorAgentReturnValueCompareEngine.GetState(entry.ValueReturnCheckSequence, entry.SuccessMatchType, entry.SuccessValueOrMacro,
-        //                entry.WarningMatchType, entry.WarningValueOrMacro, entry.ErrorMatchType, entry.ErrorValueOrMacro, value);
-        //            if (value.IsNumber())
-        //            {
-        //                returnState.CurrentValue = Double.Parse(returnState.CurrentValue.ToString()) + Double.Parse(value.ToString());
-        //            }
-        //            if (currentState == CollectorState.Error)
-        //            {
-        //                errors++;
-        //                returnState.ChildStates.Add(
-        //                    new MonitorState()
-        //                    {
-        //                        State = CollectorState.Error,
-        //                        ForAgent = entry.Name,
-        //                        CurrentValue = value//,
-        //                        //RawDetails = string.Format("(Trigger '{0}')", entry.TriggerSummary)
-        //                    });
-        //            }
-        //            else if (currentState == CollectorState.Warning)
-        //            {
-        //                warnings++;
-        //                returnState.ChildStates.Add(
-        //                    new MonitorState()
-        //                    {
-        //                        State = CollectorState.Warning,
-        //                        ForAgent = entry.Name,
-        //                        CurrentValue = value//,
-        //                        //RawDetails = string.Format("(Trigger '{0}')", entry.TriggerSummary)
-        //                    });
-        //            }
-        //            else
-        //            {
-        //                success++;
-        //                returnState.ChildStates.Add(
-        //                    new MonitorState()
-        //                    {
-        //                        State = CollectorState.Good,
-        //                        ForAgent = entry.Name,
-        //                        CurrentValue = value
-        //                    });
-        //            }                    
-        //        }
-
-        //        if (errors > 0 && warnings == 0 && success == 0) // any errors
-        //            returnState.State = CollectorState.Error;
-        //        else if (errors > 0 || warnings > 0) //any warnings
-        //            returnState.State = CollectorState.Warning;
+        //        System.Data.DataTable dt = entry.GetDetailQueryDataTable();
+        //        if (entry.Name.Length > 0)
+        //            dt.TableName = entry.Name;
         //        else
-        //            returnState.State = CollectorState.Good;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        returnState.RawDetails = ex.Message;
-        //        returnState.HtmlDetails = string.Format("<p><b>Last action:</b> {0}</p><blockquote>{1}</blockquote>", lastAction, ex.Message);
-        //        returnState.State = CollectorState.Error;
-        //    }
-        //    return returnState;
+        //            dt.TableName = "Table " + tableNo.ToString();
+        //        while ( (from t in tables
+        //                 where t.TableName == dt.TableName
+        //                 select t).Count() > 0)
+        //        {
+        //            dt.TableName = "Table " + tableNo.ToString();
+        //            tableNo++;
+        //        }
+        //        tables.Add(dt);
+        //        tableNo++;
+        //    }            
+        //    return tables;
         //}
-
-        public override List<System.Data.DataTable> GetDetailDataTables()
-        {
-            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-            SqlQueryCollectorConfig currentConfig = (SqlQueryCollectorConfig)AgentConfig;
-            int tableNo = 1;
-            foreach (SqlQueryCollectorEntry entry in currentConfig.Entries)
-            {
-                System.Data.DataTable dt = entry.GetDetailQueryDataTable();
-                if (entry.Name.Length > 0)
-                    dt.TableName = entry.Name;
-                else
-                    dt.TableName = "Table " + tableNo.ToString();
-                while ( (from t in tables
-                         where t.TableName == dt.TableName
-                         select t).Count() > 0)
-                {
-                    dt.TableName = "Table " + tableNo.ToString();
-                    tableNo++;
-                }
-                tables.Add(dt);
-                tableNo++;
-            }            
-            return tables;
-        }
     }
     public class SqlQueryCollectorConfig : ICollectorConfig
     {
@@ -179,9 +102,9 @@ namespace QuickMon.Collectors
                 queryEntry.UseSPForStateQuery = stateQueryNode.ReadXmlElementAttr("useSP", false);
                 queryEntry.StateQuery = stateQueryNode.InnerText;
 
-                XmlNode detailQueryNode = queryNode.SelectSingleNode("detailQuery");
-                queryEntry.UseSPForDetailQuery = detailQueryNode.ReadXmlElementAttr("useSP", false);
-                queryEntry.DetailQuery = detailQueryNode.InnerText;
+                //XmlNode detailQueryNode = queryNode.SelectSingleNode("detailQuery");
+                //queryEntry.UseSPForDetailQuery = detailQueryNode.ReadXmlElementAttr("useSP", false);
+                //queryEntry.DetailQuery = detailQueryNode.InnerText;
 
                 Entries.Add(queryEntry);
             }
@@ -211,9 +134,9 @@ namespace QuickMon.Collectors
                 queryEntry.UseSPForStateQuery = stateQueryNode.ReadXmlElementAttr("useSP", false);
                 queryEntry.StateQuery = stateQueryNode.InnerText;
 
-                XmlNode detailQueryNode = dataSourceNode.SelectSingleNode("detailQuery");
-                queryEntry.UseSPForDetailQuery = detailQueryNode.ReadXmlElementAttr("useSP", false);
-                queryEntry.DetailQuery = detailQueryNode.InnerText;
+                //XmlNode detailQueryNode = dataSourceNode.SelectSingleNode("detailQuery");
+                //queryEntry.UseSPForDetailQuery = detailQueryNode.ReadXmlElementAttr("useSP", false);
+                //queryEntry.DetailQuery = detailQueryNode.InnerText;
 
                 XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
                 if (testConditionsNode != null)
@@ -272,8 +195,8 @@ namespace QuickMon.Collectors
                 XmlElement stateQueryNode = dataSourceNode.AppendElementWithText("stateQuery", queryEntry.StateQuery);
                 stateQueryNode.SetAttributeValue("useSP", queryEntry.UseSPForStateQuery);
 
-                XmlElement detailQueryNode = dataSourceNode.AppendElementWithText("detailQuery", queryEntry.DetailQuery);
-                detailQueryNode.SetAttributeValue("useSP", queryEntry.UseSPForDetailQuery);
+                //XmlElement detailQueryNode = dataSourceNode.AppendElementWithText("detailQuery", queryEntry.DetailQuery);
+                //detailQueryNode.SetAttributeValue("useSP", queryEntry.UseSPForDetailQuery);
 
                 XmlElement testConditionsNode = config.CreateElement("testConditions");
                 testConditionsNode.SetAttributeValue("testSequence", queryEntry.ReturnCheckSequence.ToString());
@@ -302,7 +225,7 @@ namespace QuickMon.Collectors
             return "<config>" +
                "<carvcesEntries>" +
                "<carvceEntry name=\"\">" +
-               "<dataSource><stateQuery /><detailQuery /></dataSource>" +
+               "<dataSource><stateQuery /></dataSource>" +
                "<testConditions testSequence=\"GWE\">" +
                "<success testType=\"match\"></success>" +
                "<warning testType=\"match\"></warning>" +
@@ -449,8 +372,8 @@ namespace QuickMon.Collectors
         #endregion
 
         #region Detail query
-        public string DetailQuery { get; set; }
-        public bool UseSPForDetailQuery { get; set; }
+        //public string DetailQuery { get; set; }
+        //public bool UseSPForDetailQuery { get; set; }
         #endregion
 
         #region Alert settings
@@ -572,46 +495,46 @@ namespace QuickMon.Collectors
         #endregion
 
         #region GetDetailQueryDataTable
-        public DataTable GetDetailQueryDataTable()
-        {
-            DataTable dt = new DataTable(Name);
-            try
-            {
-                using (System.Data.Common.DbCommand cmnd = GetCommand(DetailQuery, UseSPForDetailQuery))
-                {
-                    cmnd.CommandType = UseSPForStateQuery ? CommandType.StoredProcedure : CommandType.Text;
-                    cmnd.CommandTimeout = CmndTimeOut;
-                    cmnd.Prepare();
-                    if (DataSourceType == Collectors.DataSourceType.SqlServer)
-                    {
-                        using (SqlDataAdapter da = new SqlDataAdapter((SqlCommand)cmnd))
-                        {
-                            DataSet returnValues = new DataSet();
-                            da.Fill(returnValues);
-                            dt = returnValues.Tables[0].Copy();
-                        }
-                    }
-                    else
-                    {
-                        using (System.Data.Common.DbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter((System.Data.OleDb.OleDbCommand)cmnd))
-                        {
-                            DataSet returnValues = new DataSet();
-                            da.Fill(returnValues);
-                            dt = returnValues.Tables[0].Copy();
-                        }
-                    }
-                }
-                CloseConnection();
-            }
-            catch (Exception ex)
-            {
-                dt = new System.Data.DataTable("Exception");
-                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-                dt.Rows.Add(ex.ToString());
-                CloseConnection(true);
-            }
-            return dt;
-        }
+        //public DataTable GetDetailQueryDataTable()
+        //{
+        //    DataTable dt = new DataTable(Name);
+        //    try
+        //    {
+        //        using (System.Data.Common.DbCommand cmnd = GetCommand(DetailQuery, UseSPForDetailQuery))
+        //        {
+        //            cmnd.CommandType = UseSPForStateQuery ? CommandType.StoredProcedure : CommandType.Text;
+        //            cmnd.CommandTimeout = CmndTimeOut;
+        //            cmnd.Prepare();
+        //            if (DataSourceType == Collectors.DataSourceType.SqlServer)
+        //            {
+        //                using (SqlDataAdapter da = new SqlDataAdapter((SqlCommand)cmnd))
+        //                {
+        //                    DataSet returnValues = new DataSet();
+        //                    da.Fill(returnValues);
+        //                    dt = returnValues.Tables[0].Copy();
+        //                }
+        //            }
+        //            else
+        //            {
+        //                using (System.Data.Common.DbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter((System.Data.OleDb.OleDbCommand)cmnd))
+        //                {
+        //                    DataSet returnValues = new DataSet();
+        //                    da.Fill(returnValues);
+        //                    dt = returnValues.Tables[0].Copy();
+        //                }
+        //            }
+        //        }
+        //        CloseConnection();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dt = new System.Data.DataTable("Exception");
+        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+        //        dt.Rows.Add(ex.ToString());
+        //        CloseConnection(true);
+        //    }
+        //    return dt;
+        //}
         #endregion
 
         #region Generic Db functions

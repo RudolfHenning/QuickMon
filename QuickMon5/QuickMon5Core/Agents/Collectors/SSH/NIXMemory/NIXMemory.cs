@@ -18,10 +18,6 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new NixMemoryCollectorConfig();
         }
-        public override List<DataTable> GetDetailDataTables()
-        {
-            throw new NotImplementedException();
-        }
     }
     public class NixMemoryCollectorConfig : ICollectorConfig
     {

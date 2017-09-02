@@ -16,41 +16,41 @@ namespace QuickMon.Collectors
             AgentConfig = new PerfCounterCollectorConfig();
         }
 
-        public override List<System.Data.DataTable> GetDetailDataTables()
-        {
-            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-            System.Data.DataTable dt = new System.Data.DataTable();
-            try
-            {
-                dt.Columns.Add(new System.Data.DataColumn("Computer", typeof(string)));
-                dt.Columns[0].ExtendedProperties.Add("groupby", "true");
-                dt.Columns.Add(new System.Data.DataColumn("Perf counter", typeof(string)));
-                dt.Columns.Add(new System.Data.DataColumn("Value", typeof(float)));
+        //public override List<System.Data.DataTable> GetDetailDataTables()
+        //{
+        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+        //    System.Data.DataTable dt = new System.Data.DataTable();
+        //    try
+        //    {
+        //        dt.Columns.Add(new System.Data.DataColumn("Computer", typeof(string)));
+        //        dt.Columns[0].ExtendedProperties.Add("groupby", "true");
+        //        dt.Columns.Add(new System.Data.DataColumn("Perf counter", typeof(string)));
+        //        dt.Columns.Add(new System.Data.DataColumn("Value", typeof(float)));
 
-                PerfCounterCollectorConfig currentConfig = (PerfCounterCollectorConfig)AgentConfig;
-                foreach (PerfCounterCollectorEntry entry in currentConfig.Entries)
-                {
-                    float value = 0;
-                    try
-                    {
-                        value = entry.GetNextValue();
-                    }
-                    catch
-                    {
-                        value = -1;
-                    }
-                    dt.Rows.Add(entry.Computer, entry.PCNameWithoutComputerName, value);
-                }
-            }
-            catch (Exception ex)
-            {
-                dt = new System.Data.DataTable("Exception");
-                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-                dt.Rows.Add(ex.ToString());
-            }
-            tables.Add(dt);
-            return tables;
-        }
+        //        PerfCounterCollectorConfig currentConfig = (PerfCounterCollectorConfig)AgentConfig;
+        //        foreach (PerfCounterCollectorEntry entry in currentConfig.Entries)
+        //        {
+        //            float value = 0;
+        //            try
+        //            {
+        //                value = entry.GetNextValue();
+        //            }
+        //            catch
+        //            {
+        //                value = -1;
+        //            }
+        //            dt.Rows.Add(entry.Computer, entry.PCNameWithoutComputerName, value);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dt = new System.Data.DataTable("Exception");
+        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+        //        dt.Rows.Add(ex.ToString());
+        //    }
+        //    tables.Add(dt);
+        //    return tables;
+        //}
     }
 
     public class PerfCounterCollectorConfig : ICollectorConfig

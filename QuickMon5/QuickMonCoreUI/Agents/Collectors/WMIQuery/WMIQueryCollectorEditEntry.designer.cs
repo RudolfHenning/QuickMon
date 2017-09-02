@@ -39,22 +39,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSummary = new System.Windows.Forms.TabPage();
-            this.cmdEditSummaryQuery = new System.Windows.Forms.Button();
-            this.tabPageDetail = new System.Windows.Forms.TabPage();
-            this.cmdEditDetailsQuery = new System.Windows.Forms.Button();
-            this.chkCopyColumnNames = new System.Windows.Forms.CheckBox();
-            this.cmdEditColumnNames = new System.Windows.Forms.Button();
-            this.txtColumnNames = new System.Windows.Forms.TextBox();
-            this.lblColumnNameSequence = new System.Windows.Forms.Label();
-            this.txtDetailQuery = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.keyColumnNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.cmdTestDB = new System.Windows.Forms.Button();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.chkUseRowCountAsValue = new System.Windows.Forms.CheckBox();
             this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
             this.errorGroupBox = new System.Windows.Forms.GroupBox();
             this.cboErrorMatchType = new System.Windows.Forms.ComboBox();
@@ -67,11 +52,14 @@
             this.txtSuccess = new System.Windows.Forms.TextBox();
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.chkUseRowCountAsValue = new System.Windows.Forms.CheckBox();
+            this.cmdEditSummaryQuery = new System.Windows.Forms.Button();
+            this.cmdTestDB = new System.Windows.Forms.Button();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageSummary.SuspendLayout();
-            this.tabPageDetail.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.keyColumnNumericUpDown)).BeginInit();
             this.sequenceGroupBox.SuspendLayout();
             this.errorGroupBox.SuspendLayout();
             this.warningGroupBox.SuspendLayout();
@@ -171,7 +159,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageSummary);
-            this.tabControl1.Controls.Add(this.tabPageDetail);
             this.tabControl1.Location = new System.Drawing.Point(12, 87);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -193,190 +180,16 @@
             this.tabPageSummary.TabIndex = 0;
             this.tabPageSummary.Text = "State query";
             // 
-            // cmdEditSummaryQuery
+            // chkUseRowCountAsValue
             // 
-            this.cmdEditSummaryQuery.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditSummaryQuery.Image = global::QuickMon.Properties.Resources.settings_16;
-            this.cmdEditSummaryQuery.Location = new System.Drawing.Point(136, 2);
-            this.cmdEditSummaryQuery.Name = "cmdEditSummaryQuery";
-            this.cmdEditSummaryQuery.Size = new System.Drawing.Size(36, 23);
-            this.cmdEditSummaryQuery.TabIndex = 1;
-            this.cmdEditSummaryQuery.UseVisualStyleBackColor = true;
-            this.cmdEditSummaryQuery.Click += new System.EventHandler(this.cmdEditSummaryQuery_Click);
-            // 
-            // tabPageDetail
-            // 
-            this.tabPageDetail.BackColor = System.Drawing.Color.White;
-            this.tabPageDetail.Controls.Add(this.cmdEditDetailsQuery);
-            this.tabPageDetail.Controls.Add(this.chkCopyColumnNames);
-            this.tabPageDetail.Controls.Add(this.cmdEditColumnNames);
-            this.tabPageDetail.Controls.Add(this.txtColumnNames);
-            this.tabPageDetail.Controls.Add(this.lblColumnNameSequence);
-            this.tabPageDetail.Controls.Add(this.txtDetailQuery);
-            this.tabPageDetail.Controls.Add(this.label7);
-            this.tabPageDetail.Controls.Add(this.label9);
-            this.tabPageDetail.Controls.Add(this.keyColumnNumericUpDown);
-            this.tabPageDetail.Location = new System.Drawing.Point(4, 22);
-            this.tabPageDetail.Name = "tabPageDetail";
-            this.tabPageDetail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDetail.Size = new System.Drawing.Size(518, 320);
-            this.tabPageDetail.TabIndex = 1;
-            this.tabPageDetail.Text = "Detail query";
-            // 
-            // cmdEditDetailsQuery
-            // 
-            this.cmdEditDetailsQuery.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditDetailsQuery.Image = global::QuickMon.Properties.Resources.settings_16;
-            this.cmdEditDetailsQuery.Location = new System.Drawing.Point(136, 2);
-            this.cmdEditDetailsQuery.Name = "cmdEditDetailsQuery";
-            this.cmdEditDetailsQuery.Size = new System.Drawing.Size(36, 23);
-            this.cmdEditDetailsQuery.TabIndex = 8;
-            this.cmdEditDetailsQuery.UseVisualStyleBackColor = true;
-            this.cmdEditDetailsQuery.Click += new System.EventHandler(this.cmdEditDetailsQuery_Click);
-            // 
-            // chkCopyColumnNames
-            // 
-            this.chkCopyColumnNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkCopyColumnNames.AutoSize = true;
-            this.chkCopyColumnNames.Location = new System.Drawing.Point(298, 8);
-            this.chkCopyColumnNames.Name = "chkCopyColumnNames";
-            this.chkCopyColumnNames.Size = new System.Drawing.Size(214, 17);
-            this.chkCopyColumnNames.TabIndex = 1;
-            this.chkCopyColumnNames.Text = "Copy column names to clipboard on test";
-            this.chkCopyColumnNames.UseVisualStyleBackColor = true;
-            // 
-            // cmdEditColumnNames
-            // 
-            this.cmdEditColumnNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditColumnNames.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditColumnNames.Location = new System.Drawing.Point(471, 289);
-            this.cmdEditColumnNames.Name = "cmdEditColumnNames";
-            this.cmdEditColumnNames.Size = new System.Drawing.Size(33, 23);
-            this.cmdEditColumnNames.TabIndex = 7;
-            this.cmdEditColumnNames.Text = "- - -";
-            this.cmdEditColumnNames.UseVisualStyleBackColor = true;
-            this.cmdEditColumnNames.Click += new System.EventHandler(this.cmdEditColumnNames_Click);
-            // 
-            // txtColumnNames
-            // 
-            this.txtColumnNames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtColumnNames.Location = new System.Drawing.Point(136, 291);
-            this.txtColumnNames.Name = "txtColumnNames";
-            this.txtColumnNames.Size = new System.Drawing.Size(329, 20);
-            this.txtColumnNames.TabIndex = 6;
-            this.txtColumnNames.Text = ".";
-            // 
-            // lblColumnNameSequence
-            // 
-            this.lblColumnNameSequence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblColumnNameSequence.AutoSize = true;
-            this.lblColumnNameSequence.Location = new System.Drawing.Point(9, 294);
-            this.lblColumnNameSequence.Name = "lblColumnNameSequence";
-            this.lblColumnNameSequence.Size = new System.Drawing.Size(121, 13);
-            this.lblColumnNameSequence.TabIndex = 5;
-            this.lblColumnNameSequence.Text = "Column name sequence";
-            this.lblColumnNameSequence.DoubleClick += new System.EventHandler(this.lblColumnNameSequence_DoubleClick);
-            // 
-            // txtDetailQuery
-            // 
-            this.txtDetailQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDetailQuery.Location = new System.Drawing.Point(13, 25);
-            this.txtDetailQuery.Multiline = true;
-            this.txtDetailQuery.Name = "txtDetailQuery";
-            this.txtDetailQuery.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDetailQuery.Size = new System.Drawing.Size(495, 258);
-            this.txtDetailQuery.TabIndex = 2;
-            this.txtDetailQuery.Text = "SELECT Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = \'C:\'";
-            this.txtDetailQuery.TextChanged += new System.EventHandler(this.txtDetailQuery_TextChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(118, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "WMI query for summary";
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 299);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(62, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Key column";
-            this.label9.Visible = false;
-            // 
-            // keyColumnNumericUpDown
-            // 
-            this.keyColumnNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.keyColumnNumericUpDown.Location = new System.Drawing.Point(136, 297);
-            this.keyColumnNumericUpDown.Name = "keyColumnNumericUpDown";
-            this.keyColumnNumericUpDown.Size = new System.Drawing.Size(59, 20);
-            this.keyColumnNumericUpDown.TabIndex = 6;
-            this.keyColumnNumericUpDown.Visible = false;
-            // 
-            // cmdTestDB
-            // 
-            this.cmdTestDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTestDB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTestDB.Location = new System.Drawing.Point(301, 446);
-            this.cmdTestDB.Name = "cmdTestDB";
-            this.cmdTestDB.Size = new System.Drawing.Size(75, 23);
-            this.cmdTestDB.TabIndex = 9;
-            this.cmdTestDB.Text = "Test";
-            this.cmdTestDB.UseVisualStyleBackColor = true;
-            this.cmdTestDB.Click += new System.EventHandler(this.cmdTestDB_Click);
-            // 
-            // txtName
-            // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(152, 9);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(386, 20);
-            this.txtName.TabIndex = 1;
-            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 12);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Name";
-            // 
-            // cboOutputValueUnit
-            // 
-            this.cboOutputValueUnit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboOutputValueUnit.FormattingEnabled = true;
-            this.cboOutputValueUnit.Items.AddRange(new object[] {
-            "%",
-            "item(s)",
-            "KB",
-            "MB"});
-            this.cboOutputValueUnit.Location = new System.Drawing.Point(94, 448);
-            this.cboOutputValueUnit.Name = "cboOutputValueUnit";
-            this.cboOutputValueUnit.Size = new System.Drawing.Size(201, 21);
-            this.cboOutputValueUnit.TabIndex = 8;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label10.AutoSize = true;
-            this.label10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label10.Location = new System.Drawing.Point(13, 451);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(59, 13);
-            this.label10.TabIndex = 7;
-            this.label10.Text = "Output unit";
+            this.chkUseRowCountAsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkUseRowCountAsValue.AutoSize = true;
+            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(370, 6);
+            this.chkUseRowCountAsValue.Name = "chkUseRowCountAsValue";
+            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(139, 17);
+            this.chkUseRowCountAsValue.TabIndex = 2;
+            this.chkUseRowCountAsValue.Text = "Row count as the value";
+            this.chkUseRowCountAsValue.UseVisualStyleBackColor = true;
             // 
             // sequenceGroupBox
             // 
@@ -566,16 +379,73 @@
             this.label5.Text = "Check sequence";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // chkUseRowCountAsValue
+            // cmdEditSummaryQuery
             // 
-            this.chkUseRowCountAsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkUseRowCountAsValue.AutoSize = true;
-            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(370, 6);
-            this.chkUseRowCountAsValue.Name = "chkUseRowCountAsValue";
-            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(139, 17);
-            this.chkUseRowCountAsValue.TabIndex = 2;
-            this.chkUseRowCountAsValue.Text = "Row count as the value";
-            this.chkUseRowCountAsValue.UseVisualStyleBackColor = true;
+            this.cmdEditSummaryQuery.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditSummaryQuery.Image = global::QuickMon.Properties.Resources.settings_16;
+            this.cmdEditSummaryQuery.Location = new System.Drawing.Point(136, 2);
+            this.cmdEditSummaryQuery.Name = "cmdEditSummaryQuery";
+            this.cmdEditSummaryQuery.Size = new System.Drawing.Size(36, 23);
+            this.cmdEditSummaryQuery.TabIndex = 1;
+            this.cmdEditSummaryQuery.UseVisualStyleBackColor = true;
+            this.cmdEditSummaryQuery.Click += new System.EventHandler(this.cmdEditSummaryQuery_Click);
+            // 
+            // cmdTestDB
+            // 
+            this.cmdTestDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdTestDB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTestDB.Location = new System.Drawing.Point(301, 446);
+            this.cmdTestDB.Name = "cmdTestDB";
+            this.cmdTestDB.Size = new System.Drawing.Size(75, 23);
+            this.cmdTestDB.TabIndex = 9;
+            this.cmdTestDB.Text = "Test";
+            this.cmdTestDB.UseVisualStyleBackColor = true;
+            this.cmdTestDB.Click += new System.EventHandler(this.cmdTestDB_Click);
+            // 
+            // txtName
+            // 
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtName.Location = new System.Drawing.Point(152, 9);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(386, 20);
+            this.txtName.TabIndex = 1;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 12);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 13);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Name";
+            // 
+            // cboOutputValueUnit
+            // 
+            this.cboOutputValueUnit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboOutputValueUnit.FormattingEnabled = true;
+            this.cboOutputValueUnit.Items.AddRange(new object[] {
+            "%",
+            "item(s)",
+            "KB",
+            "MB"});
+            this.cboOutputValueUnit.Location = new System.Drawing.Point(94, 448);
+            this.cboOutputValueUnit.Name = "cboOutputValueUnit";
+            this.cboOutputValueUnit.Size = new System.Drawing.Size(201, 21);
+            this.cboOutputValueUnit.TabIndex = 8;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label10.AutoSize = true;
+            this.label10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label10.Location = new System.Drawing.Point(13, 451);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(59, 13);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "Output unit";
             // 
             // WMIQueryCollectorEditEntry
             // 
@@ -608,9 +478,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageSummary.ResumeLayout(false);
             this.tabPageSummary.PerformLayout();
-            this.tabPageDetail.ResumeLayout(false);
-            this.tabPageDetail.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.keyColumnNumericUpDown)).EndInit();
             this.sequenceGroupBox.ResumeLayout(false);
             this.errorGroupBox.ResumeLayout(false);
             this.errorGroupBox.PerformLayout();
@@ -624,18 +491,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button cmdEditDetailsQuery;
         private System.Windows.Forms.Button cmdCancel;
-        private System.Windows.Forms.CheckBox chkCopyColumnNames;
-        private System.Windows.Forms.Button cmdEditColumnNames;
-        private System.Windows.Forms.TabPage tabPageDetail;
-        private System.Windows.Forms.TextBox txtColumnNames;
-        private System.Windows.Forms.Label lblColumnNameSequence;
-        private System.Windows.Forms.TextBox txtDetailQuery;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown keyColumnNumericUpDown;
         private System.Windows.Forms.Button cmdEditSummaryQuery;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button cmdTestDB;

@@ -16,33 +16,33 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new PingCollectorConfig();
         }
-        public override List<System.Data.DataTable> GetDetailDataTables()
-        {
-            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-            System.Data.DataTable dt = new System.Data.DataTable();
-            try
-            {
-                dt.Columns.Add(new System.Data.DataColumn("Host name", typeof(string)));
-                dt.Columns.Add(new System.Data.DataColumn("Success", typeof(bool)));
-                dt.Columns.Add(new System.Data.DataColumn("Ping time", typeof(int)));
-                dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));                
+        //public override List<System.Data.DataTable> GetDetailDataTables()
+        //{
+        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+        //    System.Data.DataTable dt = new System.Data.DataTable();
+        //    try
+        //    {
+        //        dt.Columns.Add(new System.Data.DataColumn("Host name", typeof(string)));
+        //        dt.Columns.Add(new System.Data.DataColumn("Success", typeof(bool)));
+        //        dt.Columns.Add(new System.Data.DataColumn("Ping time", typeof(int)));
+        //        dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));                
 
-                PingCollectorConfig currentConfig = (PingCollectorConfig)AgentConfig;
-                foreach (PingCollectorHostEntry host in currentConfig.Entries) //.OrderBy(h => ((PingCollectorHostEntry)h).Address))
-                {
-                    PingCollectorResult pingResult = host.Ping();
-                    dt.Rows.Add(host.Address, pingResult.Success, pingResult.PingTime, pingResult.ResponseDetails);
-                }
-            }
-            catch (Exception ex)
-            {
-                dt = new System.Data.DataTable("Exception");
-                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-                dt.Rows.Add(ex.ToString());
-            }
-            tables.Add(dt);
-            return tables;
-        }
+        //        PingCollectorConfig currentConfig = (PingCollectorConfig)AgentConfig;
+        //        foreach (PingCollectorHostEntry host in currentConfig.Entries) //.OrderBy(h => ((PingCollectorHostEntry)h).Address))
+        //        {
+        //            PingCollectorResult pingResult = host.Ping();
+        //            dt.Rows.Add(host.Address, pingResult.Success, pingResult.PingTime, pingResult.ResponseDetails);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dt = new System.Data.DataTable("Exception");
+        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+        //        dt.Rows.Add(ex.ToString());
+        //    }
+        //    tables.Add(dt);
+        //    return tables;
+        //}
     }
 
     public class PingCollectorConfig : ICollectorConfig

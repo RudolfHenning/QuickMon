@@ -9,7 +9,7 @@ namespace QuickMon
     {
         MonitorState GetState();
         MonitorState CurrentState { get; set; }
-        List<System.Data.DataTable> GetDetailDataTables();
+        //List<System.Data.DataTable> GetDetailDataTables();
         bool PrimaryUIValue { get; set; }
     }
 }

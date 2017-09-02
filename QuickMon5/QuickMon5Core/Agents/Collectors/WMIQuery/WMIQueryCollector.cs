@@ -98,28 +98,28 @@ namespace QuickMon.Collectors
         //    return returnState;
         //}
 
-        public override List<System.Data.DataTable> GetDetailDataTables()
-        {
-            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-            try
-            {
-                WMIQueryCollectorConfig currentConfig = (WMIQueryCollectorConfig)AgentConfig;
-                foreach (WMIQueryCollectorConfigEntry entry in currentConfig.Entries)
-                {
-                    System.Data.DataTable dt = entry.GetDetailDataTable();
-                    dt.TableName = Name + " (" + entry.Name + ")";
-                    tables.Add(dt);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Data.DataTable dt = new System.Data.DataTable("Exception");
-                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-                dt.Rows.Add(ex.ToString());
-                tables.Add(dt);
-            }
-            return tables;
-        }
+        //public override List<System.Data.DataTable> GetDetailDataTables()
+        //{
+        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+        //    try
+        //    {
+        //        WMIQueryCollectorConfig currentConfig = (WMIQueryCollectorConfig)AgentConfig;
+        //        foreach (WMIQueryCollectorConfigEntry entry in currentConfig.Entries)
+        //        {
+        //            System.Data.DataTable dt = entry.GetDetailDataTable();
+        //            dt.TableName = Name + " (" + entry.Name + ")";
+        //            tables.Add(dt);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        System.Data.DataTable dt = new System.Data.DataTable("Exception");
+        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+        //        dt.Rows.Add(ex.ToString());
+        //        tables.Add(dt);
+        //    }
+        //    return tables;
+        //}
     }
 
     public class WMIQueryCollectorConfig : ICollectorConfig
@@ -171,14 +171,14 @@ namespace QuickMon.Collectors
                 entry.ErrorValue = stateQueryNode.ReadXmlElementAttr("errorValue", "0");
                 entry.GoodValue = stateQueryNode.ReadXmlElementAttr("successValue", "0");
                 entry.UseRowCountAsValue = bool.Parse(stateQueryNode.ReadXmlElementAttr("useRowCountAsValue", "True"));
-                XmlNode detailQueryNode = wmiQueryNode.SelectSingleNode("detailQuery");
-                entry.DetailQuery = detailQueryNode.ReadXmlElementAttr("syntax", "");
-                string columns = detailQueryNode.ReadXmlElementAttr("columnNames", "");
-                entry.ColumnNames = new List<string>();
-                if (columns.Length > 0 && columns.IndexOf(',') > -1)
-                    entry.ColumnNames = columns.ToListFromCSVString();
-                else if (columns.Length > 0)
-                    entry.ColumnNames.Add(columns);
+                //XmlNode detailQueryNode = wmiQueryNode.SelectSingleNode("detailQuery");
+                //entry.DetailQuery = detailQueryNode.ReadXmlElementAttr("syntax", "");
+                //string columns = detailQueryNode.ReadXmlElementAttr("columnNames", "");
+                //entry.ColumnNames = new List<string>();
+                //if (columns.Length > 0 && columns.IndexOf(',') > -1)
+                //    entry.ColumnNames = columns.ToListFromCSVString();
+                //else if (columns.Length > 0)
+                //    entry.ColumnNames.Add(columns);
                 Entries.Add(entry);
             }
 
@@ -198,14 +198,14 @@ namespace QuickMon.Collectors
                 entry.UseRowCountAsValue = bool.Parse(stateQueryNode.ReadXmlElementAttr("useRowCountAsValue", "False"));
                 entry.StateQuery = stateQueryNode.InnerText;
 
-                XmlNode detailQueryNode = dataSourceNode.SelectSingleNode("detailQuery");
-                string columns = detailQueryNode.ReadXmlElementAttr("columnNames", "");
-                entry.ColumnNames = new List<string>();
-                if (columns.Length > 0 && columns.IndexOf(',') > -1)
-                    entry.ColumnNames = columns.ToListFromCSVString();
-                else if (columns.Length > 0)
-                    entry.ColumnNames.Add(columns);
-                entry.DetailQuery = detailQueryNode.InnerText;
+                //XmlNode detailQueryNode = dataSourceNode.SelectSingleNode("detailQuery");
+                //string columns = detailQueryNode.ReadXmlElementAttr("columnNames", "");
+                //entry.ColumnNames = new List<string>();
+                //if (columns.Length > 0 && columns.IndexOf(',') > -1)
+                //    entry.ColumnNames = columns.ToListFromCSVString();
+                //else if (columns.Length > 0)
+                //    entry.ColumnNames.Add(columns);
+                //entry.DetailQuery = detailQueryNode.InnerText;
 
                 XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
                 if (testConditionsNode != null)
@@ -251,8 +251,8 @@ namespace QuickMon.Collectors
                 //stateQueryNode.SetAttributeValue("returnValueIsInt", queryEntry.ReturnValueIsInt);
                 stateQueryNode.SetAttributeValue("useRowCountAsValue", queryEntry.UseRowCountAsValue);
 
-                XmlElement detailQueryNode = dataSourceNode.AppendElementWithText("detailQuery", queryEntry.DetailQuery);
-                detailQueryNode.SetAttributeValue("columnNames", queryEntry.ColumnNames.ToCSVString());
+                //XmlElement detailQueryNode = dataSourceNode.AppendElementWithText("detailQuery", queryEntry.DetailQuery);
+                //detailQueryNode.SetAttributeValue("columnNames", queryEntry.ColumnNames.ToCSVString());
 
                 XmlElement testConditionsNode = config.CreateElement("testConditions");
                 testConditionsNode.SetAttributeValue("testSequence", queryEntry.ReturnCheckSequence.ToString());
@@ -311,7 +311,7 @@ namespace QuickMon.Collectors
             return "<config>" +
               "<carvcesEntries>" +
               "<carvceEntry name=\"\">" +
-              "<dataSource><stateQuery /><detailQuery /></dataSource>" +
+              "<dataSource><stateQuery /></dataSource>" +
               "<testConditions testSequence=\"GWE\">" +
               "<success testType=\"match\"></success>" +
               "<warning testType=\"match\"></warning>" +
@@ -430,8 +430,8 @@ namespace QuickMon.Collectors
         //public bool ReturnValueIsInt { get; set; }
         //public bool ReturnValueInverted { get; set; }
         public bool UseRowCountAsValue { get; set; }
-        public string DetailQuery { get; set; }
-        public List<string> ColumnNames { get; set; }
+        //public string DetailQuery { get; set; }
+        //public List<string> ColumnNames { get; set; }
 
         #region Alert trigger tests
         public CollectorAgentReturnValueCheckSequence ReturnCheckSequence { get; set; }
@@ -559,163 +559,163 @@ namespace QuickMon.Collectors
             return null;
         }
 
-        public List<DataColumn> GetDetailQueryColumns()
-        {
-            List<DataColumn> columns = new List<DataColumn>();
-            //columns.Add(new DataColumn("Machine", typeof(string)));
-            //string firstMachineName = Machinename;
-            ManagementScope managementScope = new ManagementScope(new ManagementPath(Namespace) { Server = Machinename });
-            using (ManagementObjectSearcher searcherInstance = new ManagementObjectSearcher(managementScope, new WqlObjectQuery(DetailQuery), null))
-            {
-                if (searcherInstance != null)
-                {
-                    using (ManagementObjectCollection results = searcherInstance.Get())
-                    {
-                        int nItems = results.Count;
-                        if (nItems > 0)
-                        {
-                            foreach (ManagementObject objServiceInstance in results)
-                            {
-                                if (ColumnNames == null || ColumnNames.Count == 0)
-                                {
-                                    foreach (var prop in objServiceInstance.Properties)
-                                    {
-                                        DataColumn newColum = new DataColumn(prop.Name);
-                                        string typeStr = prop.Type.ToString().ToLower();
-                                        if (typeStr == "string")
-                                            newColum.DataType = typeof(string);
-                                        else if (typeStr == "uint64")
-                                            newColum.DataType = typeof(UInt64);
-                                        else if (typeStr == "uint32")
-                                            newColum.DataType = typeof(UInt32);
-                                        else if (typeStr == "uint16")
-                                            newColum.DataType = typeof(UInt16);
-                                        else if (typeStr == "sint64")
-                                            newColum.DataType = typeof(Int64);
-                                        else if (typeStr == "sint32")
-                                            newColum.DataType = typeof(Int32);
-                                        else if (typeStr == "sint16")
-                                            newColum.DataType = typeof(Int16);
-                                        else if (typeStr == "boolean")
-                                            newColum.DataType = typeof(bool);
-                                        else if (typeStr == "datetime")
-                                            newColum.DataType = typeof(DateTime);
-                                        else
-                                            newColum.DataType = typeof(string);
-                                        newColum.AllowDBNull = true;
-                                        columns.Add(newColum);
-                                    }
-                                    break;
-                                }
-                                else
-                                {
-                                    foreach (string columnName in ColumnNames)
-                                    {
+        //public List<DataColumn> GetDetailQueryColumns()
+        //{
+        //    List<DataColumn> columns = new List<DataColumn>();
+        //    //columns.Add(new DataColumn("Machine", typeof(string)));
+        //    //string firstMachineName = Machinename;
+        //    ManagementScope managementScope = new ManagementScope(new ManagementPath(Namespace) { Server = Machinename });
+        //    using (ManagementObjectSearcher searcherInstance = new ManagementObjectSearcher(managementScope, new WqlObjectQuery(DetailQuery), null))
+        //    {
+        //        if (searcherInstance != null)
+        //        {
+        //            using (ManagementObjectCollection results = searcherInstance.Get())
+        //            {
+        //                int nItems = results.Count;
+        //                if (nItems > 0)
+        //                {
+        //                    foreach (ManagementObject objServiceInstance in results)
+        //                    {
+        //                        if (ColumnNames == null || ColumnNames.Count == 0)
+        //                        {
+        //                            foreach (var prop in objServiceInstance.Properties)
+        //                            {
+        //                                DataColumn newColum = new DataColumn(prop.Name);
+        //                                string typeStr = prop.Type.ToString().ToLower();
+        //                                if (typeStr == "string")
+        //                                    newColum.DataType = typeof(string);
+        //                                else if (typeStr == "uint64")
+        //                                    newColum.DataType = typeof(UInt64);
+        //                                else if (typeStr == "uint32")
+        //                                    newColum.DataType = typeof(UInt32);
+        //                                else if (typeStr == "uint16")
+        //                                    newColum.DataType = typeof(UInt16);
+        //                                else if (typeStr == "sint64")
+        //                                    newColum.DataType = typeof(Int64);
+        //                                else if (typeStr == "sint32")
+        //                                    newColum.DataType = typeof(Int32);
+        //                                else if (typeStr == "sint16")
+        //                                    newColum.DataType = typeof(Int16);
+        //                                else if (typeStr == "boolean")
+        //                                    newColum.DataType = typeof(bool);
+        //                                else if (typeStr == "datetime")
+        //                                    newColum.DataType = typeof(DateTime);
+        //                                else
+        //                                    newColum.DataType = typeof(string);
+        //                                newColum.AllowDBNull = true;
+        //                                columns.Add(newColum);
+        //                            }
+        //                            break;
+        //                        }
+        //                        else
+        //                        {
+        //                            foreach (string columnName in ColumnNames)
+        //                            {
 
-                                        var prop = objServiceInstance.Properties[columnName];
-                                        DataColumn newColum = new DataColumn(prop.Name);
-                                        string typeStr = prop.Type.ToString().ToLower();
-                                        if (typeStr == "string")
-                                            newColum.DataType = typeof(string);
-                                        else if (typeStr == "uint64")
-                                            newColum.DataType = typeof(UInt64);
-                                        else if (typeStr == "uint32")
-                                            newColum.DataType = typeof(UInt32);
-                                        else if (typeStr == "uint16")
-                                            newColum.DataType = typeof(UInt16);
-                                        else if (typeStr == "sint64")
-                                            newColum.DataType = typeof(Int64);
-                                        else if (typeStr == "sint32")
-                                            newColum.DataType = typeof(Int32);
-                                        else if (typeStr == "sint16")
-                                            newColum.DataType = typeof(Int16);
-                                        else if (typeStr == "boolean")
-                                            newColum.DataType = typeof(bool);
-                                        else if (typeStr == "datetime")
-                                            newColum.DataType = typeof(DateTime);
-                                        else
-                                            newColum.DataType = typeof(string);
-                                        newColum.AllowDBNull = true;
-                                        columns.Add(newColum);
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return columns;
-        }
-        private List<DataRow> GetDetailQueryRows(DataTable dtab, string machineName)
-        {
-            List<DataRow> rows = new List<DataRow>();
-            ManagementScope managementScope = new ManagementScope(new ManagementPath(Namespace) { Server = machineName });
-            using (ManagementObjectSearcher searcherInstance = new ManagementObjectSearcher(managementScope, new WqlObjectQuery(DetailQuery), null))
-            {
-                if (searcherInstance != null)
-                {
-                    using (ManagementObjectCollection results = searcherInstance.Get())
-                    {
-                        int nItems = results.Count;
-                        if (nItems > 0)
-                        {
-                            foreach (ManagementObject objServiceInstance in results)
-                            {
-                                DataRow row = dtab.NewRow();
-                                int fieldIndex = 0;
-                                if (ColumnNames == null || ColumnNames.Count == 0)
-                                {
-                                    foreach (var prop in objServiceInstance.Properties)
-                                    {
-                                        if (prop.Value == null)
-                                            row[fieldIndex] = DBNull.Value;
-                                        else
-                                            row[fieldIndex] = prop.Value;
-                                        fieldIndex++;
-                                    }
-                                }
-                                else
-                                {
-                                    foreach (string columnName in ColumnNames)
-                                    {
-                                        var prop = objServiceInstance.Properties[columnName];
-                                        if (prop.Value == null)
-                                            row[fieldIndex] = DBNull.Value;
-                                        else
-                                            row[fieldIndex] = prop.Value;
-                                        fieldIndex++;
-                                    }
-                                }
-                                rows.Add(row);
-                            }
-                        }
-                    }
-                }
-            }
-            return rows;
-        }
-        public DataTable GetDetailDataTable()
-        {
-            DataTable dtab = new DataTable(Machinename);
-            dtab.Columns.AddRange(GetDetailQueryColumns().ToArray());
-            foreach (DataRow row in GetDetailQueryRows(dtab, Machinename))
-                dtab.Rows.Add(row);
-            return dtab;
-        }
-        public DataSet RunDetailQuery()
-        {
-            DataSet results = new DataSet();
-            //string firstMachineName = Machinename;
-            DataTable dtab = new DataTable(Machinename);
-            dtab.Columns.AddRange(GetDetailQueryColumns().ToArray());
+        //                                var prop = objServiceInstance.Properties[columnName];
+        //                                DataColumn newColum = new DataColumn(prop.Name);
+        //                                string typeStr = prop.Type.ToString().ToLower();
+        //                                if (typeStr == "string")
+        //                                    newColum.DataType = typeof(string);
+        //                                else if (typeStr == "uint64")
+        //                                    newColum.DataType = typeof(UInt64);
+        //                                else if (typeStr == "uint32")
+        //                                    newColum.DataType = typeof(UInt32);
+        //                                else if (typeStr == "uint16")
+        //                                    newColum.DataType = typeof(UInt16);
+        //                                else if (typeStr == "sint64")
+        //                                    newColum.DataType = typeof(Int64);
+        //                                else if (typeStr == "sint32")
+        //                                    newColum.DataType = typeof(Int32);
+        //                                else if (typeStr == "sint16")
+        //                                    newColum.DataType = typeof(Int16);
+        //                                else if (typeStr == "boolean")
+        //                                    newColum.DataType = typeof(bool);
+        //                                else if (typeStr == "datetime")
+        //                                    newColum.DataType = typeof(DateTime);
+        //                                else
+        //                                    newColum.DataType = typeof(string);
+        //                                newColum.AllowDBNull = true;
+        //                                columns.Add(newColum);
+        //                            }
+        //                            break;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return columns;
+        //}
+        //private List<DataRow> GetDetailQueryRows(DataTable dtab, string machineName)
+        //{
+        //    List<DataRow> rows = new List<DataRow>();
+        //    ManagementScope managementScope = new ManagementScope(new ManagementPath(Namespace) { Server = machineName });
+        //    using (ManagementObjectSearcher searcherInstance = new ManagementObjectSearcher(managementScope, new WqlObjectQuery(DetailQuery), null))
+        //    {
+        //        if (searcherInstance != null)
+        //        {
+        //            using (ManagementObjectCollection results = searcherInstance.Get())
+        //            {
+        //                int nItems = results.Count;
+        //                if (nItems > 0)
+        //                {
+        //                    foreach (ManagementObject objServiceInstance in results)
+        //                    {
+        //                        DataRow row = dtab.NewRow();
+        //                        int fieldIndex = 0;
+        //                        if (ColumnNames == null || ColumnNames.Count == 0)
+        //                        {
+        //                            foreach (var prop in objServiceInstance.Properties)
+        //                            {
+        //                                if (prop.Value == null)
+        //                                    row[fieldIndex] = DBNull.Value;
+        //                                else
+        //                                    row[fieldIndex] = prop.Value;
+        //                                fieldIndex++;
+        //                            }
+        //                        }
+        //                        else
+        //                        {
+        //                            foreach (string columnName in ColumnNames)
+        //                            {
+        //                                var prop = objServiceInstance.Properties[columnName];
+        //                                if (prop.Value == null)
+        //                                    row[fieldIndex] = DBNull.Value;
+        //                                else
+        //                                    row[fieldIndex] = prop.Value;
+        //                                fieldIndex++;
+        //                            }
+        //                        }
+        //                        rows.Add(row);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return rows;
+        //}
+        //public DataTable GetDetailDataTable()
+        //{
+        //    DataTable dtab = new DataTable(Machinename);
+        //    dtab.Columns.AddRange(GetDetailQueryColumns().ToArray());
+        //    foreach (DataRow row in GetDetailQueryRows(dtab, Machinename))
+        //        dtab.Rows.Add(row);
+        //    return dtab;
+        //}
+        //public DataSet RunDetailQuery()
+        //{
+        //    DataSet results = new DataSet();
+        //    //string firstMachineName = Machinename;
+        //    DataTable dtab = new DataTable(Machinename);
+        //    dtab.Columns.AddRange(GetDetailQueryColumns().ToArray());
 
-            foreach (DataRow row in GetDetailQueryRows(dtab, Machinename))
-                dtab.Rows.Add(row);
+        //    foreach (DataRow row in GetDetailQueryRows(dtab, Machinename))
+        //        dtab.Rows.Add(row);
 
-            results.Tables.Add(dtab);
-            return results;
-        }
+        //    results.Tables.Add(dtab);
+        //    return results;
+        //}
 
     }
 }

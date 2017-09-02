@@ -500,7 +500,7 @@
 					<config>
 						<carvcesEntries>
 							<carvceEntry>
-								<dataSource name="WMI Query" namespace="root\cimv2" machineName="RHENNING" primaryUIValue="False" outputValueUnit="CPU(s)">
+								<dataSource name="WMI Query" namespace="root\cimv2" machineName="." primaryUIValue="False" outputValueUnit="CPU(s)">
 									<stateQuery useRowCountAsValue="False">select NumberOfProcessors from Win32_ComputerSystem</stateQuery>
 									<detailQuery columnNames="NumberOfProcessors">select NumberOfProcessors from Win32_ComputerSystem</detailQuery>
 								</dataSource>

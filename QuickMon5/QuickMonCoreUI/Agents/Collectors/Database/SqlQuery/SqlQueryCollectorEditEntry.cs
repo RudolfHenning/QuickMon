@@ -18,14 +18,6 @@ namespace QuickMon.UI
             InitializeComponent();
         }
 
-        //#region ICollectorConfigEntryEditWindow
-        //public ICollectorConfigEntry SelectedEntry { get; set; }
-        //public QuickMonDialogResult ShowEditEntry()
-        //{
-        //    return (QuickMonDialogResult)ShowDialog();
-        //} 
-        //#endregion
-
         #region Form events
         private void SqlQueryCollectorEditEntry_Load(object sender, EventArgs e)
         {            
@@ -53,9 +45,6 @@ namespace QuickMon.UI
 
                 chkUseSPForState.Checked = selectedEntry.UseSPForStateQuery;
                 txtStateQuery.Text = selectedEntry.StateQuery;
-
-                chkUseSPForDetail.Checked = selectedEntry.UseSPForDetailQuery;
-                txtDetailQuery.Text = selectedEntry.DetailQuery;
 
                 cboReturnCheckSequence.SelectedIndex = (int)selectedEntry.ReturnCheckSequence;                
                 cboReturnType.SelectedIndex = (int)selectedEntry.ValueReturnType;
@@ -125,7 +114,6 @@ namespace QuickMon.UI
         {
             cmdOK.Enabled = txtName.Text.Trim().Length > 0 &&
                 txtStateQuery.Text.Trim().Length > 0 &&
-                txtDetailQuery.Text.Trim().Length > 0 &&
                 (
                     (optSqlServer.Checked && txtServer.Text.Trim().Length > 0 && cboDatabase.Text.Trim().Length > 0) ||
                     (optOLEDb.Checked && txtConnectionString.Text.Trim().Length > 0)
@@ -187,10 +175,10 @@ namespace QuickMon.UI
         {
             CheckOKEnabled();
         }
-        private void txtDetailQuery_TextChangedDelayed(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
-        {
-            CheckOKEnabled();
-        }     
+        //private void txtDetailQuery_TextChangedDelayed(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        //{
+        //    CheckOKEnabled();
+        //}     
         #endregion  
 
         #region Button events
@@ -234,8 +222,8 @@ namespace QuickMon.UI
             selectedEntry.UseSPForStateQuery = chkUseSPForState.Checked;
             selectedEntry.StateQuery = txtStateQuery.Text;
 
-            selectedEntry.UseSPForDetailQuery = chkUseSPForDetail.Checked;
-            selectedEntry.DetailQuery = txtDetailQuery.Text;
+            //selectedEntry.UseSPForDetailQuery = chkUseSPForDetail.Checked;
+            //selectedEntry.DetailQuery = txtDetailQuery.Text;
 
             selectedEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
 
@@ -277,8 +265,8 @@ namespace QuickMon.UI
                 testEntry.UseSPForStateQuery = chkUseSPForState.Checked;
                 testEntry.StateQuery = txtStateQuery.Text;
 
-                testEntry.UseSPForDetailQuery = chkUseSPForDetail.Checked;
-                testEntry.DetailQuery = txtDetailQuery.Text;
+                //testEntry.UseSPForDetailQuery = chkUseSPForDetail.Checked;
+                //testEntry.DetailQuery = txtDetailQuery.Text;
 
                 testEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                 testEntry.ValueReturnType = (DataBaseQueryValueReturnType)cboReturnType.SelectedIndex;
@@ -292,19 +280,22 @@ namespace QuickMon.UI
                 testEntry.OutputValueUnit = cboOutputValueUnit.Text;
 
                 lastStep = "Run state query";
-                CollectorState currentState = testEntry.GetCurrentState().State;
+                MonitorState currentState = testEntry.GetCurrentState();
 
-                lastStep = "Run detail query";
-                DataTable dt = testEntry.GetDetailQueryDataTable();
-                lastStep = "Run detail query - Getting column names";
-                List<DataColumn> columns = new List<DataColumn>();
-                columns.AddRange((from DataColumn c in dt.Columns
-                                  select c).ToArray());
+                //lastStep = "Run detail query";
+                //DataTable dt = testEntry.GetDetailQueryDataTable();
+                //lastStep = "Run detail query - Getting column names";
+                //List<DataColumn> columns = new List<DataColumn>();
+                //columns.AddRange((from DataColumn c in dt.Columns
+                //                  select c).ToArray());
 
-                MessageBox.Show(string.Format("{0}!\r\nState value return: {1}\r\nDetail row count: {2}\r\nDetail columns returned: {3}",
-                    currentState,
-                    testEntry.CurrentAgentValue, dt.Rows.Count, columns.ToCSVString()), "Test", MessageBoxButtons.OK,
-                    currentState == CollectorState.Good ? MessageBoxIcon.Information : currentState == CollectorState.Warning ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
+                //MessageBox.Show(string.Format("{0}!\r\nState value return: {1}\r\nDetail row count: {2}\r\nDetail columns returned: {3}",
+                //    currentState,
+                //    testEntry.CurrentAgentValue, dt.Rows.Count, columns.ToCSVString()), "Test", MessageBoxButtons.OK,
+                //    currentState == CollectorState.Good ? MessageBoxIcon.Information : currentState == CollectorState.Warning ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
+
+                MessageBox.Show(string.Format("{0}!\r\nValue returned: {1}", currentState.State, currentState.CurrentValue), "Test", MessageBoxButtons.OK,
+                        currentState.State == CollectorState.Good ? MessageBoxIcon.Information : currentState.State == CollectorState.Warning ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {

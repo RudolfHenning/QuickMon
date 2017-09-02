@@ -106,18 +106,18 @@ namespace QuickMon.Collectors
         //    return returnState;
         //}
 
-        public override List<System.Data.DataTable> GetDetailDataTables()
-        {
-            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-            SqlTableSizeCollectorConfig currentConfig = (SqlTableSizeCollectorConfig)AgentConfig;
-            foreach (SqlTableSizeCollectorEntry entry in currentConfig.Entries)
-            {
-                entry.RefreshRowCounts();
-                tables.Add(entry.GetDetailDataTable());
-            }
+        //public override List<System.Data.DataTable> GetDetailDataTables()
+        //{
+        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+        //    SqlTableSizeCollectorConfig currentConfig = (SqlTableSizeCollectorConfig)AgentConfig;
+        //    foreach (SqlTableSizeCollectorEntry entry in currentConfig.Entries)
+        //    {
+        //        entry.RefreshRowCounts();
+        //        tables.Add(entry.GetDetailDataTable());
+        //    }
 
-            return tables;
-        }
+        //    return tables;
+        //}
     }
     public class SqlTableSizeCollectorConfig : ICollectorConfig
     {
@@ -366,18 +366,18 @@ namespace QuickMon.Collectors
             return states;
         }
 
-        public DataTable GetDetailDataTable()
-        {
-            DataTable dt = new DataTable(Description);
-            dt.Columns.Add(new System.Data.DataColumn("Table Name", typeof(string)));
-            dt.Columns.Add(new System.Data.DataColumn("Row count", typeof(int)));
-            foreach (TableSizeEntry tab in Tables)
-            {
-                dt.Rows.Add(tab.TableName, tab.RowCount);
-            }
+        //public DataTable GetDetailDataTable()
+        //{
+        //    DataTable dt = new DataTable(Description);
+        //    dt.Columns.Add(new System.Data.DataColumn("Table Name", typeof(string)));
+        //    dt.Columns.Add(new System.Data.DataColumn("Row count", typeof(int)));
+        //    foreach (TableSizeEntry tab in Tables)
+        //    {
+        //        dt.Rows.Add(tab.TableName, tab.RowCount);
+        //    }
 
-            return dt;
-        }
+        //    return dt;
+        //}
     }
 
     public class TableSizeEntry

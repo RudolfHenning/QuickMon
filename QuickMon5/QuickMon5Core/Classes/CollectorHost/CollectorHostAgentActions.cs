@@ -635,74 +635,74 @@ namespace QuickMon
         #endregion
 
         #region Agent details
-        public System.Data.DataSet GetAllAgentDetails(bool forceLocal = false)
-        {
-            System.Data.DataSet result = new System.Data.DataSet();
-            if ((EnableRemoteExecute || (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings)) && !forceLocal)
-            {
-                result = GetAllAgentDetailsRemote();
-            }
-            else
-            {
-                result = GetAllAgentDetailsLocal();
-            }
-            return result;
-        }
+        //public System.Data.DataSet GetAllAgentDetails(bool forceLocal = false)
+        //{
+        //    System.Data.DataSet result = new System.Data.DataSet();
+        //    if ((EnableRemoteExecute || (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings)) && !forceLocal)
+        //    {
+        //        result = GetAllAgentDetailsRemote();
+        //    }
+        //    else
+        //    {
+        //        result = GetAllAgentDetailsLocal();
+        //    }
+        //    return result;
+        //}
 
-        private System.Data.DataSet GetAllAgentDetailsLocal()
-        {
-            System.Data.DataSet result = new System.Data.DataSet();
-            foreach (ICollector ca in CollectorAgents)
-            {
-                int tableNo = 1;
-                List<System.Data.DataTable> dts = ca.GetDetailDataTables();
-                foreach (System.Data.DataTable dt in dts)
-                {
-                    if (dt.TableName.Length == 0)
-                        dt.TableName = ca.Name;
-                    while ((from System.Data.DataTable t in result.Tables
-                            where t.TableName == dt.TableName
-                            select t).Count() > 0)
-                    {
-                        dt.TableName = "Table " + tableNo.ToString();
-                        tableNo++;
-                    }
-                    result.Tables.Add(dt);
-                }
-            }
-            return result;
-        }
+        //private System.Data.DataSet GetAllAgentDetailsLocal()
+        //{
+        //    System.Data.DataSet result = new System.Data.DataSet();
+        //    foreach (ICollector ca in CollectorAgents)
+        //    {
+        //        int tableNo = 1;
+        //        List<System.Data.DataTable> dts = ca.GetDetailDataTables();
+        //        foreach (System.Data.DataTable dt in dts)
+        //        {
+        //            if (dt.TableName.Length == 0)
+        //                dt.TableName = ca.Name;
+        //            while ((from System.Data.DataTable t in result.Tables
+        //                    where t.TableName == dt.TableName
+        //                    select t).Count() > 0)
+        //            {
+        //                dt.TableName = "Table " + tableNo.ToString();
+        //                tableNo++;
+        //            }
+        //            result.Tables.Add(dt);
+        //        }
+        //    }
+        //    return result;
+        //}
 
-        private System.Data.DataSet GetAllAgentDetailsRemote()
-        {
-            System.Data.DataSet result = new System.Data.DataSet();
-            string currentHostAddress = EnableRemoteExecute ? this.RemoteAgentHostAddress : OverrideRemoteAgentHostAddress;
-            int currentHostPort = EnableRemoteExecute ? this.RemoteAgentHostPort : OverrideRemoteAgentHostPort;
+        //private System.Data.DataSet GetAllAgentDetailsRemote()
+        //{
+        //    System.Data.DataSet result = new System.Data.DataSet();
+        //    string currentHostAddress = EnableRemoteExecute ? this.RemoteAgentHostAddress : OverrideRemoteAgentHostAddress;
+        //    int currentHostPort = EnableRemoteExecute ? this.RemoteAgentHostPort : OverrideRemoteAgentHostPort;
 
-            try
-            {
-                result = RemoteCollectorHostService.GetRemoteHostAllAgentDetails(this, currentHostAddress, currentHostPort);
-            }
-            catch (Exception ex)
-            {
-                if (RunLocalOnRemoteHostConnectionFailure && ex.ToString().Contains("There was no endpoint listening"))
-                {
-                    //attempting to run locally
-                    result = GetAllAgentDetailsLocal();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return result;
-        }
-        public System.Data.DataSet GetAllAgentDetailsRemote(string hostAddress, int hostPort)
-        {
-            System.Data.DataSet result = new System.Data.DataSet();
-            result = RemoteCollectorHostService.GetRemoteHostAllAgentDetails(this, hostAddress, hostPort);
-            return result;
-        }
+        //    try
+        //    {
+        //        result = RemoteCollectorHostService.GetRemoteHostAllAgentDetails(this, currentHostAddress, currentHostPort);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        if (RunLocalOnRemoteHostConnectionFailure && ex.ToString().Contains("There was no endpoint listening"))
+        //        {
+        //            //attempting to run locally
+        //            result = GetAllAgentDetailsLocal();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+        //    return result;
+        //}
+        //public System.Data.DataSet GetAllAgentDetailsRemote(string hostAddress, int hostPort)
+        //{
+        //    System.Data.DataSet result = new System.Data.DataSet();
+        //    result = RemoteCollectorHostService.GetRemoteHostAllAgentDetails(this, hostAddress, hostPort);
+        //    return result;
+        //}
         #endregion
 
         #region Run Corrective Scripts

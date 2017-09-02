@@ -128,42 +128,42 @@ namespace QuickMon
             Console.WriteLine(consoleOutPut.ToString());
             return versionInfo;
         }
-        public System.Data.DataSet GetCollectorHostDetails(QuickMon.RemoteCollectorHost entry)
-        {
-            StringBuilder consoleOutPut = new StringBuilder();
-            System.Data.DataSet result = new System.Data.DataSet();
-            try
-            {
-                Console.WriteLine("{0}: Getting collector host data set: {1}\r\n{2}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name, new string('*', 79));
-                CollectorHost ch = CollectorHost.FromXml(entry.ToCollectorHostXml());
-                result = ch.GetAllAgentDetails();
-                consoleOutPut.AppendFormat("{0}: Results for collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);
-                consoleOutPut.AppendFormat("  Data set request received: {0}\r\n", entry.Name);
-                if (result != null)
-                {
-                    consoleOutPut.AppendFormat("   Tables: {0}\r\n", result.Tables.Count);
-                    for(int i = 0; i < result.Tables.Count; i++)
-                    {
-                        consoleOutPut.AppendFormat("    Table[{0}]: {1} row(s)\r\n", i, result.Tables[i].Rows.Count);
-                    }
-                }
-                else
-                {
-                    consoleOutPut.AppendFormat("  Warning! Data set is empty!\r\n");
-                }
-            }
-            catch (Exception ex)
-            {
-                consoleOutPut.AppendFormat(" Error: {0}\r\n", ex);
-                System.Data.DataTable dt = new System.Data.DataTable("Exception");
-                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-                dt.Rows.Add(ex.ToString());
-                result.Tables.Add(dt);                
-            }
-            consoleOutPut.AppendLine(new string('*', 79));
-            Console.WriteLine(consoleOutPut.ToString());
-            return result;
-        }
+        //public System.Data.DataSet GetCollectorHostDetails(QuickMon.RemoteCollectorHost entry)
+        //{
+        //    StringBuilder consoleOutPut = new StringBuilder();
+        //    System.Data.DataSet result = new System.Data.DataSet();
+        //    try
+        //    {
+        //        Console.WriteLine("{0}: Getting collector host data set: {1}\r\n{2}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name, new string('*', 79));
+        //        CollectorHost ch = CollectorHost.FromXml(entry.ToCollectorHostXml());
+        //        result = ch.GetAllAgentDetails();
+        //        consoleOutPut.AppendFormat("{0}: Results for collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);
+        //        consoleOutPut.AppendFormat("  Data set request received: {0}\r\n", entry.Name);
+        //        if (result != null)
+        //        {
+        //            consoleOutPut.AppendFormat("   Tables: {0}\r\n", result.Tables.Count);
+        //            for(int i = 0; i < result.Tables.Count; i++)
+        //            {
+        //                consoleOutPut.AppendFormat("    Table[{0}]: {1} row(s)\r\n", i, result.Tables[i].Rows.Count);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            consoleOutPut.AppendFormat("  Warning! Data set is empty!\r\n");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        consoleOutPut.AppendFormat(" Error: {0}\r\n", ex);
+        //        System.Data.DataTable dt = new System.Data.DataTable("Exception");
+        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+        //        dt.Rows.Add(ex.ToString());
+        //        result.Tables.Add(dt);                
+        //    }
+        //    consoleOutPut.AppendLine(new string('*', 79));
+        //    Console.WriteLine(consoleOutPut.ToString());
+        //    return result;
+        //}
         //public System.Data.DataSet GetAgentDetails(string collectorAgentConfig)
         //{
         //    System.Data.DataSet result = new System.Data.DataSet();
@@ -225,22 +225,22 @@ namespace QuickMon
             IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
             return relay.GetQuickMonCoreVersion();
         }
-        public static System.Data.DataSet GetRemoteHostAllAgentDetails(CollectorHost entry)
-        {
-            return GetRemoteHostAllAgentDetails(entry, entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort);
-        }
-        public static System.Data.DataSet GetRemoteHostAllAgentDetails(CollectorHost entry, string hostAddressOverride, int portNumberOverride)
-        {
-            BasicHttpBinding myBinding = new BasicHttpBinding();
-            myBinding.MaxReceivedMessageSize = 2147483647;
-            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));            
-            ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
-            IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
+        //public static System.Data.DataSet GetRemoteHostAllAgentDetails(CollectorHost entry)
+        //{
+        //    return GetRemoteHostAllAgentDetails(entry, entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort);
+        //}
+        //public static System.Data.DataSet GetRemoteHostAllAgentDetails(CollectorHost entry, string hostAddressOverride, int portNumberOverride)
+        //{
+        //    BasicHttpBinding myBinding = new BasicHttpBinding();
+        //    myBinding.MaxReceivedMessageSize = 2147483647;
+        //    EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));            
+        //    ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
+        //    IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
 
-            RemoteCollectorHost colReq = new RemoteCollectorHost();
-            colReq.FromCollectorHost(entry);
-            return relay.GetCollectorHostDetails(colReq);
-        } 
+        //    RemoteCollectorHost colReq = new RemoteCollectorHost();
+        //    colReq.FromCollectorHost(entry);
+        //    return relay.GetCollectorHostDetails(colReq);
+        //} 
         //public static System.Data.DataSet GetRemoteHostAgentDetails(string collectorAgentConfig, string hostAddressOverride, int portNumberOverride)
         //{
         //    BasicHttpBinding myBinding = new BasicHttpBinding();

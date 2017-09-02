@@ -157,9 +157,9 @@
             this.lblReleaseState.ForeColor = System.Drawing.Color.Red;
             this.lblReleaseState.Location = new System.Drawing.Point(314, 266);
             this.lblReleaseState.Name = "lblReleaseState";
-            this.lblReleaseState.Size = new System.Drawing.Size(72, 25);
+            this.lblReleaseState.Size = new System.Drawing.Size(60, 25);
             this.lblReleaseState.TabIndex = 7;
-            this.lblReleaseState.Text = "Alpha";
+            this.lblReleaseState.Text = "Beta";
             // 
             // AboutQuickMon
             // 

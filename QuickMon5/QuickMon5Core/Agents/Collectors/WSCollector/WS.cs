@@ -16,39 +16,39 @@ namespace QuickMon.Collectors
             AgentConfig = new WSCollectorConfig();
         }
 
-        public override List<System.Data.DataTable> GetDetailDataTables()
-        {
-            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-            System.Data.DataTable dt = new System.Data.DataTable();
-            try
-            {
-                dt.Columns.Add(new System.Data.DataColumn("Web service", typeof(string)));
-                dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));
+        //public override List<System.Data.DataTable> GetDetailDataTables()
+        //{
+        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+        //    System.Data.DataTable dt = new System.Data.DataTable();
+        //    try
+        //    {
+        //        dt.Columns.Add(new System.Data.DataColumn("Web service", typeof(string)));
+        //        dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));
 
-                WSCollectorConfig currentConfig = (WSCollectorConfig)AgentConfig;
-                foreach (WSCollectorConfigEntry entry in currentConfig.Entries)
-                {
-                    object wsData = "N/A";
-                    try
-                    {
-                        wsData = entry.RunMethod();
-                    }
-                    catch (Exception ex)
-                    {
-                        wsData = ex.Message;
-                    }
-                    dt.Rows.Add(entry.Description, wsData.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                dt = new System.Data.DataTable("Exception");
-                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-                dt.Rows.Add(ex.ToString());
-            }
-            tables.Add(dt);
-            return tables;
-        }
+        //        WSCollectorConfig currentConfig = (WSCollectorConfig)AgentConfig;
+        //        foreach (WSCollectorConfigEntry entry in currentConfig.Entries)
+        //        {
+        //            object wsData = "N/A";
+        //            try
+        //            {
+        //                wsData = entry.RunMethod();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                wsData = ex.Message;
+        //            }
+        //            dt.Rows.Add(entry.Description, wsData.ToString());
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dt = new System.Data.DataTable("Exception");
+        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+        //        dt.Rows.Add(ex.ToString());
+        //    }
+        //    tables.Add(dt);
+        //    return tables;
+        //}
     }
 
     public class WSCollectorConfig : ICollectorConfig

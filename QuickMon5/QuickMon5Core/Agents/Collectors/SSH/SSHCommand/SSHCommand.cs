@@ -16,11 +16,7 @@ namespace QuickMon.Collectors
         public SSHCommandCollector()
         {
             AgentConfig = new SSHCommandCollectorConfig();
-        }
-        public override List<DataTable> GetDetailDataTables()
-        {
-            throw new NotImplementedException();
-        }
+        }        
     }
 
     public class SSHCommandCollectorConfig : ICollectorConfig
@@ -168,7 +164,6 @@ namespace QuickMon.Collectors
         public string WarningValue { get; set; }
         public CollectorAgentReturnValueCompareMatchType ErrorResultMatchType { get; set; }
         public string ErrorValue { get; set; }
-        
 
         public override string TriggerSummary
         {

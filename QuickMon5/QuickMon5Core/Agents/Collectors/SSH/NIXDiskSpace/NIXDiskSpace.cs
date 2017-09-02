@@ -18,10 +18,6 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new NIXDiskSpaceCollectorConfig();
         }
-        public override List<DataTable> GetDetailDataTables()
-        {
-            throw new NotImplementedException();
-        }
     }
     public class NIXDiskSpaceCollectorConfig : ICollectorConfig
     {

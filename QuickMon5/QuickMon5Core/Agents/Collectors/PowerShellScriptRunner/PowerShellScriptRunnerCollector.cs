@@ -18,39 +18,39 @@ namespace QuickMon.Collectors
             AgentConfig = new PowerShellScriptRunnerCollectorConfig();
         }
 
-        public override List<System.Data.DataTable> GetDetailDataTables()
-        {
-            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-            System.Data.DataTable dt = new System.Data.DataTable();
-            try
-            {
-                dt.Columns.Add(new System.Data.DataColumn("Script name", typeof(string)));
-                dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));
+        //public override List<System.Data.DataTable> GetDetailDataTables()
+        //{
+        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+        //    System.Data.DataTable dt = new System.Data.DataTable();
+        //    try
+        //    {
+        //        dt.Columns.Add(new System.Data.DataColumn("Script name", typeof(string)));
+        //        dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));
 
-                PowerShellScriptRunnerCollectorConfig currentConfig = (PowerShellScriptRunnerCollectorConfig)AgentConfig;
-                foreach (PowerShellScriptRunnerEntry entry in currentConfig.Entries)
-                {
-                    string output = "N/A";
-                    try
-                    {
-                        output = entry.RunScript();
-                    }
-                    catch (Exception ex)
-                    {
-                        output = ex.Message;
-                    }
-                    dt.Rows.Add(entry.Name, output);
-                }
-            }
-            catch (Exception ex)
-            {
-                dt = new System.Data.DataTable("Exception");
-                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-                dt.Rows.Add(ex.ToString());
-            }
-            tables.Add(dt);
-            return tables;
-        }
+        //        PowerShellScriptRunnerCollectorConfig currentConfig = (PowerShellScriptRunnerCollectorConfig)AgentConfig;
+        //        foreach (PowerShellScriptRunnerEntry entry in currentConfig.Entries)
+        //        {
+        //            string output = "N/A";
+        //            try
+        //            {
+        //                output = entry.RunScript();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                output = ex.Message;
+        //            }
+        //            dt.Rows.Add(entry.Name, output);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dt = new System.Data.DataTable("Exception");
+        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+        //        dt.Rows.Add(ex.ToString());
+        //    }
+        //    tables.Add(dt);
+        //    return tables;
+        //}
     }
 
     public class PowerShellScriptRunnerCollectorConfig : ICollectorConfig

@@ -86,12 +86,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cboReturnType = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.detailQueryTabPage = new System.Windows.Forms.TabPage();
-            this.txtDetailQuery = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.chkUseSPForDetail = new System.Windows.Forms.CheckBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.cmdTest = new System.Windows.Forms.Button();
             this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
@@ -106,9 +100,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtStateQuery)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.detailQueryTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDetailQuery)).BeginInit();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -161,7 +152,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataSourceTabControl.Controls.Add(this.dataSourceTabPage);
             this.dataSourceTabControl.Controls.Add(this.stateQueryTabPage);
-            this.dataSourceTabControl.Controls.Add(this.detailQueryTabPage);
             this.dataSourceTabControl.Location = new System.Drawing.Point(12, 38);
             this.dataSourceTabControl.Name = "dataSourceTabControl";
             this.dataSourceTabControl.SelectedIndex = 0;
@@ -346,6 +336,7 @@
             this.cboDatabase.Name = "cboDatabase";
             this.cboDatabase.Size = new System.Drawing.Size(473, 21);
             this.cboDatabase.TabIndex = 4;
+            this.cboDatabase.TextChanged += new System.EventHandler(this.txtDatabase_TextChanged);
             // 
             // cmdLoadDBs
             // 
@@ -811,98 +802,6 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "Check sequence";
             // 
-            // detailQueryTabPage
-            // 
-            this.detailQueryTabPage.BackColor = System.Drawing.Color.White;
-            this.detailQueryTabPage.Controls.Add(this.txtDetailQuery);
-            this.detailQueryTabPage.Controls.Add(this.panel4);
-            this.detailQueryTabPage.Location = new System.Drawing.Point(4, 22);
-            this.detailQueryTabPage.Name = "detailQueryTabPage";
-            this.detailQueryTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.detailQueryTabPage.Size = new System.Drawing.Size(632, 347);
-            this.detailQueryTabPage.TabIndex = 2;
-            this.detailQueryTabPage.Text = "Detail query";
-            // 
-            // txtDetailQuery
-            // 
-            this.txtDetailQuery.AutoCompleteBracketsList = new char[] {
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '\"',
-        '\"',
-        '\'',
-        '\''};
-            this.txtDetailQuery.AutoIndentCharsPatterns = "";
-            this.txtDetailQuery.AutoScrollMinSize = new System.Drawing.Size(2, 14);
-            this.txtDetailQuery.BackBrush = null;
-            this.txtDetailQuery.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDetailQuery.CharHeight = 14;
-            this.txtDetailQuery.CharWidth = 8;
-            this.txtDetailQuery.CommentPrefix = "--";
-            this.txtDetailQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtDetailQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.txtDetailQuery.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDetailQuery.IsReplaceMode = false;
-            this.txtDetailQuery.Language = FastColoredTextBoxNS.Language.SQL;
-            this.txtDetailQuery.LeftBracket = '(';
-            this.txtDetailQuery.Location = new System.Drawing.Point(3, 55);
-            this.txtDetailQuery.Name = "txtDetailQuery";
-            this.txtDetailQuery.Paddings = new System.Windows.Forms.Padding(0);
-            this.txtDetailQuery.RightBracket = ')';
-            this.txtDetailQuery.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.txtDetailQuery.ServiceColors = null;
-            this.txtDetailQuery.Size = new System.Drawing.Size(626, 289);
-            this.txtDetailQuery.TabIndex = 2;
-            this.txtDetailQuery.Zoom = 100;
-            this.txtDetailQuery.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.txtDetailQuery_TextChangedDelayed);
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.chkUseSPForDetail);
-            this.panel4.Controls.Add(this.label20);
-            this.panel4.Controls.Add(this.linkLabel1);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(3, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(626, 52);
-            this.panel4.TabIndex = 1;
-            // 
-            // chkUseSPForDetail
-            // 
-            this.chkUseSPForDetail.AutoSize = true;
-            this.chkUseSPForDetail.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseSPForDetail.Location = new System.Drawing.Point(12, 9);
-            this.chkUseSPForDetail.Name = "chkUseSPForDetail";
-            this.chkUseSPForDetail.Size = new System.Drawing.Size(135, 17);
-            this.chkUseSPForDetail.TabIndex = 0;
-            this.chkUseSPForDetail.Text = "Use stored procuredure";
-            this.chkUseSPForDetail.UseVisualStyleBackColor = true;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(9, 36);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(55, 13);
-            this.label20.TabIndex = 1;
-            this.label20.Text = "Query text";
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(416, 36);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(207, 13);
-            this.linkLabel1.TabIndex = 2;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "click here to see query tips and restrictions";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelQueryTips_LinkClicked);
-            // 
             // cmdTest
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -978,10 +877,6 @@
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.detailQueryTabPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.txtDetailQuery)).EndInit();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -996,7 +891,6 @@
         private System.Windows.Forms.TabControl dataSourceTabControl;
         private System.Windows.Forms.TabPage dataSourceTabPage;
         private System.Windows.Forms.TabPage stateQueryTabPage;
-        private System.Windows.Forms.TabPage detailQueryTabPage;
         private System.Windows.Forms.RadioButton optOLEDb;
         private System.Windows.Forms.RadioButton optSqlServer;
         private System.Windows.Forms.Label label8;
@@ -1043,11 +937,6 @@
         private System.Windows.Forms.ComboBox cboWarningMatchType;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel panel3;
-        private FastColoredTextBoxNS.FastColoredTextBox txtDetailQuery;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.CheckBox chkUseSPForDetail;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Button cmdTest;
         private System.Windows.Forms.ComboBox cboReturnCheckSequence;
         private System.Windows.Forms.ComboBox cboOutputValueUnit;

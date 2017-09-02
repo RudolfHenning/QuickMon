@@ -58,7 +58,7 @@ namespace QuickMon
         public bool PrimaryUIValue { get; set; }
         #endregion
 
-        public abstract List<System.Data.DataTable> GetDetailDataTables();
+        //public abstract List<System.Data.DataTable> GetDetailDataTables();
 
     }
 }

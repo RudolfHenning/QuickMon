@@ -50,8 +50,8 @@ namespace QuickMon.UI
                 txtError.Text = selectedEntry.ErrorValue;
                 cboErrorMatchType.SelectedIndex = (int)selectedEntry.ErrorResultMatchType;
 
-                txtDetailQuery.Text = selectedEntry.DetailQuery;
-                txtColumnNames.Text = selectedEntry.ColumnNames.ToCSVString();
+                //txtDetailQuery.Text = selectedEntry.DetailQuery;
+                //txtColumnNames.Text = selectedEntry.ColumnNames.ToCSVString();
                 cboOutputValueUnit.Text = selectedEntry.OutputValueUnit;
             }
         }
@@ -62,35 +62,35 @@ namespace QuickMon.UI
         #endregion
 
         #region Button events
-        private void cmdEditMachineNames_Click(object sender, EventArgs e)
-        {
-            CSVEditor csvEditor = new CSVEditor();
-            csvEditor.Text = "Machine names";
-            csvEditor.ItemDescription = "Machine";
-            csvEditor.CSVData = txtMachines.Text;
-            if (csvEditor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtMachines.Text = csvEditor.CSVData;
-            }
-        }
-        private void cmdEditColumnNames_Click(object sender, EventArgs e)
-        {
-            CSVEditor csvEditor = new CSVEditor();
-            csvEditor.Text = "Column names";
-            csvEditor.ItemDescription = "Column";
-            csvEditor.Sorted = false;
-            csvEditor.CSVData = txtColumnNames.Text;
-            if (csvEditor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtColumnNames.Text = csvEditor.CSVData;
-            }
-        }
+        //private void cmdEditMachineNames_Click(object sender, EventArgs e)
+        //{
+        //    CSVEditor csvEditor = new CSVEditor();
+        //    csvEditor.Text = "Machine names";
+        //    csvEditor.ItemDescription = "Machine";
+        //    csvEditor.CSVData = txtMachines.Text;
+        //    if (csvEditor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        txtMachines.Text = csvEditor.CSVData;
+        //    }
+        //}
+        //private void cmdEditColumnNames_Click(object sender, EventArgs e)
+        //{
+        //    CSVEditor csvEditor = new CSVEditor();
+        //    csvEditor.Text = "Column names";
+        //    csvEditor.ItemDescription = "Column";
+        //    csvEditor.Sorted = false;
+        //    csvEditor.CSVData = txtColumnNames.Text;
+        //    if (csvEditor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        txtColumnNames.Text = csvEditor.CSVData;
+        //    }
+        //}
         private void cmdTestDB_Click(object sender, EventArgs e)
         {
             if (DoValidate())
             {
                 string lastStep = "Initialize values";
-                string columnWarningText = "";
+                //string columnWarningText = "";
                 try
                 {
                     WMIQueryCollectorConfigEntry tmpWMIConfig = new WMIQueryCollectorConfigEntry();
@@ -110,8 +110,8 @@ namespace QuickMon.UI
                     tmpWMIConfig.ErrorValue = txtError.Text;
                     tmpWMIConfig.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
 
-                    tmpWMIConfig.DetailQuery = txtDetailQuery.Text;
-                    tmpWMIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
+                    //tmpWMIConfig.DetailQuery = txtDetailQuery.Text;
+                    //tmpWMIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
                     tmpWMIConfig.OutputValueUnit = cboOutputValueUnit.Text;
 
                     //tmpWMIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
@@ -119,64 +119,37 @@ namespace QuickMon.UI
                     lastStep = "Run GetCurrentState";
                     MonitorState testState = tmpWMIConfig.GetCurrentState();
 
-
-
-                    //object returnValue = null;
-
-                    //if (tmpWMIConfig.UseRowCountAsValue)
-                    //{
-                    //    lastStep = "Run summary query (row count as value)";
-                    //    returnValue = tmpWMIConfig.RunQueryWithCountResult();
-                    //}
-                    //else
-                    //{
-                    //    lastStep = "Run summary query";
-                    //    if (returnValue.IsIntegerTypeNumber())
-                    //    {
-                    //        object currentValue = null;
-                    //        currentValue = tmpWMIConfig.RunQueryWithSingleResult();
-                    //        if (currentValue.IsNumber())
-                    //            returnValue = (decimal)currentValue;
-                    //        else
-                    //            throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
-                    //    }
-                    //    else
-                    //        returnValue = tmpWMIConfig.RunQueryWithSingleResult();
-                    //}
-
-                    //if (tmpWMIConfig.ReturnValueIsInt)
-                    //{
-                    //    lastStep = "Test return value is an Integer";
-                    //    if (!returnValue.IsIntegerTypeNumber())
-                    //        throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
-                    //}
                     //testing detail query
-                    lastStep = "Testing detail query - Getting column names";
-                    List<DataColumn> columns = tmpWMIConfig.GetDetailQueryColumns();
-                    lastStep = "Testing detail query - Custom column name sequence check";
-                    StringBuilder sbColumns = new StringBuilder();
-                    for (int i = 1; i < columns.Count; i++)
-                        sbColumns.AppendLine(columns[i].ColumnName);
-                    foreach (string columnName in tmpWMIConfig.ColumnNames)
-                    {
-                        if ((from c in columns
-                             where c.ColumnName.ToUpper() == columnName.ToUpper()
-                             select c).Count() != 1)
-                        {
-                            columnWarningText += columnName + ", ";
-                        }
-                    }
-                    if (chkCopyColumnNames.Checked)
-                    {
-                        Clipboard.SetText(sbColumns.ToString());
-                    }
+                    //lastStep = "Testing detail query - Getting column names";
+                    //List<DataColumn> columns = tmpWMIConfig.GetDetailQueryColumns();
+                    //lastStep = "Testing detail query - Custom column name sequence check";
+                    //StringBuilder sbColumns = new StringBuilder();
+                    //for (int i = 1; i < columns.Count; i++)
+                    //    sbColumns.AppendLine(columns[i].ColumnName);
+                    //foreach (string columnName in tmpWMIConfig.ColumnNames)
+                    //{
+                    //    if ((from c in columns
+                    //         where c.ColumnName.ToUpper() == columnName.ToUpper()
+                    //         select c).Count() != 1)
+                    //    {
+                    //        columnWarningText += columnName + ", ";
+                    //    }
+                    //}
+                    //if (chkCopyColumnNames.Checked)
+                    //{
+                    //    Clipboard.SetText(sbColumns.ToString());
+                    //}
 
-                    lastStep = "Testing detail query";
-                    DataSet ds = tmpWMIConfig.RunDetailQuery();
-                    if (columnWarningText.Length == 0)
-                        MessageBox.Show(string.Format("{0}!\r\nSummary value return: {1}\r\nDetail row count: {2}\r\nDetail columns: {3}", testState.State, tmpWMIConfig.CurrentAgentValue, ds.Tables[0].Rows.Count, columns.ToCSVString()), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    else
-                        MessageBox.Show(string.Format("{0} (with warning)!\r\nSummary value return: {1}\r\nDetail row count: {2}\r\nDetail columns returned: {3}\r\nColumns not found: {4}", testState.State, tmpWMIConfig.CurrentAgentValue, ds.Tables[0].Rows.Count, columns.ToCSVString(), columnWarningText), "Test", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //lastStep = "Testing detail query";
+                    //DataSet ds = tmpWMIConfig.RunDetailQuery();
+                    //if (columnWarningText.Length == 0)
+                    //    MessageBox.Show(string.Format("{0}!\r\nSummary value return: {1}\r\nDetail row count: {2}\r\nDetail columns: {3}", testState.State, tmpWMIConfig.CurrentAgentValue, ds.Tables[0].Rows.Count, columns.ToCSVString()), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //else
+                    //    MessageBox.Show(string.Format("{0} (with warning)!\r\nSummary value return: {1}\r\nDetail row count: {2}\r\nDetail columns returned: {3}\r\nColumns not found: {4}", testState.State, tmpWMIConfig.CurrentAgentValue, ds.Tables[0].Rows.Count, columns.ToCSVString(), columnWarningText), "Test", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    MessageBox.Show(string.Format("{0}!\r\nValue return: {1}", testState.State, testState.CurrentValue), "Test", MessageBoxButtons.OK,
+                        testState.State == CollectorState.Good ? MessageBoxIcon.Information : testState.State == CollectorState.Warning ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
+
                 }
                 catch (Exception ex)
                 {
@@ -206,8 +179,8 @@ namespace QuickMon.UI
                 selectedEntry.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
                 selectedEntry.ErrorValue = txtError.Text;
                 selectedEntry.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
-                selectedEntry.DetailQuery = txtDetailQuery.Text;
-                selectedEntry.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
+                //selectedEntry.DetailQuery = txtDetailQuery.Text;
+                //selectedEntry.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
                 selectedEntry.OutputValueUnit = cboOutputValueUnit.Text;
 
                 SelectedEntry = selectedEntry;
@@ -222,64 +195,64 @@ namespace QuickMon.UI
             editWMIQuery.MachineName = txtMachines.Text;
             editWMIQuery.RootNameSpace = txtNamespace.Text;
             editWMIQuery.QueryText = txtStateQuery.Text;
-            if (editWMIQuery.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (editWMIQuery.ShowDialog() == DialogResult.OK)
             {
                 txtMachines.Text = editWMIQuery.MachineName;
                 txtNamespace.Text = editWMIQuery.RootNameSpace;
                 txtStateQuery.Text = editWMIQuery.QueryText;
             }
         }
-        private void cmdEditDetailsQuery_Click(object sender, EventArgs e)
-        {
-            EditWMIQuery editWMIQuery = new EditWMIQuery();
-            editWMIQuery.MachineName = txtMachines.Text;
-            editWMIQuery.RootNameSpace = txtNamespace.Text;
-            editWMIQuery.QueryText = txtDetailQuery.Text;
-            if (editWMIQuery.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtMachines.Text = editWMIQuery.MachineName;
-                txtNamespace.Text = editWMIQuery.RootNameSpace;
-                txtDetailQuery.Text = editWMIQuery.QueryText;
-            }
-        }
+        //private void cmdEditDetailsQuery_Click(object sender, EventArgs e)
+        //{
+        //    EditWMIQuery editWMIQuery = new EditWMIQuery();
+        //    editWMIQuery.MachineName = txtMachines.Text;
+        //    editWMIQuery.RootNameSpace = txtNamespace.Text;
+        //    //editWMIQuery.QueryText = txtDetailQuery.Text;
+        //    if (editWMIQuery.ShowDialog() == DialogResult.OK)
+        //    {
+        //        txtMachines.Text = editWMIQuery.MachineName;
+        //        txtNamespace.Text = editWMIQuery.RootNameSpace;
+        //        //txtDetailQuery.Text = editWMIQuery.QueryText;
+        //    }
+        //}
         #endregion
 
         #region Other control events
-        private void chkIsReturnValueInt_CheckedChanged(object sender, EventArgs e)
-        {
-            //chkReturnValueNotInverted.Enabled = chkIsReturnValueInt.Checked;
-            //chkUseRowCountAsValue.Enabled = chkIsReturnValueInt.Checked;
-        }
-        private void lblColumnNameSequence_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                WMIQueryCollectorConfigEntry tmpWMIConfig = new WMIQueryCollectorConfigEntry();
-                tmpWMIConfig.Name = txtName.Text;
-                tmpWMIConfig.Namespace = txtNamespace.Text;
-                tmpWMIConfig.Machinename = txtMachines.Text;
-                tmpWMIConfig.StateQuery = txtStateQuery.Text;
-                //tmpWMIConfig.ReturnValueIsInt = chkIsReturnValueInt.Checked;
-                //tmpWMIConfig.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
-                tmpWMIConfig.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
-                tmpWMIConfig.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
-                tmpWMIConfig.GoodValue = txtSuccess.Text;
-                tmpWMIConfig.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
-                tmpWMIConfig.WarningValue = txtWarning.Text;
-                tmpWMIConfig.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
-                tmpWMIConfig.ErrorValue = txtError.Text;
-                tmpWMIConfig.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
-                tmpWMIConfig.DetailQuery = txtDetailQuery.Text;
-                tmpWMIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
-                // tmpWMIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
+        //private void chkIsReturnValueInt_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    //chkReturnValueNotInverted.Enabled = chkIsReturnValueInt.Checked;
+        //    //chkUseRowCountAsValue.Enabled = chkIsReturnValueInt.Checked;
+        //}
+        //private void lblColumnNameSequence_DoubleClick(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        WMIQueryCollectorConfigEntry tmpWMIConfig = new WMIQueryCollectorConfigEntry();
+        //        tmpWMIConfig.Name = txtName.Text;
+        //        tmpWMIConfig.Namespace = txtNamespace.Text;
+        //        tmpWMIConfig.Machinename = txtMachines.Text;
+        //        tmpWMIConfig.StateQuery = txtStateQuery.Text;
+        //        //tmpWMIConfig.ReturnValueIsInt = chkIsReturnValueInt.Checked;
+        //        //tmpWMIConfig.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
+        //        tmpWMIConfig.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
+        //        tmpWMIConfig.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
+        //        tmpWMIConfig.GoodValue = txtSuccess.Text;
+        //        tmpWMIConfig.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
+        //        tmpWMIConfig.WarningValue = txtWarning.Text;
+        //        tmpWMIConfig.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
+        //        tmpWMIConfig.ErrorValue = txtError.Text;
+        //        tmpWMIConfig.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
+        //        //tmpWMIConfig.DetailQuery = txtDetailQuery.Text;
+        //        //tmpWMIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
+        //        // tmpWMIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
 
-                List<DataColumn> columns = tmpWMIConfig.GetDetailQueryColumns();
-                txtColumnNames.Text = "";
-                columns.ForEach(c => txtColumnNames.Text += c.ColumnName + ", ");
-                txtColumnNames.Text = txtColumnNames.Text.TrimEnd(' ', ',');
-            }
-            catch { }
-        }
+        //        //List<DataColumn> columns = tmpWMIConfig.GetDetailQueryColumns();
+        //        //txtColumnNames.Text = "";
+        //        //columns.ForEach(c => txtColumnNames.Text += c.ColumnName + ", ");
+        //        //txtColumnNames.Text = txtColumnNames.Text.TrimEnd(' ', ',');
+        //    }
+        //    catch { }
+        //}
         #endregion
 
         #region Private events
@@ -287,12 +260,10 @@ namespace QuickMon.UI
         {
             cmdOK.Enabled = txtName.Text.Length > 0 && txtNamespace.Text.Length > 0 && txtMachines.Text.Length > 0 &&
                 txtStateQuery.Text.Length > 0 &&
-                txtSuccess.Text.Length > 0 && txtWarning.Text.Length > 0 && txtError.Text.Length > 0 &&
-                txtDetailQuery.Text.Length > 0;
+                txtSuccess.Text.Length > 0 && txtWarning.Text.Length > 0 && txtError.Text.Length > 0;
             cmdTestDB.Enabled = txtName.Text.Length > 0 && txtNamespace.Text.Length > 0 && txtMachines.Text.Length > 0 &&
                 txtStateQuery.Text.Length > 0 &&
-                txtSuccess.Text.Length > 0 && txtWarning.Text.Length > 0 && txtError.Text.Length > 0 &&
-                txtDetailQuery.Text.Length > 0;
+                txtSuccess.Text.Length > 0 && txtWarning.Text.Length > 0 && txtError.Text.Length > 0;
         }
         private bool DoValidate()
         {
