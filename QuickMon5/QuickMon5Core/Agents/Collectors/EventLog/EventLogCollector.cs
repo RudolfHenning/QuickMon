@@ -244,33 +244,40 @@ namespace QuickMon.Collectors
         public bool PrimaryUIValue { get; set; }
         public MonitorState GetCurrentState()
         {
-            bool errorCondition = false;
-            bool warningCondition = false;
-            int count = GetMatchingEventLogCount();
-            CurrentAgentValue = count;
-            if (count >= ErrorValue)
-                errorCondition = true;
-            else if (count >= WarningValue)
-                warningCondition = true;
             MonitorState currentState = new MonitorState()
             {
-                ForAgent = string.Format("{0}\\{1}", Computer, EventLog),
-                CurrentValue = count
+                ForAgent = string.Format("{0}\\{1}", Computer, EventLog)
             };
 
-            if (errorCondition)
+            try
+            {
+                int count = GetMatchingEventLogCount();
+                CurrentAgentValue = count;
+                currentState.CurrentValue = count;
+                if (count >= ErrorValue)
+                {
+                    currentState.State = CollectorState.Error;
+                    currentState.RawDetails = string.Format("(Trigger: {0})", ErrorValue);
+                }
+                else if (count >= WarningValue)
+                {
+                    currentState.State = CollectorState.Warning;
+                    currentState.RawDetails = string.Format("(Trigger: {0})", WarningValue);
+                }
+                else
+                {
+                    currentState.State = CollectorState.Good;
+                }                
+            }
+            catch(Exception ex)
             {
                 currentState.State = CollectorState.Error;
-                currentState.RawDetails = string.Format("(Trigger: {0})", ErrorValue);
-            }
-            else if (warningCondition)
-            {
-                currentState.State = CollectorState.Warning;
-                currentState.RawDetails = string.Format("(Trigger: {0})", WarningValue);
-            }
-            else
-            {
-                currentState.State = CollectorState.Good;
+                if (ex.Message.Contains("The event log") && ex.Message.Contains("on computer") && ex.Message.Contains("does not exist"))
+                {
+                    currentState.CurrentValue = "Log not found!";
+                }
+                currentState.RawDetails = ex.Message;
+                
             }
 
             return currentState;

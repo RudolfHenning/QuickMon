@@ -177,6 +177,47 @@ namespace QuickMon.Collectors
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
         public object CurrentAgentValue { get; set; }
         public bool PrimaryUIValue { get; set; }
+        public MonitorState GetCurrentState()
+        {
+            string outputFormat = "F2";
+            float value = 0;
+            MonitorState currentState = new MonitorState()
+            {
+                ForAgent = Description                
+            };
+            try
+            {
+                value = GetNextValue();
+                CurrentAgentValue = value;
+                if (value > 9999)
+                    outputFormat = "F0";
+                else if (value > 99)
+                    outputFormat = "F1";
+
+                currentState.CurrentValue = value.ToString(outputFormat);
+                currentState.State = GetState(value);
+                currentState.CurrentValueUnit = OutputValueUnit;
+                if (currentState.State == CollectorState.Error)
+                {
+                    currentState.RawDetails = string.Format("(Trigger {0})", ErrorValue.ToString(outputFormat));
+                }
+                else if (currentState.State == CollectorState.Warning)
+                {
+                    currentState.RawDetails = string.Format("(Trigger {0})", WarningValue.ToString(outputFormat));
+                }
+            }
+            catch(Exception ex)
+            {
+                currentState.State = CollectorState.Error;
+                if (ex.Message.Contains("Instance") && ex.Message.Contains("does not exist in the specified Category"))
+                {
+                    currentState.CurrentValue = "Instance not found!";
+                }
+                currentState.RawDetails = ex.Message;
+            }
+            
+            return currentState;
+        }
         #endregion
 
         public void InitializePerfCounter()
@@ -279,34 +320,6 @@ namespace QuickMon.Collectors
                 return null;
         }
 
-        public MonitorState GetCurrentState()
-        {
-            string outputFormat = "F2";
-            float value = 0;
-            value = GetNextValue();
-            CurrentAgentValue = value;
-            if (value > 9999)
-                outputFormat = "F0";
-            else if (value > 99)
-                outputFormat = "F1";
-            MonitorState currentState = new MonitorState()
-            {
-                ForAgent = Description,
-                CurrentValue = value.ToString(outputFormat),
-                State = GetState(value),
-                CurrentValueUnit = OutputValueUnit
-            };
 
-            if (currentState.State == CollectorState.Error)
-            {
-                currentState.RawDetails = string.Format("(Trigger {0})", ErrorValue.ToString(outputFormat));
-            }
-            else if (currentState.State == CollectorState.Warning)
-            {
-                currentState.RawDetails = string.Format("(Trigger {0})", WarningValue.ToString(outputFormat));                
-            }
-
-            return currentState;
-        }
     }
 }

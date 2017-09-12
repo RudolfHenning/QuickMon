@@ -296,7 +296,10 @@ namespace QuickMon.Collectors
             {
                 currentState.State = CollectorState.Error;
                 if (pingResult.ResponseDetails == "No such host is known")
-                    currentState.CurrentValue = "";
+                {
+                    currentState.CurrentValue = "Host not found";
+                    currentState.CurrentValueUnit = "";
+                }
                 currentState.RawDetails = pingResult.ResponseDetails;
             }
            
