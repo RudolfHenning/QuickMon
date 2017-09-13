@@ -386,6 +386,11 @@ namespace QuickMon.Collectors
         public bool PrimaryUIValue { get; set; }
         public MonitorState GetCurrentState()
         {
+            MonitorState currentState = new MonitorState()
+            {
+                ForAgent = Description
+            };
+
             object wsData = null;
             CollectorState agentState = CollectorState.NotAvailable;
             try
@@ -408,16 +413,28 @@ namespace QuickMon.Collectors
             catch (Exception wsException)
             {
                 agentState = CollectorState.Error;
-                wsData = wsException.Message;
+                if (wsException.Message.Contains("Method") && wsException.Message.Contains("not found or parameters invalid!"))
+                {
+                    wsData = "Invalid Method/Parameters!";
+                }
+                else if (wsException.Message.Contains("Object reference not set to an instance of an object"))
+                {
+                    wsData = "Object instance not found!";
+                }
+                else if (wsException.Message.Contains("There was an error downloading"))
+                {
+                    wsData = "WS down/Invalid URL!";
+                }
+                else
+                {
+                    wsData = "WS Error";
+                }
+                currentState.RawDetails = wsException.Message;
+                
             }
 
-            MonitorState currentState = new MonitorState()
-            {
-                ForAgent = Description,
-                State = agentState,
-                CurrentValue = wsData == null ? "N/A" : wsData.ToString()
-            };
-
+            currentState.State = agentState;
+            currentState.CurrentValue = wsData == null ? "N/A" : wsData.ToString();
             return currentState;
         }
         #endregion

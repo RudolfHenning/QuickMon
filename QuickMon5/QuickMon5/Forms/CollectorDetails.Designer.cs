@@ -59,6 +59,7 @@
             this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.setAsDisplayValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.agentsImageList = new System.Windows.Forms.ImageList(this.components);
             this.collectorAgentsEditToolStrip = new System.Windows.Forms.ToolStrip();
@@ -226,6 +227,9 @@
             this.optHistoricStateView = new System.Windows.Forms.RadioButton();
             this.optCurrentStateView = new System.Windows.Forms.RadioButton();
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
+            this.rawViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.rawViewCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rawViewSelectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdActionScriptsVisible = new System.Windows.Forms.Button();
             this.optMetrics = new System.Windows.Forms.RadioButton();
@@ -241,10 +245,6 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
-            this.rawViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.rawViewCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rawViewSelectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setAsDisplayValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -303,10 +303,10 @@
             this.agentStateSplitContainer.Panel2.SuspendLayout();
             this.agentStateSplitContainer.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.rawViewContextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelTop.SuspendLayout();
-            this.rawViewContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtName
@@ -429,7 +429,7 @@
             // 
             this.collectorDetailSplitContainer.Panel2.Controls.Add(this.rtxDetails);
             this.collectorDetailSplitContainer.Size = new System.Drawing.Size(981, 615);
-            this.collectorDetailSplitContainer.SplitterDistance = 503;
+            this.collectorDetailSplitContainer.SplitterDistance = 418;
             this.collectorDetailSplitContainer.SplitterWidth = 6;
             this.collectorDetailSplitContainer.TabIndex = 4;
             // 
@@ -442,7 +442,7 @@
             this.panelCollectorDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCollectorDetails.Location = new System.Drawing.Point(0, 0);
             this.panelCollectorDetails.Name = "panelCollectorDetails";
-            this.panelCollectorDetails.Size = new System.Drawing.Size(981, 503);
+            this.panelCollectorDetails.Size = new System.Drawing.Size(981, 418);
             this.panelCollectorDetails.TabIndex = 3;
             // 
             // panelEditing
@@ -556,7 +556,7 @@
             this.setAsDisplayValueToolStripMenuItem,
             this.enableToolStripMenuItem});
             this.agentsContextMenuStrip.Name = "agentsContextMenuStrip";
-            this.agentsContextMenuStrip.Size = new System.Drawing.Size(181, 246);
+            this.agentsContextMenuStrip.Size = new System.Drawing.Size(181, 224);
             // 
             // addAgentToolStripMenuItem
             // 
@@ -615,6 +615,13 @@
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // setAsDisplayValueToolStripMenuItem
+            // 
+            this.setAsDisplayValueToolStripMenuItem.Name = "setAsDisplayValueToolStripMenuItem";
+            this.setAsDisplayValueToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.setAsDisplayValueToolStripMenuItem.Text = "Set as Display value";
+            this.setAsDisplayValueToolStripMenuItem.Click += new System.EventHandler(this.setAsDisplayValueToolStripMenuItem_Click);
             // 
             // enableToolStripMenuItem
             // 
@@ -2507,9 +2514,31 @@
             this.rtxDetails.Location = new System.Drawing.Point(0, 0);
             this.rtxDetails.Name = "rtxDetails";
             this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(981, 106);
+            this.rtxDetails.Size = new System.Drawing.Size(981, 191);
             this.rtxDetails.TabIndex = 2;
             this.rtxDetails.Text = "";
+            // 
+            // rawViewContextMenuStrip
+            // 
+            this.rawViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rawViewCopyToolStripMenuItem,
+            this.rawViewSelectAllToolStripMenuItem});
+            this.rawViewContextMenuStrip.Name = "rawViewContextMenuStrip";
+            this.rawViewContextMenuStrip.Size = new System.Drawing.Size(123, 48);
+            // 
+            // rawViewCopyToolStripMenuItem
+            // 
+            this.rawViewCopyToolStripMenuItem.Name = "rawViewCopyToolStripMenuItem";
+            this.rawViewCopyToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.rawViewCopyToolStripMenuItem.Text = "C&opy";
+            this.rawViewCopyToolStripMenuItem.Click += new System.EventHandler(this.rawViewCopyToolStripMenuItem_Click);
+            // 
+            // rawViewSelectAllToolStripMenuItem
+            // 
+            this.rawViewSelectAllToolStripMenuItem.Name = "rawViewSelectAllToolStripMenuItem";
+            this.rawViewSelectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.rawViewSelectAllToolStripMenuItem.Text = "Select &All";
+            this.rawViewSelectAllToolStripMenuItem.Click += new System.EventHandler(this.rawViewSelectAllToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -2689,35 +2718,6 @@
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
             // 
-            // rawViewContextMenuStrip
-            // 
-            this.rawViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rawViewCopyToolStripMenuItem,
-            this.rawViewSelectAllToolStripMenuItem});
-            this.rawViewContextMenuStrip.Name = "rawViewContextMenuStrip";
-            this.rawViewContextMenuStrip.Size = new System.Drawing.Size(123, 48);
-            // 
-            // rawViewCopyToolStripMenuItem
-            // 
-            this.rawViewCopyToolStripMenuItem.Name = "rawViewCopyToolStripMenuItem";
-            this.rawViewCopyToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.rawViewCopyToolStripMenuItem.Text = "C&opy";
-            this.rawViewCopyToolStripMenuItem.Click += new System.EventHandler(this.rawViewCopyToolStripMenuItem_Click);
-            // 
-            // rawViewSelectAllToolStripMenuItem
-            // 
-            this.rawViewSelectAllToolStripMenuItem.Name = "rawViewSelectAllToolStripMenuItem";
-            this.rawViewSelectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.rawViewSelectAllToolStripMenuItem.Text = "Select &All";
-            this.rawViewSelectAllToolStripMenuItem.Click += new System.EventHandler(this.rawViewSelectAllToolStripMenuItem_Click);
-            // 
-            // setAsDisplayValueToolStripMenuItem
-            // 
-            this.setAsDisplayValueToolStripMenuItem.Name = "setAsDisplayValueToolStripMenuItem";
-            this.setAsDisplayValueToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
-            this.setAsDisplayValueToolStripMenuItem.Text = "Set as Display value";
-            this.setAsDisplayValueToolStripMenuItem.Click += new System.EventHandler(this.setAsDisplayValueToolStripMenuItem_Click);
-            // 
             // CollectorDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2812,12 +2812,12 @@
             this.agentStateSplitContainer.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.rawViewContextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
-            this.rawViewContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

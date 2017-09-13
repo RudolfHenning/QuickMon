@@ -251,6 +251,13 @@ namespace QuickMon.Collectors
                     CurrentAgentValue = "Bad command(s)";
                     currentState.RawDetails = scriptResultText;
                 }
+                else if (scriptResultText.Contains("The remote server returned an error: (401) Unauthorized"))
+                {
+                    currentState.State = CollectorState.Error;
+                    currentState.CurrentValue = "Unauthorized";
+                    CurrentAgentValue = "Unauthorized";
+                    currentState.RawDetails = scriptResultText;
+                }
                 else
                 {
                     CurrentAgentValue = scriptResultText;

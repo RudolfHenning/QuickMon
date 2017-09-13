@@ -814,14 +814,16 @@ namespace QuickMon
                 {
                     if (tlvAgentStates.SelectedItems.Count == 0)
                     {                        
-                        rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
+                        //rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
+                        WriteMonitorState(rtfBuilder, SelectedCollectorHost.CurrentState);
                     }
                     else
                     {
                         object selectedObject = tlvAgentStates.SelectedItems[0].Tag;
                         if (selectedObject == null)
                         {
-                            rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
+                            //rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
+                            WriteMonitorState(rtfBuilder, SelectedCollectorHost.CurrentState);
                         }
                         else if (selectedObject is ICollector)
                         {
@@ -831,7 +833,10 @@ namespace QuickMon
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.State.ToString());
                             rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.ReadAgentValues());
-
+                            if (c.CurrentState.State != CollectorState.Good && c.CurrentState.RawDetails != null && c.CurrentState.RawDetails.Length > 0)
+                            {
+                                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Raw details: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.RawDetails);
+                            }
                         }
                         else if (selectedObject is ICollectorConfigEntry)
                         {
@@ -845,11 +850,17 @@ namespace QuickMon
                         else if (selectedObject is MonitorState)
                         {
                             MonitorState ms = (MonitorState)selectedObject;
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("For object: ").FontStyle(FontStyle.Regular).AppendLine(ms.ForAgent);
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("State");
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(ms.State.ToString());
-                            rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadAgentValues());
+                            WriteMonitorState(rtfBuilder, ms);
+
+                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("For object: ").FontStyle(FontStyle.Regular).AppendLine(ms.ForAgent);
+                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("State");
+                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(ms.State.ToString());
+                            //rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadAgentValues());
+                            //if (ms.State != CollectorState.Good && ms.RawDetails!= null && ms.RawDetails.Length > 0)
+                            //{
+                            //    rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Raw details: ").FontStyle(FontStyle.Regular).AppendLine(ms.RawDetails);
+                            //}
 
                             //rtfBuilder.AppendLine(((MonitorState)selectedObject).RawDetails);
                         }
@@ -867,14 +878,16 @@ namespace QuickMon
                         object selectedObject = lvwHistory.SelectedItems[0].Tag;
                         if (selectedObject is MonitorState)
                         {
-                            MonitorState c = (MonitorState)selectedObject;
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(c.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(c.State.ToString());
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration: ").FontStyle(FontStyle.Regular).AppendLine(c.CallDurationMS.ToString() + " ms");
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Alert count: ").FontStyle(FontStyle.Regular).AppendLine(c.AlertsRaised.Count.ToString());
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(c.ExecutedOnHostComputer));
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(c.RanAs));
-                            rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(c.ReadAgentValues());
+                            MonitorState ms = (MonitorState)selectedObject;
+                            WriteMonitorState(rtfBuilder, ms);
+
+                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(c.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(c.State.ToString());
+                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration: ").FontStyle(FontStyle.Regular).AppendLine(c.CallDurationMS.ToString() + " ms");
+                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Alert count: ").FontStyle(FontStyle.Regular).AppendLine(c.AlertsRaised.Count.ToString());
+                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(c.ExecutedOnHostComputer));
+                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(c.RanAs));
+                            //rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(c.ReadAgentValues());
                         }
                     }
                 }
@@ -885,6 +898,25 @@ namespace QuickMon
                 rtxDetails.ScrollToCaret();
 
                 updateAgentsDetailViewBusy = false;
+            }
+        }
+        private void WriteMonitorState(RTFBuilder rtfBuilder, MonitorState ms)
+        {
+            if (ms != null)
+            {
+                if (FormatUtils.N(ms.ForAgent) != "")
+                    rtfBuilder.FontStyle(FontStyle.Bold).Append("For object: ").FontStyle(FontStyle.Regular).AppendLine(ms.ForAgent);
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(ms.State.ToString());
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration: ").FontStyle(FontStyle.Regular).AppendLine(ms.CallDurationMS.ToString() + " ms");
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("Alert count: ").FontStyle(FontStyle.Regular).AppendLine(ms.AlertsRaised.Count.ToString());
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(ms.ExecutedOnHostComputer));
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(ms.RanAs));
+                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadAgentValues());
+                if (ms.State != CollectorState.Good && ms.RawDetails != null && ms.RawDetails.Length > 0)
+                {
+                    rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Raw details: ").FontStyle(FontStyle.Regular).AppendLine(ms.RawDetails);
+                }
             }
         }
         #endregion
@@ -1185,9 +1217,9 @@ namespace QuickMon
             collectorDetailSplitContainer.Panel2Collapsed = !chkRAWDetails.Checked;
             chkRAWDetails.Image = chkRAWDetails.Checked ? global::QuickMon.Properties.Resources._133 : global::QuickMon.Properties.Resources._131;
 
-            if (collectorDetailSplitContainer.Panel2.Height < 100)
+            if (collectorDetailSplitContainer.Panel2.Height < 200)
             {
-                collectorDetailSplitContainer.SplitterDistance = collectorDetailSplitContainer.Height - 100;
+                collectorDetailSplitContainer.SplitterDistance = collectorDetailSplitContainer.Height - 200;
             }
             UpdateRawView();
         }
