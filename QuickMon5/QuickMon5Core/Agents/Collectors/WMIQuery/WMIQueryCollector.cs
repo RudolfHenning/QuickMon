@@ -355,50 +355,41 @@ namespace QuickMon.Collectors
         #region ICollectorConfigEntry
         public MonitorState GetCurrentState()
         {
-            object value = RunQuery();
-            string unitName = OutputValueUnit;
-            if (UseRowCountAsValue && OutputValueUnit.Length == 0)
-                unitName = "row(s)";
             MonitorState currentState = new MonitorState()
             {
-                State = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence, GoodResultMatchType, GoodValue,
-                 WarningResultMatchType, WarningValue, ErrorResultMatchType, ErrorValue, value),
-                ForAgent = Name,
-                CurrentValue = value,
-                CurrentValueUnit = unitName
+                ForAgent = Name                
             };
-
-            //object value = null;
-            //if (!ReturnValueIsInt)
-            //{
-            //    value = RunQueryWithSingleResult();
-            //}
-            //else
-            //{
-            //    if (UseRowCountAsValue)
-            //    {
-            //        value = RunQueryWithCountResult();
-            //    }
-            //    else
-            //    {
-            //        value = RunQueryWithSingleResult();
-            //    }
-            //}
-            //CurrentAgentValue = value == null ? "[null]" : value;
-            //MonitorState currentState = new MonitorState()
-            //{
-            //    ForAgent = Description,
-            //    CurrentValue = value == null ? "[null]" : value,
-            //    CurrentValueUnit = OutputValueUnit,
-            //    State = GetState(value)
-            //};
-            if (currentState.State == CollectorState.Error)
+            try
             {
-                currentState.RawDetails = string.Format("(Trigger '{0}')", ErrorValue);
+                object value = RunQuery();
+                string unitName = OutputValueUnit;
+                if (UseRowCountAsValue && OutputValueUnit.Length == 0)
+                    unitName = "row(s)";
+                currentState.State = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence, GoodResultMatchType, GoodValue,
+                 WarningResultMatchType, WarningValue, ErrorResultMatchType, ErrorValue, value);
+                currentState.CurrentValue = value;
+                currentState.CurrentValueUnit = unitName;
+                if (currentState.State == CollectorState.Error)
+                {
+                    currentState.RawDetails = string.Format("(Trigger '{0}')", ErrorValue);
+                }
+                else if (currentState.State == CollectorState.Warning)
+                {
+                    currentState.RawDetails = string.Format("(Trigger '{0}')", WarningValue);
+                }
             }
-            else if (currentState.State == CollectorState.Warning)
+            catch(Exception ex)
             {
-                currentState.RawDetails = string.Format("(Trigger '{0}')", WarningValue);                
+                currentState.State = CollectorState.Error;
+                currentState.RawDetails = ex.Message;
+                if (ex.Message.Contains("Invalid class"))
+                {
+                    currentState.CurrentValue = "Invalid class";
+                }
+                else if (ex.Message.Contains("Invalid query"))
+                {
+                    currentState.CurrentValue = "Invalid query";
+                }
             }
             return currentState;
         }

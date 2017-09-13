@@ -162,39 +162,60 @@ namespace QuickMon.Collectors
         public bool PrimaryUIValue { get; set; }
         public MonitorState GetCurrentState()
         {
-            List<ServiceStateInfo> serviceStates = GetServiceStates();
-            CurrentAgentValue = "";
             string machineName = MachineName;
+            CurrentAgentValue = "";
             if (machineName == "." || machineName.ToLower() == "localhost")
                 machineName = System.Net.Dns.GetHostName();
             MonitorState machineState = new MonitorState()
             {
-                ForAgent = machineName,
-                State = GetState(serviceStates)
+                ForAgent = machineName                
             };
-
-            foreach (ServiceStateInfo serviceEntry in serviceStates)
+            try
             {
-                machineState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    State = (serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Stopped ? CollectorState.Error : serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Running ? CollectorState.Good : CollectorState.Warning),
-                                    ForAgent = string.Format("{0}", serviceEntry.DisplayName),
-                                    ForAgentType = "CollectorConfigSubEntry",
-                                    CurrentValue = serviceEntry.Status.ToString()
-                                });
-            }
 
-            int errors = machineState.ChildStates.Where(cs => cs.State == CollectorState.Error).Count();
-            int warnings = machineState.ChildStates.Where(cs => cs.State == CollectorState.Warning).Count();
-            int successes = machineState.ChildStates.Where(cs => cs.State == CollectorState.Good).Count();
-            if (errors > 0 && warnings == 0 && successes == 0)
-                machineState.CurrentValue = errors.ToString() + " stopped";
-            else if (errors > 0)
-                machineState.CurrentValue = errors.ToString() + " stopped," + successes.ToString() + " running";
-            else
-                machineState.CurrentValue = successes.ToString() + " running";
-            
+                List<ServiceStateInfo> serviceStates = GetServiceStates();
+                if (serviceStates.Count > 0)
+                {
+
+                    machineState.State = GetState(serviceStates);
+
+                    foreach (ServiceStateInfo serviceEntry in serviceStates)
+                    {
+                        machineState.ChildStates.Add(
+                                        new MonitorState()
+                                        {
+                                            State = (serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Stopped ? CollectorState.Error : serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Running ? CollectorState.Good : CollectorState.Warning),
+                                            ForAgent = string.Format("{0}", serviceEntry.DisplayName),
+                                            ForAgentType = "CollectorConfigSubEntry",
+                                            CurrentValue = serviceEntry.Status.ToString()
+                                        });
+                    }
+
+                    int errors = machineState.ChildStates.Where(cs => cs.State == CollectorState.Error).Count();
+                    int warnings = machineState.ChildStates.Where(cs => cs.State == CollectorState.Warning).Count();
+                    int successes = machineState.ChildStates.Where(cs => cs.State == CollectorState.Good).Count();
+                    if (errors > 0 && warnings == 0 && successes == 0)
+                        machineState.CurrentValue = errors.ToString() + " stopped";
+                    else if (errors > 0)
+                        machineState.CurrentValue = errors.ToString() + " stopped," + successes.ToString() + " running";
+                    else
+                        machineState.CurrentValue = successes.ToString() + " running";
+                }
+                else
+                {
+                    machineState.State = CollectorState.Good;
+                    machineState.CurrentValue = "No service(s)";
+                }
+            }
+            catch(Exception ex)
+            {
+                machineState.State = CollectorState.Error;
+                if (ex.Message.Contains("Cannot open Service Control Manager on computer"))
+                {
+                    machineState.CurrentValue = "Cannot connect!";
+                }
+                machineState.RawDetails = ex.Message;
+            }            
             return machineState;
         }
         #endregion

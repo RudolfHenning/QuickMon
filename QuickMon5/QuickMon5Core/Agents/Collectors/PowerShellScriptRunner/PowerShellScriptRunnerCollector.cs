@@ -237,19 +237,38 @@ namespace QuickMon.Collectors
         #region ICollectorConfigEntry Members
         public MonitorState GetCurrentState()
         {
-            string scriptResultText = RunScript();
-            CurrentAgentValue = scriptResultText;
             MonitorState currentState = new MonitorState()
             {
-                ForAgent = Description,
-                CurrentValue = scriptResultText
+                ForAgent = Description
             };
-            CollectorState currentScriptState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
-               GoodResultMatchType, GoodScriptText,
-               WarningResultMatchType, WarningScriptText,
-               ErrorResultMatchType, ErrorScriptText,
-               scriptResultText);
-            currentState.State = currentScriptState;            
+            try
+            {
+                string scriptResultText = RunScript();
+                if (scriptResultText.Contains("System.Management.Automation.CommandNotFoundException"))
+                {
+                    currentState.State = CollectorState.Error;
+                    currentState.CurrentValue = "Bad command(s)";
+                    CurrentAgentValue = "Bad command(s)";
+                    currentState.RawDetails = scriptResultText;
+                }
+                else
+                {
+                    CurrentAgentValue = scriptResultText;
+                    currentState.CurrentValue = scriptResultText;
+                    CollectorState currentScriptState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
+                       GoodResultMatchType, GoodScriptText,
+                       WarningResultMatchType, WarningScriptText,
+                       ErrorResultMatchType, ErrorScriptText,
+                       scriptResultText);
+                    currentState.State = currentScriptState;
+                }
+            }
+            catch (Exception ex)
+            {
+                currentState.State = CollectorState.Error;
+                currentState.CurrentValue = "Unknown error";
+                currentState.RawDetails = ex.Message;                
+            }
 
             return currentState;
         }
