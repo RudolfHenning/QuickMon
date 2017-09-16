@@ -193,7 +193,7 @@ namespace QuickMon.Collectors
                 if (dis.AlertDefinition.PrimaryUIValue)
                 {
                     currentState.CurrentValue = (dis.NICInfo.RTxBytesPerSec/1024).ToString("0.00");
-                    currentState.CurrentValueUnit = "KB/Sec";
+                    currentState.CurrentValueUnit = "kB/s";
                 }
 
                 MonitorState diskIOState = new MonitorState()
@@ -201,7 +201,7 @@ namespace QuickMon.Collectors
                     ForAgent = dis.NICInfo.Name,
                     State = dis.State,
                     CurrentValue = (dis.NICInfo.RTxBytesPerSec / 1024).ToString("0.00"),
-                    CurrentValueUnit = "KB/Sec",
+                    CurrentValueUnit = "kB/s",
                     PrimaryUIValue = dis.AlertDefinition.PrimaryUIValue
                 };
                 currentState.ChildStates.Add(diskIOState);
@@ -216,7 +216,7 @@ namespace QuickMon.Collectors
             if (currentState.CurrentValue.ToString() == "" && currentState.ChildStates.Count > 0)
             {
                 currentState.CurrentValue = ((average/1024 )/ currentState.ChildStates.Count).ToString("0.00");
-                currentState.CurrentValueUnit = "KB/Sec (avg)";
+                currentState.CurrentValueUnit = "kB/s (avg)";
             }
 
             return currentState;

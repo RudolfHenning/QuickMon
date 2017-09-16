@@ -512,6 +512,7 @@
             this.txtStateQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtStateQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtStateQuery.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtStateQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtStateQuery.IsReplaceMode = false;
             this.txtStateQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtStateQuery.LeftBracket = '(';
@@ -816,7 +817,7 @@
             // 
             // cboOutputValueUnit
             // 
-            this.cboOutputValueUnit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cboOutputValueUnit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboOutputValueUnit.FormattingEnabled = true;
             this.cboOutputValueUnit.Items.AddRange(new object[] {
@@ -831,6 +832,7 @@
             // 
             // label21
             // 
+            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label21.AutoSize = true;
             this.label21.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.label21.Location = new System.Drawing.Point(13, 422);

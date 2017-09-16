@@ -193,7 +193,7 @@ namespace QuickMon.Collectors
                 if (dis.AlertDefinition.PrimaryUIValue)
                 {
                     currentState.CurrentValue = dis.DiskInfo.BytesReadWritePerSec.ToString("0.0");
-                    currentState.CurrentValueUnit = "Bytes/Sec";
+                    currentState.CurrentValueUnit = "bytes/s";
                 }
 
                 MonitorState diskIOState = new MonitorState()
@@ -201,7 +201,7 @@ namespace QuickMon.Collectors
                     ForAgent = dis.DiskInfo.Name,
                     State = dis.State,
                     CurrentValue = dis.DiskInfo.BytesReadWritePerSec.ToString("0.0"),
-                    CurrentValueUnit = "Bytes/Sec",
+                    CurrentValueUnit = "bytes/s",
                     PrimaryUIValue = dis.AlertDefinition.PrimaryUIValue
                 };
                 currentState.ChildStates.Add(diskIOState);
@@ -216,12 +216,11 @@ namespace QuickMon.Collectors
             if (currentState.CurrentValue.ToString() == "" && currentState.ChildStates.Count > 0)
             {
                 currentState.CurrentValue = (average / currentState.ChildStates.Count).ToString("0.0");
-                currentState.CurrentValueUnit = "Bytes/Sec (avg)";
+                currentState.CurrentValueUnit = "bytes/s (avg)";
             }
 
             return currentState;
         }
-
     }
 
     public class NIXDiskIOSubEntry : ICollectorConfigSubEntry
