@@ -126,7 +126,7 @@ namespace QuickMon.Collectors
 
             Renci.SshNet.SshClient sshClient = SSHConnection.GetConnection();
 
-            #region Get Disk infos and states
+            #region Get NIC infos and states
             List<NICInfoState> nicEntries = new List<NICInfoState>();
             //First see if ANY subentry is for all
             bool addAll = (from NIXNICSubEntry d in SubItems

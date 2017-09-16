@@ -25,6 +25,40 @@ namespace QuickMon.NIX
         public long TxBytesPerSec { get { return (1000 * TxBytes) / MeasurementDelayMS; } }
         public long RTxBytesPerSec { get { return (1000 * (RxBytes + TxBytes)) / MeasurementDelayMS; } }
 
+        public static List<NicInfo> FromIfconfigS(string input)
+        {
+            List<NicInfo> nics = new List<NicInfo>();
+            string[] lines = input.Split(new string[] { "\n", "\r" }, StringSplitOptions.None);
+            NicInfo nextNic;
+            bool oldFormat = lines[0] == "Iface   MTU Met   RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg";
+
+            foreach (string line in lines)
+            {
+                if (line.Trim().Length == 0 || line.StartsWith("Iface"))
+                {
+                }
+                else
+                {
+                    nextNic = new NicInfo();
+                    string[] parts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] values = line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    nextNic.Name = values[0];
+                    if (oldFormat)
+                    {
+                        nextNic.RxBytes = long.Parse(values[3]);
+                        nextNic.TxBytes = long.Parse(values[7]);
+                    }
+                    else
+                    {
+                        nextNic.RxBytes = long.Parse(values[2]);
+                        nextNic.TxBytes = long.Parse(values[6]);
+                    }
+                    nics.Add(nextNic);
+                }
+            }
+            return nics;
+        }
+
         /// <summary>
         /// Parsing output of ifconfig
         /// </summary>
@@ -92,11 +126,9 @@ namespace QuickMon.NIX
         public static List<NicInfo> GetCurrentNicStats(Renci.SshNet.SshClient sshClient, int delayMS = 1000)
         {
             List<NicInfo> nicDiffs = new List<NicInfo>();
-
-            List<NicInfo> nics1 = FromIfconfig(sshClient.RunCommand("ifconfig").Result);
+            List<NicInfo> nics1 = FromIfconfigS(sshClient.RunCommand("ifconfig -s").Result);
             TH.Thread.Sleep(delayMS);
-            List<NicInfo> nics2 = FromIfconfig(sshClient.RunCommand("ifconfig").Result);
-
+            List<NicInfo> nics2 = FromIfconfigS(sshClient.RunCommand("ifconfig -s").Result);
             foreach (NicInfo c1 in nics1)
             {
                 NicInfo c2 = nics2.FirstOrDefault(c => c.Name == c1.Name);
@@ -105,16 +137,39 @@ namespace QuickMon.NIX
                     NicInfo nicUsageDiff = new NicInfo();
                     nicUsageDiff.MeasurementDelayMS = delayMS;
                     nicUsageDiff.Name = c1.Name;
-                    nicUsageDiff.LocalLoopback = c1.LocalLoopback;
-                    nicUsageDiff.IpV4 = c1.IpV4;
-                    nicUsageDiff.IpV6 = c1.IpV6;
-                    nicUsageDiff.HWAddress = c1.HWAddress;
+                    //nicUsageDiff.LocalLoopback = c1.LocalLoopback;
+                    //nicUsageDiff.IpV4 = c1.IpV4;
+                    //nicUsageDiff.IpV6 = c1.IpV6;
+                    //nicUsageDiff.HWAddress = c1.HWAddress;
                     nicUsageDiff.RxBytes = c2.RxBytes - c1.RxBytes;
                     nicUsageDiff.TxBytes = c2.TxBytes - c1.TxBytes;
 
                     nicDiffs.Add(nicUsageDiff);
                 }
             }
+
+            //List<NicInfo> nics1 = FromIfconfig(sshClient.RunCommand("ifconfig").Result);
+            //TH.Thread.Sleep(delayMS);
+            //List<NicInfo> nics2 = FromIfconfig(sshClient.RunCommand("ifconfig").Result);
+
+            //foreach (NicInfo c1 in nics1)
+            //{
+            //    NicInfo c2 = nics2.FirstOrDefault(c => c.Name == c1.Name);
+            //    if (c2 != null)
+            //    {
+            //        NicInfo nicUsageDiff = new NicInfo();
+            //        nicUsageDiff.MeasurementDelayMS = delayMS;
+            //        nicUsageDiff.Name = c1.Name;
+            //        nicUsageDiff.LocalLoopback = c1.LocalLoopback;
+            //        nicUsageDiff.IpV4 = c1.IpV4;
+            //        nicUsageDiff.IpV6 = c1.IpV6;
+            //        nicUsageDiff.HWAddress = c1.HWAddress;
+            //        nicUsageDiff.RxBytes = c2.RxBytes - c1.RxBytes;
+            //        nicUsageDiff.TxBytes = c2.TxBytes - c1.TxBytes;
+
+            //        nicDiffs.Add(nicUsageDiff);
+            //    }
+            //}
             return nicDiffs;
         }
     }
