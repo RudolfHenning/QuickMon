@@ -40,8 +40,8 @@ namespace QuickMon.UI
             foreach (NIXDiskIOSubEntry dsse in currentEntry.SubItems)
             {
                 ListViewItem lvi = new ListViewItem() { Text = dsse.DiskName };
-                lvi.SubItems.Add(dsse.WarningValue.ToString());
-                lvi.SubItems.Add(dsse.ErrorValue.ToString());
+                lvi.SubItems.Add(dsse.WarningValueKB.ToString());
+                lvi.SubItems.Add(dsse.ErrorValueKB.ToString());
                 lvi.Tag = dsse;
                 lvwDisks.Items.Add(lvi);
             }
@@ -55,8 +55,8 @@ namespace QuickMon.UI
             {
                 fileSystemUpdated = true;
                 NIXDiskIOSubEntry dsse = (NIXDiskIOSubEntry)lvwDisks.SelectedItems[0].Tag;
-                warningNumericUpDown.SaveValueSet((decimal)dsse.WarningValue);
-                errorNumericUpDown.SaveValueSet((decimal)dsse.ErrorValue);
+                warningNumericUpDown.SaveValueSet((decimal)dsse.WarningValueKB);
+                errorNumericUpDown.SaveValueSet((decimal)dsse.ErrorValueKB);
                 txtDisk.Text = dsse.DiskName;
                 fileSystemUpdated = false;
             }
@@ -91,18 +91,18 @@ namespace QuickMon.UI
                     ListViewItem lvi = lvwDisks.SelectedItems[0];
                     NIXDiskIOSubEntry dsse = (NIXDiskIOSubEntry)lvwDisks.SelectedItems[0].Tag;
                     dsse.DiskName = txtDisk.Text;
-                    dsse.WarningValue = (double)warningNumericUpDown.Value;
-                    dsse.ErrorValue = (double)errorNumericUpDown.Value;
+                    dsse.WarningValueKB = (double)warningNumericUpDown.Value;
+                    dsse.ErrorValueKB = (double)errorNumericUpDown.Value;
                     lvi.Text = txtDisk.Text;
                     lvi.SubItems[1].Text = warningNumericUpDown.Value.ToString();
                     lvi.SubItems[2].Text = errorNumericUpDown.Value.ToString();
                 }
                 else
                 {
-                    NIXDiskIOSubEntry dsse = new NIXDiskIOSubEntry() { DiskName = txtDisk.Text, WarningValue = (double)warningNumericUpDown.Value, ErrorValue = (double)errorNumericUpDown.Value };
+                    NIXDiskIOSubEntry dsse = new NIXDiskIOSubEntry() { DiskName = txtDisk.Text, WarningValueKB = (double)warningNumericUpDown.Value, ErrorValueKB = (double)errorNumericUpDown.Value };
                     ListViewItem lvi = new ListViewItem() { Text = dsse.DiskName };
-                    lvi.SubItems.Add(dsse.WarningValue.ToString());
-                    lvi.SubItems.Add(dsse.ErrorValue.ToString());
+                    lvi.SubItems.Add(dsse.WarningValueKB.ToString());
+                    lvi.SubItems.Add(dsse.ErrorValueKB.ToString());
                     lvi.Tag = dsse;
                     lvwDisks.Items.Add(lvi);
                     lvwDisks.SelectedItems.Clear();
@@ -137,10 +137,10 @@ namespace QuickMon.UI
                     lvwDisks.Items.Clear();
                     foreach (DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient))
                     {
-                        NIXDiskIOSubEntry dsse = new NIXDiskIOSubEntry() { DiskName = di.Name, WarningValue = (double)warningNumericUpDown.Value, ErrorValue = (double)errorNumericUpDown.Value };
+                        NIXDiskIOSubEntry dsse = new NIXDiskIOSubEntry() { DiskName = di.Name, WarningValueKB = (double)warningNumericUpDown.Value, ErrorValueKB = (double)errorNumericUpDown.Value };
                         ListViewItem lvi = new ListViewItem() { Text = dsse.DiskName };
-                        lvi.SubItems.Add(dsse.WarningValue.ToString());
-                        lvi.SubItems.Add(dsse.ErrorValue.ToString());
+                        lvi.SubItems.Add(dsse.WarningValueKB.ToString());
+                        lvi.SubItems.Add(dsse.ErrorValueKB.ToString());
                         lvi.Tag = dsse;
                         lvwDisks.Items.Add(lvi);
                     }
