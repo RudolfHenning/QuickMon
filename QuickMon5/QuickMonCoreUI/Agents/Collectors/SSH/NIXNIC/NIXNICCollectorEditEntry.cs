@@ -36,6 +36,7 @@ namespace QuickMon.UI
                 currentEntry = new NIXNICEntry();
             sshConnectionDetails = currentEntry.SSHConnection;
             txtSSHConnection.Text = SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
+            nudMeasuringDelayMS.Value = currentEntry.MeasuringDelayMS;
 
             foreach (NIXNICSubEntry dsse in currentEntry.SubItems)
             {
@@ -200,6 +201,7 @@ namespace QuickMon.UI
                 SelectedEntry = new NIXNICEntry();
             selectedEntry = (NIXNICEntry)SelectedEntry;
             selectedEntry.SSHConnection = sshConnectionDetails;
+            selectedEntry.MeasuringDelayMS = (int)nudMeasuringDelayMS.Value;
             selectedEntry.SubItems = new List<ICollectorConfigSubEntry>();
 
             foreach (ListViewItem lvi in lvwNICs.Items)

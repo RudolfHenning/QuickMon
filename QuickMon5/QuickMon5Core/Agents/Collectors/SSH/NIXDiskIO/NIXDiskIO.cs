@@ -49,8 +49,14 @@ namespace QuickMon.Collectors
                 {
                     NIXDiskIOSubEntry fse = new NIXDiskIOSubEntry();
                     fse.DiskName = fileSystemNode.ReadXmlElementAttr("name", "");
-                    fse.WarningValue = fileSystemNode.ReadXmlElementAttr("warningValue", 10.0d);
-                    fse.ErrorValue = fileSystemNode.ReadXmlElementAttr("errorValue", 5.0d);
+                    if (fileSystemNode.HasAttribute("warningValueKB"))
+                        fse.WarningValueKB = fileSystemNode.ReadXmlElementAttr("warningValueKB", 100.0d);
+                    else
+                        fse.WarningValueKB = fileSystemNode.ReadXmlElementAttr("warningValue", 100.0d);
+                    if (fileSystemNode.HasAttribute("errorValueKB"))
+                        fse.ErrorValueKB = fileSystemNode.ReadXmlElementAttr("errorValueKB", 512.0d);
+                    else
+                        fse.ErrorValueKB = fileSystemNode.ReadXmlElementAttr("errorValue", 512.0d);
                     fse.PrimaryUIValue = fileSystemNode.ReadXmlElementAttr("primaryUIValue", false);
                     entry.SubItems.Add(fse);
                 }
@@ -71,8 +77,8 @@ namespace QuickMon.Collectors
                 {
                     XmlElement fileSystemNode = config.CreateElement("disk");
                     fileSystemNode.SetAttributeValue("name", fse.DiskName);
-                    fileSystemNode.SetAttributeValue("warningValue", fse.WarningValue);
-                    fileSystemNode.SetAttributeValue("errorValue", fse.ErrorValue);
+                    fileSystemNode.SetAttributeValue("warningValueKB", fse.WarningValueKB);
+                    fileSystemNode.SetAttributeValue("errorValueKB", fse.ErrorValueKB);
                     fileSystemNode.SetAttributeValue("primaryUIValue", fse.PrimaryUIValue);
                     nixDiskSpacesNode.AppendChild(fileSystemNode);
                 }
@@ -175,12 +181,12 @@ namespace QuickMon.Collectors
             foreach (DiskIOInfoState dis in diskEntries)
             {
                 average += dis.DiskInfo.BytesReadWritePerSec;
-                if (dis.DiskInfo.BytesReadWritePerSec >= dis.AlertDefinition.ErrorValue)
+                if (dis.DiskInfo.BytesReadWritePerSec >= (dis.AlertDefinition.ErrorValueKB * 1024))
                 {
                     dis.State = CollectorState.Error;
                     errors++;
                 }
-                else if (dis.DiskInfo.BytesReadWritePerSec >= dis.AlertDefinition.WarningValue)
+                else if (dis.DiskInfo.BytesReadWritePerSec >= (dis.AlertDefinition.WarningValueKB * 1024))
                 {
                     dis.State = CollectorState.Warning;
                     warnings++;
@@ -190,18 +196,19 @@ namespace QuickMon.Collectors
                     dis.State = CollectorState.Good;
                     success++;
                 }
+                string formatValue = FormatUtils.FormatFileSizePerSec(dis.DiskInfo.BytesReadWritePerSec);
                 if (dis.AlertDefinition.PrimaryUIValue)
                 {
-                    currentState.CurrentValue = dis.DiskInfo.BytesReadWritePerSec.ToString("0.0");
-                    currentState.CurrentValueUnit = "bytes/s";
+                    currentState.CurrentValue = formatValue.Split(' ')[0];
+                    currentState.CurrentValueUnit = formatValue.Split(' ')[1];
                 }
 
                 MonitorState diskIOState = new MonitorState()
                 {
                     ForAgent = dis.DiskInfo.Name,
                     State = dis.State,
-                    CurrentValue = dis.DiskInfo.BytesReadWritePerSec.ToString("0.0"),
-                    CurrentValueUnit = "bytes/s",
+                    CurrentValue = formatValue.Split(' ')[0],
+                    CurrentValueUnit = formatValue.Split(' ')[1],
                     PrimaryUIValue = dis.AlertDefinition.PrimaryUIValue
                 };
                 currentState.ChildStates.Add(diskIOState);
@@ -215,8 +222,9 @@ namespace QuickMon.Collectors
 
             if (currentState.CurrentValue.ToString() == "" && currentState.ChildStates.Count > 0)
             {
-                currentState.CurrentValue = (average / currentState.ChildStates.Count).ToString("0.0");
-                currentState.CurrentValueUnit = "bytes/s (avg)";
+                string formatValue = FormatUtils.FormatFileSizePerSec((long)((average / currentState.ChildStates.Count)));
+                currentState.CurrentValue = formatValue.Split(' ')[0];
+                currentState.CurrentValueUnit = formatValue.Split(' ')[1];
             }
 
             return currentState;
@@ -227,19 +235,19 @@ namespace QuickMon.Collectors
     {
         public NIXDiskIOSubEntry()
         {
-            WarningValue = 10;
-            ErrorValue = 5;
+            WarningValueKB = 10;
+            ErrorValueKB = 5;
         }
 
         public string DiskName { get; set; }
-        public double WarningValue { get; set; }
-        public double ErrorValue { get; set; }
+        public double WarningValueKB { get; set; }
+        public double ErrorValueKB { get; set; }
         public bool PrimaryUIValue { get; set; }
 
         #region ICollectorConfigSubEntry Members
         public string Description
         {
-            get { return string.Format("{0} Warn:{1} Err:{2}", DiskName, WarningValue, ErrorValue); }
+            get { return string.Format("{0} Warn:{1} Err:{2}", DiskName, WarningValueKB, ErrorValueKB); }
         }
         #endregion
     }

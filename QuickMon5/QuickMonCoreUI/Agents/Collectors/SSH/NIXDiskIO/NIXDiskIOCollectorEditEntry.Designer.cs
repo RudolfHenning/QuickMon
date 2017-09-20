@@ -272,7 +272,7 @@
             this.errorNumericUpDown.Size = new System.Drawing.Size(85, 20);
             this.errorNumericUpDown.TabIndex = 9;
             this.errorNumericUpDown.Value = new decimal(new int[] {
-            51200,
+            5120,
             0,
             0,
             0});
@@ -307,7 +307,7 @@
             this.warningNumericUpDown.Size = new System.Drawing.Size(103, 20);
             this.warningNumericUpDown.TabIndex = 7;
             this.warningNumericUpDown.Value = new decimal(new int[] {
-            10240,
+            1024,
             0,
             0,
             0});

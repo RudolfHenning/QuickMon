@@ -50,9 +50,13 @@
             this.lvwNICs = new QuickMon.ListViewEx();
             this.warningColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.nudMeasuringDelayMS = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
             this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMeasuringDelayMS)).BeginInit();
             this.SuspendLayout();
             // 
             // lblEditSSHConnection
@@ -60,7 +64,7 @@
             this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEditSSHConnection.AutoSize = true;
             this.lblEditSSHConnection.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblEditSSHConnection.Location = new System.Drawing.Point(396, 8);
+            this.lblEditSSHConnection.Location = new System.Drawing.Point(419, 8);
             this.lblEditSSHConnection.Name = "lblEditSSHConnection";
             this.lblEditSSHConnection.Size = new System.Drawing.Size(25, 13);
             this.lblEditSSHConnection.TabIndex = 8;
@@ -81,7 +85,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 253);
+            this.cmdOK.Location = new System.Drawing.Point(288, 279);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 10;
@@ -94,7 +98,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 253);
+            this.cmdCancel.Location = new System.Drawing.Point(369, 279);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 11;
@@ -173,12 +177,14 @@
             // 
             // txtSSHConnection
             // 
+            this.txtSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSSHConnection.Cursor = System.Windows.Forms.Cursors.Hand;
             this.txtSSHConnection.Location = new System.Drawing.Point(12, 24);
             this.txtSSHConnection.Multiline = true;
             this.txtSSHConnection.Name = "txtSSHConnection";
             this.txtSSHConnection.ReadOnly = true;
-            this.txtSSHConnection.Size = new System.Drawing.Size(409, 45);
+            this.txtSSHConnection.Size = new System.Drawing.Size(432, 45);
             this.txtSSHConnection.TabIndex = 7;
             this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
             // 
@@ -219,7 +225,7 @@
             this.lblAutoAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAutoAdd.AutoSize = true;
             this.lblAutoAdd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblAutoAdd.Location = new System.Drawing.Point(353, 16);
+            this.lblAutoAdd.Location = new System.Drawing.Point(376, 16);
             this.lblAutoAdd.Name = "lblAutoAdd";
             this.lblAutoAdd.Size = new System.Drawing.Size(50, 13);
             this.lblAutoAdd.TabIndex = 2;
@@ -242,7 +248,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNIC.Location = new System.Drawing.Point(100, 119);
             this.txtNIC.Name = "txtNIC";
-            this.txtNIC.Size = new System.Drawing.Size(303, 20);
+            this.txtNIC.Size = new System.Drawing.Size(326, 20);
             this.txtNIC.TabIndex = 5;
             this.txtNIC.TextChanged += new System.EventHandler(this.txtNIC_TextChanged);
             // 
@@ -251,7 +257,7 @@
             this.lblAddFileSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAddFileSystem.AutoSize = true;
             this.lblAddFileSystem.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblAddFileSystem.Location = new System.Drawing.Point(292, 16);
+            this.lblAddFileSystem.Location = new System.Drawing.Point(315, 16);
             this.lblAddFileSystem.Name = "lblAddFileSystem";
             this.lblAddFileSystem.Size = new System.Drawing.Size(49, 13);
             this.lblAddFileSystem.TabIndex = 1;
@@ -261,6 +267,8 @@
             // 
             // lvwNICs
             // 
+            this.lvwNICs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvwNICs.AutoResizeColumnEnabled = false;
             this.lvwNICs.AutoResizeColumnIndex = 0;
             this.lvwNICs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -270,7 +278,7 @@
             this.lvwNICs.FullRowSelect = true;
             this.lvwNICs.Location = new System.Drawing.Point(8, 32);
             this.lvwNICs.Name = "lvwNICs";
-            this.lvwNICs.Size = new System.Drawing.Size(395, 81);
+            this.lvwNICs.Size = new System.Drawing.Size(418, 81);
             this.lvwNICs.TabIndex = 3;
             this.lvwNICs.UseCompatibleStateImageBehavior = false;
             this.lvwNICs.View = System.Windows.Forms.View.Details;
@@ -302,17 +310,70 @@
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox6.Location = new System.Drawing.Point(12, 75);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(409, 172);
+            this.groupBox6.Size = new System.Drawing.Size(432, 172);
             this.groupBox6.TabIndex = 9;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Alert triggering";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.AutoSize = true;
+            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label5.Location = new System.Drawing.Point(18, 255);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Measuring delay";
+            // 
+            // nudMeasuringDelayMS
+            // 
+            this.nudMeasuringDelayMS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nudMeasuringDelayMS.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudMeasuringDelayMS.Location = new System.Drawing.Point(112, 253);
+            this.nudMeasuringDelayMS.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.nudMeasuringDelayMS.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudMeasuringDelayMS.Name = "nudMeasuringDelayMS";
+            this.nudMeasuringDelayMS.Size = new System.Drawing.Size(101, 20);
+            this.nudMeasuringDelayMS.TabIndex = 13;
+            this.nudMeasuringDelayMS.Value = new decimal(new int[] {
+            250,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label6.Location = new System.Drawing.Point(219, 255);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(20, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "ms";
             // 
             // NIXNICCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 285);
+            this.ClientSize = new System.Drawing.Size(456, 311);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.nudMeasuringDelayMS);
             this.Controls.Add(this.lblEditSSHConnection);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.cmdOK);
@@ -331,6 +392,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMeasuringDelayMS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -359,5 +421,8 @@
         private ListViewEx lvwNICs;
         private System.Windows.Forms.ColumnHeader warningColumnHeader;
         private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown nudMeasuringDelayMS;
+        private System.Windows.Forms.Label label6;
     }
 }

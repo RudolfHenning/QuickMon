@@ -45,6 +45,7 @@ namespace QuickMon.Collectors
                 NIXNICEntry entry = new NIXNICEntry();
                 entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
                 entry.SubItems = new List<ICollectorConfigSubEntry>();
+                entry.MeasuringDelayMS = pcNode.ReadXmlElementAttr("measuringDelayMS", 250);
                 foreach (XmlElement nicNode in pcNode.SelectNodes("nic"))
                 {
                     NIXNICSubEntry fse = new NIXNICSubEntry();
@@ -67,6 +68,7 @@ namespace QuickMon.Collectors
             {
                 XmlElement nixDiskSpacesNode = config.CreateElement("nixNICs");
                 entry.SSHConnection.SaveToXmlElementAttr(nixDiskSpacesNode);
+                nixDiskSpacesNode.SetAttributeValue("measuringDelayMS", entry.MeasuringDelayMS);
                 foreach (NIXNICSubEntry fse in entry.SubItems)
                 {
                     XmlElement fileSystemNode = config.CreateElement("nic");
@@ -109,7 +111,9 @@ namespace QuickMon.Collectors
         public NIXNICEntry()
         {
             SubItems = new List<ICollectorConfigSubEntry>();
+            MeasuringDelayMS = 250;
         }
+        public int MeasuringDelayMS { get; set; }
         public override string TriggerSummary
         {
             get { return string.Format("{0} File system(s)", SubItems.Count); }
@@ -121,8 +125,8 @@ namespace QuickMon.Collectors
             {
                 ForAgent = Description,
                 State = CollectorState.None,
-                CurrentValue = ""
-            };
+                CurrentValue = ""                
+        };
 
             Renci.SshNet.SshClient sshClient = SSHConnection.GetConnection();
 
@@ -139,7 +143,7 @@ namespace QuickMon.Collectors
                                               where d.NICName == "*"
                                               select d).FirstOrDefault();
                 alertDef.PrimaryUIValue = false;
-                foreach (NicInfo di in NicInfo.GetCurrentNicStats(sshClient, 250))
+                foreach (NicInfo di in NicInfo.GetCurrentNicStats(sshClient, MeasuringDelayMS))
                 {
 
                     NICInfoState dis = new NICInfoState() { NICInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
@@ -148,7 +152,7 @@ namespace QuickMon.Collectors
             }
             else
             {
-                foreach (NicInfo di in NicInfo.GetCurrentNicStats(sshClient, 250))
+                foreach (NicInfo di in NicInfo.GetCurrentNicStats(sshClient, MeasuringDelayMS))
                 {
                     NIXNICSubEntry alertDef = (from NIXNICSubEntry d in SubItems
                                                   where d.NICName.ToLower() == di.Name.ToLower()
@@ -190,18 +194,19 @@ namespace QuickMon.Collectors
                     dis.State = CollectorState.Good;
                     success++;
                 }
+                string formatValue = FormatUtils.FormatFileSizePerSec(dis.NICInfo.RTxBytesPerSec);
                 if (dis.AlertDefinition.PrimaryUIValue)
                 {
-                    currentState.CurrentValue = (dis.NICInfo.RTxBytesPerSec/1024).ToString("0.00");
-                    currentState.CurrentValueUnit = "kB/s";
+                    currentState.CurrentValue = formatValue.Split(' ')[0]; // (dis.NICInfo.RTxBytesPerSec/1024).ToString("0.00");
+                    currentState.CurrentValueUnit = formatValue.Split(' ')[1];  //"kB/s";
                 }
 
                 MonitorState diskIOState = new MonitorState()
                 {
                     ForAgent = dis.NICInfo.Name,
                     State = dis.State,
-                    CurrentValue = (dis.NICInfo.RTxBytesPerSec / 1024).ToString("0.00"),
-                    CurrentValueUnit = "kB/s",
+                    CurrentValue = formatValue.Split(' ')[0], // (dis.NICInfo.RTxBytesPerSec / 1024).ToString("0.00"),
+                    CurrentValueUnit = formatValue.Split(' ')[1], //"kB/s",
                     PrimaryUIValue = dis.AlertDefinition.PrimaryUIValue
                 };
                 currentState.ChildStates.Add(diskIOState);
@@ -215,8 +220,10 @@ namespace QuickMon.Collectors
 
             if (currentState.CurrentValue.ToString() == "" && currentState.ChildStates.Count > 0)
             {
-                currentState.CurrentValue = ((average/1024 )/ currentState.ChildStates.Count).ToString("0.00");
-                currentState.CurrentValueUnit = "kB/s (avg)";
+                string formatValue = FormatUtils.FormatFileSizePerSec((long)(average / currentState.ChildStates.Count));
+
+                currentState.CurrentValue = formatValue.Split(' ')[0]; // ((average/1024 )/ currentState.ChildStates.Count).ToString("0.00");
+                currentState.CurrentValueUnit = formatValue.Split(' ')[1] + " (avg)"; // "kB/s (avg)";
             }
 
             return currentState;
@@ -228,11 +235,11 @@ namespace QuickMon.Collectors
         public NIXNICSubEntry()
         {
             WarningValueKB = 1024;
-            ErrorValueKB = 5120;
+            ErrorValueKB = 5120;            
         }
         public string NICName { get; set; }
         public long WarningValueKB { get; set; }
-        public long ErrorValueKB { get; set; }
+        public long ErrorValueKB { get; set; }        
         public bool PrimaryUIValue { get; set; }
 
         #region ICollectorConfigSubEntry Members
