@@ -462,6 +462,7 @@ namespace QuickMon
 
             agentCheckSequenceToolStripComboBox.SelectedIndex = (int)editingCollectorHost.AgentCheckSequence;
             cboChildCheckBehaviour.SelectedIndex = (int)editingCollectorHost.ChildCheckBehaviour;
+            cboExpandOnStartOption.SelectedIndex = (int)editingCollectorHost.ExpandOnStartOption;
             chkEnablePollingOverride.Checked = editingCollectorHost.EnabledPollingOverride;
             onlyAllowUpdateOncePerXSecNumericUpDown.SaveValueSet(editingCollectorHost.OnlyAllowUpdateOncePerXSec);
             chkEnablePollingFrequencySliding.Checked = editingCollectorHost.EnablePollFrequencySliding;
@@ -1546,7 +1547,7 @@ namespace QuickMon
             {
                 editingCollectorHost.Name = txtName.Text;
                 editingCollectorHost.Enabled = SelectedCollectorHost.Enabled; //current value
-                //editingCollectorHost.ExpandOnStartOption = (ExpandOnStartOption)cboExpandOnStartOption.SelectedIndex;
+                editingCollectorHost.ExpandOnStartOption = (ExpandOnStartOption)cboExpandOnStartOption.SelectedIndex;
                 editingCollectorHost.AgentCheckSequence = (AgentCheckSequence)agentCheckSequenceToolStripComboBox.SelectedIndex;
                 editingCollectorHost.Notes = txtAdditionalNotes.Text;
                 editingCollectorHost.ParentCollectorId = SelectedCollectorHost.ParentCollectorId;
