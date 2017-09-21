@@ -42,12 +42,12 @@ Newly created collector must have status of N/A (UI) - done
 Next
 	Detail view for Collector History clicking
 
-	DataSet views for all Collectors!!
+	DataSet views for all Collectors!! - scrapped!
 
 
 	Connection sharing/caching in MP
 		SQL based agents
-		SSH based agents
+		SSH based agents - done by connection string files
 
 		OR
 	Connection strings can be specified at MP level and agents can (optionally) then specify just a 'connection name' and read/parse string
@@ -122,4 +122,4 @@ Next
 
 		While editing collector host - if name is not saved yet and refresh event happens name gets reset to previous saved value. - fixed.
 
-		SQL Query collector bug - did not save ValueReturnType attribute
+		SQL Query collector bug - did not save ValueReturnType attribute - fixed

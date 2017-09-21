@@ -425,6 +425,7 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\QM5Splash.png" />
     <None Include="Resources\Restart24x24.png" />
     <None Include="Resources\BlankTemplateNotifierAgent.txt" />
     <None Include="Resources\BlankTemplateNotifierHost.txt" />

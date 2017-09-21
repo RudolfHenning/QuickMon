@@ -1342,7 +1342,7 @@ namespace QuickMon
             }
             else 
                 root.Nodes.Add(collectorNode);
-            if (collector.Enabled)
+            if (collectorNode.Nodes.Count > 0 && collector.Enabled)
             {
                 if (collector.ExpandOnStartOption == ExpandOnStartOption.Auto || collector.ExpandOnStartOption == ExpandOnStartOption.Always)
                 {
