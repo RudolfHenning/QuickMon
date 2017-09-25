@@ -38,6 +38,9 @@ Install service from UI app - improvements
 Run as Admin must make sure current exe path is the one that is run - added recreate task button
 Newly created collector must have status of N/A (UI) - done
 
+perfmon collector - add scale (like x/1000 or x/1024) for output value - done
+File collector - option to show file count and or size - done
+
 *****************************************************************************************************
 Next
 	Detail view for Collector History clicking

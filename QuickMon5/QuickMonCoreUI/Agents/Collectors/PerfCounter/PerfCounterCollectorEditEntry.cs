@@ -71,7 +71,8 @@ namespace QuickMon.UI
 
             warningNumericUpDown.Value = (decimal)currentEntry.WarningValue;
             errorNumericUpDown.Value = (decimal)currentEntry.ErrorValue;
-
+            nudValueScale.Value = currentEntry.OutputValueScaleFactor;
+            chkInverseScale.Checked = currentEntry.OutputValueScaleFactorInverse;
 
             nudNumberOfSamplesPerRefresh.SaveValueSet((decimal)currentEntry.NumberOfSamplesPerRefresh);
             nudMultiSampleWaitMS.SaveValueSet((decimal)currentEntry.MultiSampleWaitMS);
@@ -155,6 +156,8 @@ namespace QuickMon.UI
                     {
                         currentEntry.WarningValue = (float)warningNumericUpDown.Value;
                         currentEntry.ErrorValue = (float)errorNumericUpDown.Value;
+                        currentEntry.OutputValueScaleFactor = (int)nudValueScale.Value;
+                        currentEntry.OutputValueScaleFactorInverse = chkInverseScale.Checked;
                         currentEntry.NumberOfSamplesPerRefresh = (int)nudNumberOfSamplesPerRefresh.Value;
                         currentEntry.MultiSampleWaitMS = (int)nudMultiSampleWaitMS.Value;
                         currentEntry.OutputValueUnit = cboOutputValueUnit.Text;

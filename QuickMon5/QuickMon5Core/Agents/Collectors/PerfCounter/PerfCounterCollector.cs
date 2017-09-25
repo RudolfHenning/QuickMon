@@ -87,6 +87,10 @@ namespace QuickMon.Collectors
                 entry.MultiSampleWaitMS = pcNode.ReadXmlElementAttr("multiSampleWaitMS", 100);
                 entry.OutputValueUnit = pcNode.ReadXmlElementAttr("outputValueUnit", "");
                 entry.PrimaryUIValue = pcNode.ReadXmlElementAttr("primaryUIValue", false);
+                entry.OutputValueScaleFactor = pcNode.ReadXmlElementAttr("valueScale", 1);
+                if (entry.OutputValueScaleFactor == 0)
+                    entry.OutputValueScaleFactor = 1;
+                entry.OutputValueScaleFactorInverse = pcNode.ReadXmlElementAttr("valueScaleInverse", false);
 
                 Entries.Add(entry);
             }
@@ -111,6 +115,9 @@ namespace QuickMon.Collectors
                 performanceCounterNode.SetAttributeValue("multiSampleWaitMS", entry.MultiSampleWaitMS);
                 performanceCounterNode.SetAttributeValue("outputValueUnit", entry.OutputValueUnit);
                 performanceCounterNode.SetAttributeValue("primaryUIValue", entry.PrimaryUIValue);
+                performanceCounterNode.SetAttributeValue("valueScale", entry.OutputValueScaleFactor);
+                performanceCounterNode.SetAttributeValue("valueScaleInverse", entry.OutputValueScaleFactorInverse);
+                
                 performanceCountersNode.AppendChild(performanceCounterNode);
             }
             return config.OuterXml;
@@ -146,6 +153,8 @@ namespace QuickMon.Collectors
         {
             MultiSampleWaitMS = 100;
             OutputValueUnit = "";
+            OutputValueScaleFactor = 1;
+            OutputValueScaleFactorInverse = false;
         }
 
         private PerformanceCounter pc = null;
@@ -160,6 +169,8 @@ namespace QuickMon.Collectors
         public int NumberOfSamplesPerRefresh { get; set; }
         public int MultiSampleWaitMS { get; set; }
         public string OutputValueUnit { get; set; }
+        public int OutputValueScaleFactor { get; set; }
+        public bool OutputValueScaleFactorInverse { get; set; }
         #endregion
 
         #region ICollectorConfigEntry Members
@@ -256,6 +267,12 @@ namespace QuickMon.Collectors
                 InitializePerfCounter();
                 System.Threading.Thread.Sleep(10);
                 value = GetNextValue();
+            }
+            if (OutputValueScaleFactor > 0) {
+                if (!OutputValueScaleFactorInverse)
+                    value = value * OutputValueScaleFactor;
+                else
+                    value = value / OutputValueScaleFactor;
             }
             return value;
         }

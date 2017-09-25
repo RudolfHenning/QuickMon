@@ -55,8 +55,11 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.nudValueScale = new System.Windows.Forms.NumericUpDown();
+            this.chkInverseScale = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMultiSampleWaitMS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumberOfSamplesPerRefresh)).BeginInit();
@@ -64,12 +67,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudValueScale)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.chkInverseScale);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.nudValueScale);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.nudMultiSampleWaitMS);
             this.groupBox1.Controls.Add(this.label9);
@@ -89,7 +96,7 @@
             this.groupBox1.Controls.Add(this.optCommon);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(523, 174);
+            this.groupBox1.Size = new System.Drawing.Size(523, 201);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Performance counter definition";
@@ -294,7 +301,7 @@
             this.groupBox2.Controls.Add(this.warningNumericUpDown);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox2.Location = new System.Drawing.Point(3, 183);
+            this.groupBox2.Location = new System.Drawing.Point(3, 210);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(523, 57);
             this.groupBox2.TabIndex = 1;
@@ -362,7 +369,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(442, 312);
+            this.cmdCancel.Location = new System.Drawing.Point(442, 336);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 4;
@@ -374,7 +381,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(361, 312);
+            this.cmdOK.Location = new System.Drawing.Point(361, 336);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 3;
@@ -389,22 +396,12 @@
             this.groupBox3.Controls.Add(this.cboOutputValueUnit);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox3.Location = new System.Drawing.Point(3, 246);
+            this.groupBox3.Location = new System.Drawing.Point(3, 273);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(523, 57);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Display output";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label1.Location = new System.Drawing.Point(11, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Output unit";
             // 
             // cboOutputValueUnit
             // 
@@ -424,12 +421,65 @@
             this.cboOutputValueUnit.Size = new System.Drawing.Size(425, 21);
             this.cboOutputValueUnit.TabIndex = 1;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label1.Location = new System.Drawing.Point(11, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Output unit";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label11.Location = new System.Drawing.Point(6, 172);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(94, 13);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "Value Scale factor";
+            // 
+            // nudValueScale
+            // 
+            this.nudValueScale.Location = new System.Drawing.Point(164, 170);
+            this.nudValueScale.Maximum = new decimal(new int[] {
+            -1,
+            2147483647,
+            0,
+            0});
+            this.nudValueScale.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudValueScale.Name = "nudValueScale";
+            this.nudValueScale.Size = new System.Drawing.Size(107, 20);
+            this.nudValueScale.TabIndex = 18;
+            this.nudValueScale.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // chkInverseScale
+            // 
+            this.chkInverseScale.AutoSize = true;
+            this.chkInverseScale.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkInverseScale.Location = new System.Drawing.Point(277, 171);
+            this.chkInverseScale.Name = "chkInverseScale";
+            this.chkInverseScale.Size = new System.Drawing.Size(103, 17);
+            this.chkInverseScale.TabIndex = 19;
+            this.chkInverseScale.Text = "Inverse (x/scale)";
+            this.chkInverseScale.UseVisualStyleBackColor = true;
+            // 
             // PerfCounterCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(529, 347);
+            this.ClientSize = new System.Drawing.Size(529, 371);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
@@ -453,6 +503,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudValueScale)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -487,5 +538,8 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox cboOutputValueUnit;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown nudValueScale;
+        private System.Windows.Forms.CheckBox chkInverseScale;
     }
 }

@@ -60,6 +60,10 @@ namespace QuickMon.UI
                 numericUpDownSizeWarningIndicator.SaveValueSet(selectedEntry.SizeWarningIndicator);
                 numericUpDownSizeErrorIndicator.SaveValueSet(selectedEntry.SizeErrorIndicator);
                 chkShowFilenamesInDetails.Checked = selectedEntry.ShowFilenamesInDetails;
+
+                optShowFileCountInOutputValue.Checked = selectedEntry.ShowFileCountInOutputValue && !selectedEntry.ShowFileSizeInOutputValue;
+                optShowFileSizeInOutputValue.Checked = !selectedEntry.ShowFileCountInOutputValue && selectedEntry.ShowFileSizeInOutputValue;
+                ShowFileCountAndSizeInOutputValue.Checked = selectedEntry.ShowFileCountInOutputValue == selectedEntry.ShowFileSizeInOutputValue;
             }
             catch(Exception ex)
             {
@@ -137,6 +141,8 @@ namespace QuickMon.UI
                 selectedEntry.FileMinSize = (int)numericUpDownFileSizeMin.Value;
                 selectedEntry.FileMaxSize = (int)numericUpDownFileSizeMax.Value;
                 selectedEntry.ShowFilenamesInDetails = chkShowFilenamesInDetails.Checked;
+                selectedEntry.ShowFileCountInOutputValue = optShowFileCountInOutputValue.Checked || ShowFileCountAndSizeInOutputValue.Checked;
+                selectedEntry.ShowFileSizeInOutputValue = optShowFileSizeInOutputValue.Checked || ShowFileCountAndSizeInOutputValue.Checked;
 
                 SelectedEntry = selectedEntry;
 
