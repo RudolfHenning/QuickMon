@@ -41,6 +41,8 @@ Newly created collector must have status of N/A (UI) - done
 perfmon collector - add scale (like x/1000 or x/1024) for output value - done
 File collector - option to show file count and or size - done
 
+In collector Details - Add more details about which Alerts have been raised (not just count)
+
 *****************************************************************************************************
 Next
 	Detail view for Collector History clicking

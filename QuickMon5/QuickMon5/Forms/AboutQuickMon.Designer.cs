@@ -145,11 +145,11 @@
             this.lblReleaseState.BackColor = System.Drawing.Color.Transparent;
             this.lblReleaseState.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblReleaseState.ForeColor = System.Drawing.Color.Red;
-            this.lblReleaseState.Location = new System.Drawing.Point(162, 229);
+            this.lblReleaseState.Location = new System.Drawing.Point(145, 229);
             this.lblReleaseState.Name = "lblReleaseState";
-            this.lblReleaseState.Size = new System.Drawing.Size(60, 25);
+            this.lblReleaseState.Size = new System.Drawing.Size(98, 25);
             this.lblReleaseState.TabIndex = 7;
-            this.lblReleaseState.Text = "Beta";
+            this.lblReleaseState.Text = "Release";
             // 
             // AboutQuickMon
             // 
