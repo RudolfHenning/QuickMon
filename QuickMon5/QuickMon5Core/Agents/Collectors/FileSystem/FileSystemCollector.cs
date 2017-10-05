@@ -201,13 +201,16 @@ namespace QuickMon.Collectors
         {
             FileAgeUnit = TimeUnits.Minute;
             FileSizeUnit = FileSizeUnits.KB;
+            FileSizeIndicatorUnit = FileSizeUnits.KB;
             IncludeSubDirectories = false;
             ShowFileCountInOutputValue = true;
+            FindTextInLastXLines = 0;
         }
 
         private string stateDescription = "";
 
-        #region Properties        
+        #region Properties  
+        #region File Filters      
         public string DirectoryPath { get; set; }
         public string FilterFullPath
         {
@@ -220,20 +223,11 @@ namespace QuickMon.Collectors
                 DirectoryPath = GetDirectoryFromPath(value);
                 FileFilter = GetFilterFromPath(value);
             }
-        }
-        public bool DirectoryExistOnly { get; set; }
-        /// <summary>
-        /// If any files are found mathing filtering conditions it return a True
-        /// </summary>
-        public bool FilesExistOnly { get; set; }
-        /// <summary>
-        /// If any files are found mathing filtering conditions it return a True
-        /// </summary>
-        public bool ErrorOnFilesExist { get; set; }
+        }        
+        public string FileFilter { get; set; }
         public bool IncludeSubDirectories { get; set; }
 
-        #region File filters
-        public string FileFilter { get; set; }
+        #region File Content matching
         /// <summary>
         /// Does the file contain this text
         /// </summary>
@@ -242,6 +236,10 @@ namespace QuickMon.Collectors
         /// Should Regular expressions be used for ContainsText
         /// </summary>
         public bool UseRegEx { get; set; }
+        public int FindTextInLastXLines { get; set; } 
+        #endregion
+
+        #region File Age
         /// <summary>
         /// Unit type used for FileMinAge and FileMaxAge
         /// </summary>
@@ -254,6 +252,9 @@ namespace QuickMon.Collectors
         /// File min age
         /// </summary>
         public long FileMinAge { get; set; }
+        #endregion
+
+        #region File Size
         /// <summary>
         /// Unit type of FileMinSize and FileMaxSize
         /// </summary>
@@ -267,7 +268,20 @@ namespace QuickMon.Collectors
         /// </summary>
         public long FileMaxSize { get; set; }
         #endregion
-        #region Summary trigger conditions
+        #endregion
+
+        #region Test Conditions
+        public bool DirectoryExistOnly { get; set; }
+        /// <summary>
+        /// If any files are found matching filtering conditions it return a success
+        /// </summary>
+        public bool FilesExistOnly { get; set; }
+        /// <summary>
+        /// If any files are found matching filtering conditions it return a failure
+        /// </summary>
+        public bool ErrorOnFilesExist { get; set; }
+
+        #region File count conditions
         /// <summary>
         /// If CountWarningIndicator < CountErrorIndicator then Good state is when count < CountWarningIndicator
         /// Else Good > CountErrorIndicator
@@ -278,6 +292,9 @@ namespace QuickMon.Collectors
         /// Else Good > CountErrorIndicator
         /// </summary>
         public int CountErrorIndicator { get; set; }
+        #endregion
+
+        #region File size conditions
         /// <summary>
         /// Unit type of SizeWarningIndicator and SizeErrorIndicator
         /// </summary>
@@ -293,13 +310,19 @@ namespace QuickMon.Collectors
         /// </summary>
         public long SizeErrorIndicator { get; set; }
         #endregion
-        public string LastErrorMsg { get; set; }
+        #endregion
+
+        #region Output display value option
         /// <summary>
         /// Show file names in RAW/Html details
         /// </summary>
         public bool ShowFilenamesInDetails { get; set; }
         public bool ShowFileCountInOutputValue { get; set; }
         public bool ShowFileSizeInOutputValue { get; set; }
+
+        #endregion
+
+        public string LastErrorMsg { get; set; }
         #endregion
 
         #region ICollectorConfigEntry

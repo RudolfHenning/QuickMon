@@ -43,23 +43,17 @@ File collector - option to show file count and or size - done
 
 In collector Details - Add more details about which Alerts have been raised (not just count)
 
+
+
 *****************************************************************************************************
 Next
-	Detail view for Collector History clicking
+	File collector extended for log files
+	search for text in last X number of lines.
+	Search for text in lines added since last check?? on startup gets file size and check if size have increased.
+	Output/Display option - when List file names checked/enabled you can also enable another level of detail for displaying whole matching text line.
+	Test Conditions must get more options: # of lines matched/not matched/Exists/Not exists
 
-	DataSet views for all Collectors!! - scrapped!
-
-
-	Connection sharing/caching in MP
-		SQL based agents
-		SSH based agents - done by connection string files
-
-		OR
-	Connection strings can be specified at MP level and agents can (optionally) then specify just a 'connection name' and read/parse string
-
-
-	Agents/entries can be flagged for which one will be used for primary output value to screen	
-	
+Future/Ideas
 
 	SSH based agents
 		SSH Command Agent - Done
@@ -80,7 +74,7 @@ Next
 			Process
 				ps aux
 
-	Enterprise agents
+	Enterprise agents (on hold)
 		BizTalk
 		Active Directory
 
