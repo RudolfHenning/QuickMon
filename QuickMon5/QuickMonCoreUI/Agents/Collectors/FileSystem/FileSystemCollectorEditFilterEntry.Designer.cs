@@ -77,9 +77,12 @@
             this.chkShowFilenamesInDetails = new System.Windows.Forms.CheckBox();
             this.cmdTest = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.optShowFileCountInOutputValue = new System.Windows.Forms.RadioButton();
-            this.optShowFileSizeInOutputValue = new System.Windows.Forms.RadioButton();
             this.ShowFileCountAndSizeInOutputValue = new System.Windows.Forms.RadioButton();
+            this.optShowFileSizeInOutputValue = new System.Windows.Forms.RadioButton();
+            this.optShowFileCountInOutputValue = new System.Windows.Forms.RadioButton();
+            this.label11 = new System.Windows.Forms.Label();
+            this.nudFindTextInLastXLines = new System.Windows.Forms.NumericUpDown();
+            this.label21 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileAgeMax)).BeginInit();
@@ -91,6 +94,7 @@
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFindTextInLastXLines)).BeginInit();
             this.SuspendLayout();
             // 
             // label15
@@ -99,7 +103,7 @@
             this.label15.Location = new System.Drawing.Point(18, 172);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(399, 13);
-            this.label15.TabIndex = 17;
+            this.label15.TabIndex = 20;
             this.label15.Text = "File size - File size in KB must be between min/max to be included. 0 means no li" +
     "mit.";
             // 
@@ -113,7 +117,7 @@
             0});
             this.numericUpDownFileSizeMax.Name = "numericUpDownFileSizeMax";
             this.numericUpDownFileSizeMax.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileSizeMax.TabIndex = 21;
+            this.numericUpDownFileSizeMax.TabIndex = 24;
             this.numericUpDownFileSizeMax.ValueChanged += new System.EventHandler(this.numericUpDownFileSizeMax_ValueChanged);
             // 
             // label16
@@ -122,7 +126,7 @@
             this.label16.Location = new System.Drawing.Point(186, 192);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(51, 13);
-            this.label16.TabIndex = 20;
+            this.label16.TabIndex = 23;
             this.label16.Text = "Maximum";
             // 
             // numericUpDownFileSizeMin
@@ -135,7 +139,7 @@
             0});
             this.numericUpDownFileSizeMin.Name = "numericUpDownFileSizeMin";
             this.numericUpDownFileSizeMin.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileSizeMin.TabIndex = 19;
+            this.numericUpDownFileSizeMin.TabIndex = 22;
             this.numericUpDownFileSizeMin.ValueChanged += new System.EventHandler(this.numericUpDownFileSizeMin_ValueChanged);
             // 
             // label17
@@ -144,7 +148,7 @@
             this.label17.Location = new System.Drawing.Point(38, 192);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(48, 13);
-            this.label17.TabIndex = 18;
+            this.label17.TabIndex = 21;
             this.label17.Text = "Minimum";
             // 
             // label6
@@ -153,7 +157,7 @@
             this.label6.Location = new System.Drawing.Point(18, 122);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(371, 13);
-            this.label6.TabIndex = 10;
+            this.label6.TabIndex = 13;
             this.label6.Text = "File age - File age must be between min/max to be included. 0 means no limit.";
             // 
             // numericUpDownFileAgeMax
@@ -166,7 +170,7 @@
             0});
             this.numericUpDownFileAgeMax.Name = "numericUpDownFileAgeMax";
             this.numericUpDownFileAgeMax.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileAgeMax.TabIndex = 14;
+            this.numericUpDownFileAgeMax.TabIndex = 17;
             this.numericUpDownFileAgeMax.ValueChanged += new System.EventHandler(this.numericUpDownFileAgeMax_ValueChanged);
             // 
             // label7
@@ -175,7 +179,7 @@
             this.label7.Location = new System.Drawing.Point(186, 143);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 13);
-            this.label7.TabIndex = 13;
+            this.label7.TabIndex = 16;
             this.label7.Text = "Maximum";
             // 
             // numericUpDownFileAgeMin
@@ -188,7 +192,7 @@
             0});
             this.numericUpDownFileAgeMin.Name = "numericUpDownFileAgeMin";
             this.numericUpDownFileAgeMin.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileAgeMin.TabIndex = 12;
+            this.numericUpDownFileAgeMin.TabIndex = 15;
             this.numericUpDownFileAgeMin.ValueChanged += new System.EventHandler(this.numericUpDownFileAgeMin_ValueChanged);
             // 
             // label14
@@ -197,7 +201,7 @@
             this.label14.Location = new System.Drawing.Point(38, 143);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(48, 13);
-            this.label14.TabIndex = 11;
+            this.label14.TabIndex = 14;
             this.label14.Text = "Minimum";
             // 
             // label9
@@ -423,6 +427,9 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label21);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.nudFindTextInLastXLines);
             this.groupBox1.Controls.Add(this.chkIncludeSubDirs);
             this.groupBox1.Controls.Add(this.cboFileSizeUnit);
             this.groupBox1.Controls.Add(this.label20);
@@ -478,7 +485,7 @@
             this.cboFileSizeUnit.Location = new System.Drawing.Point(367, 189);
             this.cboFileSizeUnit.Name = "cboFileSizeUnit";
             this.cboFileSizeUnit.Size = new System.Drawing.Size(75, 21);
-            this.cboFileSizeUnit.TabIndex = 23;
+            this.cboFileSizeUnit.TabIndex = 26;
             // 
             // label20
             // 
@@ -486,7 +493,7 @@
             this.label20.Location = new System.Drawing.Point(335, 192);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(26, 13);
-            this.label20.TabIndex = 22;
+            this.label20.TabIndex = 25;
             this.label20.Text = "Unit";
             // 
             // cboFileAgeUnit
@@ -506,7 +513,7 @@
             this.cboFileAgeUnit.Location = new System.Drawing.Point(367, 140);
             this.cboFileAgeUnit.Name = "cboFileAgeUnit";
             this.cboFileAgeUnit.Size = new System.Drawing.Size(110, 21);
-            this.cboFileAgeUnit.TabIndex = 16;
+            this.cboFileAgeUnit.TabIndex = 19;
             // 
             // label19
             // 
@@ -514,7 +521,7 @@
             this.label19.Location = new System.Drawing.Point(335, 143);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(26, 13);
-            this.label19.TabIndex = 15;
+            this.label19.TabIndex = 18;
             this.label19.Text = "Unit";
             // 
             // groupBox2
@@ -656,16 +663,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Display/Output";
             // 
-            // optShowFileCountInOutputValue
+            // ShowFileCountAndSizeInOutputValue
             // 
-            this.optShowFileCountInOutputValue.AutoSize = true;
-            this.optShowFileCountInOutputValue.Location = new System.Drawing.Point(108, 19);
-            this.optShowFileCountInOutputValue.Name = "optShowFileCountInOutputValue";
-            this.optShowFileCountInOutputValue.Size = new System.Drawing.Size(71, 17);
-            this.optShowFileCountInOutputValue.TabIndex = 1;
-            this.optShowFileCountInOutputValue.TabStop = true;
-            this.optShowFileCountInOutputValue.Text = "File count";
-            this.optShowFileCountInOutputValue.UseVisualStyleBackColor = true;
+            this.ShowFileCountAndSizeInOutputValue.AutoSize = true;
+            this.ShowFileCountAndSizeInOutputValue.Location = new System.Drawing.Point(253, 19);
+            this.ShowFileCountAndSizeInOutputValue.Name = "ShowFileCountAndSizeInOutputValue";
+            this.ShowFileCountAndSizeInOutputValue.Size = new System.Drawing.Size(113, 17);
+            this.ShowFileCountAndSizeInOutputValue.TabIndex = 3;
+            this.ShowFileCountAndSizeInOutputValue.TabStop = true;
+            this.ShowFileCountAndSizeInOutputValue.Text = "File count and size";
+            this.ShowFileCountAndSizeInOutputValue.UseVisualStyleBackColor = true;
             // 
             // optShowFileSizeInOutputValue
             // 
@@ -678,16 +685,46 @@
             this.optShowFileSizeInOutputValue.Text = "File size";
             this.optShowFileSizeInOutputValue.UseVisualStyleBackColor = true;
             // 
-            // ShowFileCountAndSizeInOutputValue
+            // optShowFileCountInOutputValue
             // 
-            this.ShowFileCountAndSizeInOutputValue.AutoSize = true;
-            this.ShowFileCountAndSizeInOutputValue.Location = new System.Drawing.Point(253, 19);
-            this.ShowFileCountAndSizeInOutputValue.Name = "ShowFileCountAndSizeInOutputValue";
-            this.ShowFileCountAndSizeInOutputValue.Size = new System.Drawing.Size(113, 17);
-            this.ShowFileCountAndSizeInOutputValue.TabIndex = 3;
-            this.ShowFileCountAndSizeInOutputValue.TabStop = true;
-            this.ShowFileCountAndSizeInOutputValue.Text = "File count and size";
-            this.ShowFileCountAndSizeInOutputValue.UseVisualStyleBackColor = true;
+            this.optShowFileCountInOutputValue.AutoSize = true;
+            this.optShowFileCountInOutputValue.Location = new System.Drawing.Point(108, 19);
+            this.optShowFileCountInOutputValue.Name = "optShowFileCountInOutputValue";
+            this.optShowFileCountInOutputValue.Size = new System.Drawing.Size(71, 17);
+            this.optShowFileCountInOutputValue.TabIndex = 1;
+            this.optShowFileCountInOutputValue.TabStop = true;
+            this.optShowFileCountInOutputValue.Text = "File count";
+            this.optShowFileCountInOutputValue.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(242, 104);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(77, 13);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "Find text in last";
+            // 
+            // nudFindTextInLastXLines
+            // 
+            this.nudFindTextInLastXLines.Location = new System.Drawing.Point(325, 102);
+            this.nudFindTextInLastXLines.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudFindTextInLastXLines.Name = "nudFindTextInLastXLines";
+            this.nudFindTextInLastXLines.Size = new System.Drawing.Size(64, 20);
+            this.nudFindTextInLastXLines.TabIndex = 11;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(395, 104);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(149, 13);
+            this.label21.TabIndex = 12;
+            this.label21.Text = "number of lines (0 = whole file)";
             // 
             // FileSystemCollectorEditFilterEntry
             // 
@@ -723,6 +760,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFindTextInLastXLines)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -780,5 +818,8 @@
         private System.Windows.Forms.RadioButton ShowFileCountAndSizeInOutputValue;
         private System.Windows.Forms.RadioButton optShowFileSizeInOutputValue;
         private System.Windows.Forms.RadioButton optShowFileCountInOutputValue;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown nudFindTextInLastXLines;
     }
 }

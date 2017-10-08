@@ -42,6 +42,7 @@ namespace QuickMon.UI
                 chkIncludeSubDirs.Checked = selectedEntry.IncludeSubDirectories;
                 txtContains.Text = selectedEntry.ContainsText;
                 chkUseRegEx.Checked = selectedEntry.UseRegEx;
+                nudFindTextInLastXLines.SaveValueSet(selectedEntry.FindTextInLastXLines);
                 cboFileAgeUnit.SelectedIndex = (int)selectedEntry.FileAgeUnit;
                 numericUpDownFileAgeMin.SaveValueSet(selectedEntry.FileMinAge);
                 numericUpDownFileAgeMax.SaveValueSet(selectedEntry.FileMaxAge);
@@ -129,6 +130,7 @@ namespace QuickMon.UI
                 selectedEntry.ErrorOnFilesExist = optErrorOnFilesExist.Checked;
                 selectedEntry.ContainsText = txtContains.Text;
                 selectedEntry.UseRegEx = chkUseRegEx.Checked;
+                selectedEntry.FindTextInLastXLines = Convert.ToInt32(nudFindTextInLastXLines.Value);
                 selectedEntry.CountWarningIndicator = Convert.ToInt32(numericUpDownCountWarningIndicator.Value);
                 selectedEntry.CountErrorIndicator = Convert.ToInt32(numericUpDownCountErrorIndicator.Value);
                 selectedEntry.FileSizeIndicatorUnit = (FileSizeUnits)cboFileSizeIndicatorUnit.SelectedIndex;
@@ -254,6 +256,7 @@ namespace QuickMon.UI
                 testEntry.ErrorOnFilesExist = optErrorOnFilesExist.Checked;
                 testEntry.ContainsText = txtContains.Text;
                 testEntry.UseRegEx = chkUseRegEx.Checked;
+                testEntry.FindTextInLastXLines = Convert.ToInt32(nudFindTextInLastXLines.Value);
                 testEntry.CountWarningIndicator = Convert.ToInt32(numericUpDownCountWarningIndicator.Value);
                 testEntry.CountErrorIndicator = Convert.ToInt32(numericUpDownCountErrorIndicator.Value);
                 testEntry.FileSizeIndicatorUnit = (FileSizeUnits)cboFileSizeIndicatorUnit.SelectedIndex;

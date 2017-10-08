@@ -16,62 +16,6 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new FileSystemCollectorConfig();
         }
-
-        //private string GetTop10FileInfos(List<FileInfo> fileInfos)
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    int topCount = 10;
-        //    for (int i = 0; i < topCount && i < fileInfos.Count; i++)
-        //    {
-        //        FileInfo fi = fileInfos[i];
-        //        sb.AppendLine(string.Format("\t{0} - {1}", fi.Name, FormatUtils.FormatFileSize(fi.Length)));
-        //    }
-        //    if (fileInfos.Count > 10)
-        //        sb.AppendLine("...");
-        //    return sb.ToString();
-        //}
-
-        //public override List<System.Data.DataTable> GetDetailDataTables()
-        //{
-        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-        //    System.Data.DataTable dt = new System.Data.DataTable();
-        //    try
-        //    {                
-        //        dt.Columns.Add(new System.Data.DataColumn("Path", typeof(string)));
-        //        dt.Columns.Add(new System.Data.DataColumn("Details", typeof(string)));
-
-        //        FileSystemCollectorConfig currentConfig = (FileSystemCollectorConfig)AgentConfig;
-        //        foreach (FileSystemDirectoryFilterEntry directoryFilter in currentConfig.Entries)
-        //        {
-        //            DirectoryFileInfo directoryFileInfo = directoryFilter.GetFileListByFilters();
-        //            string details = "";
-        //            try
-        //            {
-        //                if (!directoryFileInfo.DirectoryExists)
-        //                    details = "Directory does not exists";
-        //                else if (directoryFilter.DirectoryExistOnly)
-        //                    details = "Directory exists";
-        //                else
-        //                {
-        //                    details = directoryFileInfo.DirectoryExists ? directoryFileInfo.FileCount.ToString() + " file(s), " + FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize) : "Directory does not exists";
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                details = ex.Message;
-        //            }
-        //            dt.Rows.Add(directoryFilter.Description, details);
-        //        }                
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        dt = new System.Data.DataTable("Exception");
-        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-        //        dt.Rows.Add(ex.ToString());
-        //    }
-        //    tables.Add(dt);
-        //    return tables;
-        //}
     }
     public class FileSystemCollectorConfig : ICollectorConfig
     {
@@ -102,6 +46,7 @@ namespace QuickMon.Collectors
                 directoryFilterEntry.IncludeSubDirectories = bool.Parse(host.ReadXmlElementAttr("includeSubDirs", "False"));
                 directoryFilterEntry.ContainsText = host.ReadXmlElementAttr("containsText", "");
                 directoryFilterEntry.UseRegEx = host.ReadXmlElementAttr("useRegEx", false);
+                directoryFilterEntry.FindTextInLastXLines = host.ReadXmlElementAttr("FindTextInLastXLines", 0);
 
                 int tmp = 0;
                 if (int.TryParse(host.ReadXmlElementAttr("warningFileCountMax", "0"), out tmp))
@@ -151,6 +96,7 @@ namespace QuickMon.Collectors
                 directoryXmlNode.SetAttributeValue("includeSubDirs", de.IncludeSubDirectories);
                 directoryXmlNode.SetAttributeValue("containsText", de.ContainsText);
                 directoryXmlNode.SetAttributeValue("useRegEx", de.UseRegEx);
+                directoryXmlNode.SetAttributeValue("FindTextInLastXLines", de.FindTextInLastXLines);
                 directoryXmlNode.SetAttributeValue("warningFileCountMax", de.CountWarningIndicator);
                 directoryXmlNode.SetAttributeValue("errorFileCountMax", de.CountErrorIndicator);
                 directoryXmlNode.SetAttributeValue("fileSizeIndicatorUnit", de.FileSizeIndicatorUnit.ToString());
@@ -366,7 +312,6 @@ namespace QuickMon.Collectors
         public MonitorState GetCurrentState()
         {
             DirectoryFileInfo directoryFileInfo = GetFileListByFilters();
-            //int totalFileCount = 0;
             MonitorState currentState = new MonitorState()
             {
                 ForAgent = DirectoryPath,
@@ -390,18 +335,8 @@ namespace QuickMon.Collectors
                 }
                 else
                 {
-                    //totalFileCount += directoryFileInfo.FileCount;
                     if (directoryFileInfo.FileCount > 0)
                     {
-
-                        //if (LastErrorMsg.Length > 0)
-                        //{
-                        //    currentState.CurrentValue = string.Format("{0} file(s), {1}", directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize));
-                        //}
-                        //else
-                        //{
-                        //currentState.CurrentValue = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count);
-
                         if (ShowFileCountInOutputValue && ShowFileSizeInOutputValue)
                         {
                             currentState.CurrentValue = string.Format("{0} file(s), {1}", directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize));
@@ -435,11 +370,9 @@ namespace QuickMon.Collectors
                                    });
                             }
                         }
-                        //}
                     }
                     else
                     {
-                        //currentState.CurrentValue = "No files found";
                         currentState.CurrentValue = "No";
                         currentState.CurrentValueUnit = "file(s)";
                     }                   
@@ -505,7 +438,16 @@ namespace QuickMon.Collectors
                                 bool match = true;
                                 if (ContainsText != null && ContainsText.Trim().Length > 0)
                                 {
-                                    string content = File.ReadAllText(filePath);
+                                    string content = "";
+                                    if (FindTextInLastXLines == 0)
+                                    {
+                                        content = File.ReadAllText(filePath);
+                                    }
+                                    else
+                                    {
+                                        content = ReadFileXLastLines(filePath, FindTextInLastXLines);
+                                    }                                    
+
                                     if (UseRegEx)
                                     {
                                         System.Text.RegularExpressions.Match regMatch = System.Text.RegularExpressions.Regex.Match(content, ContainsText, System.Text.RegularExpressions.RegexOptions.Multiline);
@@ -615,6 +557,31 @@ namespace QuickMon.Collectors
                     stateDescription = string.Format("Error state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.TotalFileSize));
             }
             return returnState;
+        }
+
+        private string ReadFileXLastLines(string filePath, int lineCount = 1)
+        {
+            string contentOfLastLines = "";
+            if (filePath != "" && System.IO.File.Exists(filePath))
+            {
+                var buffer = new Queue<string>(lineCount);
+                var fileReader = new StreamReader(filePath);
+                while (!fileReader.EndOfStream)
+                {
+                    string line = fileReader.ReadLine();
+
+                    if (buffer.Count >= lineCount)
+                        buffer.Dequeue();
+                    buffer.Enqueue(line);
+                }
+                string[] lastLines = buffer.ToArray();
+                contentOfLastLines = String.Join(Environment.NewLine, lastLines);
+            }
+            else
+            {
+                throw new Exception("Invalid/no file specified!");
+            }
+            return contentOfLastLines;
         }
     }
 }
