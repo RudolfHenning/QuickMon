@@ -111,6 +111,8 @@ Future/Ideas
 				Like Powershell collector but gets script from templates/template like source
 					Can take Collector host Name as parameter
 
+		Monitorpack variables can be flagged as a 'script' that is run once (each refresh or once MP opens) and only the output value is used as the variable replace value.
+
 	BUGS
 		Service install must be improved
 			Username/pwd must verified before dialog closes. Allow user to correct.
