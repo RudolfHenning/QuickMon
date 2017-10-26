@@ -2043,16 +2043,26 @@ namespace QuickMon
         #region RecentMonitorPackList
         private void AddMonitorPackFileToRecentList(string monitorPackPath)
         {
+            List<string> recentList = new List<string>();
+            recentList.Add(monitorPackPath);
+
             if (Properties.Settings.Default.RecentQMConfigFiles == null)
                 Properties.Settings.Default.RecentQMConfigFiles = new System.Collections.Specialized.StringCollection();
-            if ((from string f in Properties.Settings.Default.RecentQMConfigFiles
-                 where f.ToUpper() == monitorPackPath.ToUpper()
-                 select f).Count() == 0)
+            foreach (string recentItem in Properties.Settings.Default.RecentQMConfigFiles)
             {
-                Properties.Settings.Default.RecentQMConfigFiles.Add(monitorPackPath);
+                if ((from string f in recentList
+                     where f.ToUpper() == recentItem.ToUpper()
+                     select f).Count() == 0)
+                {
+                    recentList.Add(recentItem);
+                }
             }
-            Properties.Settings.Default.LastMonitorPack = monitorPackPath;
-            //LoadRecentMonitorPackList();
+            Properties.Settings.Default.RecentQMConfigFiles = new System.Collections.Specialized.StringCollection();
+            foreach (string recentItem in recentList)
+            {
+                Properties.Settings.Default.RecentQMConfigFiles.Add(recentItem);
+            }                
+            Properties.Settings.Default.LastMonitorPack = monitorPackPath;            
         }
         private void LoadRecentMonitorPackList()
         {
@@ -2074,47 +2084,100 @@ namespace QuickMon
                         allowFilters.Add(typeFilter.Trim());
                 }
 
-                foreach (string filePath in (from string s in Properties.Settings.Default.RecentQMConfigFiles
-                                             orderby s
-                                             select s))
+                List<MonitorPack.NameAndTypeSummary> summaryList = new List<MonitorPack.NameAndTypeSummary>();
+                foreach(string filePath in Properties.Settings.Default.RecentQMConfigFiles)
                 {
-                    bool mpVisible = false;
                     if (System.IO.File.Exists(filePath))
                     {
                         MonitorPack.NameAndTypeSummary summary = MonitorPack.GetMonitorPackTypeName(filePath);
-                        if ((from string s in allowFilters
-                             where s == "*" || s.ToLower() == summary.TypeName.ToLower()
-                             select s).Count() > 0)
-                            mpVisible = true;
-                        if ((from string s in disallowFilters
-                             where s.ToLower() == summary.TypeName.ToLower()
-                             select s).Count() > 0)
-                            mpVisible = false;
-                        if (mpVisible)
-                        {
-                            string entryDisplayName;
-                            if (Properties.Settings.Default.ShowFullPathForQuickRecentist)
-                                entryDisplayName = summary.Name + " (" + filePath + ")";
-                            else
-                                entryDisplayName = summary.Name;
+                        summaryList.Add(summary);
+                    }
+                }
 
-                            if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(entryDisplayName + "........", cboRecentMonitorPacks.Font).Width && entryDisplayName.Length > 20)
+                List<MonitorPack.NameAndTypeSummary> orderedList = new List<MonitorPack.NameAndTypeSummary>();
+                if (Properties.Settings.Default.SortQuickRecentList)
+                    orderedList.AddRange((from MonitorPack.NameAndTypeSummary s in summaryList
+                                          orderby s.Name
+                                          select s));
+                else
+                    orderedList.AddRange((from MonitorPack.NameAndTypeSummary s in summaryList
+                                          select s));
+                foreach(MonitorPack.NameAndTypeSummary recentItem in orderedList)
+                {
+                    bool mpVisible = false;
+                    if ((from string s in allowFilters
+                         where s == "*" || s.ToLower() == recentItem.TypeName.ToLower()
+                         select s).Count() > 0)
+                        mpVisible = true;
+                    if ((from string s in disallowFilters
+                         where s.ToLower() == recentItem.TypeName.ToLower()
+                         select s).Count() > 0)
+                        mpVisible = false;
+                    if (mpVisible)
+                    {
+                        string entryDisplayName;
+                        if (Properties.Settings.Default.ShowFullPathForQuickRecentList)
+                            entryDisplayName = recentItem.Name + " (" + recentItem.Path + ")";
+                        else
+                            entryDisplayName = recentItem.Name;
+
+                        if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(entryDisplayName + "........", cboRecentMonitorPacks.Font).Width && entryDisplayName.Length > 20)
+                        {
+                            string ellipseText = entryDisplayName.Substring(0, 20) + "....";
+                            string tmpStr = entryDisplayName.Substring(4);
+                            while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth && tmpStr.Length > 0)
                             {
-                                string ellipseText = entryDisplayName.Substring(0, 20) + "....";
-                                string tmpStr = entryDisplayName.Substring(4);
-                                while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth && tmpStr.Length > 0)
-                                {
-                                    tmpStr = tmpStr.Substring(1);
-                                }
-                                cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(ellipseText + tmpStr, summary));
+                                tmpStr = tmpStr.Substring(1);
                             }
-                            else
-                            {
-                                cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(entryDisplayName, summary));
-                            }
+                            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(ellipseText + tmpStr, recentItem));
+                        }
+                        else
+                        {
+                            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(entryDisplayName, recentItem));
                         }
                     }
                 }
+
+
+                //foreach (string filePath in orderedList)
+                //{
+                //    bool mpVisible = false;
+                //    if (System.IO.File.Exists(filePath))
+                //    {
+                //        MonitorPack.NameAndTypeSummary summary = MonitorPack.GetMonitorPackTypeName(filePath);
+                //        if ((from string s in allowFilters
+                //             where s == "*" || s.ToLower() == summary.TypeName.ToLower()
+                //             select s).Count() > 0)
+                //            mpVisible = true;
+                //        if ((from string s in disallowFilters
+                //             where s.ToLower() == summary.TypeName.ToLower()
+                //             select s).Count() > 0)
+                //            mpVisible = false;
+                //        if (mpVisible)
+                //        {
+                //            string entryDisplayName;
+                //            if (Properties.Settings.Default.ShowFullPathForQuickRecentList)
+                //                entryDisplayName = summary.Name + " (" + filePath + ")";
+                //            else
+                //                entryDisplayName = summary.Name;
+
+                //            if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(entryDisplayName + "........", cboRecentMonitorPacks.Font).Width && entryDisplayName.Length > 20)
+                //            {
+                //                string ellipseText = entryDisplayName.Substring(0, 20) + "....";
+                //                string tmpStr = entryDisplayName.Substring(4);
+                //                while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth && tmpStr.Length > 0)
+                //                {
+                //                    tmpStr = tmpStr.Substring(1);
+                //                }
+                //                cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(ellipseText + tmpStr, summary));
+                //            }
+                //            else
+                //            {
+                //                cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(entryDisplayName, summary));
+                //            }
+                //        }
+                //    }
+                //}
             }
             catch (Exception ex)
             {

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SSHCommandCollectorEditEntry));
             this.cmdTest = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
@@ -47,20 +48,33 @@
             this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
             this.errorGroupBox = new System.Windows.Forms.GroupBox();
             this.cboErrorMatchType = new System.Windows.Forms.ComboBox();
-            this.txtError = new System.Windows.Forms.TextBox();
+            this.txtError = new Controls.STDCollectorOutputValueMatchTextBox();
             this.warningGroupBox = new System.Windows.Forms.GroupBox();
             this.cboWarningMatchType = new System.Windows.Forms.ComboBox();
-            this.txtWarning = new System.Windows.Forms.TextBox();
+            this.txtWarning = new Controls.STDCollectorOutputValueMatchTextBox();
             this.successGroupBox = new System.Windows.Forms.GroupBox();
             this.cboSuccessMatchType = new System.Windows.Forms.ComboBox();
-            this.txtSuccess = new System.Windows.Forms.TextBox();
+            this.txtSuccess = new Controls.STDCollectorOutputValueMatchTextBox();
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.stdCollectorOutputValueMatchesContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.anyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nullToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox3.SuspendLayout();
             this.sequenceGroupBox.SuspendLayout();
             this.errorGroupBox.SuspendLayout();
             this.warningGroupBox.SuspendLayout();
             this.successGroupBox.SuspendLayout();
+            this.stdCollectorOutputValueMatchesContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdTest
@@ -418,6 +432,87 @@
             this.label5.Text = "Check sequence";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // stdCollectorOutputValueMatchesContextMenuStrip
+            // 
+            this.stdCollectorOutputValueMatchesContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.insertToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.undoToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.cutToolStripMenuItem,
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.selectAllToolStripMenuItem});
+            this.stdCollectorOutputValueMatchesContextMenuStrip.Name = "stdCollectorOutputValueMatchesContextMenuStrip";
+            this.stdCollectorOutputValueMatchesContextMenuStrip.Size = new System.Drawing.Size(153, 176);
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            // 
+            // cutToolStripMenuItem
+            // 
+            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cutToolStripMenuItem.Text = "Cut";
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // insertToolStripMenuItem
+            // 
+            this.insertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.anyToolStripMenuItem,
+            this.nullToolStripMenuItem});
+            this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
+            this.insertToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.insertToolStripMenuItem.Text = "Insert";
+            // 
+            // anyToolStripMenuItem
+            // 
+            this.anyToolStripMenuItem.Name = "anyToolStripMenuItem";
+            this.anyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.anyToolStripMenuItem.Text = "[any]";
+            // 
+            // nullToolStripMenuItem
+            // 
+            this.nullToolStripMenuItem.Name = "nullToolStripMenuItem";
+            this.nullToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nullToolStripMenuItem.Text = "[null]";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            // 
             // SSHCommandCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -455,6 +550,7 @@
             this.warningGroupBox.PerformLayout();
             this.successGroupBox.ResumeLayout(false);
             this.successGroupBox.PerformLayout();
+            this.stdCollectorOutputValueMatchesContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -480,14 +576,26 @@
         private System.Windows.Forms.GroupBox sequenceGroupBox;
         private System.Windows.Forms.GroupBox errorGroupBox;
         private System.Windows.Forms.ComboBox cboErrorMatchType;
-        private System.Windows.Forms.TextBox txtError;
+        private Controls.STDCollectorOutputValueMatchTextBox txtError;
         private System.Windows.Forms.GroupBox warningGroupBox;
         private System.Windows.Forms.ComboBox cboWarningMatchType;
-        private System.Windows.Forms.TextBox txtWarning;
+        private Controls.STDCollectorOutputValueMatchTextBox txtWarning;
         private System.Windows.Forms.GroupBox successGroupBox;
         private System.Windows.Forms.ComboBox cboSuccessMatchType;
-        private System.Windows.Forms.TextBox txtSuccess;
+        private Controls.STDCollectorOutputValueMatchTextBox txtSuccess;
         private System.Windows.Forms.ComboBox cboReturnCheckSequence;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ContextMenuStrip stdCollectorOutputValueMatchesContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem insertToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem anyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nullToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
     }
 }

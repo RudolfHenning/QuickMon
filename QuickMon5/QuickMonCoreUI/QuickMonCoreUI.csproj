@@ -332,6 +332,9 @@
     <Compile Include="Controls\SplitButton\SplitButton.Designer.cs">
       <DependentUpon>SplitButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\STDCollectorOutputValueMatchTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\TreeListView\ITreeListViewItemComparer.cs" />
     <Compile Include="Controls\TreeListView\SelectedTreeListViewItemCollection.cs" />
     <Compile Include="Controls\TreeListView\TreeListView.cs">
@@ -503,6 +506,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SplitButton\SplitButton.resx">
       <DependentUpon>SplitButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\STDCollectorOutputValueMatchTextBox.resx">
+      <DependentUpon>STDCollectorOutputValueMatchTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TreeListView\TreeListView.resx">
       <DependentUpon>TreeListView.cs</DependentUpon>

@@ -58,7 +58,8 @@ namespace QuickMon
                 txtRecentMonitorPackFilter.Text = "*";
             else
                 txtRecentMonitorPackFilter.Text = Properties.Settings.Default.RecentQMConfigFileFilters;
-            chkDisplayFullPathForQuickRecentEntries.Checked = Properties.Settings.Default.ShowFullPathForQuickRecentist;
+            chkDisplayFullPathForQuickRecentEntries.Checked = Properties.Settings.Default.ShowFullPathForQuickRecentList;
+            chkSortQuickRecentList.Checked = Properties.Settings.Default.SortQuickRecentList;
             SetFrequency(Properties.Settings.Default.PollFrequencySec);
             nudMainWindowTreeViewExtraColumnSize.SaveValueSet(Properties.Settings.Default.MainWindowTreeViewExtraColumnSize);
             optTvwDetailLeftAlign.Checked = Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign == 0;
@@ -269,7 +270,8 @@ namespace QuickMon
             Properties.Settings.Default.AutosaveChanges = chkAutosaveChanges.Checked;
             Properties.Settings.Default.CreateBackupOnSave = chkCreateBackupOnSave.Checked;
             Properties.Settings.Default.OverridesMonitorPackFrequency = chkOverridesMonitorPackFrequency.Checked;
-            Properties.Settings.Default.ShowFullPathForQuickRecentist = chkDisplayFullPathForQuickRecentEntries.Checked;
+            Properties.Settings.Default.ShowFullPathForQuickRecentList = chkDisplayFullPathForQuickRecentEntries.Checked;
+            Properties.Settings.Default.SortQuickRecentList = chkSortQuickRecentList.Checked;
             Properties.Settings.Default.UseTemplatesForNewObjects = chkUseTemplates.Checked;
             Properties.Settings.Default.DisableAutoAdminMode = chkDisableAutoAdminMode.Checked;
             Properties.Settings.Default.MainWindowTreeViewExtraColumnSize = (int)nudMainWindowTreeViewExtraColumnSize.Value;
@@ -534,6 +536,24 @@ namespace QuickMon
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 txtScriptsRepository.Text = fbd.SelectedPath;
+            }
+        }
+
+        private void lblQMScriptsLocation_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtScriptsRepository.Text.Trim().Length > 0 && System.IO.Directory.Exists(txtScriptsRepository.Text))
+                {
+                    System.Diagnostics.Process p = new System.Diagnostics.Process();
+                    p.StartInfo = new System.Diagnostics.ProcessStartInfo("explorer.exe");
+                    p.StartInfo.Arguments = txtScriptsRepository.Text;
+                    p.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

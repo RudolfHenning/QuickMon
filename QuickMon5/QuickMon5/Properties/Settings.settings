@@ -56,7 +56,7 @@
     <Setting Name="RecentQMConfigFileFilters" Type="System.String" Scope="User">
       <Value Profile="(Default)">*</Value>
     </Setting>
-    <Setting Name="ShowFullPathForQuickRecentist" Type="System.Boolean" Scope="User">
+    <Setting Name="ShowFullPathForQuickRecentList" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="UseTemplatesForNewObjects" Type="System.Boolean" Scope="User">
@@ -73,6 +73,9 @@
     </Setting>
     <Setting Name="ScriptRepositoryDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\ProgramData\Hen IT\QuickMon 5\Scripts</Value>
+    </Setting>
+    <Setting Name="SortQuickRecentList" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
