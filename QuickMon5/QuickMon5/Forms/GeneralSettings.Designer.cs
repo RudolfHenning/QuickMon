@@ -33,9 +33,11 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanelSettings = new System.Windows.Forms.FlowLayoutPanel();
             this.panelAppSettings = new System.Windows.Forms.Panel();
+            this.chkSortQuickRecentList = new System.Windows.Forms.CheckBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.cmdScriptsRepository = new System.Windows.Forms.Button();
             this.txtScriptsRepository = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblQMScriptsLocation = new System.Windows.Forms.Label();
             this.chkEnableAutoRefreshCollectorDetailAutomatically = new System.Windows.Forms.CheckBox();
             this.cmdRecreateAdminModeStartTask = new System.Windows.Forms.Button();
             this.panelTvwDetailTextAlign = new System.Windows.Forms.Panel();
@@ -97,7 +99,6 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label15 = new System.Windows.Forms.Label();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
             this.panelTvwDetailTextAlign.SuspendLayout();
@@ -144,10 +145,11 @@
             // 
             // panelAppSettings
             // 
+            this.panelAppSettings.Controls.Add(this.chkSortQuickRecentList);
             this.panelAppSettings.Controls.Add(this.label15);
             this.panelAppSettings.Controls.Add(this.cmdScriptsRepository);
             this.panelAppSettings.Controls.Add(this.txtScriptsRepository);
-            this.panelAppSettings.Controls.Add(this.label11);
+            this.panelAppSettings.Controls.Add(this.lblQMScriptsLocation);
             this.panelAppSettings.Controls.Add(this.chkEnableAutoRefreshCollectorDetailAutomatically);
             this.panelAppSettings.Controls.Add(this.cmdRecreateAdminModeStartTask);
             this.panelAppSettings.Controls.Add(this.panelTvwDetailTextAlign);
@@ -168,6 +170,27 @@
             this.panelAppSettings.Size = new System.Drawing.Size(495, 251);
             this.panelAppSettings.TabIndex = 0;
             // 
+            // chkSortQuickRecentList
+            // 
+            this.chkSortQuickRecentList.AutoSize = true;
+            this.chkSortQuickRecentList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkSortQuickRecentList.Location = new System.Drawing.Point(195, 131);
+            this.chkSortQuickRecentList.Name = "chkSortQuickRecentList";
+            this.chkSortQuickRecentList.Size = new System.Drawing.Size(161, 17);
+            this.chkSortQuickRecentList.TabIndex = 11;
+            this.chkSortQuickRecentList.Text = "Sort quick select list by name";
+            this.chkSortQuickRecentList.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(10, 228);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(486, 13);
+            this.label15.TabIndex = 19;
+            this.label15.Text = "Example: && \"$QMScripts\\GetFileVersion.ps1\" \"C:\\Program Files\\Hen IT\\QuickMon 5\\Q" +
+    "uickMon.exe\"";
+            // 
             // cmdScriptsRepository
             // 
             this.cmdScriptsRepository.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -175,7 +198,7 @@
             this.cmdScriptsRepository.Location = new System.Drawing.Point(450, 203);
             this.cmdScriptsRepository.Name = "cmdScriptsRepository";
             this.cmdScriptsRepository.Size = new System.Drawing.Size(42, 23);
-            this.cmdScriptsRepository.TabIndex = 17;
+            this.cmdScriptsRepository.TabIndex = 18;
             this.cmdScriptsRepository.Text = "- - -";
             this.cmdScriptsRepository.UseVisualStyleBackColor = true;
             this.cmdScriptsRepository.Click += new System.EventHandler(this.cmdScriptsRepository_Click);
@@ -187,16 +210,17 @@
             this.txtScriptsRepository.Location = new System.Drawing.Point(164, 205);
             this.txtScriptsRepository.Name = "txtScriptsRepository";
             this.txtScriptsRepository.Size = new System.Drawing.Size(280, 20);
-            this.txtScriptsRepository.TabIndex = 16;
+            this.txtScriptsRepository.TabIndex = 17;
             // 
-            // label11
+            // lblQMScriptsLocation
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 208);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(157, 13);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "Scripts repository ( $QMScripts )";
+            this.lblQMScriptsLocation.AutoSize = true;
+            this.lblQMScriptsLocation.Location = new System.Drawing.Point(7, 208);
+            this.lblQMScriptsLocation.Name = "lblQMScriptsLocation";
+            this.lblQMScriptsLocation.Size = new System.Drawing.Size(157, 13);
+            this.lblQMScriptsLocation.TabIndex = 16;
+            this.lblQMScriptsLocation.Text = "Scripts repository ( $QMScripts )";
+            this.lblQMScriptsLocation.DoubleClick += new System.EventHandler(this.lblQMScriptsLocation_DoubleClick);
             // 
             // chkEnableAutoRefreshCollectorDetailAutomatically
             // 
@@ -205,7 +229,7 @@
             this.chkEnableAutoRefreshCollectorDetailAutomatically.Location = new System.Drawing.Point(9, 182);
             this.chkEnableAutoRefreshCollectorDetailAutomatically.Name = "chkEnableAutoRefreshCollectorDetailAutomatically";
             this.chkEnableAutoRefreshCollectorDetailAutomatically.Size = new System.Drawing.Size(246, 17);
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.TabIndex = 14;
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.TabIndex = 15;
             this.chkEnableAutoRefreshCollectorDetailAutomatically.Text = "Enable Collector detaill Auto Refresh be default";
             this.chkEnableAutoRefreshCollectorDetailAutomatically.UseVisualStyleBackColor = true;
             // 
@@ -230,7 +254,7 @@
             this.panelTvwDetailTextAlign.Location = new System.Drawing.Point(180, 148);
             this.panelTvwDetailTextAlign.Name = "panelTvwDetailTextAlign";
             this.panelTvwDetailTextAlign.Size = new System.Drawing.Size(306, 28);
-            this.panelTvwDetailTextAlign.TabIndex = 13;
+            this.panelTvwDetailTextAlign.TabIndex = 14;
             // 
             // optTvwDetailRightAlign
             // 
@@ -260,7 +284,7 @@
             this.label9.Location = new System.Drawing.Point(10, 158);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(99, 13);
-            this.label9.TabIndex = 11;
+            this.label9.TabIndex = 12;
             this.label9.Text = "Detail column width";
             // 
             // nudMainWindowTreeViewExtraColumnSize
@@ -273,7 +297,7 @@
             0});
             this.nudMainWindowTreeViewExtraColumnSize.Name = "nudMainWindowTreeViewExtraColumnSize";
             this.nudMainWindowTreeViewExtraColumnSize.Size = new System.Drawing.Size(59, 20);
-            this.nudMainWindowTreeViewExtraColumnSize.TabIndex = 12;
+            this.nudMainWindowTreeViewExtraColumnSize.TabIndex = 13;
             this.nudMainWindowTreeViewExtraColumnSize.Value = new decimal(new int[] {
             100,
             0,
@@ -904,16 +928,6 @@
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(10, 228);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(486, 13);
-            this.label15.TabIndex = 18;
-            this.label15.Text = "Example: && \"$QMScripts\\GetFileVersion.ps1\" \"C:\\Program Files\\Hen IT\\QuickMon 5\\Q" +
-    "uickMon.exe\"";
-            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1022,7 +1036,8 @@
         private System.Windows.Forms.CheckBox chkEnableAutoRefreshCollectorDetailAutomatically;
         private System.Windows.Forms.Button cmdScriptsRepository;
         private System.Windows.Forms.TextBox txtScriptsRepository;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblQMScriptsLocation;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox chkSortQuickRecentList;
     }
 }

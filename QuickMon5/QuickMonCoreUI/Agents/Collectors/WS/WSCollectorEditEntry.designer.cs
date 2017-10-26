@@ -53,13 +53,13 @@
             this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
             this.errorGroupBox = new System.Windows.Forms.GroupBox();
             this.cboErrorMatchType = new System.Windows.Forms.ComboBox();
-            this.txtError = new System.Windows.Forms.TextBox();
+            this.txtError = new Controls.STDCollectorOutputValueMatchTextBox();
             this.warningGroupBox = new System.Windows.Forms.GroupBox();
             this.cboWarningMatchType = new System.Windows.Forms.ComboBox();
-            this.txtWarning = new System.Windows.Forms.TextBox();
+            this.txtWarning = new Controls.STDCollectorOutputValueMatchTextBox();
             this.successGroupBox = new System.Windows.Forms.GroupBox();
             this.cboSuccessMatchType = new System.Windows.Forms.ComboBox();
-            this.txtSuccess = new System.Windows.Forms.TextBox();
+            this.txtSuccess = new Controls.STDCollectorOutputValueMatchTextBox();
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -496,6 +496,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(618, 466);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.sequenceGroupBox);
@@ -571,13 +572,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox errorGroupBox;
         private System.Windows.Forms.ComboBox cboErrorMatchType;
-        private System.Windows.Forms.TextBox txtError;
+        private Controls.STDCollectorOutputValueMatchTextBox txtError;
         private System.Windows.Forms.GroupBox warningGroupBox;
         private System.Windows.Forms.ComboBox cboWarningMatchType;
-        private System.Windows.Forms.TextBox txtWarning;
+        private Controls.STDCollectorOutputValueMatchTextBox txtWarning;
         private System.Windows.Forms.GroupBox successGroupBox;
         private System.Windows.Forms.ComboBox cboSuccessMatchType;
-        private System.Windows.Forms.TextBox txtSuccess;
+        private Controls.STDCollectorOutputValueMatchTextBox txtSuccess;
         private System.Windows.Forms.Label label11;
     }
 }

@@ -239,12 +239,12 @@ namespace QuickMon.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowFullPathForQuickRecentist {
+        public bool ShowFullPathForQuickRecentList {
             get {
-                return ((bool)(this["ShowFullPathForQuickRecentist"]));
+                return ((bool)(this["ShowFullPathForQuickRecentList"]));
             }
             set {
-                this["ShowFullPathForQuickRecentist"] = value;
+                this["ShowFullPathForQuickRecentList"] = value;
             }
         }
         
@@ -305,6 +305,18 @@ namespace QuickMon.Properties {
             }
             set {
                 this["ScriptRepositoryDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SortQuickRecentList {
+            get {
+                return ((bool)(this["SortQuickRecentList"]));
+            }
+            set {
+                this["SortQuickRecentList"] = value;
             }
         }
     }

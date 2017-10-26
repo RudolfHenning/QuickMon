@@ -160,19 +160,35 @@ namespace QuickMon.Collectors
                 connectionStringFileOpenFileDialog.FileName = txtConnectionString.Text;
                 connectionStringFileOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtConnectionString.Text);
             }
+
             if (connectionStringFileOpenFileDialog.ShowDialog() == DialogResult.OK)
-            {                
+            {
                 SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(connectionStringFileOpenFileDialog.FileName);
                 LoadEntryDetails();
+            }
+        }
+        private void cmdSaveToFile_Click(object sender, EventArgs e)
+        {
+            if (connectionStringSaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtConnectionString.Text = connectionStringSaveFileDialog.FileName;
+                System.IO.File.WriteAllText(txtConnectionString.Text, SSHConnectionDetails.ConnectionString);
             }
         }
 
         private void txtConnectionString_Leave(object sender, EventArgs e)
         {
-            if (txtMachineName.Text.Length == 0 && System.IO.File.Exists(txtConnectionString.Text))
+            try
             {
-                SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(txtConnectionString.Text);
-                LoadEntryDetails();
+                if (txtMachineName.Text.Length == 0 && System.IO.File.Exists(txtConnectionString.Text))
+                {
+                    SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(txtConnectionString.Text);
+                    LoadEntryDetails();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Connection", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -200,5 +216,7 @@ namespace QuickMon.Collectors
         {
             changed = true;
         }
+
+
     }
 }
