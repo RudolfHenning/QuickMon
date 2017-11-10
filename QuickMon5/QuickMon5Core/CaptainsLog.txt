@@ -1,5 +1,27 @@
-﻿Version 5.0.2
+﻿*************
+Version 5.0.0
+*************
+First release of version 5.x
+
+*************
+Version 5.0.1
+*************
+File/Directory collector: Search for text in the last X number of lines of a file (Text file implied). 
+
+*************
+Version 5.0.2
+*************
 Quick recent list
 	Provide option to have it sorted or not.
 	More details about which alerts/notifications have been raised/fired in the Collector detail view
 	Success, Warning and Error text boxes have context menu with predefined values like [any] and [null]
+
+*************
+Version 5.0.3
+*************
+Add Edit context menu option on main Window for Collectors.
+Added a few more templates (requires reset templates to become visible).
+Fixed use of template selection when creating new monitor packs, agent hosts.
+Added a 'Skip' button on template selection dialog.
+Refreshing of individual collector host (still a bit experimental)
+Change log visible from About Dialog.

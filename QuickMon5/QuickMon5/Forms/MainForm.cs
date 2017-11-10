@@ -416,6 +416,7 @@ namespace QuickMon
                 disableCollectorToolStripMenuItem.Text = ch.Enabled ? "Disable" : "Enable";
             }
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            configureToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             if (Clipboard.ContainsText() &&
                 Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').StartsWith("<collectorHosts", StringComparison.InvariantCulture) &&
@@ -429,6 +430,11 @@ namespace QuickMon
                 pasteCollectorToolStripMenuItem.Enabled = false;
                 pasteAndEditCollectorConfigToolStripMenuItem.Enabled = false;
             }
+            if (monitorPack != null && !monitorPack.IsBusyPolling)
+                refreshToolStripMenuItem.Enabled = true;
+            else
+                refreshToolStripMenuItem.Enabled = false;
+
         }
         private void notifiersContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
@@ -470,10 +476,24 @@ namespace QuickMon
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = tvwCollectors.SelectedNode;
-            SelectNewEntityType newType = new SelectNewEntityType();
-            if (newType.ShowCollectorHostSelection() == DialogResult.OK)
+            CollectorHost newCh = null;
+            if (Properties.Settings.Default.UseTemplatesForNewObjects)
             {
-                CollectorHost newCh = newType.SelectedCollectorHost;
+                SelectNewEntityType newType = new SelectNewEntityType();
+                if (newType.ShowCollectorHostSelection() == DialogResult.OK)
+                {
+                    if (newType.SelectedCollectorHost != null)
+                        newCh = newType.SelectedCollectorHost;
+                    else
+                        newCh = new CollectorHost() { Name = "Folder" };
+                }
+            }
+            else
+            {
+                newCh = new CollectorHost() { Name = "Folder" };
+            }
+            if (newCh != null)
+            {
                 if (parentNode != null)
                 {
                     newCh.ParentCollectorId = ((CollectorHost)(parentNode.Tag)).UniqueId;
@@ -486,10 +506,32 @@ namespace QuickMon
                 if (parentNode != null)
                     UpdateParentFolderNode((TreeNodeEx)parentNode);
                 EditCollector(true);
-                
+
                 SetMonitorChanged();
                 DoAutoSave();
             }
+
+
+            //SelectNewEntityType newType = new SelectNewEntityType();
+            //if (newType.ShowCollectorHostSelection() == DialogResult.OK)
+            //{
+            //    CollectorHost newCh = newType.SelectedCollectorHost;
+            //    if (parentNode != null)
+            //    {
+            //        newCh.ParentCollectorId = ((CollectorHost)(parentNode.Tag)).UniqueId;
+            //    }
+            //    else
+            //        newCh.ParentCollectorId = "";
+            //    monitorPack.AddCollectorHost(newCh);
+            //    LoadCollectorNode(parentNode, newCh);
+            //    tvwCollectors.SelectedNode = (TreeNodeEx)newCh.Tag;
+            //    if (parentNode != null)
+            //        UpdateParentFolderNode((TreeNodeEx)parentNode);
+            //    EditCollector(true);
+                
+            //    SetMonitorChanged();
+            //    DoAutoSave();
+            //}
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -510,6 +552,11 @@ namespace QuickMon
         {
             EditCollector();
         }
+        private void configureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditCollector(true);
+        }
+
         private void copyCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CopySelectedCollectorAndDependants();
@@ -822,9 +869,10 @@ namespace QuickMon
                         collectorDetails.SelectedCollectorHost = ch;
                         collectorDetails.Identifier = ch.UniqueId;
                         //collectorDetails.ParentWindow = this;
+                        collectorDetails.StartWithEditMode = editmode;
                         collectorDetails.ShowChildWindow(this);
-                        if (editmode)
-                            collectorDetails.StartEditMode();
+                        //if (editmode)
+                        //    collectorDetails.StartEditMode();
                     }
                     else
                     {
@@ -832,6 +880,8 @@ namespace QuickMon
                         if (childForm.WindowState == FormWindowState.Minimized)
                             childForm.WindowState = FormWindowState.Normal;
                         childForm.Focus();
+                        if (editmode)
+                            ((CollectorDetails)childForm).StartEditMode();
                     }
                 }
             }
@@ -898,16 +948,30 @@ namespace QuickMon
             SelectNewEntityType newType = new SelectNewEntityType();
             if (parentNode == null)
             {
-                if (newType.ShowNotifierHostSelection() == DialogResult.OK)
+                NotifierHost newNh = null;
+                if (Properties.Settings.Default.UseTemplatesForNewObjects)
                 {
-                    NotifierHost newNh = newType.SelectedNotifierHost;
+                    if (newType.ShowNotifierHostSelection() == DialogResult.OK)
+                    {
+                        if (newType.SelectedNotifierHost != null)
+                            newNh = newType.SelectedNotifierHost;
+                        else
+                            newNh = NotifierHost.FromXml("<notifierHost name=\"Default Notifier\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" attendedOptionOverride=\"OnlyAttended\"><notifierAgents><notifierAgent name=\"Memory agent\" type=\"QuickMon.Notifiers.InMemoryNotifier\" enabled=\"True\"><config><inMemory maxEntryCount=\"99999\" /></config></notifierAgent></notifierAgents></notifierHost>");
+                    }
+                }
+                else
+                {
+                    newNh = NotifierHost.FromXml("<notifierHost name=\"Default Notifier\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" attendedOptionOverride=\"OnlyAttended\"><notifierAgents><notifierAgent name=\"Memory agent\" type=\"QuickMon.Notifiers.InMemoryNotifier\" enabled=\"True\"><config><inMemory maxEntryCount=\"99999\" /></config></notifierAgent></notifierAgents></notifierHost>");
+                }
+                if (newNh != null)
+                {
                     monitorPack.AddNotifierHost(newNh);
                     LoadNotifierNode(newNh);
                     tvwNotifiers.SelectedNode = (TreeNodeEx)newNh.Tag;
                     EditNotifier();
                     SetMonitorChanged();
                     DoAutoSave();
-                }
+                }                
             }
             else if (parentNode.Tag is NotifierHost)
             {
@@ -1165,27 +1229,45 @@ namespace QuickMon
                 monitorPack = null;
             }
             catch { }
-            monitorPack = new MonitorPack();
 
-            string newMonitorPackConfig = Properties.Resources.BlankMonitorPack;
-            //if (Properties.Settings.Default.UseTemplatesForNewObjects && QuickMonTemplate.GetMonitorPackTemplates().Count > 0)
-            //{
-            //    SelectTemplate selectTemplate = new SelectTemplate();
-            //    selectTemplate.FilterTemplatesBy = TemplateType.MonitorPack;
-            //    if (selectTemplate.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //    {
-            //        newMonitorPackConfig = selectTemplate.SelectedTemplate.Config;
-            //    }
-            //}
+            if (Properties.Settings.Default.UseTemplatesForNewObjects)
+            {
+                SelectNewEntityType snet = new SelectNewEntityType();
+                if (snet.ShowMonitorPackSelection() == DialogResult.OK && snet.SelectedMonitorPack != null)
+                {
+                    monitorPack = snet.SelectedMonitorPack;
+                }
+                else
+                {
+                    monitorPack = new MonitorPack();
+                    monitorPack.LoadXml(Properties.Resources.BlankMonitorPack);
+                }
+            }
+            else
+            {
+                monitorPack = new MonitorPack();
 
-            monitorPack.LoadXml(newMonitorPackConfig);
+                string newMonitorPackConfig = Properties.Resources.BlankMonitorPack;
+                //if (Properties.Settings.Default.UseTemplatesForNewObjects && QuickMonTemplate.GetMonitorPackTemplates().Count > 0)
+                //{
+                //    SelectTemplate selectTemplate = new SelectTemplate();
+                //    selectTemplate.FilterTemplatesBy = TemplateType.MonitorPack;
+                //    if (selectTemplate.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                //    {
+                //        newMonitorPackConfig = selectTemplate.SelectedTemplate.Config;
+                //    }
+                //}
+
+                monitorPack.LoadXml(newMonitorPackConfig);
+            }
             monitorPack.MonitorPackPath = "";
             LoadControlsFromMonitorPack();
             monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
             monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
-            SetMonitorPackEvents();            
+            SetMonitorPackEvents();
             monitorPackChanged = false;
-            EditMonitorSettings();
+            if (!Properties.Settings.Default.UseTemplatesForNewObjects)
+                EditMonitorSettings();
         }
         private void LoadMonitorPack(string monitorPackPath)
         {
@@ -2271,6 +2353,7 @@ namespace QuickMon
         private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
         {
             deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            configureToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
@@ -2496,7 +2579,34 @@ namespace QuickMon
 
 
 
+
         #endregion
 
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost && monitorPack != null)
+                {
+                    SetNodesToBeingRefreshed(tvwCollectors.SelectedNode);
+                    CollectorHost ch = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                    WaitForPollingToFinish(5);
+                    Cursor.Current = Cursors.WaitCursor;
+                    monitorPack.ForceCollectorHostRefreshState(ch);
+                }
+                else
+                {
+                    cmdRefresh_Click(null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateStatusbar("Error: " + ex.Message);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
     }
 }

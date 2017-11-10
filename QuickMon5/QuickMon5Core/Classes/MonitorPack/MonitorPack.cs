@@ -187,7 +187,7 @@ namespace QuickMon
             CurrentState = globalState;
             return globalState;
         }
-        private void CollectorHostRefreshCurrentState(CollectorHost collectorHost, bool disablePollingOverrides = false)
+        private void CollectorHostRefreshCurrentState(CollectorHost collectorHost, bool disablePollingOverrides = false, bool forceSingleCollectorUpdate = false)
         {
             if (!AbortPolling)
             {
@@ -244,7 +244,7 @@ namespace QuickMon
                         }
 
                         #region Loop through dependant CollectorHosts
-                        if (ConcurrencyLevel > 1)
+                        if (ConcurrencyLevel > 1 & !forceSingleCollectorUpdate)
                         {
                             ParallelOptions po = new ParallelOptions()
                             {
@@ -285,6 +285,10 @@ namespace QuickMon
                         RaiseCollectorError(collectorHost, ex.Message);
                 }
             }
+        }
+        public void ForceCollectorHostRefreshState(CollectorHost collectorHost)
+        {
+            CollectorHostRefreshCurrentState(collectorHost, true, true);
         }
         #endregion
 

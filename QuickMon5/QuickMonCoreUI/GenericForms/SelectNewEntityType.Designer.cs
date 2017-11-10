@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectNewEntityType));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
-            this.cmdResetTemplates = new System.Windows.Forms.Button();
             this.chkShowCustomConfig = new System.Windows.Forms.CheckBox();
+            this.cmdSkip = new System.Windows.Forms.Button();
             this.lvwAgentType = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -46,7 +46,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(489, 332);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 8;
+            this.cmdCancel.TabIndex = 4;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -58,23 +58,10 @@
             this.cmdOK.Location = new System.Drawing.Point(408, 332);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 7;
+            this.cmdOK.TabIndex = 3;
             this.cmdOK.Text = "Select";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
-            // 
-            // cmdResetTemplates
-            // 
-            this.cmdResetTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdResetTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdResetTemplates.Location = new System.Drawing.Point(246, 332);
-            this.cmdResetTemplates.Name = "cmdResetTemplates";
-            this.cmdResetTemplates.Size = new System.Drawing.Size(105, 23);
-            this.cmdResetTemplates.TabIndex = 10;
-            this.cmdResetTemplates.Text = "Reset templates";
-            this.cmdResetTemplates.UseVisualStyleBackColor = true;
-            this.cmdResetTemplates.Visible = false;
-            this.cmdResetTemplates.Click += new System.EventHandler(this.cmdResetTemplates_Click);
             // 
             // chkShowCustomConfig
             // 
@@ -84,9 +71,21 @@
             this.chkShowCustomConfig.Location = new System.Drawing.Point(12, 335);
             this.chkShowCustomConfig.Name = "chkShowCustomConfig";
             this.chkShowCustomConfig.Size = new System.Drawing.Size(218, 17);
-            this.chkShowCustomConfig.TabIndex = 11;
+            this.chkShowCustomConfig.TabIndex = 1;
             this.chkShowCustomConfig.Text = "Show custom config editor after selection";
             this.chkShowCustomConfig.UseVisualStyleBackColor = true;
+            // 
+            // cmdSkip
+            // 
+            this.cmdSkip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSkip.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSkip.Location = new System.Drawing.Point(327, 332);
+            this.cmdSkip.Name = "cmdSkip";
+            this.cmdSkip.Size = new System.Drawing.Size(75, 23);
+            this.cmdSkip.TabIndex = 2;
+            this.cmdSkip.Text = "Skip";
+            this.cmdSkip.UseVisualStyleBackColor = true;
+            this.cmdSkip.Click += new System.EventHandler(this.cmdSkip_Click);
             // 
             // lvwAgentType
             // 
@@ -106,7 +105,7 @@
             this.lvwAgentType.MultiSelect = false;
             this.lvwAgentType.Name = "lvwAgentType";
             this.lvwAgentType.Size = new System.Drawing.Size(574, 323);
-            this.lvwAgentType.TabIndex = 9;
+            this.lvwAgentType.TabIndex = 0;
             this.lvwAgentType.UseCompatibleStateImageBehavior = false;
             this.lvwAgentType.View = System.Windows.Forms.View.Details;
             this.lvwAgentType.SelectedIndexChanged += new System.EventHandler(this.lvwAgentType_SelectedIndexChanged);
@@ -129,8 +128,8 @@
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(576, 367);
+            this.Controls.Add(this.cmdSkip);
             this.Controls.Add(this.chkShowCustomConfig);
-            this.Controls.Add(this.cmdResetTemplates);
             this.Controls.Add(this.lvwAgentType);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
@@ -151,7 +150,7 @@
         private ListViewEx lvwAgentType;
         private System.Windows.Forms.ColumnHeader nameColumnHeader;
         private System.Windows.Forms.ColumnHeader detailsColumnHeader;
-        private System.Windows.Forms.Button cmdResetTemplates;
         private System.Windows.Forms.CheckBox chkShowCustomConfig;
+        private System.Windows.Forms.Button cmdSkip;
     }
 }

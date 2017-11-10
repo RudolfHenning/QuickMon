@@ -169,8 +169,14 @@ namespace QuickMon
             catch
             {
                 linkLabel1.Text = "Get latest version here (CodePlex)";
-                quickMonOnlineUrl = "https://quickmon.codeplex.com/";
+                quickMonOnlineUrl = "https://github.com/RudolfHenning/QuickMon";
             }
+        }
+
+        private void llblChangeLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Forms.ShowTextDialog dlg = new Forms.ShowTextDialog();
+            dlg.ShowText("Change log", ChangeLog.GetChangeLog());
         }
     }
 }

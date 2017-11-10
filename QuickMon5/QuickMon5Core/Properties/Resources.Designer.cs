@@ -61,15 +61,22 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeLog {
+            get {
+                return ResourceManager.GetString("ChangeLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;quickMonTemplate&gt;
-        ///	&lt;template name=&quot;New MonitorPack&quot; type=&quot;MonitorPack&quot; class=&quot;MonitorPack&quot; description=&quot;Creates new black monitor pack&quot;&gt;
-        ///		&lt;monitorPack version=&quot;5.0.0.0&quot; name=&quot;New MonitorPack&quot; typeName=&quot;&quot; enabled=&quot;True&quot; runCorrectiveScripts=&quot;True&quot; stateHistorySize=&quot;100&quot; pollingFreqSecOverride=&quot;30&quot;&gt;
-        ///			&lt;configVars /&gt;
-        ///			&lt;collectorHosts&gt;
-        ///			&lt;/collectorHosts&gt;
-        ///			&lt;notifierHosts&gt;
-        ///				&lt;notifierHost name=&quot;Debugging&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;De [rest of string was truncated]&quot;;.
+        ///	&lt;template name=&quot;Event Log Errors&quot; type=&quot;CollectorHost&quot; class=&quot;CollectorHost&quot; description=&quot;Event Log Errors&quot;&gt;
+        ///		&lt;collectorHost uniqueId=&quot;&quot; dependOnParentId=&quot;&quot; name=&quot;Event Log&quot; enabled=&quot;True&quot; expandOnStart=&quot;Auto&quot; childCheckBehaviour=&quot;OnlyRunOnSuccess&quot; runAsEnabled=&quot;False&quot; runAs=&quot;&quot;&gt;
+        ///			&lt;!-- Alerting --&gt;
+        ///			&lt;alerting&gt;
+        ///				&lt;suppression repeatAlertInXMin=&quot;0&quot; alertOnceInXMin=&quot;0&quot; delayErrWarnAlertForXSec=&quot;0&quot; repeatAlertInXPolls=&quot;0&quot; alertOnceInXPolls=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string QuickMon5DefaultTemplate {
             get {

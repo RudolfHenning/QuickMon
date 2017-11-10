@@ -19,6 +19,7 @@ namespace QuickMon.UI
             Templates = new List<QuickMonTemplate>();
         }
 
+        private bool selectingMonitorPacks = false;
         private bool selectingCollectorAgents = false;
         private bool selectingCollectorHosts = false;
         private bool selectingNotifierHosts = false;
@@ -26,6 +27,7 @@ namespace QuickMon.UI
 
         #region Properties
         public IAgent SelectedAgent { get; set; }
+        public MonitorPack SelectedMonitorPack { get; set; }
         public CollectorHost SelectedCollectorHost { get; set; }
         public NotifierHost SelectedNotifierHost { get; set; }
         public List<QuickMonTemplate> Templates { get; set; }
@@ -33,6 +35,13 @@ namespace QuickMon.UI
         #endregion
 
         #region public methods
+        public DialogResult ShowMonitorPackSelection()
+        {
+            this.Text = "Creating a new Monitor Pack";
+            selectingMonitorPacks = true;
+            LoadMonitorPackItems();
+            return this.ShowDialog();
+        }
         public DialogResult ShowCollectorHostSelection()
         {
             this.Text = "Creating a new Collector";
@@ -64,6 +73,29 @@ namespace QuickMon.UI
         #endregion
 
         #region Private methods
+        private void LoadMonitorPackItems()
+        {
+            lvwAgentType.Items.Clear();
+            lvwAgentType.Groups.Clear();
+            ListViewGroup generalGroup = new ListViewGroup("General");
+            lvwAgentType.Groups.Add(generalGroup);
+            ListViewItem lviEmptyMonitorPack = new ListViewItem("Empty monitor pack");
+            lviEmptyMonitorPack.SubItems.Add("Creates a blank monitor pack with no collectors");
+            lviEmptyMonitorPack.Group = generalGroup;
+            lviEmptyMonitorPack.Tag = Properties.Resources.BlankTemplateMonitorPack;
+            lvwAgentType.Items.Add(lviEmptyMonitorPack);
+
+            ListViewGroup templatesGroup = new ListViewGroup("Templates");
+            lvwAgentType.Groups.Add(templatesGroup);
+            foreach (QuickMonTemplate qt in QuickMonTemplate.GetAllTemplates().Where(t => t.TemplateType == TemplateType.MonitorPack))
+            {
+                ListViewItem lviTemplateCollector = new ListViewItem(qt.Name);
+                lviTemplateCollector.SubItems.Add(qt.Description);
+                lviTemplateCollector.Group = templatesGroup;
+                lviTemplateCollector.Tag = qt;
+                lvwAgentType.Items.Add(lviTemplateCollector);
+            }
+        }
         private void LoadCollectorHostItems()
         {
             lvwAgentType.Items.Clear();
@@ -230,7 +262,31 @@ namespace QuickMon.UI
             if (lvwAgentType.SelectedItems.Count == 1)
             {
                 string configToUse = "";
-                if (selectingCollectorHosts)
+                if (selectingMonitorPacks)
+                {
+                    if (lvwAgentType.SelectedItems[0].Tag is string)
+                    {
+                        configToUse = lvwAgentType.SelectedItems[0].Tag.ToString();
+                    }
+                    else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
+                    {
+                        QuickMonTemplate selectedTemplate = (QuickMonTemplate)(lvwAgentType.SelectedItems[0].Tag);
+                        configToUse = selectedTemplate.Config;
+                    }
+                    if (chkShowCustomConfig.Checked)
+                    {
+                        RAWXmlEditor editor = new RAWXmlEditor();
+                        editor.SelectedMarkup = configToUse;
+                        if (editor.ShowDialog() == DialogResult.OK)
+                        {
+                            configToUse = editor.SelectedMarkup;
+                        }
+                    }
+                    MonitorPack mp = new MonitorPack();
+                    mp.LoadXml(configToUse);
+                    SelectedMonitorPack = mp;
+                }
+                else if (selectingCollectorHosts)
                 {
                     #region Collector hosts
                     if (lvwAgentType.SelectedItems[0].Tag is CollectorHost)
@@ -356,15 +412,16 @@ namespace QuickMon.UI
                     } 
                     #endregion
                 }
-                else if (selectingNotifierAgents)
-                {
-
-                }
                 DialogResult = DialogResult.OK;
                 Close();
             }
-        } 
+        }
+        private void cmdSkip_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
+        }
         #endregion
-        
+
     }
 }

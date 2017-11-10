@@ -118,6 +118,7 @@
     <Compile Include="BaseClasses\AgentHostBase.cs" />
     <Compile Include="BaseClasses\CollectorAgentBase.cs" />
     <Compile Include="BaseClasses\NotifierAgentBase.cs" />
+    <Compile Include="ChangeLog.cs" />
     <Compile Include="Classes\ActionScript.cs" />
     <Compile Include="Classes\AlertLevelConverter.cs" />
     <Compile Include="Classes\AlertRaised.cs" />
@@ -200,6 +201,7 @@
   <ItemGroup>
     <Content Include="CaptainsLog.txt" />
     <Content Include="CaptainsLogArchive.txt" />
+    <None Include="Resources\ChangeLog.txt" />
     <None Include="Resources\QuickMon5DefaultTemplateOLD.txt" />
     <None Include="Resources\SelectDatabaseSizeScript.txt" />
   </ItemGroup>

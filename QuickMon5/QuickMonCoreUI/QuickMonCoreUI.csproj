@@ -386,6 +386,12 @@
     <Compile Include="GenericForms\SelectNewEntityType.Designer.cs">
       <DependentUpon>SelectNewEntityType.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenericForms\ShowTextDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\ShowTextDialog.Designer.cs">
+      <DependentUpon>ShowTextDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IChildWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -531,6 +537,9 @@
     <EmbeddedResource Include="GenericForms\SelectNewEntityType.resx">
       <DependentUpon>SelectNewEntityType.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\ShowTextDialog.resx">
+      <DependentUpon>ShowTextDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

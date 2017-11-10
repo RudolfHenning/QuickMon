@@ -67,12 +67,14 @@ namespace QuickMon
             this.collectorsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.copyCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteAndEditCollectorConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblCollectors = new HenIT.Windows.Controls.HiLightLabel();
             this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
@@ -122,7 +124,6 @@ namespace QuickMon
             this.statusStrip1.Size = new System.Drawing.Size(484, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
-            this.statusStrip1.UseWaitCursor = false;
             // 
             // adminModeToolStripStatusLabel
             // 
@@ -207,7 +208,6 @@ namespace QuickMon
             this.lblVersion.TabIndex = 43;
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.lblVersion, "Version");
-            this.lblVersion.UseWaitCursor = false;
             this.lblVersion.Click += new System.EventHandler(this.cmdAbout_Click);
             // 
             // cmdRecentMonitorPacks
@@ -226,7 +226,6 @@ namespace QuickMon
             this.cmdRecentMonitorPacks.TabIndex = 2;
             this.toolTip1.SetToolTip(this.cmdRecentMonitorPacks, "Recent Monitor Packs");
             this.cmdRecentMonitorPacks.UseVisualStyleBackColor = false;
-            this.cmdRecentMonitorPacks.UseWaitCursor = false;
             this.cmdRecentMonitorPacks.Click += new System.EventHandler(this.cmdRecentMonitorPacks_Click);
             // 
             // cmdPauseRunMP
@@ -245,7 +244,6 @@ namespace QuickMon
             this.cmdPauseRunMP.TabIndex = 3;
             this.toolTip1.SetToolTip(this.cmdPauseRunMP, "Pause Auto refresh");
             this.cmdPauseRunMP.UseVisualStyleBackColor = false;
-            this.cmdPauseRunMP.UseWaitCursor = false;
             this.cmdPauseRunMP.Click += new System.EventHandler(this.cmdPauseRunMP_Click);
             // 
             // cmdRefresh
@@ -264,7 +262,6 @@ namespace QuickMon
             this.cmdRefresh.TabIndex = 1;
             this.toolTip1.SetToolTip(this.cmdRefresh, "Refresh current Monitor Pack");
             this.cmdRefresh.UseVisualStyleBackColor = false;
-            this.cmdRefresh.UseWaitCursor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
             // cmdAbout
@@ -284,7 +281,6 @@ namespace QuickMon
             this.cmdAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdAbout, "About");
             this.cmdAbout.UseVisualStyleBackColor = false;
-            this.cmdAbout.UseWaitCursor = false;
             this.cmdAbout.Click += new System.EventHandler(this.cmdAbout_Click);
             // 
             // cmdRemoteHosts
@@ -304,7 +300,6 @@ namespace QuickMon
             this.cmdRemoteHosts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdRemoteHosts, "Remote Hosts");
             this.cmdRemoteHosts.UseVisualStyleBackColor = false;
-            this.cmdRemoteHosts.UseWaitCursor = false;
             this.cmdRemoteHosts.Click += new System.EventHandler(this.cmdRemoteHosts_Click);
             // 
             // cmdOpen
@@ -324,7 +319,6 @@ namespace QuickMon
             this.cmdOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdOpen, "New  CTRL+O");
             this.cmdOpen.UseVisualStyleBackColor = false;
-            this.cmdOpen.UseWaitCursor = false;
             this.cmdOpen.Click += new System.EventHandler(this.cmdOpen_Click);
             // 
             // cmdNew
@@ -344,7 +338,6 @@ namespace QuickMon
             this.cmdNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdNew, "New  CTRL+N");
             this.cmdNew.UseVisualStyleBackColor = false;
-            this.cmdNew.UseWaitCursor = false;
             this.cmdNew.Click += new System.EventHandler(this.cmdNew_Click);
             // 
             // cmdMenu
@@ -367,7 +360,6 @@ namespace QuickMon
             this.cmdMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdMenu, "Menu  CTRL+M");
             this.cmdMenu.UseVisualStyleBackColor = false;
-            this.cmdMenu.UseWaitCursor = false;
             this.cmdMenu.Click += new System.EventHandler(this.cmdMenu_Click);
             // 
             // cmdTemplates
@@ -387,7 +379,6 @@ namespace QuickMon
             this.cmdTemplates.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdTemplates, "Templates");
             this.cmdTemplates.UseVisualStyleBackColor = false;
-            this.cmdTemplates.UseWaitCursor = false;
             this.cmdTemplates.Click += new System.EventHandler(this.cmdTemplates_Click);
             // 
             // cmdAdminMode
@@ -407,7 +398,6 @@ namespace QuickMon
             this.cmdAdminMode.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdAdminMode, "Admin Mode");
             this.cmdAdminMode.UseVisualStyleBackColor = false;
-            this.cmdAdminMode.UseWaitCursor = false;
             this.cmdAdminMode.Click += new System.EventHandler(this.cmdAdminMode_Click);
             // 
             // cmdSettings
@@ -427,7 +417,6 @@ namespace QuickMon
             this.cmdSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdSettings, "Settings");
             this.cmdSettings.UseVisualStyleBackColor = false;
-            this.cmdSettings.UseWaitCursor = false;
             this.cmdSettings.Click += new System.EventHandler(this.cmdSettings_Click);
             // 
             // settingsContextMenuStrip
@@ -555,14 +544,16 @@ namespace QuickMon
             this.collectorsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.detailsToolStripMenuItem,
             this.addCollectorToolStripMenuItem,
+            this.configureToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.disableCollectorToolStripMenuItem,
+            this.refreshToolStripMenuItem,
             this.toolStripSeparator1,
             this.copyCollectorToolStripMenuItem,
             this.pasteCollectorToolStripMenuItem,
             this.pasteAndEditCollectorConfigToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(157, 220);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(161, 302);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // detailsToolStripMenuItem
@@ -570,7 +561,7 @@ namespace QuickMon
             this.detailsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.detailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
             this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.detailsToolStripMenuItem.Text = "Details";
             this.detailsToolStripMenuItem.Click += new System.EventHandler(this.detailsToolStripMenuItem_Click);
             // 
@@ -578,15 +569,23 @@ namespace QuickMon
             // 
             this.addCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
             this.addCollectorToolStripMenuItem.Name = "addCollectorToolStripMenuItem";
-            this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.addCollectorToolStripMenuItem.Text = "Add";
             this.addCollectorToolStripMenuItem.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
+            // 
+            // configureToolStripMenuItem
+            // 
+            this.configureToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit24;
+            this.configureToolStripMenuItem.Name = "configureToolStripMenuItem";
+            this.configureToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.configureToolStripMenuItem.Text = "Edit";
+            this.configureToolStripMenuItem.Click += new System.EventHandler(this.configureToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop24x24;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -594,20 +593,20 @@ namespace QuickMon
             // 
             this.disableCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.ForbiddenBlue24x24;
             this.disableCollectorToolStripMenuItem.Name = "disableCollectorToolStripMenuItem";
-            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.disableCollectorToolStripMenuItem.Text = "Disable";
             this.disableCollectorToolStripMenuItem.Click += new System.EventHandler(this.disableCollectorToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
             // 
             // copyCollectorToolStripMenuItem
             // 
             this.copyCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.copy24x24;
             this.copyCollectorToolStripMenuItem.Name = "copyCollectorToolStripMenuItem";
-            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.copyCollectorToolStripMenuItem.Text = "Copy";
             this.copyCollectorToolStripMenuItem.Click += new System.EventHandler(this.copyCollectorToolStripMenuItem_Click);
             // 
@@ -615,7 +614,7 @@ namespace QuickMon
             // 
             this.pasteCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.paste24x24;
             this.pasteCollectorToolStripMenuItem.Name = "pasteCollectorToolStripMenuItem";
-            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.pasteCollectorToolStripMenuItem.Text = "Paste";
             this.pasteCollectorToolStripMenuItem.Click += new System.EventHandler(this.pasteCollectorToolStripMenuItem_Click);
             // 
@@ -623,9 +622,17 @@ namespace QuickMon
             // 
             this.pasteAndEditCollectorConfigToolStripMenuItem.Image = global::QuickMon.Properties.Resources.pastewithedit24x24;
             this.pasteAndEditCollectorConfigToolStripMenuItem.Name = "pasteAndEditCollectorConfigToolStripMenuItem";
-            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.pasteAndEditCollectorConfigToolStripMenuItem.Text = "Paste and Edit";
             this.pasteAndEditCollectorConfigToolStripMenuItem.Click += new System.EventHandler(this.pasteAndEditCollectorConfigToolStripMenuItem_Click);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Image = global::QuickMon.Properties.Resources.refresh24x24;
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // panel2
             // 
@@ -636,7 +643,6 @@ namespace QuickMon
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(439, 23);
             this.panel2.TabIndex = 42;
-            this.panel2.UseWaitCursor = false;
             // 
             // lblCollectors
             // 
@@ -677,7 +683,6 @@ namespace QuickMon
             this.llblNotifierViewToggle.TabStop = true;
             this.llblNotifierViewToggle.Text = "► Show Notifiers";
             this.llblNotifierViewToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.llblNotifierViewToggle.UseWaitCursor = false;
             this.llblNotifierViewToggle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblNotifierViewToggle_LinkClicked);
             this.llblNotifierViewToggle.DoubleClick += new System.EventHandler(this.llblNotifierViewToggle_DoubleClick);
             // 
@@ -823,7 +828,6 @@ namespace QuickMon
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(439, 38);
             this.panel1.TabIndex = 3;
-            this.panel1.UseWaitCursor = false;
             // 
             // llblMonitorPack
             // 
@@ -838,7 +842,6 @@ namespace QuickMon
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "<New Monitor Pack>";
             this.llblMonitorPack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.llblMonitorPack.UseWaitCursor = false;
             this.llblMonitorPack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblMonitorPack_LinkClicked);
             this.llblMonitorPack.Click += new System.EventHandler(this.llblMonitorPack_Click);
             // 
@@ -854,7 +857,6 @@ namespace QuickMon
             this.cboRecentMonitorPacks.Name = "cboRecentMonitorPacks";
             this.cboRecentMonitorPacks.Size = new System.Drawing.Size(120, 24);
             this.cboRecentMonitorPacks.TabIndex = 4;
-            this.cboRecentMonitorPacks.UseWaitCursor = false;
             this.cboRecentMonitorPacks.SelectionChangeCommitted += new System.EventHandler(this.cboRecentMonitorPacks_SelectionChangeCommitted);
             this.cboRecentMonitorPacks.DropDownClosed += new System.EventHandler(this.cboRecentMonitorPacks_DropDownClosed);
             // 
@@ -878,7 +880,6 @@ namespace QuickMon
             this.panelSlimMenu.Name = "panelSlimMenu";
             this.panelSlimMenu.Size = new System.Drawing.Size(45, 469);
             this.panelSlimMenu.TabIndex = 2;
-            this.panelSlimMenu.UseWaitCursor = false;
             // 
             // splitButtonNotifiers
             // 
@@ -1052,6 +1053,8 @@ namespace QuickMon
         private System.Windows.Forms.Button cmdTemplates;
         private System.Windows.Forms.Button cmdAdminMode;
         private System.Windows.Forms.Button cmdSettings;
+        private System.Windows.Forms.ToolStripMenuItem configureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }
 

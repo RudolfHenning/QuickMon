@@ -65,6 +65,7 @@ namespace QuickMon
         public CollectorHost SelectedCollectorHost { get; set; }
         
         public MonitorPack HostingMonitorPack { get; set; }
+        public bool StartWithEditMode { get; set; }
         #endregion
 
         #region IChildWindowIdentity
@@ -145,7 +146,8 @@ namespace QuickMon
         }
         private void CollectorDetails_Shown(object sender, EventArgs e)
         {
-
+            if (StartWithEditMode)
+                StartEditMode();
         }
         #endregion
 
