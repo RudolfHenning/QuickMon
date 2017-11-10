@@ -34,16 +34,19 @@
             // 
             // txtContent
             // 
+            this.txtContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtContent.BackColor = System.Drawing.Color.White;
             this.txtContent.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtContent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContent.Location = new System.Drawing.Point(0, 0);
+            this.txtContent.Location = new System.Drawing.Point(3, 6);
             this.txtContent.Margin = new System.Windows.Forms.Padding(10);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
             this.txtContent.ReadOnly = true;
             this.txtContent.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtContent.Size = new System.Drawing.Size(754, 529);
+            this.txtContent.Size = new System.Drawing.Size(751, 523);
             this.txtContent.TabIndex = 0;
             this.txtContent.WordWrap = false;
             // 

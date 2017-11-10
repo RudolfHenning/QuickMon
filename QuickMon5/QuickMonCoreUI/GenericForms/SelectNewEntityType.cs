@@ -52,6 +52,7 @@ namespace QuickMon.UI
         public DialogResult ShowCollectorAgentSelection()
         {
             this.Text = "Select Collector Agent type";
+            cmdSkip.Visible = false;
             selectingCollectorAgents = true;
             LoadCollectorAgents();           
             return ShowDialog();
@@ -65,7 +66,8 @@ namespace QuickMon.UI
         }
         public DialogResult ShowNotifierAgentSelection()
         {
-            this.Text = "Creating a new Notifier";
+            this.Text = "Creating a new Notifier Agent";
+            cmdSkip.Visible = false;
             selectingNotifierAgents = true;
             LoadCollectorAgents();
             return this.ShowDialog();

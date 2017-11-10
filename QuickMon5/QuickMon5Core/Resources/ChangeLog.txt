@@ -1,14 +1,14 @@
-*************
+-------------
 Version 5.0.0
 *************
 First release of version 5.x
 
-*************
+-------------
 Version 5.0.1
 *************
 File/Directory collector: Search for text in the last X number of lines of a file (Text file implied). 
 
-*************
+-------------
 Version 5.0.2
 *************
 Quick recent list
@@ -16,7 +16,7 @@ Quick recent list
 	More details about which alerts/notifications have been raised/fired in the Collector detail view
 	Success, Warning and Error text boxes have context menu with predefined values like [any] and [null]
 
-*************
+-------------
 Version 5.0.3
 *************
 Add Edit context menu option on main Window for Collectors.
