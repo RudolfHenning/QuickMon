@@ -25,3 +25,5 @@ Fixed use of template selection when creating new monitor packs, agent hosts.
 Added a 'Skip' button on template selection dialog.
 Refreshing of individual collector host (still a bit experimental)
 Change log visible from About Dialog.
+
+*************

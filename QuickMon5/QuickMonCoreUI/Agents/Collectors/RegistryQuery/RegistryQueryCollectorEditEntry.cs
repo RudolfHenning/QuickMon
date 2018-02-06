@@ -51,6 +51,7 @@ namespace QuickMon.UI
             }
             return (QuickMonDialogResult)ShowDialog();
         }
+        public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
         #endregion
 
         #region Input control events

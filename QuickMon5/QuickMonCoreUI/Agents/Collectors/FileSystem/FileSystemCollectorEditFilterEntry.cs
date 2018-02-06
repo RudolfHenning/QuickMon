@@ -13,20 +13,21 @@ using QuickMon.Collectors;
 
 namespace QuickMon.UI
 {
-    public partial class FileSystemCollectorEditFilterEntry : Form, ICollectorConfigEntryEditWindow
+    public partial class FileSystemCollectorEditFilterEntry : CollectorConfigEntryEditWindowBase //Form, ICollectorConfigEntryEditWindow
     {
         public FileSystemCollectorEditFilterEntry()
         {
             InitializeComponent();
         }
 
-        #region IEditConfigEntryWindow Members
-        public ICollectorConfigEntry SelectedEntry { get; set; }
-        public QuickMonDialogResult ShowEditEntry()
-        {
-            return (QuickMonDialogResult)ShowDialog();
-        }
-        #endregion
+        //#region IEditConfigEntryWindow Members
+        //public ICollectorConfigEntry SelectedEntry { get; set; }
+        //public QuickMonDialogResult ShowEditEntry()
+        //{
+        //    return (QuickMonDialogResult)ShowDialog();
+        //}
+        //public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
+        //#endregion
 
         private void FileSystemCollectorEditFilterEntry_Load(object sender, EventArgs e)
         {

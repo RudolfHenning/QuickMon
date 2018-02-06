@@ -41,7 +41,6 @@ namespace QuickMon.UI
 
             txtName.Text = selectedEntry.Name;
             cboReturnCheckSequence.SelectedIndex = (int)selectedEntry.ReturnCheckSequence;
-            //optEWG.Checked = selectedEntry.ReturnCheckSequence == CollectorAgentReturnValueCheckSequence.EWG;
             txtScript.Text = selectedEntry.TestScript;
             txtSuccess.Text = selectedEntry.GoodScriptText;
             cboSuccessMatchType.SelectedIndex = (int)selectedEntry.GoodResultMatchType;

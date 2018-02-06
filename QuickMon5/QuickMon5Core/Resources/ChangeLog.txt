@@ -25,3 +25,8 @@ Fixed use of template selection when creating new monitor packs, agent hosts.
 Added a 'Skip' button on template selection dialog.
 Refreshing of individual collector host (still a bit experimental)
 Change log visible from About Dialog.
+
+-------------
+Version 5.0.4
+*************
+Removed automatic restart of firewall after rule was added. Causing problems on RDP sessions/VMs

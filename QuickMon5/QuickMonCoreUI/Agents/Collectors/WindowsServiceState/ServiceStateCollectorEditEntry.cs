@@ -11,20 +11,21 @@ using System.Windows.Forms;
 
 namespace QuickMon.UI
 {
-    public partial class ServiceStateCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
+    public partial class ServiceStateCollectorEditEntry : CollectorConfigEntryEditWindowBase //Form, ICollectorConfigEntryEditWindow
     {
         public ServiceStateCollectorEditEntry()
         {
             InitializeComponent();
         }
 
-        #region IAgentConfigEntryEditWindow Members
-        public ICollectorConfigEntry SelectedEntry { get; set; }
-        public QuickMonDialogResult ShowEditEntry()
-        {
-            return (QuickMonDialogResult)ShowDialog();
-        }
-        #endregion
+        //#region IAgentConfigEntryEditWindow Members
+        //public ICollectorConfigEntry SelectedEntry { get; set; }
+        //public QuickMonDialogResult ShowEditEntry()
+        //{
+        //    return (QuickMonDialogResult)ShowDialog();
+        //}
+        //public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
+        //#endregion
 
         private void ServiceStateCollectorEditEntry_Load(object sender, EventArgs e)
         {

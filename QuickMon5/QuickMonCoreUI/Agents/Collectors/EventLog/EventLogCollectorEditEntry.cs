@@ -12,22 +12,23 @@ using QuickMon.Collectors;
 
 namespace QuickMon.UI
 {
-    public partial class EventLogCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
+    public partial class EventLogCollectorEditEntry : CollectorConfigEntryEditWindowBase //Form, ICollectorConfigEntryEditWindow
     {
         public EventLogCollectorEditEntry()
         {
             InitializeComponent();
         }
 
-        #region IEditConfigEntryWindow Members
-        public ICollectorConfigEntry SelectedEntry { get; set; }
-        public QuickMonDialogResult ShowEditEntry()
-        {
-            if (SelectedEntry == null)
-                SelectedEntry = new EventLogCollectorEntry() { Computer = System.Net.Dns.GetHostName() };
-            return (QuickMonDialogResult)ShowDialog();
-        }
-        #endregion
+        //#region IEditConfigEntryWindow Members
+        //public ICollectorConfigEntry SelectedEntry { get; set; }
+        //public QuickMonDialogResult ShowEditEntry()
+        //{
+        //    if (SelectedEntry == null)
+        //        SelectedEntry = new EventLogCollectorEntry() { Computer = System.Net.Dns.GetHostName() };
+        //    return (QuickMonDialogResult)ShowDialog();
+        //}
+        //public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
+        //#endregion
 
         internal EventLogCollectorEntry SelectedEventLogEntry { get; set; }
 

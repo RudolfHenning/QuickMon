@@ -11,51 +11,52 @@ using System.Windows.Forms;
 
 namespace QuickMon.UI
 {
-    public partial class PingCollectorEditHostAddress : Form, ICollectorConfigEntryEditWindow
+    public partial class PingCollectorEditHostAddress : CollectorConfigEntryEditWindowBase //Form, ICollectorConfigEntryEditWindow
     {
         public PingCollectorEditHostAddress()
         {
             InitializeComponent();
         }
 
-        #region IEditConfigEntryWindow Members
-        public ICollectorConfigEntry SelectedEntry { get; set; }
-        public QuickMonDialogResult ShowEditEntry()
-        {
-            if (SelectedEntry == null)
-                SelectedEntry = new PingCollectorHostEntry();
-            HostEntry = (PingCollectorHostEntry)SelectedEntry;
-            switch (HostEntry.PingType)
-            {
-                case PingCollectorType.HTTP:
-                    cboPingType.SelectedIndex = 1;
-                    break;
-                case PingCollectorType.Socket:
-                    cboPingType.SelectedIndex = 2;
-                    break;
-                default:
-                    cboPingType.SelectedIndex = 0;
-                    break;
-            }
-            txtAddress.Text = HostEntry.Address;
-            txtDescription.Text = HostEntry.DescriptionLocal;
-            nudExpextedTime.Value = HostEntry.MaxTimeMS;
-            nudTimeOut.Value = HostEntry.TimeOutMS;
-            txtHTTPHeaderUsername.Text = HostEntry.HttpHeaderUserName;
-            txtHTTPHeaderPassword.Text = HostEntry.HttpHeaderPassword;
-            txtHttpProxy.Text = HostEntry.HttpProxyServer;
-            txtProxyUsername.Text = HostEntry.HttpProxyUserName;
-            txtProxyPassword.Text = HostEntry.HttpProxyPassword;
-            txtHTMLContent.Text = HostEntry.HTMLContentContain;
-            nudPortNumber.Value = HostEntry.SocketPort;
-            nudReceiveTimeout.Value = HostEntry.ReceiveTimeOutMS;
-            nudSendTimeout.Value = HostEntry.SendTimeOutMS;
-            chkUseTelNetLogin.Checked = HostEntry.UseTelnetLogin;
-            txtUserName.Text = HostEntry.TelnetUserName;
-            txtPassword.Text = HostEntry.TelnetPassword;
-            return (QuickMonDialogResult)ShowDialog();
-        }
-        #endregion
+        //#region IEditConfigEntryWindow Members
+        //public ICollectorConfigEntry SelectedEntry { get; set; }
+        //public QuickMonDialogResult ShowEditEntry()
+        //{
+        //    if (SelectedEntry == null)
+        //        SelectedEntry = new PingCollectorHostEntry();
+        //    HostEntry = (PingCollectorHostEntry)SelectedEntry;
+        //    switch (HostEntry.PingType)
+        //    {
+        //        case PingCollectorType.HTTP:
+        //            cboPingType.SelectedIndex = 1;
+        //            break;
+        //        case PingCollectorType.Socket:
+        //            cboPingType.SelectedIndex = 2;
+        //            break;
+        //        default:
+        //            cboPingType.SelectedIndex = 0;
+        //            break;
+        //    }
+        //    txtAddress.Text = HostEntry.Address;
+        //    txtDescription.Text = HostEntry.DescriptionLocal;
+        //    nudExpextedTime.Value = HostEntry.MaxTimeMS;
+        //    nudTimeOut.Value = HostEntry.TimeOutMS;
+        //    txtHTTPHeaderUsername.Text = HostEntry.HttpHeaderUserName;
+        //    txtHTTPHeaderPassword.Text = HostEntry.HttpHeaderPassword;
+        //    txtHttpProxy.Text = HostEntry.HttpProxyServer;
+        //    txtProxyUsername.Text = HostEntry.HttpProxyUserName;
+        //    txtProxyPassword.Text = HostEntry.HttpProxyPassword;
+        //    txtHTMLContent.Text = HostEntry.HTMLContentContain;
+        //    nudPortNumber.Value = HostEntry.SocketPort;
+        //    nudReceiveTimeout.Value = HostEntry.ReceiveTimeOutMS;
+        //    nudSendTimeout.Value = HostEntry.SendTimeOutMS;
+        //    chkUseTelNetLogin.Checked = HostEntry.UseTelnetLogin;
+        //    txtUserName.Text = HostEntry.TelnetUserName;
+        //    txtPassword.Text = HostEntry.TelnetPassword;
+        //    return (QuickMonDialogResult)ShowDialog();
+        //}
+        //public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
+        //#endregion
 
         private PingCollectorHostEntry HostEntry { get; set; }
 
@@ -94,7 +95,40 @@ namespace QuickMon.UI
             CheckOkEnabled();
             return ShowDialog();
         }
-
+        private void PingCollectorEditHostAddress_Load(object sender, EventArgs e)
+        {
+            if (SelectedEntry == null)
+                SelectedEntry = new PingCollectorHostEntry();
+            HostEntry = (PingCollectorHostEntry)SelectedEntry;
+            switch (HostEntry.PingType)
+            {
+                case PingCollectorType.HTTP:
+                    cboPingType.SelectedIndex = 1;
+                    break;
+                case PingCollectorType.Socket:
+                    cboPingType.SelectedIndex = 2;
+                    break;
+                default:
+                    cboPingType.SelectedIndex = 0;
+                    break;
+            }
+            txtAddress.Text = HostEntry.Address;
+            txtDescription.Text = HostEntry.DescriptionLocal;
+            nudExpextedTime.Value = HostEntry.MaxTimeMS;
+            nudTimeOut.Value = HostEntry.TimeOutMS;
+            txtHTTPHeaderUsername.Text = HostEntry.HttpHeaderUserName;
+            txtHTTPHeaderPassword.Text = HostEntry.HttpHeaderPassword;
+            txtHttpProxy.Text = HostEntry.HttpProxyServer;
+            txtProxyUsername.Text = HostEntry.HttpProxyUserName;
+            txtProxyPassword.Text = HostEntry.HttpProxyPassword;
+            txtHTMLContent.Text = HostEntry.HTMLContentContain;
+            nudPortNumber.Value = HostEntry.SocketPort;
+            nudReceiveTimeout.Value = HostEntry.ReceiveTimeOutMS;
+            nudSendTimeout.Value = HostEntry.SendTimeOutMS;
+            chkUseTelNetLogin.Checked = HostEntry.UseTelnetLogin;
+            txtUserName.Text = HostEntry.TelnetUserName;
+            txtPassword.Text = HostEntry.TelnetPassword;
+        }
         private void cmdOK_Click(object sender, EventArgs e)
         {
             if (txtAddress.Text.Length == 0)
@@ -149,7 +183,9 @@ namespace QuickMon.UI
             else
                 tmpPingCollectorHostEntry.PingType = PingCollectorType.Ping;
 
-            tmpPingCollectorHostEntry.Address = txtAddress.Text;
+            string address = ApplyConfigVarsOnField(txtAddress.Text);
+
+            tmpPingCollectorHostEntry.Address = address;
             tmpPingCollectorHostEntry.DescriptionLocal = txtDescription.Text;
             tmpPingCollectorHostEntry.MaxTimeMS = Convert.ToInt32(nudExpextedTime.Value);
             tmpPingCollectorHostEntry.TimeOutMS = Convert.ToInt32(nudTimeOut.Value);
@@ -251,10 +287,7 @@ namespace QuickMon.UI
             txtPassword.Enabled = chkUseTelNetLogin.Checked;
         }
 
-        private void PingCollectorEditHostAddress_Load(object sender, EventArgs e)
-        {
 
-        }
 
 
     }

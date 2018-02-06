@@ -450,20 +450,50 @@ namespace QuickMon
                 {
                     System.Diagnostics.Trace.WriteLine(ex.ToString());
                 }
+                MessageBox.Show("Firewall rule has been added. You might have to restart the firewall service for the new rule to apply.", "Firewall rule", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                try
-                {
-                    System.ServiceProcess.ServiceController firewallSrvs = new System.ServiceProcess.ServiceController("Windows Firewall");
-                    if (firewallSrvs.Status == System.ServiceProcess.ServiceControllerStatus.Running)
-                    {
-                        firewallSrvs.Stop();
-                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
-                        firewallSrvs.Start();
-                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
-                    }
-                    CheckQuickMonRemoteHostFirewallPort();
-                }
-                catch { }
+                //try
+                //{
+                //    System.ServiceProcess.ServiceController firewallSrvs = null;
+                //    bool isFWRunning = false;
+                //    {
+                //        try
+                //        {
+                //            //firewallSrvs = new System.ServiceProcess.ServiceController("Windows Firewall");
+                //            firewallSrvs = new System.ServiceProcess.ServiceController("MpsSvc");
+                //        }
+                //        catch { }
+                //    }
+                //    if (firewallSrvs != null)
+                //    {
+                //        isFWRunning = firewallSrvs.Status == System.ServiceProcess.ServiceControllerStatus.Running;
+                //        if (isFWRunning)
+                //        {
+                //            firewallSrvs.Stop();
+                //            firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 60));
+
+                //            int retries = 5;
+                //            do
+                //            {
+                //                firewallSrvs.Start();
+                //                firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+                //                retries--;
+                //            } while (retries > 0 && firewallSrvs.Status != System.ServiceProcess.ServiceControllerStatus.Running);
+                //        }                        
+                //    }
+
+                //    //if (firewallSrvs.Status == System.ServiceProcess.ServiceControllerStatus.Running)
+                //    //{
+                //    //    firewallSrvs.Stop();
+                //    //    firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
+                //    //    firewallSrvs.Start();
+                //    //    firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+                //    //}
+                //    CheckQuickMonRemoteHostFirewallPort();
+                //}
+                //catch (Exception ex) {
+                //    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                //}
             }
             catch (Exception ex)
             {

@@ -12,7 +12,7 @@ using QuickMon.Collectors;
 
 namespace QuickMon.UI
 {
-    public partial class WMIQueryCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
+    public partial class WMIQueryCollectorEditEntry : CollectorConfigEntryEditWindowBase //Form, ICollectorConfigEntryEditWindow
     {
         public WMIQueryCollectorEditEntry()
         {
@@ -20,13 +20,14 @@ namespace QuickMon.UI
             SelectedEntry = new WMIQueryCollectorConfigEntry();
         }
 
-        #region IEditConfigEntryWindow Members
-        public ICollectorConfigEntry SelectedEntry { get; set; }
-        public QuickMonDialogResult ShowEditEntry()
-        {
-            return (QuickMonDialogResult)ShowDialog();
-        }
-        #endregion
+        //#region IEditConfigEntryWindow Members
+        //public ICollectorConfigEntry SelectedEntry { get; set; }
+        //public QuickMonDialogResult ShowEditEntry()
+        //{
+        //    return (QuickMonDialogResult)ShowDialog();
+        //}
+        //public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
+        //#endregion
 
         #region Form events
         private void EditConfigEntry_Load(object sender, EventArgs e)

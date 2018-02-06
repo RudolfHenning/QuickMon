@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer3 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -83,6 +83,8 @@
             this.txtAdditionalNotes = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboExpandOnStartOption = new System.Windows.Forms.ComboBox();
+            this.label47 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cboChildCheckBehaviour = new System.Windows.Forms.ComboBox();
             this.label39 = new System.Windows.Forms.Label();
@@ -245,8 +247,6 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
-            this.cboExpandOnStartOption = new System.Windows.Forms.ComboBox();
-            this.label47 = new System.Windows.Forms.Label();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -515,9 +515,9 @@
             this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
-            treeListViewItemCollectionComparer3.Column = 0;
-            treeListViewItemCollectionComparer3.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer3;
+            treeListViewItemCollectionComparer1.Column = 0;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
             this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
             this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.agentsTreeListView.LabelEdit = true;
@@ -643,6 +643,7 @@
             // 
             // collectorAgentsEditToolStrip
             // 
+            this.collectorAgentsEditToolStrip.BackColor = System.Drawing.Color.White;
             this.collectorAgentsEditToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.collectorAgentsEditToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.collectorAgentsEditToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -876,6 +877,32 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
+            // cboExpandOnStartOption
+            // 
+            this.cboExpandOnStartOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboExpandOnStartOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboExpandOnStartOption.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboExpandOnStartOption.FormattingEnabled = true;
+            this.cboExpandOnStartOption.Items.AddRange(new object[] {
+            "Auto",
+            "On Error/Warning",
+            "On success",
+            "Never",
+            "Always"});
+            this.cboExpandOnStartOption.Location = new System.Drawing.Point(172, 47);
+            this.cboExpandOnStartOption.Name = "cboExpandOnStartOption";
+            this.cboExpandOnStartOption.Size = new System.Drawing.Size(770, 21);
+            this.cboExpandOnStartOption.TabIndex = 6;
+            // 
+            // label47
+            // 
+            this.label47.Location = new System.Drawing.Point(16, 50);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(158, 18);
+            this.label47.TabIndex = 5;
+            this.label47.Text = "Expand on (UI only)";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -929,6 +956,7 @@
             // 
             // serviceWindowsGroupBox
             // 
+            this.serviceWindowsGroupBox.BackColor = System.Drawing.Color.White;
             this.serviceWindowsGroupBox.Controls.Add(this.label16);
             this.serviceWindowsGroupBox.Controls.Add(this.linkLabelServiceWindows);
             this.serviceWindowsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
@@ -966,6 +994,7 @@
             // 
             // runAsGroupBox
             // 
+            this.runAsGroupBox.BackColor = System.Drawing.Color.White;
             this.runAsGroupBox.Controls.Add(this.cmdTestRunAs);
             this.runAsGroupBox.Controls.Add(this.label45);
             this.runAsGroupBox.Controls.Add(this.chkRunAsEnabled);
@@ -1050,6 +1079,7 @@
             // 
             // remoteAgentGroupBox
             // 
+            this.remoteAgentGroupBox.BackColor = System.Drawing.Color.White;
             this.remoteAgentGroupBox.Controls.Add(this.cboRemoteAgentServer);
             this.remoteAgentGroupBox.Controls.Add(this.chkRunLocalOnRemoteHostConnectionFailure);
             this.remoteAgentGroupBox.Controls.Add(this.chkBlockParentRHOverride);
@@ -1209,6 +1239,7 @@
             // 
             // pollingOverridesGroupBox
             // 
+            this.pollingOverridesGroupBox.BackColor = System.Drawing.Color.White;
             this.pollingOverridesGroupBox.Controls.Add(this.label36);
             this.pollingOverridesGroupBox.Controls.Add(this.chkEnablePollingOverride);
             this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown);
@@ -1453,6 +1484,7 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.BackColor = System.Drawing.Color.White;
             this.groupBox9.Controls.Add(this.cmdSetNoteText);
             this.groupBox9.Controls.Add(this.txtNotesText);
             this.groupBox9.Controls.Add(this.lblNoteTextChangeIndicator);
@@ -1520,6 +1552,7 @@
             // 
             // correctiveScriptsGroupBox
             // 
+            this.correctiveScriptsGroupBox.BackColor = System.Drawing.Color.White;
             this.correctiveScriptsGroupBox.Controls.Add(this.label38);
             this.correctiveScriptsGroupBox.Controls.Add(this.label5);
             this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownRestorationScriptMinimumRepeatTimeMin);
@@ -1675,6 +1708,7 @@
             // 
             // alertSuppressionGroupBox
             // 
+            this.alertSuppressionGroupBox.BackColor = System.Drawing.Color.White;
             this.alertSuppressionGroupBox.Controls.Add(this.chkAlertsPaused);
             this.alertSuppressionGroupBox.Controls.Add(this.label26);
             this.alertSuppressionGroupBox.Controls.Add(this.label25);
@@ -2003,6 +2037,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.White;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2345,9 +2380,9 @@
             this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.valueColumnHeader});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer1;
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
             this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlvAgentStates.HideSelection = false;
             this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
@@ -2721,32 +2756,6 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
-            // 
-            // cboExpandOnStartOption
-            // 
-            this.cboExpandOnStartOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboExpandOnStartOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboExpandOnStartOption.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboExpandOnStartOption.FormattingEnabled = true;
-            this.cboExpandOnStartOption.Items.AddRange(new object[] {
-            "Auto",
-            "On Error/Warning",
-            "On success",
-            "Never",
-            "Always"});
-            this.cboExpandOnStartOption.Location = new System.Drawing.Point(172, 47);
-            this.cboExpandOnStartOption.Name = "cboExpandOnStartOption";
-            this.cboExpandOnStartOption.Size = new System.Drawing.Size(770, 21);
-            this.cboExpandOnStartOption.TabIndex = 6;
-            // 
-            // label47
-            // 
-            this.label47.Location = new System.Drawing.Point(16, 50);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(158, 18);
-            this.label47.TabIndex = 5;
-            this.label47.Text = "Expand on (UI only)";
             // 
             // CollectorDetails
             // 

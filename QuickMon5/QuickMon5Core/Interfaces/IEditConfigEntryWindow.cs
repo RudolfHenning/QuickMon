@@ -29,5 +29,6 @@ namespace QuickMon
     {
         ICollectorConfigEntry SelectedEntry { get; set; }
         QuickMonDialogResult ShowEditEntry();
+        List<ConfigVariable> ConfigVariables { get; set; }
     }
 }

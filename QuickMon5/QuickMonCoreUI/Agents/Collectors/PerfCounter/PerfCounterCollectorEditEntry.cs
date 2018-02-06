@@ -31,8 +31,8 @@ namespace QuickMon.UI
 
         private List<string> commonEntries = new List<string>();
 
+        #region IEditConfigEntryWindow Members
         public ICollectorConfigEntry SelectedEntry { get; set; }
-
         public QuickMonDialogResult ShowEditEntry()
         {
             if (SelectedEntry == null)
@@ -44,6 +44,8 @@ namespace QuickMon.UI
 
             return (QuickMonDialogResult)ShowDialog();
         }
+        public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
+        #endregion
 
         #region Form events
         private void PerfCounterCollectorEditEntry_Load(object sender, EventArgs e)

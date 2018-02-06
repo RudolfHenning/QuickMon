@@ -1409,6 +1409,13 @@ namespace QuickMon
                         {
                             ICollectorConfigEntryEditWindow DetailEditor = agentEditor.DetailEditor;
                             DetailEditor.SelectedEntry = entryConfig;
+
+                            foreach (ListViewItem lvi in lvwConfigVars.Items)
+                            {
+                                DetailEditor.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
+                            }
+                            if (HostingMonitorPack != null && HostingMonitorPack.ConfigVariables != null)
+                                DetailEditor.ConfigVariables.AddRange(HostingMonitorPack.ConfigVariables.ToArray());
                             if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
                             {
                                 tlviCurrent.Tag = DetailEditor.SelectedEntry;
@@ -1576,18 +1583,6 @@ namespace QuickMon
                 editingCollectorHost.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
                 editingCollectorHost.BlockParentOverrideRemoteAgentHostSettings = chkBlockParentRHOverride.Checked && !chkRemoteAgentEnabled.Checked;
                 editingCollectorHost.RunLocalOnRemoteHostConnectionFailure = chkRunLocalOnRemoteHostConnectionFailure.Checked;
-                //if (chkRemoteAgentEnabled.Checked && editingCollectorHost.RemoteAgentHostAddress.Length > 0)
-                //{
-                //    if (KnownRemoteHosts == null)
-                //        KnownRemoteHosts = new List<string>();
-                //    if ((from string rh in KnownRemoteHosts
-                //         where rh.ToLower() == editingCollectorHost.RemoteAgentHostAddress.ToLower() + ":" + editingCollectorHost.RemoteAgentHostPort.ToString()
-                //         select rh).Count() == 0
-                //             )
-                //    {
-                //        KnownRemoteHosts.Add(editingCollectorHost.RemoteAgentHostAddress + ":" + editingCollectorHost.RemoteAgentHostPort.ToString());
-                //    }
-                //}
 
                 //Polling overrides
                 if (onlyAllowUpdateOncePerXSecNumericUpDown.Value >= pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value)
@@ -1614,10 +1609,6 @@ namespace QuickMon
                 editingCollectorHost.DelayErrWarnAlertForXPolls = (int)delayAlertPollsNumericUpDown.Value;
                 //Corrective scripts
                 editingCollectorHost.CorrectiveScriptDisabled = chkCorrectiveScriptDisabled.Checked;
-                //editingCollectorHost.CorrectiveScriptOnWarningPath = txtCorrectiveScriptOnWarning.Text;
-                //editingCollectorHost.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
-                //editingCollectorHost.RestorationScriptPath = txtRestorationScript.Text;
-                //editingCollectorHost.CorrectiveScriptsOnlyOnStateChange = chkOnlyRunCorrectiveScriptsOnStateChange.Checked;
                 editingCollectorHost.CorrectiveScriptOnWarningMinimumRepeatTimeMin = (int)numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Value;
                 editingCollectorHost.CorrectiveScriptOnErrorMinimumRepeatTimeMin = (int)numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Value;
                 editingCollectorHost.RestorationScriptMinimumRepeatTimeMin = (int)numericUpDownRestorationScriptMinimumRepeatTimeMin.Value;
