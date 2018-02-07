@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace QuickMon.UI
 {
-    public partial class PerfCounterCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
+    public partial class PerfCounterCollectorEditEntry : CollectorConfigEntryEditWindowBase// Form, ICollectorConfigEntryEditWindow
     {
         public PerfCounterCollectorEditEntry()
         {
@@ -31,9 +31,17 @@ namespace QuickMon.UI
 
         private List<string> commonEntries = new List<string>();
 
-        #region IEditConfigEntryWindow Members
-        public ICollectorConfigEntry SelectedEntry { get; set; }
-        public QuickMonDialogResult ShowEditEntry()
+        //#region IEditConfigEntryWindow Members
+        //public ICollectorConfigEntry SelectedEntry { get; set; }
+        //public QuickMonDialogResult ShowEditEntry()
+        //{
+        //    return (QuickMonDialogResult)ShowDialog();
+        //}
+        //public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
+        //#endregion
+
+        #region Form events
+        private void PerfCounterCollectorEditEntry_Load(object sender, EventArgs e)
         {
             if (SelectedEntry == null)
                 SelectedEntry = PerfCounterCollectorEntry.FromStringDefinition(".\\Processor\\% Processor Time\\_Total");
@@ -41,16 +49,6 @@ namespace QuickMon.UI
             cboPerformanceCounter.Items.AddRange(commonEntries.ToArray());
 
             LoadEntryDetails();
-
-            return (QuickMonDialogResult)ShowDialog();
-        }
-        public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
-        #endregion
-
-        #region Form events
-        private void PerfCounterCollectorEditEntry_Load(object sender, EventArgs e)
-        {
-
         }
         #endregion
 
@@ -112,17 +110,25 @@ namespace QuickMon.UI
         }
         private void cmdEditPerfCounter_Click(object sender, EventArgs e)
         {
-            PerfCounterCollectorEntry thisEntry = PerfCounterCollectorEntry.FromStringDefinition(txtPerfCounter.Text);
-
-            PerfCounterEdit editPerfCounter = new PerfCounterEdit();
-            editPerfCounter.InitialMachine = thisEntry.Computer;
-            editPerfCounter.InitialCategory = thisEntry.Category;
-            editPerfCounter.InitialCounter = thisEntry.Counter;
-            editPerfCounter.InitialInstance = thisEntry.Instance;
-            if (editPerfCounter.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            try
             {
-                SelectedEntry = editPerfCounter.SelectedPCInstance;
-                txtPerfCounter.Text = editPerfCounter.SelectedPCInstance.Description;
+                PerfCounterCollectorEntry thisEntry = PerfCounterCollectorEntry.FromStringDefinition(txtPerfCounter.Text);
+
+                PerfCounterEdit editPerfCounter = new PerfCounterEdit();
+                editPerfCounter.InitialMachine = thisEntry.Computer;
+                editPerfCounter.InitialCategory = thisEntry.Category;
+                editPerfCounter.InitialCounter = thisEntry.Counter;
+                editPerfCounter.InitialInstance = thisEntry.Instance;
+                editPerfCounter.ConfigVariables = ConfigVariables;
+                if (editPerfCounter.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    SelectedEntry = editPerfCounter.SelectedPCInstance;
+                    txtPerfCounter.Text = editPerfCounter.SelectedPCInstance.Description;
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Edit", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void txtComputerName_TextChanged(object sender, EventArgs e)
@@ -179,13 +185,15 @@ namespace QuickMon.UI
             try
             {
                 PerfCounterCollectorEntry currentEntry = null;
+                string computerName = ApplyConfigVarsOnField(txtComputerName.Text);
+                string perfCounterText = ApplyConfigVarsOnField(txtPerfCounter.Text);
                 if (optCommon.Checked)
                 {
-                    currentEntry = PerfCounterCollectorEntry.FromStringDefinition(txtComputerName.Text + "\\" + cboPerformanceCounter.Text);
+                    currentEntry = PerfCounterCollectorEntry.FromStringDefinition(computerName + "\\" + cboPerformanceCounter.Text);
                 }
                 else
                 {
-                    currentEntry = PerfCounterCollectorEntry.FromStringDefinition(txtPerfCounter.Text);
+                    currentEntry = PerfCounterCollectorEntry.FromStringDefinition(perfCounterText);
                 }
                 if (currentEntry == null || currentEntry.Computer.Length == 0)
                     MessageBox.Show("Performance counter definition could not be created!", "Definition", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

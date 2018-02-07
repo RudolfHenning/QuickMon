@@ -188,7 +188,14 @@ namespace QuickMon.UI
             {
                 Cursor.Current = Cursors.WaitCursor;
                 cboDatabase.Items.Clear();
-                foreach (string dbName in HenIT.Data.SqlClient.GenericSQLServerDAL.GetSQLDatabases(txtServer.Text, chkIntegratedSec.Checked, txtUserName.Text, txtPassword.Text))
+
+                string serverName = ApplyConfigVarsOnField(txtServer.Text);
+                string databaseName = ApplyConfigVarsOnField(cboDatabase.Text);
+                string username = ApplyConfigVarsOnField(txtUserName.Text);
+                string password = ApplyConfigVarsOnField(txtPassword.Text);
+                string connectionString = ApplyConfigVarsOnField(txtConnectionString.Text);
+
+                foreach (string dbName in HenIT.Data.SqlClient.GenericSQLServerDAL.GetSQLDatabases(serverName, chkIntegratedSec.Checked, username, password))
                 {
                     cboDatabase.Items.Add(dbName);
                 }
@@ -249,33 +256,43 @@ namespace QuickMon.UI
             {
                 Cursor.Current = Cursors.WaitCursor;
                 SqlQueryCollectorEntry testEntry = new SqlQueryCollectorEntry();
+
+                string name = ApplyConfigVarsOnField(txtName.Text);
+                string serverName = ApplyConfigVarsOnField(txtServer.Text);
+                string databaseName = ApplyConfigVarsOnField(cboDatabase.Text);
+                string username = ApplyConfigVarsOnField(txtUserName.Text);
+                string password = ApplyConfigVarsOnField(txtPassword.Text);
+                string connectionString = ApplyConfigVarsOnField(txtConnectionString.Text);
+                string applicationName = ApplyConfigVarsOnField(txtApplicationName.Text);
+                string testScript = ApplyConfigVarsOnField(txtStateQuery.Text);
+                string successVal = ApplyConfigVarsOnField(txtGoodValueOrMacro.Text);
+                string warningVal = ApplyConfigVarsOnField(txtWarningValueOrMacro.Text);
+                string errorVal = ApplyConfigVarsOnField(txtErrorValueOrMacro.Text);
+
                 testEntry.Name = txtName.Text;
                 testEntry.DataSourceType = optOLEDb.Checked ? DataSourceType.OLEDB : DataSourceType.SqlServer;
-                testEntry.Server = txtServer.Text;
-                testEntry.Database = cboDatabase.Text;
+                testEntry.Server = serverName;
+                testEntry.Database = databaseName;
                 testEntry.IntegratedSecurity = chkIntegratedSec.Checked;
-                testEntry.UserName = txtUserName.Text;
-                testEntry.Password = txtPassword.Text;
-                testEntry.ConnectionString = txtConnectionString.Text;
+                testEntry.UserName = username;
+                testEntry.Password = password;
+                testEntry.ConnectionString = connectionString;
 
-                testEntry.ApplicationName = txtApplicationName.Text;
+                testEntry.ApplicationName = applicationName;
                 testEntry.CmndTimeOut = (int)numericUpDownCmndTimeOut.Value;
                 testEntry.UsePersistentConnection = chkUsePersistentConnection.Checked;
 
                 testEntry.UseSPForStateQuery = chkUseSPForState.Checked;
-                testEntry.StateQuery = txtStateQuery.Text;
-
-                //testEntry.UseSPForDetailQuery = chkUseSPForDetail.Checked;
-                //testEntry.DetailQuery = txtDetailQuery.Text;
+                testEntry.StateQuery = testScript;
 
                 testEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                 testEntry.ValueReturnType = (DataBaseQueryValueReturnType)cboReturnType.SelectedIndex;
                 testEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
-                testEntry.GoodValue = txtGoodValueOrMacro.Text;
+                testEntry.GoodValue = successVal;
                 testEntry.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
-                testEntry.WarningValue = txtWarningValueOrMacro.Text;
+                testEntry.WarningValue = warningVal;
                 testEntry.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
-                testEntry.ErrorValue = txtErrorValueOrMacro.Text;
+                testEntry.ErrorValue = errorVal;
 
                 testEntry.OutputValueUnit = cboOutputValueUnit.Text;
 

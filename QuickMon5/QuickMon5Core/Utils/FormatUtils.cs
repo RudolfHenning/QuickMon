@@ -165,5 +165,11 @@ namespace QuickMon
             }
             return value.ToString();
         }
+
+        public static string ReplaceCaseInsensitive(this string str, string from, string to)
+        {
+            str = System.Text.RegularExpressions.Regex.Replace(str, System.Text.RegularExpressions.Regex.Escape(from), to.Replace("$", "$$"), System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            return str;
+        }
     }
 }

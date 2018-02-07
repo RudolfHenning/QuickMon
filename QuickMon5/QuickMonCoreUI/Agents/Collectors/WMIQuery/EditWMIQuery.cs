@@ -22,6 +22,7 @@ namespace QuickMon.UI
         public string MachineName { get; set; }
         public string RootNameSpace { get; set; }
         public string QueryText { get; set; }
+        public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
 
         #region Form events
         private void EditWMIQuery_Load(object sender, EventArgs e)
@@ -112,8 +113,8 @@ namespace QuickMon.UI
                 wmiQueryParser.QueryText = txtQuery.Text;
                 if (wmiQueryParser.IsParsed)
                 {
-
-                    wmiQueryParser.Machines.Add(txtMachine.Text);
+                    string machineName = ApplyConfigVarsOnField(txtMachine.Text);
+                    wmiQueryParser.Machines.Add(machineName);
                     wmiQueryParser.Namespace = cboNamespace.Text;
                     DataSet queryData = wmiQueryParser.RunQuery();
                     StringBuilder sb = new StringBuilder();
@@ -187,7 +188,7 @@ namespace QuickMon.UI
         {
             loading = true;
             try
-            {
+            {                
                 if (txtMachine.Text == null || txtMachine.Text.Length == 0 || txtMachine.Text == ".")
                 {
                     txtMachine.Text = System.Environment.MachineName;
@@ -213,7 +214,8 @@ namespace QuickMon.UI
         }
         private void LoadNameSpaceClasses(string parentPath, bool hideAccessErrors)
         {
-            string strScope = string.Format(@"\\{0}\" + parentPath, txtMachine.Text);
+            string machineName = ApplyConfigVarsOnField(txtMachine.Text);
+            string strScope = string.Format(@"\\{0}\" + parentPath, machineName);
             try
             {
                 ManagementClass nsClass =
@@ -241,9 +243,10 @@ namespace QuickMon.UI
         {
             try
             {
+                string machineName = ApplyConfigVarsOnField(txtMachine.Text);
                 if (cboNamespace.Text != null && cboNamespace.Text.Length > 0)
                 {
-                    string strScope = string.Format(@"\\{0}\" + cboNamespace.Text, txtMachine.Text);
+                    string strScope = string.Format(@"\\{0}\" + cboNamespace.Text, machineName);
                     ManagementObjectSearcher searcher =
                         new ManagementObjectSearcher(
                         new ManagementScope(
@@ -278,13 +281,13 @@ namespace QuickMon.UI
             try
             {
                 lstProperties.Items.Clear();
-                
 
-                if (txtMachine.Text != null && txtMachine.Text.Length > 0 &&
+                string machineName = ApplyConfigVarsOnField(txtMachine.Text);
+                if (machineName != null && machineName.Length > 0 &&
                     cboNamespace.Text != null && cboNamespace.Text.Length > 0 &&
                     cboClass.Text != null && cboClass.Text.Length > 0)
                 {
-                    string strScope = string.Format(@"\\{0}\" + cboNamespace.Text, txtMachine.Text);
+                    string strScope = string.Format(@"\\{0}\" + cboNamespace.Text, machineName);
                     // Gets the property qualifiers.
                     ObjectGetOptions op = new ObjectGetOptions(null, System.TimeSpan.MaxValue, true);
 
@@ -318,7 +321,8 @@ namespace QuickMon.UI
         }
         private void GenerateQuery()
         {
-            if (txtMachine.Text != null && txtMachine.Text.Length > 0 &&
+            string machineName = ApplyConfigVarsOnField(txtMachine.Text);
+            if (machineName != null && machineName.Length > 0 &&
                     cboNamespace.Text != null && cboNamespace.Text.Length > 0 &&
                     cboClass.Text != null && cboClass.Text.Length > 0)
             {
@@ -368,6 +372,28 @@ namespace QuickMon.UI
                     cboNamespace.Text != null && cboNamespace.Text.Length > 0 && 
                     txtQuery.Text.Length > 0); //
                     //cboClass.Text != null && cboClass.Text.Length > 0 &&
+        }
+
+        public string ApplyConfigVarsOnField(string field)
+        {
+            List<ConfigVariable> allConfigVars = new List<ConfigVariable>();
+            //applying its own first
+            foreach (ConfigVariable cv in ConfigVariables)
+            {
+                ConfigVariable existingCV = (from ConfigVariable c in allConfigVars
+                                             where c.FindValue == cv.FindValue
+                                             select c).FirstOrDefault();
+                if (existingCV == null)
+                {
+                    allConfigVars.Add(cv.Clone());
+                }
+            }
+            if (allConfigVars.Count == 0) //adds dummy entry so internal vars also get applied
+            {
+                allConfigVars.Add(new ConfigVariable() { FindValue = DateTime.Now.Millisecond.ToString(), ReplaceValue = DateTime.Now.Millisecond.ToString() });
+            }
+
+            return allConfigVars.ApplyOn(field);
         }
     }
 }

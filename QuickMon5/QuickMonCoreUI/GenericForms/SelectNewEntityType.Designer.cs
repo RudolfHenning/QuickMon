@@ -43,10 +43,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(489, 332);
+            this.cmdCancel.Location = new System.Drawing.Point(412, 332);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 4;
+            this.cmdCancel.TabIndex = 2;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -55,10 +55,10 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(408, 332);
+            this.cmdOK.Location = new System.Drawing.Point(331, 332);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 3;
+            this.cmdOK.TabIndex = 1;
             this.cmdOK.Text = "Select";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -71,7 +71,7 @@
             this.chkShowCustomConfig.Location = new System.Drawing.Point(12, 335);
             this.chkShowCustomConfig.Name = "chkShowCustomConfig";
             this.chkShowCustomConfig.Size = new System.Drawing.Size(218, 17);
-            this.chkShowCustomConfig.TabIndex = 1;
+            this.chkShowCustomConfig.TabIndex = 0;
             this.chkShowCustomConfig.Text = "Show custom config editor after selection";
             this.chkShowCustomConfig.UseVisualStyleBackColor = true;
             // 
@@ -79,10 +79,10 @@
             // 
             this.cmdSkip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSkip.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdSkip.Location = new System.Drawing.Point(327, 332);
+            this.cmdSkip.Location = new System.Drawing.Point(493, 332);
             this.cmdSkip.Name = "cmdSkip";
             this.cmdSkip.Size = new System.Drawing.Size(75, 23);
-            this.cmdSkip.TabIndex = 2;
+            this.cmdSkip.TabIndex = 3;
             this.cmdSkip.Text = "Skip";
             this.cmdSkip.UseVisualStyleBackColor = true;
             this.cmdSkip.Click += new System.EventHandler(this.cmdSkip_Click);

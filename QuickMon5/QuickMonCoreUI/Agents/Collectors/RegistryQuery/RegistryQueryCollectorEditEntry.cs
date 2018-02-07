@@ -12,16 +12,23 @@ using System.Windows.Forms;
 
 namespace QuickMon.UI
 {
-    public partial class RegistryQueryCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
+    public partial class RegistryQueryCollectorEditEntry : CollectorConfigEntryEditWindowBase //Form, ICollectorConfigEntryEditWindow
     {
         public RegistryQueryCollectorEditEntry()
         {
             InitializeComponent();
         }
 
-        #region IEditConfigEntryWindow Members
-        public ICollectorConfigEntry SelectedEntry { get; set; }
-        public QuickMonDialogResult ShowEditEntry()
+        //#region IEditConfigEntryWindow Members
+        //public ICollectorConfigEntry SelectedEntry { get; set; }
+        //public QuickMonDialogResult ShowEditEntry()        {
+            
+        //    return (QuickMonDialogResult)ShowDialog();
+        //}
+        //public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
+        //#endregion
+
+        private void RegistryQueryCollectorEditEntry_Load(object sender, EventArgs e)
         {
             RegistryQueryCollectorConfigEntry selectedEntry = (RegistryQueryCollectorConfigEntry)SelectedEntry;
             if (selectedEntry != null)
@@ -49,10 +56,7 @@ namespace QuickMon.UI
                 cboErrorMatchType.SelectedIndex = (int)selectedEntry.ErrorResultMatchType;
                 cboOutputValueUnit.Text = selectedEntry.OutputValueUnit;
             }
-            return (QuickMonDialogResult)ShowDialog();
         }
-        public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
-        #endregion
 
         #region Input control events
         private void txtPath_Leave(object sender, EventArgs e)
@@ -96,15 +100,6 @@ namespace QuickMon.UI
                 selectedEntry.ExpandEnvironmentNames = chkExpandEnvNames.Checked;
                 selectedEntry.RegistryHive = RegistryQueryCollectorConfigEntry.GetRegistryHiveFromString(cboRegistryHive.Text);
 
-                //if (!chkValueIsANumber.Checked)
-                //{
-                //    selectedEntry.ReturnValueIsNumber = false;
-                //}
-                //else
-                //{
-                //    selectedEntry.ReturnValueIsNumber = true;
-                //}
-
                 selectedEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                 selectedEntry.GoodValue = txtSuccess.Text;
                 selectedEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
@@ -126,34 +121,34 @@ namespace QuickMon.UI
                 {
                     Cursor.Current = Cursors.WaitCursor;
                     RegistryQueryCollectorConfigEntry testQueryInstance = new RegistryQueryCollectorConfigEntry();
-                    testQueryInstance.Name = txtName.Text;
+
+                    string name = ApplyConfigVarsOnField(txtName.Text);
+                    string serverName = ApplyConfigVarsOnField(txtServer.Text);
+                    string pathName = ApplyConfigVarsOnField(txtPath.Text);
+                    string keyName = ApplyConfigVarsOnField(txtKey.Text);
+
+                    string successVal = ApplyConfigVarsOnField(txtSuccess.Text);
+                    string warningVal = ApplyConfigVarsOnField(txtWarning.Text);
+                    string errorVal = ApplyConfigVarsOnField(txtError.Text);
+
+                    testQueryInstance.Name = name;
                     testQueryInstance.UseRemoteServer = chkUseRemoteServer.Checked;
-                    testQueryInstance.Server = txtServer.Text;
-                    testQueryInstance.Path = txtPath.Text;
-                    testQueryInstance.KeyName = txtKey.Text;
+                    testQueryInstance.Server = serverName;
+                    testQueryInstance.Path = pathName;
+                    testQueryInstance.KeyName = keyName;
                     testQueryInstance.ExpandEnvironmentNames = chkExpandEnvNames.Checked;
                     testQueryInstance.RegistryHive = RegistryQueryCollectorConfigEntry.GetRegistryHiveFromString(cboRegistryHive.Text);
 
-                    //if (!chkValueIsANumber.Checked)
-                    //{
-                    //    testQueryInstance.ReturnValueIsNumber = false;
-                    //}
-                    //else
-                    //{
-                    //    testQueryInstance.ReturnValueIsNumber = true;
-                    //}
-
                     testQueryInstance.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
-                    testQueryInstance.GoodValue = txtSuccess.Text;
+                    testQueryInstance.GoodValue = successVal;
                     testQueryInstance.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
-                    testQueryInstance.WarningValue = txtWarning.Text;
+                    testQueryInstance.WarningValue = warningVal;
                     testQueryInstance.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
-                    testQueryInstance.ErrorValue = txtError.Text;
+                    testQueryInstance.ErrorValue = errorVal;
                     testQueryInstance.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
                     testQueryInstance.OutputValueUnit = cboOutputValueUnit.Text;
 
                     object returnValue = null;
-                    //returnValue = testQueryInstance.GetValue();
                     CollectorState state = testQueryInstance.GetCurrentState().State;
                     returnValue = testQueryInstance.CurrentAgentValue;
                     if (state == CollectorState.Good)
@@ -286,5 +281,7 @@ namespace QuickMon.UI
             CheckOKEnabled();
         }
         #endregion
+
+
     }
 }

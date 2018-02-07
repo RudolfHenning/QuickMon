@@ -71,16 +71,22 @@ namespace QuickMon.UI
             {
                 Cursor.Current = Cursors.WaitCursor;
                 PowerShellScriptRunnerEntry testEntry = new PowerShellScriptRunnerEntry();
-                testEntry.Name = txtName.Text;
+
+                string name = ApplyConfigVarsOnField(txtName.Text);
+                string testScript = ApplyConfigVarsOnField(txtScript.Text);
+                string successVal = ApplyConfigVarsOnField(txtSuccess.Text);
+                string warningVal = ApplyConfigVarsOnField(txtWarning.Text);
+                string errorVal = ApplyConfigVarsOnField(txtError.Text);
+
+                testEntry.Name = name;
                 testEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                 //in case the static config vars are used
-                testEntry.TestScript = txtScript.Text;
-                testEntry.TestScript = testEntry.TestScript.Replace("$QMScripts", @"C:\ProgramData\Hen IT\QuickMon 5\Scripts");
-                testEntry.GoodScriptText = txtSuccess.Text;
+                testEntry.TestScript = testScript;
+                testEntry.GoodScriptText = successVal;
                 testEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
-                testEntry.WarningScriptText = txtWarning.Text;
+                testEntry.WarningScriptText = warningVal;
                 testEntry.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
-                testEntry.ErrorScriptText = txtError.Text;
+                testEntry.ErrorScriptText = errorVal;
                 testEntry.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
 
                 string scriptResult = testEntry.RunScript();

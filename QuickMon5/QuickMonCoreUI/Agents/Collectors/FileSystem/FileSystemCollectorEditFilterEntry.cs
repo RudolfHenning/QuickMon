@@ -249,13 +249,18 @@ namespace QuickMon.UI
             try
             {
                 FileSystemDirectoryFilterEntry testEntry = new FileSystemDirectoryFilterEntry();
-                testEntry.DirectoryPath = txtDirectory.Text;
+
+                string directoryName = ApplyConfigVarsOnField(txtDirectory.Text);
+                string filterText = ApplyConfigVarsOnField(txtFilter.Text);
+                string containText = ApplyConfigVarsOnField(txtContains.Text);
+
+                testEntry.DirectoryPath = directoryName;
                 testEntry.DirectoryExistOnly = optDirectoryExistOnly.Checked;
-                testEntry.FileFilter = txtFilter.Text;
+                testEntry.FileFilter = filterText;
                 testEntry.IncludeSubDirectories = chkIncludeSubDirs.Checked;
                 testEntry.FilesExistOnly = optCheckIfFilesExistOnly.Checked;
                 testEntry.ErrorOnFilesExist = optErrorOnFilesExist.Checked;
-                testEntry.ContainsText = txtContains.Text;
+                testEntry.ContainsText = containText;
                 testEntry.UseRegEx = chkUseRegEx.Checked;
                 testEntry.FindTextInLastXLines = Convert.ToInt32(nudFindTextInLastXLines.Value);
                 testEntry.CountWarningIndicator = Convert.ToInt32(numericUpDownCountWarningIndicator.Value);

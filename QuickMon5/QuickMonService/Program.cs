@@ -224,19 +224,7 @@ namespace QuickMon
                 {
                     System.Diagnostics.Trace.WriteLine(ex.ToString());
                 }
-
-                try
-                {
-                    System.ServiceProcess.ServiceController firewallSrvs = new System.ServiceProcess.ServiceController("Windows Firewall");
-                    if (firewallSrvs.Status == System.ServiceProcess.ServiceControllerStatus.Running)
-                    {
-                        firewallSrvs.Stop();
-                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
-                        firewallSrvs.Start();
-                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
-                    }
-                }
-                catch { }
+                System.Diagnostics.EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("QuickMon 5 firewall rule (QuickMon 5 Remote Host) has been added. You might have to restart the firewall service for the change to take effect"), System.Diagnostics.EventLogEntryType.Warning, 0);
             }
             catch (Exception ex)
             {

@@ -60,41 +60,41 @@ namespace QuickMon.UI
 
         private PingCollectorHostEntry HostEntry { get; set; }
 
-        public DialogResult ShowHostAddress()
-        {
-            switch (HostEntry.PingType)
-            {
-                case PingCollectorType.HTTP:
-                    cboPingType.SelectedIndex = 1;
-                    break;
-                case PingCollectorType.Socket:
-                    cboPingType.SelectedIndex = 2;
-                    break;
-                default:
-                    cboPingType.SelectedIndex = 0;
-                    break;
-            }
-            txtAddress.Text = HostEntry.Address;
-            txtDescription.Text = HostEntry.DescriptionLocal;
-            nudExpextedTime.Value = HostEntry.MaxTimeMS;
-            nudTimeOut.Value = HostEntry.TimeOutMS;
-            txtHTTPHeaderUsername.Text = HostEntry.HttpHeaderUserName;
-            txtHTTPHeaderPassword.Text = HostEntry.HttpHeaderPassword;
-            txtHttpProxy.Text = HostEntry.HttpProxyServer;
-            txtProxyUsername.Text = HostEntry.HttpProxyUserName;
-            txtProxyPassword.Text = HostEntry.HttpProxyPassword;
-            txtHTMLContent.Text = HostEntry.HTMLContentContain;
-            chkIgnoreInvalidHTTPSCerts.Checked = HostEntry.IgnoreInvalidHTTPSCerts;
-            nudPortNumber.Value = HostEntry.SocketPort;
-            nudReceiveTimeout.Value = HostEntry.ReceiveTimeOutMS;
-            nudSendTimeout.Value = HostEntry.SendTimeOutMS;
-            chkUseTelNetLogin.Checked = HostEntry.UseTelnetLogin;
-            txtUserName.Text = HostEntry.TelnetUserName;
-            txtPassword.Text = HostEntry.TelnetPassword;
-            txtSocketPingMsgBody.Text = HostEntry.SocketPingMsgBody;
-            CheckOkEnabled();
-            return ShowDialog();
-        }
+        //public DialogResult ShowHostAddress()
+        //{
+        //    switch (HostEntry.PingType)
+        //    {
+        //        case PingCollectorType.HTTP:
+        //            cboPingType.SelectedIndex = 1;
+        //            break;
+        //        case PingCollectorType.Socket:
+        //            cboPingType.SelectedIndex = 2;
+        //            break;
+        //        default:
+        //            cboPingType.SelectedIndex = 0;
+        //            break;
+        //    }
+        //    txtAddress.Text = HostEntry.Address;
+        //    txtDescription.Text = HostEntry.DescriptionLocal;
+        //    nudExpextedTime.Value = HostEntry.MaxTimeMS;
+        //    nudTimeOut.Value = HostEntry.TimeOutMS;
+        //    txtHTTPHeaderUsername.Text = HostEntry.HttpHeaderUserName;
+        //    txtHTTPHeaderPassword.Text = HostEntry.HttpHeaderPassword;
+        //    txtHttpProxy.Text = HostEntry.HttpProxyServer;
+        //    txtProxyUsername.Text = HostEntry.HttpProxyUserName;
+        //    txtProxyPassword.Text = HostEntry.HttpProxyPassword;
+        //    txtHTMLContent.Text = HostEntry.HTMLContentContain;
+        //    chkIgnoreInvalidHTTPSCerts.Checked = HostEntry.IgnoreInvalidHTTPSCerts;
+        //    nudPortNumber.Value = HostEntry.SocketPort;
+        //    nudReceiveTimeout.Value = HostEntry.ReceiveTimeOutMS;
+        //    nudSendTimeout.Value = HostEntry.SendTimeOutMS;
+        //    chkUseTelNetLogin.Checked = HostEntry.UseTelnetLogin;
+        //    txtUserName.Text = HostEntry.TelnetUserName;
+        //    txtPassword.Text = HostEntry.TelnetPassword;
+        //    txtSocketPingMsgBody.Text = HostEntry.SocketPingMsgBody;
+        //    CheckOkEnabled();
+        //    return ShowDialog();
+        //}
         private void PingCollectorEditHostAddress_Load(object sender, EventArgs e)
         {
             if (SelectedEntry == null)
@@ -184,25 +184,35 @@ namespace QuickMon.UI
                 tmpPingCollectorHostEntry.PingType = PingCollectorType.Ping;
 
             string address = ApplyConfigVarsOnField(txtAddress.Text);
+            string description = ApplyConfigVarsOnField(txtDescription.Text);
+            string httpHeaderUserName = ApplyConfigVarsOnField(txtHTTPHeaderUsername.Text);
+            string httpHeaderPassword = ApplyConfigVarsOnField(txtHTTPHeaderPassword.Text);
+            string httpProxyServer = ApplyConfigVarsOnField(txtHttpProxy.Text);
+            string httpProxyUserName = ApplyConfigVarsOnField(txtProxyUsername.Text);
+            string httpProxyPassword = ApplyConfigVarsOnField(txtProxyPassword.Text);
+            string htmlContentContain = ApplyConfigVarsOnField(txtHTMLContent.Text);
+            string telnetUserName = ApplyConfigVarsOnField(txtUserName.Text);
+            string telnetPassword = ApplyConfigVarsOnField(txtPassword.Text);
+            string socketPingMsgBody = ApplyConfigVarsOnField(txtSocketPingMsgBody.Text);
 
             tmpPingCollectorHostEntry.Address = address;
-            tmpPingCollectorHostEntry.DescriptionLocal = txtDescription.Text;
+            tmpPingCollectorHostEntry.DescriptionLocal = description;
             tmpPingCollectorHostEntry.MaxTimeMS = Convert.ToInt32(nudExpextedTime.Value);
             tmpPingCollectorHostEntry.TimeOutMS = Convert.ToInt32(nudTimeOut.Value);
-            tmpPingCollectorHostEntry.HttpHeaderUserName = txtHTTPHeaderUsername.Text;
-            tmpPingCollectorHostEntry.HttpHeaderPassword = txtHTTPHeaderPassword.Text;
-            tmpPingCollectorHostEntry.HttpProxyServer = txtHttpProxy.Text;
-            tmpPingCollectorHostEntry.HttpProxyUserName = txtProxyUsername.Text;
-            tmpPingCollectorHostEntry.HttpProxyPassword = txtProxyPassword.Text;
-            tmpPingCollectorHostEntry.HTMLContentContain = txtHTMLContent.Text;
+            tmpPingCollectorHostEntry.HttpHeaderUserName = httpHeaderUserName;
+            tmpPingCollectorHostEntry.HttpHeaderPassword = httpHeaderPassword;
+            tmpPingCollectorHostEntry.HttpProxyServer = httpProxyServer;
+            tmpPingCollectorHostEntry.HttpProxyUserName = httpProxyUserName;
+            tmpPingCollectorHostEntry.HttpProxyPassword = httpProxyPassword;
+            tmpPingCollectorHostEntry.HTMLContentContain = htmlContentContain;
             tmpPingCollectorHostEntry.IgnoreInvalidHTTPSCerts = chkIgnoreInvalidHTTPSCerts.Checked;
             tmpPingCollectorHostEntry.SocketPort = (int)nudPortNumber.Value;
             tmpPingCollectorHostEntry.ReceiveTimeOutMS = (int)nudReceiveTimeout.Value;
             tmpPingCollectorHostEntry.SendTimeOutMS = (int)nudSendTimeout.Value;
             tmpPingCollectorHostEntry.UseTelnetLogin = chkUseTelNetLogin.Checked;
-            tmpPingCollectorHostEntry.TelnetUserName = txtUserName.Text;
-            tmpPingCollectorHostEntry.TelnetPassword = txtPassword.Text;
-            tmpPingCollectorHostEntry.SocketPingMsgBody = txtSocketPingMsgBody.Text;
+            tmpPingCollectorHostEntry.TelnetUserName = telnetUserName;
+            tmpPingCollectorHostEntry.TelnetPassword = telnetPassword;
+            tmpPingCollectorHostEntry.SocketPingMsgBody = socketPingMsgBody;
 
             result = tmpPingCollectorHostEntry.GetCurrentState();            
             return result;

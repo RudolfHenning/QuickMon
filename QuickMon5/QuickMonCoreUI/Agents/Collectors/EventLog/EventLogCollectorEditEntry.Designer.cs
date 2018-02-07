@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EventLogCollectorEditEntry));
             this.containsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optTextStartWith = new System.Windows.Forms.RadioButton();
-            this.contextMenuStripQuickFind = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStripQuickFind = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblSecWarning = new System.Windows.Forms.Label();
             this.pictureBoxSecWarning = new System.Windows.Forms.PictureBox();
@@ -40,12 +41,12 @@
             this.optTextContains = new System.Windows.Forms.RadioButton();
             this.txtSourceQuickFind = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.timerQuickFind = new System.Windows.Forms.Timer();
+            this.timerQuickFind = new System.Windows.Forms.Timer(this.components);
             this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownWithLastMinutes = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownError = new System.Windows.Forms.NumericUpDown();
-            this.timerSourcesSelected = new System.Windows.Forms.Timer();
+            this.timerSourcesSelected = new System.Windows.Forms.Timer(this.components);
             this.numericUpDownWarning = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -56,7 +57,7 @@
             this.txtText = new System.Windows.Forms.TextBox();
             this.cmdEditEventIds = new System.Windows.Forms.Button();
             this.lvwSources = new System.Windows.Forms.ListView();
-            this.contextMenuStripSourceList = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStripSourceList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.checkSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uncheckSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +75,8 @@
             this.txtComputer = new System.Windows.Forms.TextBox();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.contextMenuStripQuickFind.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecWarning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWithLastMinutes)).BeginInit();
@@ -597,6 +600,10 @@
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
             // EventLogCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -706,5 +713,7 @@
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.RadioButton optUseRegEx;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

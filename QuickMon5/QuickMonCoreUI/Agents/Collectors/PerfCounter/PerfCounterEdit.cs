@@ -24,6 +24,7 @@ namespace QuickMon.Collectors
         public string InitialCategory { get; set; }
         public string InitialCounter { get; set; }
         public string InitialInstance { get; set; }
+        public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
         #endregion
 
         #region Form events
@@ -60,8 +61,9 @@ namespace QuickMon.Collectors
                     lvwCounters.Items.Clear();
                     lvwInstances.Items.Clear();
                     string category = lvwCategories.SelectedItems[0].Text;
+                    string machineName = ConfigVariables.ApplyOn(txtComputer.Text);
 
-                    PerformanceCounterCategory pcCat = new PerformanceCounterCategory(category, txtComputer.Text);
+                    PerformanceCounterCategory pcCat = new PerformanceCounterCategory(category, machineName);
                     string instanceName = "";
                     if (pcCat.CategoryType == PerformanceCounterCategoryType.MultiInstance)
                     {
@@ -115,7 +117,7 @@ namespace QuickMon.Collectors
 
         #region Button events
         private void cmdLoadCategories_Click(object sender, EventArgs e)
-        {
+        {            
             LoadCategories(txtComputer.Text);
         }
         private void cmdOK_Click(object sender, EventArgs e)
@@ -143,6 +145,7 @@ namespace QuickMon.Collectors
         private void LoadCategories(string machineName)
         {
             Cursor.Current = Cursors.WaitCursor;
+            machineName = ConfigVariables.ApplyOn(machineName);
             lvwCategories.Items.Clear();
             try
             {

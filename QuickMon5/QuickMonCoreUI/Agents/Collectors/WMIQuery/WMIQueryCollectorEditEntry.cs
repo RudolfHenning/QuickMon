@@ -91,31 +91,32 @@ namespace QuickMon.UI
             if (DoValidate())
             {
                 string lastStep = "Initialize values";
-                //string columnWarningText = "";
                 try
                 {
                     WMIQueryCollectorConfigEntry tmpWMIConfig = new WMIQueryCollectorConfigEntry();
-                    tmpWMIConfig.Name = txtName.Text;
-                    tmpWMIConfig.Namespace = txtNamespace.Text;
-                    tmpWMIConfig.Machinename = txtMachines.Text;
-                    tmpWMIConfig.StateQuery = txtStateQuery.Text;
 
-                    //tmpWMIConfig.ReturnValueIsInt = chkIsReturnValueInt.Checked;
-                    //tmpWMIConfig.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
+                    string name = ApplyConfigVarsOnField(txtName.Text);
+                    string namespaceName = ApplyConfigVarsOnField(txtNamespace.Text);
+                    string machineName = ApplyConfigVarsOnField(txtMachines.Text);
+                    string testScript = ApplyConfigVarsOnField(txtStateQuery.Text);
+                    string successVal = ApplyConfigVarsOnField(txtSuccess.Text);
+                    string warningVal = ApplyConfigVarsOnField(txtWarning.Text);
+                    string errorVal = ApplyConfigVarsOnField(txtError.Text);
+
+                    tmpWMIConfig.Name = name;
+                    tmpWMIConfig.Namespace = namespaceName;
+                    tmpWMIConfig.Machinename = machineName;
+                    tmpWMIConfig.StateQuery = testScript;
+
                     tmpWMIConfig.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
                     tmpWMIConfig.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
-                    tmpWMIConfig.GoodValue = txtSuccess.Text;
+                    tmpWMIConfig.GoodValue = successVal;
                     tmpWMIConfig.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
-                    tmpWMIConfig.WarningValue = txtWarning.Text;
+                    tmpWMIConfig.WarningValue = warningVal;
                     tmpWMIConfig.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
-                    tmpWMIConfig.ErrorValue = txtError.Text;
+                    tmpWMIConfig.ErrorValue = errorVal;
                     tmpWMIConfig.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
-
-                    //tmpWMIConfig.DetailQuery = txtDetailQuery.Text;
-                    //tmpWMIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
                     tmpWMIConfig.OutputValueUnit = cboOutputValueUnit.Text;
-
-                    //tmpWMIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
 
                     lastStep = "Run GetCurrentState";
                     MonitorState testState = tmpWMIConfig.GetCurrentState();
@@ -170,8 +171,6 @@ namespace QuickMon.UI
                 selectedEntry.Namespace = txtNamespace.Text;
                 selectedEntry.Machinename = txtMachines.Text;
                 selectedEntry.StateQuery = txtStateQuery.Text;
-                //selectedEntry.ReturnValueIsInt = chkIsReturnValueInt.Checked;
-                //selectedEntry.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
                 selectedEntry.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
                 selectedEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                 selectedEntry.GoodValue = txtSuccess.Text;
@@ -180,12 +179,9 @@ namespace QuickMon.UI
                 selectedEntry.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
                 selectedEntry.ErrorValue = txtError.Text;
                 selectedEntry.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
-                //selectedEntry.DetailQuery = txtDetailQuery.Text;
-                //selectedEntry.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
                 selectedEntry.OutputValueUnit = cboOutputValueUnit.Text;
 
                 SelectedEntry = selectedEntry;
-                //WmiIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
@@ -196,6 +192,7 @@ namespace QuickMon.UI
             editWMIQuery.MachineName = txtMachines.Text;
             editWMIQuery.RootNameSpace = txtNamespace.Text;
             editWMIQuery.QueryText = txtStateQuery.Text;
+            editWMIQuery.ConfigVariables = ConfigVariables;
             if (editWMIQuery.ShowDialog() == DialogResult.OK)
             {
                 txtMachines.Text = editWMIQuery.MachineName;

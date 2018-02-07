@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistryQueryCollectorEditEntry));
             this.chkExpandEnvNames = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,13 +48,13 @@
             this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
             this.errorGroupBox = new System.Windows.Forms.GroupBox();
             this.cboErrorMatchType = new System.Windows.Forms.ComboBox();
-            this.txtError = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtError = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.warningGroupBox = new System.Windows.Forms.GroupBox();
             this.cboWarningMatchType = new System.Windows.Forms.ComboBox();
-            this.txtWarning = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtWarning = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.successGroupBox = new System.Windows.Forms.GroupBox();
             this.cboSuccessMatchType = new System.Windows.Forms.ComboBox();
-            this.txtSuccess = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtSuccess = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -486,6 +487,7 @@
             this.Name = "RegistryQueryCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registry Query";
+            this.Load += new System.EventHandler(this.RegistryQueryCollectorEditEntry_Load);
             this.sequenceGroupBox.ResumeLayout(false);
             this.errorGroupBox.ResumeLayout(false);
             this.errorGroupBox.PerformLayout();

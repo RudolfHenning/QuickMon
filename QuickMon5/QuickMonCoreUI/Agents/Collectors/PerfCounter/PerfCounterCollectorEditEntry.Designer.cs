@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PerfCounterCollectorEditEntry));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkInverseScale = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.nudValueScale = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.nudMultiSampleWaitMS = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
@@ -57,17 +60,14 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.nudValueScale = new System.Windows.Forms.NumericUpDown();
-            this.chkInverseScale = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudValueScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMultiSampleWaitMS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumberOfSamplesPerRefresh)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudValueScale)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -100,6 +100,49 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Performance counter definition";
+            // 
+            // chkInverseScale
+            // 
+            this.chkInverseScale.AutoSize = true;
+            this.chkInverseScale.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkInverseScale.Location = new System.Drawing.Point(277, 171);
+            this.chkInverseScale.Name = "chkInverseScale";
+            this.chkInverseScale.Size = new System.Drawing.Size(103, 17);
+            this.chkInverseScale.TabIndex = 19;
+            this.chkInverseScale.Text = "Inverse (x/scale)";
+            this.chkInverseScale.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label11.Location = new System.Drawing.Point(6, 172);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(94, 13);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "Value Scale factor";
+            // 
+            // nudValueScale
+            // 
+            this.nudValueScale.Location = new System.Drawing.Point(164, 170);
+            this.nudValueScale.Maximum = new decimal(new int[] {
+            -1,
+            2147483647,
+            0,
+            0});
+            this.nudValueScale.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudValueScale.Name = "nudValueScale";
+            this.nudValueScale.Size = new System.Drawing.Size(107, 20);
+            this.nudValueScale.TabIndex = 18;
+            this.nudValueScale.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label10
             // 
@@ -213,7 +256,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPerfCounter.Location = new System.Drawing.Point(164, 116);
             this.txtPerfCounter.Name = "txtPerfCounter";
-            this.txtPerfCounter.ReadOnly = true;
             this.txtPerfCounter.Size = new System.Drawing.Size(303, 20);
             this.txtPerfCounter.TabIndex = 7;
             this.txtPerfCounter.TextChanged += new System.EventHandler(this.txtPerfCounter_TextChanged);
@@ -431,49 +473,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Output unit";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label11.Location = new System.Drawing.Point(6, 172);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(94, 13);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "Value Scale factor";
-            // 
-            // nudValueScale
-            // 
-            this.nudValueScale.Location = new System.Drawing.Point(164, 170);
-            this.nudValueScale.Maximum = new decimal(new int[] {
-            -1,
-            2147483647,
-            0,
-            0});
-            this.nudValueScale.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudValueScale.Name = "nudValueScale";
-            this.nudValueScale.Size = new System.Drawing.Size(107, 20);
-            this.nudValueScale.TabIndex = 18;
-            this.nudValueScale.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // chkInverseScale
-            // 
-            this.chkInverseScale.AutoSize = true;
-            this.chkInverseScale.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkInverseScale.Location = new System.Drawing.Point(277, 171);
-            this.chkInverseScale.Name = "chkInverseScale";
-            this.chkInverseScale.Size = new System.Drawing.Size(103, 17);
-            this.chkInverseScale.TabIndex = 19;
-            this.chkInverseScale.Text = "Inverse (x/scale)";
-            this.chkInverseScale.UseVisualStyleBackColor = true;
-            // 
             // PerfCounterCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -495,6 +494,7 @@
             this.Load += new System.EventHandler(this.PerfCounterCollectorEditEntry_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudValueScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMultiSampleWaitMS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumberOfSamplesPerRefresh)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -503,7 +503,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudValueScale)).EndInit();
             this.ResumeLayout(false);
 
         }

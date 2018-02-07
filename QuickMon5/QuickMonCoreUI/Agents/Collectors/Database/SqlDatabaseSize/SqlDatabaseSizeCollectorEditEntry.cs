@@ -53,17 +53,20 @@ namespace QuickMon.UI
         {
             try
             {
-                if (txtServer.Text.Trim().Length > 0)
+                string serverName = ApplyConfigVarsOnField(txtServer.Text);
+                string username = ApplyConfigVarsOnField(txtUserName.Text);
+                string password = ApplyConfigVarsOnField(txtPassword.Text);
+                if (serverName.Trim().Length > 0)
                 {
                     Cursor.Current = Cursors.WaitCursor;
                     cboDatabase.Items.Clear();
                     GenericSQLServerDAL dal = new GenericSQLServerDAL();
-                    dal.Server = txtServer.Text;
+                    dal.Server = serverName;
                     dal.Database = "master";
                     if (!chkIntegratedSec.Checked)
                     {
-                        dal.UserName = txtUserName.Text;
-                        dal.Password = txtPassword.Text;
+                        dal.UserName = username;
+                        dal.Password = password;
                     }
                     dal.SetConnection();
                     DataSet tables = dal.GetDataSet("select name as DatabaseName From sysdatabases where dbid > 4 order by name", CommandType.Text);
@@ -96,11 +99,17 @@ namespace QuickMon.UI
             try
             {
                 SqlDatabaseSizeCollectorEntry test = new SqlDatabaseSizeCollectorEntry();
-                test.SqlServer = txtServer.Text;
-                test.Database = cboDatabase.Text;
+
+                string serverName = ApplyConfigVarsOnField(txtServer.Text);
+                string databaseName = ApplyConfigVarsOnField(cboDatabase.Text);
+                string username = ApplyConfigVarsOnField(txtUserName.Text);
+                string password = ApplyConfigVarsOnField(txtPassword.Text);
+                
+                test.SqlServer = serverName;
+                test.Database = databaseName;
                 test.IntegratedSecurity = chkIntegratedSec.Checked;
-                test.UserName = txtUserName.Text;
-                test.Password = txtPassword.Text;
+                test.UserName = username;
+                test.Password = password;
                 test.SqlCmndTimeOutSec = (int)numericUpDownCmndTimeOut.Value;
                 test.WarningSizeMB = (int)warningNumericUpDown.Value;
                 test.ErrorSizeMB = (int)errorNumericUpDown.Value;

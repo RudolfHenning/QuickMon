@@ -61,10 +61,23 @@ namespace QuickMon
         }
         public string ApplyOn(string configStr)
         {
-            if (FindValue.Length > 0 && configStr.IndexOf(FindValue) > -1)
-                return configStr.Replace(FindValue, ReplaceValue);
+            string appliedConfig = configStr;
+
+            //FindValue = "$QMScripts", ReplaceValue = @"C:\ProgramData\Hen IT\QuickMon 5\Scripts"
+
+            if (appliedConfig.IndexOf("$QMScripts", StringComparison.CurrentCultureIgnoreCase) > -1)
+                appliedConfig = appliedConfig.ReplaceCaseInsensitive("$QMScripts", @"C:\ProgramData\Hen IT\QuickMon 5\Scripts");
+            if (appliedConfig.IndexOf("%LocalHost%", StringComparison.CurrentCultureIgnoreCase) > -1)
+                appliedConfig = appliedConfig.ReplaceCaseInsensitive("%LocalHost%", System.Net.Dns.GetHostName());
+            if (appliedConfig.IndexOf("%CurrentDate%", StringComparison.CurrentCultureIgnoreCase) > -1)
+                appliedConfig = appliedConfig.ReplaceCaseInsensitive("%CurrentDate%", DateTime.Now.ToShortDateString());
+            if (appliedConfig.IndexOf("%CurrentTime%", StringComparison.CurrentCultureIgnoreCase) > -1)
+                appliedConfig = appliedConfig.ReplaceCaseInsensitive("%CurrentTime%", DateTime.Now.ToLongTimeString());
+
+            if (FindValue.Length > 0 && appliedConfig.IndexOf(FindValue, StringComparison.CurrentCultureIgnoreCase) > -1)
+                return appliedConfig.ReplaceCaseInsensitive(FindValue, ReplaceValue);
             else
-                return configStr;
+                return appliedConfig;
         }
     }
     public static class ConfigVariables
@@ -72,11 +85,41 @@ namespace QuickMon
         public static string ApplyOn(this List<ConfigVariable> configVars, string configStr)
         {
             string appliedConfig = configStr;
-            if (configVars != null)
-                foreach (ConfigVariable cv in configVars)
-                    appliedConfig = cv.ApplyOn(appliedConfig);
-            if (appliedConfig.IndexOf("%LocalHost%", StringComparison.CurrentCultureIgnoreCase) > -1)
-                appliedConfig = appliedConfig.Replace("%LocalHost%", System.Net.Dns.GetHostName());
+
+            List<ConfigVariable> uniqueConfigVars = new List<ConfigVariable>();
+
+            if (configVars == null)
+            {
+                configVars = new List<ConfigVariable>();
+            }
+            foreach (ConfigVariable cv in configVars)
+            {
+                ConfigVariable existingCV = (from ConfigVariable c in uniqueConfigVars
+                                             where c.FindValue == cv.FindValue
+                                             select c).FirstOrDefault();
+                if (existingCV == null)
+                {
+                    uniqueConfigVars.Add(cv.Clone());
+                }
+            }
+            if (uniqueConfigVars.Count == 0) //adds dummy entry so internal vars also get applied
+            {
+                uniqueConfigVars.Add(new ConfigVariable() { FindValue = DateTime.Now.Millisecond.ToString(), ReplaceValue = DateTime.Now.Millisecond.ToString() });
+            }
+            foreach (ConfigVariable cv in uniqueConfigVars)
+                appliedConfig = cv.ApplyOn(appliedConfig);
+
+            //if (configVars != null)
+            //{
+            //    if (configVars.Count == 0) //adds dummy entry so internal vars also get applied
+            //    {
+            //        configVars.Add(new ConfigVariable() { FindValue = DateTime.Now.Millisecond.ToString(), ReplaceValue = DateTime.Now.Millisecond.ToString() });
+            //    }
+            //    foreach (ConfigVariable cv in configVars)
+            //        appliedConfig = cv.ApplyOn(appliedConfig);
+            //}
+            //if (appliedConfig.IndexOf("%LocalHost%", StringComparison.CurrentCultureIgnoreCase) > -1)
+            //    appliedConfig = appliedConfig.Replace("%LocalHost%", System.Net.Dns.GetHostName());
             return appliedConfig;
         }
     }

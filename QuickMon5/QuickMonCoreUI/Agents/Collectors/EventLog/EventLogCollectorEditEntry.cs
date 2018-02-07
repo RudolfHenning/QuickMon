@@ -84,8 +84,10 @@ namespace QuickMon.UI
                 }
                 else
                     lblSourceCount.Text += "All";
+                if (!backgroundWorker1.IsBusy)
+                    backgroundWorker1.RunWorkerAsync();
             }
-            catch
+            catch(Exception ex)
             {
                 lblSourceCount.Text = "Err";
             }
@@ -237,6 +239,7 @@ namespace QuickMon.UI
                 {
                     hostName = System.Net.Dns.GetHostName();
                 }
+                hostName = ApplyConfigVarsOnField(hostName);
 
                 if (System.Net.Dns.GetHostAddresses(hostName).Length == 0)
                     return;
@@ -249,7 +252,7 @@ namespace QuickMon.UI
                 if (SelectedEntry != null)
                     selectedEntry = (EventLogCollectorEntry)SelectedEntry;
                 else
-                    selectedEntry = (EventLogCollectorEntry)SelectedEventLogEntry;
+                    selectedEntry = SelectedEventLogEntry;
 
                 if (selectedEntry.EventLog != null)
                     cboLog.SelectedItem = selectedEntry.EventLog;
@@ -279,6 +282,7 @@ namespace QuickMon.UI
                     {
                         hostName = System.Net.Dns.GetHostName();
                     }
+                    hostName = ApplyConfigVarsOnField(hostName);
 
                     List<ListViewItem> sources = new List<ListViewItem>();
                     lvwSources.BeginUpdate();
@@ -291,6 +295,7 @@ namespace QuickMon.UI
                         sources.Add(lvi);
                     }
                     lvwSources.Items.AddRange(sources.ToArray());
+                    updateCheckedSources();
                 }
                 catch (System.Security.SecurityException)
                 {
@@ -397,6 +402,35 @@ namespace QuickMon.UI
             CheckOkEnabled();
         }
 
+        private void updateCheckedSources()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Checked:");
+            if (lvwSources.CheckedItems != null && lvwSources.CheckedItems.Count > 0)
+            {
+                foreach(ListViewItem lvi in lvwSources.CheckedItems)
+                {
+                    sb.AppendLine("  " + lvi.Text);
+                }
+            }
+            else
+                sb.AppendLine("  None");
 
+            toolTip1.SetToolTip(lblSourceCount, sb.ToString());
+        }
+
+        private DateTime lastCheckUpdate = DateTime.Now;
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (DateTime.Now.Subtract(lastCheckUpdate).TotalMilliseconds > 200)
+            {                
+                this.Invoke((MethodInvoker)delegate
+                {
+                    System.Threading.Thread.Sleep(200);
+                    lastCheckUpdate = DateTime.Now;
+                    updateCheckedSources();
+                });
+            }
+        }
     }
 }
