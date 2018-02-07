@@ -121,6 +121,15 @@ namespace QuickMon.UI
         {
             try
             {
+                SSHConnectionDetails sshConnection = sshConnectionDetails.Clone();
+                sshConnection.ComputerName = ApplyConfigVarsOnField(sshConnection.ComputerName);
+                sshConnection.UserName = ApplyConfigVarsOnField(sshConnection.UserName);
+                sshConnection.Password = ApplyConfigVarsOnField(sshConnection.Password);
+                sshConnection.PrivateKeyFile = ApplyConfigVarsOnField(sshConnection.PrivateKeyFile);
+                sshConnection.PassPhrase = ApplyConfigVarsOnField(sshConnection.PassPhrase);
+                sshConnection.ConnectionName = ApplyConfigVarsOnField(sshConnection.ConnectionName);
+                sshConnection.ConnectionString = ApplyConfigVarsOnField(sshConnection.ConnectionString);
+
                 if (lvwDisks.Items.Count > 0 && (MessageBox.Show("Clear all existing entries?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No))
                 {
                     return;
@@ -128,10 +137,10 @@ namespace QuickMon.UI
                 else
                 {
                     lvwDisks.Items.Clear();
-                    lvwDisks.Items.Add(new ListViewItem("Querying " + sshConnectionDetails.ComputerName + "..."));
+                    lvwDisks.Items.Add(new ListViewItem("Querying " + sshConnection.ComputerName + "..."));
                     Application.DoEvents();
                 }
-                Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(sshConnectionDetails);
+                Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(sshConnection);
                 if (sshClient.IsConnected)
                 {
                     lvwDisks.Items.Clear();
@@ -184,6 +193,7 @@ namespace QuickMon.UI
         {
             EditSSHConnection editor = new Collectors.EditSSHConnection();
             editor.SSHConnectionDetails = sshConnectionDetails;
+            editor.ConfigVariables = ConfigVariables;
             if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 sshConnectionDetails = editor.SSHConnectionDetails;

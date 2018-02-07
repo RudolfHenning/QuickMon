@@ -31,3 +31,4 @@ Version 5.0.4
 *************
 Removed automatic restart of firewall service after rule was added. Causing problems on RDP sessions/VMs.
 Config variables are now applied when in edit mode for some collector agents e.g. PowerShell.
+Some SSH agent edit windows are now resizable.

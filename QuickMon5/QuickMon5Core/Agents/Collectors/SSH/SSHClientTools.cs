@@ -43,6 +43,7 @@ namespace QuickMon.SSH
         public string ConnectionName { get; set; }
         public bool UseConnectionString { get; set; }
         public string ConnectionString { get; set; }
+
         private Renci.SshNet.SshClient currentConnection = null;
 
         public static string FormatSSHConnection(SSHConnectionDetails connection)
@@ -317,6 +318,23 @@ namespace QuickMon.SSH
                 currentConnection.Disconnect();
                 currentConnection = null;
             }
+        }
+
+        public SSHConnectionDetails Clone()
+        {
+            SSHConnectionDetails clone = new SSHConnectionDetails();
+            clone.SSHSecurityOption = SSHSecurityOption;
+            clone.ComputerName = ComputerName;
+            clone.SSHPort = SSHPort;
+            clone.UserName = UserName;
+            clone.Password = Password;
+            clone.PrivateKeyFile = PrivateKeyFile;
+            clone.PassPhrase = PassPhrase;
+            clone.Persistent = Persistent;
+            clone.ConnectionName = ConnectionName;
+            clone.UseConnectionString = UseConnectionString;
+            clone.ConnectionString = ConnectionString;
+            return clone;
         }
     }
 

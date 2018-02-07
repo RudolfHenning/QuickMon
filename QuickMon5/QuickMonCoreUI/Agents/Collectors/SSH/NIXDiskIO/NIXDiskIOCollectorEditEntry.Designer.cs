@@ -60,7 +60,7 @@
             this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEditSSHConnection.AutoSize = true;
             this.lblEditSSHConnection.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblEditSSHConnection.Location = new System.Drawing.Point(397, 9);
+            this.lblEditSSHConnection.Location = new System.Drawing.Point(409, 9);
             this.lblEditSSHConnection.Name = "lblEditSSHConnection";
             this.lblEditSSHConnection.Size = new System.Drawing.Size(25, 13);
             this.lblEditSSHConnection.TabIndex = 42;
@@ -77,7 +77,7 @@
             this.txtSSHConnection.Multiline = true;
             this.txtSSHConnection.Name = "txtSSHConnection";
             this.txtSSHConnection.ReadOnly = true;
-            this.txtSSHConnection.Size = new System.Drawing.Size(410, 45);
+            this.txtSSHConnection.Size = new System.Drawing.Size(422, 45);
             this.txtSSHConnection.TabIndex = 41;
             this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
             // 
@@ -94,7 +94,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(266, 255);
+            this.cmdOK.Location = new System.Drawing.Point(278, 253);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 38;
@@ -107,7 +107,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(347, 255);
+            this.cmdCancel.Location = new System.Drawing.Point(359, 253);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 39;
@@ -119,7 +119,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label4.Location = new System.Drawing.Point(368, 148);
+            this.label4.Location = new System.Drawing.Point(368, 146);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 11;
@@ -145,7 +145,7 @@
             this.groupBox6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupBox6.Location = new System.Drawing.Point(12, 76);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(410, 172);
+            this.groupBox6.Size = new System.Drawing.Size(422, 170);
             this.groupBox6.TabIndex = 37;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Alert triggering";
@@ -155,7 +155,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label3.Location = new System.Drawing.Point(209, 148);
+            this.label3.Location = new System.Drawing.Point(209, 146);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 10;
@@ -166,7 +166,7 @@
             this.lblAutoAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAutoAdd.AutoSize = true;
             this.lblAutoAdd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblAutoAdd.Location = new System.Drawing.Point(354, 16);
+            this.lblAutoAdd.Location = new System.Drawing.Point(366, 16);
             this.lblAutoAdd.Name = "lblAutoAdd";
             this.lblAutoAdd.Size = new System.Drawing.Size(50, 13);
             this.lblAutoAdd.TabIndex = 2;
@@ -179,7 +179,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 122);
+            this.label2.Location = new System.Drawing.Point(5, 120);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(28, 13);
             this.label2.TabIndex = 4;
@@ -189,9 +189,9 @@
             // 
             this.txtDisk.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDisk.Location = new System.Drawing.Point(100, 119);
+            this.txtDisk.Location = new System.Drawing.Point(100, 117);
             this.txtDisk.Name = "txtDisk";
-            this.txtDisk.Size = new System.Drawing.Size(304, 20);
+            this.txtDisk.Size = new System.Drawing.Size(316, 20);
             this.txtDisk.TabIndex = 5;
             this.txtDisk.TextChanged += new System.EventHandler(this.txtDisk_TextChanged);
             // 
@@ -200,7 +200,7 @@
             this.lblAddFileSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAddFileSystem.AutoSize = true;
             this.lblAddFileSystem.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblAddFileSystem.Location = new System.Drawing.Point(293, 16);
+            this.lblAddFileSystem.Location = new System.Drawing.Point(305, 16);
             this.lblAddFileSystem.Name = "lblAddFileSystem";
             this.lblAddFileSystem.Size = new System.Drawing.Size(49, 13);
             this.lblAddFileSystem.TabIndex = 1;
@@ -222,7 +222,7 @@
             this.lvwDisks.FullRowSelect = true;
             this.lvwDisks.Location = new System.Drawing.Point(8, 32);
             this.lvwDisks.Name = "lvwDisks";
-            this.lvwDisks.Size = new System.Drawing.Size(396, 81);
+            this.lvwDisks.Size = new System.Drawing.Size(408, 79);
             this.lvwDisks.TabIndex = 3;
             this.lvwDisks.UseCompatibleStateImageBehavior = false;
             this.lvwDisks.View = System.Windows.Forms.View.Details;
@@ -262,7 +262,7 @@
             0,
             0,
             0});
-            this.errorNumericUpDown.Location = new System.Drawing.Point(277, 146);
+            this.errorNumericUpDown.Location = new System.Drawing.Point(277, 144);
             this.errorNumericUpDown.Maximum = new decimal(new int[] {
             10485760,
             0,
@@ -283,7 +283,7 @@
             this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label22.AutoSize = true;
             this.label22.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label22.Location = new System.Drawing.Point(6, 148);
+            this.label22.Location = new System.Drawing.Point(6, 146);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(47, 13);
             this.label22.TabIndex = 6;
@@ -297,7 +297,7 @@
             0,
             0,
             0});
-            this.warningNumericUpDown.Location = new System.Drawing.Point(100, 146);
+            this.warningNumericUpDown.Location = new System.Drawing.Point(100, 144);
             this.warningNumericUpDown.Maximum = new decimal(new int[] {
             10485760,
             0,
@@ -318,7 +318,7 @@
             this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label23.AutoSize = true;
             this.label23.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label23.Location = new System.Drawing.Point(242, 148);
+            this.label23.Location = new System.Drawing.Point(242, 146);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(29, 13);
             this.label23.TabIndex = 8;
@@ -329,17 +329,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(434, 287);
+            this.ClientSize = new System.Drawing.Size(446, 285);
             this.Controls.Add(this.lblEditSSHConnection);
             this.Controls.Add(this.txtSSHConnection);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.groupBox6);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(462, 324);
             this.Name = "NIXDiskIOCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Disk IO";

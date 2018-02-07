@@ -48,27 +48,27 @@
             this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
             this.errorGroupBox = new System.Windows.Forms.GroupBox();
             this.cboErrorMatchType = new System.Windows.Forms.ComboBox();
-            this.txtError = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtError = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.warningGroupBox = new System.Windows.Forms.GroupBox();
             this.cboWarningMatchType = new System.Windows.Forms.ComboBox();
-            this.txtWarning = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtWarning = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.successGroupBox = new System.Windows.Forms.GroupBox();
             this.cboSuccessMatchType = new System.Windows.Forms.ComboBox();
-            this.txtSuccess = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtSuccess = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.stdCollectorOutputValueMatchesContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nullToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3.SuspendLayout();
             this.sequenceGroupBox.SuspendLayout();
             this.errorGroupBox.SuspendLayout();
@@ -81,7 +81,7 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTest.Location = new System.Drawing.Point(419, 456);
+            this.cmdTest.Location = new System.Drawing.Point(335, 459);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
             this.cmdTest.TabIndex = 11;
@@ -91,8 +91,9 @@
             // 
             // label14
             // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(15, 162);
+            this.label14.Location = new System.Drawing.Point(15, 165);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(91, 13);
             this.label14.TabIndex = 7;
@@ -100,13 +101,14 @@
             // 
             // cboReturnType
             // 
+            this.cboReturnType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboReturnType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboReturnType.FormattingEnabled = true;
             this.cboReturnType.Items.AddRange(new object[] {
             "Returned Text",
             "Line Count",
             "Text Length"});
-            this.cboReturnType.Location = new System.Drawing.Point(147, 159);
+            this.cboReturnType.Location = new System.Drawing.Point(147, 162);
             this.cboReturnType.Name = "cboReturnType";
             this.cboReturnType.Size = new System.Drawing.Size(125, 21);
             this.cboReturnType.TabIndex = 8;
@@ -117,7 +119,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(12, 89);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(644, 20);
+            this.txtName.Size = new System.Drawing.Size(560, 20);
             this.txtName.TabIndex = 4;
             // 
             // label2
@@ -131,11 +133,14 @@
             // 
             // txtCommandText
             // 
-            this.txtCommandText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtCommandText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCommandText.Location = new System.Drawing.Point(12, 131);
+            this.txtCommandText.Multiline = true;
             this.txtCommandText.Name = "txtCommandText";
-            this.txtCommandText.Size = new System.Drawing.Size(644, 20);
+            this.txtCommandText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCommandText.Size = new System.Drawing.Size(560, 25);
             this.txtCommandText.TabIndex = 6;
             // 
             // label1
@@ -152,7 +157,7 @@
             this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEditSSHConnection.AutoSize = true;
             this.lblEditSSHConnection.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblEditSSHConnection.Location = new System.Drawing.Point(631, 9);
+            this.lblEditSSHConnection.Location = new System.Drawing.Point(547, 9);
             this.lblEditSSHConnection.Name = "lblEditSSHConnection";
             this.lblEditSSHConnection.Size = new System.Drawing.Size(25, 13);
             this.lblEditSSHConnection.TabIndex = 1;
@@ -169,7 +174,7 @@
             this.txtSSHConnection.Multiline = true;
             this.txtSSHConnection.Name = "txtSSHConnection";
             this.txtSSHConnection.ReadOnly = true;
-            this.txtSSHConnection.Size = new System.Drawing.Size(644, 45);
+            this.txtSSHConnection.Size = new System.Drawing.Size(560, 45);
             this.txtSSHConnection.TabIndex = 2;
             this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
             // 
@@ -186,7 +191,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(500, 456);
+            this.cmdOK.Location = new System.Drawing.Point(416, 459);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 12;
@@ -199,7 +204,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(581, 456);
+            this.cmdCancel.Location = new System.Drawing.Point(497, 459);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 13;
@@ -208,14 +213,14 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.cboOutputValueUnit);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox3.Location = new System.Drawing.Point(12, 392);
+            this.groupBox3.Location = new System.Drawing.Point(12, 395);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(644, 57);
+            this.groupBox3.Size = new System.Drawing.Size(560, 57);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Display output";
@@ -230,7 +235,7 @@
             "item(s)"});
             this.cboOutputValueUnit.Location = new System.Drawing.Point(92, 18);
             this.cboOutputValueUnit.Name = "cboOutputValueUnit";
-            this.cboOutputValueUnit.Size = new System.Drawing.Size(536, 21);
+            this.cboOutputValueUnit.Size = new System.Drawing.Size(452, 21);
             this.cboOutputValueUnit.TabIndex = 1;
             // 
             // label6
@@ -245,16 +250,16 @@
             // 
             // sequenceGroupBox
             // 
-            this.sequenceGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.sequenceGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sequenceGroupBox.Controls.Add(this.errorGroupBox);
             this.sequenceGroupBox.Controls.Add(this.warningGroupBox);
             this.sequenceGroupBox.Controls.Add(this.successGroupBox);
             this.sequenceGroupBox.Controls.Add(this.cboReturnCheckSequence);
             this.sequenceGroupBox.Controls.Add(this.label5);
-            this.sequenceGroupBox.Location = new System.Drawing.Point(12, 186);
+            this.sequenceGroupBox.Location = new System.Drawing.Point(12, 189);
             this.sequenceGroupBox.Name = "sequenceGroupBox";
-            this.sequenceGroupBox.Size = new System.Drawing.Size(644, 200);
+            this.sequenceGroupBox.Size = new System.Drawing.Size(560, 200);
             this.sequenceGroupBox.TabIndex = 9;
             this.sequenceGroupBox.TabStop = false;
             this.sequenceGroupBox.Text = "Evaluate returned value/data";
@@ -267,7 +272,7 @@
             this.errorGroupBox.Controls.Add(this.txtError);
             this.errorGroupBox.Location = new System.Drawing.Point(9, 147);
             this.errorGroupBox.Name = "errorGroupBox";
-            this.errorGroupBox.Size = new System.Drawing.Size(629, 44);
+            this.errorGroupBox.Size = new System.Drawing.Size(545, 44);
             this.errorGroupBox.TabIndex = 4;
             this.errorGroupBox.TabStop = false;
             this.errorGroupBox.Text = "Error check";
@@ -293,7 +298,7 @@
             "SmallerThan",
             "Between",
             "NotBetween"});
-            this.cboErrorMatchType.Location = new System.Drawing.Point(509, 18);
+            this.cboErrorMatchType.Location = new System.Drawing.Point(425, 18);
             this.cboErrorMatchType.Name = "cboErrorMatchType";
             this.cboErrorMatchType.Size = new System.Drawing.Size(110, 21);
             this.cboErrorMatchType.TabIndex = 1;
@@ -304,7 +309,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtError.Location = new System.Drawing.Point(6, 18);
             this.txtError.Name = "txtError";
-            this.txtError.Size = new System.Drawing.Size(497, 20);
+            this.txtError.Size = new System.Drawing.Size(413, 20);
             this.txtError.TabIndex = 0;
             this.txtError.Text = "[any]";
             // 
@@ -316,7 +321,7 @@
             this.warningGroupBox.Controls.Add(this.txtWarning);
             this.warningGroupBox.Location = new System.Drawing.Point(8, 97);
             this.warningGroupBox.Name = "warningGroupBox";
-            this.warningGroupBox.Size = new System.Drawing.Size(629, 44);
+            this.warningGroupBox.Size = new System.Drawing.Size(545, 44);
             this.warningGroupBox.TabIndex = 3;
             this.warningGroupBox.TabStop = false;
             this.warningGroupBox.Text = "Warning check";
@@ -342,7 +347,7 @@
             "SmallerThan",
             "Between",
             "NotBetween"});
-            this.cboWarningMatchType.Location = new System.Drawing.Point(510, 18);
+            this.cboWarningMatchType.Location = new System.Drawing.Point(426, 18);
             this.cboWarningMatchType.Name = "cboWarningMatchType";
             this.cboWarningMatchType.Size = new System.Drawing.Size(110, 21);
             this.cboWarningMatchType.TabIndex = 1;
@@ -353,7 +358,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtWarning.Location = new System.Drawing.Point(6, 18);
             this.txtWarning.Name = "txtWarning";
-            this.txtWarning.Size = new System.Drawing.Size(498, 20);
+            this.txtWarning.Size = new System.Drawing.Size(414, 20);
             this.txtWarning.TabIndex = 0;
             this.txtWarning.Text = "[null]";
             // 
@@ -365,7 +370,7 @@
             this.successGroupBox.Controls.Add(this.txtSuccess);
             this.successGroupBox.Location = new System.Drawing.Point(9, 47);
             this.successGroupBox.Name = "successGroupBox";
-            this.successGroupBox.Size = new System.Drawing.Size(629, 44);
+            this.successGroupBox.Size = new System.Drawing.Size(545, 44);
             this.successGroupBox.TabIndex = 2;
             this.successGroupBox.TabStop = false;
             this.successGroupBox.Text = "Success check";
@@ -391,7 +396,7 @@
             "SmallerThan",
             "Between",
             "NotBetween"});
-            this.cboSuccessMatchType.Location = new System.Drawing.Point(509, 18);
+            this.cboSuccessMatchType.Location = new System.Drawing.Point(425, 18);
             this.cboSuccessMatchType.Name = "cboSuccessMatchType";
             this.cboSuccessMatchType.Size = new System.Drawing.Size(110, 21);
             this.cboSuccessMatchType.TabIndex = 1;
@@ -402,7 +407,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSuccess.Location = new System.Drawing.Point(6, 18);
             this.txtSuccess.Name = "txtSuccess";
-            this.txtSuccess.Size = new System.Drawing.Size(497, 20);
+            this.txtSuccess.Size = new System.Drawing.Size(413, 20);
             this.txtSuccess.TabIndex = 0;
             this.txtSuccess.Text = "OK";
             // 
@@ -420,7 +425,7 @@
             "Warning, Error and then assume Good"});
             this.cboReturnCheckSequence.Location = new System.Drawing.Point(135, 19);
             this.cboReturnCheckSequence.Name = "cboReturnCheckSequence";
-            this.cboReturnCheckSequence.Size = new System.Drawing.Size(503, 21);
+            this.cboReturnCheckSequence.Size = new System.Drawing.Size(419, 21);
             this.cboReturnCheckSequence.TabIndex = 1;
             // 
             // label5
@@ -445,47 +450,7 @@
             this.toolStripSeparator2,
             this.selectAllToolStripMenuItem});
             this.stdCollectorOutputValueMatchesContextMenuStrip.Name = "stdCollectorOutputValueMatchesContextMenuStrip";
-            this.stdCollectorOutputValueMatchesContextMenuStrip.Size = new System.Drawing.Size(153, 176);
-            // 
-            // undoToolStripMenuItem
-            // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.undoToolStripMenuItem.Text = "Undo";
-            // 
-            // cutToolStripMenuItem
-            // 
-            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.cutToolStripMenuItem.Text = "Cut";
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.copyToolStripMenuItem.Text = "Copy";
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.pasteToolStripMenuItem.Text = "Paste";
-            // 
-            // selectAllToolStripMenuItem
-            // 
-            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.selectAllToolStripMenuItem.Text = "Select All";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.stdCollectorOutputValueMatchesContextMenuStrip.Size = new System.Drawing.Size(123, 154);
             // 
             // insertToolStripMenuItem
             // 
@@ -493,32 +458,72 @@
             this.anyToolStripMenuItem,
             this.nullToolStripMenuItem});
             this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
-            this.insertToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.insertToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.insertToolStripMenuItem.Text = "Insert";
             // 
             // anyToolStripMenuItem
             // 
             this.anyToolStripMenuItem.Name = "anyToolStripMenuItem";
-            this.anyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.anyToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.anyToolStripMenuItem.Text = "[any]";
             // 
             // nullToolStripMenuItem
             // 
             this.nullToolStripMenuItem.Name = "nullToolStripMenuItem";
-            this.nullToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nullToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.nullToolStripMenuItem.Text = "[null]";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(119, 6);
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(119, 6);
+            // 
+            // cutToolStripMenuItem
+            // 
+            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.cutToolStripMenuItem.Text = "Cut";
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(119, 6);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
             // 
             // SSHCommandCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(668, 488);
+            this.ClientSize = new System.Drawing.Size(584, 491);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.sequenceGroupBox);
             this.Controls.Add(this.cmdTest);
@@ -533,10 +538,10 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(600, 530);
             this.Name = "SSHCommandCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SSH Command Collector";

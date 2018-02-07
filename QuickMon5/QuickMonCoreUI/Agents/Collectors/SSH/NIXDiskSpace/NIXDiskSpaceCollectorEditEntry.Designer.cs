@@ -90,6 +90,8 @@
             // 
             // txtSSHConnection
             // 
+            this.txtSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSSHConnection.Cursor = System.Windows.Forms.Cursors.Hand;
             this.txtSSHConnection.Location = new System.Drawing.Point(12, 26);
             this.txtSSHConnection.Multiline = true;
@@ -114,6 +116,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(5, 122);
             this.label2.Name = "label2";
@@ -123,7 +126,7 @@
             // 
             // txtFileSystem
             // 
-            this.txtFileSystem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtFileSystem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFileSystem.Location = new System.Drawing.Point(100, 119);
             this.txtFileSystem.Name = "txtFileSystem";
@@ -146,6 +149,9 @@
             // 
             // lvwFileSystems
             // 
+            this.lvwFileSystems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvwFileSystems.AutoResizeColumnEnabled = false;
             this.lvwFileSystems.AutoResizeColumnIndex = 0;
             this.lvwFileSystems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -226,7 +232,8 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.lblAutoAdd);
             this.groupBox6.Controls.Add(this.label2);
@@ -282,10 +289,10 @@
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(449, 328);
             this.Name = "NIXDiskSpaceCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Disk Space Free Percentage";

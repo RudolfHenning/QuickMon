@@ -19,7 +19,8 @@ namespace QuickMon.Collectors
         }
 
         private bool changed = false;
-        public SSHConnectionDetails SSHConnectionDetails { get; set; }        
+        public SSHConnectionDetails SSHConnectionDetails { get; set; }
+        public List<ConfigVariable> ConfigVariables { get; set; } = new List<ConfigVariable>();
 
         private void EditSSHConnection_Load(object sender, EventArgs e)
         {
@@ -127,8 +128,8 @@ namespace QuickMon.Collectors
                 }
                 SSHConnectionDetails.ConnectionString = txtConnectionString.Text;
             }
-            
-            DialogResult = System.Windows.Forms.DialogResult.OK;
+
+            DialogResult = DialogResult.OK;
             Close();
         }
 
@@ -136,7 +137,20 @@ namespace QuickMon.Collectors
         {
             try
             {
-                using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(optPrivateKey.Checked ? SSHSecurityOption.PrivateKey : optPassword.Checked ? SSHSecurityOption.Password : SSHSecurityOption.KeyboardInteractive, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text))
+                string machineName = ApplyConfigVarsOnField(txtMachineName.Text);
+                string userName = ApplyConfigVarsOnField(txtUsername.Text);
+                string password = ApplyConfigVarsOnField(txtPassword.Text);
+                string privateKeyFile = ApplyConfigVarsOnField(txtPrivateKeyFile.Text);
+                string passPhrase = ApplyConfigVarsOnField(txtPassPhrase.Text);
+
+                using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(
+                    optPrivateKey.Checked ? SSHSecurityOption.PrivateKey : optPassword.Checked ? SSHSecurityOption.Password : SSHSecurityOption.KeyboardInteractive,
+                    machineName,
+                    (int)sshPortNumericUpDown.Value,
+                    userName,
+                    password,
+                    privateKeyFile,
+                    passPhrase))
                 {
                     if (sshClient.IsConnected)
                     {
@@ -217,6 +231,12 @@ namespace QuickMon.Collectors
             changed = true;
         }
 
+        private string ApplyConfigVarsOnField(string field)
+        {
+            if (ConfigVariables == null)
+                ConfigVariables = new List<ConfigVariable>();
+            return ConfigVariables.ApplyOn(field);
 
+        }
     }
 }

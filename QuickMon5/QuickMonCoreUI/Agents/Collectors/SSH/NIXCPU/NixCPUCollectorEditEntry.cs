@@ -55,7 +55,7 @@ namespace QuickMon.UI
             selectedEntry.WarningValue = (double)warningNumericUpDown.Value;
             selectedEntry.ErrorValue = (double)errorNumericUpDown.Value;
 
-            DialogResult = System.Windows.Forms.DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
@@ -72,6 +72,7 @@ namespace QuickMon.UI
         {
             EditSSHConnection editor = new Collectors.EditSSHConnection();
             editor.SSHConnectionDetails = sshConnectionDetails;
+            editor.ConfigVariables = ConfigVariables;
             if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 sshConnectionDetails = editor.SSHConnectionDetails;

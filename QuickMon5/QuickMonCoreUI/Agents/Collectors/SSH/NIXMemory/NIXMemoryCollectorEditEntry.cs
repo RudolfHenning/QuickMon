@@ -69,6 +69,7 @@ namespace QuickMon.UI
         {
             EditSSHConnection editor = new Collectors.EditSSHConnection();
             editor.SSHConnectionDetails = sshConnectionDetails;
+            editor.ConfigVariables = ConfigVariables;
             if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 sshConnectionDetails = editor.SSHConnectionDetails;

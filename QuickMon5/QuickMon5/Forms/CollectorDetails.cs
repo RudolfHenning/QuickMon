@@ -1414,8 +1414,11 @@ namespace QuickMon
                             {
                                 DetailEditor.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
                             }
-                            if (HostingMonitorPack != null && HostingMonitorPack.ConfigVariables != null)
-                                DetailEditor.ConfigVariables.AddRange(HostingMonitorPack.ConfigVariables.ToArray());
+                            //if (HostingMonitorPack != null && HostingMonitorPack.ConfigVariables != null)
+                            //    DetailEditor.ConfigVariables.AddRange(HostingMonitorPack.GetAllParentConfigVars().ToArray());
+                            if (SelectedCollectorHost != null)
+                                DetailEditor.ConfigVariables.AddRange(SelectedCollectorHost.GetAllParentConfigVars().ToArray());
+
                             if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
                             {
                                 tlviCurrent.Tag = DetailEditor.SelectedEntry;

@@ -293,7 +293,9 @@ namespace QuickMon.UI
                     #region Collector hosts
                     if (lvwAgentType.SelectedItems[0].Tag is CollectorHost)
                     {
-                        configToUse = ((CollectorHost)lvwAgentType.SelectedItems[0].Tag).ToXml();
+                        CollectorHost newCH = (CollectorHost)lvwAgentType.SelectedItems[0].Tag;
+                        newCH.UniqueId = "";
+                        configToUse = newCH.ToXml();
                     }
                     else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
                     {

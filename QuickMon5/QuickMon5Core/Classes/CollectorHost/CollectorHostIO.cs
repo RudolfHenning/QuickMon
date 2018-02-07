@@ -316,6 +316,40 @@ namespace QuickMon
             #endregion
             return newCollectorHost;
         }
+        public List<ConfigVariable> GetAllParentConfigVars()
+        {
+            List<ConfigVariable> allConfigVars = new List<ConfigVariable>();
+            if (ParentMonitorPack != null)
+            {
+                foreach (CollectorHost parentCollector in ParentMonitorPack.GetParentCollectorHostTree(this))
+                {
+                    foreach (ConfigVariable cv in parentCollector.ConfigVariables)
+                    {
+                        ConfigVariable existingCV = (from ConfigVariable c in allConfigVars
+                                                     where c.FindValue == cv.FindValue
+                                                     select c).FirstOrDefault();
+                        if (existingCV == null)
+                        {
+                            allConfigVars.Add(cv.Clone());
+                        }
+                    }
+                }
+                //then applying parent monitor pack variables
+                foreach (ConfigVariable cv in ParentMonitorPack.ConfigVariables)
+                {
+                    ConfigVariable existingCV = (from ConfigVariable c in allConfigVars
+                                                 where c.FindValue == cv.FindValue
+                                                 select c).FirstOrDefault();
+                    if (existingCV == null)
+                    {
+                        allConfigVars.Add(cv.Clone());
+                    }
+                }
+                //Lastly apply static/hardcoded monitor pack variables
+                allConfigVars.Add(new ConfigVariable() { FindValue = "$QMScripts", ReplaceValue = ParentMonitorPack.ScriptsRepositoryDirectory });
+            }
+            return allConfigVars;
+        }
         public void ApplyConfigVarsNow()
         {
             List<ConfigVariable> allConfigVars = new List<ConfigVariable>(); 

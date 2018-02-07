@@ -67,7 +67,8 @@ namespace QuickMon.UI
         {
             EditSSHConnection editor = new Collectors.EditSSHConnection();
             editor.SSHConnectionDetails = sshConnectionDetails;
-            if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            editor.ConfigVariables = ConfigVariables;
+            if (editor.ShowDialog() == DialogResult.OK)
             {
                 sshConnectionDetails = editor.SSHConnectionDetails;
                 txtSSHConnection.Text = SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
@@ -78,17 +79,31 @@ namespace QuickMon.UI
         {
             try
             {
-                SSHCommandCollectorConfigEntry testEntry = new SSHCommandCollectorConfigEntry() { SSHConnection = sshConnectionDetails };
-                testEntry.CommandString = txtCommandText.Text;
-                testEntry.ValueReturnType = (SSHCommandValueReturnType)cboReturnType.SelectedIndex;
+                string commandText = ApplyConfigVarsOnField(txtCommandText.Text);
+                string successText = ApplyConfigVarsOnField(txtSuccess.Text);
+                string warningText = ApplyConfigVarsOnField(txtWarning.Text);
+                string errorText = ApplyConfigVarsOnField(txtError.Text);
 
+                SSHConnectionDetails sshConnection = sshConnectionDetails.Clone();
+                sshConnection.ComputerName = ApplyConfigVarsOnField(sshConnection.ComputerName);
+                sshConnection.UserName = ApplyConfigVarsOnField(sshConnection.UserName);
+                sshConnection.Password = ApplyConfigVarsOnField(sshConnection.Password);
+                sshConnection.PrivateKeyFile = ApplyConfigVarsOnField(sshConnection.PrivateKeyFile);
+                sshConnection.PassPhrase = ApplyConfigVarsOnField(sshConnection.PassPhrase);
+                sshConnection.ConnectionName = ApplyConfigVarsOnField(sshConnection.ConnectionName);
+                sshConnection.ConnectionString = ApplyConfigVarsOnField(sshConnection.ConnectionString);
+
+                SSHCommandCollectorConfigEntry testEntry = new SSHCommandCollectorConfigEntry() { SSHConnection = sshConnection };
+
+                testEntry.CommandString = commandText;
+                testEntry.ValueReturnType = (SSHCommandValueReturnType)cboReturnType.SelectedIndex;
                 testEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                 testEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
-                testEntry.GoodValue = txtSuccess.Text;
+                testEntry.GoodValue = successText;
                 testEntry.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
-                testEntry.WarningValue = txtWarning.Text;
+                testEntry.WarningValue = warningText;
                 testEntry.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
-                testEntry.ErrorValue = txtError.Text;
+                testEntry.ErrorValue = errorText;
                 testEntry.OutputValueUnit = cboOutputValueUnit.Text;
 
                 string value = testEntry.ExecuteCommand();
