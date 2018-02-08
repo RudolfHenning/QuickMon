@@ -83,15 +83,20 @@ namespace QuickMon.UI
                 string successText = ApplyConfigVarsOnField(txtSuccess.Text);
                 string warningText = ApplyConfigVarsOnField(txtWarning.Text);
                 string errorText = ApplyConfigVarsOnField(txtError.Text);
-
-                SSHConnectionDetails sshConnection = sshConnectionDetails.Clone();
-                sshConnection.ComputerName = ApplyConfigVarsOnField(sshConnection.ComputerName);
-                sshConnection.UserName = ApplyConfigVarsOnField(sshConnection.UserName);
-                sshConnection.Password = ApplyConfigVarsOnField(sshConnection.Password);
-                sshConnection.PrivateKeyFile = ApplyConfigVarsOnField(sshConnection.PrivateKeyFile);
-                sshConnection.PassPhrase = ApplyConfigVarsOnField(sshConnection.PassPhrase);
-                sshConnection.ConnectionName = ApplyConfigVarsOnField(sshConnection.ConnectionName);
-                sshConnection.ConnectionString = ApplyConfigVarsOnField(sshConnection.ConnectionString);
+                string connectionString = ApplyConfigVarsOnField(sshConnectionDetails.ConnectionString);
+                SSHConnectionDetails sshConnection;
+                if (connectionString.Length > 0)
+                    sshConnection = SSHConnectionDetails.FromConnectionString(connectionString);
+                else
+                {
+                    sshConnection = sshConnectionDetails.Clone();
+                    sshConnection.ComputerName = ApplyConfigVarsOnField(sshConnection.ComputerName);
+                    sshConnection.UserName = ApplyConfigVarsOnField(sshConnection.UserName);
+                    sshConnection.Password = ApplyConfigVarsOnField(sshConnection.Password);
+                    sshConnection.PrivateKeyFile = ApplyConfigVarsOnField(sshConnection.PrivateKeyFile);
+                    sshConnection.PassPhrase = ApplyConfigVarsOnField(sshConnection.PassPhrase);
+                    sshConnection.ConnectionName = ApplyConfigVarsOnField(sshConnection.ConnectionName);
+                }                
 
                 SSHCommandCollectorConfigEntry testEntry = new SSHCommandCollectorConfigEntry() { SSHConnection = sshConnection };
 

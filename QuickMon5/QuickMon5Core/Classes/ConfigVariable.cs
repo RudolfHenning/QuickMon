@@ -62,6 +62,8 @@ namespace QuickMon
         public string ApplyOn(string configStr)
         {
             string appliedConfig = configStr;
+            if (appliedConfig == null)
+                appliedConfig = "";
 
             //FindValue = "$QMScripts", ReplaceValue = @"C:\ProgramData\Hen IT\QuickMon 5\Scripts"
 

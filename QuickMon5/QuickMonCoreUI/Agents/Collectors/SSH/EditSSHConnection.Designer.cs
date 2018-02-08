@@ -57,6 +57,7 @@
             this.connectionStringFileOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.connectionStringSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.cmdSaveToFile = new System.Windows.Forms.Button();
+            this.cmdSetFromFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.sshPortNumericUpDown)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.SuspendLayout();
@@ -150,7 +151,7 @@
             this.cmdOK.Location = new System.Drawing.Point(275, 284);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 20;
+            this.cmdOK.TabIndex = 21;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -163,7 +164,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(356, 284);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 21;
+            this.cmdCancel.TabIndex = 22;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -285,7 +286,7 @@
             this.cmdTest.Location = new System.Drawing.Point(12, 284);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(105, 23);
-            this.cmdTest.TabIndex = 18;
+            this.cmdTest.TabIndex = 19;
             this.cmdTest.Text = "Test connection";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
@@ -314,7 +315,7 @@
             this.txtConnectionString.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtConnectionString.Location = new System.Drawing.Point(12, 258);
             this.txtConnectionString.Name = "txtConnectionString";
-            this.txtConnectionString.Size = new System.Drawing.Size(372, 20);
+            this.txtConnectionString.Size = new System.Drawing.Size(325, 20);
             this.txtConnectionString.TabIndex = 16;
             this.txtConnectionString.TextChanged += new System.EventHandler(this.txtConnectionString_TextChanged);
             this.txtConnectionString.Leave += new System.EventHandler(this.txtConnectionString_Leave);
@@ -332,7 +333,7 @@
             // 
             this.cmdOpenConnectionStringFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOpenConnectionStringFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOpenConnectionStringFile.Location = new System.Drawing.Point(390, 256);
+            this.cmdOpenConnectionStringFile.Location = new System.Drawing.Point(343, 256);
             this.cmdOpenConnectionStringFile.Name = "cmdOpenConnectionStringFile";
             this.cmdOpenConnectionStringFile.Size = new System.Drawing.Size(41, 23);
             this.cmdOpenConnectionStringFile.TabIndex = 17;
@@ -359,10 +360,22 @@
             this.cmdSaveToFile.Location = new System.Drawing.Point(123, 284);
             this.cmdSaveToFile.Name = "cmdSaveToFile";
             this.cmdSaveToFile.Size = new System.Drawing.Size(75, 23);
-            this.cmdSaveToFile.TabIndex = 19;
+            this.cmdSaveToFile.TabIndex = 20;
             this.cmdSaveToFile.Text = "Save to file";
             this.cmdSaveToFile.UseVisualStyleBackColor = true;
             this.cmdSaveToFile.Click += new System.EventHandler(this.cmdSaveToFile_Click);
+            // 
+            // cmdSetFromFile
+            // 
+            this.cmdSetFromFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSetFromFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSetFromFile.Location = new System.Drawing.Point(390, 256);
+            this.cmdSetFromFile.Name = "cmdSetFromFile";
+            this.cmdSetFromFile.Size = new System.Drawing.Size(41, 23);
+            this.cmdSetFromFile.TabIndex = 18;
+            this.cmdSetFromFile.Text = "Set";
+            this.cmdSetFromFile.UseVisualStyleBackColor = true;
+            this.cmdSetFromFile.Click += new System.EventHandler(this.cmdSetFromFile_Click);
             // 
             // EditSSHConnection
             // 
@@ -370,6 +383,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(443, 318);
+            this.Controls.Add(this.cmdSetFromFile);
             this.Controls.Add(this.cmdSaveToFile);
             this.Controls.Add(this.cmdOpenConnectionStringFile);
             this.Controls.Add(this.txtConnectionString);
@@ -438,5 +452,6 @@
         private System.Windows.Forms.OpenFileDialog connectionStringFileOpenFileDialog;
         private System.Windows.Forms.SaveFileDialog connectionStringSaveFileDialog;
         private System.Windows.Forms.Button cmdSaveToFile;
+        private System.Windows.Forms.Button cmdSetFromFile;
     }
 }

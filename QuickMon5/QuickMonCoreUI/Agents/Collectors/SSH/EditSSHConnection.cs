@@ -33,7 +33,8 @@ namespace QuickMon.Collectors
             if (SSHConnectionDetails.ConnectionString != null && !SSHConnectionDetails.ConnectionString.Contains(';'))
             {
                 txtConnectionString.Text = SSHConnectionDetails.ConnectionString;
-                SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(txtConnectionString.Text);
+                string connectionFile = ApplyConfigVarsOnField(txtConnectionString.Text);
+                SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(connectionFile);
             }
 
             txtMachineName.Text = SSHConnectionDetails.ComputerName;
@@ -169,10 +170,11 @@ namespace QuickMon.Collectors
 
         private void cmdOpenConnectionStringFile_Click(object sender, EventArgs e)
         {
-            if (txtConnectionString.Text.Trim().Length > 0)
+            string connectionFile = ApplyConfigVarsOnField(txtConnectionString.Text);
+            if (connectionFile.Trim().Length > 0)
             {
-                connectionStringFileOpenFileDialog.FileName = txtConnectionString.Text;
-                connectionStringFileOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtConnectionString.Text);
+                connectionStringFileOpenFileDialog.FileName = connectionFile;
+                connectionStringFileOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(connectionFile);
             }
 
             if (connectionStringFileOpenFileDialog.ShowDialog() == DialogResult.OK)
@@ -194,9 +196,10 @@ namespace QuickMon.Collectors
         {
             try
             {
-                if (txtMachineName.Text.Length == 0 && System.IO.File.Exists(txtConnectionString.Text))
-                {
-                    SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(txtConnectionString.Text);
+                string connectionFile = ApplyConfigVarsOnField(txtConnectionString.Text);
+                if (connectionFile.Length == 0 && System.IO.File.Exists(connectionFile))
+                {                    
+                    SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(connectionFile);
                     LoadEntryDetails();
                 }
             }
@@ -237,6 +240,13 @@ namespace QuickMon.Collectors
                 ConfigVariables = new List<ConfigVariable>();
             return ConfigVariables.ApplyOn(field);
 
+        }
+
+        private void cmdSetFromFile_Click(object sender, EventArgs e)
+        {
+            string connectionFile = ApplyConfigVarsOnField(txtConnectionString.Text);
+            SSHConnectionDetails = SSHConnectionDetails.FromConnectionString(connectionFile);
+            LoadEntryDetails();
         }
     }
 }
