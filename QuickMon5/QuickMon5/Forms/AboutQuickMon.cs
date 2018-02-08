@@ -176,7 +176,9 @@ namespace QuickMon
         private void llblChangeLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Forms.ShowTextDialog dlg = new Forms.ShowTextDialog();
-            dlg.ShowText("Change log", ChangeLog.GetChangeLog());
+            string changeLog = ChangeLog.GetChangeLog();
+            changeLog = changeLog.Replace("\r\n", "-=>").Replace("\r", "-=>").Replace("\n", "-=>").Replace("-=>", "\r\n");
+            dlg.ShowText("Change log", changeLog);
         }
     }
 }
