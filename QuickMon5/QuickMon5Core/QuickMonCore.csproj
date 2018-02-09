@@ -126,6 +126,7 @@
     <Compile Include="Classes\CollectorHost\CollectorActionScript.cs" />
     <Compile Include="Classes\CollectorHost\CollectorHost.cs" />
     <Compile Include="Classes\CollectorHost\CollectorHostAgentActions.cs" />
+    <Compile Include="Classes\CollectorHost\CollectorHostConfigVars.cs" />
     <Compile Include="Classes\CollectorHost\CollectorHostEvents.cs" />
     <Compile Include="Classes\CollectorHost\CollectorHostHistory.cs" />
     <Compile Include="Classes\CollectorHost\CollectorHostIO.cs" />

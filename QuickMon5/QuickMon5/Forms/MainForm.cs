@@ -1248,16 +1248,6 @@ namespace QuickMon
                 monitorPack = new MonitorPack();
 
                 string newMonitorPackConfig = Properties.Resources.BlankMonitorPack;
-                //if (Properties.Settings.Default.UseTemplatesForNewObjects && QuickMonTemplate.GetMonitorPackTemplates().Count > 0)
-                //{
-                //    SelectTemplate selectTemplate = new SelectTemplate();
-                //    selectTemplate.FilterTemplatesBy = TemplateType.MonitorPack;
-                //    if (selectTemplate.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                //    {
-                //        newMonitorPackConfig = selectTemplate.SelectedTemplate.Config;
-                //    }
-                //}
-
                 monitorPack.LoadXml(newMonitorPackConfig);
             }
             monitorPack.MonitorPackPath = "";
@@ -1996,7 +1986,6 @@ namespace QuickMon
                 firstRefresh = false;
             }
         }
-
         private void SetNodesToBeingRefreshed(TreeNode root = null)
         {
             if (root != null && root.Tag != null && root.Tag is CollectorHost)
@@ -2028,7 +2017,32 @@ namespace QuickMon
                 foreach (TreeNode childNode in root.Nodes)
                     SetNodesToBeingRefreshed(childNode);
         }
-
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost && monitorPack != null)
+                {
+                    SetNodesToBeingRefreshed(tvwCollectors.SelectedNode);
+                    CollectorHost ch = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                    WaitForPollingToFinish(5);
+                    Cursor.Current = Cursors.WaitCursor;
+                    monitorPack.ForceCollectorHostRefreshState(ch);
+                }
+                else
+                {
+                    cmdRefresh_Click(null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateStatusbar("Error: " + ex.Message);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
         #endregion
 
         #region Auto refreshing timer
@@ -2582,31 +2596,5 @@ namespace QuickMon
 
         #endregion
 
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost && monitorPack != null)
-                {
-                    SetNodesToBeingRefreshed(tvwCollectors.SelectedNode);
-                    CollectorHost ch = (CollectorHost)tvwCollectors.SelectedNode.Tag;
-                    WaitForPollingToFinish(5);
-                    Cursor.Current = Cursors.WaitCursor;
-                    monitorPack.ForceCollectorHostRefreshState(ch);
-                }
-                else
-                {
-                    cmdRefresh_Click(null, null);
-                }
-            }
-            catch (Exception ex)
-            {
-                UpdateStatusbar("Error: " + ex.Message);
-            }
-            finally
-            {
-                Cursor.Current = Cursors.Default;
-            }
-        }
     }
 }

@@ -65,10 +65,6 @@ namespace QuickMon
             if (appliedConfig == null)
                 appliedConfig = "";
 
-            //FindValue = "$QMScripts", ReplaceValue = @"C:\ProgramData\Hen IT\QuickMon 5\Scripts"
-
-            if (appliedConfig.IndexOf("$QMScripts", StringComparison.CurrentCultureIgnoreCase) > -1)
-                appliedConfig = appliedConfig.ReplaceCaseInsensitive("$QMScripts", @"C:\ProgramData\Hen IT\QuickMon 5\Scripts");
             if (appliedConfig.IndexOf("%LocalHost%", StringComparison.CurrentCultureIgnoreCase) > -1)
                 appliedConfig = appliedConfig.ReplaceCaseInsensitive("%LocalHost%", System.Net.Dns.GetHostName());
             if (appliedConfig.IndexOf("%CurrentDate%", StringComparison.CurrentCultureIgnoreCase) > -1)
