@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer3 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -247,6 +247,9 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
+            this.exportHistoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clipboardExportAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -309,6 +312,7 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelTop.SuspendLayout();
+            this.exportHistoryContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtName
@@ -515,9 +519,9 @@
             this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer2;
             this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
             this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.agentsTreeListView.LabelEdit = true;
@@ -2380,9 +2384,9 @@
             this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.valueColumnHeader});
-            treeListViewItemCollectionComparer2.Column = 0;
-            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
+            treeListViewItemCollectionComparer3.Column = 0;
+            treeListViewItemCollectionComparer3.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer3;
             this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlvAgentStates.HideSelection = false;
             this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
@@ -2519,6 +2523,7 @@
             // optHistoricStateView
             // 
             this.optHistoricStateView.AutoSize = true;
+            this.optHistoricStateView.ContextMenuStrip = this.exportHistoryContextMenuStrip;
             this.optHistoricStateView.Dock = System.Windows.Forms.DockStyle.Left;
             this.optHistoricStateView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.optHistoricStateView.Location = new System.Drawing.Point(58, 0);
@@ -2757,6 +2762,28 @@
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
             // 
+            // exportHistoryContextMenuStrip
+            // 
+            this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToClipboardToolStripMenuItem});
+            this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
+            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 26);
+            // 
+            // exportToClipboardToolStripMenuItem
+            // 
+            this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clipboardExportAsCSVToolStripMenuItem});
+            this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
+            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.exportToClipboardToolStripMenuItem.Text = "Export to clipboard";
+            // 
+            // clipboardExportAsCSVToolStripMenuItem
+            // 
+            this.clipboardExportAsCSVToolStripMenuItem.Name = "clipboardExportAsCSVToolStripMenuItem";
+            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clipboardExportAsCSVToolStripMenuItem.Text = "As CSV";
+            this.clipboardExportAsCSVToolStripMenuItem.Click += new System.EventHandler(this.clipboardExportAsCSVToolStripMenuItem_Click);
+            // 
             // CollectorDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2857,6 +2884,7 @@
             this.panel2.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
+            this.exportHistoryContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3079,5 +3107,8 @@
         private System.Windows.Forms.ToolStripMenuItem setAsDisplayValueToolStripMenuItem;
         private System.Windows.Forms.ComboBox cboExpandOnStartOption;
         private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.ContextMenuStrip exportHistoryContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem exportToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clipboardExportAsCSVToolStripMenuItem;
     }
 }

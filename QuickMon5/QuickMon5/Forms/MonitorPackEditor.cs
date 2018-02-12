@@ -655,5 +655,10 @@ namespace QuickMon
                 panelVarEdit.Height = 128;
             }
         }
+
+        private void clipboardExportAsCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            Clipboard.SetText(SelectedMonitorPack.CollectorExportHistoryToCSV());
+        }
     }
 }

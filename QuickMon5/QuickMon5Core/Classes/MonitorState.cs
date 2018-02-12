@@ -400,14 +400,14 @@ namespace QuickMon
             }
             return sb.ToString();
         }
-        public string ReadPrimaryOrFirstUIValue()
+        public string ReadPrimaryOrFirstUIValue(bool includeUnit = true)
         {
-            string output = ReadPrimaryUIValue();
+            string output = ReadPrimaryUIValue(includeUnit);
             if (output == null || output.Trim().Length == 0)
-                output = ReadFirstValue();
+                output = ReadFirstValue(includeUnit);
             return output;
         }
-        public string ReadPrimaryUIValue()
+        public string ReadPrimaryUIValue(bool includeUnit = true)
         {
             StringBuilder sb = new StringBuilder();
             if (CurrentValue != null && PrimaryUIValue)
@@ -416,7 +416,7 @@ namespace QuickMon
                 if (lines.Length > 0)
                 {
                     sb.Append(lines[0]); // CurrentValue.ToString());
-                    if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                    if (includeUnit && CurrentValueUnit != null && CurrentValueUnit.Length > 0)
                     {
                         sb.Append(" " + CurrentValueUnit);
                     }
@@ -426,7 +426,7 @@ namespace QuickMon
             {
                 foreach (MonitorState cs in ChildStates)
                 {
-                    string scValue = cs.ReadPrimaryUIValue();
+                    string scValue = cs.ReadPrimaryUIValue(includeUnit);
                     if (scValue.Length > 0)
                     {
                         sb.Append(scValue);
@@ -436,7 +436,7 @@ namespace QuickMon
             }
             return sb.ToString();
         }
-        public string ReadFirstValue()
+        public string ReadFirstValue(bool includeUnit = true)
         {
             StringBuilder sb = new StringBuilder();
             if (CurrentValue != null)
@@ -445,7 +445,7 @@ namespace QuickMon
                 if (lines.Length > 0)
                 {
                     sb.Append(lines[0]); // CurrentValue.ToString());
-                    if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                    if (includeUnit && CurrentValueUnit != null && CurrentValueUnit.Length > 0)
                     {
                         sb.Append(" " + CurrentValueUnit);
                     }
@@ -455,7 +455,31 @@ namespace QuickMon
             {
                 foreach (MonitorState cs in ChildStates)
                 {
-                    string scValue = cs.ReadFirstValue();
+                    string scValue = cs.ReadFirstValue(includeUnit);
+                    if (scValue.Length > 0)
+                    {
+                        sb.Append(scValue);
+                        break;
+                    }
+                }
+            }
+            return sb.ToString();
+        }
+        public string ReadFirstValueUnit()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (CurrentValue != null)
+            {
+                if (CurrentValueUnit != null)
+                    sb.Append(CurrentValueUnit);
+                else
+                    sb.Append("");
+            }
+            else if (ChildStates.Count > 0)
+            {
+                foreach (MonitorState cs in ChildStates)
+                {
+                    string scValue = cs.ReadFirstValueUnit();
                     if (scValue.Length > 0)
                     {
                         sb.Append(scValue);

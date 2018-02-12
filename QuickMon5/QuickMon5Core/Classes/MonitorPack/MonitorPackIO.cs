@@ -43,7 +43,7 @@ namespace QuickMon
             return summaryInfo;
         }
 
-        private string emptyConfig = "<monitorPack><configVars /><collectorHosts><actionScripts /></collectorHosts>" + 
+        private string emptyConfig = "<monitorPack><configVars /><collectorHosts><actionScripts /></collectorHosts>" +
             "<notifierHosts>\r\n</notifierHosts><logging>\r\n<collectorCategories/>\r\n</logging>\r\n</monitorPack>";
 
         #region Loading
@@ -90,7 +90,7 @@ namespace QuickMon
 
                 /***************** Load config variables ****************/
                 #region Load config variables
-                LoadConfigVars(root);               
+                LoadConfigVars(root);
                 #endregion
                 /***************** Load Collectors ****************/
                 #region Load Collectors
@@ -163,7 +163,7 @@ namespace QuickMon
                 System.Diagnostics.Trace.WriteLine(string.Format("MonitorPack Parsing XML time:{0}ms", sw.ElapsedMilliseconds));
                 InitializeGlobalPerformanceCounters();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LastMPLoadError = ex.ToString();
             }
@@ -271,8 +271,8 @@ namespace QuickMon
             {
                 list.Add(currentParent);
                 currentParent = GetParentCollectorHost(currentParent);
-            }            
-            return list; 
+            }
+            return list;
         }
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace QuickMon
         public void Save(string configurationFile)
         {
             XmlDocument outDoc = new XmlDocument();
-            outDoc.LoadXml(ToXml()); 
+            outDoc.LoadXml(ToXml());
 
             outDoc.PreserveWhitespace = false;
             outDoc.Normalize();
@@ -378,7 +378,7 @@ namespace QuickMon
             //    actionScriptsNode.AppendChild(scriptParameterNode);
             //}
 
-            foreach(CollectorHost collectorHost in CollectorHosts)
+            foreach (CollectorHost collectorHost in CollectorHosts)
             {
                 XmlNode collectorHostNode = outDoc.ImportNode(collectorHost.ToXmlNode(), true);
                 collectorHostsNode.AppendChild(collectorHostNode);
@@ -462,5 +462,17 @@ namespace QuickMon
         }
         #endregion
 
+        #region Collector history exports
+        public string CollectorExportHistoryToCSV()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(CollectorHost.ExportHistoryToCSVHeaders());
+            foreach (CollectorHost ch in CollectorHosts)
+            {
+                sb.Append(ch.ExportHistoryToCSV());
+            }
+            return sb.ToString();
+        }
+        #endregion
     }
 }
