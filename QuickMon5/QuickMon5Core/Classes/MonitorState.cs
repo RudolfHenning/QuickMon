@@ -132,7 +132,7 @@ namespace QuickMon
             root.SetAttributeValue("timeStamp", Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("callDurationMS", CallDurationMS.ToString());
             root.SetAttributeValue("repeatCount", RepeatCount);
-            
+
             if (CurrentValue != null)
                 root.SetAttributeValue("currentValue", CurrentValue.ToString());
             else
@@ -174,7 +174,7 @@ namespace QuickMon
                 scriptsRanElement.AppendChild(scriptNode);
             }
             root.AppendChild(scriptsRanElement);
-            
+
 
             StringBuilder childStates = new StringBuilder();
             if (ChildStates != null && ChildStates.Count > 0)
@@ -291,7 +291,7 @@ namespace QuickMon
                             prePadding += string.Format("{0} ", CurrentValueUnit);
                         }
                     }
-                    prePadding += string.Format("({0}) ", State);                    
+                    prePadding += string.Format("({0}) ", State);
                 }
             }
             if (RawDetails != null && RawDetails.Length > 0)
@@ -299,7 +299,7 @@ namespace QuickMon
 
             if (prePadding.Trim(linePaddingChar).Length > 0)
             {
-                sb.AppendLine(prePadding);                
+                sb.AppendLine(prePadding);
                 linePaddingRepeat++;
             }
 
@@ -318,7 +318,7 @@ namespace QuickMon
                 {
                     sb.AppendLine(ms.ReadAllRawDetails(linePaddingChar, linePaddingRepeat));
                 }
-            }    
+            }
             if (AlertFooter != null && AlertFooter.Trim().Length > 0)
             {
                 sb.AppendLine(new string(linePaddingChar, linePaddingRepeat) + AlertFooter);
@@ -365,7 +365,7 @@ namespace QuickMon
                     sb.AppendLine(RawDetails + "</p>");
                 else
                     sb.AppendLine("</p>");
-                
+
             }
 
             if (ChildStates != null && ChildStates.Count > 0)
@@ -396,7 +396,7 @@ namespace QuickMon
                 if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
                 {
                     sb.Append(" " + CurrentValueUnit);
-                }             
+                }
             }
             return sb.ToString();
         }
@@ -449,7 +449,7 @@ namespace QuickMon
                     {
                         sb.Append(" " + CurrentValueUnit);
                     }
-                }               
+                }
             }
             else if (ChildStates.Count > 0)
             {
@@ -501,16 +501,16 @@ namespace QuickMon
                 }
                 sb.AppendLine();
             }
-            foreach(MonitorState cs in ChildStates)
+            foreach (MonitorState cs in ChildStates)
             {
                 string scValue = cs.ReadValues(false);
                 if (scValue.Length > 0)
                     sb.AppendLine(scValue);
             }
             if (trimCrLf)
-                return sb.ToString().Trim('\r','\n');
+                return sb.ToString().Trim('\r', '\n');
             else
-            return sb.ToString();
+                return sb.ToString();
         }
         public string ReadAgentValues(bool trimCrLf = true)
         {
@@ -534,6 +534,49 @@ namespace QuickMon
                 return sb.ToString().Trim('\r', '\n');
             else
                 return sb.ToString();
+        }
+
+        
+    }
+    public static class MonitorStateEx
+    {
+        public static int[] GetStateMetrics(this MonitorState ms)
+        {
+            int[] stateMetrics = new int[3];
+            stateMetrics[0] = ms.ChildStates.ChildStateCount(true, false, false);
+            stateMetrics[1] = ms.ChildStates.ChildStateCount(false, true, false);
+            stateMetrics[2] = ms.ChildStates.ChildStateCount(false, false, true);
+            if (ms.State == CollectorState.Good)
+                stateMetrics[0] = stateMetrics[0] - 1;
+            else if (ms.State == CollectorState.Warning)
+                stateMetrics[1] = stateMetrics[1] - 1;
+            else if (ms.State == CollectorState.Error)
+                stateMetrics[2] = stateMetrics[2] - 1;
+
+            if (stateMetrics[0] < 0) stateMetrics[0] = 0;
+            if (stateMetrics[1] < 0) stateMetrics[1] = 0;
+            if (stateMetrics[2] < 0) stateMetrics[2] = 0;
+            return stateMetrics;
+        }
+        public static int ChildStateCount(this List<MonitorState> states, bool success = true, bool warning = true, bool error = true)
+        {
+            int stateCount = 0;
+            if (states == null)
+                stateCount = 0;
+            else
+            {
+                foreach (var cs in states)
+                {
+                    if ((success && cs.State == CollectorState.Good) ||
+                        (warning && cs.State == CollectorState.Warning) ||
+                        (error && cs.State == CollectorState.Error) ||
+                        (success && warning && error))
+                        stateCount++;
+
+                    stateCount += cs.ChildStates.ChildStateCount(success, warning, error);
+                }
+            }
+            return stateCount;
         }
     }
 }

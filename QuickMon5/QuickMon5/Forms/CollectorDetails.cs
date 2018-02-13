@@ -2122,10 +2122,13 @@ namespace QuickMon
         {
             rtxDetails.Copy();
         }
-
         private void rawViewSelectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             rtxDetails.SelectAll();
+        }
+        private void clipboardExportAsCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(SelectedCollectorHost.ExportHistoryToCSV(true));
         }
         #endregion
 
@@ -2261,10 +2264,7 @@ namespace QuickMon
             actionScriptListContextSource = actionScriptsContextMenuStrip.SourceControl;
         }
 
-        private void clipboardExportAsCSVToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Clipboard.SetText(SelectedCollectorHost.ExportHistoryToCSV(true));
-        }
+
         #endregion
 
         //private void cmdAgentsToggle_Click(object sender, EventArgs e)
