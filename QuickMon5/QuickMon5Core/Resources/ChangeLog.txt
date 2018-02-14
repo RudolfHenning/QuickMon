@@ -36,6 +36,6 @@ Some SSH agent edit windows are now resizable.
 -------------
 Version 5.0.5
 *************
-Exporting of Collector host/agent states (for reporting)
-	Collector host history (format still up for debate)
-	Monitor pack history (includes alerts raised by notifiers)
+Exporting of Collector host state history metrics (for reporting)
+	Collector host history (specific collector)
+	Monitor pack history (All collector histories)

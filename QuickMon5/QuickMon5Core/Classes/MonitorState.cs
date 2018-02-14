@@ -546,12 +546,12 @@ namespace QuickMon
             stateMetrics[0] = ms.ChildStates.ChildStateCount(true, false, false);
             stateMetrics[1] = ms.ChildStates.ChildStateCount(false, true, false);
             stateMetrics[2] = ms.ChildStates.ChildStateCount(false, false, true);
-            if (ms.State == CollectorState.Good)
-                stateMetrics[0] = stateMetrics[0] - 1;
-            else if (ms.State == CollectorState.Warning)
-                stateMetrics[1] = stateMetrics[1] - 1;
-            else if (ms.State == CollectorState.Error)
-                stateMetrics[2] = stateMetrics[2] - 1;
+            //if (ms.State == CollectorState.Good)
+            //    stateMetrics[0] = stateMetrics[0] - 1;
+            //else if (ms.State == CollectorState.Warning)
+            //    stateMetrics[1] = stateMetrics[1] - 1;
+            //else if (ms.State == CollectorState.Error)
+            //    stateMetrics[2] = stateMetrics[2] - 1;
 
             if (stateMetrics[0] < 0) stateMetrics[0] = 0;
             if (stateMetrics[1] < 0) stateMetrics[1] = 0;
@@ -570,7 +570,9 @@ namespace QuickMon
                     if ((success && cs.State == CollectorState.Good) ||
                         (warning && cs.State == CollectorState.Warning) ||
                         (error && cs.State == CollectorState.Error) ||
-                        (success && warning && error))
+                        (success && warning && error && 
+                            (cs.State == CollectorState.Good || cs.State == CollectorState.Warning || cs.State == CollectorState.Error)
+                        ))
                         stateCount++;
 
                     stateCount += cs.ChildStates.ChildStateCount(success, warning, error);

@@ -706,12 +706,13 @@ namespace QuickMon
                 ListViewItem lvi = new ListViewItem(hi.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
                 lvi = new ListViewItem(hi.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
                 lvi.ImageIndex = GetNodeStateImageIndex(hi.State);
-                lvi.SubItems.Add(hi.State.ToString());
+                lvi.SubItems.Add(hi.ReadPrimaryOrFirstUIValue());
+                //lvi.SubItems.Add(hi.State.ToString());
                 lvi.SubItems.Add(hi.CallDurationMS.ToString());
                 lvi.SubItems.Add(hi.AlertsRaised.Count.ToString());
-                lvi.SubItems.Add(hi.ExecutedOnHostComputer);
-                lvi.SubItems.Add(hi.RanAs);
-                lvi.SubItems.Add(hi.ReadPrimaryOrFirstUIValue());
+                //lvi.SubItems.Add(hi.ExecutedOnHostComputer);
+                //lvi.SubItems.Add(hi.RanAs);
+                
                 lvi.Tag = hi;
                 lvwHistory.Items.Add(lvi);
                 if (selectedTimeStamp == hi.Timestamp || currentStateSelected)
@@ -722,12 +723,13 @@ namespace QuickMon
                     hi = SelectedCollectorHost.StateHistory[i];
                     lvi = new ListViewItem(hi.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
                     lvi.ImageIndex = GetNodeStateImageIndex(hi.State);
-                    lvi.SubItems.Add(hi.State.ToString());
+                    lvi.SubItems.Add(hi.ReadPrimaryOrFirstUIValue());
+                    //lvi.SubItems.Add(hi.State.ToString());
                     lvi.SubItems.Add(hi.CallDurationMS.ToString());
                     lvi.SubItems.Add(hi.AlertsRaised.Count.ToString());
-                    lvi.SubItems.Add(hi.ExecutedOnHostComputer);
-                    lvi.SubItems.Add(hi.RanAs);
-                    lvi.SubItems.Add(hi.ReadPrimaryOrFirstUIValue());
+                    //lvi.SubItems.Add(hi.ExecutedOnHostComputer);
+                    //lvi.SubItems.Add(hi.RanAs);
+                    
                     lvi.Tag = hi;
                     lvwHistory.Items.Add(lvi);
                     if (selectedTimeStamp == hi.Timestamp)
@@ -817,7 +819,6 @@ namespace QuickMon
                 {
                     if (tlvAgentStates.SelectedItems.Count == 0)
                     {                        
-                        //rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
                         WriteMonitorState(rtfBuilder, SelectedCollectorHost.CurrentState);
                     }
                     else
@@ -825,7 +826,6 @@ namespace QuickMon
                         object selectedObject = tlvAgentStates.SelectedItems[0].Tag;
                         if (selectedObject == null)
                         {
-                            //rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
                             WriteMonitorState(rtfBuilder, SelectedCollectorHost.CurrentState);
                         }
                         else if (selectedObject is ICollector)
@@ -854,18 +854,6 @@ namespace QuickMon
                         {
                             MonitorState ms = (MonitorState)selectedObject;
                             WriteMonitorState(rtfBuilder, ms);
-
-                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("For object: ").FontStyle(FontStyle.Regular).AppendLine(ms.ForAgent);
-                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("State");
-                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
-                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(ms.State.ToString());
-                            //rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadAgentValues());
-                            //if (ms.State != CollectorState.Good && ms.RawDetails!= null && ms.RawDetails.Length > 0)
-                            //{
-                            //    rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Raw details: ").FontStyle(FontStyle.Regular).AppendLine(ms.RawDetails);
-                            //}
-
-                            //rtfBuilder.AppendLine(((MonitorState)selectedObject).RawDetails);
                         }
                         else if (selectedObject is string)
                         {
@@ -883,14 +871,6 @@ namespace QuickMon
                         {
                             MonitorState ms = (MonitorState)selectedObject;
                             WriteMonitorState(rtfBuilder, ms);
-
-                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(c.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
-                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(c.State.ToString());
-                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration: ").FontStyle(FontStyle.Regular).AppendLine(c.CallDurationMS.ToString() + " ms");
-                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Alert count: ").FontStyle(FontStyle.Regular).AppendLine(c.AlertsRaised.Count.ToString());
-                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(c.ExecutedOnHostComputer));
-                            //rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(c.RanAs));
-                            //rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(c.ReadAgentValues());
                         }
                     }
                 }

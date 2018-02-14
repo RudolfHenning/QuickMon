@@ -418,6 +418,8 @@ namespace QuickMon
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             configureToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            historyToCSVToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+
             if (Clipboard.ContainsText() &&
                 Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').StartsWith("<collectorHosts", StringComparison.InvariantCulture) &&
                 Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').EndsWith("</collectorHosts>", StringComparison.InvariantCulture))
@@ -568,6 +570,14 @@ namespace QuickMon
         private void pasteAndEditCollectorConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PasteSelectedCollectorAndDependant(true);
+        }
+        private void historyToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportSelectedCollectorHistoryToCSV();
+        }
+        private void allHistoryToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportAllCollectorsHistoryToCSV();
         }
 
         private void addNotifierToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2371,6 +2381,7 @@ namespace QuickMon
             disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            historyToCSVToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
         }
         private void tvwCollectors_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -2587,14 +2598,57 @@ namespace QuickMon
         {
 
         }
-
-
-
-
-
-
-
         #endregion
 
+        #region Export Collector history
+        private string lastExportCollectorHistoryPath = "";
+        private void ExportSelectedCollectorHistoryToCSV()
+        {
+            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+            {
+                try
+                {
+                    CollectorHost entry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                    string exportedData = entry.ExportHistoryToCSV(true);
+                    SaveFileDialog fs = new SaveFileDialog();
+                    fs.Title = "Export Collector metric history to CSV";
+                    fs.Filter = "CSV Files|*.csv";
+                    fs.FileName = lastExportCollectorHistoryPath;
+                    if (fs.ShowDialog() == DialogResult.OK)
+                    {
+                        System.IO.File.WriteAllText(fs.FileName, exportedData,Encoding.UTF8);
+                        lastExportCollectorHistoryPath = fs.FileName;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Export Collector history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void ExportAllCollectorsHistoryToCSV()
+        {
+            if (monitorPack != null)
+            {
+                try
+                {
+                    SaveFileDialog fs = new SaveFileDialog();
+                    fs.Title = "Export Collector metric history to CSV";
+                    fs.Filter = "CSV Files|*.csv";
+                    fs.FileName = lastExportCollectorHistoryPath;
+                    string exportedData = monitorPack.CollectorExportHistoryToCSV();
+                    if (fs.ShowDialog() == DialogResult.OK)
+                    {
+                        System.IO.File.WriteAllText(fs.FileName, exportedData, Encoding.UTF8);
+                        lastExportCollectorHistoryPath = fs.FileName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Export all Collectors history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }            
+        }
+        #endregion
     }
 }

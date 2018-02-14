@@ -217,16 +217,16 @@
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.lvwHistory = new QuickMon.ListViewEx();
             this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.executedOnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chkRAWDetails = new System.Windows.Forms.CheckBox();
             this.optHistoricStateView = new System.Windows.Forms.RadioButton();
+            this.exportHistoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clipboardExportAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optCurrentStateView = new System.Windows.Forms.RadioButton();
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.rawViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -247,9 +247,6 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
-            this.exportHistoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clipboardExportAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -308,11 +305,11 @@
             this.agentStateSplitContainer.Panel2.SuspendLayout();
             this.agentStateSplitContainer.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.exportHistoryContextMenuStrip.SuspendLayout();
             this.rawViewContextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelTop.SuspendLayout();
-            this.exportHistoryContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtName
@@ -2427,16 +2424,13 @@
             // lvwHistory
             // 
             this.lvwHistory.AutoResizeColumnEnabled = false;
-            this.lvwHistory.AutoResizeColumnIndex = 6;
+            this.lvwHistory.AutoResizeColumnIndex = 1;
             this.lvwHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.timeColumnHeader,
-            this.stateColumnHeader,
+            this.collectorValueColumnHeader,
             this.durationColumnHeader,
-            this.alertCountColumnHeader,
-            this.executedOnColumnHeader,
-            this.ranAsColumnHeader,
-            this.collectorValueColumnHeader});
+            this.alertCountColumnHeader});
             this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwHistory.FullRowSelect = true;
             this.lvwHistory.Location = new System.Drawing.Point(0, 1);
@@ -2453,11 +2447,6 @@
             this.timeColumnHeader.Text = "Time";
             this.timeColumnHeader.Width = 153;
             // 
-            // stateColumnHeader
-            // 
-            this.stateColumnHeader.Text = "State";
-            this.stateColumnHeader.Width = 85;
-            // 
             // durationColumnHeader
             // 
             this.durationColumnHeader.Text = "Duration (ms)";
@@ -2467,16 +2456,6 @@
             // 
             this.alertCountColumnHeader.Text = "Alerts";
             this.alertCountColumnHeader.Width = 48;
-            // 
-            // executedOnColumnHeader
-            // 
-            this.executedOnColumnHeader.Text = "Executed on";
-            this.executedOnColumnHeader.Width = 88;
-            // 
-            // ranAsColumnHeader
-            // 
-            this.ranAsColumnHeader.Text = "Ran as";
-            this.ranAsColumnHeader.Width = 103;
             // 
             // collectorValueColumnHeader
             // 
@@ -2533,6 +2512,28 @@
             this.optHistoricStateView.Text = "History";
             this.optHistoricStateView.UseVisualStyleBackColor = true;
             this.optHistoricStateView.CheckedChanged += new System.EventHandler(this.optHistoricStateView_CheckedChanged);
+            // 
+            // exportHistoryContextMenuStrip
+            // 
+            this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToClipboardToolStripMenuItem});
+            this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
+            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 26);
+            // 
+            // exportToClipboardToolStripMenuItem
+            // 
+            this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clipboardExportAsCSVToolStripMenuItem});
+            this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
+            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.exportToClipboardToolStripMenuItem.Text = "Export to clipboard";
+            // 
+            // clipboardExportAsCSVToolStripMenuItem
+            // 
+            this.clipboardExportAsCSVToolStripMenuItem.Name = "clipboardExportAsCSVToolStripMenuItem";
+            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.clipboardExportAsCSVToolStripMenuItem.Text = "As CSV";
+            this.clipboardExportAsCSVToolStripMenuItem.Click += new System.EventHandler(this.clipboardExportAsCSVToolStripMenuItem_Click);
             // 
             // optCurrentStateView
             // 
@@ -2762,28 +2763,6 @@
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
             // 
-            // exportHistoryContextMenuStrip
-            // 
-            this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportToClipboardToolStripMenuItem});
-            this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
-            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 26);
-            // 
-            // exportToClipboardToolStripMenuItem
-            // 
-            this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clipboardExportAsCSVToolStripMenuItem});
-            this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
-            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.exportToClipboardToolStripMenuItem.Text = "Export to clipboard";
-            // 
-            // clipboardExportAsCSVToolStripMenuItem
-            // 
-            this.clipboardExportAsCSVToolStripMenuItem.Name = "clipboardExportAsCSVToolStripMenuItem";
-            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.clipboardExportAsCSVToolStripMenuItem.Text = "As CSV";
-            this.clipboardExportAsCSVToolStripMenuItem.Click += new System.EventHandler(this.clipboardExportAsCSVToolStripMenuItem_Click);
-            // 
             // CollectorDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2878,13 +2857,13 @@
             this.agentStateSplitContainer.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.exportHistoryContextMenuStrip.ResumeLayout(false);
             this.rawViewContextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
-            this.exportHistoryContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2930,11 +2909,8 @@
         private System.Windows.Forms.RadioButton optCurrentStateView;
         private ListViewEx lvwHistory;
         private System.Windows.Forms.ColumnHeader timeColumnHeader;
-        private System.Windows.Forms.ColumnHeader stateColumnHeader;
         private System.Windows.Forms.ColumnHeader durationColumnHeader;
         private System.Windows.Forms.ColumnHeader alertCountColumnHeader;
-        private System.Windows.Forms.ColumnHeader executedOnColumnHeader;
-        private System.Windows.Forms.ColumnHeader ranAsColumnHeader;
         private System.Windows.Forms.ColumnHeader collectorValueColumnHeader;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.SplitContainer collectorDetailSplitContainer;

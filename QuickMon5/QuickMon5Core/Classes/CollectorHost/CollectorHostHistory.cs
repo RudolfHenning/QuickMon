@@ -58,10 +58,10 @@ namespace QuickMon
             
             sb.Append("Child states,");
             sb.Append("S,W,E,");
-            sb.Append("Alert count,");
+            sb.Append("Alert count");
 
-            sb.Append("Executed on,");
-            sb.Append("Run as");
+            //sb.Append("Executed on,");
+            //sb.Append("Run as");
             sb.AppendLine();
             return sb.ToString();
         }
@@ -74,11 +74,17 @@ namespace QuickMon
                 sb.AppendFormat("\"{0}\",", Path.Replace("\"", "\"\"" + "\","));
                 
                 string displayValue = ms.ReadPrimaryOrFirstUIValue(false);
+                string displayValueUnit = ms.ReadFirstValueUnit();
                 if (displayValue.IsNumber())
                     sb.AppendFormat("{0},", displayValue);
-                else
+                else if (displayValue.Trim().Length > 0)
                     sb.AppendFormat("\"{0}\",", displayValue.Replace("\"", "\"\""));
-                sb.AppendFormat("\"{0}\",", ms.ReadFirstValueUnit().Replace("\"", "\"\""));
+                else
+                    sb.Append(",");
+                if (displayValueUnit.Trim().Length > 0)
+                    sb.AppendFormat("\"{0}\",", displayValueUnit.Replace("\"", "\"\""));
+                else
+                    sb.Append(",");
 
                 sb.AppendFormat("{0},", ms.State);
                 sb.AppendFormat("{0},", ms.CallDurationMS);
@@ -89,8 +95,8 @@ namespace QuickMon
                 else
                 {
                     int childStateCount = ms.ChildStates.ChildStateCount();
-                    if (childStateCount > 0)
-                        childStateCount--;
+                    //if (childStateCount > 0)
+                    //    childStateCount--;
                     sb.AppendFormat("{0},", childStateCount);
                 }
                 int[] stateMetrics = ms.GetStateMetrics();
@@ -98,10 +104,10 @@ namespace QuickMon
                 sb.AppendFormat("{0},", stateMetrics[1]);
                 sb.AppendFormat("{0},", stateMetrics[2]);
 
-                sb.AppendFormat("{0},", ms.AlertsRaised.Count);
+                sb.AppendFormat("{0}", ms.AlertsRaised.Count);
 
-                sb.AppendFormat("{0},", ms.ExecutedOnHostComputer);
-                sb.AppendFormat("{0}", ms.RanAs);
+                //sb.AppendFormat("{0},", ms.ExecutedOnHostComputer);
+                //sb.AppendFormat("{0}", ms.RanAs);
                 sb.AppendLine();
             }
             return sb.ToString();
