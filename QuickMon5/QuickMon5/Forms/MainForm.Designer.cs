@@ -556,7 +556,7 @@ namespace QuickMon
             this.configOperationsToolStripMenuItem,
             this.exportMetricsToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(178, 250);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(178, 272);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // detailsToolStripMenuItem
@@ -628,7 +628,7 @@ namespace QuickMon
             // 
             this.copyCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.copy24x24;
             this.copyCollectorToolStripMenuItem.Name = "copyCollectorToolStripMenuItem";
-            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.copyCollectorToolStripMenuItem.Text = "Copy";
             this.copyCollectorToolStripMenuItem.Click += new System.EventHandler(this.copyCollectorToolStripMenuItem_Click);
             // 
@@ -636,7 +636,7 @@ namespace QuickMon
             // 
             this.pasteCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.paste24x24;
             this.pasteCollectorToolStripMenuItem.Name = "pasteCollectorToolStripMenuItem";
-            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.pasteCollectorToolStripMenuItem.Text = "Paste";
             this.pasteCollectorToolStripMenuItem.Click += new System.EventHandler(this.pasteCollectorToolStripMenuItem_Click);
             // 
@@ -644,7 +644,7 @@ namespace QuickMon
             // 
             this.pasteAndEditCollectorConfigToolStripMenuItem.Image = global::QuickMon.Properties.Resources.pastewithedit24x24;
             this.pasteAndEditCollectorConfigToolStripMenuItem.Name = "pasteAndEditCollectorConfigToolStripMenuItem";
-            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.pasteAndEditCollectorConfigToolStripMenuItem.Text = "Paste and Edit";
             this.pasteAndEditCollectorConfigToolStripMenuItem.Click += new System.EventHandler(this.pasteAndEditCollectorConfigToolStripMenuItem_Click);
             // 
@@ -653,6 +653,7 @@ namespace QuickMon
             this.exportMetricsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.historyToCSVToolStripMenuItem,
             this.allHistoryToCSVToolStripMenuItem});
+            this.exportMetricsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.DocExport;
             this.exportMetricsToolStripMenuItem.Name = "exportMetricsToolStripMenuItem";
             this.exportMetricsToolStripMenuItem.Size = new System.Drawing.Size(177, 30);
             this.exportMetricsToolStripMenuItem.Text = "Export Metrics";
