@@ -117,7 +117,7 @@ namespace QuickMon
             StringBuilder sb = new StringBuilder();
             if (addHeaders)
             {
-                sb.Append(ExportHistoryToCSVHeaders());                
+                sb.Append(ExportHistoryToCSVHeaders());
             }
             foreach(var h in stateHistory.OrderBy(s=>s.Timestamp))
             {

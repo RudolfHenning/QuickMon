@@ -235,7 +235,7 @@ namespace QuickMon
                 }
                 else if (SelectedCollectorHost.CurrentState.State == CollectorState.Error || SelectedCollectorHost.CurrentState.State == CollectorState.ConfigurationError)
                 {
-                    lblCollectorState.Image = global::QuickMon.Properties.Resources.Error24x24;
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.triang_red24x24; //.Error24x24;
                     panelTop.BackColor = Color.FromArgb(255, 240, 240);
                     txtName.BackColor = Color.FromArgb(255, 240, 240);
                 }
@@ -565,7 +565,7 @@ namespace QuickMon
                 Icon icon;
                 if (state == CollectorState.Error)
                 {
-                    icon = Properties.Resources.Err;
+                    icon = Properties.Resources.triang_red;
                 }
                 else if (state == CollectorState.Warning)
                 {

@@ -436,4 +436,13 @@
   <data name="DocExport" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DocExport.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="triang_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\triang_red.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="triang_red16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\triang_red16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="triang_red24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\triang_red24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

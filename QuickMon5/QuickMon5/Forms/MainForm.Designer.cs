@@ -151,12 +151,14 @@ namespace QuickMon
             this.imagesCollectorTree.Images.SetKeyName(1, "helpbwy24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(2, "ok.png");
             this.imagesCollectorTree.Images.SetKeyName(3, "triang_yellow.png");
-            this.imagesCollectorTree.Images.SetKeyName(4, "Error24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(4, "triang_red24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(5, "ok3.png");
             this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
-            this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(7, "triang_red24x24faded.png");
             this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
             this.imagesCollectorTree.Images.SetKeyName(9, "clock1.png");
+            this.imagesCollectorTree.Images.SetKeyName(10, "Error24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(11, "Error2_24x24.png");
             // 
             // saveContextMenuStrip
             // 
@@ -556,7 +558,7 @@ namespace QuickMon
             this.configOperationsToolStripMenuItem,
             this.exportMetricsToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(178, 272);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(178, 250);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // detailsToolStripMenuItem

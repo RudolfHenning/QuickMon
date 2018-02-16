@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer3 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -217,9 +217,9 @@
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.lvwHistory = new QuickMon.ListViewEx();
             this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chkRAWDetails = new System.Windows.Forms.CheckBox();
@@ -516,9 +516,9 @@
             this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
-            treeListViewItemCollectionComparer2.Column = 0;
-            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer2;
+            treeListViewItemCollectionComparer1.Column = 0;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
             this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
             this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.agentsTreeListView.LabelEdit = true;
@@ -2381,9 +2381,9 @@
             this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.valueColumnHeader});
-            treeListViewItemCollectionComparer3.Column = 0;
-            treeListViewItemCollectionComparer3.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer3;
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
             this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlvAgentStates.HideSelection = false;
             this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
@@ -2414,12 +2414,14 @@
             this.imagesCollectorTree.Images.SetKeyName(1, "helpbwy24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(2, "ok.png");
             this.imagesCollectorTree.Images.SetKeyName(3, "triang_yellow.png");
-            this.imagesCollectorTree.Images.SetKeyName(4, "Error24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(4, "triang_red24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(5, "ok3.png");
             this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
-            this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(7, "triang_red24x24faded.png");
             this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
             this.imagesCollectorTree.Images.SetKeyName(9, "clock1.png");
+            this.imagesCollectorTree.Images.SetKeyName(10, "Error24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(11, "Error2_24x24.png");
             // 
             // lvwHistory
             // 
@@ -2447,6 +2449,11 @@
             this.timeColumnHeader.Text = "Time";
             this.timeColumnHeader.Width = 153;
             // 
+            // collectorValueColumnHeader
+            // 
+            this.collectorValueColumnHeader.Text = "Value";
+            this.collectorValueColumnHeader.Width = 150;
+            // 
             // durationColumnHeader
             // 
             this.durationColumnHeader.Text = "Duration (ms)";
@@ -2456,11 +2463,6 @@
             // 
             this.alertCountColumnHeader.Text = "Alerts";
             this.alertCountColumnHeader.Width = 48;
-            // 
-            // collectorValueColumnHeader
-            // 
-            this.collectorValueColumnHeader.Text = "Value";
-            this.collectorValueColumnHeader.Width = 150;
             // 
             // label3
             // 

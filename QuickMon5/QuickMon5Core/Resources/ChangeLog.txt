@@ -39,3 +39,4 @@ Version 5.0.5
 Exporting of Collector host state history metrics (for reporting)
 	Collector host history (specific collector)
 	Monitor pack history (All collector histories)
+Error icon changed to red triangle
