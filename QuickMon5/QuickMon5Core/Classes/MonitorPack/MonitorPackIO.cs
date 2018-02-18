@@ -473,6 +473,17 @@ namespace QuickMon
             }
             return sb.ToString();
         }
+        public string CollectorExportHistoryToXML()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<collectorHostHistories>");
+            foreach (CollectorHost ch in CollectorHosts)
+            {
+                sb.AppendLine(ch.ExportHistoryToXML());
+            }
+            sb.AppendLine("</collectorHostHistories>");
+            return sb.ToString();
+        }
         #endregion
     }
 }

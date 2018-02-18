@@ -660,5 +660,9 @@ namespace QuickMon
         {            
             Clipboard.SetText(SelectedMonitorPack.CollectorExportHistoryToCSV());
         }
+        private void asXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(SelectedMonitorPack.CollectorExportHistoryToXML());
+        }
     }
 }

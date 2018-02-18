@@ -131,5 +131,21 @@ namespace QuickMon
 
             return sb.ToString();
         }
+        public string ExportHistoryToXML()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<collectorHostHistory>");
+            foreach (var h in stateHistory.OrderBy(s => s.Timestamp))
+            {
+                sb.AppendLine(h.ToXml());
+            }
+
+            if (CurrentState != null)
+            {
+                sb.AppendLine(CurrentState.ToXml());
+            }
+            sb.AppendLine("</collectorHostHistory>");
+            return sb.ToString();
+        }
     }
 }

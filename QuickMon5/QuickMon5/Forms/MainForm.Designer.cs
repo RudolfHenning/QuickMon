@@ -101,6 +101,8 @@ namespace QuickMon
             this.splitButtonSave = new QuickMon.Controls.SplitButton.SplitButton();
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
+            this.collectorHistoryToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allHistoryToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -558,7 +560,7 @@ namespace QuickMon
             this.configOperationsToolStripMenuItem,
             this.exportMetricsToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(178, 250);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(178, 272);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // detailsToolStripMenuItem
@@ -654,7 +656,9 @@ namespace QuickMon
             // 
             this.exportMetricsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.historyToCSVToolStripMenuItem,
-            this.allHistoryToCSVToolStripMenuItem});
+            this.allHistoryToCSVToolStripMenuItem,
+            this.collectorHistoryToXMLToolStripMenuItem,
+            this.allHistoryToXMLToolStripMenuItem});
             this.exportMetricsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.DocExport;
             this.exportMetricsToolStripMenuItem.Name = "exportMetricsToolStripMenuItem";
             this.exportMetricsToolStripMenuItem.Size = new System.Drawing.Size(177, 30);
@@ -663,14 +667,14 @@ namespace QuickMon
             // historyToCSVToolStripMenuItem
             // 
             this.historyToCSVToolStripMenuItem.Name = "historyToCSVToolStripMenuItem";
-            this.historyToCSVToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.historyToCSVToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.historyToCSVToolStripMenuItem.Text = "Collector History To CSV";
             this.historyToCSVToolStripMenuItem.Click += new System.EventHandler(this.historyToCSVToolStripMenuItem_Click);
             // 
             // allHistoryToCSVToolStripMenuItem
             // 
             this.allHistoryToCSVToolStripMenuItem.Name = "allHistoryToCSVToolStripMenuItem";
-            this.allHistoryToCSVToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.allHistoryToCSVToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.allHistoryToCSVToolStripMenuItem.Text = "Monitor pack History to CSV";
             this.allHistoryToCSVToolStripMenuItem.Click += new System.EventHandler(this.allHistoryToCSVToolStripMenuItem_Click);
             // 
@@ -989,6 +993,20 @@ namespace QuickMon
             this.saveFileDialogSave.DefaultExt = "qmp";
             this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
             // 
+            // collectorHistoryToXMLToolStripMenuItem
+            // 
+            this.collectorHistoryToXMLToolStripMenuItem.Name = "collectorHistoryToXMLToolStripMenuItem";
+            this.collectorHistoryToXMLToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.collectorHistoryToXMLToolStripMenuItem.Text = "Collector History To XML";
+            this.collectorHistoryToXMLToolStripMenuItem.Click += new System.EventHandler(this.collectorHistoryToXMLToolStripMenuItem_Click);
+            // 
+            // allHistoryToXMLToolStripMenuItem
+            // 
+            this.allHistoryToXMLToolStripMenuItem.Name = "allHistoryToXMLToolStripMenuItem";
+            this.allHistoryToXMLToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.allHistoryToXMLToolStripMenuItem.Text = "Monitor pack History To XML";
+            this.allHistoryToXMLToolStripMenuItem.Click += new System.EventHandler(this.allHistoryToXMLToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1099,6 +1117,8 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripMenuItem exportMetricsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historyToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allHistoryToCSVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem collectorHistoryToXMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allHistoryToXMLToolStripMenuItem;
     }
 }
 

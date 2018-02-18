@@ -437,6 +437,7 @@ namespace QuickMon
                     }
                     sw.Stop();
                     resultMonitorState.CallDurationMS = (int)sw.ElapsedMilliseconds;
+                    
                     RaiseAllAgentsExecutionTime(sw.ElapsedMilliseconds);
 
                     #region Calculate summarized state

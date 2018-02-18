@@ -2110,6 +2110,10 @@ namespace QuickMon
         {
             Clipboard.SetText(SelectedCollectorHost.ExportHistoryToCSV(true));
         }
+        private void asXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(SelectedCollectorHost.ExportHistoryToXML());
+        }
         #endregion
 
         #region Action scripts
@@ -2243,6 +2247,8 @@ namespace QuickMon
         {
             actionScriptListContextSource = actionScriptsContextMenuStrip.SourceControl;
         }
+
+
 
 
         #endregion

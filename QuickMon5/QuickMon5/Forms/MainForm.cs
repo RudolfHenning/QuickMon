@@ -419,6 +419,7 @@ namespace QuickMon
             configureToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             historyToCSVToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            collectorHistoryToXMLToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
 
             if (Clipboard.ContainsText() &&
                 Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').StartsWith("<collectorHosts", StringComparison.InvariantCulture) &&
@@ -579,6 +580,17 @@ namespace QuickMon
         {
             ExportAllCollectorsHistoryToCSV();
         }
+        private void collectorHistoryToXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportSelectedCollectorHistoryToXML();
+        }
+
+        
+        private void allHistoryToXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportAllCollectorsHistoryToXML();
+        }
+
 
         private void addNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2601,7 +2613,8 @@ namespace QuickMon
         #endregion
 
         #region Export Collector history
-        private string lastExportCollectorHistoryPath = "";
+        private string lastExportCollectorHistoryPathCSV = "";
+        private string lastExportCollectorHistoryPathXML = "";
         private void ExportSelectedCollectorHistoryToCSV()
         {
             if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
@@ -2613,11 +2626,11 @@ namespace QuickMon
                     SaveFileDialog fs = new SaveFileDialog();
                     fs.Title = "Export Collector metric history to CSV";
                     fs.Filter = "CSV Files|*.csv";
-                    fs.FileName = lastExportCollectorHistoryPath;
+                    fs.FileName = lastExportCollectorHistoryPathCSV;
                     if (fs.ShowDialog() == DialogResult.OK)
                     {
                         System.IO.File.WriteAllText(fs.FileName, exportedData,Encoding.UTF8);
-                        lastExportCollectorHistoryPath = fs.FileName;
+                        lastExportCollectorHistoryPathCSV = fs.FileName;
                     }
                 }
                 catch(Exception ex)
@@ -2635,12 +2648,12 @@ namespace QuickMon
                     SaveFileDialog fs = new SaveFileDialog();
                     fs.Title = "Export Collector metric history to CSV";
                     fs.Filter = "CSV Files|*.csv";
-                    fs.FileName = lastExportCollectorHistoryPath;
+                    fs.FileName = lastExportCollectorHistoryPathCSV;
                     string exportedData = monitorPack.CollectorExportHistoryToCSV();
                     if (fs.ShowDialog() == DialogResult.OK)
                     {
                         System.IO.File.WriteAllText(fs.FileName, exportedData, Encoding.UTF8);
-                        lastExportCollectorHistoryPath = fs.FileName;
+                        lastExportCollectorHistoryPathCSV = fs.FileName;
                     }
                 }
                 catch (Exception ex)
@@ -2649,6 +2662,55 @@ namespace QuickMon
                 }
             }            
         }
+        private void ExportSelectedCollectorHistoryToXML()
+        {
+            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+            {
+                try
+                {
+                    CollectorHost entry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                    string exportedData = entry.ExportHistoryToXML();
+                    SaveFileDialog fs = new SaveFileDialog();
+                    fs.Title = "Export Collector metric history to XML";
+                    fs.Filter = "XML Files|*.xml";
+                    fs.FileName = lastExportCollectorHistoryPathXML;
+                    if (fs.ShowDialog() == DialogResult.OK)
+                    {
+                        System.IO.File.WriteAllText(fs.FileName, exportedData, Encoding.UTF8);
+                        lastExportCollectorHistoryPathXML = fs.FileName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Export Collector history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void ExportAllCollectorsHistoryToXML()
+        {
+            if (monitorPack != null)
+            {
+                try
+                {
+                    SaveFileDialog fs = new SaveFileDialog();
+                    fs.Title = "Export Collector metric history to XML";
+                    fs.Filter = "XML Files|*.xml";
+                    fs.FileName = lastExportCollectorHistoryPathXML;
+                    string exportedData = monitorPack.CollectorExportHistoryToXML();
+                    if (fs.ShowDialog() == DialogResult.OK)
+                    {
+                        System.IO.File.WriteAllText(fs.FileName, exportedData, Encoding.UTF8);
+                        lastExportCollectorHistoryPathXML = fs.FileName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Export all Collectors history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
         #endregion
+
+
     }
 }

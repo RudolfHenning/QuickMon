@@ -48,13 +48,13 @@
             this.panelAgentSettings = new System.Windows.Forms.Panel();
             this.collectorStateHistorySizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.exportHistoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clipboardExportAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chkCorrectiveScripts = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmdAgentSettingsToggle = new System.Windows.Forms.Button();
             this.panelVariables = new System.Windows.Forms.Panel();
-            this.lvwConfigVars = new QuickMon.ListViewEx();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelVarEdit = new System.Windows.Forms.Panel();
             this.llblExpandConfigVarSection = new System.Windows.Forms.LinkLabel();
             this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
@@ -75,10 +75,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cmdRemoveUserNameFromCache = new System.Windows.Forms.Button();
             this.cmdAddUserNameToCache = new System.Windows.Forms.Button();
-            this.lvwUserNameCache = new QuickMon.ListViewEx();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setPwdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,14 +107,20 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.fbdLogging = new System.Windows.Forms.FolderBrowserDialog();
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.exportHistoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clipboardExportAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvwUserNameCache = new QuickMon.ListViewEx();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.asXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelGeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.panelAgentSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
+            this.exportHistoryContextMenuStrip.SuspendLayout();
             this.panelVariables.SuspendLayout();
             this.panelVarEdit.SuspendLayout();
             this.toolStripVariables.SuspendLayout();
@@ -127,7 +129,6 @@
             this.userCacheContextMenuStrip.SuspendLayout();
             this.panelLoggingSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).BeginInit();
-            this.exportHistoryContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkEnabled
@@ -354,6 +355,29 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Collector &history";
             // 
+            // exportHistoryContextMenuStrip
+            // 
+            this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToClipboardToolStripMenuItem});
+            this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
+            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 48);
+            // 
+            // exportToClipboardToolStripMenuItem
+            // 
+            this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clipboardExportAsCSVToolStripMenuItem,
+            this.asXMLToolStripMenuItem});
+            this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
+            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.exportToClipboardToolStripMenuItem.Text = "Export to clipboard";
+            // 
+            // clipboardExportAsCSVToolStripMenuItem
+            // 
+            this.clipboardExportAsCSVToolStripMenuItem.Name = "clipboardExportAsCSVToolStripMenuItem";
+            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clipboardExportAsCSVToolStripMenuItem.Text = "As CSV";
+            this.clipboardExportAsCSVToolStripMenuItem.Click += new System.EventHandler(this.clipboardExportAsCSVToolStripMenuItem_Click);
+            // 
             // chkCorrectiveScripts
             // 
             this.chkCorrectiveScripts.AutoSize = true;
@@ -401,33 +425,6 @@
             this.panelVariables.Name = "panelVariables";
             this.panelVariables.Size = new System.Drawing.Size(549, 300);
             this.panelVariables.TabIndex = 2;
-            // 
-            // lvwConfigVars
-            // 
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 1;
-            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.valueColumnHeader});
-            this.lvwConfigVars.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.Location = new System.Drawing.Point(0, 58);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(549, 85);
-            this.lvwConfigVars.TabIndex = 2;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Search for";
-            this.nameColumnHeader.Width = 243;
-            // 
-            // valueColumnHeader
-            // 
-            this.valueColumnHeader.Text = "Replace by";
-            this.valueColumnHeader.Width = 262;
             // 
             // panelVarEdit
             // 
@@ -663,43 +660,6 @@
             this.cmdAddUserNameToCache.Text = "¬";
             this.cmdAddUserNameToCache.UseVisualStyleBackColor = true;
             this.cmdAddUserNameToCache.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
-            // 
-            // lvwUserNameCache
-            // 
-            this.lvwUserNameCache.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwUserNameCache.AutoResizeColumnEnabled = false;
-            this.lvwUserNameCache.AutoResizeColumnIndex = 0;
-            this.lvwUserNameCache.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.lvwUserNameCache.ContextMenuStrip = this.userCacheContextMenuStrip;
-            this.lvwUserNameCache.FullRowSelect = true;
-            this.lvwUserNameCache.Location = new System.Drawing.Point(9, 107);
-            this.lvwUserNameCache.Name = "lvwUserNameCache";
-            this.lvwUserNameCache.Size = new System.Drawing.Size(486, 143);
-            this.lvwUserNameCache.SmallImageList = this.userCacheImageList;
-            this.lvwUserNameCache.TabIndex = 8;
-            this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
-            this.lvwUserNameCache.View = System.Windows.Forms.View.Details;
-            this.lvwUserNameCache.SelectedIndexChanged += new System.EventHandler(this.lvwUserNameCache_SelectedIndexChanged);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "User name";
-            this.columnHeader1.Width = 316;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "In Cache";
-            this.columnHeader2.Width = 76;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Decryptable";
-            this.columnHeader3.Width = 82;
             // 
             // userCacheContextMenuStrip
             // 
@@ -1043,27 +1003,76 @@
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
             // 
-            // exportHistoryContextMenuStrip
+            // lvwConfigVars
             // 
-            this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportToClipboardToolStripMenuItem});
-            this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
-            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 48);
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 1;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.valueColumnHeader});
+            this.lvwConfigVars.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.Location = new System.Drawing.Point(0, 58);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(549, 85);
+            this.lvwConfigVars.TabIndex = 2;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
             // 
-            // exportToClipboardToolStripMenuItem
+            // nameColumnHeader
             // 
-            this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clipboardExportAsCSVToolStripMenuItem});
-            this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
-            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.exportToClipboardToolStripMenuItem.Text = "Export to clipboard";
+            this.nameColumnHeader.Text = "Search for";
+            this.nameColumnHeader.Width = 243;
             // 
-            // clipboardExportAsCSVToolStripMenuItem
+            // valueColumnHeader
             // 
-            this.clipboardExportAsCSVToolStripMenuItem.Name = "clipboardExportAsCSVToolStripMenuItem";
-            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.clipboardExportAsCSVToolStripMenuItem.Text = "As CSV";
-            this.clipboardExportAsCSVToolStripMenuItem.Click += new System.EventHandler(this.clipboardExportAsCSVToolStripMenuItem_Click);
+            this.valueColumnHeader.Text = "Replace by";
+            this.valueColumnHeader.Width = 262;
+            // 
+            // lvwUserNameCache
+            // 
+            this.lvwUserNameCache.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwUserNameCache.AutoResizeColumnEnabled = false;
+            this.lvwUserNameCache.AutoResizeColumnIndex = 0;
+            this.lvwUserNameCache.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.lvwUserNameCache.ContextMenuStrip = this.userCacheContextMenuStrip;
+            this.lvwUserNameCache.FullRowSelect = true;
+            this.lvwUserNameCache.Location = new System.Drawing.Point(9, 107);
+            this.lvwUserNameCache.Name = "lvwUserNameCache";
+            this.lvwUserNameCache.Size = new System.Drawing.Size(486, 143);
+            this.lvwUserNameCache.SmallImageList = this.userCacheImageList;
+            this.lvwUserNameCache.TabIndex = 8;
+            this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
+            this.lvwUserNameCache.View = System.Windows.Forms.View.Details;
+            this.lvwUserNameCache.SelectedIndexChanged += new System.EventHandler(this.lvwUserNameCache_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "User name";
+            this.columnHeader1.Width = 316;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "In Cache";
+            this.columnHeader2.Width = 76;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Decryptable";
+            this.columnHeader3.Width = 82;
+            // 
+            // asXMLToolStripMenuItem
+            // 
+            this.asXMLToolStripMenuItem.Name = "asXMLToolStripMenuItem";
+            this.asXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.asXMLToolStripMenuItem.Text = "As XML";
+            this.asXMLToolStripMenuItem.Click += new System.EventHandler(this.asXMLToolStripMenuItem_Click);
             // 
             // MonitorPackEditor
             // 
@@ -1093,6 +1102,7 @@
             this.panelAgentSettings.ResumeLayout(false);
             this.panelAgentSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).EndInit();
+            this.exportHistoryContextMenuStrip.ResumeLayout(false);
             this.panelVariables.ResumeLayout(false);
             this.panelVariables.PerformLayout();
             this.panelVarEdit.ResumeLayout(false);
@@ -1106,7 +1116,6 @@
             this.panelLoggingSettings.ResumeLayout(false);
             this.panelLoggingSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).EndInit();
-            this.exportHistoryContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1198,5 +1207,6 @@
         private System.Windows.Forms.ContextMenuStrip exportHistoryContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem exportToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clipboardExportAsCSVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem asXMLToolStripMenuItem;
     }
 }

@@ -134,9 +134,17 @@ namespace QuickMon
             root.SetAttributeValue("repeatCount", RepeatCount);
 
             if (CurrentValue != null)
+            {
                 root.SetAttributeValue("currentValue", CurrentValue.ToString());
+            }
             else
+            {
                 root.SetAttributeValue("currentValue", "");
+            }
+            if (CurrentValueUnit != null)
+            {
+                root.SetAttributeValue("currentValueUnit", CurrentValueUnit);
+            }           
             root.SetAttributeValue("primaryUIValue", PrimaryUIValue);
             root.SetAttributeValue("executedOnHostComputer", ExecutedOnHostComputer);
             root.SetAttributeValue("ranAs", RanAs);
@@ -214,6 +222,7 @@ namespace QuickMon
             ForAgentType = root.ReadXmlElementAttr("forAgentType", "");
             ForAgentId = root.ReadXmlElementAttr("forAgentId", -1);
             CurrentValue = root.ReadXmlElementAttr("currentValue", "");
+            CurrentValueUnit = root.ReadXmlElementAttr("currentValueUnit", "");
             PrimaryUIValue = root.ReadXmlElementAttr("primaryUIValue", false);
             ExecutedOnHostComputer = root.ReadXmlElementAttr("executedOnHostComputer", "");
             RanAs = root.ReadXmlElementAttr("ranAs", "");
