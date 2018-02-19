@@ -87,7 +87,14 @@ namespace QuickMon.UI
         private void cmdFormat_Click(object sender, EventArgs e)
         {
             bool changedBefore = cmdSaveTemplate.Enabled;
-            txtConfig.Text = XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+            try
+            {
+                txtConfig.Text = txtConfig.Text.BeautifyXML(); // XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Error formatting xml\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
             cmdSaveTemplate.Enabled = changedBefore;
         }
         private void cmdSaveTemplate_Click(object sender, EventArgs e)
@@ -269,7 +276,15 @@ namespace QuickMon.UI
                 txtName.Text = t.Name;
                 cboClass.Text = t.ForClass;
                 txtDescription.Text = t.Description;
-                txtConfig.Text = XmlFormattingUtils.NormalizeXML(t.Config);
+                txtConfig.Text = t.Config;
+                try
+                {
+                    txtConfig.Text = txtConfig.Text.BeautifyXML(); // XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format("Error formatting xml\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
                 SetSaveButton(false);
             }
             else
@@ -318,7 +333,8 @@ namespace QuickMon.UI
                     {
                         root.SetAttributeValue("uniqueId", "");
                         root.SetAttributeValue("dependOnParentId", "");
-                        txtConfig.Text = XmlFormattingUtils.NormalizeXML(xdoc.OuterXml);
+                        //txtConfig.Text = XmlFormattingUtils.NormalizeXML(xdoc.OuterXml);
+                        txtConfig.Text = xdoc.OuterXml.BeautifyXML();
                     }
                 }
                 catch(Exception ex)
@@ -449,7 +465,15 @@ namespace QuickMon.UI
                             txtConfig.Text = Properties.Resources.BlankTemplateCollectorAgent.Replace("{0}", agentConfig);
                         else if (cboType.SelectedIndex == 4)
                             txtConfig.Text = Properties.Resources.BlankTemplateNotifierAgent.Replace("{0}", agentConfig);
-                        txtConfig.Text = XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+                        //txtConfig.Text = XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+                        try
+                        {
+                            txtConfig.Text = txtConfig.Text.BeautifyXML(); // XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(string.Format("Error formatting xml\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
                     }
                 }
             }

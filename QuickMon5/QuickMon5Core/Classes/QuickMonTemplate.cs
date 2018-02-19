@@ -144,7 +144,7 @@ namespace QuickMon
             {
                 System.IO.File.Move(MonitorPack.GetQuickMonUserDataTemplatesFile(), MonitorPack.GetQuickMonUserDataTemplatesFile() + ".bak");
             }
-            System.IO.File.WriteAllText(MonitorPack.GetQuickMonUserDataTemplatesFile(), XmlFormattingUtils.NormalizeXML(sb.ToString()));
+            System.IO.File.WriteAllText(MonitorPack.GetQuickMonUserDataTemplatesFile(), sb.ToString().BeautifyXML());
         }
         private static string GetTemplateXmlString(string name, string typeName, string className, string description, string config)
         {

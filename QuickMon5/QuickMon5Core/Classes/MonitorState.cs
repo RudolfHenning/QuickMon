@@ -155,20 +155,25 @@ namespace QuickMon
                 root.SetAttributeValue("ranAs", RanAs);
 
             XmlElement alertHeaderNode = xdoc.CreateElement("alertHeader");
-            alertHeaderNode.InnerText = AlertHeader;
+            if (AlertHeader!= null && AlertHeader.Length > 0)
+                alertHeaderNode.InnerText = AlertHeader;
             root.AppendChild(alertHeaderNode);
             XmlElement alertFooterNode = xdoc.CreateElement("alertFooter");
-            alertFooterNode.InnerText = AlertFooter;
+            if (AlertFooter != null && AlertFooter.Length > 0)
+                alertFooterNode.InnerText = AlertFooter;
             root.AppendChild(alertFooterNode);
             XmlElement additionalAlertTextNode = xdoc.CreateElement("additionalAlertText");
-            additionalAlertTextNode.InnerText = AdditionalAlertText;
+            if (AdditionalAlertText != null && AdditionalAlertText.Length > 0)
+                additionalAlertTextNode.InnerText = AdditionalAlertText;
             root.AppendChild(additionalAlertTextNode);
 
             XmlElement rawDetailsNode = xdoc.CreateElement("rawDetails");
-            rawDetailsNode.InnerText = RawDetails;
+            if (RawDetails != null && RawDetails.Length > 0)
+                rawDetailsNode.InnerText = RawDetails;
             root.AppendChild(rawDetailsNode);
             XmlElement htmlDetailsNode = xdoc.CreateElement("htmlDetails");
-            htmlDetailsNode.InnerText = HtmlDetails;
+            if (HtmlDetails != null && HtmlDetails.Length > 0)
+                htmlDetailsNode.InnerText = HtmlDetails;
             root.AppendChild(htmlDetailsNode);
             XmlElement alerts = xdoc.CreateElement("alerts");
             foreach (string alert in AlertsRaised)

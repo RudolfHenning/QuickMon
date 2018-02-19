@@ -790,7 +790,15 @@ namespace QuickMon
                     //Copy as is with same IDs
                     copiedCollectorList.Add(en.Clone());
                 }
-                Clipboard.SetText(XmlFormattingUtils.NormalizeXML(CollectorHost.CollectorHostListToString(copiedCollectorList)));
+                //Clipboard.SetText(XmlFormattingUtils.NormalizeXML(CollectorHost.CollectorHostListToString(copiedCollectorList)));
+                try
+                {
+                    Clipboard.SetText(CollectorHost.CollectorHostListToString(copiedCollectorList).BeautifyXML()); // XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format("Error formatting xml\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
         }
         private void PasteSelectedCollectorAndDependant(bool showEditList)

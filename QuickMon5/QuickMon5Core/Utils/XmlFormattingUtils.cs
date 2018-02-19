@@ -26,6 +26,30 @@ namespace QuickMon
                 .Replace("&gt;", ">");
         }
 
+        public static string BeautifyXML(this string unformattedXML)
+        {
+            string formattedStr = "";
+            try
+            {
+                System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                doc.LoadXml(unformattedXML);
+                StringBuilder sb = new StringBuilder();
+                System.Xml.XmlWriterSettings settings = new System.Xml.XmlWriterSettings
+                {
+                    Indent = true,
+                    IndentChars = "  ",
+                    NewLineChars = "\r\n",
+                    NewLineHandling = System.Xml.NewLineHandling.Replace
+                };
+                using (System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(sb, settings))
+                {
+                    doc.Save(writer);
+                }
+                formattedStr = sb.ToString();
+            }
+            catch { formattedStr = unformattedXML; }
+            return formattedStr;
+        }
         public static string NormalizeXML(string unformattedXML)
         {
             string formattedXml = "";

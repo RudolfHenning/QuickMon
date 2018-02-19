@@ -411,7 +411,7 @@ namespace QuickMon
             }
             #endregion
 
-            return XmlFormattingUtils.NormalizeXML(outDoc.OuterXml);
+            return outDoc.OuterXml.BeautifyXML(); // XmlFormattingUtils.NormalizeXML(outDoc.OuterXml);
         }
         private string GetConfigVarXml()
         {
@@ -482,7 +482,21 @@ namespace QuickMon
                 sb.AppendLine(ch.ExportHistoryToXML());
             }
             sb.AppendLine("</collectorHostHistories>");
-            return XmlFormattingUtils.NormalizeXML(sb.ToString());
+            //try
+            //{
+            //    XmlDocument xDoc = new XmlDocument();
+            //    xDoc.PreserveWhitespace = true;
+            //    xDoc.LoadXml(sb.ToString());
+                
+            //    xDoc.Normalize();
+            //    return xDoc.OuterXml;
+            //}
+            //catch
+            //{
+            //    return sb.ToString();
+            //}
+
+            return sb.ToString().BeautifyXML();// XmlFormattingUtils.NormalizeXML(sb.ToString());
         }
         #endregion
     }

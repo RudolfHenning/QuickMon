@@ -134,7 +134,7 @@ namespace QuickMon
         public string ExportHistoryToXML()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("<collectorHostHistory name=\"{0}\">", Name.EscapeXml());
+            sb.AppendFormat("<collectorHostHistory name=\"{0}\" id=\"{1}\" pid=\"{2}\">", Name.EscapeXml(), UniqueId, ParentCollectorId);
             foreach (var h in stateHistory.OrderBy(s => s.Timestamp))
             {
                 sb.Append(h.ToXml());

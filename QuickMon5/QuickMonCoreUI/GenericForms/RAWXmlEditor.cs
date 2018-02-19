@@ -23,7 +23,7 @@ namespace QuickMon
         {
             if (SelectedMarkup != null && SelectedMarkup.Length > 0)
             {
-                txtConfig.Text = XmlFormattingUtils.NormalizeXML(SelectedMarkup);
+                txtConfig.Text = SelectedMarkup.BeautifyXML();// XmlFormattingUtils.NormalizeXML(SelectedMarkup);
             }
         }
 
@@ -32,20 +32,27 @@ namespace QuickMon
             try
             {
                 cmdFormat.Enabled = txtConfig.Text.Length > 0;
+                
                 XmlDocument testXml = new XmlDocument();
                 testXml.LoadXml(txtConfig.Text);
                 cmdOK.Enabled = true;
             }
             catch (Exception)
             {
-
                 cmdOK.Enabled = false;
             }
         }
 
         private void cmdFormat_Click(object sender, EventArgs e)
         {
-            txtConfig.Text = XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+            try
+            {
+                txtConfig.Text = txtConfig.Text.BeautifyXML(); // XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Error formatting xml\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -79,7 +86,14 @@ namespace QuickMon
         }
         private void formatToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            txtConfig.Text = XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+            try
+            {
+                txtConfig.Text = txtConfig.Text.BeautifyXML(); // XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Error formatting xml\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
         #endregion
 
