@@ -31,7 +31,7 @@ namespace QuickMon
             string formattedXml = "";
             try
             {
-                for (int i = 1; i < 5; i++)
+                for (int i = 1; i < 10; i++)
                 {
                     unformattedXML = unformattedXML.Replace(">" + new string(' ', i) + "<", "><");
                     unformattedXML = unformattedXML.Replace(">" + new string('\t', i) + "<", "><");

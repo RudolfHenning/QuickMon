@@ -227,6 +227,7 @@
             this.exportHistoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clipboardExportAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optCurrentStateView = new System.Windows.Forms.RadioButton();
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.rawViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -247,7 +248,6 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
-            this.asXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -2521,7 +2521,7 @@
             this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportToClipboardToolStripMenuItem});
             this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
-            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 48);
+            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 26);
             // 
             // exportToClipboardToolStripMenuItem
             // 
@@ -2538,6 +2538,13 @@
             this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.clipboardExportAsCSVToolStripMenuItem.Text = "As CSV";
             this.clipboardExportAsCSVToolStripMenuItem.Click += new System.EventHandler(this.clipboardExportAsCSVToolStripMenuItem_Click);
+            // 
+            // asXMLToolStripMenuItem
+            // 
+            this.asXMLToolStripMenuItem.Name = "asXMLToolStripMenuItem";
+            this.asXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.asXMLToolStripMenuItem.Text = "As XML";
+            this.asXMLToolStripMenuItem.Click += new System.EventHandler(this.asXMLToolStripMenuItem_Click);
             // 
             // optCurrentStateView
             // 
@@ -2766,13 +2773,6 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
-            // 
-            // asXMLToolStripMenuItem
-            // 
-            this.asXMLToolStripMenuItem.Name = "asXMLToolStripMenuItem";
-            this.asXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.asXMLToolStripMenuItem.Text = "As XML";
-            this.asXMLToolStripMenuItem.Click += new System.EventHandler(this.asXMLToolStripMenuItem_Click);
             // 
             // CollectorDetails
             // 

@@ -134,17 +134,17 @@ namespace QuickMon
         public string ExportHistoryToXML()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<collectorHostHistory>");
+            sb.AppendFormat("<collectorHostHistory name=\"{0}\">", Name.EscapeXml());
             foreach (var h in stateHistory.OrderBy(s => s.Timestamp))
             {
-                sb.AppendLine(h.ToXml());
+                sb.Append(h.ToXml());
             }
 
             if (CurrentState != null)
             {
-                sb.AppendLine(CurrentState.ToXml());
+                sb.Append(CurrentState.ToXml());
             }
-            sb.AppendLine("</collectorHostHistory>");
+            sb.Append("</collectorHostHistory>");
             return sb.ToString();
         }
     }

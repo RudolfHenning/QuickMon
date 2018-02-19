@@ -121,33 +121,38 @@ namespace QuickMon
         public string ToXml()
         {
             XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml("<monitorState uniqueId=\"\" state=\"NotAvailable\" currentValue=\"\" lastStateChangeTime=\"\" forAgent=\"\" />");
+            xdoc.LoadXml("<monitorState uniqueId=\"\" state=\"NotAvailable\" />"); //currentValue=\"\" lastStateChangeTime=\"\" forAgent=\"\"
             XmlElement root = xdoc.DocumentElement;
             root.SetAttributeValue("uniqueId", UniqueId);
             root.SetAttributeValue("state", State.ToString());
             root.SetAttributeValue("stateChangedTime", StateChangedTime.ToString("yyyy-MM-dd HH:mm:ss"));
-            root.SetAttributeValue("forAgent", ForAgent);
-            root.SetAttributeValue("forAgentType", ForAgentType);
-            root.SetAttributeValue("forAgentId", ForAgentId);
+            if (ForAgent != null && ForAgent.Length > 0)
+                root.SetAttributeValue("forAgent", ForAgent);
+            if (ForAgentType != null && ForAgentType.Length > 0)
+                root.SetAttributeValue("forAgentType", ForAgentType);
+            if (ForAgentId > 0)
+                root.SetAttributeValue("forAgentId", ForAgentId);
             root.SetAttributeValue("timeStamp", Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("callDurationMS", CallDurationMS.ToString());
             root.SetAttributeValue("repeatCount", RepeatCount);
 
-            if (CurrentValue != null)
+            if (CurrentValue != null && CurrentValue.ToString().Length > 0)
             {
                 root.SetAttributeValue("currentValue", CurrentValue.ToString());
             }
-            else
-            {
-                root.SetAttributeValue("currentValue", "");
-            }
-            if (CurrentValueUnit != null)
+            //else
+            //{
+            //    root.SetAttributeValue("currentValue", "");
+            //}
+            if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
             {
                 root.SetAttributeValue("currentValueUnit", CurrentValueUnit);
             }           
             root.SetAttributeValue("primaryUIValue", PrimaryUIValue);
-            root.SetAttributeValue("executedOnHostComputer", ExecutedOnHostComputer);
-            root.SetAttributeValue("ranAs", RanAs);
+            if (ExecutedOnHostComputer != null && ExecutedOnHostComputer.Length > 0)
+                root.SetAttributeValue("executedOnHostComputer", ExecutedOnHostComputer);
+            if (RanAs != null && RanAs.Length > 0)
+                root.SetAttributeValue("ranAs", RanAs);
 
             XmlElement alertHeaderNode = xdoc.CreateElement("alertHeader");
             alertHeaderNode.InnerText = AlertHeader;
@@ -187,12 +192,12 @@ namespace QuickMon
             StringBuilder childStates = new StringBuilder();
             if (ChildStates != null && ChildStates.Count > 0)
             {
-                childStates.AppendLine("<childStates>");
+                childStates.Append("<childStates>");
                 foreach (MonitorState childState in ChildStates)
                 {
-                    childStates.AppendLine(childState.ToXml());
+                    childStates.Append(childState.ToXml());
                 }
-                childStates.AppendLine("</childStates>");
+                childStates.Append("</childStates>");
             }
             return xdoc.OuterXml.Replace("</monitorState>", childStates.ToString() + "</monitorState>");
         }

@@ -46,6 +46,7 @@ namespace QuickMon
 
         private string currentSelectedControl = "";
         private bool inEditMode = false;
+        private static bool updateAgentsDetailViewBusy = false;
         #endregion
 
         #region TreeNodeImage contants
@@ -1133,20 +1134,7 @@ namespace QuickMon
         }
         #endregion
 
-        //private void flowLayoutPanelCollectorStuff_Resize(object sender, EventArgs e)
-        //{
-        //    int clientSizeWidth = flowLayoutPanelCollectorStuff.ClientSize.Width - flowLayoutPanelCollectorStuff.Margin.Left - flowLayoutPanelCollectorStuff.Margin.Right - 1;
-        //    int clientSizeHeight = flowLayoutPanelCollectorStuff.ClientSize.Height - flowLayoutPanelCollectorStuff.Margin.Top - flowLayoutPanelCollectorStuff.Margin.Bottom - 1;
-        //    foreach (Control c in flowLayoutPanelCollectorStuff.Controls)
-        //    {
-        //        if (c is Panel)
-        //        {
-        //            c.Width = clientSizeWidth;
-        //            c.Height = clientSizeHeight;
-        //        }
-        //    }
-        //}
-
+        #region Other control events
         private void optAgentStates_CheckedChanged(object sender, EventArgs e)
         {
             SetActivePanel(panelAgentStates);
@@ -1157,7 +1145,43 @@ namespace QuickMon
             collectorDetailSplitContainer.Panel2Collapsed = true;
             chkRAWDetails.Image = global::QuickMon.Properties.Resources._131;
         }
+        private void optCurrentStateView_CheckedChanged(object sender, EventArgs e)
+        {
+            agentStateSplitContainer.Panel2Collapsed = true;
+            UpdateAgentStateTree();
+        }
+        private void optHistoricStateView_CheckedChanged(object sender, EventArgs e)
+        {
+            agentStateSplitContainer.Panel2Collapsed = false;
+            UpdateAgentStateTree();
+        }
+        private void chkRAWDetails_CheckedChanged(object sender, EventArgs e)
+        {
+            collectorDetailSplitContainer.Panel2Collapsed = !chkRAWDetails.Checked;
+            chkRAWDetails.Image = chkRAWDetails.Checked ? global::QuickMon.Properties.Resources._133 : global::QuickMon.Properties.Resources._131;
 
+            if (collectorDetailSplitContainer.Panel2.Height < 200)
+            {
+                collectorDetailSplitContainer.SplitterDistance = collectorDetailSplitContainer.Height - 200;
+            }
+            UpdateRawView();
+        }
+        private void lvwHistory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvwHistory.SelectedItems.Count == 1)
+            {
+                UpdateAgentStateTree();
+                if (lvwHistory.Focused)
+                    currentSelectedControl = "lvwHistory";
+                UpdateRawView();
+            }            
+        }
+        private void tlvAgentStates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tlvAgentStates.Focused)
+                currentSelectedControl = "tlvAgentStates";
+            UpdateRawView();
+        }
         private void statusStripCollector_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             if (e.ClickedItem.Name == "toolStripStatusLabelEnabled")
@@ -1176,50 +1200,7 @@ namespace QuickMon
                 UpdateStatusBar();
             }            
         }
-
-        private void optCurrentStateView_CheckedChanged(object sender, EventArgs e)
-        {
-            agentStateSplitContainer.Panel2Collapsed = true;
-            UpdateAgentStateTree();
-        }
-        private void optHistoricStateView_CheckedChanged(object sender, EventArgs e)
-        {
-            agentStateSplitContainer.Panel2Collapsed = false;
-            //if (lvwHistory.SelectedItems.Count == 0 && lvwHistory.Items.Count > 0)
-            //{
-            //    lvwHistory.Items[0].Selected = true;
-            //}
-            UpdateAgentStateTree();
-        }
-        private void lvwHistory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lvwHistory.SelectedItems.Count == 1)
-            {
-                UpdateAgentStateTree();
-                if (lvwHistory.Focused)
-                    currentSelectedControl = "lvwHistory";
-                UpdateRawView();
-            }            
-        }
-        private void tlvAgentStates_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tlvAgentStates.Focused)
-                currentSelectedControl = "tlvAgentStates";
-            UpdateRawView();
-        }
-        private static bool updateAgentsDetailViewBusy = false;
-
-        private void chkRAWDetails_CheckedChanged(object sender, EventArgs e)
-        {
-            collectorDetailSplitContainer.Panel2Collapsed = !chkRAWDetails.Checked;
-            chkRAWDetails.Image = chkRAWDetails.Checked ? global::QuickMon.Properties.Resources._133 : global::QuickMon.Properties.Resources._131;
-
-            if (collectorDetailSplitContainer.Panel2.Height < 200)
-            {
-                collectorDetailSplitContainer.SplitterDistance = collectorDetailSplitContainer.Height - 200;
-            }
-            UpdateRawView();
-        }
+        #endregion
 
         #region Editing
         private void txtName_TextChanged(object sender, EventArgs e)
@@ -2253,42 +2234,5 @@ namespace QuickMon
 
         #endregion
 
-        //private void cmdAgentsToggle_Click(object sender, EventArgs e)
-        //{
-        //    TogglePanel(cmdAgentsToggle, agentsEditSplitContainer, agentsEditSplitContainerHeight);
-        //}
-        //private void cmdHostsToggle_Click(object sender, EventArgs e)
-        //{
-        //    TogglePanel(cmdHostsToggle, hostSettingsSplitContainer, hostSettingsSplitContainerHeight);
-        //}
-        //private void cmdOperationalToggle_Click(object sender, EventArgs e)
-        //{
-        //    TogglePanel(cmdOperationalToggle, operationalSplitContainer, operationalSplitContainerHeight);
-        //}
-        //private void cmdAlertsToggle_Click(object sender, EventArgs e)
-        //{
-        //    TogglePanel(cmdAlertsToggle, alertsSplitContainer, alertsSplitContainerHeight);
-        //}
-        //private void cmdConfigVarsToggle_Click(object sender, EventArgs e)
-        //{
-        //    TogglePanel(cmdConfigVarsToggle, configVariSplitContainer, configVariSplitContainerHeight);
-        //}
-
-        //private void TogglePanel(Button toggleButton, SplitContainer togglePanel, int expandedheight)
-        //{
-        //    if (togglePanel.Panel2Collapsed)
-        //    {
-        //        togglePanel.Panel2Collapsed = false;
-        //        togglePanel.Height = expandedheight;
-        //        toggleButton.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-        //        splitContainer2.Panel1.ScrollControlIntoView(togglePanel);
-        //    }
-        //    else
-        //    {
-        //        togglePanel.Panel2Collapsed = true;
-        //        togglePanel.Height = 25;
-        //        toggleButton.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-        //    }
-        //}
     }
 }

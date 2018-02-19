@@ -482,7 +482,7 @@ namespace QuickMon
                 sb.AppendLine(ch.ExportHistoryToXML());
             }
             sb.AppendLine("</collectorHostHistories>");
-            return sb.ToString();
+            return XmlFormattingUtils.NormalizeXML(sb.ToString());
         }
         #endregion
     }
