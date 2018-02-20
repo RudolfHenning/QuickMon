@@ -183,16 +183,18 @@ namespace QuickMon
                 alerts.AppendChild(alertNode);
             }
             root.AppendChild(alerts);
-
-            XmlElement scriptsRanElement = xdoc.CreateElement("scriptsRan");
-            foreach (string scriptName in ScriptsRan)
+            
+            if (ScriptsRan != null)
             {
-                XmlElement scriptNode = xdoc.CreateElement("script");
-                scriptNode.InnerText = scriptName;
-                scriptsRanElement.AppendChild(scriptNode);
+                XmlElement scriptsRanElement = xdoc.CreateElement("scriptsRan");
+                foreach (string scriptName in ScriptsRan)
+                {
+                    XmlElement scriptNode = xdoc.CreateElement("script");
+                    scriptNode.InnerText = scriptName;
+                    scriptsRanElement.AppendChild(scriptNode);
+                }
+                root.AppendChild(scriptsRanElement);
             }
-            root.AppendChild(scriptsRanElement);
-
 
             StringBuilder childStates = new StringBuilder();
             if (ChildStates != null && ChildStates.Count > 0)
@@ -265,19 +267,25 @@ namespace QuickMon
 
             XmlNodeList scriptsRanNodes = root.SelectNodes("scriptsRan");
             ScriptsRan = new List<string>();
-            foreach (XmlNode scriptNode in scriptsRanNodes)
+            if (scriptsRanNodes != null)
             {
-                if (scriptNode.InnerText.Trim().Length > 0)
-                    ScriptsRan.Add(scriptNode.InnerText);
+                foreach (XmlNode scriptNode in scriptsRanNodes)
+                {
+                    if (scriptNode.InnerText.Trim().Length > 0)
+                        ScriptsRan.Add(scriptNode.InnerText);
+                }
             }
 
             ChildStates = new List<MonitorState>();
             XmlNodeList childStates = root.SelectNodes("childStates/monitorState");
-            foreach (XmlNode childStateNode in childStates)
+            if (childStates != null)
             {
-                MonitorState childState = new MonitorState();
-                childState.FromXml(childStateNode.OuterXml);
-                ChildStates.Add(childState);
+                foreach (XmlNode childStateNode in childStates)
+                {
+                    MonitorState childState = new MonitorState();
+                    childState.FromXml(childStateNode.OuterXml);
+                    ChildStates.Add(childState);
+                }
             }
         }
 

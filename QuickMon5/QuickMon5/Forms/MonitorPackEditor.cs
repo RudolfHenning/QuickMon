@@ -657,12 +657,26 @@ namespace QuickMon
         }
 
         private void clipboardExportAsCSVToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
-            Clipboard.SetText(SelectedMonitorPack.CollectorExportHistoryToCSV());
+        {
+            try
+            {
+                Clipboard.SetText(SelectedMonitorPack.CollectorExportHistoryToCSV());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Export all Collectors history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void asXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(SelectedMonitorPack.CollectorExportHistoryToXML());
+            try
+            {
+                Clipboard.SetText(SelectedMonitorPack.CollectorExportHistoryToXML());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Export all Collectors history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
