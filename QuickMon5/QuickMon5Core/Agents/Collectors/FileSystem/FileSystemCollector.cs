@@ -73,6 +73,7 @@ namespace QuickMon.Collectors
                     directoryFilterEntry.FileMaxSize = tmpl;
 
                 directoryFilterEntry.ShowFilenamesInDetails = host.ReadXmlElementAttr("showFilenamesInDetails", false);
+                directoryFilterEntry.TopFileNameCountInDetails = host.ReadXmlElementAttr("topFileNameCountInDetails", 10);
                 directoryFilterEntry.ShowFileCountInOutputValue = host.ReadXmlElementAttr("showFileCountInOutputValue", true);
                 directoryFilterEntry.ShowFileSizeInOutputValue = host.ReadXmlElementAttr("showFileSizeInOutputValue", false);
                 directoryFilterEntry.PrimaryUIValue = host.ReadXmlElementAttr("primaryUIValue", false);
@@ -109,6 +110,7 @@ namespace QuickMon.Collectors
                 directoryXmlNode.SetAttributeValue("fileMinSize", de.FileMinSize);
                 directoryXmlNode.SetAttributeValue("fileMaxSize", de.FileMaxSize);
                 directoryXmlNode.SetAttributeValue("showFilenamesInDetails", de.ShowFilenamesInDetails);
+                directoryXmlNode.SetAttributeValue("topFileNameCountInDetails", de.TopFileNameCountInDetails);
                 directoryXmlNode.SetAttributeValue("showFileCountInOutputValue", de.ShowFileCountInOutputValue);
                 directoryXmlNode.SetAttributeValue("showFileSizeInOutputValue", de.ShowFileSizeInOutputValue);
                 directoryXmlNode.SetAttributeValue("primaryUIValue", de.PrimaryUIValue);
@@ -263,6 +265,7 @@ namespace QuickMon.Collectors
         /// Show file names in RAW/Html details
         /// </summary>
         public bool ShowFilenamesInDetails { get; set; }
+        public int TopFileNameCountInDetails { get; set; } = 10;
         public bool ShowFileCountInOutputValue { get; set; }
         public bool ShowFileSizeInOutputValue { get; set; }
 
@@ -357,8 +360,10 @@ namespace QuickMon.Collectors
 
                         if (ShowFilenamesInDetails)
                         {
-                            int topCount = 10;
-                            for (int i = 0; i < topCount && i < directoryFileInfo.FileInfos.Count; i++)
+                            int topCount = TopFileNameCountInDetails;
+                            if (topCount <= 0)
+                                topCount = directoryFileInfo.FileInfos.Count;
+                            for (int i = 0; i < TopFileNameCountInDetails && i < directoryFileInfo.FileInfos.Count; i++)
                             {
                                 FileInfo fi = directoryFileInfo.FileInfos[i];
                                 currentState.ChildStates.Add(

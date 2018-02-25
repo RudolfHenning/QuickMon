@@ -61,6 +61,26 @@ namespace QuickMon
         private List<IChildWindowIdentity> childWindows = new List<IChildWindowIdentity>();
         #endregion
 
+        #region Public methods
+        public void UpdateCollector(CollectorHost collectorHost, bool setChanged = false)
+        {
+            monitorPack_CollectorHostStateUpdated(collectorHost);
+            if (setChanged)
+                SetMonitorChanged();
+        }
+        public void RefreshCollector(CollectorHost collectorHost)
+        {
+            if (collectorHost != null && collectorHost.Tag is TreeNodeEx)
+            {
+                TreeNode tn = (TreeNode)collectorHost.Tag;
+                SetNodesToBeingRefreshed(tn);
+                WaitForPollingToFinish(5);
+                Cursor.Current = Cursors.WaitCursor;
+                monitorPack.ForceCollectorHostRefreshState(collectorHost);
+            }
+        }
+        #endregion
+
         #region Form events
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -898,11 +918,8 @@ namespace QuickMon
                         CollectorDetails collectorDetails = new CollectorDetails();
                         collectorDetails.SelectedCollectorHost = ch;
                         collectorDetails.Identifier = ch.UniqueId;
-                        //collectorDetails.ParentWindow = this;
                         collectorDetails.StartWithEditMode = editmode;
                         collectorDetails.ShowChildWindow(this);
-                        //if (editmode)
-                        //    collectorDetails.StartEditMode();
                     }
                     else
                     {
@@ -1799,13 +1816,6 @@ namespace QuickMon
                                 {
                                     currentTreeNode.DisplayValue = collectorHost.CurrentState.ReadPrimaryOrFirstUIValue();
                                 }                                
-                                //if (collectorHost.CurrentState != null)
-                                //{
-                                //    string value = collectorHost.CurrentState.ReadValues().Split('\r', '\n')[0];
-                                //    currentTreeNode.DisplayValue = value; // collectorHost.CurrentState.ReadValues().Replace("\r","`").Replace("\n","");
-                                //}
-                                //else
-                                //    currentTreeNode.DisplayValue = "";
                                 if (firstRefresh && (imageIndex == collectorGoodStateImage1 || imageIndex == collectorWarningStateImage1 || imageIndex == collectorErrorStateImage1))
                                 {
                                     TreeNode currentFocusNode = tvwCollectors.SelectedNode;
@@ -1854,12 +1864,6 @@ namespace QuickMon
                         childWindow.RefreshDetails();
                 });
             }
-        }
-        public void UpdateCollector(CollectorHost collectorHost, bool setChanged = false)
-        {
-            monitorPack_CollectorHostStateUpdated(collectorHost);
-            if (setChanged)
-                SetMonitorChanged();
         }
         private void UpdateParentFolderNode(TreeNodeEx parentNode)
         {

@@ -82,12 +82,18 @@ namespace QuickMon
         public void RefreshDetails()
         {
             if (SelectedCollectorHost != null)
-            {
+            {  
                 LoadControls();
                 if (currentSelectedControl != "")
-                    UpdateRawView();
+                    UpdateRawView();                
             }
         }
+        public void RefreshCollectorState()
+        {
+            AutoRefreshEnabled = true; //set automatically is not already
+            ((MainForm)ParentWindow).RefreshCollector(SelectedCollectorHost);
+        }
+
         public void DeRegisterChildWindow()
         {
             if (ParentWindow != null)
@@ -1129,8 +1135,8 @@ namespace QuickMon
         }
         private void cmdRefresh_Click(object sender, EventArgs e)
         {
-            RefreshDetails();
-            //LoadEditControls();
+            RefreshCollectorState();
+            //RefreshDetails();
         }
         #endregion
 
@@ -1214,8 +1220,6 @@ namespace QuickMon
                 if (SetEditingCollectorHost())
                 {
                     SelectedCollectorHost.ReconfigureFromXml(editingCollectorHost.ToXml());
-                    //if (SelectedCollectorHost.ParentMonitorPack != null)
-                    //    SelectedCollectorHost.ParentMonitorPack.InitializeCollectorActionScripts(SelectedCollectorHost);
                     LoadControls();                    
                     
                     ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
@@ -1246,13 +1250,6 @@ namespace QuickMon
                     LoadControls();
                     LoadEditControls();
                     ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
-                    //TriggerMonitorPackReload = true;
-                    //MonitorPack newMP = new MonitorPack();
-                    //newMP.LoadXml(editor.SelectedMarkup);
-                    //newMP.MonitorPackPath = SelectedMonitorPack.MonitorPackPath;
-                    //SelectedMonitorPack = null;
-                    //SelectedMonitorPack = newMP;
-                    //LoadFormControls();
                 }
             }
         }

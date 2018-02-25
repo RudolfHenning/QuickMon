@@ -41,3 +41,10 @@ Exporting of Collector host state history metrics (for reporting)
 	Monitor pack history (All collector histories)
 	CSV and XML formats
 Error icon changed to red triangle
+
+-------------
+Version 5.0.6
+*************
+AutoRefreshCollectorDetailAutomatically set to true by default
+Clicking on refresh button in collector detail window will trigger a state refresh
+ToDo: ShowFilenamesInDetails when true must also specify top # filenames.

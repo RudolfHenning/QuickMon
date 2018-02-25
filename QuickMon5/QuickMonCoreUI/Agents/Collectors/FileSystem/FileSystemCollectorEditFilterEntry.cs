@@ -62,7 +62,7 @@ namespace QuickMon.UI
                 numericUpDownSizeWarningIndicator.SaveValueSet(selectedEntry.SizeWarningIndicator);
                 numericUpDownSizeErrorIndicator.SaveValueSet(selectedEntry.SizeErrorIndicator);
                 chkShowFilenamesInDetails.Checked = selectedEntry.ShowFilenamesInDetails;
-
+                topFileNameCountInDetailsNumericUpDown.SaveValueSet(selectedEntry.TopFileNameCountInDetails);
                 optShowFileCountInOutputValue.Checked = selectedEntry.ShowFileCountInOutputValue && !selectedEntry.ShowFileSizeInOutputValue;
                 optShowFileSizeInOutputValue.Checked = !selectedEntry.ShowFileCountInOutputValue && selectedEntry.ShowFileSizeInOutputValue;
                 ShowFileCountAndSizeInOutputValue.Checked = selectedEntry.ShowFileCountInOutputValue == selectedEntry.ShowFileSizeInOutputValue;
@@ -144,6 +144,7 @@ namespace QuickMon.UI
                 selectedEntry.FileMinSize = (int)numericUpDownFileSizeMin.Value;
                 selectedEntry.FileMaxSize = (int)numericUpDownFileSizeMax.Value;
                 selectedEntry.ShowFilenamesInDetails = chkShowFilenamesInDetails.Checked;
+                selectedEntry.TopFileNameCountInDetails = (int)topFileNameCountInDetailsNumericUpDown.Value;
                 selectedEntry.ShowFileCountInOutputValue = optShowFileCountInOutputValue.Checked || ShowFileCountAndSizeInOutputValue.Checked;
                 selectedEntry.ShowFileSizeInOutputValue = optShowFileSizeInOutputValue.Checked || ShowFileCountAndSizeInOutputValue.Checked;
 
@@ -275,6 +276,7 @@ namespace QuickMon.UI
                 testEntry.FileMinSize = (int)numericUpDownFileSizeMin.Value;
                 testEntry.FileMaxSize = (int)numericUpDownFileSizeMax.Value;
                 testEntry.ShowFilenamesInDetails = chkShowFilenamesInDetails.Checked;
+                testEntry.TopFileNameCountInDetails = (int)topFileNameCountInDetailsNumericUpDown.Value;
 
                 MonitorState testState = testEntry.GetCurrentState();
                 //DirectoryFileInfo directoryFileInfo = testEntry.GetFileListByFilters();
