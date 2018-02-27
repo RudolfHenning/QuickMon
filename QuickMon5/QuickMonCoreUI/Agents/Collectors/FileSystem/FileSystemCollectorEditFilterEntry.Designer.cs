@@ -80,12 +80,13 @@
             this.chkShowFilenamesInDetails = new System.Windows.Forms.CheckBox();
             this.cmdTest = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.topFileNameCountInDetailsNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.ShowFileCountAndSizeInOutputValue = new System.Windows.Forms.RadioButton();
             this.optShowFileSizeInOutputValue = new System.Windows.Forms.RadioButton();
             this.optShowFileCountInOutputValue = new System.Windows.Forms.RadioButton();
-            this.topFileNameCountInDetailsNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
+            this.lblFistWithTopWarning = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileAgeMax)).BeginInit();
@@ -275,7 +276,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(507, 416);
+            this.cmdCancel.Location = new System.Drawing.Point(518, 430);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 5;
@@ -286,7 +287,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(426, 416);
+            this.cmdOK.Location = new System.Drawing.Point(437, 430);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 4;
@@ -369,7 +370,7 @@
             // 
             this.cmdBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowse.Location = new System.Drawing.Point(495, 22);
+            this.cmdBrowse.Location = new System.Drawing.Point(506, 22);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(68, 23);
             this.cmdBrowse.TabIndex = 2;
@@ -385,7 +386,7 @@
             this.txtDirectory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
             this.txtDirectory.Location = new System.Drawing.Point(93, 24);
             this.txtDirectory.Name = "txtDirectory";
-            this.txtDirectory.Size = new System.Drawing.Size(396, 20);
+            this.txtDirectory.Size = new System.Drawing.Size(407, 20);
             this.txtDirectory.TabIndex = 1;
             this.txtDirectory.TextChanged += new System.EventHandler(this.txtDirectory_TextChanged);
             // 
@@ -404,7 +405,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtContains.Location = new System.Drawing.Point(93, 76);
             this.txtContains.Name = "txtContains";
-            this.txtContains.Size = new System.Drawing.Size(470, 20);
+            this.txtContains.Size = new System.Drawing.Size(481, 20);
             this.txtContains.TabIndex = 8;
             // 
             // label18
@@ -460,7 +461,7 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(569, 217);
+            this.groupBox1.Size = new System.Drawing.Size(580, 217);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File filters";
@@ -580,7 +581,7 @@
             this.groupBox2.Controls.Add(this.numericUpDownSizeWarningIndicator);
             this.groupBox2.Location = new System.Drawing.Point(12, 235);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(569, 121);
+            this.groupBox2.Size = new System.Drawing.Size(580, 121);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Test conditions";
@@ -674,7 +675,7 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTest.Location = new System.Drawing.Point(345, 416);
+            this.cmdTest.Location = new System.Drawing.Point(356, 430);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
             this.cmdTest.TabIndex = 3;
@@ -686,6 +687,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.lblFistWithTopWarning);
             this.groupBox3.Controls.Add(this.label23);
             this.groupBox3.Controls.Add(this.label22);
             this.groupBox3.Controls.Add(this.topFileNameCountInDetailsNumericUpDown);
@@ -695,10 +697,41 @@
             this.groupBox3.Controls.Add(this.chkShowFilenamesInDetails);
             this.groupBox3.Location = new System.Drawing.Point(12, 362);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(569, 50);
+            this.groupBox3.Size = new System.Drawing.Size(580, 61);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Display/Output";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(211, 21);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(66, 13);
+            this.label23.TabIndex = 3;
+            this.label23.Text = "file(s) ( 0=All)";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(109, 21);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(26, 13);
+            this.label22.TabIndex = 1;
+            this.label22.Text = "Top";
+            // 
+            // topFileNameCountInDetailsNumericUpDown
+            // 
+            this.topFileNameCountInDetailsNumericUpDown.Location = new System.Drawing.Point(141, 19);
+            this.topFileNameCountInDetailsNumericUpDown.Maximum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            0});
+            this.topFileNameCountInDetailsNumericUpDown.Name = "topFileNameCountInDetailsNumericUpDown";
+            this.topFileNameCountInDetailsNumericUpDown.Size = new System.Drawing.Size(64, 20);
+            this.topFileNameCountInDetailsNumericUpDown.TabIndex = 2;
+            this.topFileNameCountInDetailsNumericUpDown.ValueChanged += new System.EventHandler(this.topFileNameCountInDetailsNumericUpDown_ValueChanged);
             // 
             // ShowFileCountAndSizeInOutputValue
             // 
@@ -733,42 +766,23 @@
             this.optShowFileCountInOutputValue.Text = "File count";
             this.optShowFileCountInOutputValue.UseVisualStyleBackColor = true;
             // 
-            // topFileNameCountInDetailsNumericUpDown
+            // lblFistWithTopWarning
             // 
-            this.topFileNameCountInDetailsNumericUpDown.Location = new System.Drawing.Point(141, 19);
-            this.topFileNameCountInDetailsNumericUpDown.Maximum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            0});
-            this.topFileNameCountInDetailsNumericUpDown.Name = "topFileNameCountInDetailsNumericUpDown";
-            this.topFileNameCountInDetailsNumericUpDown.Size = new System.Drawing.Size(64, 20);
-            this.topFileNameCountInDetailsNumericUpDown.TabIndex = 2;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(109, 21);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(26, 13);
-            this.label22.TabIndex = 1;
-            this.label22.Text = "Top";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(211, 21);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(66, 13);
-            this.label23.TabIndex = 3;
-            this.label23.Text = "file(s) ( 0=All)";
+            this.lblFistWithTopWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFistWithTopWarning.ForeColor = System.Drawing.Color.Maroon;
+            this.lblFistWithTopWarning.Location = new System.Drawing.Point(6, 40);
+            this.lblFistWithTopWarning.Name = "lblFistWithTopWarning";
+            this.lblFistWithTopWarning.Size = new System.Drawing.Size(383, 18);
+            this.lblFistWithTopWarning.TabIndex = 6;
+            this.lblFistWithTopWarning.Text = "Warning: specifying List file names with a large \'Top\' value can slow down the co" +
+    "llector!";
             // 
             // FileSystemCollectorEditFilterEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(593, 450);
+            this.ClientSize = new System.Drawing.Size(604, 464);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.cmdTest);
             this.Controls.Add(this.groupBox2);
@@ -862,5 +876,6 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.NumericUpDown topFileNameCountInDetailsNumericUpDown;
+        private System.Windows.Forms.Label lblFistWithTopWarning;
     }
 }

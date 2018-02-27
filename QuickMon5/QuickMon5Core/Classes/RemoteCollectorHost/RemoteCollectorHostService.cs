@@ -209,6 +209,7 @@ namespace QuickMon
         public static MonitorState GetCollectorHostState(CollectorHost entry, string hostAddressOverride, int portNumberOverride)
         {
             BasicHttpBinding myBinding = new BasicHttpBinding();
+            myBinding.MaxReceivedMessageSize = 2147483647;
             EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
             ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);            
             IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();

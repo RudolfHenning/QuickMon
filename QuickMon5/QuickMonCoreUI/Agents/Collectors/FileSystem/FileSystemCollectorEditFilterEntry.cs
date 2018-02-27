@@ -290,6 +290,12 @@ namespace QuickMon.UI
             }
         }
 
- 
+        private void topFileNameCountInDetailsNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            //if (topFileNameCountInDetailsNumericUpDown.Value > 20 || topFileNameCountInDetailsNumericUpDown.Value == 0)
+            //    lblFistWithTopWarning.Visible = true;
+            //else
+            //    lblFistWithTopWarning.Visible = false;
+        }
     }
 }

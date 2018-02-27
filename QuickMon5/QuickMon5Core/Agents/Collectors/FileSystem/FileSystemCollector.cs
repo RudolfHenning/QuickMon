@@ -315,11 +315,14 @@ namespace QuickMon.Collectors
         public MonitorState GetCurrentState()
         {
             DirectoryFileInfo directoryFileInfo = GetFileListByFilters();
+            string fullFilePath = Environment.ExpandEnvironmentVariables(DirectoryPath);
             MonitorState currentState = new MonitorState()
             {
-                ForAgent = DirectoryPath,
+                ForAgent = fullFilePath,
                 State = GetState(directoryFileInfo)
             };
+            if (!fullFilePath.EndsWith("\\"))
+                fullFilePath += "\\";
 
             if (DirectoryExistOnly && currentState.State != CollectorState.Good)
             {
@@ -369,9 +372,10 @@ namespace QuickMon.Collectors
                                 currentState.ChildStates.Add(
                                    new MonitorState()
                                    {
-                                       ForAgent = fi.Name,
+                                       ForAgent = fi.FullName.ReplaceCaseInsensitive(fullFilePath, ""),
+                                       //ForAgent = fi.Name,
                                        ForAgentType = "FileInfo",
-                                       CurrentValue = string.Format("{0}", FormatUtils.FormatFileSize(fi.Length))
+                                       CurrentValue = string.Format("{0},{1}", FormatUtils.FormatFileSize(fi.Length), fi.LastWriteTime.ToString("yyyy-MM-dd HH:mm"))
                                    });
                             }
                         }
