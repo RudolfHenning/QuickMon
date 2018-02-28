@@ -47,4 +47,4 @@ Version 5.0.6
 *************
 AutoRefreshCollectorDetailAutomatically set to true by default
 Clicking on refresh button in collector detail window will trigger a state refresh
-ToDo: ShowFilenamesInDetails when true must also specify top # filenames.
+When using ShowFilenamesInDetails you can also specify top # filenames to return.
