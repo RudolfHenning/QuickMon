@@ -171,5 +171,9 @@ namespace QuickMon
             str = System.Text.RegularExpressions.Regex.Replace(str, System.Text.RegularExpressions.Regex.Escape(from), to.Replace("$", "$$"), System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             return str;
         }
+        public static bool ContainsCaseInsensitive(this string str, string find)
+        {
+            return str.ToLower().Contains(find.ToLower());
+        }
     }
 }

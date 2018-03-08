@@ -442,11 +442,12 @@ namespace QuickMon
             collectorHistoryToXMLToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
 
             if (Clipboard.ContainsText() &&
-                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').StartsWith("<collectorHosts", StringComparison.InvariantCulture) &&
+                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').ContainsCaseInsensitive("<collectorHosts") &&
                 Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').EndsWith("</collectorHosts>", StringComparison.InvariantCulture))
             {
                 pasteCollectorToolStripMenuItem.Enabled = true;
                 pasteAndEditCollectorConfigToolStripMenuItem.Enabled = true;
+
             }
             else
             {
@@ -813,7 +814,8 @@ namespace QuickMon
                 //Clipboard.SetText(XmlFormattingUtils.NormalizeXML(CollectorHost.CollectorHostListToString(copiedCollectorList)));
                 try
                 {
-                    Clipboard.SetText(CollectorHost.CollectorHostListToString(copiedCollectorList).BeautifyXML()); // XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+                    string output = CollectorHost.CollectorHostListToString(copiedCollectorList).BeautifyXML();
+                    Clipboard.SetText(output); // XmlFormattingUtils.NormalizeXML(txtConfig.Text);
                 }
                 catch (Exception ex)
                 {
@@ -826,7 +828,7 @@ namespace QuickMon
             try
             {
                 TreeNodeEx currentlySelected = (TreeNodeEx)(tvwCollectors.SelectedNode);
-                if (Clipboard.ContainsText() && Clipboard.GetText().StartsWith("<collectorHosts"))
+                if (Clipboard.ContainsText() && Clipboard.GetText().ContainsCaseInsensitive("<collectorHosts"))
                 {
                     copiedCollectorList = CollectorHost.GetCollectorHostsFromString(Clipboard.GetText());
                 }
