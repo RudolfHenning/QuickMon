@@ -175,5 +175,9 @@ namespace QuickMon
         {
             return str.ToLower().Contains(find.ToLower());
         }
+        public static string StringToSaveFileName(this string str)
+        {
+            return N(str).Replace("\\", "_").Replace("&", "_").Replace("@", "").Replace("#", "").Replace(":", "").Replace(";", "").Replace("*", "").Replace("%", "").Replace("'", "").Replace("\"", "");
+        }
     }
 }

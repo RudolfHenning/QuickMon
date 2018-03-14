@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
+// Alert and Metric logging
 namespace QuickMon
 {
     public partial class MonitorPack
     {
+        #region Event Logging
         private DateTime lastLoggingCleanupEvent;
         private string loggingFileName = "";
         private static object loggingSyncLock = new object();
@@ -26,6 +28,7 @@ namespace QuickMon
         public string LoggingFileName { get { return loggingFileName; } }
         #endregion
 
+        #region Event Logging Methods
         private void WriteLogging(string message)
         {
             try
@@ -85,17 +88,14 @@ namespace QuickMon
                 RaiseMonitorPackError(string.Format("Error performing WriteLogging: {0}", ex.Message));
             }
         }
-
         public void LoggingMonitorPackChanged()
         {
             WriteLogging("Monitor pack was changed");
         }
-
         private void LoggingMonitorPackClosed()
         {
             WriteLogging("Monitor pack was closed or stopped");
         }
-
         private void LoggingCollectorEvent(string message, CollectorHost collectorHost)
         {
             bool allCollectors = LoggingCollectorCategories == null || LoggingCollectorCategories.Count == 0;
@@ -103,7 +103,7 @@ namespace QuickMon
             if (!allCollectors)
             {
                 foreach (string category in LoggingCollectorCategories)
-	            {
+                {
                     if (IsCollectorInLoggingCategory(category, collectorHost))
                     {
                         matchCategories = true;
@@ -114,7 +114,6 @@ namespace QuickMon
             if (LoggingCollectorEvents && (allCollectors || matchCategories))
                 WriteLogging(message);
         }
-
         private bool IsCollectorInLoggingCategory(string category, CollectorHost collectorHost)
         {
             if (category == "*") //don't bother further testing
@@ -139,25 +138,21 @@ namespace QuickMon
                 return true;
             return false;
         }
-
         private void LoggingNotifierEvent(string message)
         {
             if (LoggingNotifierEvents)
                 WriteLogging(message);
         }
-
         private void LoggingAlertsRaisedEvent(string message)
         {
             if (LoggingAlertsRaised)
                 WriteLogging(message);
         }
-
         private void LoggingCorrectiveScriptRunEvent(string message)
         {
             if (LoggingCorrectiveScriptRun)
                 WriteLogging(message);
         }
-
         private void LoggingPollingOverridesTriggeredEvent(string message, CollectorHost collectorHost)
         {
             if (LoggingPollingOverridesTriggered)
@@ -165,7 +160,6 @@ namespace QuickMon
                 WriteLogging(string.Format("Collector '{0}' encoutered polling override event: {1}", collectorHost.Name, message));
             }
         }
-
         private void LoggingServiceWindowEvent(CollectorHost collectorHost, bool entered)
         {
             if (LoggingServiceWindowEvents)
@@ -175,6 +169,71 @@ namespace QuickMon
                 else
                     WriteLogging(string.Format("Collector '{0}' exited a service window.", collectorHost.Name));
             }
-        }     
+        }
+        #endregion
+
+        #endregion
+
+        #region Metrics exporting
+        public string ExportCollectorHistoryToCSV()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(CollectorHost.ExportHistoryToCSVHeaders());
+            foreach (CollectorHost ch in CollectorHosts)
+            {
+                sb.Append(ch.ExportHistoryToCSV());
+            }
+            return sb.ToString();
+        }
+        public string ExportCollectorHistoryToXML()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<collectorHostHistories>");
+            foreach (CollectorHost ch in CollectorHosts)
+            {
+                sb.AppendLine(ch.ExportHistoryToXML());
+            }
+            sb.AppendLine("</collectorHostHistories>");
+            return sb.ToString().BeautifyXML();// XmlFormattingUtils.NormalizeXML(sb.ToString());
+        }        
+        #endregion
+
+        #region Metrics exporting Properties
+        public bool CollectorMetricsExportEnabled { get; set; }
+        public string CollectorMetricsExportPath { get; set; }
+        private static object collectorMetricsSyncLock = new object();
+        #endregion
+
+        #region Metrics exporting Methods
+        public void ExportCollectorMetricsToCSV()
+        {
+            string outputPath = CollectorMetricsExportPath;
+            string outputFileName = Name.StringToSaveFileName() + DateTime.Now.Date.ToString("yyyyMMdd") + ".csv";
+            //Get output directory
+            if (outputPath.Length == 0 || !System.IO.Directory.Exists(outputPath))
+            {
+                if (MonitorPackPath != null && MonitorPackPath.Length > 0)
+                {
+                    outputPath = System.IO.Path.GetDirectoryName(MonitorPackPath);
+                }
+                else
+                {
+                    outputPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                }
+            }
+            outputPath = System.IO.Path.Combine(outputPath, outputFileName);
+            try
+            {
+                lock (collectorMetricsSyncLock)
+                {
+                    System.IO.File.AppendAllText(outputPath, ExportCollectorHistoryToCSV());
+                }
+            }
+            catch (Exception ex)
+            {
+                RaiseMonitorPackError(string.Format("Error performing ExportCollectorMetricsToCSV: {0}", ex.Message));
+            }
+        }
+        #endregion
     }
 }

@@ -27,12 +27,12 @@ namespace QuickMon.UI
             {
                 LogFileNotifier thisNotifier = (LogFileNotifier)SelectedNotifier;
                 LogFileNotifierConfig currentConfig = (LogFileNotifierConfig)thisNotifier.AgentConfig;
-                if (File.Exists(currentConfig.OutputPath))
+                if (File.Exists(currentConfig.GetCurrentLogFileName()))
                 {
                     try
                     {
                         System.Diagnostics.Process p = new System.Diagnostics.Process();
-                        p.StartInfo = new System.Diagnostics.ProcessStartInfo() { FileName = currentConfig.OutputPath };
+                        p.StartInfo = new System.Diagnostics.ProcessStartInfo() { FileName = currentConfig.GetCurrentLogFileName() };
                         p.Start();
                     }
                     catch { }

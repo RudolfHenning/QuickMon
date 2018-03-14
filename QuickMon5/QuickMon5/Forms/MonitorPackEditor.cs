@@ -660,7 +660,7 @@ namespace QuickMon
         {
             try
             {
-                Clipboard.SetText(SelectedMonitorPack.CollectorExportHistoryToCSV());
+                Clipboard.SetText(SelectedMonitorPack.ExportCollectorHistoryToCSV());
             }
             catch (Exception ex)
             {
@@ -671,7 +671,7 @@ namespace QuickMon
         {
             try
             {
-                Clipboard.SetText(SelectedMonitorPack.CollectorExportHistoryToXML());
+                Clipboard.SetText(SelectedMonitorPack.ExportCollectorHistoryToXML());
             }
             catch (Exception ex)
             {

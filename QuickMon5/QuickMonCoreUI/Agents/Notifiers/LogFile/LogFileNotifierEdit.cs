@@ -27,6 +27,9 @@ namespace QuickMon.UI
                 LogFileNotifierConfig logFileNotifierConfig = (LogFileNotifierConfig)SelectedEntry;
                 txtLogFilePath.Text = logFileNotifierConfig.OutputPath;
                 numericUpDownCreateNewFileSizeKB.SaveValueSet(logFileNotifierConfig.CreateNewFileSizeKB);
+                chkAppendDate.Checked = logFileNotifierConfig.AppendDate;
+                chkUseLocalTimeFormat.Checked = logFileNotifierConfig.UseLocalTimeFormat;
+                txtCustomTimeFormat.Text = logFileNotifierConfig.CustomTimeFormat;
             }
             return (QuickMonDialogResult)ShowDialog();
         }
@@ -49,6 +52,9 @@ namespace QuickMon.UI
             {
                 currentConfig.OutputPath = txtLogFilePath.Text;
                 currentConfig.CreateNewFileSizeKB = (long)numericUpDownCreateNewFileSizeKB.Value;
+                currentConfig.AppendDate = chkAppendDate.Checked;
+                currentConfig.UseLocalTimeFormat = chkUseLocalTimeFormat.Checked ;
+                currentConfig.CustomTimeFormat = txtCustomTimeFormat.Text ;
                 DialogResult = DialogResult.OK;
                 Close();
             }
@@ -61,6 +67,16 @@ namespace QuickMon.UI
         private void CheckOKEnabled()
         {
             cmdOK.Enabled = txtLogFilePath.Text.Trim().Length > 0 && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(txtLogFilePath.Text));
+        }
+
+        private void LogFileNotifierEdit_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkUseLocalTimeFormat_CheckedChanged(object sender, EventArgs e)
+        {
+            txtCustomTimeFormat.Enabled = !chkUseLocalTimeFormat.Checked;
         }
     }
 }

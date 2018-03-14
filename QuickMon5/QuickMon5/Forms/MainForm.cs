@@ -2663,7 +2663,7 @@ namespace QuickMon
                     fs.Title = "Export Collector metric history to CSV";
                     fs.Filter = "CSV Files|*.csv";
                     fs.FileName = lastExportCollectorHistoryPathCSV;
-                    string exportedData = monitorPack.CollectorExportHistoryToCSV();
+                    string exportedData = monitorPack.ExportCollectorHistoryToCSV();
                     if (fs.ShowDialog() == DialogResult.OK)
                     {
                         System.IO.File.WriteAllText(fs.FileName, exportedData, Encoding.UTF8);
@@ -2710,7 +2710,7 @@ namespace QuickMon
                     fs.Title = "Export Collector metric history to XML";
                     fs.Filter = "XML Files|*.xml";
                     fs.FileName = lastExportCollectorHistoryPathXML;
-                    string exportedData = monitorPack.CollectorExportHistoryToXML();
+                    string exportedData = monitorPack.ExportCollectorHistoryToXML();
                     if (fs.ShowDialog() == DialogResult.OK)
                     {
                         System.IO.File.WriteAllText(fs.FileName, exportedData, Encoding.UTF8);

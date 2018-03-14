@@ -462,42 +462,5 @@ namespace QuickMon
         }
         #endregion
 
-        #region Collector history exports
-        public string CollectorExportHistoryToCSV()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(CollectorHost.ExportHistoryToCSVHeaders());
-            foreach (CollectorHost ch in CollectorHosts)
-            {
-                sb.Append(ch.ExportHistoryToCSV());
-            }
-            return sb.ToString();
-        }
-        public string CollectorExportHistoryToXML()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<collectorHostHistories>");
-            foreach (CollectorHost ch in CollectorHosts)
-            {
-                sb.AppendLine(ch.ExportHistoryToXML());
-            }
-            sb.AppendLine("</collectorHostHistories>");
-            //try
-            //{
-            //    XmlDocument xDoc = new XmlDocument();
-            //    xDoc.PreserveWhitespace = true;
-            //    xDoc.LoadXml(sb.ToString());
-                
-            //    xDoc.Normalize();
-            //    return xDoc.OuterXml;
-            //}
-            //catch
-            //{
-            //    return sb.ToString();
-            //}
-
-            return sb.ToString().BeautifyXML();// XmlFormattingUtils.NormalizeXML(sb.ToString());
-        }
-        #endregion
     }
 }
