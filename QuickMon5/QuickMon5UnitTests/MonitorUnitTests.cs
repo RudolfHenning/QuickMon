@@ -780,5 +780,64 @@ namespace QuickMon
             Assert.AreEqual(CollectorState.Error, m.RefreshStates(), "Impossible host found!");
 
         }
+        [TestMethod, TestCategory("MonitorPack-LoggingAndMetrics")]
+        public void TestExportMetricsToCSV()
+        {
+            string mconfig = "<monitorPack name=\"TestExportMetricsToCSV\"><configVars></configVars>" +
+                "<collectorHosts stateHistorySize=\"100\" metricsExportToCSVEnabled=\"True\" metricsExportToXMLEnabled=\"True\" metricsExportPath=\"\">" +
+                "   <collectorHost uniqueId=\"123\" dependOnParentId=\"\" name=\"Ping\" enabled=\"True\" expandOnStart=\"Auto\" " +
+                " childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                "     <collectorAgents agentCheckSequence=\"All\">" +
+                "         <collectorAgent name=\"Ping localhost\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\">" +
+                "                <config>" +
+                "                    <entries>" +
+                "                        <entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                "                    </entries>" +
+                "                </config>" +
+                "         </collectorAgent>" +
+                "     </collectorAgents>" +
+                "   </collectorHost>" +
+                "</collectorHosts>" +
+                "<notifierHosts></notifierHosts>" +
+                "<logging><collectorCategories/></logging></monitorPack>";
+            MonitorPack m = new MonitorPack();
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            if (m != null)
+            {
+                Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector host is expected");
+                if (m.CollectorHosts.Count == 1)
+                {
+                    Assert.AreEqual("Ping", m.CollectorHosts[0].Name, "Collector host name not set");
+                    Assert.AreEqual("123", m.CollectorHosts[0].UniqueId, "Collector host UniqueId not set");
+                    Assert.AreEqual(true, m.CollectorHosts[0].Enabled, "Collector host Enabled property not set");
+                    Assert.AreEqual(ExpandOnStartOption.Auto, m.CollectorHosts[0].ExpandOnStartOption, "Collector host ExpandOnStart property not set");
+                    Assert.AreEqual("", m.CollectorHosts[0].ParentCollectorId, "Collector host ParentCollectorId property not set");
+                    Assert.AreEqual(AgentCheckSequence.All, m.CollectorHosts[0].AgentCheckSequence, "Collector host AgentCheckSequence property not set");
+                    Assert.AreEqual(ChildCheckBehaviour.OnlyRunOnSuccess, m.CollectorHosts[0].ChildCheckBehaviour, "Collector host ChildCheckBehaviour property not set");
+
+                    CollectorState cs = m.RefreshStates();
+
+                    Assert.AreEqual(CollectorState.Good, cs, "Ping failed");
+
+                    string outputFileName = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickMon5SaveTest.qmp5");
+                    if (System.IO.File.Exists(outputFileName))
+                        System.IO.File.Delete(outputFileName);
+                    m.Save(outputFileName);
+                    m.Load(outputFileName);
+                    Assert.AreEqual(CollectorState.Good, cs, "Ping failed");
+
+                    cs = m.RefreshStates();
+                    System.Threading.Thread.Sleep(1000);
+                    cs = m.RefreshStates();
+                    System.Threading.Thread.Sleep(1000);
+                    cs = m.RefreshStates();
+                    System.Threading.Thread.Sleep(1000);
+                    cs = m.RefreshStates();
+
+                }
+            }
+        }
+
     }
 }

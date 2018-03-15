@@ -175,10 +175,11 @@ namespace QuickMon
         #endregion
 
         #region Metrics exporting
-        public string ExportCollectorHistoryToCSV()
+        public string ExportCollectorHistoryToCSV(bool addheader = true)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(CollectorHost.ExportHistoryToCSVHeaders());
+            if (addheader)
+                sb.Append(CollectorHost.ExportHistoryToCSVHeaders());
             foreach (CollectorHost ch in CollectorHosts)
             {
                 sb.Append(ch.ExportHistoryToCSV());
@@ -199,7 +200,8 @@ namespace QuickMon
         #endregion
 
         #region Metrics exporting Properties
-        public bool CollectorMetricsExportEnabled { get; set; }
+        public bool CollectorMetricsExportToCSVEnabled { get; set; }
+        public bool CollectorMetricsExportToXMLEnabled { get; set; }
         public string CollectorMetricsExportPath { get; set; }
         private static object collectorMetricsSyncLock = new object();
         #endregion
@@ -226,7 +228,39 @@ namespace QuickMon
             {
                 lock (collectorMetricsSyncLock)
                 {
-                    System.IO.File.AppendAllText(outputPath, ExportCollectorHistoryToCSV());
+                    if (!System.IO.File.Exists(outputPath))
+                        System.IO.File.WriteAllText(outputPath, ExportCollectorHistoryToCSV(false));
+                    else
+                        System.IO.File.WriteAllText(outputPath, ExportCollectorHistoryToCSV());
+                }
+            }
+            catch (Exception ex)
+            {
+                RaiseMonitorPackError(string.Format("Error performing ExportCollectorMetricsToCSV: {0}", ex.Message));
+            }
+        }
+        public void ExportCollectorMetricsToXML()
+        {
+            string outputPath = CollectorMetricsExportPath;
+            string outputFileName = Name.StringToSaveFileName() + DateTime.Now.Date.ToString("yyyyMMdd") + ".xml";
+            //Get output directory
+            if (outputPath.Length == 0 || !System.IO.Directory.Exists(outputPath))
+            {
+                if (MonitorPackPath != null && MonitorPackPath.Length > 0)
+                {
+                    outputPath = System.IO.Path.GetDirectoryName(MonitorPackPath);
+                }
+                else
+                {
+                    outputPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                }
+            }
+            outputPath = System.IO.Path.Combine(outputPath, outputFileName);
+            try
+            {
+                lock (collectorMetricsSyncLock)
+                {
+                    System.IO.File.WriteAllText(outputPath, ExportCollectorHistoryToXML());                    
                 }
             }
             catch (Exception ex)

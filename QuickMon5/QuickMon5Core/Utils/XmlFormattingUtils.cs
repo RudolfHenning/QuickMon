@@ -33,19 +33,23 @@ namespace QuickMon
             {
                 System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
                 doc.LoadXml(unformattedXML);
-                StringBuilder sb = new StringBuilder();
+                //StringBuilder sb = new StringBuilder();
+                System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
                 System.Xml.XmlWriterSettings settings = new System.Xml.XmlWriterSettings
                 {
                     Indent = true,
                     IndentChars = "  ",
                     NewLineChars = "\r\n",
-                    NewLineHandling = System.Xml.NewLineHandling.Replace
+                    NewLineHandling = System.Xml.NewLineHandling.Replace,
+                    Encoding = new UTF8Encoding(false)
+                    //,                    ConformanceLevel = System.Xml.ConformanceLevel.Document
                 };
-                using (System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(sb, settings))
+                using (System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(memoryStream, settings))
                 {
                     doc.Save(writer);
                 }
-                formattedStr = sb.ToString();
+                formattedStr = Encoding.UTF8.GetString(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
+                //formattedStr = sb.ToString();
             }
             catch { formattedStr = unformattedXML; }
             return formattedStr;

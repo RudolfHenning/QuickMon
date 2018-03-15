@@ -185,6 +185,32 @@ namespace QuickMon
             PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
             IsBusyPolling = false;
             CurrentState = globalState;
+
+            if (CollectorMetricsExportToCSVEnabled)
+            {
+                try
+                {
+                    ExportCollectorMetricsToCSV();
+                }
+                catch (Exception ex)
+                {
+                    RaiseMonitorPackError(string.Format("Error in ExportCollectorMetricsToCSV: {0}", ex.Message));
+                    WriteLogging(string.Format("Error in ExportCollectorMetricsToCSV: {0}", ex.Message));
+                }
+            }
+            if (CollectorMetricsExportToXMLEnabled)
+            {
+                try
+                {
+                    ExportCollectorMetricsToXML();
+                }
+                catch (Exception ex)
+                {
+                    RaiseMonitorPackError(string.Format("Error in ExportCollectorMetricsToXML: {0}", ex.Message));
+                    WriteLogging(string.Format("Error in ExportCollectorMetricsToXML: {0}", ex.Message));
+                }
+            }
+
             return globalState;
         }
         private void CollectorHostRefreshCurrentState(CollectorHost collectorHost, bool disablePollingOverrides = false, bool forceSingleCollectorUpdate = false)

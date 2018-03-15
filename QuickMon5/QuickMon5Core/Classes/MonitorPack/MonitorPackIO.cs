@@ -100,19 +100,15 @@ namespace QuickMon
                     CorrectiveScriptsEnabled = collectorHostsNode.ReadXmlElementAttr("correctiveScriptsEnabled", CorrectiveScriptsEnabled);
                     CollectorStateHistorySize = collectorHostsNode.ReadXmlElementAttr("stateHistorySize", CollectorStateHistorySize);
                     PollingFrequencyOverrideSec = collectorHostsNode.ReadXmlElementAttr("pollingFreqSecOverride", PollingFrequencyOverrideSec);
+                    CollectorMetricsExportToCSVEnabled = collectorHostsNode.ReadXmlElementAttr("metricsExportToCSVEnabled", false);
+                    CollectorMetricsExportToXMLEnabled = collectorHostsNode.ReadXmlElementAttr("metricsExportToXMLEnabled", false);
+                    CollectorMetricsExportPath = collectorHostsNode.ReadXmlElementAttr("metricsExportPath", "");
 
-                    //XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
-                    //if (actionScriptsNode != null)
-                    //{
-                    //    ActionScripts = ActionScript.FromXml(actionScriptsNode);                        
-                    //}
-
-                    CollectorHosts = CollectorHost.GetCollectorHosts(collectorHostsNode, this);// , ConfigVariables);
+                    CollectorHosts = CollectorHost.GetCollectorHosts(collectorHostsNode, this);
                     foreach (CollectorHost collectorHost in CollectorHosts)
                     {
                         SetCollectorHostEvents(collectorHost);
                     }
-                    //InitializeCollectorActionScripts();
                 }
                 #endregion
                 /***************** Load Notifiers ****************/
@@ -370,6 +366,10 @@ namespace QuickMon
             collectorHostsNode.SetAttributeValue("runCorrectiveScripts", CorrectiveScriptsEnabled);
             collectorHostsNode.SetAttributeValue("stateHistorySize", CollectorStateHistorySize);
             collectorHostsNode.SetAttributeValue("pollingFreqSecOverride", PollingFrequencyOverrideSec);
+            collectorHostsNode.SetAttributeValue("metricsExportToCSVEnabled", CollectorMetricsExportToCSVEnabled);
+            collectorHostsNode.SetAttributeValue("metricsExportToXMLEnabled", CollectorMetricsExportToXMLEnabled);
+            collectorHostsNode.SetAttributeValue("metricsExportPath", CollectorMetricsExportPath);
+
             XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
 
             //foreach (ActionScript ascr in ActionScripts)
