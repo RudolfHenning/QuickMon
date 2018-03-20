@@ -175,6 +175,15 @@ namespace QuickMon
         #endregion
 
         #region Metrics exporting
+        public string ExportCurrentCollectorMetricsToCSV()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (CollectorHost ch in CollectorHosts)
+            {
+                sb.Append(ch.ExportCurrentMetricsToCSV());
+            }
+            return sb.ToString();
+        }
         public string ExportCollectorHistoryToCSV(bool addheader = true)
         {
             StringBuilder sb = new StringBuilder();
@@ -229,9 +238,9 @@ namespace QuickMon
                 lock (collectorMetricsSyncLock)
                 {
                     if (!System.IO.File.Exists(outputPath))
-                        System.IO.File.WriteAllText(outputPath, ExportCollectorHistoryToCSV(false));
-                    else
-                        System.IO.File.WriteAllText(outputPath, ExportCollectorHistoryToCSV());
+                        System.IO.File.WriteAllText(outputPath, CollectorHost.ExportHistoryToCSVHeaders());
+                        
+                    System.IO.File.AppendAllText(outputPath, ExportCurrentCollectorMetricsToCSV());
                 }
             }
             catch (Exception ex)

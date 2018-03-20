@@ -131,6 +131,15 @@ namespace QuickMon
 
             return sb.ToString();
         }
+        public string ExportCurrentMetricsToCSV()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (CurrentState != null)
+            {
+                sb.Append(ExportMonitorStateEntryToSCV(CurrentState));
+            }
+            return sb.ToString();
+        }
         public string ExportHistoryToXML()
         {
             StringBuilder sb = new StringBuilder();
