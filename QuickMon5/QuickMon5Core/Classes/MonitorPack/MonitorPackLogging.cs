@@ -180,7 +180,8 @@ namespace QuickMon
             StringBuilder sb = new StringBuilder();
             foreach (CollectorHost ch in CollectorHosts)
             {
-                sb.Append(ch.ExportCurrentMetricsToCSV());
+                if (CollectorMetricsExportIncludeDisabled || (ch.CurrentState != null && ch.CurrentState.State != CollectorState.None && ch.CurrentState.State != CollectorState.Disabled))
+                    sb.Append(ch.ExportCurrentMetricsToCSV());
             }
             return sb.ToString();
         }
@@ -211,6 +212,7 @@ namespace QuickMon
         #region Metrics exporting Properties
         public bool CollectorMetricsExportToCSVEnabled { get; set; }
         public bool CollectorMetricsExportToXMLEnabled { get; set; }
+        public bool CollectorMetricsExportIncludeDisabled { get; set; }
         public string CollectorMetricsExportPath { get; set; }
         private static object collectorMetricsSyncLock = new object();
         #endregion
@@ -220,8 +222,7 @@ namespace QuickMon
         {
             string outputPath = CollectorMetricsExportPath;
             string outputFileName = Name.StringToSaveFileName() + DateTime.Now.Date.ToString("yyyyMMdd") + ".csv";
-            //Get output directory
-            if (outputPath.Length == 0 || !System.IO.Directory.Exists(outputPath))
+            if (outputPath.Length == 0)
             {
                 if (MonitorPackPath != null && MonitorPackPath.Length > 0)
                 {
@@ -231,8 +232,26 @@ namespace QuickMon
                 {
                     outputPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 }
+                outputPath = System.IO.Path.Combine(outputPath, outputFileName);
             }
-            outputPath = System.IO.Path.Combine(outputPath, outputFileName);
+            else if (System.IO.Directory.Exists(outputPath))
+            {
+                outputPath = System.IO.Path.Combine(outputPath, outputFileName);
+            }
+            
+            ////Get output directory
+            //if (outputPath.Length == 0 || (!System.IO.Directory.Exists(outputPath) && !System.IO.File.Exists(outputPath)))
+            //{
+            //    if (MonitorPackPath != null && MonitorPackPath.Length > 0)
+            //    {
+            //        outputPath = System.IO.Path.GetDirectoryName(MonitorPackPath);
+            //    }
+            //    else
+            //    {
+            //        outputPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //    }
+            //}
+            //outputPath = System.IO.Path.Combine(outputPath, outputFileName);
             try
             {
                 lock (collectorMetricsSyncLock)

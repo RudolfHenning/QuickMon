@@ -7,7 +7,6 @@ namespace QuickMon
 {
     public partial class CollectorHost
     {
-
         private void AddStateToHistory(MonitorState newState)
         {
             try
@@ -115,18 +114,21 @@ namespace QuickMon
         public string ExportHistoryToCSV(bool addHeaders = false)
         {
             StringBuilder sb = new StringBuilder();
-            if (addHeaders)
+            if (!ExcludeFromMetrics)
             {
-                sb.Append(ExportHistoryToCSVHeaders());
-            }
-            foreach(var h in stateHistory.OrderBy(s=>s.Timestamp))
-            {
-                sb.Append(ExportMonitorStateEntryToSCV(h));
-            }
-            
-            if (CurrentState != null)
-            {
-                sb.Append(ExportMonitorStateEntryToSCV(CurrentState));
+                if (addHeaders)
+                {
+                    sb.Append(ExportHistoryToCSVHeaders());
+                }
+                foreach (var h in stateHistory.OrderBy(s => s.Timestamp))
+                {
+                    sb.Append(ExportMonitorStateEntryToSCV(h));
+                }
+
+                if (CurrentState != null)
+                {
+                    sb.Append(ExportMonitorStateEntryToSCV(CurrentState));
+                }
             }
 
             return sb.ToString();
@@ -134,7 +136,7 @@ namespace QuickMon
         public string ExportCurrentMetricsToCSV()
         {
             StringBuilder sb = new StringBuilder();
-            if (CurrentState != null)
+            if (CurrentState != null && !ExcludeFromMetrics)
             {
                 sb.Append(ExportMonitorStateEntryToSCV(CurrentState));
             }
@@ -143,17 +145,20 @@ namespace QuickMon
         public string ExportHistoryToXML()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("<collectorHostHistory name=\"{0}\" id=\"{1}\" pid=\"{2}\">", Name.EscapeXml(), UniqueId, ParentCollectorId);
-            foreach (var h in stateHistory.OrderBy(s => s.Timestamp))
+            if (!ExcludeFromMetrics)
             {
-                sb.Append(h.ToXml());
-            }
+                sb.AppendFormat("<collectorHostHistory name=\"{0}\" id=\"{1}\" pid=\"{2}\">", Name.EscapeXml(), UniqueId, ParentCollectorId);
+                foreach (var h in stateHistory.OrderBy(s => s.Timestamp))
+                {
+                    sb.Append(h.ToXml());
+                }
 
-            if (CurrentState != null)
-            {
-                sb.Append(CurrentState.ToXml());
+                if (CurrentState != null)
+                {
+                    sb.Append(CurrentState.ToXml());
+                }
+                sb.Append("</collectorHostHistory>");
             }
-            sb.Append("</collectorHostHistory>");
             return sb.ToString();
         }
     }

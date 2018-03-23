@@ -199,6 +199,10 @@ namespace QuickMon
         }
         #endregion
 
+        #region Metrics exports
+        public bool ExcludeFromMetrics { get; set; }
+        #endregion
+
         #region Alerting
         //public bool ContinueToCheckSubEntriesOnWarning { get; set; }
         /// <summary>

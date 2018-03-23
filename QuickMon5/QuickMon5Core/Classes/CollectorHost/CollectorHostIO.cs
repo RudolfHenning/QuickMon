@@ -260,6 +260,14 @@ namespace QuickMon
             }
             #endregion
 
+            #region Metrics exports
+            XmlNode metricsExportNode = xmlCollectorEntry.SelectSingleNode("metricsExport");
+            if (metricsExportNode != null)
+            {
+                newCollectorHost.ExcludeFromMetrics = metricsExportNode.ReadXmlElementAttr("exclude", false);
+            }
+            #endregion
+
             #region collector Agents
             XmlNode collectorAgentsNode = xmlCollectorEntry.SelectSingleNode("collectorAgents");
             if (collectorAgentsNode != null)
@@ -402,6 +410,7 @@ namespace QuickMon
             XmlDocument collectorHostNode = new XmlDocument(); 
             string alertingSettingsXml = GetAlertingToXml(RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec, RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls, AlertsPaused, AlertHeaderText, AlertFooterText, ErrorAlertText, WarningAlertText, GoodAlertText);
             string remoteAgentSettingsXml = GetRemoteAgentConfigXml(EnableRemoteExecute, ForceRemoteExcuteOnChildCollectors, RemoteAgentHostAddress, RemoteAgentHostPort, BlockParentOverrideRemoteAgentHostSettings, RunLocalOnRemoteHostConnectionFailure);
+            string metricsExportXml = GetMetricsExportXml(ExcludeFromMetrics);
             string pollingSettingsXml = GetPollingConfigXml(EnabledPollingOverride, OnlyAllowUpdateOncePerXSec, EnablePollFrequencySliding, PollSlideFrequencyAfterFirstRepeatSec, PollSlideFrequencyAfterSecondRepeatSec, PollSlideFrequencyAfterThirdRepeatSec);
             string correctiveScriptsXml = GetCorrectiveScriptsConfigXml(CorrectiveScriptDisabled, CorrectiveScriptOnErrorMinimumRepeatTimeMin, CorrectiveScriptOnWarningMinimumRepeatTimeMin, RestorationScriptMinimumRepeatTimeMin);
             string actionScriptsXml = GetActionScriptsXml(ActionScripts);
@@ -420,6 +429,7 @@ namespace QuickMon
                 Notes,
                 alertingSettingsXml,
                 remoteAgentSettingsXml,
+                metricsExportXml,
                 pollingSettingsXml,
                 collectorAgentsXml,
                 correctiveScriptsXml,
@@ -429,6 +439,9 @@ namespace QuickMon
                 categoriesXml));
             return collectorHostNode.DocumentElement;
         }
+
+
+
         /// <summary>
         /// Export current (Initial) CollectorHost config as XML string
         /// This is the config before config variables have been applied
@@ -438,6 +451,7 @@ namespace QuickMon
         {
             string alertingSettingsXml = GetAlertingToXml(RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec, RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls, AlertsPaused, AlertHeaderText, AlertFooterText, ErrorAlertText, WarningAlertText, GoodAlertText);
             string remoteAgentSettingsXml = GetRemoteAgentConfigXml(EnableRemoteExecute, ForceRemoteExcuteOnChildCollectors, RemoteAgentHostAddress, RemoteAgentHostPort, BlockParentOverrideRemoteAgentHostSettings, RunLocalOnRemoteHostConnectionFailure);
+            string metricsExportXml = GetMetricsExportXml(ExcludeFromMetrics);
             string pollingSettingsXml = GetPollingConfigXml(EnabledPollingOverride, OnlyAllowUpdateOncePerXSec, EnablePollFrequencySliding, PollSlideFrequencyAfterFirstRepeatSec, PollSlideFrequencyAfterSecondRepeatSec, PollSlideFrequencyAfterThirdRepeatSec);
             string correctiveScriptsXml = GetCorrectiveScriptsConfigXml(CorrectiveScriptDisabled, CorrectiveScriptOnErrorMinimumRepeatTimeMin, CorrectiveScriptOnWarningMinimumRepeatTimeMin, RestorationScriptMinimumRepeatTimeMin);
             string actionScriptsXml = GetActionScriptsXml(ActionScripts);           
@@ -456,6 +470,7 @@ namespace QuickMon
                 Notes,
                 alertingSettingsXml,
                 remoteAgentSettingsXml,
+                metricsExportXml,
                 pollingSettingsXml,
                 collectorAgentsXml,
                 correctiveScriptsXml,
@@ -476,6 +491,7 @@ namespace QuickMon
 
                 string alertingSettingsXml,
                 string remoteAgentSettingsXml,
+                string metricsExportXml,
                 string pollingSettingsXml,
                 string collectorAgentsXml,
                 string correctiveScriptsXml,
@@ -490,6 +506,7 @@ namespace QuickMon
                 "<!-- Collector Agents -->" + collectorAgentsXml +
                 "<!-- Polling settings -->" + pollingSettingsXml +
                 "<!-- Remote agent settings -->" + remoteAgentSettingsXml +
+                "<!-- Metrics Export settings -->" + metricsExportXml +
                 "<!-- Corrective Scripts -->" + correctiveScriptsXml +
                 "<!-- Action scripts -->" + actionScriptsXml +
                 "<!-- ServiceWindows -->" + serviceWindowsXml +
@@ -788,6 +805,14 @@ namespace QuickMon
             remoteDoc.DocumentElement.SetAttributeValue("runLocalOnRemoteHostConnectionFailure", runLocalOnRemoteHostConnectionFailure);
 
             return remoteDoc.DocumentElement.OuterXml;
+        }
+
+        private static string GetMetricsExportXml(bool excludeFromMetrics)
+        {
+            XmlDocument metricsExportDoc = new XmlDocument();
+            metricsExportDoc.LoadXml("<metricsExport />");
+            metricsExportDoc.SetAttributeValue("exclude", excludeFromMetrics);
+            return metricsExportDoc.DocumentElement.OuterXml;
         }
 
         private static string GetPollingConfigXml(bool enabledPollingOverride, int onlyAllowUpdateOncePerXSec,

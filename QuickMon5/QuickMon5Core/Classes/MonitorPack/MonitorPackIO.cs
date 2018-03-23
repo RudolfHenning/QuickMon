@@ -43,7 +43,7 @@ namespace QuickMon
             return summaryInfo;
         }
 
-        private string emptyConfig = "<monitorPack><configVars /><collectorHosts><actionScripts /></collectorHosts>" +
+        private string emptyConfig = "<monitorPack><configVars /><collectorHosts><metricsExports /></collectorHosts>" +
             "<notifierHosts>\r\n</notifierHosts><logging>\r\n<collectorCategories/>\r\n</logging>\r\n</monitorPack>";
 
         #region Loading
@@ -99,10 +99,16 @@ namespace QuickMon
                 {
                     CorrectiveScriptsEnabled = collectorHostsNode.ReadXmlElementAttr("correctiveScriptsEnabled", CorrectiveScriptsEnabled);
                     CollectorStateHistorySize = collectorHostsNode.ReadXmlElementAttr("stateHistorySize", CollectorStateHistorySize);
-                    PollingFrequencyOverrideSec = collectorHostsNode.ReadXmlElementAttr("pollingFreqSecOverride", PollingFrequencyOverrideSec);
-                    CollectorMetricsExportToCSVEnabled = collectorHostsNode.ReadXmlElementAttr("metricsExportToCSVEnabled", false);
-                    CollectorMetricsExportToXMLEnabled = collectorHostsNode.ReadXmlElementAttr("metricsExportToXMLEnabled", false);
-                    CollectorMetricsExportPath = collectorHostsNode.ReadXmlElementAttr("metricsExportPath", "");
+                    PollingFrequencyOverrideSec = collectorHostsNode.ReadXmlElementAttr("pollingFreqSecOverride", PollingFrequencyOverrideSec);                    
+
+                    XmlNode collectorMetricsExportsNode = root.SelectSingleNode("metricsExports");
+                    if (collectorMetricsExportsNode != null)
+                    {
+                        CollectorMetricsExportToCSVEnabled = collectorMetricsExportsNode.ReadXmlElementAttr("metricsExportToCSVEnabled", false);
+                        CollectorMetricsExportToXMLEnabled = collectorMetricsExportsNode.ReadXmlElementAttr("metricsExportToXMLEnabled", false);
+                        CollectorMetricsExportPath = collectorMetricsExportsNode.ReadXmlElementAttr("metricsExportPath", "");
+                        CollectorMetricsExportIncludeDisabled = collectorMetricsExportsNode.ReadXmlElementAttr("metricsExportIncludeDisabled", false);
+                    }
 
                     CollectorHosts = CollectorHost.GetCollectorHosts(collectorHostsNode, this);
                     foreach (CollectorHost collectorHost in CollectorHosts)
@@ -360,18 +366,25 @@ namespace QuickMon
             root.SetAttributeValue("usernameCacheFilePath", UserNameCacheFilePath);
             #endregion
 
-            root.SelectSingleNode("configVars").InnerXml = GetConfigVarXml();
+            #region Config variables
+            root.SelectSingleNode("configVars").InnerXml = GetConfigVarXml(); 
+            #endregion
 
             XmlNode collectorHostsNode = root.SelectSingleNode("collectorHosts");
             collectorHostsNode.SetAttributeValue("runCorrectiveScripts", CorrectiveScriptsEnabled);
             collectorHostsNode.SetAttributeValue("stateHistorySize", CollectorStateHistorySize);
             collectorHostsNode.SetAttributeValue("pollingFreqSecOverride", PollingFrequencyOverrideSec);
-            collectorHostsNode.SetAttributeValue("metricsExportToCSVEnabled", CollectorMetricsExportToCSVEnabled);
-            collectorHostsNode.SetAttributeValue("metricsExportToXMLEnabled", CollectorMetricsExportToXMLEnabled);
-            collectorHostsNode.SetAttributeValue("metricsExportPath", CollectorMetricsExportPath);
 
-            XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
+            XmlNode collectorMetricsExportsNode = collectorHostsNode.SelectSingleNode("metricsExports");
+            if (collectorMetricsExportsNode != null)
+            {
+                collectorMetricsExportsNode.SetAttributeValue("metricsExportToCSVEnabled", CollectorMetricsExportToCSVEnabled);
+                collectorMetricsExportsNode.SetAttributeValue("metricsExportToXMLEnabled", CollectorMetricsExportToXMLEnabled);
+                collectorMetricsExportsNode.SetAttributeValue("metricsExportPath", CollectorMetricsExportPath);
+                collectorMetricsExportsNode.SetAttributeValue("metricsExportIncludeDisabled", CollectorMetricsExportIncludeDisabled);
+            }
 
+            //XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
             //foreach (ActionScript ascr in ActionScripts)
             //{
             //    XmlNode scriptParameterNode = outDoc.ImportNode(ascr.ToXmlNode(), true);
