@@ -101,7 +101,7 @@ namespace QuickMon
                     CollectorStateHistorySize = collectorHostsNode.ReadXmlElementAttr("stateHistorySize", CollectorStateHistorySize);
                     PollingFrequencyOverrideSec = collectorHostsNode.ReadXmlElementAttr("pollingFreqSecOverride", PollingFrequencyOverrideSec);                    
 
-                    XmlNode collectorMetricsExportsNode = root.SelectSingleNode("metricsExports");
+                    XmlNode collectorMetricsExportsNode = collectorHostsNode.SelectSingleNode("metricsExports");
                     if (collectorMetricsExportsNode != null)
                     {
                         CollectorMetricsExportToCSVEnabled = collectorMetricsExportsNode.ReadXmlElementAttr("metricsExportToCSVEnabled", false);

@@ -248,6 +248,7 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
+            this.chkExcludeFromMetrics = new System.Windows.Forms.CheckBox();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -785,6 +786,7 @@
             // hostSettingsTabPage
             // 
             this.hostSettingsTabPage.AutoScroll = true;
+            this.hostSettingsTabPage.Controls.Add(this.chkExcludeFromMetrics);
             this.hostSettingsTabPage.Controls.Add(this.groupBox7);
             this.hostSettingsTabPage.Controls.Add(this.groupBox4);
             this.hostSettingsTabPage.Controls.Add(this.groupBox1);
@@ -2535,14 +2537,14 @@
             // clipboardExportAsCSVToolStripMenuItem
             // 
             this.clipboardExportAsCSVToolStripMenuItem.Name = "clipboardExportAsCSVToolStripMenuItem";
-            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.clipboardExportAsCSVToolStripMenuItem.Text = "As CSV";
             this.clipboardExportAsCSVToolStripMenuItem.Click += new System.EventHandler(this.clipboardExportAsCSVToolStripMenuItem_Click);
             // 
             // asXMLToolStripMenuItem
             // 
             this.asXMLToolStripMenuItem.Name = "asXMLToolStripMenuItem";
-            this.asXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.asXMLToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.asXMLToolStripMenuItem.Text = "As XML";
             this.asXMLToolStripMenuItem.Click += new System.EventHandler(this.asXMLToolStripMenuItem_Click);
             // 
@@ -2774,6 +2776,17 @@
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
             // 
+            // chkExcludeFromMetrics
+            // 
+            this.chkExcludeFromMetrics.AutoSize = true;
+            this.chkExcludeFromMetrics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkExcludeFromMetrics.Location = new System.Drawing.Point(9, 284);
+            this.chkExcludeFromMetrics.Name = "chkExcludeFromMetrics";
+            this.chkExcludeFromMetrics.Size = new System.Drawing.Size(172, 17);
+            this.chkExcludeFromMetrics.TabIndex = 6;
+            this.chkExcludeFromMetrics.Text = "Exclude From Metrics collection";
+            this.chkExcludeFromMetrics.UseVisualStyleBackColor = true;
+            // 
             // CollectorDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2815,6 +2828,7 @@
             this.collectorAgentsEditToolStrip.ResumeLayout(false);
             this.collectorAgentsEditToolStrip.PerformLayout();
             this.hostSettingsTabPage.ResumeLayout(false);
+            this.hostSettingsTabPage.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -3098,5 +3112,6 @@
         private System.Windows.Forms.ToolStripMenuItem exportToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clipboardExportAsCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem asXMLToolStripMenuItem;
+        private System.Windows.Forms.CheckBox chkExcludeFromMetrics;
     }
 }

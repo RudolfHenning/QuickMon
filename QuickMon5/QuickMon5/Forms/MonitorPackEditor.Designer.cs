@@ -51,6 +51,7 @@
             this.exportHistoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clipboardExportAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chkCorrectiveScripts = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmdAgentSettingsToggle = new System.Windows.Forms.Button();
@@ -107,6 +108,13 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.fbdLogging = new System.Windows.Forms.FolderBrowserDialog();
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.metricsExportGroupBox = new System.Windows.Forms.GroupBox();
+            this.chkCollectorMetricsExportToCSVEnabled = new System.Windows.Forms.CheckBox();
+            this.chkCollectorMetricsExportToXMLEnabled = new System.Windows.Forms.CheckBox();
+            this.cmdBrowseCollectorMetricsExportPath = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtCollectorMetricsExportPath = new System.Windows.Forms.TextBox();
+            this.chkCollectorMetricsExportIncludeDisabled = new System.Windows.Forms.CheckBox();
             this.lvwConfigVars = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -114,7 +122,6 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.asXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelGeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
@@ -129,6 +136,7 @@
             this.userCacheContextMenuStrip.SuspendLayout();
             this.panelLoggingSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).BeginInit();
+            this.metricsExportGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkEnabled
@@ -360,7 +368,7 @@
             this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportToClipboardToolStripMenuItem});
             this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
-            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 48);
+            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 26);
             // 
             // exportToClipboardToolStripMenuItem
             // 
@@ -374,9 +382,16 @@
             // clipboardExportAsCSVToolStripMenuItem
             // 
             this.clipboardExportAsCSVToolStripMenuItem.Name = "clipboardExportAsCSVToolStripMenuItem";
-            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.clipboardExportAsCSVToolStripMenuItem.Text = "As CSV";
             this.clipboardExportAsCSVToolStripMenuItem.Click += new System.EventHandler(this.clipboardExportAsCSVToolStripMenuItem_Click);
+            // 
+            // asXMLToolStripMenuItem
+            // 
+            this.asXMLToolStripMenuItem.Name = "asXMLToolStripMenuItem";
+            this.asXMLToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.asXMLToolStripMenuItem.Text = "As XML";
+            this.asXMLToolStripMenuItem.Click += new System.EventHandler(this.asXMLToolStripMenuItem_Click);
             // 
             // chkCorrectiveScripts
             // 
@@ -785,6 +800,7 @@
             // 
             // panelLoggingSettings
             // 
+            this.panelLoggingSettings.Controls.Add(this.metricsExportGroupBox);
             this.panelLoggingSettings.Controls.Add(this.label14);
             this.panelLoggingSettings.Controls.Add(this.txtLoggingCollectorCategories);
             this.panelLoggingSettings.Controls.Add(this.nudKeepLogFilesXDays);
@@ -802,7 +818,7 @@
             this.panelLoggingSettings.Controls.Add(this.cmdLoggingSettingsToggle);
             this.panelLoggingSettings.Location = new System.Drawing.Point(3, 893);
             this.panelLoggingSettings.Name = "panelLoggingSettings";
-            this.panelLoggingSettings.Size = new System.Drawing.Size(549, 260);
+            this.panelLoggingSettings.Size = new System.Drawing.Size(549, 350);
             this.panelLoggingSettings.TabIndex = 4;
             // 
             // label14
@@ -860,9 +876,10 @@
             // 
             this.chkLoggingServiceWindowEvents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkLoggingServiceWindowEvents.AutoSize = true;
-            this.chkLoggingServiceWindowEvents.Location = new System.Drawing.Point(304, 190);
+            this.chkLoggingServiceWindowEvents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingServiceWindowEvents.Location = new System.Drawing.Point(307, 190);
             this.chkLoggingServiceWindowEvents.Name = "chkLoggingServiceWindowEvents";
-            this.chkLoggingServiceWindowEvents.Size = new System.Drawing.Size(142, 17);
+            this.chkLoggingServiceWindowEvents.Size = new System.Drawing.Size(139, 17);
             this.chkLoggingServiceWindowEvents.TabIndex = 14;
             this.chkLoggingServiceWindowEvents.Text = "Service windows Events";
             this.chkLoggingServiceWindowEvents.UseVisualStyleBackColor = true;
@@ -871,9 +888,10 @@
             // 
             this.chkLoggingPollingOverridesTriggered.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkLoggingPollingOverridesTriggered.AutoSize = true;
-            this.chkLoggingPollingOverridesTriggered.Location = new System.Drawing.Point(304, 167);
+            this.chkLoggingPollingOverridesTriggered.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingPollingOverridesTriggered.Location = new System.Drawing.Point(307, 167);
             this.chkLoggingPollingOverridesTriggered.Name = "chkLoggingPollingOverridesTriggered";
-            this.chkLoggingPollingOverridesTriggered.Size = new System.Drawing.Size(183, 17);
+            this.chkLoggingPollingOverridesTriggered.Size = new System.Drawing.Size(180, 17);
             this.chkLoggingPollingOverridesTriggered.TabIndex = 13;
             this.chkLoggingPollingOverridesTriggered.Text = "Polling overrides triggered Events";
             this.chkLoggingPollingOverridesTriggered.UseVisualStyleBackColor = true;
@@ -882,9 +900,10 @@
             // 
             this.chkLoggingCorrectiveScriptRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkLoggingCorrectiveScriptRun.AutoSize = true;
-            this.chkLoggingCorrectiveScriptRun.Location = new System.Drawing.Point(304, 144);
+            this.chkLoggingCorrectiveScriptRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingCorrectiveScriptRun.Location = new System.Drawing.Point(307, 144);
             this.chkLoggingCorrectiveScriptRun.Name = "chkLoggingCorrectiveScriptRun";
-            this.chkLoggingCorrectiveScriptRun.Size = new System.Drawing.Size(156, 17);
+            this.chkLoggingCorrectiveScriptRun.Size = new System.Drawing.Size(153, 17);
             this.chkLoggingCorrectiveScriptRun.TabIndex = 12;
             this.chkLoggingCorrectiveScriptRun.Text = "Corrective script run Events";
             this.chkLoggingCorrectiveScriptRun.UseVisualStyleBackColor = true;
@@ -893,9 +912,10 @@
             // 
             this.chkLoggingAlertsRaised.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkLoggingAlertsRaised.AutoSize = true;
-            this.chkLoggingAlertsRaised.Location = new System.Drawing.Point(304, 121);
+            this.chkLoggingAlertsRaised.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingAlertsRaised.Location = new System.Drawing.Point(307, 121);
             this.chkLoggingAlertsRaised.Name = "chkLoggingAlertsRaised";
-            this.chkLoggingAlertsRaised.Size = new System.Drawing.Size(83, 17);
+            this.chkLoggingAlertsRaised.Size = new System.Drawing.Size(80, 17);
             this.chkLoggingAlertsRaised.TabIndex = 11;
             this.chkLoggingAlertsRaised.Text = "Alert Events";
             this.chkLoggingAlertsRaised.UseVisualStyleBackColor = true;
@@ -904,9 +924,10 @@
             // 
             this.chkLoggingNotifierEvents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkLoggingNotifierEvents.AutoSize = true;
-            this.chkLoggingNotifierEvents.Location = new System.Drawing.Point(304, 98);
+            this.chkLoggingNotifierEvents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingNotifierEvents.Location = new System.Drawing.Point(307, 98);
             this.chkLoggingNotifierEvents.Name = "chkLoggingNotifierEvents";
-            this.chkLoggingNotifierEvents.Size = new System.Drawing.Size(95, 17);
+            this.chkLoggingNotifierEvents.Size = new System.Drawing.Size(92, 17);
             this.chkLoggingNotifierEvents.TabIndex = 10;
             this.chkLoggingNotifierEvents.Text = "Notifier Events";
             this.chkLoggingNotifierEvents.UseVisualStyleBackColor = true;
@@ -914,9 +935,10 @@
             // chkLoggingCollectorEvents
             // 
             this.chkLoggingCollectorEvents.AutoSize = true;
+            this.chkLoggingCollectorEvents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkLoggingCollectorEvents.Location = new System.Drawing.Point(38, 98);
             this.chkLoggingCollectorEvents.Name = "chkLoggingCollectorEvents";
-            this.chkLoggingCollectorEvents.Size = new System.Drawing.Size(103, 17);
+            this.chkLoggingCollectorEvents.Size = new System.Drawing.Size(100, 17);
             this.chkLoggingCollectorEvents.TabIndex = 7;
             this.chkLoggingCollectorEvents.Text = "Collector Events";
             this.chkLoggingCollectorEvents.UseVisualStyleBackColor = true;
@@ -1003,6 +1025,86 @@
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
             // 
+            // metricsExportGroupBox
+            // 
+            this.metricsExportGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.metricsExportGroupBox.Controls.Add(this.chkCollectorMetricsExportIncludeDisabled);
+            this.metricsExportGroupBox.Controls.Add(this.cmdBrowseCollectorMetricsExportPath);
+            this.metricsExportGroupBox.Controls.Add(this.label15);
+            this.metricsExportGroupBox.Controls.Add(this.txtCollectorMetricsExportPath);
+            this.metricsExportGroupBox.Controls.Add(this.chkCollectorMetricsExportToXMLEnabled);
+            this.metricsExportGroupBox.Controls.Add(this.chkCollectorMetricsExportToCSVEnabled);
+            this.metricsExportGroupBox.Location = new System.Drawing.Point(3, 245);
+            this.metricsExportGroupBox.Name = "metricsExportGroupBox";
+            this.metricsExportGroupBox.Size = new System.Drawing.Size(543, 100);
+            this.metricsExportGroupBox.TabIndex = 15;
+            this.metricsExportGroupBox.TabStop = false;
+            this.metricsExportGroupBox.Text = "Collector Metrics Exports (only applies to master refresh)";
+            // 
+            // chkCollectorMetricsExportToCSVEnabled
+            // 
+            this.chkCollectorMetricsExportToCSVEnabled.AutoSize = true;
+            this.chkCollectorMetricsExportToCSVEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkCollectorMetricsExportToCSVEnabled.Location = new System.Drawing.Point(21, 19);
+            this.chkCollectorMetricsExportToCSVEnabled.Name = "chkCollectorMetricsExportToCSVEnabled";
+            this.chkCollectorMetricsExportToCSVEnabled.Size = new System.Drawing.Size(89, 17);
+            this.chkCollectorMetricsExportToCSVEnabled.TabIndex = 0;
+            this.chkCollectorMetricsExportToCSVEnabled.Text = "Export to CSV";
+            this.chkCollectorMetricsExportToCSVEnabled.UseVisualStyleBackColor = true;
+            // 
+            // chkCollectorMetricsExportToXMLEnabled
+            // 
+            this.chkCollectorMetricsExportToXMLEnabled.AutoSize = true;
+            this.chkCollectorMetricsExportToXMLEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkCollectorMetricsExportToXMLEnabled.Location = new System.Drawing.Point(124, 19);
+            this.chkCollectorMetricsExportToXMLEnabled.Name = "chkCollectorMetricsExportToXMLEnabled";
+            this.chkCollectorMetricsExportToXMLEnabled.Size = new System.Drawing.Size(90, 17);
+            this.chkCollectorMetricsExportToXMLEnabled.TabIndex = 1;
+            this.chkCollectorMetricsExportToXMLEnabled.Text = "Export to XML";
+            this.chkCollectorMetricsExportToXMLEnabled.UseVisualStyleBackColor = true;
+            // 
+            // cmdBrowseCollectorMetricsExportPath
+            // 
+            this.cmdBrowseCollectorMetricsExportPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseCollectorMetricsExportPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowseCollectorMetricsExportPath.Location = new System.Drawing.Point(498, 42);
+            this.cmdBrowseCollectorMetricsExportPath.Name = "cmdBrowseCollectorMetricsExportPath";
+            this.cmdBrowseCollectorMetricsExportPath.Size = new System.Drawing.Size(42, 23);
+            this.cmdBrowseCollectorMetricsExportPath.TabIndex = 9;
+            this.cmdBrowseCollectorMetricsExportPath.Text = "- - -";
+            this.cmdBrowseCollectorMetricsExportPath.UseVisualStyleBackColor = true;
+            this.cmdBrowseCollectorMetricsExportPath.Click += new System.EventHandler(this.cmdBrowseCollectorMetricsExportPath_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(10, 47);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(61, 13);
+            this.label15.TabIndex = 7;
+            this.label15.Text = "Export path";
+            // 
+            // txtCollectorMetricsExportPath
+            // 
+            this.txtCollectorMetricsExportPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCollectorMetricsExportPath.Location = new System.Drawing.Point(133, 44);
+            this.txtCollectorMetricsExportPath.Name = "txtCollectorMetricsExportPath";
+            this.txtCollectorMetricsExportPath.Size = new System.Drawing.Size(359, 20);
+            this.txtCollectorMetricsExportPath.TabIndex = 8;
+            // 
+            // chkCollectorMetricsExportIncludeDisabled
+            // 
+            this.chkCollectorMetricsExportIncludeDisabled.AutoSize = true;
+            this.chkCollectorMetricsExportIncludeDisabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkCollectorMetricsExportIncludeDisabled.Location = new System.Drawing.Point(21, 70);
+            this.chkCollectorMetricsExportIncludeDisabled.Name = "chkCollectorMetricsExportIncludeDisabled";
+            this.chkCollectorMetricsExportIncludeDisabled.Size = new System.Drawing.Size(133, 17);
+            this.chkCollectorMetricsExportIncludeDisabled.TabIndex = 10;
+            this.chkCollectorMetricsExportIncludeDisabled.Text = "Include None/Disabled";
+            this.chkCollectorMetricsExportIncludeDisabled.UseVisualStyleBackColor = true;
+            // 
             // lvwConfigVars
             // 
             this.lvwConfigVars.AutoResizeColumnEnabled = false;
@@ -1067,13 +1169,6 @@
             this.columnHeader3.Text = "Decryptable";
             this.columnHeader3.Width = 82;
             // 
-            // asXMLToolStripMenuItem
-            // 
-            this.asXMLToolStripMenuItem.Name = "asXMLToolStripMenuItem";
-            this.asXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.asXMLToolStripMenuItem.Text = "As XML";
-            this.asXMLToolStripMenuItem.Click += new System.EventHandler(this.asXMLToolStripMenuItem_Click);
-            // 
             // MonitorPackEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1116,6 +1211,8 @@
             this.panelLoggingSettings.ResumeLayout(false);
             this.panelLoggingSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).EndInit();
+            this.metricsExportGroupBox.ResumeLayout(false);
+            this.metricsExportGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1208,5 +1305,12 @@
         private System.Windows.Forms.ToolStripMenuItem exportToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clipboardExportAsCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem asXMLToolStripMenuItem;
+        private System.Windows.Forms.GroupBox metricsExportGroupBox;
+        private System.Windows.Forms.Button cmdBrowseCollectorMetricsExportPath;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtCollectorMetricsExportPath;
+        private System.Windows.Forms.CheckBox chkCollectorMetricsExportToXMLEnabled;
+        private System.Windows.Forms.CheckBox chkCollectorMetricsExportToCSVEnabled;
+        private System.Windows.Forms.CheckBox chkCollectorMetricsExportIncludeDisabled;
     }
 }

@@ -512,6 +512,7 @@ namespace QuickMon
             txtRunAs.Text = editingCollectorHost.RunAs;
             txtAdditionalNotes.Text = editingCollectorHost.Notes;
             cboTextType_SelectedIndexChanged(null, null);
+            chkExcludeFromMetrics.Checked = editingCollectorHost.ExcludeFromMetrics;
 
             StringBuilder categories = new StringBuilder();
             if (editingCollectorHost.Categories != null && editingCollectorHost.Categories.Count > 0)
@@ -1596,6 +1597,7 @@ namespace QuickMon
                         }
                     }
                 }
+                editingCollectorHost.ExcludeFromMetrics = chkExcludeFromMetrics.Checked;
                 SetEditingCollectorHostAgents();
                 SetEditingActionScripts();
 

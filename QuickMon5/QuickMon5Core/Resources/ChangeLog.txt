@@ -55,3 +55,7 @@ Version 5.0.7
 Log file notifier changes
 	Can append date to log file name
 	Time format inside log file can be specified
+Collector metrics exports
+	Now can be enabled to log automatically
+	Two formats available - CSV and XML
+	QuickMon Service now enables collector state history(was always disabled in past)

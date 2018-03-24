@@ -264,6 +264,7 @@ namespace QuickMon
             }
             catch (Exception ex)
             {
+                WriteLogging(string.Format("Error performing ExportCollectorMetricsToCSV: {0}", ex.Message));
                 RaiseMonitorPackError(string.Format("Error performing ExportCollectorMetricsToCSV: {0}", ex.Message));
             }
         }
@@ -293,6 +294,7 @@ namespace QuickMon
             }
             catch (Exception ex)
             {
+                WriteLogging(string.Format("Error performing ExportCollectorMetricsToCSV: {0}", ex.Message));
                 RaiseMonitorPackError(string.Format("Error performing ExportCollectorMetricsToCSV: {0}", ex.Message));
             }
         }

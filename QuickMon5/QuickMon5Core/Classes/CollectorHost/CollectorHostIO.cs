@@ -811,7 +811,7 @@ namespace QuickMon
         {
             XmlDocument metricsExportDoc = new XmlDocument();
             metricsExportDoc.LoadXml("<metricsExport />");
-            metricsExportDoc.SetAttributeValue("exclude", excludeFromMetrics);
+            metricsExportDoc.DocumentElement.SetAttributeValue("exclude", excludeFromMetrics);
             return metricsExportDoc.DocumentElement.OuterXml;
         }
 

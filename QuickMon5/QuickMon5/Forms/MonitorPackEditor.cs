@@ -189,6 +189,12 @@ namespace QuickMon
             if (txtLoggingCollectorCategories.Text == "")
                 txtLoggingCollectorCategories.Text = "*";
             //**** Logging ****
+
+            // Metrics
+            chkCollectorMetricsExportToCSVEnabled.Checked = SelectedMonitorPack.CollectorMetricsExportToCSVEnabled;
+            chkCollectorMetricsExportToXMLEnabled.Checked = SelectedMonitorPack.CollectorMetricsExportToXMLEnabled;
+            txtCollectorMetricsExportPath.Text = SelectedMonitorPack.CollectorMetricsExportPath;
+            chkCollectorMetricsExportIncludeDisabled.Checked = SelectedMonitorPack.CollectorMetricsExportIncludeDisabled;
         }
         private void SetFrequency(int frequency)
         {
@@ -635,6 +641,13 @@ namespace QuickMon
                     }
                 }
                 //**** Logging ****
+
+                // Metrics
+                SelectedMonitorPack.CollectorMetricsExportToCSVEnabled = chkCollectorMetricsExportToCSVEnabled.Checked;
+                SelectedMonitorPack.CollectorMetricsExportToXMLEnabled = chkCollectorMetricsExportToXMLEnabled.Checked;
+                SelectedMonitorPack.CollectorMetricsExportPath = txtCollectorMetricsExportPath.Text;
+                SelectedMonitorPack.CollectorMetricsExportIncludeDisabled = chkCollectorMetricsExportIncludeDisabled.Checked;
+
                 SelectedMonitorPack.LoggingMonitorPackChanged();
 
                 Close();
@@ -676,6 +689,22 @@ namespace QuickMon
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Export all Collectors history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmdBrowseCollectorMetricsExportPath_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fbdLogging.SelectedPath = txtCollectorMetricsExportPath.Text;
+                if (fbdLogging.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    txtCollectorMetricsExportPath.Text = fbdLogging.SelectedPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
