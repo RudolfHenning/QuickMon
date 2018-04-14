@@ -180,7 +180,7 @@ namespace QuickMon
             StringBuilder sb = new StringBuilder();
             foreach (CollectorHost ch in CollectorHosts)
             {
-                if (CollectorMetricsExportIncludeDisabled || (ch.CurrentState != null && ch.CurrentState.State != CollectorState.None && ch.CurrentState.State != CollectorState.Disabled))
+                if (CollectorMetricsExportIncludeDisabled || (ch.CurrentState != null && ch.CurrentState.State != CollectorState.None && ch.CurrentState.State != CollectorState.Disabled && ch.CurrentState.State != CollectorState.NotAvailable && ch.CurrentState.State != CollectorState.NotInServiceWindow))
                     sb.Append(ch.ExportCurrentMetricsToCSV());
             }
             return sb.ToString();
