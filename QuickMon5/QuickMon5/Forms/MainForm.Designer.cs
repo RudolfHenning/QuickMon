@@ -44,7 +44,6 @@ namespace QuickMon
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lblVersion = new HenIT.Windows.Controls.HiLightLabel();
-            this.cmdRecentMonitorPacks = new System.Windows.Forms.Button();
             this.cmdPauseRunMP = new System.Windows.Forms.Button();
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.cmdAbout = new System.Windows.Forms.Button();
@@ -79,6 +78,8 @@ namespace QuickMon
             this.exportMetricsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historyToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allHistoryToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.collectorHistoryToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allHistoryToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblCollectors = new HenIT.Windows.Controls.HiLightLabel();
             this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
@@ -101,8 +102,9 @@ namespace QuickMon
             this.splitButtonSave = new QuickMon.Controls.SplitButton.SplitButton();
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
-            this.collectorHistoryToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allHistoryToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitButtonRecent = new QuickMon.Controls.SplitButton.SplitButton();
+            this.recentMPContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.fullRecentListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -117,6 +119,7 @@ namespace QuickMon
             this.notifiersContextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panelSlimMenu.SuspendLayout();
+            this.recentMPContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -218,24 +221,6 @@ namespace QuickMon
             this.toolTip1.SetToolTip(this.lblVersion, "Version");
             this.lblVersion.Click += new System.EventHandler(this.cmdAbout_Click);
             // 
-            // cmdRecentMonitorPacks
-            // 
-            this.cmdRecentMonitorPacks.BackColor = System.Drawing.Color.Transparent;
-            this.cmdRecentMonitorPacks.BackgroundImage = global::QuickMon.Properties.Resources.folderWLightning16x16;
-            this.cmdRecentMonitorPacks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdRecentMonitorPacks.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cmdRecentMonitorPacks.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.cmdRecentMonitorPacks.FlatAppearance.BorderSize = 0;
-            this.cmdRecentMonitorPacks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRecentMonitorPacks.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdRecentMonitorPacks.Location = new System.Drawing.Point(334, 0);
-            this.cmdRecentMonitorPacks.Name = "cmdRecentMonitorPacks";
-            this.cmdRecentMonitorPacks.Size = new System.Drawing.Size(35, 38);
-            this.cmdRecentMonitorPacks.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.cmdRecentMonitorPacks, "Recent Monitor Packs");
-            this.cmdRecentMonitorPacks.UseVisualStyleBackColor = false;
-            this.cmdRecentMonitorPacks.Click += new System.EventHandler(this.cmdRecentMonitorPacks_Click);
-            // 
             // cmdPauseRunMP
             // 
             this.cmdPauseRunMP.BackColor = System.Drawing.Color.Transparent;
@@ -282,10 +267,10 @@ namespace QuickMon
             this.cmdAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdAbout.Image = global::QuickMon.Properties.Resources.info24x24;
             this.cmdAbout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAbout.Location = new System.Drawing.Point(0, 276);
+            this.cmdAbout.Location = new System.Drawing.Point(0, 307);
             this.cmdAbout.Name = "cmdAbout";
             this.cmdAbout.Size = new System.Drawing.Size(45, 30);
-            this.cmdAbout.TabIndex = 11;
+            this.cmdAbout.TabIndex = 10;
             this.cmdAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdAbout, "About");
             this.cmdAbout.UseVisualStyleBackColor = false;
@@ -301,10 +286,10 @@ namespace QuickMon
             this.cmdRemoteHosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdRemoteHosts.Image = global::QuickMon.Properties.Resources.remote24x24;
             this.cmdRemoteHosts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdRemoteHosts.Location = new System.Drawing.Point(0, 216);
+            this.cmdRemoteHosts.Location = new System.Drawing.Point(0, 247);
             this.cmdRemoteHosts.Name = "cmdRemoteHosts";
             this.cmdRemoteHosts.Size = new System.Drawing.Size(45, 30);
-            this.cmdRemoteHosts.TabIndex = 7;
+            this.cmdRemoteHosts.TabIndex = 8;
             this.cmdRemoteHosts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdRemoteHosts, "Remote Hosts");
             this.cmdRemoteHosts.UseVisualStyleBackColor = false;
@@ -325,7 +310,7 @@ namespace QuickMon
             this.cmdOpen.Size = new System.Drawing.Size(45, 30);
             this.cmdOpen.TabIndex = 2;
             this.cmdOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdOpen, "New  CTRL+O");
+            this.toolTip1.SetToolTip(this.cmdOpen, "Open  CTRL+O");
             this.cmdOpen.UseVisualStyleBackColor = false;
             this.cmdOpen.Click += new System.EventHandler(this.cmdOpen_Click);
             // 
@@ -380,10 +365,10 @@ namespace QuickMon
             this.cmdTemplates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdTemplates.Image = global::QuickMon.Properties.Resources.tables24x24;
             this.cmdTemplates.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdTemplates.Location = new System.Drawing.Point(0, 186);
+            this.cmdTemplates.Location = new System.Drawing.Point(0, 217);
             this.cmdTemplates.Name = "cmdTemplates";
             this.cmdTemplates.Size = new System.Drawing.Size(45, 30);
-            this.cmdTemplates.TabIndex = 6;
+            this.cmdTemplates.TabIndex = 7;
             this.cmdTemplates.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdTemplates, "Templates");
             this.cmdTemplates.UseVisualStyleBackColor = false;
@@ -402,7 +387,7 @@ namespace QuickMon
             this.cmdAdminMode.Location = new System.Drawing.Point(0, 439);
             this.cmdAdminMode.Name = "cmdAdminMode";
             this.cmdAdminMode.Size = new System.Drawing.Size(45, 30);
-            this.cmdAdminMode.TabIndex = 12;
+            this.cmdAdminMode.TabIndex = 11;
             this.cmdAdminMode.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdAdminMode, "Admin Mode");
             this.cmdAdminMode.UseVisualStyleBackColor = false;
@@ -418,10 +403,10 @@ namespace QuickMon
             this.cmdSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdSettings.Image = global::QuickMon.Properties.Resources.tools24x24;
             this.cmdSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdSettings.Location = new System.Drawing.Point(0, 246);
+            this.cmdSettings.Location = new System.Drawing.Point(0, 277);
             this.cmdSettings.Name = "cmdSettings";
             this.cmdSettings.Size = new System.Drawing.Size(45, 30);
-            this.cmdSettings.TabIndex = 10;
+            this.cmdSettings.TabIndex = 9;
             this.cmdSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdSettings, "Settings");
             this.cmdSettings.UseVisualStyleBackColor = false;
@@ -560,7 +545,7 @@ namespace QuickMon
             this.configOperationsToolStripMenuItem,
             this.exportMetricsToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(178, 272);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(178, 250);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // detailsToolStripMenuItem
@@ -677,6 +662,20 @@ namespace QuickMon
             this.allHistoryToCSVToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.allHistoryToCSVToolStripMenuItem.Text = "Monitor pack History to CSV";
             this.allHistoryToCSVToolStripMenuItem.Click += new System.EventHandler(this.allHistoryToCSVToolStripMenuItem_Click);
+            // 
+            // collectorHistoryToXMLToolStripMenuItem
+            // 
+            this.collectorHistoryToXMLToolStripMenuItem.Name = "collectorHistoryToXMLToolStripMenuItem";
+            this.collectorHistoryToXMLToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.collectorHistoryToXMLToolStripMenuItem.Text = "Collector History To XML";
+            this.collectorHistoryToXMLToolStripMenuItem.Click += new System.EventHandler(this.collectorHistoryToXMLToolStripMenuItem_Click);
+            // 
+            // allHistoryToXMLToolStripMenuItem
+            // 
+            this.allHistoryToXMLToolStripMenuItem.Name = "allHistoryToXMLToolStripMenuItem";
+            this.allHistoryToXMLToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.allHistoryToXMLToolStripMenuItem.Text = "Monitor pack History To XML";
+            this.allHistoryToXMLToolStripMenuItem.Click += new System.EventHandler(this.allHistoryToXMLToolStripMenuItem_Click);
             // 
             // panel2
             // 
@@ -864,7 +863,6 @@ namespace QuickMon
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Controls.Add(this.llblMonitorPack);
             this.panel1.Controls.Add(this.cboRecentMonitorPacks);
-            this.panel1.Controls.Add(this.cmdRecentMonitorPacks);
             this.panel1.Controls.Add(this.cmdPauseRunMP);
             this.panel1.Controls.Add(this.cmdRefresh);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -881,7 +879,7 @@ namespace QuickMon
             this.llblMonitorPack.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.llblMonitorPack.Location = new System.Drawing.Point(0, 0);
             this.llblMonitorPack.Name = "llblMonitorPack";
-            this.llblMonitorPack.Size = new System.Drawing.Size(334, 38);
+            this.llblMonitorPack.Size = new System.Drawing.Size(369, 38);
             this.llblMonitorPack.TabIndex = 0;
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "<New Monitor Pack>";
@@ -915,10 +913,11 @@ namespace QuickMon
             this.panelSlimMenu.Controls.Add(this.splitButtonNotifiers);
             this.panelSlimMenu.Controls.Add(this.splitButtonCollectors);
             this.panelSlimMenu.Controls.Add(this.splitButtonSave);
+            this.panelSlimMenu.Controls.Add(this.cmdAdminMode);
+            this.panelSlimMenu.Controls.Add(this.splitButtonRecent);
             this.panelSlimMenu.Controls.Add(this.cmdOpen);
             this.panelSlimMenu.Controls.Add(this.cmdNew);
             this.panelSlimMenu.Controls.Add(this.cmdMenu);
-            this.panelSlimMenu.Controls.Add(this.cmdAdminMode);
             this.panelSlimMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelSlimMenu.Location = new System.Drawing.Point(0, 0);
             this.panelSlimMenu.Name = "panelSlimMenu";
@@ -939,10 +938,10 @@ namespace QuickMon
             this.splitButtonNotifiers.ButtonToolTip = "Notifiers";
             this.splitButtonNotifiers.ContextMenuStrip = this.notifiersContextMenuStrip;
             this.splitButtonNotifiers.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitButtonNotifiers.Location = new System.Drawing.Point(0, 155);
+            this.splitButtonNotifiers.Location = new System.Drawing.Point(0, 186);
             this.splitButtonNotifiers.Name = "splitButtonNotifiers";
             this.splitButtonNotifiers.Size = new System.Drawing.Size(45, 31);
-            this.splitButtonNotifiers.TabIndex = 5;
+            this.splitButtonNotifiers.TabIndex = 6;
             this.splitButtonNotifiers.ButtonClicked += new System.EventHandler(this.splitButtonNotifiers_ButtonClicked);
             this.splitButtonNotifiers.SplitButtonClicked += new System.EventHandler(this.splitButtonNotifiers_SplitButtonClicked);
             // 
@@ -960,10 +959,10 @@ namespace QuickMon
             this.splitButtonCollectors.ButtonToolTip = "Collectors";
             this.splitButtonCollectors.ContextMenuStrip = this.collectorsContextMenuStrip;
             this.splitButtonCollectors.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitButtonCollectors.Location = new System.Drawing.Point(0, 124);
+            this.splitButtonCollectors.Location = new System.Drawing.Point(0, 155);
             this.splitButtonCollectors.Name = "splitButtonCollectors";
             this.splitButtonCollectors.Size = new System.Drawing.Size(45, 31);
-            this.splitButtonCollectors.TabIndex = 4;
+            this.splitButtonCollectors.TabIndex = 5;
             this.splitButtonCollectors.ButtonClicked += new System.EventHandler(this.splitButtonCollectors_ButtonClicked);
             this.splitButtonCollectors.SplitButtonClicked += new System.EventHandler(this.splitButtonCollectors_SplitButtonClicked);
             // 
@@ -981,10 +980,10 @@ namespace QuickMon
             this.splitButtonSave.ButtonToolTip = "Save  CTRL+S";
             this.splitButtonSave.ContextMenuStrip = this.saveContextMenuStrip;
             this.splitButtonSave.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitButtonSave.Location = new System.Drawing.Point(0, 93);
+            this.splitButtonSave.Location = new System.Drawing.Point(0, 124);
             this.splitButtonSave.Name = "splitButtonSave";
             this.splitButtonSave.Size = new System.Drawing.Size(45, 31);
-            this.splitButtonSave.TabIndex = 3;
+            this.splitButtonSave.TabIndex = 4;
             this.splitButtonSave.ButtonClicked += new System.EventHandler(this.splitButtonSave_ButtonClicked);
             this.splitButtonSave.SplitButtonClicked += new System.EventHandler(this.splitButtonSave_SplitButtonClicked);
             // 
@@ -993,19 +992,41 @@ namespace QuickMon
             this.saveFileDialogSave.DefaultExt = "qmp";
             this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
             // 
-            // collectorHistoryToXMLToolStripMenuItem
+            // splitButtonRecent
             // 
-            this.collectorHistoryToXMLToolStripMenuItem.Name = "collectorHistoryToXMLToolStripMenuItem";
-            this.collectorHistoryToXMLToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.collectorHistoryToXMLToolStripMenuItem.Text = "Collector History To XML";
-            this.collectorHistoryToXMLToolStripMenuItem.Click += new System.EventHandler(this.collectorHistoryToXMLToolStripMenuItem_Click);
+            this.splitButtonRecent.BackColor = System.Drawing.Color.Transparent;
+            this.splitButtonRecent.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.splitButtonRecent.ButtonImage = global::QuickMon.Properties.Resources.folderWLightning1;
+            this.splitButtonRecent.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonRecent.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitButtonRecent.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.splitButtonRecent.ButtonPadding = new System.Windows.Forms.Padding(0);
+            this.splitButtonRecent.ButtonText = "";
+            this.splitButtonRecent.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonRecent.ButtonToolTip = "Recent Monitor Packs CTRL+T";
+            this.splitButtonRecent.ContextMenuStrip = this.recentMPContextMenuStrip;
+            this.splitButtonRecent.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitButtonRecent.Location = new System.Drawing.Point(0, 93);
+            this.splitButtonRecent.Name = "splitButtonRecent";
+            this.splitButtonRecent.Size = new System.Drawing.Size(45, 31);
+            this.splitButtonRecent.TabIndex = 3;
+            this.splitButtonRecent.ButtonClicked += new System.EventHandler(this.splitButtonRecent_ButtonClicked);
+            this.splitButtonRecent.SplitButtonClicked += new System.EventHandler(this.splitButtonRecent_SplitButtonClicked);
             // 
-            // allHistoryToXMLToolStripMenuItem
+            // recentMPContextMenuStrip
             // 
-            this.allHistoryToXMLToolStripMenuItem.Name = "allHistoryToXMLToolStripMenuItem";
-            this.allHistoryToXMLToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.allHistoryToXMLToolStripMenuItem.Text = "Monitor pack History To XML";
-            this.allHistoryToXMLToolStripMenuItem.Click += new System.EventHandler(this.allHistoryToXMLToolStripMenuItem_Click);
+            this.recentMPContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fullRecentListToolStripMenuItem});
+            this.recentMPContextMenuStrip.Name = "recentMPContextMenuStrip";
+            this.recentMPContextMenuStrip.Size = new System.Drawing.Size(112, 26);
+            // 
+            // fullRecentListToolStripMenuItem
+            // 
+            this.fullRecentListToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folderWLightning16x16;
+            this.fullRecentListToolStripMenuItem.Name = "fullRecentListToolStripMenuItem";
+            this.fullRecentListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fullRecentListToolStripMenuItem.Text = "Full list";
+            this.fullRecentListToolStripMenuItem.Click += new System.EventHandler(this.fullRecentListToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1043,6 +1064,7 @@ namespace QuickMon
             this.notifiersContextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panelSlimMenu.ResumeLayout(false);
+            this.recentMPContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1064,7 +1086,6 @@ namespace QuickMon
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel llblMonitorPack;
         private System.Windows.Forms.Button cmdRefresh;
-        private System.Windows.Forms.Button cmdRecentMonitorPacks;
         private TreeViewExBase tvwCollectors;
         private System.Windows.Forms.ToolStripMenuItem addCollectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
@@ -1119,6 +1140,9 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripMenuItem allHistoryToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem collectorHistoryToXMLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allHistoryToXMLToolStripMenuItem;
+        private Controls.SplitButton.SplitButton splitButtonRecent;
+        private System.Windows.Forms.ContextMenuStrip recentMPContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem fullRecentListToolStripMenuItem;
     }
 }
 

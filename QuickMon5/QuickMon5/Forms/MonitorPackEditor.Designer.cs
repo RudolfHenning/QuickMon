@@ -56,6 +56,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cmdAgentSettingsToggle = new System.Windows.Forms.Button();
             this.panelVariables = new System.Windows.Forms.Panel();
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelVarEdit = new System.Windows.Forms.Panel();
             this.llblExpandConfigVarSection = new System.Windows.Forms.LinkLabel();
             this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
@@ -76,6 +79,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cmdRemoveUserNameFromCache = new System.Windows.Forms.Button();
             this.cmdAddUserNameToCache = new System.Windows.Forms.Button();
+            this.lvwUserNameCache = new QuickMon.ListViewEx();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setPwdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,6 +97,13 @@
             this.txtMasterKeyFilePath = new System.Windows.Forms.TextBox();
             this.cmdSecuritySettingsToggle = new System.Windows.Forms.Button();
             this.panelLoggingSettings = new System.Windows.Forms.Panel();
+            this.metricsExportGroupBox = new System.Windows.Forms.GroupBox();
+            this.chkCollectorMetricsExportIncludeDisabled = new System.Windows.Forms.CheckBox();
+            this.cmdBrowseCollectorMetricsExportPath = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtCollectorMetricsExportPath = new System.Windows.Forms.TextBox();
+            this.chkCollectorMetricsExportToXMLEnabled = new System.Windows.Forms.CheckBox();
+            this.chkCollectorMetricsExportToCSVEnabled = new System.Windows.Forms.CheckBox();
             this.label14 = new System.Windows.Forms.Label();
             this.txtLoggingCollectorCategories = new System.Windows.Forms.TextBox();
             this.nudKeepLogFilesXDays = new System.Windows.Forms.NumericUpDown();
@@ -108,20 +122,6 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.fbdLogging = new System.Windows.Forms.FolderBrowserDialog();
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.metricsExportGroupBox = new System.Windows.Forms.GroupBox();
-            this.chkCollectorMetricsExportToCSVEnabled = new System.Windows.Forms.CheckBox();
-            this.chkCollectorMetricsExportToXMLEnabled = new System.Windows.Forms.CheckBox();
-            this.cmdBrowseCollectorMetricsExportPath = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtCollectorMetricsExportPath = new System.Windows.Forms.TextBox();
-            this.chkCollectorMetricsExportIncludeDisabled = new System.Windows.Forms.CheckBox();
-            this.lvwConfigVars = new QuickMon.ListViewEx();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvwUserNameCache = new QuickMon.ListViewEx();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelGeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
@@ -135,8 +135,8 @@
             this.groupBox2.SuspendLayout();
             this.userCacheContextMenuStrip.SuspendLayout();
             this.panelLoggingSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).BeginInit();
             this.metricsExportGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).BeginInit();
             this.SuspendLayout();
             // 
             // chkEnabled
@@ -441,6 +441,33 @@
             this.panelVariables.Size = new System.Drawing.Size(549, 300);
             this.panelVariables.TabIndex = 2;
             // 
+            // lvwConfigVars
+            // 
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 1;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.valueColumnHeader});
+            this.lvwConfigVars.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.Location = new System.Drawing.Point(0, 58);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(549, 85);
+            this.lvwConfigVars.TabIndex = 2;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Search for";
+            this.nameColumnHeader.Width = 243;
+            // 
+            // valueColumnHeader
+            // 
+            this.valueColumnHeader.Text = "Replace by";
+            this.valueColumnHeader.Width = 262;
+            // 
             // panelVarEdit
             // 
             this.panelVarEdit.Controls.Add(this.llblExpandConfigVarSection);
@@ -676,6 +703,43 @@
             this.cmdAddUserNameToCache.UseVisualStyleBackColor = true;
             this.cmdAddUserNameToCache.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
             // 
+            // lvwUserNameCache
+            // 
+            this.lvwUserNameCache.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwUserNameCache.AutoResizeColumnEnabled = false;
+            this.lvwUserNameCache.AutoResizeColumnIndex = 0;
+            this.lvwUserNameCache.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.lvwUserNameCache.ContextMenuStrip = this.userCacheContextMenuStrip;
+            this.lvwUserNameCache.FullRowSelect = true;
+            this.lvwUserNameCache.Location = new System.Drawing.Point(9, 107);
+            this.lvwUserNameCache.Name = "lvwUserNameCache";
+            this.lvwUserNameCache.Size = new System.Drawing.Size(486, 143);
+            this.lvwUserNameCache.SmallImageList = this.userCacheImageList;
+            this.lvwUserNameCache.TabIndex = 8;
+            this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
+            this.lvwUserNameCache.View = System.Windows.Forms.View.Details;
+            this.lvwUserNameCache.SelectedIndexChanged += new System.EventHandler(this.lvwUserNameCache_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "User name";
+            this.columnHeader1.Width = 316;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "In Cache";
+            this.columnHeader2.Width = 76;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Decryptable";
+            this.columnHeader3.Width = 82;
+            // 
             // userCacheContextMenuStrip
             // 
             this.userCacheContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -820,6 +884,86 @@
             this.panelLoggingSettings.Name = "panelLoggingSettings";
             this.panelLoggingSettings.Size = new System.Drawing.Size(549, 350);
             this.panelLoggingSettings.TabIndex = 4;
+            // 
+            // metricsExportGroupBox
+            // 
+            this.metricsExportGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.metricsExportGroupBox.Controls.Add(this.chkCollectorMetricsExportIncludeDisabled);
+            this.metricsExportGroupBox.Controls.Add(this.cmdBrowseCollectorMetricsExportPath);
+            this.metricsExportGroupBox.Controls.Add(this.label15);
+            this.metricsExportGroupBox.Controls.Add(this.txtCollectorMetricsExportPath);
+            this.metricsExportGroupBox.Controls.Add(this.chkCollectorMetricsExportToXMLEnabled);
+            this.metricsExportGroupBox.Controls.Add(this.chkCollectorMetricsExportToCSVEnabled);
+            this.metricsExportGroupBox.Location = new System.Drawing.Point(3, 245);
+            this.metricsExportGroupBox.Name = "metricsExportGroupBox";
+            this.metricsExportGroupBox.Size = new System.Drawing.Size(543, 100);
+            this.metricsExportGroupBox.TabIndex = 15;
+            this.metricsExportGroupBox.TabStop = false;
+            this.metricsExportGroupBox.Text = "Collector Metrics Exports (only applies to master refresh)";
+            // 
+            // chkCollectorMetricsExportIncludeDisabled
+            // 
+            this.chkCollectorMetricsExportIncludeDisabled.AutoSize = true;
+            this.chkCollectorMetricsExportIncludeDisabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkCollectorMetricsExportIncludeDisabled.Location = new System.Drawing.Point(21, 70);
+            this.chkCollectorMetricsExportIncludeDisabled.Name = "chkCollectorMetricsExportIncludeDisabled";
+            this.chkCollectorMetricsExportIncludeDisabled.Size = new System.Drawing.Size(233, 17);
+            this.chkCollectorMetricsExportIncludeDisabled.TabIndex = 10;
+            this.chkCollectorMetricsExportIncludeDisabled.Text = "Include None/Disabled (only applies to CSV)";
+            this.chkCollectorMetricsExportIncludeDisabled.UseVisualStyleBackColor = true;
+            // 
+            // cmdBrowseCollectorMetricsExportPath
+            // 
+            this.cmdBrowseCollectorMetricsExportPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseCollectorMetricsExportPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowseCollectorMetricsExportPath.Location = new System.Drawing.Point(498, 42);
+            this.cmdBrowseCollectorMetricsExportPath.Name = "cmdBrowseCollectorMetricsExportPath";
+            this.cmdBrowseCollectorMetricsExportPath.Size = new System.Drawing.Size(42, 23);
+            this.cmdBrowseCollectorMetricsExportPath.TabIndex = 9;
+            this.cmdBrowseCollectorMetricsExportPath.Text = "- - -";
+            this.cmdBrowseCollectorMetricsExportPath.UseVisualStyleBackColor = true;
+            this.cmdBrowseCollectorMetricsExportPath.Click += new System.EventHandler(this.cmdBrowseCollectorMetricsExportPath_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(10, 47);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(61, 13);
+            this.label15.TabIndex = 7;
+            this.label15.Text = "Export path";
+            // 
+            // txtCollectorMetricsExportPath
+            // 
+            this.txtCollectorMetricsExportPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCollectorMetricsExportPath.Location = new System.Drawing.Point(133, 44);
+            this.txtCollectorMetricsExportPath.Name = "txtCollectorMetricsExportPath";
+            this.txtCollectorMetricsExportPath.Size = new System.Drawing.Size(359, 20);
+            this.txtCollectorMetricsExportPath.TabIndex = 8;
+            // 
+            // chkCollectorMetricsExportToXMLEnabled
+            // 
+            this.chkCollectorMetricsExportToXMLEnabled.AutoSize = true;
+            this.chkCollectorMetricsExportToXMLEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkCollectorMetricsExportToXMLEnabled.Location = new System.Drawing.Point(124, 19);
+            this.chkCollectorMetricsExportToXMLEnabled.Name = "chkCollectorMetricsExportToXMLEnabled";
+            this.chkCollectorMetricsExportToXMLEnabled.Size = new System.Drawing.Size(90, 17);
+            this.chkCollectorMetricsExportToXMLEnabled.TabIndex = 1;
+            this.chkCollectorMetricsExportToXMLEnabled.Text = "Export to XML";
+            this.chkCollectorMetricsExportToXMLEnabled.UseVisualStyleBackColor = true;
+            // 
+            // chkCollectorMetricsExportToCSVEnabled
+            // 
+            this.chkCollectorMetricsExportToCSVEnabled.AutoSize = true;
+            this.chkCollectorMetricsExportToCSVEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkCollectorMetricsExportToCSVEnabled.Location = new System.Drawing.Point(21, 19);
+            this.chkCollectorMetricsExportToCSVEnabled.Name = "chkCollectorMetricsExportToCSVEnabled";
+            this.chkCollectorMetricsExportToCSVEnabled.Size = new System.Drawing.Size(89, 17);
+            this.chkCollectorMetricsExportToCSVEnabled.TabIndex = 0;
+            this.chkCollectorMetricsExportToCSVEnabled.Text = "Export to CSV";
+            this.chkCollectorMetricsExportToCSVEnabled.UseVisualStyleBackColor = true;
             // 
             // label14
             // 
@@ -1025,150 +1169,6 @@
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
             // 
-            // metricsExportGroupBox
-            // 
-            this.metricsExportGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.metricsExportGroupBox.Controls.Add(this.chkCollectorMetricsExportIncludeDisabled);
-            this.metricsExportGroupBox.Controls.Add(this.cmdBrowseCollectorMetricsExportPath);
-            this.metricsExportGroupBox.Controls.Add(this.label15);
-            this.metricsExportGroupBox.Controls.Add(this.txtCollectorMetricsExportPath);
-            this.metricsExportGroupBox.Controls.Add(this.chkCollectorMetricsExportToXMLEnabled);
-            this.metricsExportGroupBox.Controls.Add(this.chkCollectorMetricsExportToCSVEnabled);
-            this.metricsExportGroupBox.Location = new System.Drawing.Point(3, 245);
-            this.metricsExportGroupBox.Name = "metricsExportGroupBox";
-            this.metricsExportGroupBox.Size = new System.Drawing.Size(543, 100);
-            this.metricsExportGroupBox.TabIndex = 15;
-            this.metricsExportGroupBox.TabStop = false;
-            this.metricsExportGroupBox.Text = "Collector Metrics Exports (only applies to master refresh)";
-            // 
-            // chkCollectorMetricsExportToCSVEnabled
-            // 
-            this.chkCollectorMetricsExportToCSVEnabled.AutoSize = true;
-            this.chkCollectorMetricsExportToCSVEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkCollectorMetricsExportToCSVEnabled.Location = new System.Drawing.Point(21, 19);
-            this.chkCollectorMetricsExportToCSVEnabled.Name = "chkCollectorMetricsExportToCSVEnabled";
-            this.chkCollectorMetricsExportToCSVEnabled.Size = new System.Drawing.Size(89, 17);
-            this.chkCollectorMetricsExportToCSVEnabled.TabIndex = 0;
-            this.chkCollectorMetricsExportToCSVEnabled.Text = "Export to CSV";
-            this.chkCollectorMetricsExportToCSVEnabled.UseVisualStyleBackColor = true;
-            // 
-            // chkCollectorMetricsExportToXMLEnabled
-            // 
-            this.chkCollectorMetricsExportToXMLEnabled.AutoSize = true;
-            this.chkCollectorMetricsExportToXMLEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkCollectorMetricsExportToXMLEnabled.Location = new System.Drawing.Point(124, 19);
-            this.chkCollectorMetricsExportToXMLEnabled.Name = "chkCollectorMetricsExportToXMLEnabled";
-            this.chkCollectorMetricsExportToXMLEnabled.Size = new System.Drawing.Size(90, 17);
-            this.chkCollectorMetricsExportToXMLEnabled.TabIndex = 1;
-            this.chkCollectorMetricsExportToXMLEnabled.Text = "Export to XML";
-            this.chkCollectorMetricsExportToXMLEnabled.UseVisualStyleBackColor = true;
-            // 
-            // cmdBrowseCollectorMetricsExportPath
-            // 
-            this.cmdBrowseCollectorMetricsExportPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseCollectorMetricsExportPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseCollectorMetricsExportPath.Location = new System.Drawing.Point(498, 42);
-            this.cmdBrowseCollectorMetricsExportPath.Name = "cmdBrowseCollectorMetricsExportPath";
-            this.cmdBrowseCollectorMetricsExportPath.Size = new System.Drawing.Size(42, 23);
-            this.cmdBrowseCollectorMetricsExportPath.TabIndex = 9;
-            this.cmdBrowseCollectorMetricsExportPath.Text = "- - -";
-            this.cmdBrowseCollectorMetricsExportPath.UseVisualStyleBackColor = true;
-            this.cmdBrowseCollectorMetricsExportPath.Click += new System.EventHandler(this.cmdBrowseCollectorMetricsExportPath_Click);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(10, 47);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(61, 13);
-            this.label15.TabIndex = 7;
-            this.label15.Text = "Export path";
-            // 
-            // txtCollectorMetricsExportPath
-            // 
-            this.txtCollectorMetricsExportPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCollectorMetricsExportPath.Location = new System.Drawing.Point(133, 44);
-            this.txtCollectorMetricsExportPath.Name = "txtCollectorMetricsExportPath";
-            this.txtCollectorMetricsExportPath.Size = new System.Drawing.Size(359, 20);
-            this.txtCollectorMetricsExportPath.TabIndex = 8;
-            // 
-            // chkCollectorMetricsExportIncludeDisabled
-            // 
-            this.chkCollectorMetricsExportIncludeDisabled.AutoSize = true;
-            this.chkCollectorMetricsExportIncludeDisabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkCollectorMetricsExportIncludeDisabled.Location = new System.Drawing.Point(21, 70);
-            this.chkCollectorMetricsExportIncludeDisabled.Name = "chkCollectorMetricsExportIncludeDisabled";
-            this.chkCollectorMetricsExportIncludeDisabled.Size = new System.Drawing.Size(133, 17);
-            this.chkCollectorMetricsExportIncludeDisabled.TabIndex = 10;
-            this.chkCollectorMetricsExportIncludeDisabled.Text = "Include None/Disabled";
-            this.chkCollectorMetricsExportIncludeDisabled.UseVisualStyleBackColor = true;
-            // 
-            // lvwConfigVars
-            // 
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 1;
-            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.valueColumnHeader});
-            this.lvwConfigVars.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.Location = new System.Drawing.Point(0, 58);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(549, 85);
-            this.lvwConfigVars.TabIndex = 2;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Search for";
-            this.nameColumnHeader.Width = 243;
-            // 
-            // valueColumnHeader
-            // 
-            this.valueColumnHeader.Text = "Replace by";
-            this.valueColumnHeader.Width = 262;
-            // 
-            // lvwUserNameCache
-            // 
-            this.lvwUserNameCache.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwUserNameCache.AutoResizeColumnEnabled = false;
-            this.lvwUserNameCache.AutoResizeColumnIndex = 0;
-            this.lvwUserNameCache.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.lvwUserNameCache.ContextMenuStrip = this.userCacheContextMenuStrip;
-            this.lvwUserNameCache.FullRowSelect = true;
-            this.lvwUserNameCache.Location = new System.Drawing.Point(9, 107);
-            this.lvwUserNameCache.Name = "lvwUserNameCache";
-            this.lvwUserNameCache.Size = new System.Drawing.Size(486, 143);
-            this.lvwUserNameCache.SmallImageList = this.userCacheImageList;
-            this.lvwUserNameCache.TabIndex = 8;
-            this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
-            this.lvwUserNameCache.View = System.Windows.Forms.View.Details;
-            this.lvwUserNameCache.SelectedIndexChanged += new System.EventHandler(this.lvwUserNameCache_SelectedIndexChanged);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "User name";
-            this.columnHeader1.Width = 316;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "In Cache";
-            this.columnHeader2.Width = 76;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Decryptable";
-            this.columnHeader3.Width = 82;
-            // 
             // MonitorPackEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1210,9 +1210,9 @@
             this.userCacheContextMenuStrip.ResumeLayout(false);
             this.panelLoggingSettings.ResumeLayout(false);
             this.panelLoggingSettings.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).EndInit();
             this.metricsExportGroupBox.ResumeLayout(false);
             this.metricsExportGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

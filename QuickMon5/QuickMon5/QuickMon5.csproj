@@ -188,7 +188,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -425,6 +427,7 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\QMSplash.png" />
     <None Include="Resources\triang_red.ico" />
     <None Include="Resources\triang_red24x24.png" />
     <None Include="Resources\triang_red16x16.png" />

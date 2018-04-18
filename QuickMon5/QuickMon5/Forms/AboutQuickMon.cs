@@ -19,7 +19,7 @@ namespace QuickMon
             FadeInTime = 500;
         }
 
-        private string quickMonOnlineUrl = "https://quickmon.codeplex.com/";
+        private string quickMonOnlineUrl = "https://github.com/RudolfHenning/QuickMon";
 
         private void AboutQuickMon_Click(object sender, EventArgs e)
         {
@@ -31,8 +31,8 @@ namespace QuickMon
             SnappingEnabled = false;
             lblVersionInfo.Text = string.Format("Version {0}", AssemblyVersion);
             lblCoreVersion.Text = string.Format("Core {0}", CoreAssemblyVersion);
-            lblCompany.Text = string.Format("Created by {0}", AssemblyCompany);
-            lblCreateDate.Text = string.Format("Created on {0}", AssemblyDate);
+            lblCompany.Text = string.Format("Compiled by {0}", AssemblyCompany);
+            lblCreateDate.Text = string.Format("Compiled on {0}", AssemblyDate);
             //latestVersionCheckBackgroundWorker.RunWorkerAsync();
         }
 
@@ -168,7 +168,7 @@ namespace QuickMon
             }
             catch
             {
-                linkLabel1.Text = "Get latest version here (CodePlex)";
+                linkLabel1.Text = "Get latest version here";
                 quickMonOnlineUrl = "https://github.com/RudolfHenning/QuickMon";
             }
         }

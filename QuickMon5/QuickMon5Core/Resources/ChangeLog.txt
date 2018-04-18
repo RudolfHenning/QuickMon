@@ -59,3 +59,11 @@ Collector metrics exports
 	Now can be enabled to log automatically
 	Two formats available - CSV and XML
 	QuickMon Service now enables collector state history(was always disabled in past)
+
+-------------
+Version 5.0.8
+*************
+Recent monitor pack menu item moved on main window
+Fix tooltip for Open menu item
+CollectorMetrics export to CSV
+	Exclude NotAvailable state unless Include None/Disabled option is enabled

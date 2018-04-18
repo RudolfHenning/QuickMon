@@ -1186,7 +1186,7 @@ namespace QuickMon
                 splitButtonSave.ButtonText = "";
                 splitButtonCollectors.ButtonText = "";
                 splitButtonNotifiers.ButtonText = "";
-                //splitButtonTools.ButtonText = "";
+                splitButtonRecent.ButtonText = "";
                 cmdSettings.Text = "";
                 cmdTemplates.Text = "";                
                 cmdRemoteHosts.Text = "";
@@ -1202,7 +1202,7 @@ namespace QuickMon
                 splitButtonSave.ButtonText = " Save";
                 splitButtonCollectors.ButtonText = " Collectors";
                 splitButtonNotifiers.ButtonText = " Notifiers";
-                //splitButtonTools.ButtonText = " Settings";
+                splitButtonRecent.ButtonText = " Recent";
                 cmdSettings.Text = " Settings";
                 cmdTemplates.Text = " Templates";                
                 cmdRemoteHosts.Text = " Remote Hosts";
@@ -2723,8 +2723,27 @@ namespace QuickMon
                 }
             }
         }
+
         #endregion
 
+        private void splitButtonRecent_ButtonClicked(object sender, EventArgs e)
+        {
+            ShowRecentMonitorPackDropdown();
+        }
 
+        private void fullRecentListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
+            if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadMonitorPack(selectRecentMonitorPackDialog.SelectedMonitorPack);
+                RefreshMonitorPack(true, true);
+            }
+        }
+
+        private void splitButtonRecent_SplitButtonClicked(object sender, EventArgs e)
+        {
+            recentMPContextMenuStrip.Show(splitButtonRecent, new Point(splitButtonRecent.Width, 0));
+        }
     }
 }
