@@ -71,10 +71,10 @@ namespace QuickMon
             this.disableCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.configOperationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteAndEditCollectorConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exportMetricsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historyToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allHistoryToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,11 +100,11 @@ namespace QuickMon
             this.splitButtonNotifiers = new QuickMon.Controls.SplitButton.SplitButton();
             this.splitButtonCollectors = new QuickMon.Controls.SplitButton.SplitButton();
             this.splitButtonSave = new QuickMon.Controls.SplitButton.SplitButton();
-            this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.splitButtonRecent = new QuickMon.Controls.SplitButton.SplitButton();
             this.recentMPContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.fullRecentListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -229,6 +229,7 @@ namespace QuickMon
             this.cmdPauseRunMP.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdPauseRunMP.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.cmdPauseRunMP.FlatAppearance.BorderSize = 0;
+            this.cmdPauseRunMP.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdPauseRunMP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdPauseRunMP.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdPauseRunMP.Location = new System.Drawing.Point(369, 0);
@@ -247,6 +248,7 @@ namespace QuickMon
             this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
+            this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRefresh.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdRefresh.Location = new System.Drawing.Point(404, 0);
@@ -263,6 +265,7 @@ namespace QuickMon
             this.cmdAbout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdAbout.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdAbout.FlatAppearance.BorderSize = 0;
+            this.cmdAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdAbout.Image = global::QuickMon.Properties.Resources.info24x24;
@@ -282,6 +285,7 @@ namespace QuickMon
             this.cmdRemoteHosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdRemoteHosts.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdRemoteHosts.FlatAppearance.BorderSize = 0;
+            this.cmdRemoteHosts.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdRemoteHosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemoteHosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdRemoteHosts.Image = global::QuickMon.Properties.Resources.remote24x24;
@@ -301,6 +305,7 @@ namespace QuickMon
             this.cmdOpen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdOpen.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdOpen.FlatAppearance.BorderSize = 0;
+            this.cmdOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdOpen.Image = global::QuickMon.Properties.Resources.folderOpen24x24;
@@ -320,6 +325,7 @@ namespace QuickMon
             this.cmdNew.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdNew.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdNew.FlatAppearance.BorderSize = 0;
+            this.cmdNew.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdNew.Image = global::QuickMon.Properties.Resources.doc_new1;
@@ -340,6 +346,7 @@ namespace QuickMon
             this.cmdMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdMenu.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.cmdMenu.FlatAppearance.BorderSize = 0;
+            this.cmdMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdMenu.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdMenu.Image = global::QuickMon.Properties.Resources.menu_alt_16b1;
@@ -361,6 +368,7 @@ namespace QuickMon
             this.cmdTemplates.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdTemplates.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdTemplates.FlatAppearance.BorderSize = 0;
+            this.cmdTemplates.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTemplates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdTemplates.Image = global::QuickMon.Properties.Resources.tables24x24;
@@ -380,6 +388,7 @@ namespace QuickMon
             this.cmdAdminMode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdAdminMode.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.cmdAdminMode.FlatAppearance.BorderSize = 0;
+            this.cmdAdminMode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdAdminMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAdminMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdAdminMode.Image = global::QuickMon.Properties.Resources.Shield24x24;
@@ -399,6 +408,7 @@ namespace QuickMon
             this.cmdSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdSettings.FlatAppearance.BorderSize = 0;
+            this.cmdSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdSettings.Image = global::QuickMon.Properties.Resources.tools24x24;
@@ -542,10 +552,13 @@ namespace QuickMon
             this.disableCollectorToolStripMenuItem,
             this.refreshToolStripMenuItem,
             this.toolStripSeparator1,
-            this.configOperationsToolStripMenuItem,
+            this.copyCollectorToolStripMenuItem,
+            this.pasteCollectorToolStripMenuItem,
+            this.pasteAndEditCollectorConfigToolStripMenuItem,
+            this.toolStripSeparator2,
             this.exportMetricsToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(178, 250);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(158, 316);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // detailsToolStripMenuItem
@@ -553,7 +566,7 @@ namespace QuickMon
             this.detailsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.detailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
             this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(177, 30);
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(157, 30);
             this.detailsToolStripMenuItem.Text = "Details";
             this.detailsToolStripMenuItem.Click += new System.EventHandler(this.detailsToolStripMenuItem_Click);
             // 
@@ -561,7 +574,7 @@ namespace QuickMon
             // 
             this.addCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
             this.addCollectorToolStripMenuItem.Name = "addCollectorToolStripMenuItem";
-            this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(177, 30);
+            this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(157, 30);
             this.addCollectorToolStripMenuItem.Text = "Add";
             this.addCollectorToolStripMenuItem.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
             // 
@@ -569,7 +582,7 @@ namespace QuickMon
             // 
             this.configureToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit24;
             this.configureToolStripMenuItem.Name = "configureToolStripMenuItem";
-            this.configureToolStripMenuItem.Size = new System.Drawing.Size(177, 30);
+            this.configureToolStripMenuItem.Size = new System.Drawing.Size(157, 30);
             this.configureToolStripMenuItem.Text = "Edit";
             this.configureToolStripMenuItem.Click += new System.EventHandler(this.configureToolStripMenuItem_Click);
             // 
@@ -577,15 +590,15 @@ namespace QuickMon
             // 
             this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop24x24;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(177, 30);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(157, 30);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // disableCollectorToolStripMenuItem
             // 
-            this.disableCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.ForbiddenBlue24x24;
+            this.disableCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Forbidden32x32;
             this.disableCollectorToolStripMenuItem.Name = "disableCollectorToolStripMenuItem";
-            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(177, 30);
+            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(157, 30);
             this.disableCollectorToolStripMenuItem.Text = "Disable";
             this.disableCollectorToolStripMenuItem.Click += new System.EventHandler(this.disableCollectorToolStripMenuItem_Click);
             // 
@@ -593,31 +606,20 @@ namespace QuickMon
             // 
             this.refreshToolStripMenuItem.Image = global::QuickMon.Properties.Resources.refresh24x24;
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(177, 30);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(157, 30);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(174, 6);
-            // 
-            // configOperationsToolStripMenuItem
-            // 
-            this.configOperationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyCollectorToolStripMenuItem,
-            this.pasteCollectorToolStripMenuItem,
-            this.pasteAndEditCollectorConfigToolStripMenuItem});
-            this.configOperationsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_new1;
-            this.configOperationsToolStripMenuItem.Name = "configOperationsToolStripMenuItem";
-            this.configOperationsToolStripMenuItem.Size = new System.Drawing.Size(177, 30);
-            this.configOperationsToolStripMenuItem.Text = "Config operations";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(154, 6);
             // 
             // copyCollectorToolStripMenuItem
             // 
             this.copyCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.copy24x24;
             this.copyCollectorToolStripMenuItem.Name = "copyCollectorToolStripMenuItem";
-            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(157, 30);
             this.copyCollectorToolStripMenuItem.Text = "Copy";
             this.copyCollectorToolStripMenuItem.Click += new System.EventHandler(this.copyCollectorToolStripMenuItem_Click);
             // 
@@ -625,7 +627,7 @@ namespace QuickMon
             // 
             this.pasteCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.paste24x24;
             this.pasteCollectorToolStripMenuItem.Name = "pasteCollectorToolStripMenuItem";
-            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(157, 30);
             this.pasteCollectorToolStripMenuItem.Text = "Paste";
             this.pasteCollectorToolStripMenuItem.Click += new System.EventHandler(this.pasteCollectorToolStripMenuItem_Click);
             // 
@@ -633,9 +635,14 @@ namespace QuickMon
             // 
             this.pasteAndEditCollectorConfigToolStripMenuItem.Image = global::QuickMon.Properties.Resources.pastewithedit24x24;
             this.pasteAndEditCollectorConfigToolStripMenuItem.Name = "pasteAndEditCollectorConfigToolStripMenuItem";
-            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(157, 30);
             this.pasteAndEditCollectorConfigToolStripMenuItem.Text = "Paste and Edit";
             this.pasteAndEditCollectorConfigToolStripMenuItem.Click += new System.EventHandler(this.pasteAndEditCollectorConfigToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(154, 6);
             // 
             // exportMetricsToolStripMenuItem
             // 
@@ -646,7 +653,7 @@ namespace QuickMon
             this.allHistoryToXMLToolStripMenuItem});
             this.exportMetricsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.DocExport;
             this.exportMetricsToolStripMenuItem.Name = "exportMetricsToolStripMenuItem";
-            this.exportMetricsToolStripMenuItem.Size = new System.Drawing.Size(177, 30);
+            this.exportMetricsToolStripMenuItem.Size = new System.Drawing.Size(157, 30);
             this.exportMetricsToolStripMenuItem.Text = "Export Metrics";
             // 
             // historyToCSVToolStripMenuItem
@@ -939,6 +946,7 @@ namespace QuickMon
             this.splitButtonNotifiers.ContextMenuStrip = this.notifiersContextMenuStrip;
             this.splitButtonNotifiers.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitButtonNotifiers.Location = new System.Drawing.Point(0, 186);
+            this.splitButtonNotifiers.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.splitButtonNotifiers.Name = "splitButtonNotifiers";
             this.splitButtonNotifiers.Size = new System.Drawing.Size(45, 31);
             this.splitButtonNotifiers.TabIndex = 6;
@@ -960,6 +968,7 @@ namespace QuickMon
             this.splitButtonCollectors.ContextMenuStrip = this.collectorsContextMenuStrip;
             this.splitButtonCollectors.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitButtonCollectors.Location = new System.Drawing.Point(0, 155);
+            this.splitButtonCollectors.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.splitButtonCollectors.Name = "splitButtonCollectors";
             this.splitButtonCollectors.Size = new System.Drawing.Size(45, 31);
             this.splitButtonCollectors.TabIndex = 5;
@@ -981,22 +990,18 @@ namespace QuickMon
             this.splitButtonSave.ContextMenuStrip = this.saveContextMenuStrip;
             this.splitButtonSave.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitButtonSave.Location = new System.Drawing.Point(0, 124);
+            this.splitButtonSave.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.splitButtonSave.Name = "splitButtonSave";
             this.splitButtonSave.Size = new System.Drawing.Size(45, 31);
             this.splitButtonSave.TabIndex = 4;
             this.splitButtonSave.ButtonClicked += new System.EventHandler(this.splitButtonSave_ButtonClicked);
             this.splitButtonSave.SplitButtonClicked += new System.EventHandler(this.splitButtonSave_SplitButtonClicked);
             // 
-            // saveFileDialogSave
-            // 
-            this.saveFileDialogSave.DefaultExt = "qmp";
-            this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
-            // 
             // splitButtonRecent
             // 
             this.splitButtonRecent.BackColor = System.Drawing.Color.Transparent;
             this.splitButtonRecent.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.splitButtonRecent.ButtonImage = global::QuickMon.Properties.Resources.folderWLightning1;
+            this.splitButtonRecent.ButtonImage = global::QuickMon.Properties.Resources.folderClock_24;
             this.splitButtonRecent.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.splitButtonRecent.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
             this.splitButtonRecent.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
@@ -1007,6 +1012,7 @@ namespace QuickMon
             this.splitButtonRecent.ContextMenuStrip = this.recentMPContextMenuStrip;
             this.splitButtonRecent.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitButtonRecent.Location = new System.Drawing.Point(0, 93);
+            this.splitButtonRecent.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.splitButtonRecent.Name = "splitButtonRecent";
             this.splitButtonRecent.Size = new System.Drawing.Size(45, 31);
             this.splitButtonRecent.TabIndex = 3;
@@ -1022,11 +1028,16 @@ namespace QuickMon
             // 
             // fullRecentListToolStripMenuItem
             // 
-            this.fullRecentListToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folderWLightning16x16;
+            this.fullRecentListToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folderClock_16;
             this.fullRecentListToolStripMenuItem.Name = "fullRecentListToolStripMenuItem";
-            this.fullRecentListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fullRecentListToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.fullRecentListToolStripMenuItem.Text = "Full list";
             this.fullRecentListToolStripMenuItem.Click += new System.EventHandler(this.fullRecentListToolStripMenuItem_Click);
+            // 
+            // saveFileDialogSave
+            // 
+            this.saveFileDialogSave.DefaultExt = "qmp";
+            this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
             // 
             // MainForm
             // 
@@ -1134,7 +1145,6 @@ namespace QuickMon
         private System.Windows.Forms.Button cmdSettings;
         private System.Windows.Forms.ToolStripMenuItem configureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem configOperationsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportMetricsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historyToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allHistoryToCSVToolStripMenuItem;
@@ -1143,6 +1153,7 @@ namespace QuickMon
         private Controls.SplitButton.SplitButton splitButtonRecent;
         private System.Windows.Forms.ContextMenuStrip recentMPContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem fullRecentListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

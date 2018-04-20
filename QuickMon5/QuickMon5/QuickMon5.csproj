@@ -427,6 +427,14 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\Forbidden32x32.png" />
+    <None Include="Resources\folderClock-16.png" />
+    <None Include="Resources\folderClock-24.png" />
+    <None Include="Resources\QMOpenDocButtonB.png" />
+    <None Include="Resources\QMNewDocButtonB.png" />
+    <None Include="Resources\QMOpenDocButton.png" />
+    <None Include="Resources\QMNewDocButton.png" />
+    <None Include="Resources\menu-alt-16w.png" />
     <None Include="Resources\QMSplash.png" />
     <None Include="Resources\triang_red.ico" />
     <None Include="Resources\triang_red24x24.png" />

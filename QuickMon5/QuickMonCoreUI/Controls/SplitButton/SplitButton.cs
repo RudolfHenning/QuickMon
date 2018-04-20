@@ -133,5 +133,14 @@ namespace QuickMon.Controls.SplitButton
         {
             SplitButtonClicked?.Invoke(sender, e);
         }
+        public Color MouseOverBackColor
+        {
+            get { return cmdMainButton.FlatAppearance.MouseOverBackColor; }
+            set
+            {
+                cmdMainButton.FlatAppearance.MouseOverBackColor = value;
+            }
+        }
+            
     }
 }

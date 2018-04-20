@@ -490,6 +490,26 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap folderClock_16 {
+            get {
+                object obj = ResourceManager.GetObject("folderClock-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap folderClock_24 {
+            get {
+                object obj = ResourceManager.GetObject("folderClock-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap folderOpen {
             get {
                 object obj = ResourceManager.GetObject("folderOpen", resourceCulture);
@@ -543,6 +563,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap folderWLightning16x16 {
             get {
                 object obj = ResourceManager.GetObject("folderWLightning16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Forbidden32x32 {
+            get {
+                object obj = ResourceManager.GetObject("Forbidden32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -653,6 +683,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap menu_alt_16b1 {
             get {
                 object obj = ResourceManager.GetObject("menu-alt-16b1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap menu_alt_16w {
+            get {
+                object obj = ResourceManager.GetObject("menu-alt-16w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -863,6 +903,46 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap QM5Splash {
             get {
                 object obj = ResourceManager.GetObject("QM5Splash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QMNewDocButton {
+            get {
+                object obj = ResourceManager.GetObject("QMNewDocButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QMNewDocButtonB {
+            get {
+                object obj = ResourceManager.GetObject("QMNewDocButtonB", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QMOpenDocButton {
+            get {
+                object obj = ResourceManager.GetObject("QMOpenDocButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QMOpenDocButtonB {
+            get {
+                object obj = ResourceManager.GetObject("QMOpenDocButtonB", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
