@@ -319,5 +319,17 @@ namespace QuickMon.Properties {
                 this["SortQuickRecentList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MainWindowCollectorQuickToolbarVisible {
+            get {
+                return ((bool)(this["MainWindowCollectorQuickToolbarVisible"]));
+            }
+            set {
+                this["MainWindowCollectorQuickToolbarVisible"] = value;
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace QuickMon.Controls
 {
     public delegate void TreeNodeMovedDelegate(TreeNode node);
     public delegate void FunctionKeyUpDelegate(int functionKey, KeyEventArgs e);
+    public delegate void NoNodeSelectedDelegate();
 
     public class TreeViewExBase : TreeView
     {
@@ -95,8 +96,12 @@ namespace QuickMon.Controls
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            //if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
                 this.SelectedNode = this.GetNodeAt(e.X, e.Y);
+                if (this.SelectedNode == null)
+                    NoNodeSelected?.Invoke();
+            }
             dblClick = e.Button == MouseButtons.Left && e.Clicks == 2;
             base.OnMouseDown(e);
         }
@@ -224,6 +229,7 @@ namespace QuickMon.Controls
         }
         public event FunctionKeyUpDelegate FunctionKeyUp;
         public event MethodInvoker ContextMenuShowUp;
+        public event NoNodeSelectedDelegate NoNodeSelected;
         #endregion
 
         /// <summary>

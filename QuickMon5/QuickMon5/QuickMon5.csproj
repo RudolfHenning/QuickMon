@@ -427,6 +427,7 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\WhiteDot.png" />
     <None Include="Resources\Forbidden32x32.png" />
     <None Include="Resources\folderClock-16.png" />
     <None Include="Resources\folderClock-24.png" />

@@ -44,7 +44,6 @@ namespace QuickMon
             panelPollingSettingsHeight = panelPollingSettings.Height;
             panelPasswordManagementHeight = panelPasswordManagement.Height;
             panelRemoteHostServiceAndFirewallHeight = panelRemoteHostServiceAndFirewall.Height;
-            //cmdPollingSettingsToggle_Click(null, null);
             cmdPasswordManagementToggle_Click(null, null);
             cmdRemoteHostServiceAndFirewallToggle_Click(null, null);
 
@@ -87,6 +86,7 @@ namespace QuickMon
                 }
             }
             chkEnableAutoRefreshCollectorDetailAutomatically.Checked = Properties.Settings.Default.EnableAutoRefreshCollectorDetailAutomatically;
+            chkMainWindowCollectorQuickToolbarVisible.Checked = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
             txtScriptsRepository.Text = Properties.Settings.Default.ScriptRepositoryDirectory;
 
             flowLayoutPanelSettingsContent.Enabled = Security.UACTools.IsInAdminMode();
@@ -289,6 +289,7 @@ namespace QuickMon
                 Properties.Settings.Default.ApplicationUserNameCache.Add(userName.Text);
             }
             Properties.Settings.Default.EnableAutoRefreshCollectorDetailAutomatically = chkEnableAutoRefreshCollectorDetailAutomatically.Checked;
+            Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible = chkMainWindowCollectorQuickToolbarVisible.Checked;
             Properties.Settings.Default.ScriptRepositoryDirectory = txtScriptsRepository.Text;
 
             Properties.Settings.Default.Save();

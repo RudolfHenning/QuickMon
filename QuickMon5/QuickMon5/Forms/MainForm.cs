@@ -99,6 +99,7 @@ namespace QuickMon
             //Ξ
             if (Properties.Settings.Default.ShowMenuOnStart)
                 ToggleMenuSize();
+            collectorQuickToolStrip.Visible = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
 
             //tvwCollectors.FullRowSelect = true;
             //tvwCollectors.FullRowSelect = false;
@@ -1246,6 +1247,7 @@ namespace QuickMon
             {
                 LoadRecentMonitorPackList();
                 this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
+                collectorQuickToolStrip.Visible = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
                 if (monitorPack != null)
                 {
                     monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
@@ -2402,11 +2404,17 @@ namespace QuickMon
         }
         private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            configureToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            collectorDetailToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
+            configureToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            editCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
+            deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            deleteCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
+            disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            enableDisableToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
+
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            copyCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
             historyToCSVToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
         }
         private void tvwCollectors_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -2744,6 +2752,38 @@ namespace QuickMon
         private void splitButtonRecent_SplitButtonClicked(object sender, EventArgs e)
         {
             recentMPContextMenuStrip.Show(splitButtonRecent, new Point(splitButtonRecent.Width, 0));
+        }
+
+        private void tvwCollectors_MouseHover(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsText() &&
+                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').ContainsCaseInsensitive("<collectorHosts") &&
+                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').EndsWith("</collectorHosts>", StringComparison.InvariantCulture))
+            {
+                pasteCollectorToolStripButton.Enabled = true;
+                pasteWithEditCollectorToolStripButton.Enabled = true;                
+
+            }
+            else
+            {
+                pasteCollectorToolStripButton.Enabled = false;
+                pasteWithEditCollectorToolStripButton.Enabled = false;
+            }
+        }
+
+        private void tvwCollectors_NoNodeSelected()
+        {
+            detailsToolStripMenuItem.Enabled = false;
+            collectorDetailToolStripButton.Enabled = false;
+            configureToolStripMenuItem.Enabled = false;
+            editCollectorToolStripButton.Enabled = false;
+            deleteToolStripMenuItem.Enabled = false;
+            deleteCollectorToolStripButton.Enabled = false;
+            disableCollectorToolStripMenuItem.Enabled = false;
+            enableDisableToolStripButton.Enabled = false;
+            copyCollectorToolStripMenuItem.Enabled = false;
+            copyCollectorToolStripButton.Enabled = false;
+
         }
     }
 }

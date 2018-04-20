@@ -99,6 +99,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkMainWindowCollectorQuickToolbarVisible = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
             this.panelTvwDetailTextAlign.SuspendLayout();
@@ -145,6 +146,7 @@
             // 
             // panelAppSettings
             // 
+            this.panelAppSettings.Controls.Add(this.chkMainWindowCollectorQuickToolbarVisible);
             this.panelAppSettings.Controls.Add(this.chkSortQuickRecentList);
             this.panelAppSettings.Controls.Add(this.label15);
             this.panelAppSettings.Controls.Add(this.cmdScriptsRepository);
@@ -167,7 +169,7 @@
             this.panelAppSettings.Controls.Add(this.cmdAppSettingsToggle);
             this.panelAppSettings.Location = new System.Drawing.Point(3, 3);
             this.panelAppSettings.Name = "panelAppSettings";
-            this.panelAppSettings.Size = new System.Drawing.Size(495, 251);
+            this.panelAppSettings.Size = new System.Drawing.Size(495, 278);
             this.panelAppSettings.TabIndex = 0;
             // 
             // chkSortQuickRecentList
@@ -184,10 +186,10 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(10, 228);
+            this.label15.Location = new System.Drawing.Point(10, 252);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(486, 13);
-            this.label15.TabIndex = 19;
+            this.label15.TabIndex = 20;
             this.label15.Text = "Example: && \"$QMScripts\\GetFileVersion.ps1\" \"C:\\Program Files\\Hen IT\\QuickMon 5\\Q" +
     "uickMon.exe\"";
             // 
@@ -195,10 +197,10 @@
             // 
             this.cmdScriptsRepository.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdScriptsRepository.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdScriptsRepository.Location = new System.Drawing.Point(450, 203);
+            this.cmdScriptsRepository.Location = new System.Drawing.Point(450, 227);
             this.cmdScriptsRepository.Name = "cmdScriptsRepository";
             this.cmdScriptsRepository.Size = new System.Drawing.Size(42, 23);
-            this.cmdScriptsRepository.TabIndex = 18;
+            this.cmdScriptsRepository.TabIndex = 19;
             this.cmdScriptsRepository.Text = "- - -";
             this.cmdScriptsRepository.UseVisualStyleBackColor = true;
             this.cmdScriptsRepository.Click += new System.EventHandler(this.cmdScriptsRepository_Click);
@@ -207,18 +209,18 @@
             // 
             this.txtScriptsRepository.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtScriptsRepository.Location = new System.Drawing.Point(164, 205);
+            this.txtScriptsRepository.Location = new System.Drawing.Point(164, 229);
             this.txtScriptsRepository.Name = "txtScriptsRepository";
             this.txtScriptsRepository.Size = new System.Drawing.Size(280, 20);
-            this.txtScriptsRepository.TabIndex = 17;
+            this.txtScriptsRepository.TabIndex = 18;
             // 
             // lblQMScriptsLocation
             // 
             this.lblQMScriptsLocation.AutoSize = true;
-            this.lblQMScriptsLocation.Location = new System.Drawing.Point(7, 208);
+            this.lblQMScriptsLocation.Location = new System.Drawing.Point(7, 232);
             this.lblQMScriptsLocation.Name = "lblQMScriptsLocation";
             this.lblQMScriptsLocation.Size = new System.Drawing.Size(157, 13);
-            this.lblQMScriptsLocation.TabIndex = 16;
+            this.lblQMScriptsLocation.TabIndex = 17;
             this.lblQMScriptsLocation.Text = "Scripts repository ( $QMScripts )";
             this.lblQMScriptsLocation.DoubleClick += new System.EventHandler(this.lblQMScriptsLocation_DoubleClick);
             // 
@@ -428,7 +430,7 @@
             this.panelPollingSettings.Controls.Add(this.freqSecNumericUpDown);
             this.panelPollingSettings.Controls.Add(this.concurrencyLevelNnumericUpDown);
             this.panelPollingSettings.Controls.Add(this.cmdPollingSettingsToggle);
-            this.panelPollingSettings.Location = new System.Drawing.Point(3, 260);
+            this.panelPollingSettings.Location = new System.Drawing.Point(3, 287);
             this.panelPollingSettings.Name = "panelPollingSettings";
             this.panelPollingSettings.Size = new System.Drawing.Size(495, 150);
             this.panelPollingSettings.TabIndex = 1;
@@ -567,7 +569,7 @@
             this.panelPasswordManagement.Controls.Add(this.txtApplicationMasterKeyFilePath);
             this.panelPasswordManagement.Controls.Add(this.label6);
             this.panelPasswordManagement.Controls.Add(this.cmdPasswordManagementToggle);
-            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 416);
+            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 443);
             this.panelPasswordManagement.Name = "panelPasswordManagement";
             this.panelPasswordManagement.Size = new System.Drawing.Size(495, 260);
             this.panelPasswordManagement.TabIndex = 0;
@@ -705,7 +707,7 @@
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.flowLayoutPanelSettingsContent);
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.label13);
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.cmdRemoteHostServiceAndFirewallToggle);
-            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 682);
+            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 709);
             this.panelRemoteHostServiceAndFirewall.Name = "panelRemoteHostServiceAndFirewall";
             this.panelRemoteHostServiceAndFirewall.Size = new System.Drawing.Size(495, 173);
             this.panelRemoteHostServiceAndFirewall.TabIndex = 2;
@@ -928,6 +930,17 @@
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
             // 
+            // chkMainWindowCollectorQuickToolbarVisible
+            // 
+            this.chkMainWindowCollectorQuickToolbarVisible.AutoSize = true;
+            this.chkMainWindowCollectorQuickToolbarVisible.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkMainWindowCollectorQuickToolbarVisible.Location = new System.Drawing.Point(9, 205);
+            this.chkMainWindowCollectorQuickToolbarVisible.Name = "chkMainWindowCollectorQuickToolbarVisible";
+            this.chkMainWindowCollectorQuickToolbarVisible.Size = new System.Drawing.Size(240, 17);
+            this.chkMainWindowCollectorQuickToolbarVisible.TabIndex = 16;
+            this.chkMainWindowCollectorQuickToolbarVisible.Text = "Show Collector Quick Toolbar in main window";
+            this.chkMainWindowCollectorQuickToolbarVisible.UseVisualStyleBackColor = true;
+            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1039,5 +1052,6 @@
         private System.Windows.Forms.Label lblQMScriptsLocation;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox chkSortQuickRecentList;
+        private System.Windows.Forms.CheckBox chkMainWindowCollectorQuickToolbarVisible;
     }
 }
