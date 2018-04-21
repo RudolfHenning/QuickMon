@@ -100,10 +100,11 @@ namespace QuickMon
             if (Properties.Settings.Default.ShowMenuOnStart)
                 ToggleMenuSize();
             collectorQuickToolStrip.Visible = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
+            notifierQuickToolStrip.Visible = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
 
             //tvwCollectors.FullRowSelect = true;
             //tvwCollectors.FullRowSelect = false;
-            
+
             SetCollectorTreeViewProperties();
             tvwNotifiers.FullRowSelect = true;
             tvwNotifiers.FullRowSelect = false;
@@ -180,11 +181,11 @@ namespace QuickMon
                     e.SuppressKeyPress = true;
                     splitButtonSave_ButtonClicked(null, null);
                 }
-                else if (e.KeyCode == Keys.T)
+                else if (e.KeyCode == Keys.R)
                 {
                     e.Handled = true;
                     e.SuppressKeyPress = true;
-                    cmdRecentMonitorPacks_Click(null, null);
+                    ShowRecentMonitorPacksWindow();
                 }
                 else if (e.KeyCode == Keys.N)
                 {
@@ -197,6 +198,20 @@ namespace QuickMon
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                     //generalSettingsToolStripSplitButton_ButtonClick(sender, e);
+                }
+                else if (e.KeyCode == Keys.T)
+                {
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    ShowTemplates();
+                }
+                else if (e.KeyCode == Keys.D1)
+                {
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible = !Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
+                    collectorQuickToolStrip.Visible = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
+                    notifierQuickToolStrip.Visible = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
                 }
             }
             else if (e.KeyCode == Keys.F5)
@@ -220,7 +235,6 @@ namespace QuickMon
         {
             ToggleMenuSize();
         }
-
         private void cmdNew_Click(object sender, EventArgs e)
         {
             //CloseAllDetailWindows();
@@ -255,7 +269,6 @@ namespace QuickMon
 
             }
         }
-
         private void splitButtonSave_SplitButtonClicked(object sender, EventArgs e)
         {
             saveContextMenuStrip.Show(splitButtonSave, new Point(splitButtonSave.Width, 0));
@@ -425,78 +438,11 @@ namespace QuickMon
         #region Collector and Notifier Context menus
         private void collectorsContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
-            if (lblCollectors.Focused)
-            {
-                tvwCollectors.SelectedNode = null;
-            }
-            deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
-            {
-                CollectorHost ch = (CollectorHost)tvwCollectors.SelectedNode.Tag;
-                disableCollectorToolStripMenuItem.Text = ch.Enabled ? "Disable" : "Enable";
-            }
-            detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            configureToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            historyToCSVToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            collectorHistoryToXMLToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-
-            if (Clipboard.ContainsText() &&
-                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').ContainsCaseInsensitive("<collectorHosts") &&
-                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').EndsWith("</collectorHosts>", StringComparison.InvariantCulture))
-            {
-                pasteCollectorToolStripMenuItem.Enabled = true;
-                pasteAndEditCollectorConfigToolStripMenuItem.Enabled = true;
-
-            }
-            else
-            {
-                pasteCollectorToolStripMenuItem.Enabled = false;
-                pasteAndEditCollectorConfigToolStripMenuItem.Enabled = false;
-            }
-            if (monitorPack != null && !monitorPack.IsBusyPolling)
-                refreshToolStripMenuItem.Enabled = true;
-            else
-                refreshToolStripMenuItem.Enabled = false;
-
+            SetCollectorMenuItemStates();
         }
         private void notifiersContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
-            TreeNode notifierSelected = null;
-            if (lblNotifiers.Focused)
-            {
-                tvwNotifiers.SelectedNode = null;
-                notifierSelected = null;
-            }
-            else
-            {
-                notifierSelected = tvwNotifiers.SelectedNode;
-            }
-
-            addNotifierToolStripMenuItem.Enabled = true;
-            editNotifierToolStripMenuItem.Enabled = notifierSelected != null;
-            deleteNotifierToolStripMenuItem.Enabled = notifierSelected != null;
-            if (notifierSelected != null && notifierSelected.Tag != null)
-            {
-                enableNotifierToolStripMenuItem.Enabled = true;
-                if (notifierSelected.Tag is NotifierHost)
-                {
-                    NotifierHost nh = (NotifierHost)notifierSelected.Tag;
-                    enableNotifierToolStripMenuItem.Text = nh.Enabled ? "Disable" : "Enable";
-                }
-                else if (notifierSelected.Tag is INotifier)
-                {
-                    INotifier agent = (INotifier)notifierSelected.Tag;
-                    enableNotifierToolStripMenuItem.Text = agent.Enabled ? "Disable" : "Enable";
-                    addNotifierToolStripMenuItem.Enabled = false;
-                }
-            }
-            else
-            {
-                enableNotifierToolStripMenuItem.Enabled = false;
-            }
-            viewNotifierToolStripMenuItem.Enabled = notifierSelected != null && notifierSelected.Tag != null && notifierSelected.Tag is INotifier && RegisteredAgentUIMapper.HasAgentViewer(((INotifier)notifierSelected.Tag));
+            SetNotifierMenuItemStates();
         }
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -581,7 +527,6 @@ namespace QuickMon
         {
             EditCollector(true);
         }
-
         private void copyCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CopySelectedCollectorAndDependants();
@@ -606,14 +551,10 @@ namespace QuickMon
         {
             ExportSelectedCollectorHistoryToXML();
         }
-
-        
         private void allHistoryToXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExportAllCollectorsHistoryToXML();
         }
-
-
         private void addNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddNotifier();
@@ -1248,12 +1189,119 @@ namespace QuickMon
                 LoadRecentMonitorPackList();
                 this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
                 collectorQuickToolStrip.Visible = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
+                notifierQuickToolStrip.Visible = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
                 if (monitorPack != null)
                 {
                     monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
                     monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
                 }
                 SetCollectorTreeViewProperties();
+            }
+        }
+        private void SetCollectorMenuItemStates()
+        {
+            if (lblCollectors.Focused)
+            {
+                tvwCollectors.SelectedNode = null;
+            }
+
+            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+            {
+                CollectorHost ch = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                disableCollectorToolStripMenuItem.Text = ch.Enabled ? "Disable" : "Enable";
+                enableDisableCollectorToolStripButton.Text = ch.Enabled ? "Disable Collector" : "Enable Collector";
+            }
+            detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            collectorDetailToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
+            configureToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            editCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
+            deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            deleteCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
+            disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            enableDisableCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
+
+            copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            copyCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
+            historyToCSVToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            collectorHistoryToCSVToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            collectorHistoryToXMLToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            collectorHistoryToXMLToolStripMenuItem1.Enabled = tvwCollectors.SelectedNode != null;
+
+            if (monitorPack != null && !monitorPack.IsBusyPolling)
+                refreshToolStripMenuItem.Enabled = true;
+            else
+                refreshToolStripMenuItem.Enabled = false;
+
+            SetCollectorPasteMenuStates();
+        }
+        private void SetCollectorPasteMenuStates()
+        {
+            if (Clipboard.ContainsText() &&
+                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').ContainsCaseInsensitive("<collectorHosts") &&
+                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').EndsWith("</collectorHosts>", StringComparison.InvariantCulture))
+            {
+                pasteCollectorToolStripButton.Enabled = true;
+                pasteWithEditCollectorToolStripButton.Enabled = true;
+
+            }
+            else
+            {
+                pasteCollectorToolStripButton.Enabled = false;
+                pasteWithEditCollectorToolStripButton.Enabled = false;
+            }
+        }
+        private void SetNotifierMenuItemStates()
+        {
+            TreeNode notifierSelected = null;
+            if (lblNotifiers.Focused)
+            {
+                tvwNotifiers.SelectedNode = null;
+                notifierSelected = null;
+            }
+            else
+            {
+                notifierSelected = tvwNotifiers.SelectedNode;
+            }
+
+            addNotifierToolStripMenuItem.Enabled = true;
+            addNotofierToolStripButton.Enabled = true;
+            editNotifierToolStripMenuItem.Enabled = notifierSelected != null;
+            editNotifierToolStripButton.Enabled = notifierSelected != null;
+            deleteNotifierToolStripMenuItem.Enabled = notifierSelected != null;
+            deleteNotifierToolStripButton.Enabled = notifierSelected != null;
+            if (notifierSelected != null && notifierSelected.Tag != null)
+            {
+                enableNotifierToolStripMenuItem.Enabled = true;
+                enableDisableNotifierToolStripButton.Enabled = true;
+                if (notifierSelected.Tag is NotifierHost)
+                {
+                    NotifierHost nh = (NotifierHost)notifierSelected.Tag;
+                    enableNotifierToolStripMenuItem.Text = nh.Enabled ? "Disable" : "Enable";
+                    enableDisableNotifierToolStripButton.Text = nh.Enabled ? "Disable Notifier" : "Enable Notifier";
+                }
+                else if (notifierSelected.Tag is INotifier)
+                {
+                    INotifier agent = (INotifier)notifierSelected.Tag;
+                    enableNotifierToolStripMenuItem.Text = agent.Enabled ? "Disable" : "Enable";
+                    addNotifierToolStripMenuItem.Enabled = false;
+                    enableDisableNotifierToolStripButton.Text = agent.Enabled ? "Disable Notifier agent" : "Enable Notifier agent";
+                }
+            }
+            else
+            {
+                enableNotifierToolStripMenuItem.Enabled = false;
+                enableDisableNotifierToolStripButton.Enabled = false;
+            }
+            viewNotifierToolStripMenuItem.Enabled = notifierSelected != null && notifierSelected.Tag != null && notifierSelected.Tag is INotifier && RegisteredAgentUIMapper.HasAgentViewer(((INotifier)notifierSelected.Tag));
+            viewNotifierToolStripButton.Enabled = notifierSelected != null && notifierSelected.Tag != null && notifierSelected.Tag is INotifier && RegisteredAgentUIMapper.HasAgentViewer(((INotifier)notifierSelected.Tag));
+        }
+        private void ShowRecentMonitorPacksWindow()
+        {
+            SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
+            if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
+            {                
+                LoadMonitorPack(selectRecentMonitorPackDialog.SelectedMonitorPack);
+                RefreshMonitorPack(true, true);
             }
         }
         #endregion
@@ -2337,15 +2385,8 @@ namespace QuickMon
 
         private void cmdRecentMonitorPacks_Click(object sender, EventArgs e)
         {
-            //ShowRecentMonitorPackDropdown();
-            SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
-            if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
-            {                
-                LoadMonitorPack(selectRecentMonitorPackDialog.SelectedMonitorPack);
-                RefreshMonitorPack(true, true);
-            }
+            ShowRecentMonitorPacksWindow();
         }
-
         private void cboRecentMonitorPacks_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cboRecentMonitorPacks.SelectedIndex > 0 && cboRecentMonitorPacks.SelectedItem is QuickMon.Controls.ComboItem)
@@ -2404,18 +2445,7 @@ namespace QuickMon
         }
         private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            collectorDetailToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
-            configureToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            editCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
-            deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            deleteCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
-            disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            enableDisableToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
-
-            copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            copyCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
-            historyToCSVToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            SetCollectorMenuItemStates();
         }
         private void tvwCollectors_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -2436,6 +2466,24 @@ namespace QuickMon
             {
                 tvwCollectors.SelectedNode = null;
             }
+        }
+        private void tvwCollectors_NoNodeSelected()
+        {
+            SetCollectorMenuItemStates();
+            //detailsToolStripMenuItem.Enabled = false;
+            //collectorDetailToolStripButton.Enabled = false;
+            //configureToolStripMenuItem.Enabled = false;
+            //editCollectorToolStripButton.Enabled = false;
+            //deleteToolStripMenuItem.Enabled = false;
+            //deleteCollectorToolStripButton.Enabled = false;
+            //disableCollectorToolStripMenuItem.Enabled = false;
+            //enableDisableCollectorToolStripButton.Enabled = false;
+            //copyCollectorToolStripMenuItem.Enabled = false;
+            //copyCollectorToolStripButton.Enabled = false;            
+        }
+        private void tvwCollectors_MouseHover(object sender, EventArgs e)
+        {
+            SetCollectorPasteMenuStates();
         }
         #endregion
 
@@ -2630,7 +2678,11 @@ namespace QuickMon
         }
         private void tvwNotifiers_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
+            SetNotifierMenuItemStates();
+        }
+        private void tvwNotifiers_NoNodeSelected()
+        {
+            SetNotifierMenuItemStates();
         }
         #endregion
 
@@ -2754,36 +2806,5 @@ namespace QuickMon
             recentMPContextMenuStrip.Show(splitButtonRecent, new Point(splitButtonRecent.Width, 0));
         }
 
-        private void tvwCollectors_MouseHover(object sender, EventArgs e)
-        {
-            if (Clipboard.ContainsText() &&
-                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').ContainsCaseInsensitive("<collectorHosts") &&
-                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').EndsWith("</collectorHosts>", StringComparison.InvariantCulture))
-            {
-                pasteCollectorToolStripButton.Enabled = true;
-                pasteWithEditCollectorToolStripButton.Enabled = true;                
-
-            }
-            else
-            {
-                pasteCollectorToolStripButton.Enabled = false;
-                pasteWithEditCollectorToolStripButton.Enabled = false;
-            }
-        }
-
-        private void tvwCollectors_NoNodeSelected()
-        {
-            detailsToolStripMenuItem.Enabled = false;
-            collectorDetailToolStripButton.Enabled = false;
-            configureToolStripMenuItem.Enabled = false;
-            editCollectorToolStripButton.Enabled = false;
-            deleteToolStripMenuItem.Enabled = false;
-            deleteCollectorToolStripButton.Enabled = false;
-            disableCollectorToolStripMenuItem.Enabled = false;
-            enableDisableToolStripButton.Enabled = false;
-            copyCollectorToolStripMenuItem.Enabled = false;
-            copyCollectorToolStripButton.Enabled = false;
-
-        }
     }
 }

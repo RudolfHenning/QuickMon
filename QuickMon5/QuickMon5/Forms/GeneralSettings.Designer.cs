@@ -33,6 +33,7 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanelSettings = new System.Windows.Forms.FlowLayoutPanel();
             this.panelAppSettings = new System.Windows.Forms.Panel();
+            this.chkMainWindowCollectorQuickToolbarVisible = new System.Windows.Forms.CheckBox();
             this.chkSortQuickRecentList = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
             this.cmdScriptsRepository = new System.Windows.Forms.Button();
@@ -99,7 +100,6 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chkMainWindowCollectorQuickToolbarVisible = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
             this.panelTvwDetailTextAlign.SuspendLayout();
@@ -172,6 +172,17 @@
             this.panelAppSettings.Size = new System.Drawing.Size(495, 278);
             this.panelAppSettings.TabIndex = 0;
             // 
+            // chkMainWindowCollectorQuickToolbarVisible
+            // 
+            this.chkMainWindowCollectorQuickToolbarVisible.AutoSize = true;
+            this.chkMainWindowCollectorQuickToolbarVisible.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkMainWindowCollectorQuickToolbarVisible.Location = new System.Drawing.Point(9, 205);
+            this.chkMainWindowCollectorQuickToolbarVisible.Name = "chkMainWindowCollectorQuickToolbarVisible";
+            this.chkMainWindowCollectorQuickToolbarVisible.Size = new System.Drawing.Size(332, 17);
+            this.chkMainWindowCollectorQuickToolbarVisible.TabIndex = 16;
+            this.chkMainWindowCollectorQuickToolbarVisible.Text = "Show Collector/Notifier Quick Toolbars in main window (CTRL+1)";
+            this.chkMainWindowCollectorQuickToolbarVisible.UseVisualStyleBackColor = true;
+            // 
             // chkSortQuickRecentList
             // 
             this.chkSortQuickRecentList.AutoSize = true;
@@ -230,9 +241,9 @@
             this.chkEnableAutoRefreshCollectorDetailAutomatically.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkEnableAutoRefreshCollectorDetailAutomatically.Location = new System.Drawing.Point(9, 182);
             this.chkEnableAutoRefreshCollectorDetailAutomatically.Name = "chkEnableAutoRefreshCollectorDetailAutomatically";
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.Size = new System.Drawing.Size(246, 17);
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Size = new System.Drawing.Size(245, 17);
             this.chkEnableAutoRefreshCollectorDetailAutomatically.TabIndex = 15;
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.Text = "Enable Collector detaill Auto Refresh be default";
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Text = "Enable Collector detaill Auto Refresh by default";
             this.chkEnableAutoRefreshCollectorDetailAutomatically.UseVisualStyleBackColor = true;
             // 
             // cmdRecreateAdminModeStartTask
@@ -406,6 +417,7 @@
             // 
             this.cmdAppSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdAppSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdAppSettingsToggle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.cmdAppSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAppSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             this.cmdAppSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -544,6 +556,7 @@
             // 
             this.cmdPollingSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdPollingSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdPollingSettingsToggle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.cmdPollingSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdPollingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             this.cmdPollingSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -688,6 +701,7 @@
             // 
             this.cmdPasswordManagementToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdPasswordManagementToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdPasswordManagementToggle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.cmdPasswordManagementToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdPasswordManagementToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             this.cmdPasswordManagementToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -887,6 +901,7 @@
             // 
             this.cmdRemoteHostServiceAndFirewallToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdRemoteHostServiceAndFirewallToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdRemoteHostServiceAndFirewallToggle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.cmdRemoteHostServiceAndFirewallToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemoteHostServiceAndFirewallToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             this.cmdRemoteHostServiceAndFirewallToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -929,17 +944,6 @@
             this.quickMonServiceOpenFileDialog.FileName = "QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
-            // 
-            // chkMainWindowCollectorQuickToolbarVisible
-            // 
-            this.chkMainWindowCollectorQuickToolbarVisible.AutoSize = true;
-            this.chkMainWindowCollectorQuickToolbarVisible.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkMainWindowCollectorQuickToolbarVisible.Location = new System.Drawing.Point(9, 205);
-            this.chkMainWindowCollectorQuickToolbarVisible.Name = "chkMainWindowCollectorQuickToolbarVisible";
-            this.chkMainWindowCollectorQuickToolbarVisible.Size = new System.Drawing.Size(240, 17);
-            this.chkMainWindowCollectorQuickToolbarVisible.TabIndex = 16;
-            this.chkMainWindowCollectorQuickToolbarVisible.Text = "Show Collector Quick Toolbar in main window";
-            this.chkMainWindowCollectorQuickToolbarVisible.UseVisualStyleBackColor = true;
             // 
             // GeneralSettings
             // 
