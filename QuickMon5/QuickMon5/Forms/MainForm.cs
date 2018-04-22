@@ -372,8 +372,15 @@ namespace QuickMon
         }
         private void cmdAbout_Click(object sender, EventArgs e)
         {
-            AboutQuickMon aboutQuickMon = new AboutQuickMon();
-            aboutQuickMon.ShowDialog();
+            try
+            {
+                AboutQuickMon aboutQuickMon = new AboutQuickMon();
+                aboutQuickMon.ShowDialog();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void cmdAdminMode_Click(object sender, EventArgs e)
         {

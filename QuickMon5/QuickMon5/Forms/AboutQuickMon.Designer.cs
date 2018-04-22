@@ -39,6 +39,7 @@
             this.latestVersionCheckBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.lblReleaseState = new System.Windows.Forms.Label();
             this.llblChangeLog = new System.Windows.Forms.LinkLabel();
+            this.cmdClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,11 +87,11 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe Print", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label1.Location = new System.Drawing.Point(99, 5);
+            this.label1.Location = new System.Drawing.Point(99, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(191, 47);
+            this.label1.Size = new System.Drawing.Size(201, 62);
             this.label1.TabIndex = 0;
             this.label1.Text = "QuickMon";
             // 
@@ -100,7 +101,7 @@
             this.lblVersionInfo.BackColor = System.Drawing.Color.Transparent;
             this.lblVersionInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersionInfo.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblVersionInfo.Location = new System.Drawing.Point(107, 58);
+            this.lblVersionInfo.Location = new System.Drawing.Point(107, 66);
             this.lblVersionInfo.Name = "lblVersionInfo";
             this.lblVersionInfo.Size = new System.Drawing.Size(183, 21);
             this.lblVersionInfo.TabIndex = 1;
@@ -115,7 +116,7 @@
             this.linkLabel1.ForeColor = System.Drawing.Color.DarkBlue;
             this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabel1.LinkColor = System.Drawing.Color.MediumBlue;
-            this.linkLabel1.Location = new System.Drawing.Point(107, 113);
+            this.linkLabel1.Location = new System.Drawing.Point(107, 121);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(183, 18);
             this.linkLabel1.TabIndex = 4;
@@ -130,7 +131,7 @@
             this.lblCoreVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblCoreVersion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCoreVersion.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblCoreVersion.Location = new System.Drawing.Point(107, 87);
+            this.lblCoreVersion.Location = new System.Drawing.Point(107, 95);
             this.lblCoreVersion.Name = "lblCoreVersion";
             this.lblCoreVersion.Size = new System.Drawing.Size(183, 21);
             this.lblCoreVersion.TabIndex = 6;
@@ -166,6 +167,23 @@
             this.llblChangeLog.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.llblChangeLog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblChangeLog_LinkClicked);
             // 
+            // cmdClose
+            // 
+            this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdClose.BackColor = System.Drawing.Color.Transparent;
+            this.cmdClose.FlatAppearance.BorderSize = 0;
+            this.cmdClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
+            this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdClose.ForeColor = System.Drawing.Color.White;
+            this.cmdClose.Location = new System.Drawing.Point(363, -1);
+            this.cmdClose.Name = "cmdClose";
+            this.cmdClose.Size = new System.Drawing.Size(27, 27);
+            this.cmdClose.TabIndex = 9;
+            this.cmdClose.Text = "X";
+            this.cmdClose.UseVisualStyleBackColor = false;
+            this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
+            // 
             // AboutQuickMon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -174,6 +192,7 @@
             this.BackgroundImage = global::QuickMon.Properties.Resources.QMSplash;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(390, 356);
+            this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.llblChangeLog);
             this.Controls.Add(this.lblReleaseState);
             this.Controls.Add(this.lblCoreVersion);
@@ -194,6 +213,9 @@
             this.Load += new System.EventHandler(this.AboutQuickMon_Load);
             this.Click += new System.EventHandler(this.AboutQuickMon_Click);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AboutQuickMon_KeyPress);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.AboutQuickMon_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.AboutQuickMon_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.AboutQuickMon_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -212,5 +234,6 @@
         private System.ComponentModel.BackgroundWorker latestVersionCheckBackgroundWorker;
         private System.Windows.Forms.Label lblReleaseState;
         private System.Windows.Forms.LinkLabel llblChangeLog;
+        private System.Windows.Forms.Button cmdClose;
     }
 }

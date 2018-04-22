@@ -423,7 +423,7 @@
             this.cmdAppSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdAppSettingsToggle.Location = new System.Drawing.Point(0, 0);
             this.cmdAppSettingsToggle.Name = "cmdAppSettingsToggle";
-            this.cmdAppSettingsToggle.Size = new System.Drawing.Size(495, 33);
+            this.cmdAppSettingsToggle.Size = new System.Drawing.Size(495, 27);
             this.cmdAppSettingsToggle.TabIndex = 0;
             this.cmdAppSettingsToggle.Text = "Application Settings";
             this.cmdAppSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -562,7 +562,7 @@
             this.cmdPollingSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdPollingSettingsToggle.Location = new System.Drawing.Point(0, 0);
             this.cmdPollingSettingsToggle.Name = "cmdPollingSettingsToggle";
-            this.cmdPollingSettingsToggle.Size = new System.Drawing.Size(495, 33);
+            this.cmdPollingSettingsToggle.Size = new System.Drawing.Size(495, 27);
             this.cmdPollingSettingsToggle.TabIndex = 0;
             this.cmdPollingSettingsToggle.Text = "Polling Settings";
             this.cmdPollingSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -707,7 +707,7 @@
             this.cmdPasswordManagementToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdPasswordManagementToggle.Location = new System.Drawing.Point(0, 0);
             this.cmdPasswordManagementToggle.Name = "cmdPasswordManagementToggle";
-            this.cmdPasswordManagementToggle.Size = new System.Drawing.Size(495, 33);
+            this.cmdPasswordManagementToggle.Size = new System.Drawing.Size(495, 27);
             this.cmdPasswordManagementToggle.TabIndex = 0;
             this.cmdPasswordManagementToggle.Text = "Password Management";
             this.cmdPasswordManagementToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -755,9 +755,9 @@
             this.flowLayoutPanelSettingsContent.Controls.Add(this.lblFirewallPortRuleInstalled);
             this.flowLayoutPanelSettingsContent.Controls.Add(this.llblInstallFirewallPortRule);
             this.flowLayoutPanelSettingsContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelSettingsContent.Location = new System.Drawing.Point(0, 59);
+            this.flowLayoutPanelSettingsContent.Location = new System.Drawing.Point(0, 53);
             this.flowLayoutPanelSettingsContent.Name = "flowLayoutPanelSettingsContent";
-            this.flowLayoutPanelSettingsContent.Size = new System.Drawing.Size(495, 114);
+            this.flowLayoutPanelSettingsContent.Size = new System.Drawing.Size(495, 120);
             this.flowLayoutPanelSettingsContent.TabIndex = 3;
             // 
             // llblEditMonitorPackList
@@ -890,7 +890,7 @@
             // 
             this.label13.Dock = System.Windows.Forms.DockStyle.Top;
             this.label13.ForeColor = System.Drawing.Color.Crimson;
-            this.label13.Location = new System.Drawing.Point(0, 33);
+            this.label13.Location = new System.Drawing.Point(0, 27);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(495, 26);
             this.label13.TabIndex = 1;
@@ -907,7 +907,7 @@
             this.cmdRemoteHostServiceAndFirewallToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdRemoteHostServiceAndFirewallToggle.Location = new System.Drawing.Point(0, 0);
             this.cmdRemoteHostServiceAndFirewallToggle.Name = "cmdRemoteHostServiceAndFirewallToggle";
-            this.cmdRemoteHostServiceAndFirewallToggle.Size = new System.Drawing.Size(495, 33);
+            this.cmdRemoteHostServiceAndFirewallToggle.Size = new System.Drawing.Size(495, 27);
             this.cmdRemoteHostServiceAndFirewallToggle.TabIndex = 0;
             this.cmdRemoteHostServiceAndFirewallToggle.Text = "Remote Host Service and Firewall settings";
             this.cmdRemoteHostServiceAndFirewallToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -960,7 +960,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(530, 423);
+            this.MinimumSize = new System.Drawing.Size(530, 450);
             this.Name = "GeneralSettings";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

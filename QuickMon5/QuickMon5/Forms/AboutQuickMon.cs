@@ -23,7 +23,7 @@ namespace QuickMon
 
         private void AboutQuickMon_Click(object sender, EventArgs e)
         {
-            Close();
+            //Close();
         }
 
         private void AboutQuickMon_Load(object sender, EventArgs e)
@@ -36,6 +36,15 @@ namespace QuickMon
             //latestVersionCheckBackgroundWorker.RunWorkerAsync();
         }
 
+        private const int WM_NCHITTEST = 0x84;
+        private const int HT_CLIENT = 0x1;
+        private const int HT_CAPTION = 0x2;
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            //if (m.Msg == WM_NCHITTEST)
+            //    m.Result = (IntPtr)(HT_CAPTION);
+        }
         public string AssemblyVersion
         {
             get
@@ -179,6 +188,34 @@ namespace QuickMon
             string changeLog = ChangeLog.GetChangeLog();
             changeLog = changeLog.Replace("\r\n", "-=>").Replace("\r", "-=>").Replace("\n", "-=>").Replace("-=>", "\r\n");
             dlg.ShowText("Change log", changeLog);
+        }
+
+        private void cmdClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private bool mouseDown;
+        private Point lastLocation;
+        private void AboutQuickMon_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDown = true;
+            lastLocation = e.Location;
+        }
+
+        private void AboutQuickMon_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                this.Location = new Point(
+                    (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
+                this.Update();
+            }
+        }
+
+        private void AboutQuickMon_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
         }
     }
 }

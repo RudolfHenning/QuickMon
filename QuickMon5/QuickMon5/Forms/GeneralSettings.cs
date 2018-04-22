@@ -99,6 +99,7 @@ namespace QuickMon
         {
             flowLayoutPanelSettings_Resize(null, null);
             lvwUserNameCache.AutoResizeColumnEnabled = true;
+            ShowSection(true, false, false, false);
         }
 
 
@@ -165,49 +166,76 @@ namespace QuickMon
             llblEditMonitorPackList.Enabled = found;
         }
 
+        private void ShowSection(bool appSettings, bool pollingSettings, bool passwordSettings, bool remoteSettings)
+        {
+            panelAppSettings.Height = appSettings ? panelAppSettingsHeight : cmdAppSettingsToggle.Height;
+            this.cmdAppSettingsToggle.Image = appSettings ? global::QuickMon.Properties.Resources.icon_contract16x16 : global::QuickMon.Properties.Resources.icon_expand16x16;
+            panelPollingSettings.Height = pollingSettings ? panelPollingSettingsHeight : cmdPollingSettingsToggle.Height;
+            this.cmdPollingSettingsToggle.Image = pollingSettings ? global::QuickMon.Properties.Resources.icon_contract16x16 : global::QuickMon.Properties.Resources.icon_expand16x16;
+            panelPasswordManagement.Height = passwordSettings ? panelPasswordManagementHeight : cmdPasswordManagementToggle.Height;
+            this.cmdPasswordManagementToggle.Image = passwordSettings ? global::QuickMon.Properties.Resources.icon_contract16x16 : global::QuickMon.Properties.Resources.icon_expand16x16;
+            panelRemoteHostServiceAndFirewall.Height = remoteSettings ? panelRemoteHostServiceAndFirewallHeight : cmdRemoteHostServiceAndFirewallToggle.Height;
+            this.cmdRemoteHostServiceAndFirewallToggle.Image = remoteSettings ? global::QuickMon.Properties.Resources.icon_contract16x16 : global::QuickMon.Properties.Resources.icon_expand16x16;
+        }
         private void cmdAppSettingsToggle_Click(object sender, EventArgs e)
         {
-            if(cmdAppSettingsToggle.Height == panelAppSettings.Height)
-            {
-                panelAppSettings.Height = panelAppSettingsHeight;
-                this.cmdAppSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            }
-            else
-            {
-                panelAppSettings.Height = cmdAppSettingsToggle.Height;
-                this.cmdAppSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            }
+            ShowSection(true, false, false, false);
+            //if (cmdAppSettingsToggle.Height == panelAppSettings.Height)
+            //{
+            //    panelAppSettings.Height = panelAppSettingsHeight;
+            //    this.cmdAppSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            //}
+            //else
+            //{
+            //    panelAppSettings.Height = cmdAppSettingsToggle.Height;
+            //    this.cmdAppSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            //}
         }
-
         private void cmdPollingSettingsToggle_Click(object sender, EventArgs e)
         {
-            if (cmdPollingSettingsToggle.Height == panelPollingSettings.Height)
-            {
-                panelPollingSettings.Height = panelPollingSettingsHeight;
-                this.cmdPollingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            }
-            else
-            {
-                panelPollingSettings.Height = cmdPollingSettingsToggle.Height;
-                this.cmdPollingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            }
+            ShowSection(false, true, false, false);
+            //if (cmdPollingSettingsToggle.Height == panelPollingSettings.Height)
+            //{
+            //    panelPollingSettings.Height = panelPollingSettingsHeight;
+            //    this.cmdPollingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            //}
+            //else
+            //{
+            //    panelPollingSettings.Height = cmdPollingSettingsToggle.Height;
+            //    this.cmdPollingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            //}
         }
-
         private void cmdPasswordManagementToggle_Click(object sender, EventArgs e)
         {
-            if (cmdPasswordManagementToggle.Height == panelPasswordManagement.Height)
-            {
-                panelPasswordManagement.Height = panelPasswordManagementHeight;
-                this.cmdPasswordManagementToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-                flowLayoutPanelSettings.ScrollControlIntoView(panelPasswordManagement);
-            }
-            else
-            {
-                panelPasswordManagement.Height = cmdPasswordManagementToggle.Height;
-                this.cmdPasswordManagementToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            }
+            ShowSection(false, false, true, false);
+            //if (cmdPasswordManagementToggle.Height == panelPasswordManagement.Height)
+            //{
+            //    panelPasswordManagement.Height = panelPasswordManagementHeight;
+            //    this.cmdPasswordManagementToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            //    flowLayoutPanelSettings.ScrollControlIntoView(panelPasswordManagement);
+            //}
+            //else
+            //{
+            //    panelPasswordManagement.Height = cmdPasswordManagementToggle.Height;
+            //    this.cmdPasswordManagementToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            //}
         }
-
+        private void cmdRemoteHostServiceAndFirewallToggle_Click(object sender, EventArgs e)
+        {
+            ShowSection(false, false, false, true);
+            //if (cmdRemoteHostServiceAndFirewallToggle.Height == panelRemoteHostServiceAndFirewall.Height)
+            //{
+            //    panelRemoteHostServiceAndFirewall.Height = panelRemoteHostServiceAndFirewallHeight;
+            //    this.cmdRemoteHostServiceAndFirewallToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            //    flowLayoutPanelSettings.ScrollControlIntoView(panelRemoteHostServiceAndFirewall);
+            //}
+            //else
+            //{
+            //    panelRemoteHostServiceAndFirewall.Height = cmdRemoteHostServiceAndFirewallToggle.Height;
+            //    this.cmdRemoteHostServiceAndFirewallToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            //}
+            
+        }
         private void SetFrequency(int frequency)
         {
             if (!freChanging)
@@ -330,21 +358,7 @@ namespace QuickMon
             }
         }
 
-        private void cmdRemoteHostServiceAndFirewallToggle_Click(object sender, EventArgs e)
-        {
-            if (cmdRemoteHostServiceAndFirewallToggle.Height == panelRemoteHostServiceAndFirewall.Height)
-            {
-                panelRemoteHostServiceAndFirewall.Height = panelRemoteHostServiceAndFirewallHeight;
-                this.cmdRemoteHostServiceAndFirewallToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-                flowLayoutPanelSettings.ScrollControlIntoView(panelRemoteHostServiceAndFirewall);
-            }
-            else
-            {
-                panelRemoteHostServiceAndFirewall.Height = cmdRemoteHostServiceAndFirewallToggle.Height;
-                this.cmdRemoteHostServiceAndFirewallToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            }
-            
-        }
+        
 
         private void lblServiceState_DoubleClick(object sender, EventArgs e)
         {
