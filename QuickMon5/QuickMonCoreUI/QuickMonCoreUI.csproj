@@ -87,6 +87,12 @@
     </Compile>
     <Compile Include="Agents\Collectors\EventLog\EventLogCollectorUI.cs" />
     <Compile Include="Agents\Collectors\EventLog\EventLogUtil.cs" />
+    <Compile Include="Agents\Collectors\EventLog\SelectEventSources.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\EventLog\SelectEventSources.Designer.cs">
+      <DependentUpon>SelectEventSources.cs</DependentUpon>
+    </Compile>
     <Compile Include="Agents\Collectors\FileSystem\FileSystemCollectorEditFilterEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -335,6 +341,9 @@
     <Compile Include="Controls\STDCollectorOutputValueMatchTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TextBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\TreeListView\ITreeListViewItemComparer.cs" />
     <Compile Include="Controls\TreeListView\SelectedTreeListViewItemCollection.cs" />
     <Compile Include="Controls\TreeListView\TreeListView.cs">
@@ -425,6 +434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\EventLog\EventLogCollectorEditEntry.resx">
       <DependentUpon>EventLogCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\EventLog\SelectEventSources.resx">
+      <DependentUpon>SelectEventSources.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\FileSystem\FileSystemCollectorEditFilterEntry.resx">
       <DependentUpon>FileSystemCollectorEditFilterEntry.cs</DependentUpon>
@@ -604,7 +616,12 @@
   <ItemGroup>
     <None Include="Resources\LongBlueShadeHorisontal.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\arrow_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_left.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

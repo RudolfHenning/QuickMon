@@ -11,14 +11,27 @@ namespace QuickMon.Collectors
         public static List<string> GetEventSources(string machineName, string eventLogName)
         {
             List<string> sources = new List<string>();
+            bool isLocal = true;
             try
             {
-                using (RegistryKey remoteLMKey = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, machineName))
+                if (machineName == "." || machineName.ToLower() == System.Net.Dns.GetHostName().ToLower())
                 {
-                    using (RegistryKey eventlogKey = remoteLMKey.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\Eventlog\\" + eventLogName))
+                    using (RegistryKey eventlogKey = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\Eventlog\\" + eventLogName, false))
                     {
                         sources.AddRange(eventlogKey.GetSubKeyNames());
                         sources.Sort();
+                    }
+                }
+                else
+                {
+                    isLocal = false;
+                    using (RegistryKey remoteLMKey = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, machineName))
+                    {
+                        using (RegistryKey eventlogKey = remoteLMKey.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\Eventlog\\" + eventLogName))
+                        {
+                            sources.AddRange(eventlogKey.GetSubKeyNames());
+                            sources.Sort();
+                        }
                     }
                 }
             }
@@ -28,27 +41,46 @@ namespace QuickMon.Collectors
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("Error retrieving event sources for {0} on {1}", eventLogName, machineName), ex);
+                if (isLocal)                    
+                    throw new Exception(string.Format("Error retrieving event sources for {0} on {1}", eventLogName, machineName), ex);
+                else
+                    throw new Exception(string.Format("Error retrieving event sources for {0} on {1}. Remote Registry might be disabled.", eventLogName, machineName), ex);
             }
             return sources;
         }
         public static List<string> GetEventLogNames(string machineName)
         {
             List<string> logNames = new List<string>();
+            bool isLocal = true;
             try
             {
-                using (RegistryKey remoteLMKey = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, machineName))
+                if (machineName == "." || machineName.ToLower() == System.Net.Dns.GetHostName().ToLower())
                 {
-                    using (RegistryKey eventlogKey = remoteLMKey.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\Eventlog"))
+                    using (RegistryKey eventlogKey = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\Eventlog", false))
                     {
                         logNames.AddRange(eventlogKey.GetSubKeyNames());
                         logNames.Sort();
                     }
                 }
+                else
+                {
+                    isLocal = false;
+                    using (RegistryKey remoteLMKey = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, machineName))
+                    {
+                        using (RegistryKey eventlogKey = remoteLMKey.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\Eventlog"))
+                        {
+                            logNames.AddRange(eventlogKey.GetSubKeyNames());
+                            logNames.Sort();
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("Error retrieving event logs on {1}", machineName), ex);
+                if (isLocal)
+                    throw new Exception(string.Format("Error retrieving event logs on {0}", machineName), ex);
+                else
+                    throw new Exception(string.Format("Error retrieving event logs on {0}. Remote Registry might be disabled.", machineName), ex);
             }
             return logNames;
         }

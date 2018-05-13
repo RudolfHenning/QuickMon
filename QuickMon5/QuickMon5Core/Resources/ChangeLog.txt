@@ -68,3 +68,8 @@ Fix tooltip for Open menu item
 CollectorMetrics export to CSV
 	Exclude NotAvailable state unless Include None/Disabled option is enabled
 Added Quick toolbars for Collectors and Notifiers
+
+-------------
+Version 5.0.9
+*************
+Eventlog collector edit fixes and enhancements

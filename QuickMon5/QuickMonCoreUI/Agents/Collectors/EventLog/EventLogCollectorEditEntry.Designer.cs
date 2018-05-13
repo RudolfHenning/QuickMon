@@ -36,11 +36,7 @@
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblSecWarning = new System.Windows.Forms.Label();
             this.pictureBoxSecWarning = new System.Windows.Forms.PictureBox();
-            this.lblSrcSel = new System.Windows.Forms.Label();
-            this.lblSourceCount = new System.Windows.Forms.Label();
             this.optTextContains = new System.Windows.Forms.RadioButton();
-            this.txtSourceQuickFind = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.timerQuickFind = new System.Windows.Forms.Timer(this.components);
             this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -57,10 +53,6 @@
             this.txtText = new System.Windows.Forms.TextBox();
             this.cmdEditEventIds = new System.Windows.Forms.Button();
             this.lvwSources = new System.Windows.Forms.ListView();
-            this.contextMenuStripSourceList = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.allToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uncheckSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtEventIds = new System.Windows.Forms.TextBox();
@@ -77,6 +69,8 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.cmdSelectSources = new System.Windows.Forms.Button();
+            this.cmdTest = new System.Windows.Forms.Button();
             this.contextMenuStripQuickFind.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecWarning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWithLastMinutes)).BeginInit();
@@ -84,7 +78,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWarning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWithinLastXEntries)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.contextMenuStripSourceList.SuspendLayout();
             this.SuspendLayout();
             // 
             // containsToolStripMenuItem
@@ -129,40 +122,22 @@
             this.lblSecWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblSecWarning.AutoSize = true;
             this.lblSecWarning.ForeColor = System.Drawing.Color.DarkRed;
-            this.lblSecWarning.Location = new System.Drawing.Point(74, 384);
+            this.lblSecWarning.Location = new System.Drawing.Point(74, 389);
             this.lblSecWarning.Name = "lblSecWarning";
             this.lblSecWarning.Size = new System.Drawing.Size(145, 13);
-            this.lblSecWarning.TabIndex = 28;
+            this.lblSecWarning.TabIndex = 27;
             this.lblSecWarning.Text = "Warning: Not in Admin mode!";
             // 
             // pictureBoxSecWarning
             // 
             this.pictureBoxSecWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxSecWarning.Image = global::QuickMon.Properties.Resources.OUTLLIBR_98251;
-            this.pictureBoxSecWarning.Location = new System.Drawing.Point(14, 376);
+            this.pictureBoxSecWarning.Location = new System.Drawing.Point(14, 381);
             this.pictureBoxSecWarning.Name = "pictureBoxSecWarning";
             this.pictureBoxSecWarning.Size = new System.Drawing.Size(54, 34);
             this.pictureBoxSecWarning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxSecWarning.TabIndex = 65;
             this.pictureBoxSecWarning.TabStop = false;
-            // 
-            // lblSrcSel
-            // 
-            this.lblSrcSel.AutoSize = true;
-            this.lblSrcSel.Location = new System.Drawing.Point(28, 137);
-            this.lblSrcSel.Name = "lblSrcSel";
-            this.lblSrcSel.Size = new System.Drawing.Size(51, 13);
-            this.lblSrcSel.TabIndex = 12;
-            this.lblSrcSel.Text = "Sel:None";
-            // 
-            // lblSourceCount
-            // 
-            this.lblSourceCount.AutoSize = true;
-            this.lblSourceCount.Location = new System.Drawing.Point(28, 112);
-            this.lblSourceCount.Name = "lblSourceCount";
-            this.lblSourceCount.Size = new System.Drawing.Size(18, 13);
-            this.lblSourceCount.TabIndex = 11;
-            this.lblSourceCount.Text = "All";
             // 
             // optTextContains
             // 
@@ -175,27 +150,6 @@
             this.optTextContains.Text = "Contains";
             this.optTextContains.UseVisualStyleBackColor = true;
             // 
-            // txtSourceQuickFind
-            // 
-            this.txtSourceQuickFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSourceQuickFind.ContextMenuStrip = this.contextMenuStripQuickFind;
-            this.txtSourceQuickFind.Location = new System.Drawing.Point(164, 193);
-            this.txtSourceQuickFind.Name = "txtSourceQuickFind";
-            this.txtSourceQuickFind.Size = new System.Drawing.Size(314, 20);
-            this.txtSourceQuickFind.TabIndex = 14;
-            this.txtSourceQuickFind.TextChanged += new System.EventHandler(this.txtSourceQuickFind_TextChanged);
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(100, 196);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(55, 13);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Quick find";
-            // 
             // timerQuickFind
             // 
             this.timerQuickFind.Interval = 200;
@@ -205,26 +159,26 @@
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(340, 318);
+            this.label10.Location = new System.Drawing.Point(340, 323);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(50, 13);
-            this.label10.TabIndex = 23;
+            this.label10.TabIndex = 22;
             this.label10.Text = "Minute(s)";
             // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(196, 319);
+            this.label7.Location = new System.Drawing.Point(196, 324);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 13);
-            this.label7.TabIndex = 21;
+            this.label7.TabIndex = 20;
             this.label7.Text = "entries and";
             // 
             // numericUpDownWithLastMinutes
             // 
             this.numericUpDownWithLastMinutes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDownWithLastMinutes.Location = new System.Drawing.Point(264, 316);
+            this.numericUpDownWithLastMinutes.Location = new System.Drawing.Point(264, 321);
             this.numericUpDownWithLastMinutes.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -237,7 +191,7 @@
             0});
             this.numericUpDownWithLastMinutes.Name = "numericUpDownWithLastMinutes";
             this.numericUpDownWithLastMinutes.Size = new System.Drawing.Size(70, 20);
-            this.numericUpDownWithLastMinutes.TabIndex = 22;
+            this.numericUpDownWithLastMinutes.TabIndex = 21;
             this.numericUpDownWithLastMinutes.Value = new decimal(new int[] {
             60,
             0,
@@ -247,7 +201,7 @@
             // numericUpDownError
             // 
             this.numericUpDownError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDownError.Location = new System.Drawing.Point(264, 342);
+            this.numericUpDownError.Location = new System.Drawing.Point(264, 347);
             this.numericUpDownError.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -260,7 +214,7 @@
             0});
             this.numericUpDownError.Name = "numericUpDownError";
             this.numericUpDownError.Size = new System.Drawing.Size(70, 20);
-            this.numericUpDownError.TabIndex = 27;
+            this.numericUpDownError.TabIndex = 26;
             this.numericUpDownError.Value = new decimal(new int[] {
             10,
             0,
@@ -276,7 +230,7 @@
             // numericUpDownWarning
             // 
             this.numericUpDownWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDownWarning.Location = new System.Drawing.Point(120, 342);
+            this.numericUpDownWarning.Location = new System.Drawing.Point(120, 347);
             this.numericUpDownWarning.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -289,7 +243,7 @@
             0});
             this.numericUpDownWarning.Name = "numericUpDownWarning";
             this.numericUpDownWarning.Size = new System.Drawing.Size(70, 20);
-            this.numericUpDownWarning.TabIndex = 25;
+            this.numericUpDownWarning.TabIndex = 24;
             this.numericUpDownWarning.Value = new decimal(new int[] {
             1,
             0,
@@ -301,26 +255,26 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(199, 344);
+            this.label8.Location = new System.Drawing.Point(199, 349);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(59, 13);
-            this.label8.TabIndex = 26;
+            this.label8.TabIndex = 25;
             this.label8.Text = "Error count";
             // 
             // label9
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(14, 344);
+            this.label9.Location = new System.Drawing.Point(14, 349);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 13);
-            this.label9.TabIndex = 24;
+            this.label9.TabIndex = 23;
             this.label9.Text = "Warning count";
             // 
             // numericUpDownWithinLastXEntries
             // 
             this.numericUpDownWithinLastXEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDownWithinLastXEntries.Location = new System.Drawing.Point(120, 316);
+            this.numericUpDownWithinLastXEntries.Location = new System.Drawing.Point(120, 321);
             this.numericUpDownWithinLastXEntries.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -333,7 +287,7 @@
             0});
             this.numericUpDownWithinLastXEntries.Name = "numericUpDownWithinLastXEntries";
             this.numericUpDownWithinLastXEntries.Size = new System.Drawing.Size(70, 20);
-            this.numericUpDownWithinLastXEntries.TabIndex = 20;
+            this.numericUpDownWithinLastXEntries.TabIndex = 19;
             this.numericUpDownWithinLastXEntries.Value = new decimal(new int[] {
             1000,
             0,
@@ -344,10 +298,10 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 319);
+            this.label6.Location = new System.Drawing.Point(14, 324);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 13);
-            this.label6.TabIndex = 19;
+            this.label6.TabIndex = 18;
             this.label6.Text = "Within last";
             // 
             // groupBox1
@@ -358,10 +312,10 @@
             this.groupBox1.Controls.Add(this.optTextContains);
             this.groupBox1.Controls.Add(this.optTextStartWith);
             this.groupBox1.Controls.Add(this.txtText);
-            this.groupBox1.Location = new System.Drawing.Point(21, 245);
+            this.groupBox1.Location = new System.Drawing.Point(21, 250);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(457, 65);
-            this.groupBox1.TabIndex = 18;
+            this.groupBox1.Size = new System.Drawing.Size(525, 65);
+            this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Text";
             // 
@@ -382,17 +336,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtText.Location = new System.Drawing.Point(6, 38);
             this.txtText.Name = "txtText";
-            this.txtText.Size = new System.Drawing.Size(445, 20);
+            this.txtText.Size = new System.Drawing.Size(513, 20);
             this.txtText.TabIndex = 3;
             // 
             // cmdEditEventIds
             // 
             this.cmdEditEventIds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdEditEventIds.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditEventIds.Location = new System.Drawing.Point(436, 216);
+            this.cmdEditEventIds.Location = new System.Drawing.Point(504, 221);
             this.cmdEditEventIds.Name = "cmdEditEventIds";
             this.cmdEditEventIds.Size = new System.Drawing.Size(42, 23);
-            this.cmdEditEventIds.TabIndex = 17;
+            this.cmdEditEventIds.TabIndex = 16;
             this.cmdEditEventIds.Text = "- - -";
             this.cmdEditEventIds.UseVisualStyleBackColor = true;
             this.cmdEditEventIds.Click += new System.EventHandler(this.cmdEditEventIds_Click);
@@ -402,132 +356,104 @@
             this.lvwSources.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwSources.CheckBoxes = true;
-            this.lvwSources.ContextMenuStrip = this.contextMenuStripSourceList;
             this.lvwSources.HideSelection = false;
-            this.lvwSources.Location = new System.Drawing.Point(103, 90);
+            this.lvwSources.Location = new System.Drawing.Point(103, 73);
             this.lvwSources.Name = "lvwSources";
-            this.lvwSources.Size = new System.Drawing.Size(375, 102);
-            this.lvwSources.TabIndex = 10;
+            this.lvwSources.Size = new System.Drawing.Size(395, 121);
+            this.lvwSources.TabIndex = 6;
             this.lvwSources.UseCompatibleStateImageBehavior = false;
             this.lvwSources.View = System.Windows.Forms.View.List;
             this.lvwSources.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvwSources_ItemChecked);
             this.lvwSources.SelectedIndexChanged += new System.EventHandler(this.lvwSources_SelectedIndexChanged);
             // 
-            // contextMenuStripSourceList
-            // 
-            this.contextMenuStripSourceList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.allToolStripMenuItem1,
-            this.checkSelectedToolStripMenuItem,
-            this.uncheckSelectedToolStripMenuItem});
-            this.contextMenuStripSourceList.Name = "contextMenuStripSourceList";
-            this.contextMenuStripSourceList.Size = new System.Drawing.Size(167, 70);
-            // 
-            // allToolStripMenuItem1
-            // 
-            this.allToolStripMenuItem1.Name = "allToolStripMenuItem1";
-            this.allToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
-            this.allToolStripMenuItem1.Text = "All";
-            this.allToolStripMenuItem1.Click += new System.EventHandler(this.allToolStripMenuItem1_Click);
-            // 
-            // checkSelectedToolStripMenuItem
-            // 
-            this.checkSelectedToolStripMenuItem.Name = "checkSelectedToolStripMenuItem";
-            this.checkSelectedToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.checkSelectedToolStripMenuItem.Text = "Check selected";
-            this.checkSelectedToolStripMenuItem.Click += new System.EventHandler(this.checkSelectedToolStripMenuItem_Click);
-            // 
-            // uncheckSelectedToolStripMenuItem
-            // 
-            this.uncheckSelectedToolStripMenuItem.Name = "uncheckSelectedToolStripMenuItem";
-            this.uncheckSelectedToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.uncheckSelectedToolStripMenuItem.Text = "Uncheck selected";
-            this.uncheckSelectedToolStripMenuItem.Click += new System.EventHandler(this.uncheckSelectedToolStripMenuItem_Click);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 90);
+            this.label4.Location = new System.Drawing.Point(16, 73);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 13);
-            this.label4.TabIndex = 9;
+            this.label4.TabIndex = 5;
             this.label4.Text = "Source(s)";
             // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 221);
+            this.label5.Location = new System.Drawing.Point(16, 226);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(58, 13);
-            this.label5.TabIndex = 15;
+            this.label5.TabIndex = 14;
             this.label5.Text = "Event Id(s)";
             // 
             // txtEventIds
             // 
             this.txtEventIds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEventIds.Location = new System.Drawing.Point(103, 218);
+            this.txtEventIds.Location = new System.Drawing.Point(103, 223);
             this.txtEventIds.Name = "txtEventIds";
-            this.txtEventIds.Size = new System.Drawing.Size(327, 20);
-            this.txtEventIds.TabIndex = 16;
+            this.txtEventIds.Size = new System.Drawing.Size(395, 20);
+            this.txtEventIds.TabIndex = 15;
             // 
             // chkErr
             // 
+            this.chkErr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkErr.AutoSize = true;
             this.chkErr.Checked = true;
             this.chkErr.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkErr.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkErr.Location = new System.Drawing.Point(266, 67);
+            this.chkErr.Location = new System.Drawing.Point(266, 200);
             this.chkErr.Name = "chkErr";
             this.chkErr.Size = new System.Drawing.Size(46, 17);
-            this.chkErr.TabIndex = 8;
+            this.chkErr.TabIndex = 11;
             this.chkErr.Text = "Error";
             this.chkErr.UseVisualStyleBackColor = true;
             this.chkErr.CheckedChanged += new System.EventHandler(this.chkInfo_CheckedChanged);
             // 
             // chkWarn
             // 
+            this.chkWarn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkWarn.AutoSize = true;
             this.chkWarn.Checked = true;
             this.chkWarn.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkWarn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkWarn.Location = new System.Drawing.Point(187, 67);
+            this.chkWarn.Location = new System.Drawing.Point(187, 200);
             this.chkWarn.Name = "chkWarn";
             this.chkWarn.Size = new System.Drawing.Size(64, 17);
-            this.chkWarn.TabIndex = 7;
+            this.chkWarn.TabIndex = 10;
             this.chkWarn.Text = "Warning";
             this.chkWarn.UseVisualStyleBackColor = true;
             this.chkWarn.CheckedChanged += new System.EventHandler(this.chkInfo_CheckedChanged);
             // 
             // chkInfo
             // 
+            this.chkInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkInfo.AutoSize = true;
             this.chkInfo.Checked = true;
             this.chkInfo.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkInfo.Location = new System.Drawing.Point(103, 67);
+            this.chkInfo.Location = new System.Drawing.Point(103, 200);
             this.chkInfo.Name = "chkInfo";
             this.chkInfo.Size = new System.Drawing.Size(76, 17);
-            this.chkInfo.TabIndex = 6;
+            this.chkInfo.TabIndex = 9;
             this.chkInfo.Text = "Information";
             this.chkInfo.UseVisualStyleBackColor = true;
             this.chkInfo.CheckedChanged += new System.EventHandler(this.chkInfo_CheckedChanged);
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 68);
+            this.label3.Location = new System.Drawing.Point(16, 201);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
-            this.label3.TabIndex = 5;
+            this.label3.TabIndex = 8;
             this.label3.Text = "Type";
             // 
             // cmdLoadEventLogs
             // 
             this.cmdLoadEventLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdLoadEventLogs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdLoadEventLogs.Location = new System.Drawing.Point(436, 12);
+            this.cmdLoadEventLogs.Location = new System.Drawing.Point(504, 12);
             this.cmdLoadEventLogs.Name = "cmdLoadEventLogs";
             this.cmdLoadEventLogs.Size = new System.Drawing.Size(42, 23);
             this.cmdLoadEventLogs.TabIndex = 2;
@@ -552,7 +478,7 @@
             this.cboLog.FormattingEnabled = true;
             this.cboLog.Location = new System.Drawing.Point(103, 40);
             this.cboLog.Name = "cboLog";
-            this.cboLog.Size = new System.Drawing.Size(375, 21);
+            this.cboLog.Size = new System.Drawing.Size(395, 21);
             this.cboLog.TabIndex = 4;
             this.cboLog.SelectedIndexChanged += new System.EventHandler(this.cboLog_SelectedIndexChanged);
             // 
@@ -571,7 +497,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtComputer.Location = new System.Drawing.Point(103, 14);
             this.txtComputer.Name = "txtComputer";
-            this.txtComputer.Size = new System.Drawing.Size(327, 20);
+            this.txtComputer.Size = new System.Drawing.Size(395, 20);
             this.txtComputer.TabIndex = 1;
             this.txtComputer.TextChanged += new System.EventHandler(this.txtComputer_TextChanged);
             // 
@@ -580,10 +506,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(403, 379);
+            this.cmdCancel.Location = new System.Drawing.Point(471, 384);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 30;
+            this.cmdCancel.TabIndex = 29;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -592,10 +518,10 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(322, 379);
+            this.cmdOK.Location = new System.Drawing.Point(390, 384);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 29;
+            this.cmdOK.TabIndex = 28;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -604,18 +530,41 @@
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
+            // cmdSelectSources
+            // 
+            this.cmdSelectSources.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSelectSources.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSelectSources.Location = new System.Drawing.Point(504, 73);
+            this.cmdSelectSources.Name = "cmdSelectSources";
+            this.cmdSelectSources.Size = new System.Drawing.Size(42, 23);
+            this.cmdSelectSources.TabIndex = 7;
+            this.cmdSelectSources.Text = "- - -";
+            this.cmdSelectSources.UseVisualStyleBackColor = true;
+            this.cmdSelectSources.Click += new System.EventHandler(this.cmdSelectSources_Click);
+            // 
+            // cmdTest
+            // 
+            this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdTest.Enabled = false;
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.Location = new System.Drawing.Point(309, 384);
+            this.cmdTest.Name = "cmdTest";
+            this.cmdTest.Size = new System.Drawing.Size(75, 23);
+            this.cmdTest.TabIndex = 66;
+            this.cmdTest.Text = "Test";
+            this.cmdTest.UseVisualStyleBackColor = true;
+            this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
+            // 
             // EventLogCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(492, 423);
+            this.ClientSize = new System.Drawing.Size(560, 428);
+            this.Controls.Add(this.cmdTest);
+            this.Controls.Add(this.cmdSelectSources);
             this.Controls.Add(this.lblSecWarning);
             this.Controls.Add(this.pictureBoxSecWarning);
-            this.Controls.Add(this.lblSrcSel);
-            this.Controls.Add(this.lblSourceCount);
-            this.Controls.Add(this.txtSourceQuickFind);
-            this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.numericUpDownWithLastMinutes);
@@ -660,7 +609,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWithinLastXEntries)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.contextMenuStripSourceList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -674,11 +622,7 @@
         private System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem;
         private System.Windows.Forms.Label lblSecWarning;
         private System.Windows.Forms.PictureBox pictureBoxSecWarning;
-        private System.Windows.Forms.Label lblSrcSel;
-        private System.Windows.Forms.Label lblSourceCount;
         private System.Windows.Forms.RadioButton optTextContains;
-        private System.Windows.Forms.TextBox txtSourceQuickFind;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Timer timerQuickFind;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label7;
@@ -694,10 +638,6 @@
         private System.Windows.Forms.TextBox txtText;
         private System.Windows.Forms.Button cmdEditEventIds;
         private System.Windows.Forms.ListView lvwSources;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripSourceList;
-        private System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem checkSelectedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem uncheckSelectedToolStripMenuItem;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtEventIds;
@@ -715,5 +655,7 @@
         private System.Windows.Forms.RadioButton optUseRegEx;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Button cmdSelectSources;
+        private System.Windows.Forms.Button cmdTest;
     }
 }

@@ -71,6 +71,26 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arrow_left {
+            get {
+                object obj = ResourceManager.GetObject("arrow_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arrow_right {
+            get {
+                object obj = ResourceManager.GetObject("arrow_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         internal static string BlankTemplateCollectorAgent {
@@ -89,7 +109,18 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;5.0.0&quot; name=&quot;&amp;lt;New Monitor Pack&amp;gt;&quot; typeName=&quot;&quot; enabled=&quot;True&quot; pollingFreqSecOverride=&quot;30&quot; &gt;
+        ///	&lt;configVars /&gt;
+        ///	&lt;collectorHosts /&gt;
+        ///    &lt;notifierHosts&gt;
+        ///		&lt;notifierHost name=&quot;Default Notifier&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;Detail&quot; attendedOptionOverride=&quot;OnlyAttended&quot;&gt;
+        ///			&lt;notifierAgents&gt;
+        ///				&lt;notifierAgent name=&quot;Memory agent&quot; type=&quot;InMemoryNotifier&quot;&gt;
+        ///					&lt;config&gt;&lt;inMemory maxEntryCount=&quot;99999&quot; /&gt;&lt;/config&gt;
+        ///				&lt;/notifierAgent&gt;
+        ///			&lt;/notifierAgents&gt;
+        ///		&lt;/notifierHost&gt;
+        ///	 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BlankTemplateMonitorPack {
             get {

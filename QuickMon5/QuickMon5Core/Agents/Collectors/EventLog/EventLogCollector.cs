@@ -329,7 +329,8 @@ namespace QuickMon.Collectors
                     }
                     catch (Exception ex)
                     {
-                        if (!ex.ToString().Contains("is out of bounds"))
+                        string errStr = ex.ToString();
+                        if (!(errStr.Contains("is out of bounds") || errStr.Contains("outside the bounds")))
                         {
                             throw;
                         }

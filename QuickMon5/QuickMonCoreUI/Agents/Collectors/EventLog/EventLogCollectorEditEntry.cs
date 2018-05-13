@@ -63,7 +63,9 @@ namespace QuickMon.UI
                 numericUpDownWithLastMinutes.Value = selectedEntry.WithInLastXMinutes;
                 numericUpDownWarning.Value = selectedEntry.WarningValue > 0 ? selectedEntry.WarningValue : 1;
                 numericUpDownError.Value = selectedEntry.ErrorValue > 0 ? selectedEntry.ErrorValue : 10;
-                selectedEntry.Sources.ForEach(s => CheckSource(s));
+                LoadSources();
+
+                //selectedEntry.Sources.ForEach(s => CheckSource(s));
             }            
         }
         private void EditEventLogEntry_Shown(object sender, EventArgs e)
@@ -75,27 +77,36 @@ namespace QuickMon.UI
         #region List view events
         private void lvwSources_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            try
-            {
-                lblSourceCount.Text = "Chk:";
-                if (lvwSources.CheckedItems != null && lvwSources.CheckedItems.Count > 0)
-                {
-                    lblSourceCount.Text += lvwSources.CheckedItems.Count.ToString();
-                }
-                else
-                    lblSourceCount.Text += "All";
-                if (!backgroundWorker1.IsBusy)
-                    backgroundWorker1.RunWorkerAsync();
-            }
-            catch(Exception ex)
-            {
-                lblSourceCount.Text = "Err";
-            }
+            //try
+            //{
+            //    lblSourceCount.Text = "Chk:";
+            //    if (lvwSources.CheckedItems != null && lvwSources.CheckedItems.Count > 0)
+            //    {
+            //        lblSourceCount.Text += lvwSources.CheckedItems.Count.ToString();
+            //        StringBuilder sb = new StringBuilder();
+            //        foreach(ListViewItem chked in lvwSources.CheckedItems)
+            //        {
+            //            sb.Append(chked.Text + ",");
+            //        }
+            //        lblChecked.Text = "Checked: " + sb.ToString().TrimEnd(',');
+            //    }
+            //    else
+            //    {
+            //        lblSourceCount.Text += "All";
+            //        lblChecked.Text = "Checked: None/All";
+            //    }
+            //    if (!backgroundWorker1.IsBusy)
+            //        backgroundWorker1.RunWorkerAsync();
+            //}
+            //catch(Exception ex)
+            //{
+            //    lblSourceCount.Text = "Err";
+            //}
         }
         private void lvwSources_SelectedIndexChanged(object sender, EventArgs e)
         {
-            timerSourcesSelected.Enabled = false;
-            timerSourcesSelected.Enabled = true;
+            //timerSourcesSelected.Enabled = false;
+            //timerSourcesSelected.Enabled = true;
         }
         #endregion
 
@@ -133,9 +144,9 @@ namespace QuickMon.UI
                                               where n.IsInteger()
                                               orderby int.Parse(n)
                                               select int.Parse(n)).ToList();
-            selectedEntry.Sources.Clear();
-            (from ListViewItem l in lvwSources.CheckedItems
-             select l.Text).ToList().ForEach(s => selectedEntry.Sources.Add(s));
+            //selectedEntry.Sources.Clear();
+            //(from ListViewItem l in lvwSources.CheckedItems
+            // select l.Text).ToList().ForEach(s => selectedEntry.Sources.Add(s));
             selectedEntry.ContainsText = optTextContains.Checked;
             selectedEntry.UseRegEx = optUseRegEx.Checked;
             selectedEntry.TextFilter = txtText.Text;
@@ -267,55 +278,80 @@ namespace QuickMon.UI
         }
         private void LoadSources()
         {
-            if (cboLog.SelectedIndex > -1)
+            EventLogCollectorEntry selectedEntry;
+            if (SelectedEntry != null)
+                selectedEntry = (EventLogCollectorEntry)SelectedEntry;
+            else
+                selectedEntry = (EventLogCollectorEntry)SelectedEventLogEntry;
+            try
             {
-                try
+                lvwSources.BeginUpdate();
+                lvwSources.Items.Clear();
+                List<ListViewItem> sources = new List<ListViewItem>();
+                foreach (string s in selectedEntry.Sources)
                 {
-                    EventLogCollectorEntry selectedEntry;
-                    if (SelectedEntry != null)
-                        selectedEntry = (EventLogCollectorEntry)SelectedEntry;
-                    else
-                        selectedEntry = (EventLogCollectorEntry)SelectedEventLogEntry;
-
-                    string hostName = txtComputer.Text;
-                    if (hostName == ".")
-                    {
-                        hostName = System.Net.Dns.GetHostName();
-                    }
-                    hostName = ApplyConfigVarsOnField(hostName);
-
-                    List<ListViewItem> sources = new List<ListViewItem>();
-                    lvwSources.BeginUpdate();
-                    lvwSources.Items.Clear();
-                    foreach (string s in EventLogUtil.GetEventSources(hostName, cboLog.SelectedItem.ToString()))
-                    {
-                        ListViewItem lvi = new ListViewItem(s);
-                        if (selectedEntry.Sources.Contains(s))
-                            lvi.Checked = true;
-                        sources.Add(lvi);
-                    }
-                    lvwSources.Items.AddRange(sources.ToArray());
-                    updateCheckedSources();
+                    ListViewItem lvi = new ListViewItem(s);
+                    sources.Add(lvi);
                 }
-                catch (System.Security.SecurityException)
-                {
-                    MessageBox.Show("This editor window requires that the application runs in Administrative mode to access all functionality!\r\nPlease restart the application in 'Administrative' mode if you need to access all functionality.", "Admin Access", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    lvwSources.EndUpdate();
-                }
+                lvwSources.Items.AddRange(sources.ToArray());
+                if (lvwSources.Items.Count == 0)
+                    lvwSources.Items.Add(new ListViewItem("All"));
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                lvwSources.EndUpdate();
+            }
+
+            //if (cboLog.SelectedIndex > -1)
+            //{
+            //    try
+            //    {
+
+
+            //        string hostName = txtComputer.Text;
+            //        if (hostName == ".")
+            //        {
+            //            hostName = System.Net.Dns.GetHostName();
+            //        }
+            //        hostName = ApplyConfigVarsOnField(hostName);
+
+            //        List<ListViewItem> sources = new List<ListViewItem>();
+            //        lvwSources.BeginUpdate();
+            //        lvwSources.Items.Clear();
+            //        foreach (string s in EventLogUtil.GetEventSources(hostName, cboLog.SelectedItem.ToString()))
+            //        {
+            //            ListViewItem lvi = new ListViewItem(s);
+            //            if (selectedEntry.Sources.Contains(s))
+            //                lvi.Checked = true;
+            //            sources.Add(lvi);
+            //        }
+            //        lvwSources.Items.AddRange(sources.ToArray());
+            //        updateCheckedSources();
+            //    }
+            //    catch (System.Security.SecurityException)
+            //    {
+            //        MessageBox.Show("This editor window requires that the application runs in Administrative mode to access all functionality!\r\nPlease restart the application in 'Administrative' mode if you need to access all functionality.", "Admin Access", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    finally
+            //    {
+            //        lvwSources.EndUpdate();
+            //    }
+            //}
         }
         private bool CheckOkEnabled()
         {
             try
             {
                 cmdOK.Enabled = false;
+                cmdTest.Enabled = false;
                 if (txtComputer.Text.Trim().Length == 0)
                     return false;
                 if (cboLog.SelectedIndex == -1)
@@ -327,6 +363,7 @@ namespace QuickMon.UI
             }
             catch { return false; }
             cmdOK.Enabled = true;
+            cmdTest.Enabled = true;
             return true;
         }        
         #endregion
@@ -334,56 +371,56 @@ namespace QuickMon.UI
         #region Timer
         private void timerQuickFind_Tick(object sender, EventArgs e)
         {
-            timerQuickFind.Enabled = false;
-            if (txtSourceQuickFind.Text.Length > 0)
-            {
-                lvwSources.SelectedItems.Clear();
-                List<ListViewItem> matchedItems = (from ListViewItem l in lvwSources.Items
-                                                   where (containsToolStripMenuItem.Checked && l.Text.IndexOf(txtSourceQuickFind.Text, StringComparison.CurrentCultureIgnoreCase) > -1) ||
-                                                         (!containsToolStripMenuItem.Checked && l.Text.StartsWith(txtSourceQuickFind.Text, StringComparison.CurrentCultureIgnoreCase))
-                                                   select l).ToList();
-                if (allToolStripMenuItem.Checked)
-                {
-                    matchedItems.ForEach(l => l.Selected = true);
-                }
-                else if (matchedItems.Count > 0)
-                    matchedItems[0].Selected = true;
-                if (lvwSources.SelectedItems.Count > 0)
-                    lvwSources.SelectedItems[0].EnsureVisible();
+            //timerQuickFind.Enabled = false;
+            //if (txtSourceQuickFind.Text.Length > 0)
+            //{
+            //    lvwSources.SelectedItems.Clear();
+            //    List<ListViewItem> matchedItems = (from ListViewItem l in lvwSources.Items
+            //                                       where (containsToolStripMenuItem.Checked && l.Text.IndexOf(txtSourceQuickFind.Text, StringComparison.CurrentCultureIgnoreCase) > -1) ||
+            //                                             (!containsToolStripMenuItem.Checked && l.Text.StartsWith(txtSourceQuickFind.Text, StringComparison.CurrentCultureIgnoreCase))
+            //                                       select l).ToList();
+            //    if (allToolStripMenuItem.Checked)
+            //    {
+            //        matchedItems.ForEach(l => l.Selected = true);
+            //    }
+            //    else if (matchedItems.Count > 0)
+            //        matchedItems[0].Selected = true;
+            //    if (lvwSources.SelectedItems.Count > 0)
+            //        lvwSources.SelectedItems[0].EnsureVisible();
 
 
 
-            }
+            //}
         }
         private void timerSourcesSelected_Tick(object sender, EventArgs e)
         {
-            timerSourcesSelected.Enabled = false;
-            try
-            {
-                lvwSources.BeginUpdate();
-                foreach (ListViewItem lvi in lvwSources.Items)
-                {
-                    if (lvi.Selected)
-                        lvi.Font = new Font(lvi.Font, FontStyle.Bold);
-                    else
-                        lvi.Font = new Font(lvi.Font, FontStyle.Regular);
-                }
-                lblSrcSel.Text = "Sel:";
-                if (lvwSources.SelectedItems != null && lvwSources.SelectedItems.Count > 0)
-                {
-                    lblSrcSel.Text += lvwSources.SelectedItems.Count.ToString();
-                }
-                else
-                    lblSrcSel.Text += "None";
-            }
-            catch
-            {
-                lblSrcSel.Text = "Err";
-            }
-            finally
-            {
-                lvwSources.EndUpdate();
-            }
+            //timerSourcesSelected.Enabled = false;
+            //try
+            //{
+            //    lvwSources.BeginUpdate();
+            //    foreach (ListViewItem lvi in lvwSources.Items)
+            //    {
+            //        if (lvi.Selected)
+            //            lvi.Font = new Font(lvi.Font, FontStyle.Bold);
+            //        else
+            //            lvi.Font = new Font(lvi.Font, FontStyle.Regular);
+            //    }
+            //    lblSrcSel.Text = "Sel:";
+            //    if (lvwSources.SelectedItems != null && lvwSources.SelectedItems.Count > 0)
+            //    {
+            //        lblSrcSel.Text += lvwSources.SelectedItems.Count.ToString();
+            //    }
+            //    else
+            //        lblSrcSel.Text += "None";
+            //}
+            //catch
+            //{
+            //    lblSrcSel.Text = "Err";
+            //}
+            //finally
+            //{
+            //    lvwSources.EndUpdate();
+            //}
         }
         #endregion
 
@@ -404,19 +441,19 @@ namespace QuickMon.UI
 
         private void updateCheckedSources()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Checked:");
-            if (lvwSources.CheckedItems != null && lvwSources.CheckedItems.Count > 0)
-            {
-                foreach(ListViewItem lvi in lvwSources.CheckedItems)
-                {
-                    sb.AppendLine("  " + lvi.Text);
-                }
-            }
-            else
-                sb.AppendLine("  None");
+            //StringBuilder sb = new StringBuilder();
+            //sb.AppendLine("Checked:");
+            //if (lvwSources.CheckedItems != null && lvwSources.CheckedItems.Count > 0)
+            //{
+            //    foreach(ListViewItem lvi in lvwSources.CheckedItems)
+            //    {
+            //        sb.AppendLine("  " + lvi.Text);
+            //    }
+            //}
+            //else
+            //    sb.AppendLine("  None");
 
-            toolTip1.SetToolTip(lblSourceCount, sb.ToString());
+            //toolTip1.SetToolTip(lblSourceCount, sb.ToString());
         }
 
         private DateTime lastCheckUpdate = DateTime.Now;
@@ -430,6 +467,79 @@ namespace QuickMon.UI
                     lastCheckUpdate = DateTime.Now;
                     updateCheckedSources();
                 });
+            }
+        }
+
+        private void cmdSelectSources_Click(object sender, EventArgs e)
+        {
+            EventLogCollectorEntry selectedEntry;
+            if (SelectedEntry != null)
+                selectedEntry = (EventLogCollectorEntry)SelectedEntry;
+            else
+                selectedEntry = SelectedEventLogEntry;
+
+            SelectEventSources selectEventSources = new SelectEventSources();
+            selectEventSources.ComputerName = txtComputer.Text;
+            selectEventSources.ConfigVariables = ConfigVariables;
+            selectEventSources.LogName = cboLog.Text;
+            selectEventSources.SelectedSources.AddRange(selectedEntry.Sources.ToArray());
+            if (selectEventSources.ShowDialog()== DialogResult.OK)
+            {
+                selectedEntry.EventLog = selectEventSources.LogName;
+                txtComputer.Text = selectEventSources.ComputerName;
+                LoadComputerEventsLogs();
+                selectedEntry.Sources.Clear();
+                selectEventSources.SelectedSources.ForEach(s => selectedEntry.Sources.Add(s));
+                LoadSources();
+                
+                //lblSourceCount.Text += lvwSources.CheckedItems.Count.ToString();
+                //StringBuilder sb = new StringBuilder();
+                //foreach (string src in selectedEntry.Sources)
+                //{
+                //    sb.Append(src + ",");
+                //}
+                //lblChecked.Text = "Checked: " + sb.ToString().TrimEnd(',');
+            }
+        }
+
+        private void cmdTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EventLogCollectorEntry selectedEntry;
+                if (SelectedEntry != null)
+                    selectedEntry = (EventLogCollectorEntry)SelectedEntry;
+                else
+                    selectedEntry = SelectedEventLogEntry;
+
+                EventLogCollectorEntry testEntry = new EventLogCollectorEntry();
+                testEntry.Computer = txtComputer.Text;
+                testEntry.EventLog = cboLog.SelectedItem.ToString();
+                testEntry.TypeInfo = chkInfo.Checked;
+                testEntry.TypeWarn = chkWarn.Checked;
+                testEntry.TypeErr = chkErr.Checked;
+                testEntry.Sources.Clear();
+                testEntry.Sources.AddRange(selectedEntry.Sources.ToArray());                
+                testEntry.EventIds = (from n in txtEventIds.Text.ToListFromCSVString()
+                                      where n.IsInteger()
+                                      orderby int.Parse(n)
+                                      select int.Parse(n)).ToList();
+                testEntry.ContainsText = optTextContains.Checked;
+                testEntry.UseRegEx = optUseRegEx.Checked;
+                testEntry.TextFilter = txtText.Text;
+                testEntry.WithInLastXEntries = (int)numericUpDownWithinLastXEntries.Value;
+                testEntry.WithInLastXMinutes = (int)numericUpDownWithLastMinutes.Value;
+                testEntry.WarningValue = (int)numericUpDownWarning.Value;
+                testEntry.ErrorValue = (int)numericUpDownError.Value;
+
+                MonitorState m = testEntry.GetCurrentState();
+                string result = string.Format("State: {0}\r\nValue: {1}", m.State, m.FormatValue());
+
+                MessageBox.Show(result, "Test", MessageBoxButtons.OK, m.State == CollectorState.Good ? MessageBoxIcon.Information : m.State == CollectorState.Warning ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
