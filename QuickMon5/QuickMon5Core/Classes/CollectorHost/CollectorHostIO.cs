@@ -21,22 +21,31 @@ namespace QuickMon
             }
             return collectorHosts;
         }
-        public static List<CollectorHost> GetCollectorHostsFromString(string xmlString) //, List<ConfigVariable> monitorPackVars = null)
+        public static List<CollectorHost> GetCollectorHostsFromString(string xmlString)
         {
+            if (xmlString != null && xmlString.StartsWith("<?xml "))
+            {
+                xmlString = xmlString.Substring(xmlString.IndexOf('>') + 1).Trim(' ', '\r', '\n');
+            }
             List<CollectorHost> collectorHosts = new List<CollectorHost>();
             XmlDocument collectorHostsXml = new XmlDocument();
             collectorHostsXml.LoadXml(xmlString);
-            collectorHosts = GetCollectorHosts(collectorHostsXml.DocumentElement); //, monitorPackVars);            
+            collectorHosts = GetCollectorHosts(collectorHostsXml.DocumentElement);
             return collectorHosts;
         }
-        public static CollectorHost FromXml(string xmlString)// , List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = false)
+
+        public static CollectorHost FromXml(string xmlString)
         {
+            if (xmlString != null && xmlString.StartsWith("<?xml "))
+            {
+                xmlString = xmlString.Substring(xmlString.IndexOf('>') + 1).Trim(' ', '\r', '\n');
+            }
             if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<collectorHost"))
             {
                 XmlDocument collectorHostDoc = new XmlDocument();
                 collectorHostDoc.LoadXml(xmlString);
                 XmlElement root = collectorHostDoc.DocumentElement;
-                return FromConfig(null, root); //, monitorPackVars, applyConfigVars);
+                return FromConfig(null, root);
             }
             else
                 return null;
@@ -49,6 +58,10 @@ namespace QuickMon
         /// <param name="applyConfigVars">Should config variables be applied</param>
         public void ReconfigureFromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
         {
+            if (xmlString != null && xmlString.StartsWith("<?xml "))
+            {
+                xmlString = xmlString.Substring(xmlString.IndexOf('>') + 1).Trim(' ', '\r','\n');
+            }
             if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<collectorHost"))
             {
                 XmlDocument collectorHostDoc = new XmlDocument();

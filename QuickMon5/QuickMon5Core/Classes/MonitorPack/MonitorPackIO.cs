@@ -229,30 +229,6 @@ namespace QuickMon
             collectorHost.ExitingServiceWindow += collectorHost_ExitingServiceWindow;
         }
 
-        /// <summary>
-        /// When Initializing/reinitializing the scripts
-        /// </summary>
-        //public void InitializeCollectorActionScripts()
-        //{
-        //    foreach (CollectorHost collectorHost in CollectorHosts)
-        //    {
-        //        InitializeCollectorActionScripts(collectorHost);
-        //    }
-        //}
-        //public void InitializeCollectorActionScripts(CollectorHost collectorHost)
-        //{
-        //    if (collectorHost != null && collectorHost.ActionScripts != null)
-        //    {
-        //        foreach(var collectorActionScript in collectorHost.ActionScripts)
-        //        {
-        //            ActionScript currentActionScript = (from acs in ActionScripts
-        //                                                where acs.Id == collectorActionScript.MPId
-        //                                                select acs).FirstOrDefault();
-        //            if (currentActionScript != null)
-        //                collectorActionScript.InitializeScript(currentActionScript);
-        //        }
-        //    }
-        //}
         public CollectorHost GetParentCollectorHost(CollectorHost child)
         {
             CollectorHost selectedCH = null;

@@ -233,11 +233,11 @@ namespace QuickMon
             this.lblVersion.HighLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblVersion.HighLightFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.LabelText = "Label";
-            this.lblVersion.Location = new System.Drawing.Point(381, 0);
+            this.lblVersion.Location = new System.Drawing.Point(369, 0);
             this.lblVersion.Margin = new System.Windows.Forms.Padding(4, 4, 10, 4);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.lblVersion.Size = new System.Drawing.Size(58, 23);
+            this.lblVersion.Size = new System.Drawing.Size(70, 23);
             this.lblVersion.StartFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lblVersion.StartForeColor = System.Drawing.Color.Silver;
             this.lblVersion.TabIndex = 43;
@@ -896,7 +896,7 @@ namespace QuickMon
             this.lblCollectors.Location = new System.Drawing.Point(0, 0);
             this.lblCollectors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lblCollectors.Name = "lblCollectors";
-            this.lblCollectors.Size = new System.Drawing.Size(381, 23);
+            this.lblCollectors.Size = new System.Drawing.Size(369, 23);
             this.lblCollectors.StartFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.lblCollectors.StartForeColor = System.Drawing.SystemColors.ControlText;
             this.lblCollectors.TabIndex = 42;

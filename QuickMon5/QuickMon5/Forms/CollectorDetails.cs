@@ -1248,6 +1248,7 @@ namespace QuickMon
                 if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     SelectedCollectorHost.ReconfigureFromXml(editor.SelectedMarkup);
+                    txtName.Text = SelectedCollectorHost.Name;
                     LoadControls();
                     LoadEditControls();
                     ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);

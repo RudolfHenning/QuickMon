@@ -22,6 +22,10 @@ namespace QuickMon
         }
         public static List<NotifierHost> GetNotifierHostsFromString(string xmlString, List<ConfigVariable> monitorPackVars = null)
         {
+            if (xmlString != null && xmlString.StartsWith("<?xml "))
+            {
+                xmlString = xmlString.Substring(xmlString.IndexOf('>') + 1).Trim(' ', '\r', '\n');
+            }
             List<NotifierHost> notifierHosts = new List<NotifierHost>();
             XmlDocument notifierHostsXml = new XmlDocument();
             notifierHostsXml.LoadXml(xmlString);
@@ -30,6 +34,10 @@ namespace QuickMon
         }
         public static NotifierHost FromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = false)
         {
+            if (xmlString != null && xmlString.StartsWith("<?xml "))
+            {
+                xmlString = xmlString.Substring(xmlString.IndexOf('>') + 1).Trim(' ', '\r', '\n');
+            }
             if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<notifierHost"))
             {
                 XmlDocument notifierHostDoc = new XmlDocument();
@@ -42,6 +50,10 @@ namespace QuickMon
         }
         public void ReconfigureFromXml(string xmlString) //, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
         {
+            if (xmlString != null && xmlString.StartsWith("<?xml "))
+            {
+                xmlString = xmlString.Substring(xmlString.IndexOf('>') + 1).Trim(' ', '\r', '\n');
+            }
             if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<notifierHost"))
             {
                 XmlDocument notifierHostDoc = new XmlDocument();
@@ -165,6 +177,10 @@ namespace QuickMon
         }
         public static INotifier GetNotifierAgentFromString(string xmlString, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
         {
+            if (xmlString != null && xmlString.StartsWith("<?xml "))
+            {
+                xmlString = xmlString.Substring(xmlString.IndexOf('>') + 1).Trim(' ', '\r', '\n');
+            }
             if (xmlString.StartsWith("<notifierAgent"))
             {
                 XmlDocument collectorAgentXml = new XmlDocument();

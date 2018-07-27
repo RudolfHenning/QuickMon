@@ -73,3 +73,8 @@ Added Quick toolbars for Collectors and Notifiers
 Version 5.0.9
 *************
 Eventlog collector edit fixes and enhancements
+
+--------------
+Version 5.0.10
+**************
+Fix the RAW Xml config editor. Edited config wasn't saved if it started with "<?xml ..."

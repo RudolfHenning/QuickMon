@@ -24,6 +24,10 @@ namespace QuickMon
             if (SelectedMarkup != null && SelectedMarkup.Length > 0)
             {
                 txtConfig.Text = SelectedMarkup.BeautifyXML();// XmlFormattingUtils.NormalizeXML(SelectedMarkup);
+                if (txtConfig.Text != null && txtConfig.Text.StartsWith("<?xml "))
+                {
+                    txtConfig.Text = txtConfig.Text.Substring(txtConfig.Text.IndexOf('>') + 1).Trim(' ', '\r', '\n');
+                }
             }
         }
 
@@ -57,9 +61,10 @@ namespace QuickMon
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            XmlDocument testXml = new XmlDocument();
+            
             try
             {
+                XmlDocument testXml = new XmlDocument();
                 testXml.LoadXml(txtConfig.Text);
                 SelectedMarkup = txtConfig.Text;
                 DialogResult = System.Windows.Forms.DialogResult.OK;

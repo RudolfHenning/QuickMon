@@ -152,6 +152,7 @@
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(640, 350);
             this.Name = "SelectRecentMonitorPackDialog";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recently opened Monitor Packs";
             this.Load += new System.EventHandler(this.SelectRecentMonitorPackDialog_Load);
