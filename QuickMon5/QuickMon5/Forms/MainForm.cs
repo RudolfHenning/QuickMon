@@ -20,16 +20,16 @@ namespace QuickMon
         {
             InitializeComponent();
 
-            try
-            {
-                if (CoreHelpers.RunningOnWin7)
-                {
-                    windowsTaskbar = TaskbarManager.Instance;
-                    // Set the application specific id
-                    windowsTaskbar.ApplicationId = appId;
-                }
-            }
-            catch { }
+            //try
+            //{
+            //    if (CoreHelpers.RunningOnWin7)
+            //    {
+            //        windowsTaskbar = TaskbarManager.Instance;
+            //        // Set the application specific id
+            //        windowsTaskbar.ApplicationId = Application.ProductName;                    
+            //    }
+            //}
+            //catch { }
         }
 
         #region Private vars
@@ -74,10 +74,10 @@ namespace QuickMon
         private List<IChildWindowIdentity> childWindows = new List<IChildWindowIdentity>();
 
         #region JumpList
-        private string appId = "QuickMon";
-        private TaskbarManager windowsTaskbar;
-        private JumpList jumpList;
-        private JumpListCustomCategory jumplistCatTools = new JumpListCustomCategory("Quick Actions");
+        //private string appId = "QuickMon";
+        //private TaskbarManager windowsTaskbar;
+        //private JumpList jumpList;
+        //private JumpListCustomCategory jumplistCatTools = new JumpListCustomCategory("Quick Actions");
         #endregion
         #endregion
 
@@ -157,15 +157,25 @@ namespace QuickMon
         {
             try
             {
-                if (CoreHelpers.RunningOnWin7)
+                if (TaskbarManager.IsPlatformSupported)
                 {
-                    // Path to Windows system folder
-                    //string systemFolder = Environment.GetFolderPath(Environment.SpecialFolder.System);
+                    JumpList recentJumpList = null;
+                    JumpList frequentJumpList = null;
+                    JumpList jumpList = null;
 
-                    // create a new taskbar jump list for the main window
+                    TaskbarManager.Instance.ApplicationId = Application.ProductName;
+
+                    recentJumpList = JumpList.CreateJumpList();
+                    recentJumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
+                    recentJumpList.Refresh();
+
+                    frequentJumpList = JumpList.CreateJumpList();
+                    frequentJumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Frequent;
+                    frequentJumpList.Refresh();
+
+                    JumpListCustomCategory jumplistCatTools = new JumpListCustomCategory("Quick Actions");
                     jumpList = JumpList.CreateJumpList();
                     jumpList.AddCustomCategories(jumplistCatTools);
-
                     jumplistCatTools.AddJumpListItems(new JumpListLink(Application.ExecutablePath, "New Monitor pack")
                     {
                         IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(Application.ExecutablePath, 0),
@@ -180,6 +190,30 @@ namespace QuickMon
                     jumpList.AddUserTasks(new JumpListSeparator());
                     jumpList.Refresh();
                 }
+
+                //if (CoreHelpers.RunningOnWin7)
+                //{
+                //    // Path to Windows system folder
+                //    //string systemFolder = Environment.GetFolderPath(Environment.SpecialFolder.System);
+
+                //    // create a new taskbar jump list for the main window
+                //    jumpList = JumpList.CreateJumpList();
+                //    jumpList.AddCustomCategories(jumplistCatTools);
+
+                //    jumplistCatTools.AddJumpListItems(new JumpListLink(Application.ExecutablePath, "New Monitor pack")
+                //    {
+                //        IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(Application.ExecutablePath, 0),
+                //        Arguments = "-new"
+                //    });
+                //    jumplistCatTools.AddJumpListItems(new JumpListLink(Application.ExecutablePath, "Select recent Monitor pack")
+                //    {
+                //        IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(Application.ExecutablePath, 0),
+                //        Arguments = "-selectrecent"
+                //    });
+
+                //    jumpList.AddUserTasks(new JumpListSeparator());
+                //    jumpList.Refresh();
+                //}
             }
             catch { }  
             try
@@ -1487,6 +1521,12 @@ namespace QuickMon
                 SetMonitorPackEvents();
 
                 AddMonitorPackFileToRecentList(monitorPackPath);
+                try
+                {
+                    if (TaskbarManager.IsPlatformSupported)
+                        JumpList.AddToRecent(monitorPackPath);
+                }
+                catch { }
 
                 if (isPollingEnabled)
                 {
@@ -1669,6 +1709,15 @@ namespace QuickMon
                 else
                 {
                     success = SaveAsMonitorPack();
+                }
+                if (success)
+                {
+                    try
+                    {
+                        if (TaskbarManager.IsPlatformSupported)
+                            JumpList.AddToRecent(monitorPack.MonitorPackPath);
+                    }
+                    catch { }
                 }
                 UpdateAppTitle();
             }
