@@ -163,15 +163,7 @@ namespace QuickMon
                     JumpList frequentJumpList = null;
                     JumpList jumpList = null;
 
-                    TaskbarManager.Instance.ApplicationId = Application.ProductName;
-
-                    recentJumpList = JumpList.CreateJumpList();
-                    recentJumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
-                    recentJumpList.Refresh();
-
-                    frequentJumpList = JumpList.CreateJumpList();
-                    frequentJumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Frequent;
-                    frequentJumpList.Refresh();
+                    TaskbarManager.Instance.ApplicationId = Application.ProductName;        
 
                     JumpListCustomCategory jumplistCatTools = new JumpListCustomCategory("Quick Actions");
                     jumpList = JumpList.CreateJumpList();
@@ -188,7 +180,19 @@ namespace QuickMon
                     });
 
                     jumpList.AddUserTasks(new JumpListSeparator());
+                    jumpList.KnownCategoryOrdinalPosition = 1;
+                    jumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Frequent;
                     jumpList.Refresh();
+
+                    //recentJumpList = JumpList.CreateJumpList();
+                    //recentJumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
+                    //recentJumpList.AddUserTasks(new JumpListSeparator());
+                    //recentJumpList.Refresh();
+
+                    //frequentJumpList = JumpList.CreateJumpList();
+                    //frequentJumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Frequent;
+                    //frequentJumpList.AddUserTasks(new JumpListSeparator());
+                    //frequentJumpList.Refresh();
                 }
 
                 //if (CoreHelpers.RunningOnWin7)
