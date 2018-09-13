@@ -95,6 +95,15 @@ namespace QuickMon
                 catch { }
             }
             MainForm mainForm = new MainForm();
+            if (args.Length > 0 && args[0].ToLower() == "-new")
+            {
+                mainForm.StartWithNewMonitorPack = true;
+            }
+            else if (args.Length > 0 && args[0].ToLower() == "-selectrecent")
+            {
+                mainForm.StartWithSelectRecent = true;
+            }
+            
             Application.Run(mainForm);
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

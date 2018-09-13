@@ -38,11 +38,11 @@
   &lt;string&gt;PowerShellScriptRunnerCollector&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
-    <Setting Name="AutoAddDefaultFireWallException" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="ScriptRepositoryDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\ProgramData\Hen IT\QuickMon 5\Scripts</Value>
+    </Setting>
+    <Setting Name="AutoAddDefaultFireWallException" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

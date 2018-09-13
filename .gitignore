@@ -257,3 +257,4 @@ ModelManifest.xml
 /QuickMon5/Installer/QuickMon5.0.0.msi
 /QuickMon5/Installer/QuickMon.vshost.exe.config
 /QuickMon5/Installer/QuickMon.exe.config
+*.msi

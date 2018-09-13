@@ -61,12 +61,15 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;5.0.0.0001&quot; name=&quot;All Collectors Test&quot; typeName=&quot;&quot; enabled=&quot;True&quot; runCorrectiveScripts=&quot;True&quot; stateHistorySize=&quot;100&quot; pollingFreqSecOverride=&quot;30&quot; loggingEnabled=&quot;True&quot; usernameCacheMasterKey=&quot;&quot; usernameCacheFilePath=&quot;&quot;&gt;
-        ///  &lt;configVars&gt;
-        ///  &lt;/configVars&gt;
-        ///  &lt;collectorHosts&gt;
-        ///    &lt;collectorHost uniqueId=&quot;17e074d3-d8ec-4d58-915f-8f8a785c8010&quot; dependOnParentId=&quot;&quot; name=&quot;New Collector&quot; enabled=&quot;True&quot; expandOnStart=&quot;Auto&quot; childCheckBehaviour=&quot;OnlyRunOnSuccess&quot; runAsEnabled=&quot;False&quot; runAs=&quot;&quot;&gt;
-        ///   [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;5.0.0.0001&quot; name=&quot;All Collectors Test&quot; typeName=&quot;&quot; enabled=&quot;True&quot; usernameCacheMasterKey=&quot;&quot; usernameCacheFilePath=&quot;&quot;&gt;
+        ///	&lt;configVars&gt;
+        ///		&lt;configVar find=&quot;%ComputerName%&quot; replace=&quot;localhost&quot; /&gt;
+        ///	&lt;/configVars&gt;
+        ///	&lt;collectorHosts correctiveScriptsEnabled=&quot;True&quot; stateHistorySize=&quot;100&quot; pollingFreqSecOverride=&quot;30&quot;&gt;
+        ///		&lt;actionScripts&gt;
+        ///			&lt;actionScript id=&quot;1&quot; name=&quot;List C drive&quot; type=&quot;dos&quot; description=&quot;&quot; windowStyle=&quot;normal&quot; adminMode=&quot;False&quot;&gt;
+        ///				&lt;scriptText&gt;rem @ComputerName
+        ///dir c:\&lt;/scrip [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string AllCollectorsTest {
             get {

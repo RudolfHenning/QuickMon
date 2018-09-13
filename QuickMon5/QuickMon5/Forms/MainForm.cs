@@ -1,4 +1,6 @@
-﻿using QuickMon.UI;
+﻿using Microsoft.WindowsAPICodePack.Taskbar;
+using MS.WindowsAPICodePack.Internal;
+using QuickMon.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,17 @@ namespace QuickMon
         public MainForm()
         {
             InitializeComponent();
+
+            try
+            {
+                if (CoreHelpers.RunningOnWin7)
+                {
+                    windowsTaskbar = TaskbarManager.Instance;
+                    // Set the application specific id
+                    windowsTaskbar.ApplicationId = appId;
+                }
+            }
+            catch { }
         }
 
         #region Private vars
@@ -59,7 +72,17 @@ namespace QuickMon
         #endregion
 
         private List<IChildWindowIdentity> childWindows = new List<IChildWindowIdentity>();
+
+        #region JumpList
+        private string appId = "QuickMon";
+        private TaskbarManager windowsTaskbar;
+        private JumpList jumpList;
+        private JumpListCustomCategory jumplistCatTools = new JumpListCustomCategory("Quick Actions");
         #endregion
+        #endregion
+
+        public bool StartWithNewMonitorPack { get; set; }
+        public bool StartWithSelectRecent { get; set; }
 
         #region Public methods
         public void UpdateCollector(CollectorHost collectorHost, bool setChanged = false)
@@ -120,17 +143,51 @@ namespace QuickMon
             adminModeToolStripStatusLabel.Visible = Security.UACTools.IsInAdminMode();
             adminModeToolStripMenuItem.Visible = !Security.UACTools.IsInAdminMode();
             cmdAdminMode.Visible = !Security.UACTools.IsInAdminMode();
+
+            if (StartWithSelectRecent)
+            {
+                SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
+                if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.LastMonitorPack = selectRecentMonitorPackDialog.SelectedMonitorPack;
+                }                
+            }
         }
         private void MainForm_Shown(object sender, EventArgs e)
-        {            
+        {
+            try
+            {
+                if (CoreHelpers.RunningOnWin7)
+                {
+                    // Path to Windows system folder
+                    //string systemFolder = Environment.GetFolderPath(Environment.SpecialFolder.System);
+
+                    // create a new taskbar jump list for the main window
+                    jumpList = JumpList.CreateJumpList();
+                    jumpList.AddCustomCategories(jumplistCatTools);
+
+                    jumplistCatTools.AddJumpListItems(new JumpListLink(Application.ExecutablePath, "New Monitor pack")
+                    {
+                        IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(Application.ExecutablePath, 0),
+                        Arguments = "-new"
+                    });
+                    jumplistCatTools.AddJumpListItems(new JumpListLink(Application.ExecutablePath, "Select recent Monitor pack")
+                    {
+                        IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(Application.ExecutablePath, 0),
+                        Arguments = "-selectrecent"
+                    });
+
+                    jumpList.AddUserTasks(new JumpListSeparator());
+                    jumpList.Refresh();
+                }
+            }
+            catch { }  
             try
             {
                 InitializeGlobalPerformanceCounters();
-                if (Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
+                if (!StartWithNewMonitorPack && Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
                 {
                     LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
-                    //System.Threading.Thread.Sleep(100);
-                    //RefreshMonitorPack();
                 }
                 else
                 {
@@ -268,6 +325,14 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
+        }
+        private void splitButtonRecent_ButtonClicked(object sender, EventArgs e)
+        {
+            ShowRecentMonitorPackDropdown();
+        }
+        private void splitButtonRecent_SplitButtonClicked(object sender, EventArgs e)
+        {
+            recentMPContextMenuStrip.Show(splitButtonRecent, new Point(splitButtonRecent.Width, 0));
         }
         private void splitButtonSave_SplitButtonClicked(object sender, EventArgs e)
         {
@@ -2793,11 +2858,6 @@ namespace QuickMon
 
         #endregion
 
-        private void splitButtonRecent_ButtonClicked(object sender, EventArgs e)
-        {
-            ShowRecentMonitorPackDropdown();
-        }
-
         private void fullRecentListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
@@ -2807,11 +2867,5 @@ namespace QuickMon
                 RefreshMonitorPack(true, true);
             }
         }
-
-        private void splitButtonRecent_SplitButtonClicked(object sender, EventArgs e)
-        {
-            recentMPContextMenuStrip.Show(splitButtonRecent, new Point(splitButtonRecent.Width, 0));
-        }
-
     }
 }

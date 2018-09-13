@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 5" Language="1033" Version="5.0.10.0034" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A279-41c950000000">
+  <Product Id="*" Name="QuickMon 5" Language="1033" Version="5.1.0.0035" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A279-41c950000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 5 Installer" Comments='QuickMon 5 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' Platform="x64" />
 
@@ -37,6 +37,8 @@
               <File Id="QuickMonCoreUIDll" Name="QuickMonCoreUI.dll" Source="QuickMonCoreUI.dll" KeyPath="no" />              
               <File Id="System.Management.Automation.dll" Source="System.Management.Automation.dll"  KeyPath="no" />
               <File Id="Renci.SshNet.dll" Source="Renci.SshNet.dll"  KeyPath="no" />
+              <File Id="Microsoft.WindowsAPICodePack.dll" Source="Microsoft.WindowsAPICodePack.dll"  KeyPath="no" />
+              <File Id="Microsoft.WindowsAPICodePack.Shell.dll" Source="Microsoft.WindowsAPICodePack.Shell.dll"  KeyPath="no" />
             </Component>
             <Component Id="QuickMonConfigFiles" Guid="59162023-5478-4668-5D08-41ca40000000" NeverOverwrite="yes" Permanent="yes" Win64="yes">
               <File Id="QuickMonEXEConfig" Name="QuickMon.exe.config" Source="QuickMon.exe.config" KeyPath="no" />
@@ -77,7 +79,7 @@
     <Property Id="ARPPRODUCTICON" Value="QuickMon.exe" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
     <PropertyRef Id="NETFRAMEWORK45"/>
-    <Condition Message="This setup requires the .NET Framework 4.5 to be installed.">
+    <Condition Message="This setup requires the .NET Framework 4.5.2 to be installed.">
       <![CDATA[Installed OR NETFRAMEWORK45]]>
     </Condition>
 

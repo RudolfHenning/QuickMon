@@ -78,3 +78,9 @@ Eventlog collector edit fixes and enhancements
 Version 5.0.10
 **************
 Fix the RAW Xml config editor. Edited config wasn't saved if it started with "<?xml ..."
+
+--------------
+Version 5.1.0
+**************
+First version using .Net 4.5.2 (which is the oldest supported .Net at this time)
+Added Jumplist shortcuts - Shortcuts available on right-click on the Windows Taskbar.

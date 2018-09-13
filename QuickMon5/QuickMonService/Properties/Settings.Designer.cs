@@ -129,19 +129,19 @@ namespace QuickMon.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool AutoAddDefaultFireWallException {
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\Hen IT\\QuickMon 5\\Scripts")]
+        public string ScriptRepositoryDirectory {
             get {
-                return ((bool)(this["AutoAddDefaultFireWallException"]));
+                return ((string)(this["ScriptRepositoryDirectory"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\Hen IT\\QuickMon 5\\Scripts")]
-        public string ScriptRepositoryDirectory {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoAddDefaultFireWallException {
             get {
-                return ((string)(this["ScriptRepositoryDirectory"]));
+                return ((bool)(this["AutoAddDefaultFireWallException"]));
             }
         }
     }
