@@ -380,6 +380,15 @@ namespace QuickMon
         {
             collectorsContextMenuStrip.Show(splitButtonCollectors, new Point(splitButtonCollectors.Width, 0));
         }
+        private void fullRecentListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
+            if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadMonitorPack(selectRecentMonitorPackDialog.SelectedMonitorPack);
+                RefreshMonitorPack(true, true);
+            }
+        }
         private void splitButtonCollectors_ButtonClicked(object sender, EventArgs e)
         {
             collectorsContextMenuStrip.Show(splitButtonCollectors, new Point(splitButtonCollectors.Width, 0));
@@ -2911,14 +2920,6 @@ namespace QuickMon
 
         #endregion
 
-        private void fullRecentListToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
-            if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
-            {
-                LoadMonitorPack(selectRecentMonitorPackDialog.SelectedMonitorPack);
-                RefreshMonitorPack(true, true);
-            }
-        }
+
     }
 }

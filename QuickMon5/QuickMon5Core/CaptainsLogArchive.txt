@@ -44,6 +44,7 @@ File collector - option to show file count and or size - done
 In collector Details - Add more details about which Alerts have been raised (not just count)
 
 Windows Task bar shortcuts - create new monitor pack... (WindowsAPICodePack)
+Monitor pack variables must be editable separately and without reloading the whole monitor pack.
 
 *****************************************************************************************************
 Next
