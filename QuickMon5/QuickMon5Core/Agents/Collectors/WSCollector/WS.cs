@@ -434,7 +434,7 @@ namespace QuickMon.Collectors
             }
 
             currentState.State = agentState;
-            currentState.CurrentValue = wsData == null ? "N/A" : wsData.ToString();
+            currentState.CurrentValue = CurrentAgentValue != null ? CurrentAgentValue : wsData == null ? "N/A" : wsData.ToString();
             return currentState;
         }
         #endregion
