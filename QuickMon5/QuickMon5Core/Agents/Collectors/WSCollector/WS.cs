@@ -449,7 +449,7 @@ namespace QuickMon.Collectors
                                             where ep.Name == serviceBindingName
                                             select ep).FirstOrDefault();
                 proxy = factory.CreateProxy(endpoint.Contract.Name);
-                //attempt to load data types so parameters can be formatter properly...
+                //attempt to load data types so parameters can be formatted properly...
                 parameterTypes = new List<System.Reflection.ParameterInfo>();
                 OperationDescription operation = (from OperationDescription m in endpoint.Contract.Operations
                                                   where m.Name.ToLower() == methodName.ToLower()
@@ -466,7 +466,7 @@ namespace QuickMon.Collectors
                     }
                 }
             }
-            else  if (proxy == null)
+            else if (proxy == null)
             {
                 throw new Exception("Web service proxy could not be created! Check service URL or binding details");
             }
@@ -486,18 +486,6 @@ namespace QuickMon.Collectors
                                 case "Object":
                                     runParameters.Add(Parameters[i]);
                                     break;
-                                //    case "Int32":
-                                //        runParameters.Add(int.Parse(Parameters[i]));
-                                //        break;
-                                //    case "Int16":
-                                //        runParameters.Add(Int16.Parse(Parameters[i]));
-                                //        break;
-                                //    case "Double":
-                                //        runParameters.Add(Double.Parse(Parameters[i]));
-                                //        break;
-                                //    case "Boolean":
-                                //        runParameters.Add(bool.Parse(Parameters[i]));
-                                //        break;
                                 default:
                                     var converter = System.ComponentModel.TypeDescriptor.GetConverter(pt);
                                     runParameters.Add(converter.ConvertFrom(Parameters[i]));
@@ -629,184 +617,5 @@ namespace QuickMon.Collectors
             }
             return CurrentAgentValue;
         }
-        //private CollectorState GetState(object value)
-        //{
-        //    bool result = false;
-        //    switch (ValueExpectedReturnType)
-        //    {
-        //        case WebServiceValueExpectedReturnTypeEnum.CheckAvailabilityOnly:
-        //            #region CheckAvailabilityOnly
-        //            LastFormattedValue = "[Available]";
-        //            result = true;
-        //            break;
-        //            #endregion
-        //        case WebServiceValueExpectedReturnTypeEnum.SingleValue:
-        //            #region SingleValue
-        //            if (value is System.Data.DataSet || value.GetType().IsArray)
-        //                throw new Exception("Returned value is an array or dataset!");
-        //            if (value == null)
-        //                LastFormattedValue = "Null";
-        //            else if (value.ToString().Length == 0)
-        //                LastFormattedValue = "Empty";
-        //            else
-        //                LastFormattedValue = value.ToString();
-        //            switch (MacroFormatType)
-        //            {
-        //                case WebServiceMacroFormatTypeEnum.None:
-        //                    result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
-        //                    break;
-        //                case WebServiceMacroFormatTypeEnum.NoValueOnly:
-        //                    result = (value == null || value.ToString().Length == 0);
-        //                    break;
-        //                case WebServiceMacroFormatTypeEnum.Length:
-        //                    LastFormattedValue = LastFormattedValue.Length.ToString();
-        //                    result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
-        //                    break;
-        //                default:
-        //                    result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
-        //                    break;
-        //            }
-        //            break;
-        //            #endregion
-        //        case WebServiceValueExpectedReturnTypeEnum.Array:
-        //            #region Array
-        //            if (!value.GetType().IsArray)
-        //                throw new Exception("Returned value is not an array!");
-        //            Array arr = (Array)value;
-        //            switch (MacroFormatType)
-        //            {
-        //                case WebServiceMacroFormatTypeEnum.Count:
-        //                    LastFormattedValue = arr.Length.ToString();
-        //                    break;
-        //                case WebServiceMacroFormatTypeEnum.FirstValue:
-        //                    LastFormattedValue = arr.GetValue(0).ToString();
-        //                    break;
-        //                case WebServiceMacroFormatTypeEnum.LastValue:
-        //                    LastFormattedValue = arr.GetValue(arr.Length - 1).ToString();
-        //                    break;
-        //                case WebServiceMacroFormatTypeEnum.Sum:
-        //                    double sum = 0;
-        //                    foreach (var arrEntry in arr)
-        //                    {
-        //                        if (arrEntry.IsNumber())
-        //                            sum += double.Parse(arrEntry.ToString());
-        //                    }
-        //                    LastFormattedValue = sum.ToString();
-        //                    break;
-        //                default:
-        //                    if (CheckValueArrayIndex > 0 && CheckValueArrayIndex < arr.Length)
-        //                        LastFormattedValue = arr.GetValue(CheckValueArrayIndex).ToString();
-        //                    else
-        //                        LastFormattedValue = arr.GetValue(0).ToString();
-        //                    break;
-        //            }
-        //            result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
-        //            break;
-        //            #endregion
-        //        case WebServiceValueExpectedReturnTypeEnum.DataSet:
-        //            #region DataSet
-        //            if (!(value is System.Data.DataSet))
-        //                throw new Exception("Returned value is not a DataSet!");
-        //            else
-        //            {
-        //                System.Data.DataSet ds = (System.Data.DataSet)value;
-        //                if (ds.Tables.Count == 0)
-        //                    throw new Exception("DataSet contains no tables!");
-        //                else
-        //                {
-        //                    System.Data.DataTable tab = ds.Tables[0];
-        //                    switch (MacroFormatType)
-        //                    {
-        //                        case WebServiceMacroFormatTypeEnum.Count:
-        //                            LastFormattedValue = tab.Rows.Count.ToString();
-        //                            break;
-        //                        case WebServiceMacroFormatTypeEnum.FirstValue:
-        //                            LastFormattedValue = tab.Rows[0][0].ToString();
-        //                            break;
-        //                        case WebServiceMacroFormatTypeEnum.LastValue:
-        //                            LastFormattedValue = tab.Rows[tab.Rows.Count - 1][tab.Columns.Count - 1].ToString();
-        //                            break;
-        //                        default:
-        //                            if (CheckValueArrayIndex >= 0 && CheckValueArrayIndex < tab.Rows.Count && CheckValueColumnIndex >= 0 && CheckValueColumnIndex < tab.Columns.Count)
-        //                                LastFormattedValue = tab.Rows[CheckValueArrayIndex][CheckValueColumnIndex].ToString();
-        //                            else
-        //                                LastFormattedValue = tab.Rows[0][0].ToString();
-        //                            break;
-        //                    }
-        //                }
-        //                result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
-        //            }
-        //            break;
-        //            #endregion
-        //        default:
-        //            throw new Exception("Expected return value type not specified!");
-        //    }
-        //    return (ResultIsSuccess == result) ? CollectorState.Good : CollectorState.Error;
-        //}
-        //private bool TestValueWithMacro(string value, string macroOrTestValue)
-        //{
-        //    bool result = false;
-        //    if (UseRegEx)
-        //    {
-        //        System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(value, macroOrTestValue, System.Text.RegularExpressions.RegexOptions.Multiline);
-        //        result = match.Success;
-        //    }
-        //    else
-        //    {
-        //        if (!macroOrTestValue.StartsWith("[")) //compare raw value
-        //        {
-        //            result = value.ToString() == macroOrTestValue;
-        //        }
-        //        else if (macroOrTestValue.ToLower().StartsWith("[between]") && macroOrTestValue.ToLower().Contains("[and]"))
-        //        {
-        //            string[] queryItems = macroOrTestValue.Split(' ');
-        //            if (value.IsNumber() && queryItems.Length == 4 && queryItems[1].IsNumber() && queryItems[3].IsNumber())
-        //                result = (double.Parse(queryItems[1]) < double.Parse(value.ToString()))
-        //                    && (double.Parse(value.ToString()) < double.Parse(queryItems[3]));
-        //            else
-        //                throw new Exception("Value is not a number or macro syntax invalid!");
-        //        }
-        //        else if (macroOrTestValue.ToLower().StartsWith("[largerthan]"))
-        //        {
-        //            string macroValue = macroOrTestValue.ToLower().Replace("[largerthan]", "").Trim();
-        //            if (value.IsNumber() && macroValue.IsNumber())
-        //                result = (double.Parse(macroValue) < double.Parse(value.ToString()));
-        //            else
-        //                throw new Exception("Value is not a number or check value contains invalid macro!");
-        //        }
-        //        else if (macroOrTestValue.ToLower().StartsWith("[smallerthan]"))
-        //        {
-        //            string macroValue = macroOrTestValue.ToLower().Replace("[smallerthan]", "").Trim();
-        //            if (value.IsNumber() && macroValue.IsNumber())
-        //                result = (double.Parse(macroValue) > double.Parse(value.ToString()));
-        //            else
-        //                throw new Exception("Value is not a number or check value cotains invalid macro!");
-        //        }
-        //        else if (macroOrTestValue.ToLower().StartsWith("[contains]"))
-        //        {
-        //            string macroValue = macroOrTestValue.ToLower().Replace("[contains]", "").Trim();
-        //            if (macroValue.StartsWith(" "))
-        //                macroValue = macroValue.Substring(1);
-        //            result = value.ToLower().Contains(macroValue);
-        //        }
-        //        else if (macroOrTestValue.ToLower().StartsWith("[beginswith]"))
-        //        {
-        //            string macroValue = macroOrTestValue.ToLower().Replace("[beginswith]", "").Trim();
-        //            if (macroValue.StartsWith(" "))
-        //                macroValue = macroValue.Substring(1);
-        //            result = value.ToLower().StartsWith(macroValue);
-        //        }
-        //        else if (macroOrTestValue.ToLower().StartsWith("[endswith]"))
-        //        {
-        //            string macroValue = macroOrTestValue.ToLower().Replace("[endswith]", "").Trim();
-        //            if (macroValue.StartsWith(" "))
-        //                macroValue = macroValue.Substring(1);
-        //            result = value.ToLower().EndsWith(macroValue);
-        //        }
-        //    }
-        //    return result;
-        //}
-
-
     }
 }
