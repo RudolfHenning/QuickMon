@@ -61,6 +61,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtHttpProxy = new System.Windows.Forms.TextBox();
             this.socketPingGroupBox = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtSocketPingMsgBody = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUserName = new System.Windows.Forms.TextBox();
@@ -76,8 +78,7 @@
             this.nudPortNumber = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label21 = new System.Windows.Forms.Label();
-            this.txtSocketPingMsgBody = new System.Windows.Forms.TextBox();
+            this.chkVerifyOnOK = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -97,7 +98,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(368, 482);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 5;
+            this.cmdCancel.TabIndex = 6;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -109,7 +110,7 @@
             this.cmdOK.Location = new System.Drawing.Point(287, 482);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 4;
+            this.cmdOK.TabIndex = 5;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -135,13 +136,13 @@
             // 
             // cmdTestAddress
             // 
-            this.cmdTestAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdTestAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTestAddress.Enabled = false;
             this.cmdTestAddress.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTestAddress.Location = new System.Drawing.Point(7, 482);
+            this.cmdTestAddress.Location = new System.Drawing.Point(214, 482);
             this.cmdTestAddress.Name = "cmdTestAddress";
             this.cmdTestAddress.Size = new System.Drawing.Size(67, 23);
-            this.cmdTestAddress.TabIndex = 3;
+            this.cmdTestAddress.TabIndex = 4;
             this.cmdTestAddress.Text = "Test";
             this.cmdTestAddress.UseVisualStyleBackColor = true;
             this.cmdTestAddress.Click += new System.EventHandler(this.cmdTestAddress_Click);
@@ -454,6 +455,24 @@
             this.socketPingGroupBox.TabStop = false;
             this.socketPingGroupBox.Text = "Socket Ping";
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(11, 100);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(66, 13);
+            this.label21.TabIndex = 9;
+            this.label21.Text = "Text to send";
+            // 
+            // txtSocketPingMsgBody
+            // 
+            this.txtSocketPingMsgBody.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSocketPingMsgBody.Location = new System.Drawing.Point(103, 97);
+            this.txtSocketPingMsgBody.Name = "txtSocketPingMsgBody";
+            this.txtSocketPingMsgBody.Size = new System.Drawing.Size(331, 20);
+            this.txtSocketPingMsgBody.TabIndex = 10;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.txtPassword);
@@ -626,23 +645,19 @@
             this.label15.TabIndex = 0;
             this.label15.Text = "Port number";
             // 
-            // label21
+            // chkVerifyOnOK
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(11, 100);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(66, 13);
-            this.label21.TabIndex = 9;
-            this.label21.Text = "Text to send";
-            // 
-            // txtSocketPingMsgBody
-            // 
-            this.txtSocketPingMsgBody.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSocketPingMsgBody.Location = new System.Drawing.Point(103, 97);
-            this.txtSocketPingMsgBody.Name = "txtSocketPingMsgBody";
-            this.txtSocketPingMsgBody.Size = new System.Drawing.Size(331, 20);
-            this.txtSocketPingMsgBody.TabIndex = 10;
+            this.chkVerifyOnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkVerifyOnOK.AutoSize = true;
+            this.chkVerifyOnOK.Checked = true;
+            this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkVerifyOnOK.Location = new System.Drawing.Point(87, 486);
+            this.chkVerifyOnOK.Name = "chkVerifyOnOK";
+            this.chkVerifyOnOK.Size = new System.Drawing.Size(123, 17);
+            this.chkVerifyOnOK.TabIndex = 3;
+            this.chkVerifyOnOK.Text = "Test on clicking \'OK\'";
+            this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkVerifyOnOK.UseVisualStyleBackColor = true;
             // 
             // PingCollectorEditHostAddress
             // 
@@ -651,6 +666,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(455, 517);
+            this.Controls.Add(this.chkVerifyOnOK);
             this.Controls.Add(this.socketPingGroupBox);
             this.Controls.Add(this.httpGroupBox);
             this.Controls.Add(this.groupBox1);
@@ -679,6 +695,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudReceiveTimeout)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPortNumber)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -732,5 +749,6 @@
         private System.Windows.Forms.TextBox txtHTMLContent;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox txtSocketPingMsgBody;
+        private System.Windows.Forms.CheckBox chkVerifyOnOK;
     }
 }

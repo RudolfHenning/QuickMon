@@ -43,13 +43,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cmdEditPerfCounter = new System.Windows.Forms.Button();
             this.txtPerfCounter = new System.Windows.Forms.TextBox();
-            this.cmdSample = new System.Windows.Forms.Button();
             this.optCustom = new System.Windows.Forms.RadioButton();
             this.cboPerformanceCounter = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtComputerName = new System.Windows.Forms.TextBox();
             this.lblComputerName = new System.Windows.Forms.Label();
             this.optCommon = new System.Windows.Forms.RadioButton();
+            this.cmdSample = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.errorNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -60,6 +60,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.chkVerifyOnOK = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudValueScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMultiSampleWaitMS)).BeginInit();
@@ -87,7 +88,6 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cmdEditPerfCounter);
             this.groupBox1.Controls.Add(this.txtPerfCounter);
-            this.groupBox1.Controls.Add(this.cmdSample);
             this.groupBox1.Controls.Add(this.optCustom);
             this.groupBox1.Controls.Add(this.cboPerformanceCounter);
             this.groupBox1.Controls.Add(this.label2);
@@ -260,18 +260,6 @@
             this.txtPerfCounter.TabIndex = 7;
             this.txtPerfCounter.TextChanged += new System.EventHandler(this.txtPerfCounter_TextChanged);
             // 
-            // cmdSample
-            // 
-            this.cmdSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSample.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdSample.Location = new System.Drawing.Point(460, 13);
-            this.cmdSample.Name = "cmdSample";
-            this.cmdSample.Size = new System.Drawing.Size(54, 23);
-            this.cmdSample.TabIndex = 9;
-            this.cmdSample.Text = "Test";
-            this.cmdSample.UseVisualStyleBackColor = true;
-            this.cmdSample.Click += new System.EventHandler(this.cmdSample_Click);
-            // 
             // optCustom
             // 
             this.optCustom.AutoSize = true;
@@ -333,6 +321,18 @@
             this.optCommon.Text = "Common";
             this.optCommon.UseVisualStyleBackColor = true;
             this.optCommon.CheckedChanged += new System.EventHandler(this.optCommon_CheckedChanged);
+            // 
+            // cmdSample
+            // 
+            this.cmdSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSample.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSample.Location = new System.Drawing.Point(280, 336);
+            this.cmdSample.Name = "cmdSample";
+            this.cmdSample.Size = new System.Drawing.Size(75, 23);
+            this.cmdSample.TabIndex = 4;
+            this.cmdSample.Text = "Test";
+            this.cmdSample.UseVisualStyleBackColor = true;
+            this.cmdSample.Click += new System.EventHandler(this.cmdSample_Click);
             // 
             // groupBox2
             // 
@@ -414,7 +414,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(442, 336);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 4;
+            this.cmdCancel.TabIndex = 6;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -426,7 +426,7 @@
             this.cmdOK.Location = new System.Drawing.Point(361, 336);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 3;
+            this.cmdOK.TabIndex = 5;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -473,17 +473,33 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Output unit";
             // 
+            // chkVerifyOnOK
+            // 
+            this.chkVerifyOnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkVerifyOnOK.AutoSize = true;
+            this.chkVerifyOnOK.Checked = true;
+            this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkVerifyOnOK.Location = new System.Drawing.Point(151, 340);
+            this.chkVerifyOnOK.Name = "chkVerifyOnOK";
+            this.chkVerifyOnOK.Size = new System.Drawing.Size(123, 17);
+            this.chkVerifyOnOK.TabIndex = 3;
+            this.chkVerifyOnOK.Text = "Test on clicking \'OK\'";
+            this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkVerifyOnOK.UseVisualStyleBackColor = true;
+            // 
             // PerfCounterCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(529, 371);
+            this.Controls.Add(this.chkVerifyOnOK);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.cmdSample);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -504,6 +520,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -540,5 +557,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown nudValueScale;
         private System.Windows.Forms.CheckBox chkInverseScale;
+        private System.Windows.Forms.CheckBox chkVerifyOnOK;
     }
 }

@@ -99,19 +99,19 @@ namespace QuickMon.UI
            //     MessageBox.Show("Directory must exist and be accessible!", "Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
            // }
             //else 
-            if (optCounts.Checked && numericUpDownCountWarningIndicator.Value == numericUpDownCountErrorIndicator.Value && numericUpDownCountWarningIndicator.Value > 0)
+            if (chkVerifyOnOK.Checked && optCounts.Checked && numericUpDownCountWarningIndicator.Value == numericUpDownCountErrorIndicator.Value && numericUpDownCountWarningIndicator.Value > 0)
             {
                 MessageBox.Show("Error and warning file count values cannot the same!", "Warnings/Errors", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (optCounts.Checked && numericUpDownSizeWarningIndicator.Value == numericUpDownSizeErrorIndicator.Value && numericUpDownSizeWarningIndicator.Value > 0)
+            else if (chkVerifyOnOK.Checked && optCounts.Checked && numericUpDownSizeWarningIndicator.Value == numericUpDownSizeErrorIndicator.Value && numericUpDownSizeWarningIndicator.Value > 0)
             {
                 MessageBox.Show("Error and warning file size values cannot be the same!", "Warnings/Errors", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (!optDirectoryExistOnly.Checked && numericUpDownFileAgeMin.Value > numericUpDownFileAgeMax.Value && numericUpDownFileAgeMax.Value > 0)
+            else if (chkVerifyOnOK.Checked && !optDirectoryExistOnly.Checked && numericUpDownFileAgeMin.Value > numericUpDownFileAgeMax.Value && numericUpDownFileAgeMax.Value > 0)
             {
                 MessageBox.Show("File age warning filter value cannot be more than the error value!", "Filters", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (!optDirectoryExistOnly.Checked && numericUpDownFileSizeMin.Value > numericUpDownFileSizeMax.Value && numericUpDownFileSizeMax.Value > 0)
+            else if (chkVerifyOnOK.Checked && !optDirectoryExistOnly.Checked && numericUpDownFileSizeMin.Value > numericUpDownFileSizeMax.Value && numericUpDownFileSizeMax.Value > 0)
             {
                 MessageBox.Show("File size warning filter value cannot be more than the error value!", "Filters", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }

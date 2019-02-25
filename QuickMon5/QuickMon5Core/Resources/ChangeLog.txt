@@ -89,3 +89,8 @@ Added Jumplist shortcuts - Shortcuts available on right-click on the Windows Tas
 Version 5.1.1
 **************
 Fix to Web Service collector to display actual value used for testing alert
+
+--------------
+Version 5.1.2
+**************
+Add option to 'not check' URL on exit(ok button) when editing config to Ping, Performance counter and file system collectors.

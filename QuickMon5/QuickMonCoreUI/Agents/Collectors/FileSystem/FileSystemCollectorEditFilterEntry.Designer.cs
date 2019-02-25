@@ -80,13 +80,14 @@
             this.chkShowFilenamesInDetails = new System.Windows.Forms.CheckBox();
             this.cmdTest = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblFistWithTopWarning = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.topFileNameCountInDetailsNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.ShowFileCountAndSizeInOutputValue = new System.Windows.Forms.RadioButton();
             this.optShowFileSizeInOutputValue = new System.Windows.Forms.RadioButton();
             this.optShowFileCountInOutputValue = new System.Windows.Forms.RadioButton();
-            this.lblFistWithTopWarning = new System.Windows.Forms.Label();
+            this.chkVerifyOnOK = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileAgeMax)).BeginInit();
@@ -279,7 +280,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(518, 430);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 5;
+            this.cmdCancel.TabIndex = 6;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -290,7 +291,7 @@
             this.cmdOK.Location = new System.Drawing.Point(437, 430);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 4;
+            this.cmdOK.TabIndex = 5;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -678,7 +679,7 @@
             this.cmdTest.Location = new System.Drawing.Point(356, 430);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
-            this.cmdTest.TabIndex = 3;
+            this.cmdTest.TabIndex = 4;
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
@@ -701,6 +702,17 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Display/Output";
+            // 
+            // lblFistWithTopWarning
+            // 
+            this.lblFistWithTopWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFistWithTopWarning.ForeColor = System.Drawing.Color.Maroon;
+            this.lblFistWithTopWarning.Location = new System.Drawing.Point(6, 40);
+            this.lblFistWithTopWarning.Name = "lblFistWithTopWarning";
+            this.lblFistWithTopWarning.Size = new System.Drawing.Size(383, 18);
+            this.lblFistWithTopWarning.TabIndex = 6;
+            this.lblFistWithTopWarning.Text = "Warning: specifying List file names with a large \'Top\' value can slow down the co" +
+    "llector!";
             // 
             // label23
             // 
@@ -766,16 +778,19 @@
             this.optShowFileCountInOutputValue.Text = "File count";
             this.optShowFileCountInOutputValue.UseVisualStyleBackColor = true;
             // 
-            // lblFistWithTopWarning
+            // chkVerifyOnOK
             // 
-            this.lblFistWithTopWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFistWithTopWarning.ForeColor = System.Drawing.Color.Maroon;
-            this.lblFistWithTopWarning.Location = new System.Drawing.Point(6, 40);
-            this.lblFistWithTopWarning.Name = "lblFistWithTopWarning";
-            this.lblFistWithTopWarning.Size = new System.Drawing.Size(383, 18);
-            this.lblFistWithTopWarning.TabIndex = 6;
-            this.lblFistWithTopWarning.Text = "Warning: specifying List file names with a large \'Top\' value can slow down the co" +
-    "llector!";
+            this.chkVerifyOnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkVerifyOnOK.AutoSize = true;
+            this.chkVerifyOnOK.Checked = true;
+            this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkVerifyOnOK.Location = new System.Drawing.Point(226, 434);
+            this.chkVerifyOnOK.Name = "chkVerifyOnOK";
+            this.chkVerifyOnOK.Size = new System.Drawing.Size(123, 17);
+            this.chkVerifyOnOK.TabIndex = 3;
+            this.chkVerifyOnOK.Text = "Test on clicking \'OK\'";
+            this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkVerifyOnOK.UseVisualStyleBackColor = true;
             // 
             // FileSystemCollectorEditFilterEntry
             // 
@@ -783,6 +798,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(604, 464);
+            this.Controls.Add(this.chkVerifyOnOK);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.cmdTest);
             this.Controls.Add(this.groupBox2);
@@ -814,6 +830,7 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.topFileNameCountInDetailsNumericUpDown)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -877,5 +894,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.NumericUpDown topFileNameCountInDetailsNumericUpDown;
         private System.Windows.Forms.Label lblFistWithTopWarning;
+        private System.Windows.Forms.CheckBox chkVerifyOnOK;
     }
 }

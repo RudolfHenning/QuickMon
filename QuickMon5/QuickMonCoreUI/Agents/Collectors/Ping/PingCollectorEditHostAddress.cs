@@ -131,11 +131,11 @@ namespace QuickMon.UI
         }
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            if (txtAddress.Text.Length == 0)
+            if (chkVerifyOnOK.Checked && txtAddress.Text.Length == 0)
             {
                 txtAddress.Focus();
             }
-            else if (RunPingTestWithPrompt().State == CollectorState.Good)
+            else if (!chkVerifyOnOK.Checked || RunPingTestWithPrompt().State == CollectorState.Good)
             {
                 if (cboPingType.SelectedIndex == 1)
                     HostEntry.PingType = PingCollectorType.HTTP;

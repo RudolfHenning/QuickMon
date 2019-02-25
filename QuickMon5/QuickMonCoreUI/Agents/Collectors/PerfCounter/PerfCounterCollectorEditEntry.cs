@@ -79,19 +79,71 @@ namespace QuickMon.UI
             cboOutputValueUnit.Text = currentEntry.OutputValueUnit;
             CheckOkEnabled();
         }
-        private bool IsValid()
+        private bool IsValid(bool showPrompt = false)
         {
-            if (warningNumericUpDown.Value == errorNumericUpDown.Value)
+            bool success = false;
+            try
             {
-                MessageBox.Show("Warning and Error values vannot be the same!", "Valid", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
+                if (warningNumericUpDown.Value == errorNumericUpDown.Value)
+                {
+                    if (showPrompt)
+                        MessageBox.Show("Warning and Error values vannot be the same!", "Valid", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    success = false;
+                }
+                else if (warningNumericUpDown.Value < errorNumericUpDown.Value && warningNumericUpDown.Value == 0)
+                {
+                    if (showPrompt)
+                        MessageBox.Show("Warning value cannot be 0 if it is less than the Error value!", "Valid", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    success = false;
+                }
+                else
+                {
+                    PerfCounterCollectorEntry currentEntry = null;
+                    string computerName = ApplyConfigVarsOnField(txtComputerName.Text);
+                    string perfCounterText = ApplyConfigVarsOnField(txtPerfCounter.Text);
+                    if (optCommon.Checked)
+                    {
+                        currentEntry = PerfCounterCollectorEntry.FromStringDefinition(computerName + "\\" + cboPerformanceCounter.Text);
+                    }
+                    else
+                    {
+                        currentEntry = PerfCounterCollectorEntry.FromStringDefinition(perfCounterText);
+                    }
+                    if (currentEntry == null || currentEntry.Computer.Length == 0)
+                    {
+                        if (showPrompt)
+                            MessageBox.Show("Performance counter definition could not be created!", "Definition", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        success = false;
+                    }
+                    else
+                    {
+                        success = true;
+                        currentEntry.WarningValue = (float)warningNumericUpDown.Value;
+                        currentEntry.ErrorValue = (float)errorNumericUpDown.Value;
+                        currentEntry.OutputValueScaleFactor = (int)nudValueScale.Value;
+                        currentEntry.OutputValueScaleFactorInverse = chkInverseScale.Checked;
+                        currentEntry.NumberOfSamplesPerRefresh = (int)nudNumberOfSamplesPerRefresh.Value;
+                        currentEntry.MultiSampleWaitMS = (int)nudMultiSampleWaitMS.Value;
+                        currentEntry.OutputValueUnit = cboOutputValueUnit.Text;
+
+                        MonitorState currentState = currentEntry.GetCurrentState();
+                        float val = float.Parse(currentState.CurrentValue.ToString());// currentEntry.GetNextValue();
+
+                        if (showPrompt)
+                            MessageBox.Show(string.Format("Test was successful\r\n{0}", currentState.ReadAllRawDetails()), "Performance counter test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        //Clipboard.SetText(val.ToString("F4"));
+                        //MessageBox.Show(string.Format("Current value: {0}", val.ToString("F4")), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
             }
-            else if (warningNumericUpDown.Value < errorNumericUpDown.Value && warningNumericUpDown.Value == 0)
+            catch(Exception ex)
             {
-                MessageBox.Show("Warning value cannot be 0 if it is less than the Error value!", "Valid", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
+                if (showPrompt)
+                    MessageBox.Show(ex.Message, "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                success = false;
             }
-            return true;
+            return success;
         }
         private void CheckOkEnabled()
         {
@@ -147,7 +199,7 @@ namespace QuickMon.UI
         {
             try
             {
-                if (IsValid())
+                if (!chkVerifyOnOK.Checked || IsValid())
                 {
                     PerfCounterCollectorEntry currentEntry = null;
                     if (optCommon.Checked)
@@ -182,33 +234,35 @@ namespace QuickMon.UI
         }
         private void cmdSample_Click(object sender, EventArgs e)
         {
-            try
-            {
-                PerfCounterCollectorEntry currentEntry = null;
-                string computerName = ApplyConfigVarsOnField(txtComputerName.Text);
-                string perfCounterText = ApplyConfigVarsOnField(txtPerfCounter.Text);
-                if (optCommon.Checked)
-                {
-                    currentEntry = PerfCounterCollectorEntry.FromStringDefinition(computerName + "\\" + cboPerformanceCounter.Text);
-                }
-                else
-                {
-                    currentEntry = PerfCounterCollectorEntry.FromStringDefinition(perfCounterText);
-                }
-                if (currentEntry == null || currentEntry.Computer.Length == 0)
-                    MessageBox.Show("Performance counter definition could not be created!", "Definition", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else
-                {
-                    float val = currentEntry.GetNextValue();
-                    Clipboard.SetText(val.ToString("F4"));
-                    MessageBox.Show(string.Format("Current value: {0}", val.ToString("F4")), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            IsValid(true);
+            //try
+            //{
+            //    PerfCounterCollectorEntry currentEntry = null;
+            //    string computerName = ApplyConfigVarsOnField(txtComputerName.Text);
+            //    string perfCounterText = ApplyConfigVarsOnField(txtPerfCounter.Text);
+            //    if (optCommon.Checked)
+            //    {
+            //        currentEntry = PerfCounterCollectorEntry.FromStringDefinition(computerName + "\\" + cboPerformanceCounter.Text);
+            //    }
+            //    else
+            //    {
+            //        currentEntry = PerfCounterCollectorEntry.FromStringDefinition(perfCounterText);
+            //    }
+            //    if (currentEntry == null || currentEntry.Computer.Length == 0)
+            //        MessageBox.Show("Performance counter definition could not be created!", "Definition", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    else
+            //    {
+            //        float val = currentEntry.GetNextValue();
+            //        Clipboard.SetText(val.ToString("F4"));
+            //        MessageBox.Show(string.Format("Current value: {0}", val.ToString("F4")), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
+        
         #endregion
 
     }

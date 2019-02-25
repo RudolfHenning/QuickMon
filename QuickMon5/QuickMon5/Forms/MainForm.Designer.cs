@@ -1150,13 +1150,14 @@ namespace QuickMon
             // 
             // cboRecentMonitorPacks
             // 
-            this.cboRecentMonitorPacks.DropDownHeight = 200;
+            this.cboRecentMonitorPacks.DropDownHeight = 250;
             this.cboRecentMonitorPacks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboRecentMonitorPacks.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboRecentMonitorPacks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.cboRecentMonitorPacks.FormattingEnabled = true;
             this.cboRecentMonitorPacks.IntegralHeight = false;
             this.cboRecentMonitorPacks.Location = new System.Drawing.Point(0, 0);
+            this.cboRecentMonitorPacks.MaxDropDownItems = 16;
             this.cboRecentMonitorPacks.Name = "cboRecentMonitorPacks";
             this.cboRecentMonitorPacks.Size = new System.Drawing.Size(120, 24);
             this.cboRecentMonitorPacks.TabIndex = 4;
