@@ -41,7 +41,9 @@ namespace QuickMon
                     IndentChars = "  ",
                     NewLineChars = "\r\n",
                     NewLineHandling = System.Xml.NewLineHandling.Replace,
-                    Encoding = new UTF8Encoding(false)
+                    Encoding = new UTF8Encoding(false),
+                    OmitXmlDeclaration = true
+                   
                     //,                    ConformanceLevel = System.Xml.ConformanceLevel.Document
                 };
                 using (System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(memoryStream, settings))
@@ -49,6 +51,7 @@ namespace QuickMon
                     doc.Save(writer);
                 }
                 formattedStr = Encoding.UTF8.GetString(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
+                //formattedStr = formattedStr.Replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n", "");
                 //formattedStr = sb.ToString();
             }
             catch { formattedStr = unformattedXML; }

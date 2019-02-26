@@ -13,6 +13,7 @@ namespace QuickMon
         public string ForClass { get; set; }
         public string Description { get; set; }
         public string Config { get; set; }
+        public static string LastError { get; set; } = "";
 
         #region Get Template lists
         public static List<QuickMonTemplate> GetAllTemplates()
@@ -41,7 +42,10 @@ namespace QuickMon
                         catch { }
                     }
                 }
-                catch { }
+                catch(Exception ex)
+                {
+                    LastError = ex.Message;
+                }
             }
             return list;
         }
