@@ -305,11 +305,15 @@ namespace QuickMon.Collectors
 
         public string RunScript()
         {
-            return RunScript(TestScript);
+            if (TestScript.StartsWith("#UseExitCode")) //.ToUpper().Contains("$LASTEXITCODE"))
+                return RunScriptWithExitCode(TestScript);
+            else 
+                return RunScript(TestScript);
         }
         public static string RunScript(string testScript)
         {
             string output = "";
+            string errorLogged = "";
             try
             {
                 Collection<PSObject> results = null;
@@ -319,6 +323,7 @@ namespace QuickMon.Collectors
 
                     // open it
                     runspace.Open();
+                    runspace.StateChanged += Runspace_StateChanged;
                     // create a pipeline and feed it the script text
 
                     using (Pipeline pipeline = runspace.CreatePipeline())
@@ -341,13 +346,130 @@ namespace QuickMon.Collectors
                         {
                             results = pipeline.Invoke();
                         }
-                    }
-                    // close the runspace
 
+                        if (pipeline.HadErrors)
+                        {
+                            PipelineReader<object> errs = pipeline.Error;
+                            if (errs.Count > 0)
+                            {
+                                for (int i = 0; i < errs.Count; i++)
+                                {
+                                    errorLogged += errs.Read().ToString() + "\r\n";
+                                }
+                                System.Diagnostics.Trace.WriteLine($"Error: {errs.Read()}");
+                            }                                
+                        }
+                    }                   
+
+                    // close the runspace
                     runspace.Close();
                 }
+
                 // convert the script result into a single string
                 StringBuilder stringBuilder = new StringBuilder();
+                if (results != null)
+                {
+                    foreach (PSObject obj in results)
+                    {
+                        if (obj != null)
+                            stringBuilder.AppendLine(obj.ToString());
+                        else
+                            stringBuilder.AppendLine("[null]");
+                    }                    
+                }
+                else
+                {
+                    stringBuilder.AppendLine("[null]");
+                }
+                if (errorLogged.Length > 0)
+                {
+                    stringBuilder.AppendLine($"Exception(s):{errorLogged}");
+                }
+                output = stringBuilder.ToString();                
+            }
+            catch (Exception ex)
+            {
+                output = ex.ToString();
+            }
+            return output.Trim('\r', '\n');
+        }
+        public static string RunScriptWithExitCode(string testScript)
+        {
+            string output = "";
+            string errorLogged = "";
+            try
+            {
+                //in order to ensure there is an exit code wrap it inside a PowerShell {} block
+
+                testScript = "PowerShell {\r\n" + testScript + "\r\n}";//\r\n\"Exit code : $LASTEXITCODE\"";
+
+                Collection<PSObject> results = null;
+                Collection<PSObject> exitCodeResults = null;
+                // create Powershell runspace
+                using (Runspace runspace = RunspaceFactory.CreateRunspace())
+                {
+                    // open it
+                    runspace.Open();
+                    runspace.StateChanged += Runspace_StateChanged;
+                    // create a pipeline and feed it the script text
+
+                    using (Pipeline pipeline = runspace.CreatePipeline())
+                    {
+                        pipeline.Commands.AddScript(testScript);
+                        //pipeline.Commands.AddScript("$LASTEXITCODE");
+
+                        // add an extra command to transform the script
+                        // output objects into nicely formatted strings
+
+                        // remove this line to get the actual objects
+                        // that the script returns. For example, the script
+
+                        // "Get-Process" returns a collection
+                        // of System.Diagnostics.Process instances.
+
+                        pipeline.Commands.Add("Out-String");
+                        //pipeline.Commands.Add("$LASTEXITCODE");
+                        //pipeline.Commands.AddScript("$LASTEXITCODE");
+
+                        // execute the script
+                        lock (lockObject)
+                        {
+                            results = pipeline.Invoke();
+                        }
+
+                        if (pipeline.HadErrors)
+                        {
+                            PipelineReader<object> errs = pipeline.Error;
+                            if (errs.Count > 0)
+                            {
+                                for (int i = 0; i < errs.Count; i++)
+                                {
+                                    errorLogged += errs.Read().ToString() + "\r\n";
+                                }
+                                System.Diagnostics.Trace.WriteLine($"Error: {errs.Read()}");
+                            }
+                        }
+                    }
+                    using (Pipeline pipeline = runspace.CreatePipeline())
+                    {
+                        pipeline.Commands.AddScript("$LASTEXITCODE");
+                        pipeline.Commands.Add("Out-String");
+                        // execute the script
+                        lock (lockObject)
+                        {
+                            exitCodeResults = pipeline.Invoke();
+                        }
+                    }
+
+                    // close the runspace
+                    runspace.Close();
+                }
+
+                // convert the script result into a single string
+                StringBuilder stringBuilder = new StringBuilder();
+
+                
+
                 if (results != null)
                 {
                     foreach (PSObject obj in results)
@@ -362,7 +484,29 @@ namespace QuickMon.Collectors
                 {
                     stringBuilder.AppendLine("[null]");
                 }
+                if (errorLogged.Length > 0)
+                {
+                    stringBuilder.AppendLine($"Exception(s):{errorLogged}");
+                }
+
+                if (exitCodeResults != null)
+                {
+                    foreach (PSObject obj in exitCodeResults)
+                    {
+                        if (obj != null && obj.ToString() != "")
+                        {
+                            stringBuilder.AppendLine($"Exit code : {obj}");
+                            System.Diagnostics.Trace.WriteLine($"Exit code : {obj}");
+                        }
+                    }
+                }
+                else
+                {
+                    stringBuilder.AppendLine($"Exit code : 0");
+                }
+
                 output = stringBuilder.ToString();
+
             }
             catch (Exception ex)
             {
@@ -370,6 +514,13 @@ namespace QuickMon.Collectors
             }
             return output.Trim('\r', '\n');
         }
+
+        private static void Runspace_StateChanged(object sender, RunspaceStateEventArgs e)
+        {
+            System.Diagnostics.Trace.WriteLine($"Sender: {sender}");
+            System.Diagnostics.Trace.WriteLine($"State: {e.RunspaceStateInfo.State}");
+        }
+
         public CollectorState GetState(string scriptResultText)
         {
             return CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
