@@ -269,6 +269,11 @@ namespace QuickMon.UI
                 try
                 {
                     WSCollectorConfigEntry textEntry = new WSCollectorConfigEntry();
+
+                    string successVal = ApplyConfigVarsOnField(txtSuccess.Text);
+                    string warningVal = ApplyConfigVarsOnField(txtWarning.Text);
+                    string errorVal = ApplyConfigVarsOnField(txtError.Text);
+
                     textEntry.ServiceBaseURL = txtServiceURL.Text;
                     textEntry.ServiceBindingName = cboEndPoint.Text;
                     textEntry.MethodName = cboMethodName.Text;
@@ -282,11 +287,11 @@ namespace QuickMon.UI
                     textEntry.CheckValueColumnIndex = (int)dataSetColumnNumericUpDown.Value;
 
                     textEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
-                    textEntry.GoodScriptText = txtSuccess.Text;
+                    textEntry.GoodScriptText = successVal;
                     textEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
-                    textEntry.WarningScriptText = txtWarning.Text;
+                    textEntry.WarningScriptText = warningVal;
                     textEntry.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
-                    textEntry.ErrorScriptText = txtError.Text;
+                    textEntry.ErrorScriptText = errorVal;
                     textEntry.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
 
                     lastStep = "Running GetCurrentState";

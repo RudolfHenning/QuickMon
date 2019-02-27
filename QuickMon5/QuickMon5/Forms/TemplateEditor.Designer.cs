@@ -57,6 +57,7 @@
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.llblVariableTip = new System.Windows.Forms.LinkLabel();
             this.cmdFormat = new System.Windows.Forms.Button();
             this.cmdSaveTemplate = new System.Windows.Forms.Button();
             this.chkWrapText = new System.Windows.Forms.CheckBox();
@@ -101,7 +102,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(816, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(904, 31);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.TabStop = true;
             // 
@@ -191,16 +192,16 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 442);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 469);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(816, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(904, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(801, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(889, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -220,8 +221,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.txtConfig);
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(816, 411);
-            this.splitContainer1.SplitterDistance = 367;
+            this.splitContainer1.Size = new System.Drawing.Size(904, 438);
+            this.splitContainer1.SplitterDistance = 405;
             this.splitContainer1.TabIndex = 4;
             // 
             // lvwTemplates
@@ -236,7 +237,7 @@
             this.lvwTemplates.FullRowSelect = true;
             this.lvwTemplates.Location = new System.Drawing.Point(0, 22);
             this.lvwTemplates.Name = "lvwTemplates";
-            this.lvwTemplates.Size = new System.Drawing.Size(367, 389);
+            this.lvwTemplates.Size = new System.Drawing.Size(405, 416);
             this.lvwTemplates.TabIndex = 0;
             this.lvwTemplates.UseCompatibleStateImageBehavior = false;
             this.lvwTemplates.View = System.Windows.Forms.View.Details;
@@ -264,7 +265,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(367, 22);
+            this.panel1.Size = new System.Drawing.Size(405, 22);
             this.panel1.TabIndex = 2;
             // 
             // cboTypeFilter
@@ -284,7 +285,7 @@
             "All"});
             this.cboTypeFilter.Location = new System.Drawing.Point(58, 0);
             this.cboTypeFilter.Name = "cboTypeFilter";
-            this.cboTypeFilter.Size = new System.Drawing.Size(309, 21);
+            this.cboTypeFilter.Size = new System.Drawing.Size(347, 21);
             this.cboTypeFilter.TabIndex = 1;
             this.cboTypeFilter.SelectedIndexChanged += new System.EventHandler(this.cboTypeFilter_SelectedIndexChanged);
             // 
@@ -322,7 +323,6 @@
             this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtConfig.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtConfig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtConfig.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtConfig.IsReplaceMode = false;
             this.txtConfig.Language = FastColoredTextBoxNS.Language.XML;
             this.txtConfig.LeftBracket = '<';
@@ -334,7 +334,7 @@
             this.txtConfig.RightBracket2 = ')';
             this.txtConfig.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtConfig.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtConfig.ServiceColors")));
-            this.txtConfig.Size = new System.Drawing.Size(445, 263);
+            this.txtConfig.Size = new System.Drawing.Size(495, 290);
             this.txtConfig.TabIndex = 3;
             this.txtConfig.WordWrap = true;
             this.txtConfig.Zoom = 100;
@@ -380,14 +380,27 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.llblVariableTip);
             this.panel3.Controls.Add(this.cmdFormat);
             this.panel3.Controls.Add(this.cmdSaveTemplate);
             this.panel3.Controls.Add(this.chkWrapText);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 375);
+            this.panel3.Location = new System.Drawing.Point(0, 402);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(445, 36);
+            this.panel3.Size = new System.Drawing.Size(495, 36);
             this.panel3.TabIndex = 2;
+            // 
+            // llblVariableTip
+            // 
+            this.llblVariableTip.AutoSize = true;
+            this.llblVariableTip.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblVariableTip.Location = new System.Drawing.Point(86, 11);
+            this.llblVariableTip.Name = "llblVariableTip";
+            this.llblVariableTip.Size = new System.Drawing.Size(64, 13);
+            this.llblVariableTip.TabIndex = 3;
+            this.llblVariableTip.TabStop = true;
+            this.llblVariableTip.Text = "Variables tip";
+            this.llblVariableTip.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblVariableTip_LinkClicked);
             // 
             // cmdFormat
             // 
@@ -395,7 +408,7 @@
             this.cmdFormat.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdFormat.Image = global::QuickMon.Properties.Resources.calculator;
             this.cmdFormat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdFormat.Location = new System.Drawing.Point(294, 6);
+            this.cmdFormat.Location = new System.Drawing.Point(344, 6);
             this.cmdFormat.Name = "cmdFormat";
             this.cmdFormat.Size = new System.Drawing.Size(70, 23);
             this.cmdFormat.TabIndex = 1;
@@ -410,7 +423,7 @@
             this.cmdSaveTemplate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdSaveTemplate.Image = global::QuickMon.Properties.Resources.save16x16;
             this.cmdSaveTemplate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdSaveTemplate.Location = new System.Drawing.Point(370, 6);
+            this.cmdSaveTemplate.Location = new System.Drawing.Point(420, 6);
             this.cmdSaveTemplate.Name = "cmdSaveTemplate";
             this.cmdSaveTemplate.Size = new System.Drawing.Size(63, 23);
             this.cmdSaveTemplate.TabIndex = 2;
@@ -446,7 +459,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(445, 112);
+            this.panel2.Size = new System.Drawing.Size(495, 112);
             this.panel2.TabIndex = 0;
             // 
             // txtDescription
@@ -456,7 +469,7 @@
             this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDescription.Location = new System.Drawing.Point(89, 83);
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(353, 20);
+            this.txtDescription.Size = new System.Drawing.Size(403, 20);
             this.txtDescription.TabIndex = 7;
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
@@ -479,7 +492,7 @@
             this.cboClass.FormattingEnabled = true;
             this.cboClass.Location = new System.Drawing.Point(89, 56);
             this.cboClass.Name = "cboClass";
-            this.cboClass.Size = new System.Drawing.Size(353, 21);
+            this.cboClass.Size = new System.Drawing.Size(403, 21);
             this.cboClass.TabIndex = 5;
             this.cboClass.SelectedIndexChanged += new System.EventHandler(this.cboClass_SelectedIndexChanged);
             this.cboClass.TextChanged += new System.EventHandler(this.cboClass_TextChanged);
@@ -500,7 +513,7 @@
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.Location = new System.Drawing.Point(89, 30);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(353, 20);
+            this.txtName.Size = new System.Drawing.Size(403, 20);
             this.txtName.TabIndex = 3;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -530,7 +543,7 @@
             "Notifier Agent"});
             this.cboType.Location = new System.Drawing.Point(89, 3);
             this.cboType.Name = "cboType";
-            this.cboType.Size = new System.Drawing.Size(353, 21);
+            this.cboType.Size = new System.Drawing.Size(403, 21);
             this.cboType.TabIndex = 1;
             this.cboType.SelectedIndexChanged += new System.EventHandler(this.cboType_SelectedIndexChanged);
             // 
@@ -562,11 +575,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(816, 464);
+            this.ClientSize = new System.Drawing.Size(904, 491);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "TemplateEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Templates Editor";
@@ -636,5 +650,6 @@
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem formatToolStripMenuItem;
+        private System.Windows.Forms.LinkLabel llblVariableTip;
     }
 }

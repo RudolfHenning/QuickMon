@@ -111,10 +111,17 @@ namespace QuickMon.UI
             lviEmptyCollector.Tag = new CollectorHost() { Name = "Folder" };
             lvwAgentType.Items.Add(lviEmptyCollector);
 
-            ListViewItem lviPingCollector = new ListViewItem("Ping");
-            lviPingCollector.SubItems.Add("Creates a collector with a Ping agent");
+            ListViewItem lviPingCollector = new ListViewItem("Ping (ICMP)");
+            lviPingCollector.SubItems.Add("Creates a collector with a Ping (ICMP) agent");
             lviPingCollector.Group = generalGroup;
-            lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Ping\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"Ping\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Ping\" address=\"localhost\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
+            //lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Ping\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"Ping\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Ping\" address=\"localhost\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
+            lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Ping [[MachineName:localhost]]\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"Ping [[MachineName:localhost]]\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Ping\" address=\"[[MachineName:localhost]]\" maxTimeMS=\"[[maxTimeMS:1000]]\" timeOutMS=\"[[timeOutMS:5000]]\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
+            lvwAgentType.Items.Add(lviPingCollector);
+
+            lviPingCollector = new ListViewItem("Ping (http)");
+            lviPingCollector.SubItems.Add("Creates a collector with a Ping (http) agent");
+            lviPingCollector.Group = generalGroup;
+            lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Ping [[MachineName:localhost]]\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"Ping [[MachineName:localhost]]\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Http\" address=\"http://[[MachineName:localhost]]\" maxTimeMS=\"[[maxTimeMS:1000]]\" timeOutMS=\"[[timeOutMS:5000]]\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
             lvwAgentType.Items.Add(lviPingCollector);
 
             ListViewGroup templatesGroup = new ListViewGroup("Templates");
@@ -284,6 +291,10 @@ namespace QuickMon.UI
                             configToUse = editor.SelectedMarkup;
                         }
                     }
+                    configToUse = FormatTemplateVariables(configToUse);
+                    if (configToUse.Length == 0)
+                        return;
+
                     MonitorPack mp = new MonitorPack();
                     mp.LoadXml(configToUse);
                     SelectedMonitorPack = mp;
@@ -311,6 +322,11 @@ namespace QuickMon.UI
                             configToUse = editor.SelectedMarkup;
                         }
                     }
+
+                    configToUse = FormatTemplateVariables(configToUse);
+                    if (configToUse.Length == 0)
+                        return;
+
                     CollectorHost cls = CollectorHost.FromXml(configToUse);
                     if (cls != null)
                     {
@@ -320,7 +336,7 @@ namespace QuickMon.UI
                     {
                         MessageBox.Show("The configuration for this template is invalid! Please correct and try again.", "Template", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
-                    } 
+                    }
                     #endregion
                 }
                 else if (selectingCollectorAgents || selectingNotifierAgents)
@@ -370,6 +386,11 @@ namespace QuickMon.UI
                                         configToUse = configNode.OuterXml;
                                     }
                                 }
+
+                                configToUse = FormatTemplateVariables(configToUse);
+                                if (configToUse.Length == 0)
+                                    return;
+
                                 SelectedAgent.AgentConfig.FromXml(configToUse);
                                 DialogResult = DialogResult.OK;
                                 Close();
@@ -379,7 +400,7 @@ namespace QuickMon.UI
                                 MessageBox.Show("An error occured while processing the config!\r\n" + ex.Message, "Edit config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             }
                         }
-                    } 
+                    }
                     #endregion
                 }
                 else if (selectingNotifierHosts)
@@ -404,6 +425,11 @@ namespace QuickMon.UI
                             configToUse = editor.SelectedMarkup;
                         }
                     }
+
+                    configToUse = FormatTemplateVariables(configToUse);
+                    if (configToUse.Length == 0)
+                        return;
+
                     NotifierHost cls = NotifierHost.FromXml(configToUse);
                     if (cls != null)
                     {
@@ -413,12 +439,37 @@ namespace QuickMon.UI
                     {
                         MessageBox.Show("The configuration for this template is invalid! Please correct and try again.", "Template", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
-                    } 
+                    }
                     #endregion
                 }
                 DialogResult = DialogResult.OK;
                 Close();
             }
+        }
+        private string FormatTemplateVariables(string config)
+        {
+            string outputStr = "";
+            SetTemplateVariables sv = new SetTemplateVariables();
+            sv.InputConfig = config;
+            if (sv.ContainVariables())
+            {
+                if (sv.FormatVariables() == DialogResult.OK)
+                {
+                    outputStr = sv.FormattedConfig;
+                    //MessageBox.Show($"Applied config\r\n{sv.FormattedConfig}", "Variables", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    outputStr = "";
+                    //MessageBox.Show("Action cancelled", "Variables", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+            else
+            {
+                outputStr = sv.InputConfig;
+                //MessageBox.Show($"Config string contains no variables!\r\n{sv.InputConfig}", "Variables", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            return outputStr;
         }
         private void cmdSkip_Click(object sender, EventArgs e)
         {

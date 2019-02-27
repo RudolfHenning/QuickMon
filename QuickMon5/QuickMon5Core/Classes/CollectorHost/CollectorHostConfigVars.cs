@@ -16,6 +16,7 @@ namespace QuickMon
                 //apply static/hardcoded monitor pack variables
                 allConfigVars.Add(new ConfigVariable() { FindValue = "$QMScripts", ReplaceValue = ParentMonitorPack.ScriptsRepositoryDirectory });
                 allConfigVars.Add(new ConfigVariable() { FindValue = "$QMVersion", ReplaceValue = ParentMonitorPack.Version });
+                allConfigVars.Add(new ConfigVariable() { FindValue = "$QMCoreVersion", ReplaceValue = System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString() });
 
                 foreach (CollectorHost parentCollector in ParentMonitorPack.GetParentCollectorHostTree(this))
                 {

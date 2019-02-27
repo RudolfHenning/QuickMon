@@ -94,3 +94,9 @@ Fix to Web Service collector to display actual value used for testing alert
 Version 5.1.2
 **************
 Add option to 'not check' URL on exit(ok button) when editing config to Ping, Performance counter and file system collectors.
+Fix a bug that affected saving templates.
+
+--------------
+Version 5.1.3
+**************
+Adding template variables.

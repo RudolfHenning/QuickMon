@@ -17,12 +17,21 @@ namespace QuickMon.Forms
             InitializeComponent();
         }
 
-        public void ShowText(string title, string content)
+        public bool ShowScrollbars
+        {
+            get { return txtContent.ScrollBars != ScrollBars.None; }
+            set { if (value) txtContent.ScrollBars = ScrollBars.Both; else txtContent.ScrollBars = ScrollBars.None; }
+        }
+
+        public void ShowText(string title, string content, bool nonModal = false)
         {
             this.Text = title;
             txtContent.Text = content;
             txtContent.SelectionLength = 0;
-            this.ShowDialog();
+            if (nonModal)
+                Show();
+            else
+                ShowDialog();
         }
 
         private void ShowTextDialog_Shown(object sender, EventArgs e)

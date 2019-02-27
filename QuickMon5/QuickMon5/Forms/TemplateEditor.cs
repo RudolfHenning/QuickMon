@@ -513,5 +513,16 @@ namespace QuickMon.UI
             cmdFormat_Click(null, null);
         }
         #endregion
+
+        private void llblVariableTip_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Forms.ShowTextDialog tipWindow = new Forms.ShowTextDialog();
+            tipWindow.Height = 200;
+            tipWindow.ShowScrollbars = false;
+            tipWindow.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            tipWindow.TopMost = true;
+            tipWindow.ShowText("Variables tip", "\r\nYou can set up variables that will be use to prompt you for a value when use the template.\r\n\r\n\tUse [[Variable Name]] to create a variable named 'Variable Name'\r\n\r\n\tTo specify a default value use [[Variable Name:default value]]", true);
+
+        }
     }
 }
