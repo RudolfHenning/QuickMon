@@ -22,6 +22,16 @@ namespace QuickMon.Forms
             get { return txtContent.ScrollBars != ScrollBars.None; }
             set { if (value) txtContent.ScrollBars = ScrollBars.Both; else txtContent.ScrollBars = ScrollBars.None; }
         }
+        public bool WordWrap
+        {
+            get { return txtContent.WordWrap; }
+            set { txtContent.WordWrap = value; }
+        }
+        public HorizontalAlignment TextAlign
+        {
+            get { return txtContent.TextAlign; }
+            set { txtContent.TextAlign = value; }
+        }
 
         public void ShowText(string title, string content, bool nonModal = false)
         {

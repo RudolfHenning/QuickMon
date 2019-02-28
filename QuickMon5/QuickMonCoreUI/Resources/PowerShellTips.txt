@@ -1,0 +1,14 @@
+If you want to make use of classical 'return codes' you can use the '#UseExitCode' command to make exit codes 'visible' for condition testing.
+
+e.g.
+
+*************
+#UseExitCode    Note: It must be the first line of the script.
+"Hello"
+exit 1
+*************
+
+Then you can set up conditions like 
+  Success check: 'Exit code : 0' (EndsWith)
+  Warning check: 'Exit code : 1' (EndsWith)
+  Error   check: '[any]'

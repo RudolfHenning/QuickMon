@@ -7,6 +7,7 @@ using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using System.Text;
 using System.Xml;
+using QuickMon.Utils;
 
 namespace QuickMon.Collectors
 {
@@ -345,20 +346,38 @@ namespace QuickMon.Collectors
                         lock (lockObject)
                         {
                             results = pipeline.Invoke();
+                            
+                            if (pipeline.HadErrors)
+                            {
+                                PipelineReader<object> errs = pipeline.Error;
+                                if (errs.Count > 0)
+                                {
+                                    for (int i = 0; i < errs.Count; i++)
+                                    {
+                                        errorLogged += errs.Read().ToString() + "\r\n";
+                                    }
+                                    System.Diagnostics.Trace.WriteLine($"Error: {errs.Read()}");
+                                }
+                            }
                         }
 
-                        if (pipeline.HadErrors)
-                        {
-                            PipelineReader<object> errs = pipeline.Error;
-                            if (errs.Count > 0)
-                            {
-                                for (int i = 0; i < errs.Count; i++)
-                                {
-                                    errorLogged += errs.Read().ToString() + "\r\n";
-                                }
-                                System.Diagnostics.Trace.WriteLine($"Error: {errs.Read()}");
-                            }                                
-                        }
+                        //if (pipeline.HadErrors)
+                        //{
+                        //    PipelineReader<object> errs = pipeline.Error;
+                        //    //while (!pipeline.Error.EndOfPipeline)
+                        //    //{
+                        //    //    errorLogged += errs.Read().ToString();
+                        //    //}
+
+                        //    if (errs.Count > 0)
+                        //    {
+                        //        for (int i = 0; i < errs.Count; i++)
+                        //        {
+                        //            errorLogged += errs.Read().ToString() + "\r\n";
+                        //        }
+                        //        System.Diagnostics.Trace.WriteLine($"Error: {errs.Read()}");
+                        //    }                                
+                        //}
                     }                   
 
                     // close the runspace
@@ -389,7 +408,12 @@ namespace QuickMon.Collectors
             }
             catch (Exception ex)
             {
-                output = ex.ToString();
+#if DEBUG
+                output = $"Exception: {ex.ToString()}";
+                //output = $"Exception: {ex.GetMessageStack()}";
+#else
+                output = $"Exception: {ex.GetMessageStack()}";
+#endif
             }
             return output.Trim('\r', '\n');
         }
@@ -510,7 +534,12 @@ namespace QuickMon.Collectors
             }
             catch (Exception ex)
             {
-                output = ex.ToString();
+#if DEBUG
+                output = $"Exception: {ex.ToString()}";
+                //output = $"Exception: {ex.GetMessageStack()}";
+#else
+                output = $"Exception: {ex.GetMessageStack()}";
+#endif
             }
             return output.Trim('\r', '\n');
         }

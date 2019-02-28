@@ -119,8 +119,7 @@ namespace QuickMon.Properties {
         ///					&lt;config&gt;&lt;inMemory maxEntryCount=&quot;99999&quot; /&gt;&lt;/config&gt;
         ///				&lt;/notifierAgent&gt;
         ///			&lt;/notifierAgents&gt;
-        ///		&lt;/notifierHost&gt;
-        ///	 [rest of string was truncated]&quot;;.
+        ///		&lt;/notif [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BlankTemplateMonitorPack {
             get {
@@ -152,9 +151,7 @@ namespace QuickMon.Properties {
         ///CREATE TABLE [dbo].[AlertLevels](
         ///	[AlertLevel] [tinyint] NOT NULL,
         ///	[Description] [nvarchar](50) NOT NULL,
-        /// CONSTRAINT [PK_AlertLevels] PRIMARY KEY CLUSTERED 
-        ///(
-        ///	[AlertLeve [rest of string was truncated]&quot;;.
+        /// CONSTRAINT [PK_AlertLevels] PRIMARY KEY CLUSTERED  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ExampleSqlDatabaseCreateScript {
             get {
@@ -189,6 +186,20 @@ namespace QuickMon.Properties {
             get {
                 object obj = ResourceManager.GetObject("OUTLLIBR_98251", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you want to make use of classical &apos;return codes&apos; you can use the &apos;#UseExitCode&apos; command to make exit codes &apos;visible&apos; for condition testing.
+        ///e.g.
+        ///
+        ///#UseExitCode
+        ///&quot;Hello&quot;
+        ///exit 1.
+        /// </summary>
+        internal static string PowerShellTips {
+            get {
+                return ResourceManager.GetString("PowerShellTips", resourceCulture);
             }
         }
         

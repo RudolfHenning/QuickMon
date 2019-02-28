@@ -151,5 +151,16 @@ namespace QuickMon.UI
                 txtSuccess.Text.Trim().Length > 0 && txtWarning.Text.Trim().Length > 0 && txtError.Text.Trim().Length > 0;
         }
         #endregion
+
+        private void llblScriptingTip_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Forms.ShowTextDialog tipWindow = new Forms.ShowTextDialog();
+            tipWindow.Height = 300;
+            tipWindow.ShowScrollbars = false;
+            tipWindow.WordWrap = true;
+            tipWindow.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            tipWindow.TopMost = true;
+            tipWindow.ShowText("PowerShell Scripting tips", Properties.Resources.PowerShellTips, true);
+        }
     }
 }

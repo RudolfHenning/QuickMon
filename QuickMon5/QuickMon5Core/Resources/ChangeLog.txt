@@ -100,3 +100,4 @@ Fix a bug that affected saving templates.
 Version 5.1.3
 **************
 Adding template variables.
+Allow using 'exit codes' in PowerShell collector.

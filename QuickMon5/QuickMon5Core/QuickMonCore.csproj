@@ -182,6 +182,7 @@
     <Compile Include="Security\Impersonator.cs" />
     <Compile Include="Security\Security.cs" />
     <Compile Include="Utils\CSVExtensions.cs" />
+    <Compile Include="Utils\ExceptionEx.cs" />
     <Compile Include="Utils\FormatUtils.cs" />
     <Compile Include="Utils\InPutValidationException.cs" />
     <Compile Include="Utils\XmlElementEx.cs" />

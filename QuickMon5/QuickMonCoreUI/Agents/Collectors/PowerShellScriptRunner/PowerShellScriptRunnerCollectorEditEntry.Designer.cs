@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PowerShellScriptRunnerCollectorEditEntry));
             this.label2 = new System.Windows.Forms.Label();
             this.cboErrorMatchType = new System.Windows.Forms.ComboBox();
-            this.txtError = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtError = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.errorGroupBox = new System.Windows.Forms.GroupBox();
             this.cboWarningMatchType = new System.Windows.Forms.ComboBox();
-            this.txtWarning = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtWarning = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.warningGroupBox = new System.Windows.Forms.GroupBox();
             this.cboSuccessMatchType = new System.Windows.Forms.ComboBox();
-            this.txtSuccess = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtSuccess = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.successGroupBox = new System.Windows.Forms.GroupBox();
             this.ps1OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.cmdCancel = new System.Windows.Forms.Button();
@@ -52,6 +53,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
+            this.llblScriptingTip = new System.Windows.Forms.LinkLabel();
             this.errorGroupBox.SuspendLayout();
             this.warningGroupBox.SuspendLayout();
             this.successGroupBox.SuspendLayout();
@@ -270,6 +272,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.llblScriptingTip);
             this.panel1.Controls.Add(this.cmdRunScript);
             this.panel1.Controls.Add(this.cmdLoadScript);
             this.panel1.Controls.Add(this.cmdImportScript);
@@ -353,6 +356,18 @@
             this.cboReturnCheckSequence.Size = new System.Drawing.Size(532, 21);
             this.cboReturnCheckSequence.TabIndex = 2;
             // 
+            // llblScriptingTip
+            // 
+            this.llblScriptingTip.AutoSize = true;
+            this.llblScriptingTip.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblScriptingTip.Location = new System.Drawing.Point(241, 8);
+            this.llblScriptingTip.Name = "llblScriptingTip";
+            this.llblScriptingTip.Size = new System.Drawing.Size(67, 13);
+            this.llblScriptingTip.TabIndex = 4;
+            this.llblScriptingTip.TabStop = true;
+            this.llblScriptingTip.Text = "Scripting tips";
+            this.llblScriptingTip.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblScriptingTip_LinkClicked);
+            // 
             // PowerShellScriptRunnerCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,6 +398,7 @@
             this.successGroupBox.ResumeLayout(false);
             this.successGroupBox.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.scriptGroupBox.ResumeLayout(false);
             this.scriptGroupBox.PerformLayout();
             this.sequenceGroupBox.ResumeLayout(false);
@@ -416,5 +432,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox sequenceGroupBox;
         private System.Windows.Forms.ComboBox cboReturnCheckSequence;
+        private System.Windows.Forms.LinkLabel llblScriptingTip;
     }
 }
