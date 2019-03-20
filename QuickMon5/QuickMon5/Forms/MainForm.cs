@@ -225,7 +225,7 @@ namespace QuickMon
                 InitializeGlobalPerformanceCounters();
                 if (!StartWithNewMonitorPack && Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
                 {
-                    LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
+                    LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);                    
                 }
                 else
                 {
@@ -320,7 +320,10 @@ namespace QuickMon
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (monitorPack != null)
+            {
+                MPStickySave();
                 monitorPack.CloseMonitorPack();
+            }
             PerformCleanShutdown();
         }
         #endregion
@@ -1423,6 +1426,50 @@ namespace QuickMon
                 RefreshMonitorPack(true, true);
             }
         }
+        private void MPStickyLoad()
+        {
+            try
+            {
+                if (monitorPack != null && monitorPack.EnableStickyMainWindowLocation)
+                {
+                    string qmAppDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
+                    string mpUISettingsName = System.IO.Path.GetFileNameWithoutExtension(monitorPack.MonitorPackPath);
+                    string mpUISettingsPath = System.IO.Path.Combine(qmAppDataPath, mpUISettingsName + ".uisettings");
+                    if (System.IO.File.Exists(mpUISettingsPath))
+                    {
+                        MonitorPackUISettings mpUISettings = new MonitorPackUISettings();
+                        mpUISettings.Load(mpUISettingsPath);
+                        if (
+                            (mpUISettings.Width > 0) && (mpUISettings.Height > 0)
+                            )
+                        {
+                            this.Location = new Point(mpUISettings.LocationX, mpUISettings.LocationY);
+                            this.Size = new Size(mpUISettings.Width, mpUISettings.Height);
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+        private void MPStickySave()
+        {
+            try
+            {
+                if (monitorPack != null && monitorPack.EnableStickyMainWindowLocation && System.IO.File.Exists(monitorPack.MonitorPackPath))
+                {
+                    string qmAppDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
+                    string mpUISettingsName = System.IO.Path.GetFileNameWithoutExtension(monitorPack.MonitorPackPath);
+                    string mpUISettingsPath = System.IO.Path.Combine(qmAppDataPath, mpUISettingsName + ".uisettings");
+                    MonitorPackUISettings mpUISettings = new MonitorPackUISettings();
+                    mpUISettings.LocationX = this.Location.X;
+                    mpUISettings.LocationY = this.Location.Y;
+                    mpUISettings.Width = this.Size.Width;
+                    mpUISettings.Height = this.Size.Height;
+                    mpUISettings.Save(mpUISettingsPath);
+                }
+            }
+            catch { }
+        }
         #endregion
 
         #region Monitor pack actions
@@ -1439,12 +1486,14 @@ namespace QuickMon
             PausePolling(false);
             try
             {
-                //CloseAllDetailWindows();
-                CloseAllMPDetailWindows();
+                if (monitorPack != null)
+                {
+                    CloseAllMPDetailWindows();
+                    MPStickySave();
 
-                //monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
-                monitorPack.CloseMonitorPack();
-                monitorPack = null;
+                    monitorPack.CloseMonitorPack();
+                    monitorPack = null;
+                }
             }
             catch { }
 
@@ -1502,9 +1551,9 @@ namespace QuickMon
                 {
                     try
                     {
-                        //CloseAllDetailWindows();
                         CloseAllMPDetailWindows();
                         WaitForPollingToFinish(5);
+                        MPStickySave();
                         monitorPack.CloseMonitorPack();
                     }
                     catch { }
@@ -1530,6 +1579,7 @@ namespace QuickMon
                     }
                 }
 
+                MPStickyLoad();
                 LoadControlsFromMonitorPack();
                 SetMonitorPackEvents();
 

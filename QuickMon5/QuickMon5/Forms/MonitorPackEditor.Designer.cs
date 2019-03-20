@@ -122,6 +122,7 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.fbdLogging = new System.Windows.Forms.FolderBrowserDialog();
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.chkEnableStickyMainWindowLocation = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelGeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
@@ -221,6 +222,7 @@
             // 
             // panelGeneralSettings
             // 
+            this.panelGeneralSettings.Controls.Add(this.chkEnableStickyMainWindowLocation);
             this.panelGeneralSettings.Controls.Add(this.label6);
             this.panelGeneralSettings.Controls.Add(this.label4);
             this.panelGeneralSettings.Controls.Add(this.label5);
@@ -234,7 +236,7 @@
             this.panelGeneralSettings.Controls.Add(this.lblMonitorPackPath);
             this.panelGeneralSettings.Location = new System.Drawing.Point(3, 3);
             this.panelGeneralSettings.Name = "panelGeneralSettings";
-            this.panelGeneralSettings.Size = new System.Drawing.Size(549, 174);
+            this.panelGeneralSettings.Size = new System.Drawing.Size(549, 175);
             this.panelGeneralSettings.TabIndex = 0;
             // 
             // label6
@@ -243,7 +245,7 @@
             this.label6.Location = new System.Drawing.Point(13, 125);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(91, 13);
-            this.label6.TabIndex = 6;
+            this.label6.TabIndex = 7;
             this.label6.Text = "Polling Frequency";
             // 
             // label4
@@ -252,7 +254,7 @@
             this.label4.Location = new System.Drawing.Point(237, 125);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(229, 13);
-            this.label4.TabIndex = 9;
+            this.label4.TabIndex = 10;
             this.label4.Text = "If frequency = 0 then application setting is used";
             // 
             // label5
@@ -261,7 +263,7 @@
             this.label5.Location = new System.Drawing.Point(190, 125);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(26, 13);
-            this.label5.TabIndex = 8;
+            this.label5.TabIndex = 9;
             this.label5.Text = "Sec";
             // 
             // freqSecNumericUpDown
@@ -274,7 +276,7 @@
             0});
             this.freqSecNumericUpDown.Name = "freqSecNumericUpDown";
             this.freqSecNumericUpDown.Size = new System.Drawing.Size(59, 20);
-            this.freqSecNumericUpDown.TabIndex = 7;
+            this.freqSecNumericUpDown.TabIndex = 8;
             this.freqSecNumericUpDown.ValueChanged += new System.EventHandler(this.freqSecNumericUpDown_ValueChanged);
             // 
             // txtType
@@ -284,7 +286,7 @@
             this.txtType.Location = new System.Drawing.Point(125, 93);
             this.txtType.Name = "txtType";
             this.txtType.Size = new System.Drawing.Size(412, 20);
-            this.txtType.TabIndex = 5;
+            this.txtType.TabIndex = 6;
             this.txtType.TextChanged += new System.EventHandler(this.txtType_TextChanged);
             // 
             // label7
@@ -293,7 +295,7 @@
             this.label7.Location = new System.Drawing.Point(13, 96);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(31, 13);
-            this.label7.TabIndex = 4;
+            this.label7.TabIndex = 5;
             this.label7.Text = "&Type";
             // 
             // cmdGeneralSettingsToggle
@@ -321,10 +323,10 @@
             this.lblMonitorPackPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.lblMonitorPackPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMonitorPackPath.ForeColor = System.Drawing.Color.DimGray;
-            this.lblMonitorPackPath.Location = new System.Drawing.Point(0, 154);
+            this.lblMonitorPackPath.Location = new System.Drawing.Point(0, 155);
             this.lblMonitorPackPath.Name = "lblMonitorPackPath";
             this.lblMonitorPackPath.Size = new System.Drawing.Size(549, 20);
-            this.lblMonitorPackPath.TabIndex = 10;
+            this.lblMonitorPackPath.TabIndex = 11;
             this.lblMonitorPackPath.Text = " <Path>";
             this.lblMonitorPackPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblMonitorPackPath.DoubleClick += new System.EventHandler(this.lblMonitorPackPath_DoubleClick);
@@ -336,7 +338,7 @@
             this.panelAgentSettings.Controls.Add(this.chkCorrectiveScripts);
             this.panelAgentSettings.Controls.Add(this.label3);
             this.panelAgentSettings.Controls.Add(this.cmdAgentSettingsToggle);
-            this.panelAgentSettings.Location = new System.Drawing.Point(3, 183);
+            this.panelAgentSettings.Location = new System.Drawing.Point(3, 184);
             this.panelAgentSettings.Name = "panelAgentSettings";
             this.panelAgentSettings.Size = new System.Drawing.Size(549, 103);
             this.panelAgentSettings.TabIndex = 1;
@@ -436,7 +438,7 @@
             this.panelVariables.Controls.Add(this.toolStripVariables);
             this.panelVariables.Controls.Add(this.cmdVariablesToggle);
             this.panelVariables.Controls.Add(this.label42);
-            this.panelVariables.Location = new System.Drawing.Point(3, 292);
+            this.panelVariables.Location = new System.Drawing.Point(3, 293);
             this.panelVariables.Name = "panelVariables";
             this.panelVariables.Size = new System.Drawing.Size(549, 300);
             this.panelVariables.TabIndex = 2;
@@ -631,7 +633,7 @@
             // 
             this.panelSecuritySettings.Controls.Add(this.groupBox2);
             this.panelSecuritySettings.Controls.Add(this.cmdSecuritySettingsToggle);
-            this.panelSecuritySettings.Location = new System.Drawing.Point(3, 598);
+            this.panelSecuritySettings.Location = new System.Drawing.Point(3, 599);
             this.panelSecuritySettings.Name = "panelSecuritySettings";
             this.panelSecuritySettings.Size = new System.Drawing.Size(549, 289);
             this.panelSecuritySettings.TabIndex = 3;
@@ -880,7 +882,7 @@
             this.panelLoggingSettings.Controls.Add(this.label12);
             this.panelLoggingSettings.Controls.Add(this.txtLoggingPath);
             this.panelLoggingSettings.Controls.Add(this.cmdLoggingSettingsToggle);
-            this.panelLoggingSettings.Location = new System.Drawing.Point(3, 893);
+            this.panelLoggingSettings.Location = new System.Drawing.Point(3, 894);
             this.panelLoggingSettings.Name = "panelLoggingSettings";
             this.panelLoggingSettings.Size = new System.Drawing.Size(549, 350);
             this.panelLoggingSettings.TabIndex = 4;
@@ -1169,6 +1171,20 @@
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
             // 
+            // chkEnableStickyMainWindowLocation
+            // 
+            this.chkEnableStickyMainWindowLocation.AutoSize = true;
+            this.chkEnableStickyMainWindowLocation.BackColor = System.Drawing.Color.Transparent;
+            this.chkEnableStickyMainWindowLocation.Checked = true;
+            this.chkEnableStickyMainWindowLocation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkEnableStickyMainWindowLocation.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkEnableStickyMainWindowLocation.Location = new System.Drawing.Point(155, 70);
+            this.chkEnableStickyMainWindowLocation.Name = "chkEnableStickyMainWindowLocation";
+            this.chkEnableStickyMainWindowLocation.Size = new System.Drawing.Size(214, 17);
+            this.chkEnableStickyMainWindowLocation.TabIndex = 4;
+            this.chkEnableStickyMainWindowLocation.Text = "Remember size/location of main window";
+            this.chkEnableStickyMainWindowLocation.UseVisualStyleBackColor = false;
+            // 
             // MonitorPackEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1312,5 +1328,6 @@
         private System.Windows.Forms.CheckBox chkCollectorMetricsExportToXMLEnabled;
         private System.Windows.Forms.CheckBox chkCollectorMetricsExportToCSVEnabled;
         private System.Windows.Forms.CheckBox chkCollectorMetricsExportIncludeDisabled;
+        private System.Windows.Forms.CheckBox chkEnableStickyMainWindowLocation;
     }
 }

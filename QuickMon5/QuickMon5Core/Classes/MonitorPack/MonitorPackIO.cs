@@ -83,6 +83,7 @@ namespace QuickMon
                 TypeName = root.ReadXmlElementAttr("typeName", "");
                 this.Version = root.ReadXmlElementAttr("version", "5.0.0.0");
                 Enabled = root.ReadXmlElementAttr("enabled", true);
+                EnableStickyMainWindowLocation = root.ReadXmlElementAttr("enabledStickyMainWindowLocation", false);
                 CollectorStateHistorySize = root.ReadXmlElementAttr("stateHistorySize", 100); //Depricated
                 PollingFrequencyOverrideSec = root.ReadXmlElementAttr("pollingFreqSecOverride", 0); //Depricated
                 CorrectiveScriptsEnabled = root.ReadXmlElementAttr("runCorrectiveScripts", true); //Depricated
@@ -336,6 +337,7 @@ namespace QuickMon
             root.SetAttributeValue("lastChanged", LastChangeDate.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("typeName", TypeName);
             root.SetAttributeValue("enabled", Enabled);
+            root.SetAttributeValue("enabledStickyMainWindowLocation", EnableStickyMainWindowLocation);
 
             #region security
             root.SetAttributeValue("usernameCacheMasterKey", UserNameCacheMasterKey);

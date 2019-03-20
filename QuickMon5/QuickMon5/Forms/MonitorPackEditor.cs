@@ -163,6 +163,7 @@ namespace QuickMon
             txtType.Text = SelectedMonitorPack.TypeName;
             chkCorrectiveScripts.Checked = SelectedMonitorPack.CorrectiveScriptsEnabled;
             chkEnabled.Checked = SelectedMonitorPack.Enabled;
+            chkEnableStickyMainWindowLocation.Checked = SelectedMonitorPack.EnableStickyMainWindowLocation;
             collectorStateHistorySizeNumericUpDown.Value = SelectedMonitorPack.CollectorStateHistorySize;
             SetFrequency(SelectedMonitorPack.PollingFrequencyOverrideSec);
             txtMasterKey.Text = SelectedMonitorPack.UserNameCacheMasterKey;
@@ -468,6 +469,7 @@ namespace QuickMon
                     SelectedMonitorPack.TypeName = txtType.Text;
                     SelectedMonitorPack.CorrectiveScriptsEnabled = chkCorrectiveScripts.Checked;
                     SelectedMonitorPack.Enabled = chkEnabled.Checked;
+                    SelectedMonitorPack.EnableStickyMainWindowLocation = chkEnableStickyMainWindowLocation.Checked;
                     SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
                     SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
                     SelectedMonitorPack.ConfigVariables = new List<ConfigVariable>();
@@ -610,6 +612,7 @@ namespace QuickMon
                 SelectedMonitorPack.TypeName = txtType.Text;
                 SelectedMonitorPack.CorrectiveScriptsEnabled = chkCorrectiveScripts.Checked;
                 SelectedMonitorPack.Enabled = chkEnabled.Checked;
+                SelectedMonitorPack.EnableStickyMainWindowLocation = chkEnableStickyMainWindowLocation.Checked;
                 SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
                 SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
                 SelectedMonitorPack.UserNameCacheMasterKey = txtMasterKey.Text;

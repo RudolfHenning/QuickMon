@@ -138,6 +138,7 @@
     <Compile Include="Classes\MonitorPack\MonitorPackIO.cs" />
     <Compile Include="Classes\MonitorPack\MonitorPackLogging.cs" />
     <Compile Include="Classes\MonitorPack\MonitorPackPerformanceCounters.cs" />
+    <Compile Include="Classes\MonitorPack\MonitorPackUISettings.cs" />
     <Compile Include="Classes\MonitorState.cs" />
     <Compile Include="Classes\NotifierHost\NotifierHost.cs" />
     <Compile Include="Classes\NotifierHost\NotifierHostIO.cs" />

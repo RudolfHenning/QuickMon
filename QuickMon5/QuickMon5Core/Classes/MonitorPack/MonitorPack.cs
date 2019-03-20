@@ -107,6 +107,9 @@ namespace QuickMon
         public List<string> BlockedCollectorAgentTypes { get; set; }
         #endregion
 
+        #region UI Specific
+        public bool EnableStickyMainWindowLocation { get; set; } = false;
+        #endregion
         #endregion
 
         #region Refreshing states
