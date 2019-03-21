@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickMon.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -103,7 +104,16 @@ namespace QuickMon
             {
                 mainForm.StartWithSelectRecent = true;
             }
-            
+
+            if (mainForm.StartWithSelectRecent)
+            {
+                SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
+                if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.LastMonitorPack = selectRecentMonitorPackDialog.SelectedMonitorPack;
+                }
+            }
+
             Application.Run(mainForm);
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

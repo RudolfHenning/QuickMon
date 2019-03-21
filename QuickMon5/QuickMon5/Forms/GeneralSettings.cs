@@ -49,6 +49,8 @@ namespace QuickMon
 
             //loading = true;
             concurrencyLevelNnumericUpDown.Value = Properties.Settings.Default.ConcurrencyLevel;
+            optJumplistFrequent.Checked = Properties.Settings.Default.UseFrequentJumpList;
+            optJumplistRecent.Checked = !Properties.Settings.Default.UseFrequentJumpList;
             chkSnapToDesktop.Checked = Properties.Settings.Default.MainFormSnap;
             chkAutosaveChanges.Checked = Properties.Settings.Default.AutosaveChanges;
             chkCreateBackupOnSave.Checked = Properties.Settings.Default.CreateBackupOnSave;
@@ -292,6 +294,7 @@ namespace QuickMon
             }
             catch { }
 
+            Properties.Settings.Default.UseFrequentJumpList = optJumplistFrequent.Checked;
             Properties.Settings.Default.PollFrequencySec = (int)freqSecNumericUpDown.Value;
             Properties.Settings.Default.ConcurrencyLevel = (int)concurrencyLevelNnumericUpDown.Value;
             Properties.Settings.Default.MainFormSnap = chkSnapToDesktop.Checked;

@@ -106,3 +106,4 @@ Allow using 'exit codes' in PowerShell collector.
 Version 5.1.4
 **************
 Adding sticky main window location and size per Monitor pack.
+Option to use either Frequent or Recent application jumplist (From Windows Taskbar)

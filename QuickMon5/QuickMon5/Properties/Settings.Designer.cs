@@ -331,5 +331,17 @@ namespace QuickMon.Properties {
                 this["MainWindowCollectorQuickToolbarVisible"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseFrequentJumpList {
+            get {
+                return ((bool)(this["UseFrequentJumpList"]));
+            }
+            set {
+                this["UseFrequentJumpList"] = value;
+            }
+        }
     }
 }

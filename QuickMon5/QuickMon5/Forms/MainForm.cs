@@ -107,15 +107,26 @@ namespace QuickMon
         #region Form events
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if ((Properties.Settings.Default.MainWindowLocation.X == 0) && (Properties.Settings.Default.MainWindowLocation.Y == 0)
-                && (Properties.Settings.Default.MainWindowSize.Width == 0))
+            bool stickyLocationUsed = false;
+            if (!StartWithNewMonitorPack && 
+                Properties.Settings.Default.LastMonitorPack != null && 
+                System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
             {
-                this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
+                stickyLocationUsed = MPStickyLoad(Properties.Settings.Default.LastMonitorPack);
             }
-            else
+
+            if (!stickyLocationUsed)
             {
-                this.Location = Properties.Settings.Default.MainWindowLocation;
-                this.Size = Properties.Settings.Default.MainWindowSize;
+                if ((Properties.Settings.Default.MainWindowLocation.X == 0) && (Properties.Settings.Default.MainWindowLocation.Y == 0)
+                    && (Properties.Settings.Default.MainWindowSize.Width == 0))
+                {
+                    this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
+                }
+                else
+                {
+                    this.Location = Properties.Settings.Default.MainWindowLocation;
+                    this.Size = Properties.Settings.Default.MainWindowSize;
+                }
             }
             SnappingEnabled = Properties.Settings.Default.MainFormSnap;
 
@@ -124,9 +135,6 @@ namespace QuickMon
                 ToggleMenuSize();
             collectorQuickToolStrip.Visible = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
             notifierQuickToolStrip.Visible = Properties.Settings.Default.MainWindowCollectorQuickToolbarVisible;
-
-            //tvwCollectors.FullRowSelect = true;
-            //tvwCollectors.FullRowSelect = false;
 
             SetCollectorTreeViewProperties();
             tvwNotifiers.FullRowSelect = true;
@@ -144,16 +152,42 @@ namespace QuickMon
             adminModeToolStripMenuItem.Visible = !Security.UACTools.IsInAdminMode();
             cmdAdminMode.Visible = !Security.UACTools.IsInAdminMode();
 
-            if (StartWithSelectRecent)
-            {
-                SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
-                if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Properties.Settings.Default.LastMonitorPack = selectRecentMonitorPackDialog.SelectedMonitorPack;
-                }                
-            }
+            //if (StartWithSelectRecent)
+            //{
+            //    SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
+            //    if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
+            //    {
+            //        Properties.Settings.Default.LastMonitorPack = selectRecentMonitorPackDialog.SelectedMonitorPack;
+            //    }                
+            //}
         }
         private void MainForm_Shown(object sender, EventArgs e)
+        {
+            CreateJumplist();
+            try
+            {
+                InitializeGlobalPerformanceCounters();
+                if (!StartWithNewMonitorPack && Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
+                {
+                    LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
+                }
+                else
+                {
+                    monitorPack = null;
+                    NewMonitorPack();
+                }
+                monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+                UpdatePauseButton();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            tvwCollectors.Focus();
+            ResumePolling();
+        }
+
+        private static void CreateJumplist()
         {
             try
             {
@@ -163,7 +197,7 @@ namespace QuickMon
                     JumpList frequentJumpList = null;
                     JumpList jumpList = null;
 
-                    TaskbarManager.Instance.ApplicationId = Application.ProductName;        
+                    TaskbarManager.Instance.ApplicationId = Application.ProductName;
 
                     JumpListCustomCategory jumplistCatTools = new JumpListCustomCategory("Quick Actions");
                     jumpList = JumpList.CreateJumpList();
@@ -181,67 +215,16 @@ namespace QuickMon
 
                     jumpList.AddUserTasks(new JumpListSeparator());
                     jumpList.KnownCategoryOrdinalPosition = 1;
-                    jumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Frequent;
+                    if (Properties.Settings.Default.UseFrequentJumpList)
+                        jumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Frequent;
+                    else
+                        jumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
                     jumpList.Refresh();
-
-                    //recentJumpList = JumpList.CreateJumpList();
-                    //recentJumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
-                    //recentJumpList.AddUserTasks(new JumpListSeparator());
-                    //recentJumpList.Refresh();
-
-                    //frequentJumpList = JumpList.CreateJumpList();
-                    //frequentJumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Frequent;
-                    //frequentJumpList.AddUserTasks(new JumpListSeparator());
-                    //frequentJumpList.Refresh();
                 }
-
-                //if (CoreHelpers.RunningOnWin7)
-                //{
-                //    // Path to Windows system folder
-                //    //string systemFolder = Environment.GetFolderPath(Environment.SpecialFolder.System);
-
-                //    // create a new taskbar jump list for the main window
-                //    jumpList = JumpList.CreateJumpList();
-                //    jumpList.AddCustomCategories(jumplistCatTools);
-
-                //    jumplistCatTools.AddJumpListItems(new JumpListLink(Application.ExecutablePath, "New Monitor pack")
-                //    {
-                //        IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(Application.ExecutablePath, 0),
-                //        Arguments = "-new"
-                //    });
-                //    jumplistCatTools.AddJumpListItems(new JumpListLink(Application.ExecutablePath, "Select recent Monitor pack")
-                //    {
-                //        IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(Application.ExecutablePath, 0),
-                //        Arguments = "-selectrecent"
-                //    });
-
-                //    jumpList.AddUserTasks(new JumpListSeparator());
-                //    jumpList.Refresh();
-                //}
             }
-            catch { }  
-            try
-            {
-                InitializeGlobalPerformanceCounters();
-                if (!StartWithNewMonitorPack && Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
-                {
-                    LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);                    
-                }
-                else
-                {
-                    monitorPack = null;
-                    NewMonitorPack();
-                }
-                monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
-                UpdatePauseButton();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            tvwCollectors.Focus();
-            ResumePolling();
+            catch { }
         }
+
         private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
             bool ctrl = ((Control.ModifierKeys & Keys.Control) == Keys.Control);
@@ -421,6 +404,7 @@ namespace QuickMon
             GeneralSettings generalSettings = new GeneralSettings();
             if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                CreateJumplist();
                 LoadRecentMonitorPackList();
                 this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
                 if (monitorPack != null)
@@ -1426,14 +1410,19 @@ namespace QuickMon
                 RefreshMonitorPack(true, true);
             }
         }
-        private void MPStickyLoad()
+        private bool MPStickyLoad(string monitorPackPath = "")
         {
+            bool loaded = false;
             try
             {
-                if (monitorPack != null && monitorPack.EnableStickyMainWindowLocation)
+                if (monitorPackPath == "" & monitorPack != null)
+                {
+                    monitorPackPath = monitorPack.MonitorPackPath;
+                }
+                //if (monitorPack != null && monitorPack.EnableStickyMainWindowLocation)
                 {
                     string qmAppDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
-                    string mpUISettingsName = System.IO.Path.GetFileNameWithoutExtension(monitorPack.MonitorPackPath);
+                    string mpUISettingsName = System.IO.Path.GetFileNameWithoutExtension(monitorPackPath);
                     string mpUISettingsPath = System.IO.Path.Combine(qmAppDataPath, mpUISettingsName + ".uisettings");
                     if (System.IO.File.Exists(mpUISettingsPath))
                     {
@@ -1445,11 +1434,13 @@ namespace QuickMon
                         {
                             this.Location = new Point(mpUISettings.LocationX, mpUISettings.LocationY);
                             this.Size = new Size(mpUISettings.Width, mpUISettings.Height);
+                            loaded = true;
                         }
                     }
                 }
             }
             catch { }
+            return loaded;
         }
         private void MPStickySave()
         {
