@@ -11,6 +11,7 @@
       <ComponentRef Id='firstTimeOnly' />
       <ComponentRef Id='ExampleFiles' />
       <ComponentRef Id='ProgramMenuDir' />  
+      <ComponentRef Id='CommonAppDataScriptFiles' /> 
     </Feature>    
 
     <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." /> 
@@ -61,7 +62,12 @@
       </Directory>
       <Directory Id="CommonAppDataFolder">
         <Directory Id="CommonAppDataComp" Name="Hen IT">
-          <Directory Id="CommonAppDataQM5" Name="QuickMon 5">             
+          <Directory Id="CommonAppDataQM5" Name="QuickMon 5">   
+			<Directory Id="CommonAppDataQM5Scripts" Name="Scripts">
+			  <Component Id="CommonAppDataScriptFiles" Guid="59162023-5478-4668-5D08-41ca4f14510f">
+                <File Id="GetFileVersionps1" Name="GetFileVersion.ps1" Source="scripts\GetFileVersion.ps1" KeyPath="no" />
+              </Component>
+			</Directory>
           </Directory>
         </Directory>
       </Directory>
