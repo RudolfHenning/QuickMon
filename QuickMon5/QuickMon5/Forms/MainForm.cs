@@ -661,6 +661,13 @@ namespace QuickMon
         {
             ExportAllCollectorsHistoryToXML();
         }
+        private void globalHistoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowGlobalHistory();
+        }
+
+        
+
         private void addNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddNotifier();
@@ -980,6 +987,27 @@ namespace QuickMon
                         if (editmode)
                             ((CollectorDetails)childForm).StartEditMode();
                     }
+                }
+            }
+        }
+        private void ShowGlobalHistory()
+        {
+            if (monitorPack != null)
+            {
+                IChildWindowIdentity childWindow = GetChildWindowByIdentity("GlobalAgentHistory");
+                if (childWindow == null)
+                {
+                    GlobalAgentHistory globalAgentHistory = new GlobalAgentHistory();
+                    globalAgentHistory.HostingMonitorPack = monitorPack;
+                    globalAgentHistory.Identifier = "GlobalAgentHistory";
+                    globalAgentHistory.ShowChildWindow(this);
+                }
+                else
+                {
+                    Form childForm = ((Form)childWindow);
+                    if (childForm.WindowState == FormWindowState.Minimized)
+                        childForm.WindowState = FormWindowState.Normal;
+                    childForm.Focus();                    
                 }
             }
         }
@@ -2230,6 +2258,8 @@ namespace QuickMon
                         (sw.ElapsedMilliseconds / 1000.00).ToString("F2"),
                         refreshIntervalStr
                         ));
+
+                    RefreshGlobalAgentHistory();
                 }
                 else
                 {
@@ -2247,6 +2277,21 @@ namespace QuickMon
                 firstRefresh = false;
             }
         }
+
+        private void RefreshGlobalAgentHistory()
+        {
+            try
+            {
+                IChildWindowIdentity childWindow = GetChildWindowByIdentity("GlobalAgentHistory");
+                if (childWindow != null)
+                {
+                    GlobalAgentHistory globalAgentHistory = (GlobalAgentHistory)childWindow;
+                    globalAgentHistory.RefreshDetails();
+                }
+            }
+            catch(Exception ex) { System.Diagnostics.Trace.WriteLine(ex.Message); }
+        }
+
         private void SetNodesToBeingRefreshed(TreeNode root = null)
         {
             if (root != null && root.Tag != null && root.Tag is CollectorHost)
@@ -2685,7 +2730,7 @@ namespace QuickMon
             while (child != null) // childWindows.Where(w => !(new String[] { "TemplateEditor", "RemoteAgentHostManagement" }).Contains(w.Identifier)).Count() > 0)
             {
                 ((Form)child).Close();
-                child = childWindows.FirstOrDefault(w => !(new String[] { "TemplateEditor", "RemoteAgentHostManagement" }).Contains(w.Identifier));
+                child = childWindows.FirstOrDefault(w => !(new String[] { "TemplateEditor", "RemoteAgentHostManagement", "GlobalAgentHistory" }).Contains(w.Identifier));
 
                 //if (child != null)
                 //{
@@ -2712,6 +2757,14 @@ namespace QuickMon
             IChildWindowIdentity child = (from IChildWindowIdentity c in childWindows
                                           where c.Identifier == identifier
                                           select c).FirstOrDefault();
+            try
+            {
+                if (child != null && (((Form)child).IsDisposed))
+                {
+                    child = null;
+                }
+            }
+            catch { }
             return child;
         }
         #endregion
@@ -2959,8 +3012,9 @@ namespace QuickMon
             }
         }
 
+
         #endregion
 
-
+        
     }
 }

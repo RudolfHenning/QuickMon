@@ -107,3 +107,9 @@ Version 5.1.4
 **************
 Adding sticky main window location and size per Monitor pack.
 Option to use either Frequent or Recent application jumplist (From Windows Taskbar)
+
+--------------
+Version 5.1.5
+**************
+Allow the use of the name 'localhost' in the PerfMon collector (maps to '.')
+Added a few new template entries for creating new monitor packs

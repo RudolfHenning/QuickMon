@@ -110,6 +110,12 @@
     <Compile Include="Forms\EditNotifierHost.designer.cs">
       <DependentUpon>EditNotifierHost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\GlobalAgentHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GlobalAgentHistory.Designer.cs">
+      <DependentUpon>GlobalAgentHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NotUsed\CollectorHostEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditNotifierHost.resx">
       <DependentUpon>EditNotifierHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GlobalAgentHistory.resx">
+      <DependentUpon>GlobalAgentHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NotUsed\CollectorHostEditor.resx">
       <DependentUpon>CollectorHostEditor.cs</DependentUpon>

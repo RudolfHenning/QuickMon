@@ -2,7 +2,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-
 [assembly: AssemblyCompany("Hen IT")]
 [assembly: AssemblyProduct("QuickMon")]
 [assembly: AssemblyCopyright("Copyright © Hen IT 2019")]
@@ -16,5 +15,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("5.1.4.0041")]
-[assembly: AssemblyFileVersion("5.1.4.0041")]
+[assembly: AssemblyVersion("5.1.5.0042")]
+[assembly: AssemblyFileVersion("5.1.5.0042")]

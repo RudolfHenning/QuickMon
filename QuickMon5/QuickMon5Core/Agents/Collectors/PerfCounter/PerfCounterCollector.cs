@@ -233,7 +233,10 @@ namespace QuickMon.Collectors
 
         public void InitializePerfCounter()
         {
-            pc = new PerformanceCounter(Category, Counter, Instance, Computer);
+            string computername = ".";
+            if (Computer != "" && Computer.ToLower() != "localhost")
+                computername = Computer;
+            pc = new PerformanceCounter(Category, Counter, Instance, computername);
             pc.NextValue();
         }
         public float GetNextValue()
