@@ -68,6 +68,7 @@ namespace QuickMon
         }
         #endregion
 
+        #region Form events
         private void GlobalAgentHistory_Load(object sender, EventArgs e)
         {
             lvwHistory.AutoResizeColumnEnabled = true;
@@ -81,7 +82,8 @@ namespace QuickMon
         private void GlobalAgentHistory_FormClosing(object sender, FormClosingEventArgs e)
         {
             DeRegisterChildWindow();
-        }
+        } 
+        #endregion
 
         private void LoadControls()
         {
@@ -127,13 +129,20 @@ namespace QuickMon
                     txtName.Text = HostingMonitorPack.Name;
                     lvwHistory.Items.Clear();
                     lvwHistory.Items.AddRange(listViewItems.ToArray());
+                    lastUpdateTimeToolStripStatusLabel.Text = "Updated: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    countsToolStripStatusLabel.Text = lvwHistory.Items.Count.ToString() + " item(s)";
                 });                
             }
         }
         private MonitorState FormatMonitorState(CollectorHost ch, MonitorState ms)
         {
             MonitorState displayMS = ms.Clone();
-            displayMS.ForAgent = ch.DisplayName;
+            string collectorPath = "";
+            foreach(CollectorHost pch in HostingMonitorPack.GetParentCollectorHostTree(ch))
+            {
+                collectorPath = pch.Name + "/" + collectorPath;
+            }            
+            displayMS.ForAgent = collectorPath + ch.Name;
             displayMS.CurrentValue = ms.ReadPrimaryOrFirstUIValue();
             displayMS.RawDetails = ms.ReadAllRawDetails();
             return displayMS;
