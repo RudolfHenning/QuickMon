@@ -32,6 +32,14 @@ namespace QuickMon
         private readonly int collectorOutOfServiceWindowstateImage = 9;
         #endregion
 
+        #region State filters
+        private readonly int stateFilterAll = 0;
+        private readonly int stateFilterGood = 1;
+        private readonly int stateFilterWarning = 2;
+        private readonly int stateFilterError = 3;
+        private readonly int stateFilterWarnErr = 4;
+        #endregion
+
         #region IChildWindowIdentity
         /// <summary>
         /// reference to MainForm for bidirectional updating
@@ -72,6 +80,7 @@ namespace QuickMon
         private void GlobalAgentHistory_Load(object sender, EventArgs e)
         {
             lvwHistory.AutoResizeColumnEnabled = true;
+            cboStateFilter.SelectedIndex = 0;
             cbomaxResults.SelectedIndex = 2;
             agentStateSplitContainer.Panel2Collapsed = true;
         }
@@ -91,11 +100,13 @@ namespace QuickMon
             {
                 //first make global list of all history items locally
                 int maxResults = 100;
+                int stateFilter = 0;
                 try
                 {
                     this.Invoke((MethodInvoker)delegate ()
                     {
                         maxResults = int.Parse(cbomaxResults.Text);
+                        stateFilter = cboStateFilter.SelectedIndex;
                     });
                     
                 }
@@ -105,10 +116,16 @@ namespace QuickMon
                 List<ListViewItem> listViewItems = new List<ListViewItem>();
                 foreach (var collector in HostingMonitorPack.CollectorHosts)
                 {
-                    if (collector.CurrentState != null && collector.CollectorAgents.Count > 0)
+                    if (collector.CurrentState != null && collector.CollectorAgents.Count > 0 && IsInTextFilter(collector, txtFilter.Text))
                     {
-                        allMonitorStates.Add(FormatMonitorState(collector, collector.CurrentState));
-                        collector.StateHistory.OrderByDescending(st=>st.Timestamp).Take(maxResults).ToList().ForEach(st => allMonitorStates.Add(FormatMonitorState(collector, st)));
+                        if (IsInStateFilter(collector.CurrentState, stateFilter))
+                            allMonitorStates.Add(FormatMonitorState(collector, collector.CurrentState));
+                        foreach(MonitorState st in collector.StateHistory.OrderByDescending(st => st.Timestamp).Take(maxResults).ToList())
+                        {
+                            if (IsInStateFilter(st, stateFilter))
+                                allMonitorStates.Add(FormatMonitorState(collector, st));
+                        }
+                        //collector.StateHistory.OrderByDescending(st=>st.Timestamp).Take(maxResults).ToList().ForEach(st => allMonitorStates.Add(FormatMonitorState(collector, st)));
                     }
                 }
 
@@ -126,7 +143,8 @@ namespace QuickMon
 
                 this.Invoke((MethodInvoker)delegate ()
                 {
-                    txtName.Text = HostingMonitorPack.Name;
+                    this.Text = $"Global Collector History - {HostingMonitorPack.Name}";
+                    
                     lvwHistory.Items.Clear();
                     lvwHistory.Items.AddRange(listViewItems.ToArray());
                     lastUpdateTimeToolStripStatusLabel.Text = "Updated: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -134,18 +152,59 @@ namespace QuickMon
                 });                
             }
         }
+
+        private bool IsInTextFilter(CollectorHost collector, string textFilter)
+        {
+            if (textFilter.Trim().Length == 0)
+                return true;
+            else if (collector.Name.ToLower().Contains(textFilter.ToLower()))
+                return true;
+            else if (collector.CurrentState.ExecutedOnHostComputer != null && collector.CurrentState.ExecutedOnHostComputer.ToLower().Contains(textFilter.ToLower()))
+                return true;
+            else if (GetCollectorPath(collector).ToLower().Contains(textFilter.ToLower()))
+                return true;
+            else
+                return false;
+        }
+
+        private bool IsInStateFilter(MonitorState mstate, int stateFilter)
+        {
+            if (stateFilter == 0)
+                return true;
+            else if (stateFilter == stateFilterGood && mstate.State == CollectorState.Good)
+                return true;
+            else if (stateFilter == stateFilterWarning && mstate.State == CollectorState.Warning)
+                return true;
+            else if (stateFilter == stateFilterError && (mstate.State == CollectorState.Error || mstate.State == CollectorState.ConfigurationError))
+                return true;
+            else if (stateFilter == stateFilterWarnErr && (mstate.State == CollectorState.Warning || mstate.State == CollectorState.Error || mstate.State == CollectorState.ConfigurationError))
+                return true;
+            else
+                return false;            
+        }
+
         private MonitorState FormatMonitorState(CollectorHost ch, MonitorState ms)
         {
             MonitorState displayMS = ms.Clone();
-            string collectorPath = "";
-            foreach(CollectorHost pch in HostingMonitorPack.GetParentCollectorHostTree(ch))
-            {
-                collectorPath = pch.Name + "/" + collectorPath;
-            }            
-            displayMS.ForAgent = collectorPath + ch.Name;
+            string collectorPath = GetCollectorPath(ch);
+            //foreach (CollectorHost pch in HostingMonitorPack.GetParentCollectorHostTree(ch))
+            //{
+            //    collectorPath = pch.Name + "/" + collectorPath;
+            //}            
+            //displayMS.ForAgent = collectorPath + ch.Name;
+            displayMS.ForAgent = collectorPath;
             displayMS.CurrentValue = ms.ReadPrimaryOrFirstUIValue();
             displayMS.RawDetails = ms.ReadAllRawDetails();
             return displayMS;
+        }
+        private string GetCollectorPath(CollectorHost ch)
+        {
+            string collectorPath = "";
+            foreach (CollectorHost pch in HostingMonitorPack.GetParentCollectorHostTree(ch))
+            {
+                collectorPath = pch.Name + "/" + collectorPath;
+            }
+            return collectorPath + ch.Name;
         }
         private int GetNodeStateImageIndex(CollectorState state)
         {
@@ -239,6 +298,11 @@ namespace QuickMon
         private void rawViewSelectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             rtxDetails.SelectAll();
+        }
+
+        private void txtFilter_EnterKeyPressed()
+        {
+            LoadControls();
         }
     }
 }
