@@ -46,65 +46,77 @@ namespace QuickMon.Notifiers
                     {
                         smtpClient.EnableSsl = true;
                     }
-                    MailMessage mailMessage = new MailMessage(mailSettings.FromAddress, mailSettings.ToAddress);
-
-                    string collectorName = "QuickMon Global Alert";
-                    string collectorAgents = "None";
-                    string oldState = "N/A";
-                    string newState = "N/A";
-                    string detailMessage = "N/A";
-                    string viaHost = "";
-                    if (alertRaised.RaisedFor != null)
+                    List<string> toAddresses = new List<string>();
+                    if (mailSettings.SplitToAddressOnSend)
                     {
-                        collectorName = alertRaised.RaisedFor.Name;
-                        collectorAgents = string.Format("{0} agent(s)", alertRaised.RaisedFor.CollectorAgents.Count);
-                        if (alertRaised.RaisedFor.CollectorAgents.Count > 0)
+                        toAddresses.AddRange(mailSettings.ToAddress.Split(',', ';'));
+                    }
+                    else
+                    {
+                        toAddresses.Add(mailSettings.ToAddress);
+                    }
+                    foreach (string toAddress in toAddresses)
+                    {
+                        MailMessage mailMessage = new MailMessage(mailSettings.FromAddress, toAddress);
+
+                        string collectorName = "QuickMon Global Alert";
+                        string collectorAgents = "None";
+                        string oldState = "N/A";
+                        string newState = "N/A";
+                        string detailMessage = "N/A";
+                        string viaHost = "";
+                        if (alertRaised.RaisedFor != null)
                         {
-                            collectorAgents += " {";
-                            alertRaised.RaisedFor.CollectorAgents.ForEach(ca => collectorAgents += ca.AgentClassDisplayName + ",");
-                            collectorAgents = collectorAgents.TrimEnd(',') + "}";
+                            collectorName = alertRaised.RaisedFor.Name;
+                            collectorAgents = string.Format("{0} agent(s)", alertRaised.RaisedFor.CollectorAgents.Count);
+                            if (alertRaised.RaisedFor.CollectorAgents.Count > 0)
+                            {
+                                collectorAgents += " {";
+                                alertRaised.RaisedFor.CollectorAgents.ForEach(ca => collectorAgents += ca.AgentClassDisplayName + ",");
+                                collectorAgents = collectorAgents.TrimEnd(',') + "}";
+                            }
+                            oldState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.PreviousState.State);
+                            newState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.CurrentState.State);
+                            detailMessage = mailSettings.IsBodyHtml ? alertRaised.RaisedFor.CurrentState.ReadAllHtmlDetails() : alertRaised.RaisedFor.CurrentState.ReadAllRawDetails();
+                            if (alertRaised.RaisedFor.OverrideRemoteAgentHost)
+                                viaHost = string.Format(" (via {0}:{1})", alertRaised.RaisedFor.OverrideRemoteAgentHostAddress, alertRaised.RaisedFor.OverrideRemoteAgentHostPort);
+                            else if (alertRaised.RaisedFor.EnableRemoteExecute)
+                                viaHost = string.Format(" (via {0}:{1})", alertRaised.RaisedFor.RemoteAgentHostAddress, alertRaised.RaisedFor.RemoteAgentHostPort);
                         }
-                        oldState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.PreviousState.State);
-                        newState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.CurrentState.State);
-                        detailMessage = mailSettings.IsBodyHtml ? alertRaised.RaisedFor.CurrentState.ReadAllHtmlDetails() : alertRaised.RaisedFor.CurrentState.ReadAllRawDetails();
-                        if (alertRaised.RaisedFor.OverrideRemoteAgentHost)
-                            viaHost = string.Format(" (via {0}:{1})", alertRaised.RaisedFor.OverrideRemoteAgentHostAddress, alertRaised.RaisedFor.OverrideRemoteAgentHostPort);
-                        else if (alertRaised.RaisedFor.EnableRemoteExecute)
-                            viaHost = string.Format(" (via {0}:{1})", alertRaised.RaisedFor.RemoteAgentHostAddress, alertRaised.RaisedFor.RemoteAgentHostPort);
+
+                        lastStep = "Setting up mail body";
+                        string body = mailSettings.Body
+                            .Replace("%Details%", detailMessage)
+                        .Replace("%DateTime%", DateTime.Now.ToString("F"))
+                        .Replace("%AlertLevel%", Enum.GetName(typeof(AlertLevel), alertRaised.Level))
+                        .Replace("%PreviousState%", oldState)
+                        .Replace("%CurrentState%", newState)
+                        .Replace("%CollectorName%", collectorName + viaHost)
+                        .Replace("%CollectorAgents%", collectorAgents);
+
+                        string subject = mailSettings.Subject
+                           .Replace("%DateTime%", DateTime.Now.ToString("F"))
+                           .Replace("%AlertLevel%", Enum.GetName(typeof(AlertLevel), alertRaised.Level))
+                           .Replace("%PreviousState%", oldState)
+                           .Replace("%CurrentState%", newState)
+                           .Replace("%CollectorName%", collectorName + viaHost)
+                           .Replace("%CollectorAgents%", collectorAgents);
+
+                        mailMessage.Priority = (MailPriority)mailSettings.MailPriority;
+                        if (mailSettings.SenderAddress.Length > 0)
+                            mailMessage.Sender = new MailAddress(mailSettings.SenderAddress);
+                        if (mailSettings.ReplyToAddress.Length > 0)
+                        {
+                            mailMessage.ReplyToList.Add(mailSettings.ReplyToAddress);
+                        }
+
+                        mailMessage.Body = body;
+                        mailMessage.IsBodyHtml = mailSettings.IsBodyHtml;
+
+                        mailMessage.Subject = subject;
+                        lastStep = $"Sending SMTP mail to {toAddress}";
+                        smtpClient.Send(mailMessage);
                     }
-
-                    lastStep = "Setting up mail body";
-                    string body = mailSettings.Body
-                        .Replace("%Details%", detailMessage)
-                    .Replace("%DateTime%", DateTime.Now.ToString("F"))
-                    .Replace("%AlertLevel%", Enum.GetName(typeof(AlertLevel), alertRaised.Level))
-                    .Replace("%PreviousState%", oldState)
-                    .Replace("%CurrentState%", newState)
-                    .Replace("%CollectorName%", collectorName + viaHost)
-                    .Replace("%CollectorAgents%", collectorAgents);
-
-                    string subject = mailSettings.Subject
-                       .Replace("%DateTime%", DateTime.Now.ToString("F"))
-                       .Replace("%AlertLevel%", Enum.GetName(typeof(AlertLevel), alertRaised.Level))
-                       .Replace("%PreviousState%", oldState)
-                       .Replace("%CurrentState%", newState)
-                       .Replace("%CollectorName%", collectorName + viaHost)
-                       .Replace("%CollectorAgents%", collectorAgents);
-
-                    mailMessage.Priority = (MailPriority)mailSettings.MailPriority;
-                    if (mailSettings.SenderAddress.Length > 0)
-                        mailMessage.Sender = new MailAddress(mailSettings.SenderAddress);
-                    if (mailSettings.ReplyToAddress.Length > 0)
-                    {
-                        mailMessage.ReplyToList.Add(mailSettings.ReplyToAddress);
-                    }
-
-                    mailMessage.Body = body;
-                    mailMessage.IsBodyHtml = mailSettings.IsBodyHtml;
-
-                    mailMessage.Subject = subject;
-                    lastStep = "Sending SMTP mail";
-                    smtpClient.Send(mailMessage);
                 }
             }
             catch (Exception ex)
@@ -131,6 +143,7 @@ namespace QuickMon.Notifiers
         public string SenderAddress { get; set; }
         public string ReplyToAddress { get; set; }
         public string ToAddress { get; set; }
+        public bool SplitToAddressOnSend { get; set; }
         public int MailPriority { get; set; }
         public bool IsBodyHtml { get; set; }
         public string Subject { get; set; }
@@ -153,11 +166,12 @@ namespace QuickMon.Notifiers
             Domain = connectionNode.ReadXmlElementAttr("domain", "");
             UserName = connectionNode.ReadXmlElementAttr("userName", "");
             Password = connectionNode.ReadXmlElementAttr("password", "");
-            FromAddress = connectionNode.ReadXmlElementAttr("fromAddress", "");
+            FromAddress = connectionNode.ReadXmlElementAttr("fromAddress", "");            
             SenderAddress = connectionNode.ReadXmlElementAttr("senderAddress", "");
             ReplyToAddress = connectionNode.ReadXmlElementAttr("replyToAddress", "");
             MailPriority = int.Parse(connectionNode.ReadXmlElementAttr("mailPriority", "0"));
             ToAddress = connectionNode.ReadXmlElementAttr("toAddress", "");
+            SplitToAddressOnSend = connectionNode.ReadXmlElementAttr("splitToAddress", false);
             IsBodyHtml = bool.Parse(connectionNode.ReadXmlElementAttr("isBodyHtml", "True"));
             Subject = connectionNode.ReadXmlElementAttr("subject", "");
             Body = connectionNode.ReadXmlElementAttr("body", "");
@@ -175,6 +189,7 @@ namespace QuickMon.Notifiers
             connectionNode.SetAttributeValue("password", Password);
             connectionNode.SetAttributeValue("fromAddress", FromAddress);
             connectionNode.SetAttributeValue("toAddress", ToAddress);
+            connectionNode.SetAttributeValue("splitToAddress", SplitToAddressOnSend);
             connectionNode.SetAttributeValue("senderAddress", SenderAddress);
             connectionNode.SetAttributeValue("replyToAddress", ReplyToAddress);
             connectionNode.SetAttributeValue("mailPriority", MailPriority);

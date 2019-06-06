@@ -39,6 +39,7 @@ namespace QuickMon.UI
             txtPassword.Text = mailSettings.Password;
             txtFromAddress.Text = mailSettings.FromAddress;
             txtToAddress.Text = mailSettings.ToAddress;
+            chkSplitToAddressOnSend.Checked = mailSettings.SplitToAddressOnSend;
             txtSender.Text = mailSettings.SenderAddress;
             txtReplyToAddress.Text = mailSettings.ReplyToAddress;
             if (mailSettings.MailPriority == 1)
@@ -81,6 +82,7 @@ namespace QuickMon.UI
                 mailSettings.Password = txtPassword.Text;
                 mailSettings.FromAddress = txtFromAddress.Text;
                 mailSettings.ToAddress = txtToAddress.Text;
+                mailSettings.SplitToAddressOnSend = chkSplitToAddressOnSend.Checked;
                 mailSettings.SenderAddress = txtSender.Text;
                 mailSettings.ReplyToAddress = txtReplyToAddress.Text;
                 if (optPriorityLow.Checked)
@@ -228,6 +230,11 @@ namespace QuickMon.UI
         private void txtBody_TextChanged(object sender, EventArgs e)
         {
             CheckOKEnabled();
+        }
+
+        private void SMTPNotifierEdit_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

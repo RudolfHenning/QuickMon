@@ -113,3 +113,8 @@ Version 5.1.5
 **************
 Allow the use of the name 'localhost' in the PerfMon collector (maps to '.')
 Added a few new template entries for creating new monitor packs
+
+--------------
+Version 5.1.6
+**************
+Add option to SMTP notifier to split 'To' addresses so each recipient gets a separate message.

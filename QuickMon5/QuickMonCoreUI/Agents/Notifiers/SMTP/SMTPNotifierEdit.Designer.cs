@@ -64,6 +64,7 @@
             this.cmdTest = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
+            this.chkSplitToAddressOnSend = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.portNumericUpDown)).BeginInit();
             this.priorityGroupBox.SuspendLayout();
             this.groupBoxCredentials.SuspendLayout();
@@ -71,7 +72,8 @@
             // 
             // portNumericUpDown
             // 
-            this.portNumericUpDown.Location = new System.Drawing.Point(422, 12);
+            this.portNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.portNumericUpDown.Location = new System.Drawing.Point(472, 12);
             this.portNumericUpDown.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -93,8 +95,9 @@
             // 
             // label11
             // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(389, 14);
+            this.label11.Location = new System.Drawing.Point(439, 14);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(26, 13);
             this.label11.TabIndex = 2;
@@ -114,10 +117,10 @@
             // label10
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label10.Location = new System.Drawing.Point(61, 414);
+            this.label10.Location = new System.Drawing.Point(61, 407);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(424, 46);
-            this.label10.TabIndex = 22;
+            this.label10.TabIndex = 23;
             this.label10.Text = "%DateTime% %AlertLevel% %CurrentState% %PreviousState% \r\n%CollectorName% %Collect" +
     "orType% \r\n%Details% (Only applies to Body)";
             // 
@@ -125,19 +128,19 @@
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(18, 397);
+            this.label9.Location = new System.Drawing.Point(18, 390);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(331, 13);
-            this.label9.TabIndex = 21;
+            this.label9.TabIndex = 22;
             this.label9.Text = "* Body and Subject may contain one or more of the following macros:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(18, 292);
+            this.label8.Location = new System.Drawing.Point(18, 316);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(38, 13);
-            this.label8.TabIndex = 19;
+            this.label8.TabIndex = 20;
             this.label8.Text = "Body *";
             // 
             // txtBody
@@ -145,12 +148,12 @@
             this.txtBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBody.Location = new System.Drawing.Point(105, 289);
+            this.txtBody.Location = new System.Drawing.Point(105, 313);
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtBody.Size = new System.Drawing.Size(396, 105);
-            this.txtBody.TabIndex = 20;
+            this.txtBody.Size = new System.Drawing.Size(427, 74);
+            this.txtBody.TabIndex = 21;
             this.txtBody.TextChanged += new System.EventHandler(this.txtBody_TextChanged);
             // 
             // priorityGroupBox
@@ -159,7 +162,7 @@
             this.priorityGroupBox.Controls.Add(this.optPriorityHigh);
             this.priorityGroupBox.Controls.Add(this.optPriorityNormal);
             this.priorityGroupBox.Controls.Add(this.optPriorityLow);
-            this.priorityGroupBox.Location = new System.Drawing.Point(411, 61);
+            this.priorityGroupBox.Location = new System.Drawing.Point(442, 61);
             this.priorityGroupBox.Name = "priorityGroupBox";
             this.priorityGroupBox.Size = new System.Drawing.Size(94, 95);
             this.priorityGroupBox.TabIndex = 7;
@@ -201,27 +204,27 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(18, 217);
+            this.label13.Location = new System.Drawing.Point(18, 239);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(46, 13);
-            this.label13.TabIndex = 14;
+            this.label13.TabIndex = 15;
             this.label13.Text = "Reply to";
             // 
             // txtReplyToAddress
             // 
             this.txtReplyToAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtReplyToAddress.Location = new System.Drawing.Point(105, 214);
+            this.txtReplyToAddress.Location = new System.Drawing.Point(105, 236);
             this.txtReplyToAddress.Name = "txtReplyToAddress";
-            this.txtReplyToAddress.Size = new System.Drawing.Size(396, 20);
-            this.txtReplyToAddress.TabIndex = 15;
+            this.txtReplyToAddress.Size = new System.Drawing.Size(427, 20);
+            this.txtReplyToAddress.TabIndex = 16;
             this.txtReplyToAddress.TextChanged += new System.EventHandler(this.txtReplyToAddress_TextChanged);
             // 
             // label12
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(281, 165);
+            this.label12.Location = new System.Drawing.Point(312, 165);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(41, 13);
             this.label12.TabIndex = 10;
@@ -230,7 +233,7 @@
             // txtSender
             // 
             this.txtSender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSender.Location = new System.Drawing.Point(328, 162);
+            this.txtSender.Location = new System.Drawing.Point(359, 162);
             this.txtSender.Name = "txtSender";
             this.txtSender.Size = new System.Drawing.Size(173, 20);
             this.txtSender.TabIndex = 11;
@@ -239,20 +242,20 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(18, 243);
+            this.label7.Location = new System.Drawing.Point(18, 265);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(50, 13);
-            this.label7.TabIndex = 16;
+            this.label7.TabIndex = 17;
             this.label7.Text = "Subject *";
             // 
             // chkIsBodyHtml
             // 
             this.chkIsBodyHtml.AutoSize = true;
             this.chkIsBodyHtml.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkIsBodyHtml.Location = new System.Drawing.Point(105, 266);
+            this.chkIsBodyHtml.Location = new System.Drawing.Point(105, 290);
             this.chkIsBodyHtml.Name = "chkIsBodyHtml";
             this.chkIsBodyHtml.Size = new System.Drawing.Size(91, 17);
-            this.chkIsBodyHtml.TabIndex = 18;
+            this.chkIsBodyHtml.TabIndex = 19;
             this.chkIsBodyHtml.Text = "Is body HTML";
             this.chkIsBodyHtml.UseVisualStyleBackColor = true;
             // 
@@ -268,7 +271,7 @@
             this.groupBoxCredentials.Controls.Add(this.txtDomain);
             this.groupBoxCredentials.Location = new System.Drawing.Point(105, 61);
             this.groupBoxCredentials.Name = "groupBoxCredentials";
-            this.groupBoxCredentials.Size = new System.Drawing.Size(294, 95);
+            this.groupBoxCredentials.Size = new System.Drawing.Size(325, 95);
             this.groupBoxCredentials.TabIndex = 6;
             this.groupBoxCredentials.TabStop = false;
             this.groupBoxCredentials.Text = "Custom credentials";
@@ -289,7 +292,7 @@
             this.txtPassword.Location = new System.Drawing.Point(100, 71);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(188, 20);
+            this.txtPassword.Size = new System.Drawing.Size(219, 20);
             this.txtPassword.TabIndex = 5;
             // 
             // label3
@@ -307,7 +310,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtUserName.Location = new System.Drawing.Point(100, 45);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(188, 20);
+            this.txtUserName.Size = new System.Drawing.Size(219, 20);
             this.txtUserName.TabIndex = 3;
             // 
             // label2
@@ -325,7 +328,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDomain.Location = new System.Drawing.Point(100, 19);
             this.txtDomain.Name = "txtDomain";
-            this.txtDomain.Size = new System.Drawing.Size(188, 20);
+            this.txtDomain.Size = new System.Drawing.Size(219, 20);
             this.txtDomain.TabIndex = 1;
             // 
             // chkUseDefaultCredentials
@@ -351,9 +354,11 @@
             // 
             // txtSMTPServer
             // 
+            this.txtSMTPServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSMTPServer.Location = new System.Drawing.Point(105, 12);
             this.txtSMTPServer.Name = "txtSMTPServer";
-            this.txtSMTPServer.Size = new System.Drawing.Size(278, 20);
+            this.txtSMTPServer.Size = new System.Drawing.Size(328, 20);
             this.txtSMTPServer.TabIndex = 1;
             this.txtSMTPServer.TextChanged += new System.EventHandler(this.txtSMTPServer_TextChanged);
             // 
@@ -361,10 +366,10 @@
             // 
             this.txtSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSubject.Location = new System.Drawing.Point(105, 240);
+            this.txtSubject.Location = new System.Drawing.Point(105, 262);
             this.txtSubject.Name = "txtSubject";
-            this.txtSubject.Size = new System.Drawing.Size(396, 20);
-            this.txtSubject.TabIndex = 17;
+            this.txtSubject.Size = new System.Drawing.Size(427, 20);
+            this.txtSubject.TabIndex = 18;
             this.txtSubject.TextChanged += new System.EventHandler(this.txtSubject_TextChanged);
             // 
             // label6
@@ -391,7 +396,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtToAddress.Location = new System.Drawing.Point(105, 188);
             this.txtToAddress.Name = "txtToAddress";
-            this.txtToAddress.Size = new System.Drawing.Size(396, 20);
+            this.txtToAddress.Size = new System.Drawing.Size(427, 20);
             this.txtToAddress.TabIndex = 13;
             this.txtToAddress.TextChanged += new System.EventHandler(this.txtToAddress_TextChanged);
             // 
@@ -401,7 +406,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFromAddress.Location = new System.Drawing.Point(105, 162);
             this.txtFromAddress.Name = "txtFromAddress";
-            this.txtFromAddress.Size = new System.Drawing.Size(162, 20);
+            this.txtFromAddress.Size = new System.Drawing.Size(193, 20);
             this.txtFromAddress.TabIndex = 9;
             this.txtFromAddress.TextChanged += new System.EventHandler(this.txtFromAddress_TextChanged);
             this.txtFromAddress.Leave += new System.EventHandler(this.txtFromAddress_Leave);
@@ -410,10 +415,10 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTest.Location = new System.Drawing.Point(274, 466);
+            this.cmdTest.Location = new System.Drawing.Point(305, 459);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
-            this.cmdTest.TabIndex = 23;
+            this.cmdTest.TabIndex = 24;
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
@@ -423,10 +428,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(436, 466);
+            this.cmdCancel.Location = new System.Drawing.Point(467, 459);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 25;
+            this.cmdCancel.TabIndex = 26;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -434,20 +439,32 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(355, 466);
+            this.cmdOK.Location = new System.Drawing.Point(386, 459);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 24;
+            this.cmdOK.TabIndex = 25;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
+            // 
+            // chkSplitToAddressOnSend
+            // 
+            this.chkSplitToAddressOnSend.AutoSize = true;
+            this.chkSplitToAddressOnSend.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkSplitToAddressOnSend.Location = new System.Drawing.Point(105, 213);
+            this.chkSplitToAddressOnSend.Name = "chkSplitToAddressOnSend";
+            this.chkSplitToAddressOnSend.Size = new System.Drawing.Size(336, 17);
+            this.chkSplitToAddressOnSend.TabIndex = 14;
+            this.chkSplitToAddressOnSend.Text = "Split \'To\' address (each recipient will  receive a separate message)";
+            this.chkSplitToAddressOnSend.UseVisualStyleBackColor = true;
             // 
             // SMTPNotifierEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(523, 501);
+            this.ClientSize = new System.Drawing.Size(554, 494);
+            this.Controls.Add(this.chkSplitToAddressOnSend);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.portNumericUpDown);
@@ -475,9 +492,11 @@
             this.Controls.Add(this.txtFromAddress);
             this.Controls.Add(this.cmdTest);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(520, 500);
             this.Name = "SMTPNotifierEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SMTPNotifierEdit";
+            this.Text = "SMTP Notifier Edit";
+            this.Load += new System.EventHandler(this.SMTPNotifierEdit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.portNumericUpDown)).EndInit();
             this.priorityGroupBox.ResumeLayout(false);
             this.priorityGroupBox.PerformLayout();
@@ -525,5 +544,6 @@
         private System.Windows.Forms.Button cmdTest;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
+        private System.Windows.Forms.CheckBox chkSplitToAddressOnSend;
     }
 }
