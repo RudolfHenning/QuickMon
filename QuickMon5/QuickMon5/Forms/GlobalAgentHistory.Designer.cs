@@ -1,4 +1,6 @@
-﻿namespace QuickMon
+﻿using QuickMon.Controls;
+
+namespace QuickMon
 {
     partial class GlobalAgentHistory
     {
@@ -31,31 +33,35 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlobalAgentHistory));
             this.panelTop = new System.Windows.Forms.Panel();
-            this.lblName = new System.Windows.Forms.Label();
+            this.filtersPanel = new System.Windows.Forms.Panel();
+            this.txtFilter = new QuickMon.Controls.TextBoxEx();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cboStateFilter = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbomaxResults = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.cmdViewDetails = new System.Windows.Forms.Button();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabelAutoRefresh = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lastUpdateTimeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.countsToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.agentStateSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.lvwHistory = new QuickMon.ListViewEx();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvwHistory = new QuickMon.ListViewEx();
-            this.rtxDetails = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbomaxResults = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
-            this.cmdViewDetails = new System.Windows.Forms.Button();
+            this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.rawViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rawViewCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rawViewSelectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTop.SuspendLayout();
+            this.filtersPanel.SuspendLayout();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.agentStateSplitContainer)).BeginInit();
             this.agentStateSplitContainer.Panel1.SuspendLayout();
@@ -66,88 +72,173 @@
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.filtersPanel);
             this.panelTop.Controls.Add(this.label2);
             this.panelTop.Controls.Add(this.cbomaxResults);
             this.panelTop.Controls.Add(this.label1);
-            this.panelTop.Controls.Add(this.lblName);
             this.panelTop.Controls.Add(this.cmdRefresh);
-            this.panelTop.Controls.Add(this.txtName);
             this.panelTop.Controls.Add(this.cmdViewDetails);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(729, 33);
+            this.panelTop.Size = new System.Drawing.Size(784, 33);
             this.panelTop.TabIndex = 11;
             // 
-            // lblName
+            // filtersPanel
             // 
-            this.lblName.AutoSize = true;
-            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(3, 6);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(99, 18);
-            this.lblName.TabIndex = 4;
-            this.lblName.Text = "Monitor pack:";
+            this.filtersPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.filtersPanel.Controls.Add(this.txtFilter);
+            this.filtersPanel.Controls.Add(this.label6);
+            this.filtersPanel.Controls.Add(this.cboStateFilter);
+            this.filtersPanel.Controls.Add(this.label5);
+            this.filtersPanel.Controls.Add(this.label4);
+            this.filtersPanel.Location = new System.Drawing.Point(34, 0);
+            this.filtersPanel.Name = "filtersPanel";
+            this.filtersPanel.Size = new System.Drawing.Size(542, 33);
+            this.filtersPanel.TabIndex = 14;
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFilter.HideSelection = false;
+            this.txtFilter.Location = new System.Drawing.Point(243, 5);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(296, 21);
+            this.txtFilter.TabIndex = 4;
+            this.txtFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtFilter_EnterKeyPressed);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(203, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(34, 16);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Text";
+            // 
+            // cboStateFilter
+            // 
+            this.cboStateFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboStateFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboStateFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboStateFilter.FormattingEnabled = true;
+            this.cboStateFilter.Items.AddRange(new object[] {
+            "All",
+            "Good",
+            "Warning",
+            "Error",
+            "Warn & Err"});
+            this.cboStateFilter.Location = new System.Drawing.Point(105, 3);
+            this.cboStateFilter.Name = "cboStateFilter";
+            this.cboStateFilter.Size = new System.Drawing.Size(92, 23);
+            this.cboStateFilter.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(60, 7);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(39, 16);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "State";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(3, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 16);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Filters";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(705, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 15);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Entries";
+            // 
+            // cbomaxResults
+            // 
+            this.cbomaxResults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbomaxResults.BackColor = System.Drawing.Color.White;
+            this.cbomaxResults.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbomaxResults.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbomaxResults.FormattingEnabled = true;
+            this.cbomaxResults.Items.AddRange(new object[] {
+            "10",
+            "100",
+            "1000",
+            "10000",
+            "100000"});
+            this.cbomaxResults.Location = new System.Drawing.Point(621, 6);
+            this.cbomaxResults.Name = "cbomaxResults";
+            this.cbomaxResults.Size = new System.Drawing.Size(78, 21);
+            this.cbomaxResults.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(582, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 16);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Last";
             // 
             // cmdRefresh
             // 
             this.cmdRefresh.BackColor = System.Drawing.Color.Transparent;
             this.cmdRefresh.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
             this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefresh.Location = new System.Drawing.Point(673, 0);
+            this.cmdRefresh.Location = new System.Drawing.Point(0, 0);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(28, 33);
             this.cmdRefresh.TabIndex = 9;
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
-            // txtName
+            // cmdViewDetails
             // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.BackColor = System.Drawing.Color.White;
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(104, 8);
-            this.txtName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtName.Multiline = true;
-            this.txtName.Name = "txtName";
-            this.txtName.ReadOnly = true;
-            this.txtName.Size = new System.Drawing.Size(389, 21);
-            this.txtName.TabIndex = 5;
-            this.txtName.WordWrap = false;
+            this.cmdViewDetails.BackColor = System.Drawing.Color.Transparent;
+            this.cmdViewDetails.BackgroundImage = global::QuickMon.Properties.Resources.comp_search24;
+            this.cmdViewDetails.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdViewDetails.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmdViewDetails.FlatAppearance.BorderSize = 0;
+            this.cmdViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdViewDetails.Location = new System.Drawing.Point(756, 0);
+            this.cmdViewDetails.Name = "cmdViewDetails";
+            this.cmdViewDetails.Size = new System.Drawing.Size(28, 33);
+            this.cmdViewDetails.TabIndex = 13;
+            this.cmdViewDetails.UseVisualStyleBackColor = false;
+            this.cmdViewDetails.Click += new System.EventHandler(this.cmdViewDetails_Click);
             // 
             // statusStripCollector
             // 
             this.statusStripCollector.BackColor = System.Drawing.Color.Transparent;
             this.statusStripCollector.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabelAutoRefresh,
-            this.toolStripStatusLabel2,
-            this.lastUpdateTimeToolStripStatusLabel});
-            this.statusStripCollector.Location = new System.Drawing.Point(0, 459);
+            this.lastUpdateTimeToolStripStatusLabel,
+            this.countsToolStripStatusLabel});
+            this.statusStripCollector.Location = new System.Drawing.Point(0, 539);
             this.statusStripCollector.Name = "statusStripCollector";
-            this.statusStripCollector.Size = new System.Drawing.Size(729, 22);
+            this.statusStripCollector.Size = new System.Drawing.Size(784, 22);
             this.statusStripCollector.TabIndex = 12;
             this.statusStripCollector.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabelAutoRefresh
-            // 
-            this.toolStripStatusLabelAutoRefresh.AutoToolTip = true;
-            this.toolStripStatusLabelAutoRefresh.DoubleClickEnabled = true;
-            this.toolStripStatusLabelAutoRefresh.Image = global::QuickMon.Properties.Resources._102;
-            this.toolStripStatusLabelAutoRefresh.Name = "toolStripStatusLabelAutoRefresh";
-            this.toolStripStatusLabelAutoRefresh.Size = new System.Drawing.Size(112, 17);
-            this.toolStripStatusLabelAutoRefresh.Text = "Auto Refresh ON";
-            this.toolStripStatusLabelAutoRefresh.ToolTipText = "Auto refresh";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
-            this.toolStripStatusLabel2.Text = "|";
             // 
             // lastUpdateTimeToolStripStatusLabel
             // 
@@ -155,13 +246,19 @@
             this.lastUpdateTimeToolStripStatusLabel.Size = new System.Drawing.Size(65, 17);
             this.lastUpdateTimeToolStripStatusLabel.Text = "<No data>";
             // 
+            // countsToolStripStatusLabel
+            // 
+            this.countsToolStripStatusLabel.Name = "countsToolStripStatusLabel";
+            this.countsToolStripStatusLabel.Size = new System.Drawing.Size(61, 17);
+            this.countsToolStripStatusLabel.Text = "<Counts>";
+            // 
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(729, 1);
+            this.label3.Size = new System.Drawing.Size(784, 1);
             this.label3.TabIndex = 1;
             // 
             // agentStateSplitContainer
@@ -179,30 +276,10 @@
             // 
             this.agentStateSplitContainer.Panel2.Controls.Add(this.rtxDetails);
             this.agentStateSplitContainer.Panel2.Controls.Add(this.label3);
-            this.agentStateSplitContainer.Size = new System.Drawing.Size(729, 426);
-            this.agentStateSplitContainer.SplitterDistance = 256;
+            this.agentStateSplitContainer.Size = new System.Drawing.Size(784, 506);
+            this.agentStateSplitContainer.SplitterDistance = 304;
             this.agentStateSplitContainer.SplitterWidth = 6;
             this.agentStateSplitContainer.TabIndex = 13;
-            // 
-            // timeColumnHeader
-            // 
-            this.timeColumnHeader.Text = "Time";
-            this.timeColumnHeader.Width = 153;
-            // 
-            // collectorValueColumnHeader
-            // 
-            this.collectorValueColumnHeader.Text = "Value";
-            this.collectorValueColumnHeader.Width = 180;
-            // 
-            // durationColumnHeader
-            // 
-            this.durationColumnHeader.Text = "Duration (ms)";
-            this.durationColumnHeader.Width = 114;
-            // 
-            // alertCountColumnHeader
-            // 
-            this.alertCountColumnHeader.Text = "Alerts";
-            this.alertCountColumnHeader.Width = 78;
             // 
             // lvwHistory
             // 
@@ -219,68 +296,37 @@
             this.lvwHistory.FullRowSelect = true;
             this.lvwHistory.Location = new System.Drawing.Point(0, 0);
             this.lvwHistory.Name = "lvwHistory";
-            this.lvwHistory.Size = new System.Drawing.Size(729, 256);
+            this.lvwHistory.Size = new System.Drawing.Size(784, 304);
             this.lvwHistory.SmallImageList = this.imagesCollectorTree;
             this.lvwHistory.TabIndex = 0;
             this.lvwHistory.UseCompatibleStateImageBehavior = false;
             this.lvwHistory.View = System.Windows.Forms.View.Details;
             this.lvwHistory.SelectedIndexChanged += new System.EventHandler(this.lvwHistory_SelectedIndexChanged);
             // 
-            // rtxDetails
-            // 
-            this.rtxDetails.ContextMenuStrip = this.rawViewContextMenuStrip;
-            this.rtxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtxDetails.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtxDetails.HideSelection = false;
-            this.rtxDetails.Location = new System.Drawing.Point(0, 1);
-            this.rtxDetails.Name = "rtxDetails";
-            this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(729, 163);
-            this.rtxDetails.TabIndex = 3;
-            this.rtxDetails.Text = "";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(499, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 16);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Last";
-            // 
-            // cbomaxResults
-            // 
-            this.cbomaxResults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbomaxResults.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbomaxResults.FormattingEnabled = true;
-            this.cbomaxResults.Items.AddRange(new object[] {
-            "10",
-            "100",
-            "1000",
-            "10000",
-            "100000"});
-            this.cbomaxResults.Location = new System.Drawing.Point(538, 6);
-            this.cbomaxResults.Name = "cbomaxResults";
-            this.cbomaxResults.Size = new System.Drawing.Size(78, 21);
-            this.cbomaxResults.TabIndex = 11;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(622, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 15);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Entries";
-            // 
             // nameColumnHeader
             // 
             this.nameColumnHeader.Text = "Name";
-            this.nameColumnHeader.Width = 173;
+            this.nameColumnHeader.Width = 328;
+            // 
+            // timeColumnHeader
+            // 
+            this.timeColumnHeader.Text = "Time";
+            this.timeColumnHeader.Width = 128;
+            // 
+            // collectorValueColumnHeader
+            // 
+            this.collectorValueColumnHeader.Text = "Value";
+            this.collectorValueColumnHeader.Width = 97;
+            // 
+            // durationColumnHeader
+            // 
+            this.durationColumnHeader.Text = "Duration (ms)";
+            this.durationColumnHeader.Width = 85;
+            // 
+            // alertCountColumnHeader
+            // 
+            this.alertCountColumnHeader.Text = "Alerts";
+            this.alertCountColumnHeader.Width = 78;
             // 
             // imagesCollectorTree
             // 
@@ -299,20 +345,18 @@
             this.imagesCollectorTree.Images.SetKeyName(10, "Error24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(11, "Error2_24x24.png");
             // 
-            // cmdViewDetails
+            // rtxDetails
             // 
-            this.cmdViewDetails.BackColor = System.Drawing.Color.Transparent;
-            this.cmdViewDetails.BackgroundImage = global::QuickMon.Properties.Resources.comp_search24;
-            this.cmdViewDetails.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdViewDetails.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cmdViewDetails.FlatAppearance.BorderSize = 0;
-            this.cmdViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdViewDetails.Location = new System.Drawing.Point(701, 0);
-            this.cmdViewDetails.Name = "cmdViewDetails";
-            this.cmdViewDetails.Size = new System.Drawing.Size(28, 33);
-            this.cmdViewDetails.TabIndex = 13;
-            this.cmdViewDetails.UseVisualStyleBackColor = false;
-            this.cmdViewDetails.Click += new System.EventHandler(this.cmdViewDetails_Click);
+            this.rtxDetails.ContextMenuStrip = this.rawViewContextMenuStrip;
+            this.rtxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtxDetails.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxDetails.HideSelection = false;
+            this.rtxDetails.Location = new System.Drawing.Point(0, 1);
+            this.rtxDetails.Name = "rtxDetails";
+            this.rtxDetails.ReadOnly = true;
+            this.rtxDetails.Size = new System.Drawing.Size(784, 195);
+            this.rtxDetails.TabIndex = 3;
+            this.rtxDetails.Text = "";
             // 
             // rawViewContextMenuStrip
             // 
@@ -320,19 +364,19 @@
             this.rawViewCopyToolStripMenuItem,
             this.rawViewSelectAllToolStripMenuItem});
             this.rawViewContextMenuStrip.Name = "rawViewContextMenuStrip";
-            this.rawViewContextMenuStrip.Size = new System.Drawing.Size(153, 70);
+            this.rawViewContextMenuStrip.Size = new System.Drawing.Size(123, 48);
             // 
             // rawViewCopyToolStripMenuItem
             // 
             this.rawViewCopyToolStripMenuItem.Name = "rawViewCopyToolStripMenuItem";
-            this.rawViewCopyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rawViewCopyToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.rawViewCopyToolStripMenuItem.Text = "C&opy";
             this.rawViewCopyToolStripMenuItem.Click += new System.EventHandler(this.rawViewCopyToolStripMenuItem_Click);
             // 
             // rawViewSelectAllToolStripMenuItem
             // 
             this.rawViewSelectAllToolStripMenuItem.Name = "rawViewSelectAllToolStripMenuItem";
-            this.rawViewSelectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rawViewSelectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.rawViewSelectAllToolStripMenuItem.Text = "Select &All";
             this.rawViewSelectAllToolStripMenuItem.Click += new System.EventHandler(this.rawViewSelectAllToolStripMenuItem_Click);
             // 
@@ -341,11 +385,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(729, 481);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.agentStateSplitContainer);
             this.Controls.Add(this.statusStripCollector);
             this.Controls.Add(this.panelTop);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "GlobalAgentHistory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Global Collector History";
@@ -354,6 +399,8 @@
             this.Shown += new System.EventHandler(this.GlobalAgentHistory_Shown);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
+            this.filtersPanel.ResumeLayout(false);
+            this.filtersPanel.PerformLayout();
             this.statusStripCollector.ResumeLayout(false);
             this.statusStripCollector.PerformLayout();
             this.agentStateSplitContainer.Panel1.ResumeLayout(false);
@@ -369,12 +416,8 @@
         #endregion
 
         private System.Windows.Forms.Panel panelTop;
-        private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button cmdRefresh;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.StatusStrip statusStripCollector;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelAutoRefresh;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel lastUpdateTimeToolStripStatusLabel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.SplitContainer agentStateSplitContainer;
@@ -393,5 +436,12 @@
         private System.Windows.Forms.ContextMenuStrip rawViewContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem rawViewCopyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rawViewSelectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel countsToolStripStatusLabel;
+        private System.Windows.Forms.Panel filtersPanel;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cboStateFilter;
+        private System.Windows.Forms.Label label5;
+        private TextBoxEx txtFilter;
+        private System.Windows.Forms.Label label6;
     }
 }
