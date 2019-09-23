@@ -119,3 +119,9 @@ Adding a new 'Global Collector history' viewer.
 Version 5.1.6
 **************
 Add option to SMTP notifier to split 'To' addresses so each recipient gets a separate message.
+
+--------------
+Version 5.1.7
+**************
+Tweak the collector editing window. Saving changes do not change current state to 'grey' icon.
+Small fix to the NIXNICCollector (Summary text description)

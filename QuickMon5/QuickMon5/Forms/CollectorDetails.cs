@@ -1223,7 +1223,7 @@ namespace QuickMon
                     SelectedCollectorHost.ReconfigureFromXml(editingCollectorHost.ToXml());
                     LoadControls();                    
                     
-                    ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
+                    //((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
                     StopEditMode();
                 }
             }

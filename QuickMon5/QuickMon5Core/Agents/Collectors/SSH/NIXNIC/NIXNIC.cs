@@ -116,7 +116,7 @@ namespace QuickMon.Collectors
         public int MeasuringDelayMS { get; set; }
         public override string TriggerSummary
         {
-            get { return string.Format("{0} File system(s)", SubItems.Count); }
+            get { return string.Format("{0} NIC(s)", SubItems.Count); }
         }
 
         public override MonitorState GetCurrentState()

@@ -56,7 +56,7 @@ namespace QuickMon
         /// <param name="xmlString">xml xonfig string</param>
         /// <param name="monitorPackVars">Any monitor pack level config variables</param>
         /// <param name="applyConfigVars">Should config variables be applied</param>
-        public void ReconfigureFromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
+        public void ReconfigureFromXml(string xmlString) //, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
         {
             if (xmlString != null && xmlString.StartsWith("<?xml "))
             {
@@ -68,7 +68,8 @@ namespace QuickMon
                 collectorHostDoc.LoadXml(xmlString);
                 XmlElement root = collectorHostDoc.DocumentElement;
                 FromConfig(this, root); //, monitorPackVars, applyConfigVars);
-                SetCurrentState(new MonitorState() { State = CollectorState.ConfigurationChanged, RawDetails = "Reconfigured", HtmlDetails = "<p>Reconfigured</p>" });
+                //SetCurrentState(new MonitorState() { State = CollectorState.ConfigurationChanged, RawDetails = "Reconfigured", HtmlDetails = "<p>Reconfigured</p>" });
+                AddStateToHistory(new MonitorState() { State = CollectorState.ConfigurationChanged, RawDetails = "Reconfigured", HtmlDetails = "<p>Reconfigured</p>" });
             }
         }
         private static CollectorHost FromConfig(CollectorHost newCollectorHost, XmlElement xmlCollectorEntry) //, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)

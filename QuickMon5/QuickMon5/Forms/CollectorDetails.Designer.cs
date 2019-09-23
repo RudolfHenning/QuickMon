@@ -76,6 +76,7 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.agentCheckSequenceToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.hostSettingsTabPage = new System.Windows.Forms.TabPage();
+            this.chkExcludeFromMetrics = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.txtCategories = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
@@ -248,7 +249,6 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
-            this.chkExcludeFromMetrics = new System.Windows.Forms.CheckBox();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -797,6 +797,17 @@
             this.hostSettingsTabPage.TabIndex = 1;
             this.hostSettingsTabPage.Text = "Host settings";
             this.hostSettingsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // chkExcludeFromMetrics
+            // 
+            this.chkExcludeFromMetrics.AutoSize = true;
+            this.chkExcludeFromMetrics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkExcludeFromMetrics.Location = new System.Drawing.Point(9, 284);
+            this.chkExcludeFromMetrics.Name = "chkExcludeFromMetrics";
+            this.chkExcludeFromMetrics.Size = new System.Drawing.Size(172, 17);
+            this.chkExcludeFromMetrics.TabIndex = 6;
+            this.chkExcludeFromMetrics.Text = "Exclude From Metrics collection";
+            this.chkExcludeFromMetrics.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
@@ -2757,9 +2768,9 @@
             this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefresh.Location = new System.Drawing.Point(1173, 0);
+            this.cmdRefresh.Location = new System.Drawing.Point(1169, 0);
             this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(26, 33);
+            this.cmdRefresh.Size = new System.Drawing.Size(30, 33);
             this.cmdRefresh.TabIndex = 9;
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
@@ -2775,17 +2786,6 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
-            // 
-            // chkExcludeFromMetrics
-            // 
-            this.chkExcludeFromMetrics.AutoSize = true;
-            this.chkExcludeFromMetrics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkExcludeFromMetrics.Location = new System.Drawing.Point(9, 284);
-            this.chkExcludeFromMetrics.Name = "chkExcludeFromMetrics";
-            this.chkExcludeFromMetrics.Size = new System.Drawing.Size(172, 17);
-            this.chkExcludeFromMetrics.TabIndex = 6;
-            this.chkExcludeFromMetrics.Text = "Exclude From Metrics collection";
-            this.chkExcludeFromMetrics.UseVisualStyleBackColor = true;
             // 
             // CollectorDetails
             // 
