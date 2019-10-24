@@ -125,3 +125,8 @@ Version 5.1.7
 **************
 Tweak the collector editing window. Saving changes do not change current state to 'grey' icon.
 Small fix to the NIXNICCollector (Summary text description)
+
+--------------
+Version 5.1.8
+**************
+Previous update broke the visual indication on the main window that a collector has been edited.

@@ -1221,9 +1221,10 @@ namespace QuickMon
                 if (SetEditingCollectorHost())
                 {
                     SelectedCollectorHost.ReconfigureFromXml(editingCollectorHost.ToXml());
-                    LoadControls();                    
-                    
+                    LoadControls();
+
                     //((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
+                    ((MainForm)ParentWindow).SetMonitorChanged();
                     StopEditMode();
                 }
             }

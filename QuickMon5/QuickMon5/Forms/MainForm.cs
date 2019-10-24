@@ -85,6 +85,11 @@ namespace QuickMon
         public bool StartWithSelectRecent { get; set; }
 
         #region Public methods
+        public void SetMonitorChanged()
+        {
+            monitorPackChanged = true;
+            UpdateAppTitle();
+        }
         public void UpdateCollector(CollectorHost collectorHost, bool setChanged = false)
         {
             monitorPack_CollectorHostStateUpdated(collectorHost);
@@ -1909,11 +1914,7 @@ namespace QuickMon
                 toolTip1.SetToolTip(llblMonitorPack, "Click here to set the monitor pack properties.");
             }
         }
-        private void SetMonitorChanged()
-        {
-            monitorPackChanged = true;
-            UpdateAppTitle();
-        }
+
         private void DoAutoSave()
         {
             if (Properties.Settings.Default.AutosaveChanges)
