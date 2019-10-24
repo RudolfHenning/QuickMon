@@ -1225,6 +1225,7 @@ namespace QuickMon
 
                     //((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
                     ((MainForm)ParentWindow).SetMonitorChanged();
+                    ((MainForm)ParentWindow).UpdateCollectorDisplayText(SelectedCollectorHost);
                     StopEditMode();
                 }
             }

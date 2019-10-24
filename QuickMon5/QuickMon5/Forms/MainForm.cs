@@ -90,6 +90,32 @@ namespace QuickMon
             monitorPackChanged = true;
             UpdateAppTitle();
         }
+        public void UpdateCollectorDisplayText(CollectorHost collectorHost)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                try
+                {
+                    if (collectorHost != null && collectorHost.Tag is TreeNodeEx)
+                    {
+                        Trace.WriteLine("Updating " + collectorHost.Name);
+
+                        TreeNodeEx currentTreeNode = (TreeNodeEx)collectorHost.Tag;
+                        try
+                        {
+                            if (currentTreeNode.Text != collectorHost.DisplayName)
+                                currentTreeNode.Text = collectorHost.DisplayName;
+
+                        }
+                        catch { }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine("Error " + collectorHost.Name + "->" + ex.Message);
+                }
+            });
+        }
         public void UpdateCollector(CollectorHost collectorHost, bool setChanged = false)
         {
             monitorPack_CollectorHostStateUpdated(collectorHost);
