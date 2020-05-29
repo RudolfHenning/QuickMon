@@ -105,6 +105,7 @@ namespace QuickMon.Collectors
                 hostEntry.TelnetUserName = host.ReadXmlElementAttr("userName");
                 hostEntry.TelnetPassword = host.ReadXmlElementAttr("password");
                 hostEntry.IgnoreInvalidHTTPSCerts = host.ReadXmlElementAttr("ignoreInvalidHTTPSCerts", false);
+                hostEntry.HttpsSecurityProtocol = host.ReadXmlElementAttr("httpsSecurityProtocol");
                 hostEntry.SocketPingMsgBody = host.ReadXmlElementAttr("socketPingMsgBody", "QuickMon Ping Test");
                 hostEntry.PrimaryUIValue = host.ReadXmlElementAttr("primaryUIValue", false);
 
@@ -136,6 +137,7 @@ namespace QuickMon.Collectors
                 hostXmlNode.SetAttributeValue("userName", hostEntry.TelnetUserName);
                 hostXmlNode.SetAttributeValue("password", hostEntry.TelnetPassword);
                 hostXmlNode.SetAttributeValue("ignoreInvalidHTTPSCerts", hostEntry.IgnoreInvalidHTTPSCerts);
+                hostXmlNode.SetAttributeValue("httpsSecurityProtocol", hostEntry.HttpsSecurityProtocol);
                 hostXmlNode.SetAttributeValue("socketPingMsgBody", hostEntry.SocketPingMsgBody);
                 hostXmlNode.SetAttributeValue("primaryUIValue", hostEntry.PrimaryUIValue);
 
@@ -241,6 +243,7 @@ namespace QuickMon.Collectors
             IgnoreInvalidHTTPSCerts = false;
             HTMLContentContain = "";
             SocketPingMsgBody = "QuickMon Ping Test";
+            HttpsSecurityProtocol = System.Net.SecurityProtocolType.Ssl3.ToString();
         }
 
         #region ICollectorConfigEntry Members
@@ -333,6 +336,7 @@ namespace QuickMon.Collectors
         public string HttpProxyUserName { get; set; }
         public string HttpProxyPassword { get; set; }
         public string HTMLContentContain { get; set; }
+        public string HttpsSecurityProtocol { get; set; }
         #endregion
 
         #region Socket ping
@@ -432,7 +436,15 @@ namespace QuickMon.Collectors
                 {
 
                     System.Net.ServicePointManager.Expect100Continue = true;
-                    System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Ssl3;
+                    if (HttpsSecurityProtocol == "Tls")
+                        System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls;
+                    else if (HttpsSecurityProtocol == "Tls11")
+                        System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls11;
+                    else if (HttpsSecurityProtocol == "Tls12")
+                        System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+                    else
+                        System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Ssl3;
+                    //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
                     if (IgnoreInvalidHTTPSCerts)
                         System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                     else

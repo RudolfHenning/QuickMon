@@ -128,6 +128,16 @@ namespace QuickMon.UI
             chkUseTelNetLogin.Checked = HostEntry.UseTelnetLogin;
             txtUserName.Text = HostEntry.TelnetUserName;
             txtPassword.Text = HostEntry.TelnetPassword;
+            cboHttpsProtocol.SelectedIndex = 0;
+            if (HostEntry.HttpsSecurityProtocol != null)
+            {
+                if (HostEntry.HttpsSecurityProtocol == "Tls")
+                    cboHttpsProtocol.SelectedIndex = 1;
+                else if (HostEntry.HttpsSecurityProtocol == "Tls11")
+                    cboHttpsProtocol.SelectedIndex = 2;
+                else if (HostEntry.HttpsSecurityProtocol == "Tls12")
+                    cboHttpsProtocol.SelectedIndex = 3;
+            }
         }
         private void cmdOK_Click(object sender, EventArgs e)
         {
@@ -162,6 +172,7 @@ namespace QuickMon.UI
                 HostEntry.TelnetUserName = txtUserName.Text;
                 HostEntry.TelnetPassword = txtPassword.Text;
                 HostEntry.SocketPingMsgBody = txtSocketPingMsgBody.Text;
+                HostEntry.HttpsSecurityProtocol = cboHttpsProtocol.Text;
                 DialogResult = DialogResult.OK;
                 Close();
             }
@@ -213,6 +224,7 @@ namespace QuickMon.UI
             tmpPingCollectorHostEntry.TelnetUserName = telnetUserName;
             tmpPingCollectorHostEntry.TelnetPassword = telnetPassword;
             tmpPingCollectorHostEntry.SocketPingMsgBody = socketPingMsgBody;
+            tmpPingCollectorHostEntry.HttpsSecurityProtocol = cboHttpsProtocol.Text;
 
             result = tmpPingCollectorHostEntry.GetCurrentState();            
             return result;

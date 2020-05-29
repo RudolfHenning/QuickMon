@@ -79,6 +79,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkVerifyOnOK = new System.Windows.Forms.CheckBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.cboHttpsProtocol = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -296,6 +298,8 @@
             // 
             this.httpGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.httpGroupBox.Controls.Add(this.cboHttpsProtocol);
+            this.httpGroupBox.Controls.Add(this.label22);
             this.httpGroupBox.Controls.Add(this.label20);
             this.httpGroupBox.Controls.Add(this.txtHTMLContent);
             this.httpGroupBox.Controls.Add(this.txtProxyPassword);
@@ -408,7 +412,7 @@
             // 
             this.chkIgnoreInvalidHTTPSCerts.AutoSize = true;
             this.chkIgnoreInvalidHTTPSCerts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkIgnoreInvalidHTTPSCerts.Location = new System.Drawing.Point(116, 101);
+            this.chkIgnoreInvalidHTTPSCerts.Location = new System.Drawing.Point(32, 101);
             this.chkIgnoreInvalidHTTPSCerts.Name = "chkIgnoreInvalidHTTPSCerts";
             this.chkIgnoreInvalidHTTPSCerts.Size = new System.Drawing.Size(180, 17);
             this.chkIgnoreInvalidHTTPSCerts.TabIndex = 10;
@@ -659,6 +663,29 @@
             this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkVerifyOnOK.UseVisualStyleBackColor = true;
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(225, 103);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(73, 13);
+            this.label22.TabIndex = 13;
+            this.label22.Text = "Https protocol";
+            // 
+            // cboHttpsProtocol
+            // 
+            this.cboHttpsProtocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboHttpsProtocol.FormattingEnabled = true;
+            this.cboHttpsProtocol.Items.AddRange(new object[] {
+            "Ssl3",
+            "Tls",
+            "Tls11",
+            "Tls12"});
+            this.cboHttpsProtocol.Location = new System.Drawing.Point(304, 100);
+            this.cboHttpsProtocol.Name = "cboHttpsProtocol";
+            this.cboHttpsProtocol.Size = new System.Drawing.Size(91, 21);
+            this.cboHttpsProtocol.TabIndex = 14;
+            // 
             // PingCollectorEditHostAddress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -750,5 +777,7 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox txtSocketPingMsgBody;
         private System.Windows.Forms.CheckBox chkVerifyOnOK;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.ComboBox cboHttpsProtocol;
     }
 }

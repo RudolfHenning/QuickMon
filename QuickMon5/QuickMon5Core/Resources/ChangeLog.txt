@@ -130,3 +130,8 @@ Small fix to the NIXNICCollector (Summary text description)
 Version 5.1.8
 **************
 Previous update broke the visual indication on the main window that a collector has been edited.
+
+--------------
+Version 5.1.9
+**************
+Add https security protocol options - e.g. TLS 1.x
