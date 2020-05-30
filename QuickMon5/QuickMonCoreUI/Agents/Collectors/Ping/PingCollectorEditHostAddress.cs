@@ -129,6 +129,7 @@ namespace QuickMon.UI
             txtUserName.Text = HostEntry.TelnetUserName;
             txtPassword.Text = HostEntry.TelnetPassword;
             cboHttpsProtocol.SelectedIndex = 0;
+            chkIgnoreInvalidHTTPSCerts.Checked = HostEntry.IgnoreInvalidHTTPSCerts;
             if (HostEntry.HttpsSecurityProtocol != null)
             {
                 if (HostEntry.HttpsSecurityProtocol == "Tls")
