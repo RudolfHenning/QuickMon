@@ -61,7 +61,23 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to -------------
+        ///Version 5.0.0
+        ///*************
+        ///First release of version 5.x
+        ///
+        ///-------------
+        ///Version 5.0.1
+        ///*************
+        ///File/Directory collector: Search for text in the last X number of lines of a file (Text file implied). 
+        ///
+        ///-------------
+        ///Version 5.0.2
+        ///*************
+        ///Quick recent list
+        ///	Provide option to have it sorted or not.
+        ///	More details about which alerts/notifications have been raised/fired in the Collector detail view
+        ///	Success, Warning and Error text boxes have context menu with predefined values like [any] a [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ChangeLog {
             get {
@@ -70,13 +86,12 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///&lt;quickMonTemplate&gt;
-        ///	&lt;template name=&quot;Event Log Errors&quot; type=&quot;CollectorHost&quot; class=&quot;CollectorHost&quot; description=&quot;Event Log Errors&quot;&gt;
-        ///		&lt;collectorHost uniqueId=&quot;&quot; dependOnParentId=&quot;&quot; name=&quot;Event Log&quot; enabled=&quot;True&quot; expandOnStart=&quot;Auto&quot; childCheckBehaviour=&quot;OnlyRunOnSuccess&quot; runAsEnabled=&quot;False&quot; runAs=&quot;&quot;&gt;
-        ///			&lt;!-- Alerting --&gt;
-        ///			&lt;alerting&gt;
-        ///				&lt;suppression repeatAlertInXMin=&quot;0&quot; alertOnceInXMin=&quot;0&quot; delayErrWarnAlertForXSec=&quot;0&quot; repeatAlertInXPolls=&quot;0&quot; alertOnceInXPolls=&quot; [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;quickMonTemplate&gt;
+        ///  &lt;template name=&quot;New Monitor pack with Ping and System health&quot; type=&quot;MonitorPack&quot; class=&quot;MonitorPack&quot; description=&quot;New Monitor pack with Ping and System health&quot;&gt;
+        ///    &lt;monitorPack version=&quot;5.0.0&quot; name=&quot;[[MonitorPackName:New Monitor pack]]&quot; typeName=&quot;&quot; enabled=&quot;True&quot; pollingFreqSecOverride=&quot;[[PollingFrequency:60]]&quot;&gt;
+        ///      &lt;configVars /&gt;
+        ///      &lt;collectorHosts runCorrectiveScripts=&quot;True&quot; stateHistorySize=&quot;100&quot; pollingFreqSecOverride=&quot;[[PollingFrequency:60]]&quot;&gt;
+        ///        &lt;metricsExports /&gt;        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string QuickMon5DefaultTemplate {
             get {

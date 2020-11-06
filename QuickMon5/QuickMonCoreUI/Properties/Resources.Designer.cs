@@ -151,7 +151,9 @@ namespace QuickMon.Properties {
         ///CREATE TABLE [dbo].[AlertLevels](
         ///	[AlertLevel] [tinyint] NOT NULL,
         ///	[Description] [nvarchar](50) NOT NULL,
-        /// CONSTRAINT [PK_AlertLevels] PRIMARY KEY CLUSTERED  [rest of string was truncated]&quot;;.
+        /// CONSTRAINT [PK_AlertLevels] PRIMARY KEY CLUSTERED 
+        ///(
+        ///	[AlertLeve [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ExampleSqlDatabaseCreateScript {
             get {
@@ -191,11 +193,19 @@ namespace QuickMon.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to If you want to make use of classical &apos;return codes&apos; you can use the &apos;#UseExitCode&apos; command to make exit codes &apos;visible&apos; for condition testing.
+        ///
         ///e.g.
         ///
-        ///#UseExitCode
+        ///*************
+        ///#UseExitCode    Note: It must be the first line of the script.
         ///&quot;Hello&quot;
-        ///exit 1.
+        ///exit 1
+        ///*************
+        ///
+        ///Then you can set up conditions like 
+        ///  Success check: &apos;Exit code : 0&apos; (EndsWith)
+        ///  Warning check: &apos;Exit code : 1&apos; (EndsWith)
+        ///  Error   check: &apos;[any]&apos;.
         /// </summary>
         internal static string PowerShellTips {
             get {
