@@ -68,10 +68,8 @@ namespace QuickMon
         {
             if (parentWindow != null)
                 ParentWindow = parentWindow;
-            //tlvAgentStates.BorderStyle = BorderStyle.None;
             if (ParentWindow != null)
                 ParentWindow.RegisterChildWindow(this);
-            //Size = new Size(700, 500);
             Show();
         }
         #endregion

@@ -696,8 +696,10 @@ namespace QuickMon
         {
             ShowGlobalHistory();
         }
-
-        
+        private void viewByFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowCollectorFilterView();
+        }        
 
         private void addNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -715,7 +717,6 @@ namespace QuickMon
         {
             EnableDisableNotifier();
         }        
-
         private void viewNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ViewNotifierDetails();
@@ -1039,6 +1040,27 @@ namespace QuickMon
                     if (childForm.WindowState == FormWindowState.Minimized)
                         childForm.WindowState = FormWindowState.Normal;
                     childForm.Focus();                    
+                }
+            }
+        }
+        private void ShowCollectorFilterView()
+        {
+            if (monitorPack != null)
+            {
+                IChildWindowIdentity childWindow = GetChildWindowByIdentity("CollectorFilterView");
+                if (childWindow == null)
+                {
+                    CollectorFilterView collectorFilterView = new CollectorFilterView();
+                    collectorFilterView.HostingMonitorPack = monitorPack;
+                    collectorFilterView.Identifier = "CollectorFilterView";
+                    collectorFilterView.ShowChildWindow(this);
+                }
+                else
+                {
+                    Form childForm = ((Form)childWindow);
+                    if (childForm.WindowState == FormWindowState.Minimized)
+                        childForm.WindowState = FormWindowState.Normal;
+                    childForm.Focus();
                 }
             }
         }
@@ -2287,6 +2309,7 @@ namespace QuickMon
                         ));
 
                     RefreshGlobalAgentHistory();
+                    RefreshCollectorFilterViews();
                 }
                 else
                 {
@@ -2317,6 +2340,19 @@ namespace QuickMon
                 }
             }
             catch(Exception ex) { System.Diagnostics.Trace.WriteLine(ex.Message); }
+        }
+        private void RefreshCollectorFilterViews()
+        {
+            try
+            {
+                IChildWindowIdentity childWindow = GetChildWindowByIdentity("CollectorFilterView");
+                if (childWindow != null)
+                {
+                    CollectorFilterView collectorFilterView = (CollectorFilterView)childWindow;
+                    collectorFilterView.RefreshDetails();
+                }
+            }
+            catch (Exception ex) { System.Diagnostics.Trace.WriteLine(ex.Message); }
         }
 
         private void SetNodesToBeingRefreshed(TreeNode root = null)
@@ -2757,7 +2793,7 @@ namespace QuickMon
             while (child != null) // childWindows.Where(w => !(new String[] { "TemplateEditor", "RemoteAgentHostManagement" }).Contains(w.Identifier)).Count() > 0)
             {
                 ((Form)child).Close();
-                child = childWindows.FirstOrDefault(w => !(new String[] { "TemplateEditor", "RemoteAgentHostManagement", "GlobalAgentHistory" }).Contains(w.Identifier));
+                child = childWindows.FirstOrDefault(w => !(new String[] { "TemplateEditor", "RemoteAgentHostManagement", "GlobalAgentHistory", "CollectorFilterView" }).Contains(w.Identifier));
 
                 //if (child != null)
                 //{
@@ -3040,8 +3076,9 @@ namespace QuickMon
         }
 
 
+
         #endregion
 
-        
+
     }
 }
