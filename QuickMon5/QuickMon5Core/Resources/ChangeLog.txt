@@ -140,3 +140,4 @@ Add https security protocol options - e.g. TLS 1.x
 Version 5.2.0
 **************
 Change to use .Net 4.6.2.
+Add Collector Filter view

@@ -66,7 +66,7 @@ namespace QuickMon
         }
         #endregion
 
-
+        #region Form events
         private void CollectorFilterView_Load(object sender, EventArgs e)
         {
             cboFilterType.SelectedIndex = 0;
@@ -81,7 +81,8 @@ namespace QuickMon
         private void CollectorFilterView_Shown(object sender, EventArgs e)
         {
             LoadControls();
-        }
+        } 
+        #endregion
 
 
         private void cmdViewDetails_Click(object sender, EventArgs e)
@@ -98,6 +99,7 @@ namespace QuickMon
         {
             if (HostingMonitorPack != null)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 string selectedCollectorUniqueId = "";
                 if (lvwCollectorStates.SelectedItems.Count > 0 && lvwCollectorStates.SelectedItems[0].Tag is CollectorHost)
                 {
@@ -108,10 +110,9 @@ namespace QuickMon
                 foreach (var collector in HostingMonitorPack.CollectorHosts)
                 {
                     if (IsInFilter(collector))
-                    {
-                        
+                    {                        
                         ListViewItem itm = new ListViewItem(collector.DisplayName);
-                        itm.SubItems.Add(collector.Path);
+                        itm.SubItems.Add(collector.PathWithoutMP);
                         itm.Tag = collector;
                         try
                         {
@@ -136,51 +137,59 @@ namespace QuickMon
                 if (lvwCollectorStates.SelectedItems.Count > 0)
                 {
                     lvwCollectorStates.SelectedItems[0].EnsureVisible();
+                    UpdateRawView();
                 }
+                Cursor.Current = Cursors.Default;
             }
         }
 
         private bool IsInFilter(CollectorHost collector)
         {
             bool isInFilter = false;
-            if(txtFilter.Text.Trim().Length == 0 && cboStateFilter.SelectedIndex == 0)
+            bool inState = false;
+            bool isNotFolderOrEmpty = includeEmptyfolderCollectorsToolStripMenuItem.Checked || (collector.CollectorAgents.Count > 0);
+            if (txtFilter.Text.Trim().Length == 0 && cboStateFilter.SelectedIndex == 0)
             {
                 isInFilter = true;
-            }
-            else if (txtFilter.Text.Trim().Length == 0)
-            {
-                if (collector.CurrentState != null)
-                {
-                    if (cboStateFilter.SelectedIndex == 1 && collector.CurrentState.State == CollectorState.Good)
-                    {
-                        isInFilter = true;
-                    }
-                    else if (cboStateFilter.SelectedIndex == 2 && collector.CurrentState.State == CollectorState.Warning)
-                    {
-                        isInFilter = true;
-                    }
-                    else if (cboStateFilter.SelectedIndex == 3 && (collector.CurrentState.State == CollectorState.Error || collector.CurrentState.State == CollectorState.ConfigurationError))
-                    {
-                        isInFilter = true;
-                    }
-                    else if (cboStateFilter.SelectedIndex == 3 && (collector.CurrentState.State == CollectorState.Warning || collector.CurrentState.State == CollectorState.Error || collector.CurrentState.State == CollectorState.ConfigurationError))
-                    {
-                        isInFilter = true;
-                    }
-                }
+                inState = true;
             }
             else
             {
-
+                if (cboStateFilter.SelectedIndex == 0)
+                    inState = true;
+                if (txtFilter.Text.Trim().Length == 0)
+                    isInFilter = true;
                 if (collector.CurrentState != null)
-                {
-                    if (collector.DisplayName.ToLower().Contains(txtFilter.Text.ToLower()))
-                        isInFilter = true;
+                {                    
+                    if (cboStateFilter.SelectedIndex == 1 && collector.CurrentState.State == CollectorState.Good)
+                        inState = true;
+                    else if (cboStateFilter.SelectedIndex == 2 && collector.CurrentState.State == CollectorState.Warning)
+                        inState = true;
+                    else if (cboStateFilter.SelectedIndex == 3 && (collector.CurrentState.State == CollectorState.Error || collector.CurrentState.State == CollectorState.ConfigurationError))
+                        inState = true;
+                    else if (cboStateFilter.SelectedIndex == 3 && (collector.CurrentState.State == CollectorState.Warning || collector.CurrentState.State == CollectorState.Error || collector.CurrentState.State == CollectorState.ConfigurationError))
+                        inState = true;
 
+
+                    if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 1) && collector.DisplayName.ToLower().Contains(txtFilter.Text.ToLower()))
+                        isInFilter = true;
+                    else if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 2) &&
+                        ((from string c in collector.Categories
+                          where c.ToLower().Contains(txtFilter.Text.ToLower())
+                          select c).FirstOrDefault() != null))
+                    {
+                        isInFilter = true;
+                    }
+                    else if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 3) && 
+                        (collector.CurrentState.ReadPrimaryOrFirstUIValue().ToLower().Contains(txtFilter.Text.ToLower())))
+                    {
+                        isInFilter = true;
+                    }
+                    
                 }
             }
 
-            return isInFilter;
+            return isNotFolderOrEmpty && isInFilter && inState;
         }
 
         private int GetItemIcon(CollectorHost collector)
@@ -212,6 +221,96 @@ namespace QuickMon
                 imageIndex = collectorOutOfServiceWindowstateImage;
             }
             return imageIndex;
+        }
+
+        private void lvwCollectorStates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateRawView();
+        }
+
+        private void UpdateRawView()
+        {
+            try
+            {
+                if (lvwCollectorStates.SelectedItems.Count == 1)
+                {
+                    HenIT.RTF.RTFBuilder rtfBuilder = new HenIT.RTF.RTFBuilder();
+                    object selectedObject = lvwCollectorStates.SelectedItems[0].Tag;
+                    if (selectedObject is CollectorHost)
+                    {
+                        MonitorState ms = ((CollectorHost)selectedObject).CurrentState;
+                        WriteMonitorState(rtfBuilder, ms);
+                        string categories = "";
+                        ((CollectorHost)selectedObject).Categories.ForEach(c => categories += c + ",");
+                        if (categories.Trim().Length > 0)
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Categories: ").FontStyle(FontStyle.Regular).AppendLine(categories.Trim(','));
+                    }
+                    rtxDetails.Rtf = rtfBuilder.ToString();
+                    rtxDetails.SelectionStart = 0;
+                    rtxDetails.SelectionLength = 0;
+                    rtxDetails.ScrollToCaret();
+                }
+                else
+                {
+                    rtxDetails.Text = "";
+                }
+            }
+            catch(Exception ex) {
+                System.Diagnostics.Trace.WriteLine(ex.ToString());
+            }
+        }
+        private void WriteMonitorState(HenIT.RTF.RTFBuilder rtfBuilder, MonitorState ms)
+        {
+            if (ms != null)
+            {
+                if (FormatUtils.N(ms.ForAgent) != "")
+                    rtfBuilder.FontStyle(FontStyle.Bold).Append("For object: ").FontStyle(FontStyle.Regular).AppendLine(ms.ForAgent);
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(ms.State.ToString());
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration: ").FontStyle(FontStyle.Regular).AppendLine(ms.CallDurationMS.ToString() + " ms");
+                if (ms.AlertsRaised != null)
+                {
+                    rtfBuilder.FontStyle(FontStyle.Bold).Append("Alert count: ").FontStyle(FontStyle.Regular).AppendLine(ms.AlertsRaised.Count.ToString());
+                }
+
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(ms.ExecutedOnHostComputer));
+                rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(ms.RanAs));
+                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadAgentValues());
+                if (ms.State != CollectorState.Good && ms.RawDetails != null && ms.RawDetails.Length > 0)
+                {
+                    rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Raw details: ").FontStyle(FontStyle.Regular).AppendLine(ms.RawDetails);
+                }
+                if (ms.AlertsRaised != null)
+                {
+                    if (ms.AlertsRaised.Count > 0)
+                    {
+                        string alertSummary = "";
+                        ms.AlertsRaised.ForEach(a => alertSummary += '\t' + a.TrimEnd('\r', '\n').Replace("\r\n", "\r\n\t") + "\r\n");
+                        alertSummary = alertSummary.Trim('\r', '\n');
+                        rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Alert details:").FontStyle(FontStyle.Regular).AppendLine(alertSummary.TrimEnd('\r', '\n'));
+                    }
+                }
+            }
+        }
+
+        private void txtFilter_EnterKeyPressed()
+        {
+            LoadControls();
+        }
+
+        private void includeEmptyfolderCollectorsToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadControls();
+        }
+
+        private void collectorDetailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ParentWindow != null && ParentWindow is MainForm && lvwCollectorStates.SelectedItems.Count == 1 && lvwCollectorStates.SelectedItems[0].Tag is CollectorHost)
+            {
+                CollectorHost ch = (CollectorHost)lvwCollectorStates.SelectedItems[0].Tag;
+                MainForm mainForm = (MainForm)ParentWindow;
+                mainForm.ShowCollectorDetails(ch);
+            }
         }
     }
 }

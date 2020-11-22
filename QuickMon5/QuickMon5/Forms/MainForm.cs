@@ -133,6 +133,16 @@ namespace QuickMon
                 monitorPack.ForceCollectorHostRefreshState(collectorHost);
             }
         }
+        public void ShowCollectorDetails(CollectorHost collectorHost)
+        {
+            if (collectorHost != null && collectorHost.Tag is TreeNodeEx)
+            {
+                TreeNode tn = (TreeNode)collectorHost.Tag;
+                tvwCollectors.SelectedNode = tn;
+
+                EditCollector();
+            }
+        }
         #endregion
 
         #region Form events

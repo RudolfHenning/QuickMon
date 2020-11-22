@@ -119,6 +119,22 @@ namespace QuickMon
                 return path;
             }
         }
+        public string PathWithoutMP
+        {
+            get
+            {
+                string path = Name;
+                if (ParentMonitorPack != null)
+                {
+                    foreach (CollectorHost parent in ParentMonitorPack.GetParentCollectorHostTree(this))
+                    {
+                        path = parent.Name + "\\" + path;
+                    }
+                }
+
+                return path;
+            }
+        } 
         #endregion
 
         /// <summary>
