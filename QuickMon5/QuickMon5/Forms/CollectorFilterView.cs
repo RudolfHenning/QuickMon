@@ -226,25 +226,35 @@ namespace QuickMon
         private void lvwCollectorStates_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateRawView();
+            addCategoriesToolStripMenuItem.Enabled = (lvwCollectorStates.SelectedItems.Count > 0);
+            removeCategoriesToolStripMenuItem.Enabled = (lvwCollectorStates.SelectedItems.Count > 0);
+
         }
 
         private void UpdateRawView()
         {
             try
             {
-                if (lvwCollectorStates.SelectedItems.Count == 1)
+                if (lvwCollectorStates.SelectedItems.Count > 0)
                 {
                     HenIT.RTF.RTFBuilder rtfBuilder = new HenIT.RTF.RTFBuilder();
-                    object selectedObject = lvwCollectorStates.SelectedItems[0].Tag;
-                    if (selectedObject is CollectorHost)
+                    foreach(ListViewItem lvi in lvwCollectorStates.SelectedItems)
                     {
-                        MonitorState ms = ((CollectorHost)selectedObject).CurrentState;
-                        WriteMonitorState(rtfBuilder, ms);
-                        string categories = "";
-                        ((CollectorHost)selectedObject).Categories.ForEach(c => categories += c + ",");
-                        if (categories.Trim().Length > 0)
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Categories: ").FontStyle(FontStyle.Regular).AppendLine(categories.Trim(','));
-                    }
+                        object selectedObject = lvi.Tag;
+                        if (selectedObject is CollectorHost)
+                        {
+                            CollectorHost ch = (CollectorHost)selectedObject;
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Collector: ").FontStyle(FontStyle.Regular).AppendLine(ch.Name);
+                            string categories = "";
+                            ch.Categories.ForEach(c => categories += c + ",");
+                            if (categories.Trim().Length > 0)
+                                rtfBuilder.FontStyle(FontStyle.Bold).Append("Categories: ").FontStyle(FontStyle.Regular).AppendLine(categories.Trim(','));
+
+                            MonitorState ms = ch.CurrentState;
+                            WriteMonitorState(rtfBuilder, ms);
+                            rtfBuilder.AppendLine(new string('-', 80));
+                        }
+                    }                    
                     rtxDetails.Rtf = rtfBuilder.ToString();
                     rtxDetails.SelectionStart = 0;
                     rtxDetails.SelectionLength = 0;
@@ -311,6 +321,135 @@ namespace QuickMon
                 MainForm mainForm = (MainForm)ParentWindow;
                 mainForm.ShowCollectorDetails(ch);
             }
+        }
+
+        private void addCategoriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwCollectorStates.SelectedItems.Count > 0)
+            {
+                //List<string> existingCategories = new List<string>();
+                //foreach(ListViewItem itmX in lvwCollectorStates.SelectedItems)
+                //{
+                //    if (itmX.Tag is CollectorHost) {
+                //        CollectorHost ch = (CollectorHost)itmX.Tag;
+                //        foreach (string cat in ch.Categories)
+                //        {
+                //            if ((from string c in existingCategories
+                //                 where c.ToLower() == cat.ToLower()
+                //                 select c).FirstOrDefault() == null)
+                //            {
+                //                existingCategories.Add(cat);
+                //            }
+                //        }
+                //    }
+                //}
+
+                if (ParentWindow != null && ParentWindow is MainForm)
+                {
+                    MainForm mainForm = (MainForm)ParentWindow;
+                    mainForm.PausePolling(false);
+                }
+                
+
+                ManageCategories manageCategories = new ManageCategories();
+                manageCategories.HostedMonitorPack = HostingMonitorPack;
+                manageCategories.SelectionMode = true;
+                //manageCategories.SelectedCategories = existingCategories;
+                if (manageCategories.ShowDialog() == DialogResult.OK)
+                {
+                    foreach(string cat in manageCategories.SelectedCategories)
+                    {
+                        foreach (ListViewItem itmX in lvwCollectorStates.SelectedItems)
+                        {
+                            if (itmX.Tag is CollectorHost)
+                            {
+                                CollectorHost ch = (CollectorHost)itmX.Tag;
+                                if ((from string c in ch.Categories
+                                     where c.ToLower() == cat.ToLower()
+                                     select c).FirstOrDefault() == null)
+                                {
+                                    ch.Categories.Add(cat);
+                                }                                
+                            }
+                        }
+                    }
+                    
+                    if (ParentWindow != null && ParentWindow is MainForm && lvwCollectorStates.SelectedItems.Count == 1 && lvwCollectorStates.SelectedItems[0].Tag is CollectorHost)
+                    {
+                        CollectorHost ch = (CollectorHost)lvwCollectorStates.SelectedItems[0].Tag;
+                        MainForm mainForm = (MainForm)ParentWindow;
+                        mainForm.SetMonitorChanged();
+                    }
+                    UpdateRawView();
+                }
+
+                if (ParentWindow != null && ParentWindow is MainForm)
+                {
+                    MainForm mainForm = (MainForm)ParentWindow;
+                    mainForm.ResumePolling(true);
+                }
+            }
+        }
+
+        private void removeCategoriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwCollectorStates.SelectedItems.Count > 0)
+            {
+                if (ParentWindow != null && ParentWindow is MainForm)
+                {
+                    MainForm mainForm = (MainForm)ParentWindow;
+                    mainForm.PausePolling(false);
+                }
+
+                ManageCategories manageCategories = new ManageCategories();
+                manageCategories.HostedMonitorPack = HostingMonitorPack;
+                manageCategories.SelectionMode = true;
+                if (manageCategories.ShowDialog() == DialogResult.OK)
+                {
+                    foreach (string cat in manageCategories.SelectedCategories)
+                    {
+                        foreach (ListViewItem itmX in lvwCollectorStates.SelectedItems)
+                        {
+                            if (itmX.Tag is CollectorHost)
+                            {
+                                CollectorHost ch = (CollectorHost)itmX.Tag;
+                                var catToRemove = (from string c in ch.Categories
+                                                      where c.ToLower() == cat.ToLower()
+                                                      select c).FirstOrDefault();
+                                if (catToRemove != null)
+                                {
+                                    ch.Categories.Remove(catToRemove.ToString());
+                                }                                
+                            }
+                        }
+                    }
+
+                    if (ParentWindow != null && ParentWindow is MainForm && lvwCollectorStates.SelectedItems.Count == 1 && lvwCollectorStates.SelectedItems[0].Tag is CollectorHost)
+                    {
+                        CollectorHost ch = (CollectorHost)lvwCollectorStates.SelectedItems[0].Tag;
+                        MainForm mainForm = (MainForm)ParentWindow;
+                        mainForm.SetMonitorChanged();
+                    }
+                    UpdateRawView();
+                }
+
+
+                if (ParentWindow != null && ParentWindow is MainForm)
+                {
+                    MainForm mainForm = (MainForm)ParentWindow;
+                    mainForm.ResumePolling(true);
+                }
+            }
+        }
+
+        private void rawViewCopyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtxDetails.Copy();
+        }
+
+        private void rawViewSelectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtxDetails.SelectAll();
         }
     }
 }

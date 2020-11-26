@@ -2534,7 +2534,7 @@
             this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportToClipboardToolStripMenuItem});
             this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
-            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 26);
+            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(176, 26);
             // 
             // exportToClipboardToolStripMenuItem
             // 
@@ -2542,7 +2542,7 @@
             this.clipboardExportAsCSVToolStripMenuItem,
             this.asXMLToolStripMenuItem});
             this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
-            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.exportToClipboardToolStripMenuItem.Text = "Export to clipboard";
             // 
             // clipboardExportAsCSVToolStripMenuItem
@@ -2593,19 +2593,19 @@
             this.rawViewCopyToolStripMenuItem,
             this.rawViewSelectAllToolStripMenuItem});
             this.rawViewContextMenuStrip.Name = "rawViewContextMenuStrip";
-            this.rawViewContextMenuStrip.Size = new System.Drawing.Size(123, 48);
+            this.rawViewContextMenuStrip.Size = new System.Drawing.Size(153, 70);
             // 
             // rawViewCopyToolStripMenuItem
             // 
             this.rawViewCopyToolStripMenuItem.Name = "rawViewCopyToolStripMenuItem";
-            this.rawViewCopyToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.rawViewCopyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.rawViewCopyToolStripMenuItem.Text = "C&opy";
             this.rawViewCopyToolStripMenuItem.Click += new System.EventHandler(this.rawViewCopyToolStripMenuItem_Click);
             // 
             // rawViewSelectAllToolStripMenuItem
             // 
             this.rawViewSelectAllToolStripMenuItem.Name = "rawViewSelectAllToolStripMenuItem";
-            this.rawViewSelectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.rawViewSelectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.rawViewSelectAllToolStripMenuItem.Text = "Select &All";
             this.rawViewSelectAllToolStripMenuItem.Click += new System.EventHandler(this.rawViewSelectAllToolStripMenuItem_Click);
             // 

@@ -143,7 +143,7 @@
             this.groupBox1.Size = new System.Drawing.Size(560, 131);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Good state";
+            this.groupBox1.Text = "Error state";
             // 
             // errorVolumePercTrackBar
             // 

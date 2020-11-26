@@ -2430,7 +2430,7 @@ namespace QuickMon
             if (isPollingEnabled)
                 RefreshMonitorPack();
         }
-        private void PausePolling(bool disablePolling = true)
+        public void PausePolling(bool disablePolling = true)
         {
             if (disablePolling)
                 isPollingEnabled = false;
@@ -2458,7 +2458,7 @@ namespace QuickMon
             //    //this.pauseToolStripButton.Image = global::QuickMon.Properties.Resources._135_42;
             //}
         }
-        private void ResumePolling(bool startImmediately = false)
+        public void ResumePolling(bool startImmediately = false)
         {
             isPollingEnabled = true;
             //this.pauseToolStripButton.Image = global::QuickMon.Properties.Resources._221_5;

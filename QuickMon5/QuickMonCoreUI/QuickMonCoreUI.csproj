@@ -378,6 +378,12 @@
     <Compile Include="GenericForms\EditServiceWindows.designer.cs">
       <DependentUpon>EditServiceWindows.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenericForms\InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\InputBox.designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenericForms\LogonDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -546,6 +552,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditServiceWindows.resx">
       <DependentUpon>EditServiceWindows.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\LogonDialog.resx">
       <DependentUpon>LogonDialog.cs</DependentUpon>

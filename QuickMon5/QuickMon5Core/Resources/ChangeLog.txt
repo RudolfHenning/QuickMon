@@ -141,3 +141,9 @@ Version 5.2.0
 **************
 Change to use .Net 4.6.2.
 Add Collector Filter view
+
+--------------
+Version 5.2.1
+**************
+Add Collector categories management window
+Fix Audio notifier config editor (text)
