@@ -327,23 +327,6 @@ namespace QuickMon
         {
             if (lvwCollectorStates.SelectedItems.Count > 0)
             {
-                //List<string> existingCategories = new List<string>();
-                //foreach(ListViewItem itmX in lvwCollectorStates.SelectedItems)
-                //{
-                //    if (itmX.Tag is CollectorHost) {
-                //        CollectorHost ch = (CollectorHost)itmX.Tag;
-                //        foreach (string cat in ch.Categories)
-                //        {
-                //            if ((from string c in existingCategories
-                //                 where c.ToLower() == cat.ToLower()
-                //                 select c).FirstOrDefault() == null)
-                //            {
-                //                existingCategories.Add(cat);
-                //            }
-                //        }
-                //    }
-                //}
-
                 if (ParentWindow != null && ParentWindow is MainForm)
                 {
                     MainForm mainForm = (MainForm)ParentWindow;
@@ -354,7 +337,6 @@ namespace QuickMon
                 ManageCategories manageCategories = new ManageCategories();
                 manageCategories.HostedMonitorPack = HostingMonitorPack;
                 manageCategories.SelectionMode = true;
-                //manageCategories.SelectedCategories = existingCategories;
                 if (manageCategories.ShowDialog() == DialogResult.OK)
                 {
                     foreach(string cat in manageCategories.SelectedCategories)
@@ -365,7 +347,8 @@ namespace QuickMon
                             {
                                 CollectorHost ch = (CollectorHost)itmX.Tag;
                                 if ((from string c in ch.Categories
-                                     where c.ToLower() == cat.ToLower()
+                                     where c == cat
+                                     //where c.ToLower() == cat.ToLower()
                                      select c).FirstOrDefault() == null)
                                 {
                                     ch.Categories.Add(cat);
@@ -414,8 +397,9 @@ namespace QuickMon
                             {
                                 CollectorHost ch = (CollectorHost)itmX.Tag;
                                 var catToRemove = (from string c in ch.Categories
-                                                      where c.ToLower() == cat.ToLower()
-                                                      select c).FirstOrDefault();
+                                                      where c == cat
+                                                   //where c.ToLower() == cat.ToLower()
+                                                   select c).FirstOrDefault();
                                 if (catToRemove != null)
                                 {
                                     ch.Categories.Remove(catToRemove.ToString());
@@ -450,6 +434,11 @@ namespace QuickMon
         private void rawViewSelectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             rtxDetails.SelectAll();
+        }
+
+        private void llblDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            agentStateSplitContainer.Panel2Collapsed = !agentStateSplitContainer.Panel2Collapsed;
         }
     }
 }

@@ -51,7 +51,8 @@ namespace QuickMon
                     foreach (string cat in ch.Categories)
                     {
                         if ((from string c in existingCategories
-                             where c.ToLower() == cat.ToLower()
+                             where c == cat
+                             //where c.ToLower() == cat.ToLower()
                              select c).FirstOrDefault() == null)
                         {
                             existingCategories.Add(cat);
@@ -62,7 +63,8 @@ namespace QuickMon
                         else
                         {
                             ListViewItem itmX = (from ListViewItem itm in list
-                                                 where itm.Text.ToLower() == cat.ToLower()
+                                                 where itm.Text == cat
+                                                 //where itm.Text.ToLower() == cat.ToLower()
                                                  select itm).FirstOrDefault();
                             if (itmX != null)
                             {
@@ -107,7 +109,8 @@ namespace QuickMon
             if (newTag != "")
             {
                 ListViewItem itmX = (from ListViewItem itm in lvwCategories.Items
-                                     where itm.Text.ToLower() == newTag.ToLower()
+                                     where itm.Text == newTag
+                                     //where itm.Text.ToLower() == newTag.ToLower()
                                      select itm).FirstOrDefault();
                 if (itmX == null)
                 {

@@ -32,31 +32,31 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorFilterView));
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdRefresh = new System.Windows.Forms.Button();
+            this.txtFilter = new QuickMon.Controls.TextBoxEx();
             this.cboStateFilter = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmdViewDetails = new System.Windows.Forms.Button();
             this.cboFilterType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.includeEmptyfolderCollectorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.agentStateSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.collectorContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.collectorDetailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
-            this.rtxDetails = new System.Windows.Forms.RichTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.addCategoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeCategoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.rawViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.rawViewCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rawViewSelectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lvwCollectorStates = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.PathColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtFilter = new QuickMon.Controls.TextBoxEx();
+            this.collectorContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.collectorDetailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.addCategoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeCategoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
+            this.rtxDetails = new System.Windows.Forms.RichTextBox();
+            this.rawViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.rawViewCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rawViewSelectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label3 = new System.Windows.Forms.Label();
+            this.llblDetails = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.agentStateSplitContainer)).BeginInit();
@@ -73,7 +73,6 @@
             this.panel1.Controls.Add(this.txtFilter);
             this.panel1.Controls.Add(this.cboStateFilter);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.cmdViewDetails);
             this.panel1.Controls.Add(this.cboFilterType);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -90,12 +89,25 @@
             this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefresh.Location = new System.Drawing.Point(675, 0);
+            this.cmdRefresh.Location = new System.Drawing.Point(703, 0);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(28, 33);
             this.cmdRefresh.TabIndex = 5;
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFilter.HideSelection = false;
+            this.txtFilter.Location = new System.Drawing.Point(175, 6);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(352, 21);
+            this.txtFilter.TabIndex = 2;
+            this.txtFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtFilter_EnterKeyPressed);
             // 
             // cboStateFilter
             // 
@@ -125,21 +137,6 @@
             this.label5.Size = new System.Drawing.Size(39, 16);
             this.label5.TabIndex = 3;
             this.label5.Text = "State";
-            // 
-            // cmdViewDetails
-            // 
-            this.cmdViewDetails.BackColor = System.Drawing.Color.Transparent;
-            this.cmdViewDetails.BackgroundImage = global::QuickMon.Properties.Resources.comp_search24;
-            this.cmdViewDetails.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdViewDetails.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cmdViewDetails.FlatAppearance.BorderSize = 0;
-            this.cmdViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdViewDetails.Location = new System.Drawing.Point(703, 0);
-            this.cmdViewDetails.Name = "cmdViewDetails";
-            this.cmdViewDetails.Size = new System.Drawing.Size(28, 33);
-            this.cmdViewDetails.TabIndex = 6;
-            this.cmdViewDetails.UseVisualStyleBackColor = false;
-            this.cmdViewDetails.Click += new System.EventHandler(this.cmdViewDetails_Click);
             // 
             // cboFilterType
             // 
@@ -205,6 +202,7 @@
             // 
             // agentStateSplitContainer.Panel1
             // 
+            this.agentStateSplitContainer.Panel1.Controls.Add(this.llblDetails);
             this.agentStateSplitContainer.Panel1.Controls.Add(this.lvwCollectorStates);
             // 
             // agentStateSplitContainer.Panel2
@@ -213,109 +211,8 @@
             this.agentStateSplitContainer.Panel2.Controls.Add(this.label3);
             this.agentStateSplitContainer.Size = new System.Drawing.Size(731, 424);
             this.agentStateSplitContainer.SplitterDistance = 254;
-            this.agentStateSplitContainer.SplitterWidth = 6;
+            this.agentStateSplitContainer.SplitterWidth = 8;
             this.agentStateSplitContainer.TabIndex = 14;
-            // 
-            // collectorContextMenuStrip
-            // 
-            this.collectorContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.collectorContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.collectorDetailToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.addCategoriesToolStripMenuItem,
-            this.removeCategoriesToolStripMenuItem});
-            this.collectorContextMenuStrip.Name = "collectorContextMenuStrip";
-            this.collectorContextMenuStrip.Size = new System.Drawing.Size(185, 122);
-            // 
-            // collectorDetailToolStripMenuItem
-            // 
-            this.collectorDetailToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
-            this.collectorDetailToolStripMenuItem.Name = "collectorDetailToolStripMenuItem";
-            this.collectorDetailToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
-            this.collectorDetailToolStripMenuItem.Text = "Details";
-            this.collectorDetailToolStripMenuItem.Click += new System.EventHandler(this.collectorDetailToolStripMenuItem_Click);
-            // 
-            // imagesCollectorTree
-            // 
-            this.imagesCollectorTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesCollectorTree.ImageStream")));
-            this.imagesCollectorTree.TransparentColor = System.Drawing.Color.Transparent;
-            this.imagesCollectorTree.Images.SetKeyName(0, "open_folder_blue24x24.png");
-            this.imagesCollectorTree.Images.SetKeyName(1, "helpbwy24x24.png");
-            this.imagesCollectorTree.Images.SetKeyName(2, "ok.png");
-            this.imagesCollectorTree.Images.SetKeyName(3, "triang_yellow.png");
-            this.imagesCollectorTree.Images.SetKeyName(4, "triang_red24x24.png");
-            this.imagesCollectorTree.Images.SetKeyName(5, "ok3.png");
-            this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
-            this.imagesCollectorTree.Images.SetKeyName(7, "triang_red24x24faded.png");
-            this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
-            this.imagesCollectorTree.Images.SetKeyName(9, "clock1.png");
-            this.imagesCollectorTree.Images.SetKeyName(10, "Error24x24.png");
-            this.imagesCollectorTree.Images.SetKeyName(11, "Error2_24x24.png");
-            // 
-            // rtxDetails
-            // 
-            this.rtxDetails.ContextMenuStrip = this.rawViewContextMenuStrip;
-            this.rtxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtxDetails.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtxDetails.HideSelection = false;
-            this.rtxDetails.Location = new System.Drawing.Point(0, 1);
-            this.rtxDetails.Name = "rtxDetails";
-            this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(731, 163);
-            this.rtxDetails.TabIndex = 3;
-            this.rtxDetails.Text = "";
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(731, 1);
-            this.label3.TabIndex = 1;
-            // 
-            // addCategoriesToolStripMenuItem
-            // 
-            this.addCategoriesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
-            this.addCategoriesToolStripMenuItem.Name = "addCategoriesToolStripMenuItem";
-            this.addCategoriesToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
-            this.addCategoriesToolStripMenuItem.Text = "Add Categories";
-            this.addCategoriesToolStripMenuItem.Click += new System.EventHandler(this.addCategoriesToolStripMenuItem_Click);
-            // 
-            // removeCategoriesToolStripMenuItem
-            // 
-            this.removeCategoriesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop24x24;
-            this.removeCategoriesToolStripMenuItem.Name = "removeCategoriesToolStripMenuItem";
-            this.removeCategoriesToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
-            this.removeCategoriesToolStripMenuItem.Text = "Remove Categories";
-            this.removeCategoriesToolStripMenuItem.Click += new System.EventHandler(this.removeCategoriesToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
-            // 
-            // rawViewContextMenuStrip
-            // 
-            this.rawViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rawViewCopyToolStripMenuItem,
-            this.rawViewSelectAllToolStripMenuItem});
-            this.rawViewContextMenuStrip.Name = "rawViewContextMenuStrip";
-            this.rawViewContextMenuStrip.Size = new System.Drawing.Size(123, 48);
-            // 
-            // rawViewCopyToolStripMenuItem
-            // 
-            this.rawViewCopyToolStripMenuItem.Name = "rawViewCopyToolStripMenuItem";
-            this.rawViewCopyToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.rawViewCopyToolStripMenuItem.Text = "C&opy";
-            this.rawViewCopyToolStripMenuItem.Click += new System.EventHandler(this.rawViewCopyToolStripMenuItem_Click);
-            // 
-            // rawViewSelectAllToolStripMenuItem
-            // 
-            this.rawViewSelectAllToolStripMenuItem.Name = "rawViewSelectAllToolStripMenuItem";
-            this.rawViewSelectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.rawViewSelectAllToolStripMenuItem.Text = "Select &All";
-            this.rawViewSelectAllToolStripMenuItem.Click += new System.EventHandler(this.rawViewSelectAllToolStripMenuItem_Click);
             // 
             // lvwCollectorStates
             // 
@@ -354,18 +251,120 @@
             this.collectorValueColumnHeader.Text = "Value";
             this.collectorValueColumnHeader.Width = 157;
             // 
-            // txtFilter
+            // collectorContextMenuStrip
             // 
-            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFilter.HideSelection = false;
-            this.txtFilter.Location = new System.Drawing.Point(175, 6);
-            this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(352, 21);
-            this.txtFilter.TabIndex = 2;
-            this.txtFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtFilter_EnterKeyPressed);
+            this.collectorContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.collectorContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.collectorDetailToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.addCategoriesToolStripMenuItem,
+            this.removeCategoriesToolStripMenuItem});
+            this.collectorContextMenuStrip.Name = "collectorContextMenuStrip";
+            this.collectorContextMenuStrip.Size = new System.Drawing.Size(185, 100);
+            // 
+            // collectorDetailToolStripMenuItem
+            // 
+            this.collectorDetailToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
+            this.collectorDetailToolStripMenuItem.Name = "collectorDetailToolStripMenuItem";
+            this.collectorDetailToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
+            this.collectorDetailToolStripMenuItem.Text = "Details";
+            this.collectorDetailToolStripMenuItem.Click += new System.EventHandler(this.collectorDetailToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
+            // 
+            // addCategoriesToolStripMenuItem
+            // 
+            this.addCategoriesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
+            this.addCategoriesToolStripMenuItem.Name = "addCategoriesToolStripMenuItem";
+            this.addCategoriesToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
+            this.addCategoriesToolStripMenuItem.Text = "Add Categories";
+            this.addCategoriesToolStripMenuItem.Click += new System.EventHandler(this.addCategoriesToolStripMenuItem_Click);
+            // 
+            // removeCategoriesToolStripMenuItem
+            // 
+            this.removeCategoriesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop24x24;
+            this.removeCategoriesToolStripMenuItem.Name = "removeCategoriesToolStripMenuItem";
+            this.removeCategoriesToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
+            this.removeCategoriesToolStripMenuItem.Text = "Remove Categories";
+            this.removeCategoriesToolStripMenuItem.Click += new System.EventHandler(this.removeCategoriesToolStripMenuItem_Click);
+            // 
+            // imagesCollectorTree
+            // 
+            this.imagesCollectorTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesCollectorTree.ImageStream")));
+            this.imagesCollectorTree.TransparentColor = System.Drawing.Color.Transparent;
+            this.imagesCollectorTree.Images.SetKeyName(0, "open_folder_blue24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(1, "helpbwy24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(2, "ok.png");
+            this.imagesCollectorTree.Images.SetKeyName(3, "triang_yellow.png");
+            this.imagesCollectorTree.Images.SetKeyName(4, "triang_red24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(5, "ok3.png");
+            this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
+            this.imagesCollectorTree.Images.SetKeyName(7, "triang_red24x24faded.png");
+            this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
+            this.imagesCollectorTree.Images.SetKeyName(9, "clock1.png");
+            this.imagesCollectorTree.Images.SetKeyName(10, "Error24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(11, "Error2_24x24.png");
+            // 
+            // rtxDetails
+            // 
+            this.rtxDetails.ContextMenuStrip = this.rawViewContextMenuStrip;
+            this.rtxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtxDetails.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxDetails.HideSelection = false;
+            this.rtxDetails.Location = new System.Drawing.Point(0, 1);
+            this.rtxDetails.Name = "rtxDetails";
+            this.rtxDetails.ReadOnly = true;
+            this.rtxDetails.Size = new System.Drawing.Size(731, 161);
+            this.rtxDetails.TabIndex = 3;
+            this.rtxDetails.Text = "";
+            // 
+            // rawViewContextMenuStrip
+            // 
+            this.rawViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rawViewCopyToolStripMenuItem,
+            this.rawViewSelectAllToolStripMenuItem});
+            this.rawViewContextMenuStrip.Name = "rawViewContextMenuStrip";
+            this.rawViewContextMenuStrip.Size = new System.Drawing.Size(123, 48);
+            // 
+            // rawViewCopyToolStripMenuItem
+            // 
+            this.rawViewCopyToolStripMenuItem.Name = "rawViewCopyToolStripMenuItem";
+            this.rawViewCopyToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.rawViewCopyToolStripMenuItem.Text = "C&opy";
+            this.rawViewCopyToolStripMenuItem.Click += new System.EventHandler(this.rawViewCopyToolStripMenuItem_Click);
+            // 
+            // rawViewSelectAllToolStripMenuItem
+            // 
+            this.rawViewSelectAllToolStripMenuItem.Name = "rawViewSelectAllToolStripMenuItem";
+            this.rawViewSelectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.rawViewSelectAllToolStripMenuItem.Text = "Select &All";
+            this.rawViewSelectAllToolStripMenuItem.Click += new System.EventHandler(this.rawViewSelectAllToolStripMenuItem_Click);
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(731, 1);
+            this.label3.TabIndex = 1;
+            // 
+            // llblDetails
+            // 
+            this.llblDetails.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.llblDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.llblDetails.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.llblDetails.Location = new System.Drawing.Point(0, 239);
+            this.llblDetails.Name = "llblDetails";
+            this.llblDetails.Size = new System.Drawing.Size(731, 15);
+            this.llblDetails.TabIndex = 1;
+            this.llblDetails.TabStop = true;
+            this.llblDetails.Text = "Details";
+            this.llblDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.llblDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblDetails_LinkClicked);
             // 
             // CollectorFilterView
             // 
@@ -410,7 +409,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cboFilterType;
-        private System.Windows.Forms.Button cmdViewDetails;
         private System.Windows.Forms.ComboBox cboStateFilter;
         private System.Windows.Forms.Label label5;
         private Controls.TextBoxEx txtFilter;
@@ -427,5 +425,6 @@
         private System.Windows.Forms.ContextMenuStrip rawViewContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem rawViewCopyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rawViewSelectAllToolStripMenuItem;
+        private System.Windows.Forms.LinkLabel llblDetails;
     }
 }

@@ -709,7 +709,7 @@ namespace QuickMon
             lvwHistory.Items.Clear();
             if (SelectedCollectorHost != null && SelectedCollectorHost.StateHistory != null && SelectedCollectorHost.CurrentState != null)
             {
-                optHistoricStateView.Text = "Historic (" + SelectedCollectorHost.StateHistory.Count.ToString() + ")";
+                optHistoricStateView.Text = "History (" + SelectedCollectorHost.StateHistory.Count.ToString() + ")";
                 hi = SelectedCollectorHost.CurrentState;
                 ListViewItem lvi = new ListViewItem(hi.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
                 lvi = new ListViewItem(hi.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -748,7 +748,7 @@ namespace QuickMon
             }
             else
             {
-                optHistoricStateView.Text = "Historic";
+                optHistoricStateView.Text = "History";
             }
         }
         private void AddUpdateListViewItem(ListView lvw, string groupName, string propName, List<string> values, bool visible = true)
