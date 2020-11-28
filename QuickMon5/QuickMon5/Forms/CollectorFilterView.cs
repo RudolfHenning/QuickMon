@@ -17,6 +17,7 @@ namespace QuickMon
             InitializeComponent();
         }
         public MonitorPack HostingMonitorPack { get; set; }
+        private Timer selectionUpdated = new Timer() { Interval = 100, Enabled = false };
 
         #region TreeNodeImage contants
         private readonly int collectorFolderImage = 0;
@@ -73,7 +74,13 @@ namespace QuickMon
             cboStateFilter.SelectedIndex = 0;
             agentStateSplitContainer.Panel2Collapsed = true;
             lvwCollectorStates.AutoResizeColumnEnabled = true;
+            llblDetails.Text = agentStateSplitContainer.Panel2Collapsed ? "Show Details" : "Hide Details";
+            selectionUpdated.Tick += 
+                SelectionUpdated_Tick;
         }
+
+        
+
         private void CollectorFilterView_FormClosing(object sender, FormClosingEventArgs e)
         {
             DeRegisterChildWindow();
@@ -139,6 +146,8 @@ namespace QuickMon
                     lvwCollectorStates.SelectedItems[0].EnsureVisible();
                     UpdateRawView();
                 }
+                selectedCountToolStripStatusLabel.Text = lvwCollectorStates.SelectedItems.Count.ToString();
+                itemCountToolStripStatusLabel.Text = lvwCollectorStates.Items.Count.ToString();
                 Cursor.Current = Cursors.Default;
             }
         }
@@ -167,9 +176,8 @@ namespace QuickMon
                         inState = true;
                     else if (cboStateFilter.SelectedIndex == 3 && (collector.CurrentState.State == CollectorState.Error || collector.CurrentState.State == CollectorState.ConfigurationError))
                         inState = true;
-                    else if (cboStateFilter.SelectedIndex == 3 && (collector.CurrentState.State == CollectorState.Warning || collector.CurrentState.State == CollectorState.Error || collector.CurrentState.State == CollectorState.ConfigurationError))
+                    else if (cboStateFilter.SelectedIndex == 4 && (collector.CurrentState.State == CollectorState.Warning || collector.CurrentState.State == CollectorState.Error || collector.CurrentState.State == CollectorState.ConfigurationError))
                         inState = true;
-
 
                     if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 1) && collector.DisplayName.ToLower().Contains(txtFilter.Text.ToLower()))
                         isInFilter = true;
@@ -228,7 +236,10 @@ namespace QuickMon
             UpdateRawView();
             addCategoriesToolStripMenuItem.Enabled = (lvwCollectorStates.SelectedItems.Count > 0);
             removeCategoriesToolStripMenuItem.Enabled = (lvwCollectorStates.SelectedItems.Count > 0);
-
+            llblDetails.Enabled = (lvwCollectorStates.SelectedItems.Count > 0) || !agentStateSplitContainer.Panel2Collapsed;
+            
+            selectionUpdated.Enabled = false;
+            selectionUpdated.Enabled = true;
         }
 
         private void UpdateRawView()
@@ -327,6 +338,7 @@ namespace QuickMon
         {
             if (lvwCollectorStates.SelectedItems.Count > 0)
             {
+                bool isChanged = false;
                 if (ParentWindow != null && ParentWindow is MainForm)
                 {
                     MainForm mainForm = (MainForm)ParentWindow;
@@ -352,17 +364,12 @@ namespace QuickMon
                                      select c).FirstOrDefault() == null)
                                 {
                                     ch.Categories.Add(cat);
+                                    isChanged = true;
                                 }                                
                             }
                         }
                     }
-                    
-                    if (ParentWindow != null && ParentWindow is MainForm && lvwCollectorStates.SelectedItems.Count == 1 && lvwCollectorStates.SelectedItems[0].Tag is CollectorHost)
-                    {
-                        CollectorHost ch = (CollectorHost)lvwCollectorStates.SelectedItems[0].Tag;
-                        MainForm mainForm = (MainForm)ParentWindow;
-                        mainForm.SetMonitorChanged();
-                    }
+
                     UpdateRawView();
                 }
 
@@ -370,6 +377,11 @@ namespace QuickMon
                 {
                     MainForm mainForm = (MainForm)ParentWindow;
                     mainForm.ResumePolling(true);
+                    if (isChanged)
+                    {
+                        Application.DoEvents();
+                        mainForm.SetMonitorChanged();
+                    }
                 }
             }
         }
@@ -439,6 +451,29 @@ namespace QuickMon
         private void llblDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             agentStateSplitContainer.Panel2Collapsed = !agentStateSplitContainer.Panel2Collapsed;
+            llblDetails.Text = agentStateSplitContainer.Panel2Collapsed ? "Show Details" : "Hide Details";
+        }
+
+        private void txtFilter_TextChanged(object sender, EventArgs e)
+        {
+            lblResetText.Visible = txtFilter.Text.Length > 0;            
+        }
+
+        private void lblResetText_Click(object sender, EventArgs e)
+        {
+            txtFilter.Text = "";
+        }
+
+        private void SelectionUpdated_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    selectedCountToolStripStatusLabel.Text = lvwCollectorStates.SelectedItems.Count.ToString();
+                });
+            }
+            catch { }
         }
     }
 }

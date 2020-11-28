@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorFilterView));
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdRefresh = new System.Windows.Forms.Button();
-            this.txtFilter = new QuickMon.Controls.TextBoxEx();
             this.cboStateFilter = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cboFilterType = new System.Windows.Forms.ComboBox();
@@ -41,10 +40,7 @@
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.includeEmptyfolderCollectorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.agentStateSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.lvwCollectorStates = new QuickMon.ListViewEx();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.PathColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.llblDetails = new System.Windows.Forms.LinkLabel();
             this.collectorContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.collectorDetailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -56,7 +52,17 @@
             this.rawViewCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rawViewSelectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label3 = new System.Windows.Forms.Label();
-            this.llblDetails = new System.Windows.Forms.LinkLabel();
+            this.lblResetText = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lvwCollectorStates = new QuickMon.ListViewEx();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.PathColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtFilter = new QuickMon.Controls.TextBoxEx();
+            this.selectedCountToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.itemCountToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.agentStateSplitContainer)).BeginInit();
@@ -69,6 +75,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblResetText);
             this.panel1.Controls.Add(this.cmdRefresh);
             this.panel1.Controls.Add(this.txtFilter);
             this.panel1.Controls.Add(this.cboStateFilter);
@@ -96,19 +103,6 @@
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
-            // txtFilter
-            // 
-            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFilter.HideSelection = false;
-            this.txtFilter.Location = new System.Drawing.Point(175, 6);
-            this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(352, 21);
-            this.txtFilter.TabIndex = 2;
-            this.txtFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtFilter_EnterKeyPressed);
-            // 
             // cboStateFilter
             // 
             this.cboStateFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -122,7 +116,7 @@
             "Warning",
             "Error",
             "Warn & Err"});
-            this.cboStateFilter.Location = new System.Drawing.Point(578, 5);
+            this.cboStateFilter.Location = new System.Drawing.Point(601, 5);
             this.cboStateFilter.Name = "cboStateFilter";
             this.cboStateFilter.Size = new System.Drawing.Size(92, 23);
             this.cboStateFilter.TabIndex = 4;
@@ -132,7 +126,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(533, 8);
+            this.label5.Location = new System.Drawing.Point(556, 8);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 16);
             this.label5.TabIndex = 3;
@@ -167,7 +161,11 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSplitButton1});
+            this.toolStripSplitButton1,
+            this.selectedCountToolStripStatusLabel,
+            this.toolStripStatusLabel1,
+            this.itemCountToolStripStatusLabel,
+            this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 457);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(731, 22);
@@ -202,8 +200,8 @@
             // 
             // agentStateSplitContainer.Panel1
             // 
-            this.agentStateSplitContainer.Panel1.Controls.Add(this.llblDetails);
             this.agentStateSplitContainer.Panel1.Controls.Add(this.lvwCollectorStates);
+            this.agentStateSplitContainer.Panel1.Controls.Add(this.llblDetails);
             // 
             // agentStateSplitContainer.Panel2
             // 
@@ -214,42 +212,22 @@
             this.agentStateSplitContainer.SplitterWidth = 8;
             this.agentStateSplitContainer.TabIndex = 14;
             // 
-            // lvwCollectorStates
+            // llblDetails
             // 
-            this.lvwCollectorStates.AutoResizeColumnEnabled = false;
-            this.lvwCollectorStates.AutoResizeColumnIndex = 1;
-            this.lvwCollectorStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvwCollectorStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.PathColumnHeader,
-            this.collectorValueColumnHeader});
-            this.lvwCollectorStates.ContextMenuStrip = this.collectorContextMenuStrip;
-            this.lvwCollectorStates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwCollectorStates.FullRowSelect = true;
-            this.lvwCollectorStates.Location = new System.Drawing.Point(0, 0);
-            this.lvwCollectorStates.Name = "lvwCollectorStates";
-            this.lvwCollectorStates.Size = new System.Drawing.Size(731, 254);
-            this.lvwCollectorStates.SmallImageList = this.imagesCollectorTree;
-            this.lvwCollectorStates.TabIndex = 0;
-            this.lvwCollectorStates.UseCompatibleStateImageBehavior = false;
-            this.lvwCollectorStates.View = System.Windows.Forms.View.Details;
-            this.lvwCollectorStates.SelectedIndexChanged += new System.EventHandler(this.lvwCollectorStates_SelectedIndexChanged);
-            this.lvwCollectorStates.DoubleClick += new System.EventHandler(this.collectorDetailToolStripMenuItem_Click);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Name";
-            this.nameColumnHeader.Width = 242;
-            // 
-            // PathColumnHeader
-            // 
-            this.PathColumnHeader.Text = "Path";
-            this.PathColumnHeader.Width = 299;
-            // 
-            // collectorValueColumnHeader
-            // 
-            this.collectorValueColumnHeader.Text = "Value";
-            this.collectorValueColumnHeader.Width = 157;
+            this.llblDetails.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.llblDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.llblDetails.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.llblDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.llblDetails.Enabled = false;
+            this.llblDetails.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.llblDetails.Location = new System.Drawing.Point(0, 236);
+            this.llblDetails.Name = "llblDetails";
+            this.llblDetails.Size = new System.Drawing.Size(731, 18);
+            this.llblDetails.TabIndex = 1;
+            this.llblDetails.TabStop = true;
+            this.llblDetails.Text = "Details";
+            this.llblDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.llblDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblDetails_LinkClicked);
             // 
             // collectorContextMenuStrip
             // 
@@ -352,19 +330,96 @@
             this.label3.Size = new System.Drawing.Size(731, 1);
             this.label3.TabIndex = 1;
             // 
-            // llblDetails
+            // lblResetText
             // 
-            this.llblDetails.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.llblDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.llblDetails.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.llblDetails.Location = new System.Drawing.Point(0, 239);
-            this.llblDetails.Name = "llblDetails";
-            this.llblDetails.Size = new System.Drawing.Size(731, 15);
-            this.llblDetails.TabIndex = 1;
-            this.llblDetails.TabStop = true;
-            this.llblDetails.Text = "Details";
-            this.llblDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.llblDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblDetails_LinkClicked);
+            this.lblResetText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblResetText.AutoSize = true;
+            this.lblResetText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblResetText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResetText.ForeColor = System.Drawing.Color.Red;
+            this.lblResetText.Location = new System.Drawing.Point(535, 10);
+            this.lblResetText.Name = "lblResetText";
+            this.lblResetText.Size = new System.Drawing.Size(15, 13);
+            this.lblResetText.TabIndex = 6;
+            this.lblResetText.Text = "X";
+            this.toolTip1.SetToolTip(this.lblResetText, "Clear filter test");
+            this.lblResetText.Visible = false;
+            this.lblResetText.Click += new System.EventHandler(this.lblResetText_Click);
+            // 
+            // lvwCollectorStates
+            // 
+            this.lvwCollectorStates.AutoResizeColumnEnabled = false;
+            this.lvwCollectorStates.AutoResizeColumnIndex = 1;
+            this.lvwCollectorStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvwCollectorStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.PathColumnHeader,
+            this.collectorValueColumnHeader});
+            this.lvwCollectorStates.ContextMenuStrip = this.collectorContextMenuStrip;
+            this.lvwCollectorStates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwCollectorStates.FullRowSelect = true;
+            this.lvwCollectorStates.Location = new System.Drawing.Point(0, 0);
+            this.lvwCollectorStates.Name = "lvwCollectorStates";
+            this.lvwCollectorStates.Size = new System.Drawing.Size(731, 236);
+            this.lvwCollectorStates.SmallImageList = this.imagesCollectorTree;
+            this.lvwCollectorStates.TabIndex = 0;
+            this.lvwCollectorStates.UseCompatibleStateImageBehavior = false;
+            this.lvwCollectorStates.View = System.Windows.Forms.View.Details;
+            this.lvwCollectorStates.SelectedIndexChanged += new System.EventHandler(this.lvwCollectorStates_SelectedIndexChanged);
+            this.lvwCollectorStates.DoubleClick += new System.EventHandler(this.collectorDetailToolStripMenuItem_Click);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Name";
+            this.nameColumnHeader.Width = 242;
+            // 
+            // PathColumnHeader
+            // 
+            this.PathColumnHeader.Text = "Path";
+            this.PathColumnHeader.Width = 299;
+            // 
+            // collectorValueColumnHeader
+            // 
+            this.collectorValueColumnHeader.Text = "Value";
+            this.collectorValueColumnHeader.Width = 157;
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFilter.HideSelection = false;
+            this.txtFilter.Location = new System.Drawing.Point(175, 6);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(357, 21);
+            this.txtFilter.TabIndex = 2;
+            this.txtFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtFilter_EnterKeyPressed);
+            this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
+            // 
+            // selectedCountToolStripStatusLabel
+            // 
+            this.selectedCountToolStripStatusLabel.Name = "selectedCountToolStripStatusLabel";
+            this.selectedCountToolStripStatusLabel.Size = new System.Drawing.Size(13, 17);
+            this.selectedCountToolStripStatusLabel.Text = "0";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(51, 17);
+            this.toolStripStatusLabel1.Text = "Selected";
+            // 
+            // itemCountToolStripStatusLabel
+            // 
+            this.itemCountToolStripStatusLabel.Name = "itemCountToolStripStatusLabel";
+            this.itemCountToolStripStatusLabel.Size = new System.Drawing.Size(13, 17);
+            this.itemCountToolStripStatusLabel.Text = "0";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(44, 17);
+            this.toolStripStatusLabel2.Text = "Item(s)";
             // 
             // CollectorFilterView
             // 
@@ -426,5 +481,11 @@
         private System.Windows.Forms.ToolStripMenuItem rawViewCopyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rawViewSelectAllToolStripMenuItem;
         private System.Windows.Forms.LinkLabel llblDetails;
+        private System.Windows.Forms.Label lblResetText;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolStripStatusLabel selectedCountToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel itemCountToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
     }
 }
