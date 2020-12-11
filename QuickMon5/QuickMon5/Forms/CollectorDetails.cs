@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HenIT.Windows.Controls.Graphing;
 
 namespace QuickMon
 {
@@ -47,6 +48,7 @@ namespace QuickMon
         private string currentSelectedControl = "";
         private bool inEditMode = false;
         private static bool updateAgentsDetailViewBusy = false;
+        private List<Color> seriesColors = new List<Color>();
         #endregion
 
         #region TreeNodeImage contants
@@ -125,6 +127,8 @@ namespace QuickMon
             panelEditing.BorderStyle = BorderStyle.None;
             panelMetrics.BorderStyle = BorderStyle.None;
             txtName.BorderStyle = BorderStyle.None;
+            collectorTimeGraph.Visible = false;
+            collectorTimeGraph.Dock = DockStyle.Fill;
             agentStateSplitContainer.Panel2Collapsed = true;
             collectorDetailSplitContainer.Panel2Collapsed = true;
 
@@ -136,6 +140,7 @@ namespace QuickMon
             {
                 HostingMonitorPack = SelectedCollectorHost.ParentMonitorPack; 
             }
+            LoadGraphColors();
             RefreshDetails();
             LoadEditControls();
             splitContainerMain.Panel2Collapsed = true;
@@ -147,6 +152,32 @@ namespace QuickMon
             }
             UpdateStatusBar();
         }
+
+        private void LoadGraphColors()
+        {
+            seriesColors.Add(Color.Red);
+            seriesColors.Add(Color.Blue);
+            seriesColors.Add(Color.DarkOrange);
+            seriesColors.Add(Color.BlueViolet);
+            seriesColors.Add(Color.DarkGoldenrod);
+            seriesColors.Add(Color.Green);
+
+            seriesColors.Add(Color.Aqua);
+            seriesColors.Add(Color.Yellow);
+            seriesColors.Add(Color.LightBlue);
+            seriesColors.Add(Color.LightGreen);            
+            seriesColors.Add(Color.RoyalBlue);            
+            seriesColors.Add(Color.BlueViolet);
+            seriesColors.Add(Color.White);
+            seriesColors.Add(Color.LightCyan);
+            seriesColors.Add(Color.LightPink);
+            seriesColors.Add(Color.Lime);
+            seriesColors.Add(Color.Olive);
+            seriesColors.Add(Color.OrangeRed);
+            seriesColors.Add(Color.RosyBrown);
+            seriesColors.Add(Color.Violet);
+        }
+
         private void CollectorDetails_FormClosing(object sender, FormClosingEventArgs e)
         {
             DeRegisterChildWindow();
@@ -265,8 +296,166 @@ namespace QuickMon
             LoadMetrics();
             LoadHistory();
             LoadActionScripts();
-            UpdateAgentStateTree();            
+            UpdateAgentStateTree();
+            UpdateGraphView();          
         }
+
+        private void UpdateGraphView()
+        {
+            if (optGraphView.Checked)
+            {
+                DateTime startDateTime = DateTime.Now.AddMinutes(-1);
+                DateTime endDateTime = DateTime.Now;
+                long maxValue = 1;
+                List<string> seriesNames = new List<string>();
+                List<HenIT.Windows.Controls.Graphing.GraphSeries> graphSeriesList = new List<HenIT.Windows.Controls.Graphing.GraphSeries>();
+                foreach (MonitorState historyState in SelectedCollectorHost.StateHistory)
+                {
+                    foreach (MonitorState agentState in historyState.ChildStates)
+                    {
+                        if (agentState.ForAgent != null && agentState.ForAgent != "")
+                        {
+                            if (!seriesNames.Contains(agentState.ForAgent))
+                            {
+                                seriesNames.Add(agentState.ForAgent);
+                            }
+                        }
+                        foreach (MonitorState subEntryState in agentState.ChildStates)
+                        {
+                            if (subEntryState.ForAgent != null && subEntryState.ForAgent != "")
+                            {
+                                if (!seriesNames.Contains(subEntryState.ForAgent))
+                                {
+                                    seriesNames.Add(subEntryState.ForAgent);
+                                }
+                            }
+                        }
+                    }
+                }
+                foreach(string seriesName in seriesNames)
+                {
+                    Color seriesColor = seriesColors[graphSeriesList.Count % seriesColors.Count];
+                    HenIT.Windows.Controls.Graphing.GraphSeries series = new HenIT.Windows.Controls.Graphing.GraphSeries(seriesName, seriesColor);
+                    foreach (MonitorState historyState in SelectedCollectorHost.StateHistory)
+                    {
+                        foreach (MonitorState agentState in historyState.ChildStates)
+                        {
+                            if (agentState.ForAgent == seriesName)
+                            {
+                                float v = 0;
+                                if (agentState.CurrentValue != null && float.TryParse(agentState.CurrentValue.ToString(), out v))
+                                {
+                                    if (maxValue < v)
+                                        maxValue = (long)v;
+                                    if (startDateTime > agentState.Timestamp)
+                                        startDateTime = agentState.Timestamp;                                    
+                                    series.Values.Add(new HenIT.Windows.Controls.Graphing.TimeValue() { Time = agentState.Timestamp, Value = v });
+                                }
+                            }
+                            foreach (MonitorState subEntryState in agentState.ChildStates)
+                            {
+                                if (subEntryState.ForAgent == seriesName)
+                                {
+                                    float v = 0;
+                                    if (subEntryState.CurrentValue != null && float.TryParse(subEntryState.CurrentValue.ToString(), out v))
+                                    {
+                                        if (maxValue < v)
+                                            maxValue = (long)v;
+                                        if (startDateTime > agentState.Timestamp)
+                                            startDateTime = agentState.Timestamp;
+                                        series.Values.Add(new HenIT.Windows.Controls.Graphing.TimeValue() { Time = subEntryState.Timestamp, Value = v });
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    foreach (MonitorState agentState in SelectedCollectorHost.CurrentState.ChildStates)
+                    {
+                        if (agentState.ForAgent == seriesName)
+                        {
+                            float v = 0;
+                            if (agentState.CurrentValue != null && float.TryParse(agentState.CurrentValue.ToString(), out v))
+                            {
+                                if (maxValue < v)
+                                    maxValue = (long)v;
+                                if (startDateTime > agentState.Timestamp)
+                                    startDateTime = agentState.Timestamp;
+                                series.Values.Add(new HenIT.Windows.Controls.Graphing.TimeValue() { Time = agentState.Timestamp, Value = v });
+                            }
+                        }
+                        foreach (MonitorState subEntryState in agentState.ChildStates)
+                        {
+                            if (subEntryState.ForAgent == seriesName)
+                            {
+                                float v = 0;
+                                if (subEntryState.CurrentValue != null && float.TryParse(subEntryState.CurrentValue.ToString(), out v))
+                                {
+                                    if (maxValue < v)
+                                        maxValue = (long)v;
+                                    if (startDateTime > agentState.Timestamp)
+                                        startDateTime = agentState.Timestamp;
+                                    series.Values.Add(new HenIT.Windows.Controls.Graphing.TimeValue() { Time = subEntryState.Timestamp, Value = v });
+                                }
+                            }
+                        }
+                    }
+
+                    if (series.Values.Count > 0)
+                        graphSeriesList.Add(series);
+                }
+
+
+                //MonitorState selectedMonitorState;
+                //SelectedCollectorHost.StateHistory
+                //selectedMonitorState = SelectedCollectorHost.CurrentState;
+
+                
+                //HenIT.Windows.Controls.Graphing.GraphSeries series = new HenIT.Windows.Controls.Graphing.GraphSeries(selectedMonitorState.ForAgent, Color.Red);
+                
+                //foreach (MonitorState agentState in selectedMonitorState.ChildStates)
+                //{ 
+                //    foreach (MonitorState entryState in agentState.ChildStates)
+                //    {
+                //        foreach (MonitorState subEntryState in entryState.ChildStates)
+                //        {
+                //            if (subEntryState.CurrentValue.IsNumber())
+                //            {
+                //                float v = 0;
+                //                if (float.TryParse(subEntryState.CurrentValue.ToString(), out v))
+                //                {
+                //                    if (maxValue < v)
+                //                        maxValue = (long)v;
+                //                    if (startDateTime > entryState.Timestamp)
+                //                        startDateTime = entryState.Timestamp;
+                //                    if (endDateTime < entryState.Timestamp)
+                //                        endDateTime = entryState.Timestamp;
+                //                    series.Values.Add(new HenIT.Windows.Controls.Graphing.TimeValue() { Time = subEntryState.Timestamp, Value = v });
+                //                }
+                //            }
+                //        }
+                            
+                //    }
+                    
+                //}
+                //graphSeriesList.Add(series);
+
+                collectorTimeGraph.PauseUpdates();
+                collectorTimeGraph.GraphHeaderText = $"'{SelectedCollectorHost.Path}'"; // $"{SelectedCollectorHost.Name} ({SelectedCollectorHost.PathWithoutMP})"; // SelectedCollectorHost.Name;
+                collectorTimeGraph.Series = null;
+                collectorTimeGraph.StartDateTime = startDateTime;
+                collectorTimeGraph.EndDateTime = endDateTime;
+                collectorTimeGraph.MaxGraphValue = maxValue;
+                collectorTimeGraph.Series = graphSeriesList;
+                collectorTimeGraph.SetAutoMinMaxDateTimes(true, true, true);
+
+                this.Invoke((MethodInvoker)delegate
+                {
+                    collectorTimeGraph.RefreshGraph();
+                });
+            }
+        }
+
         private void LoadActionScripts()
         {
             lvwActionScripts.Items.Clear();
@@ -562,7 +751,7 @@ namespace QuickMon
             Text = "Collector Details";
             if (SelectedCollectorHost != null)
             {
-                Text += " - " + SelectedCollectorHost.Name;
+                Text += $" - '{SelectedCollectorHost.Path}'"; // SelectedCollectorHost.Name;
                 SetAppIcon(SelectedCollectorHost.CurrentState.State);
             }
         }
@@ -633,7 +822,7 @@ namespace QuickMon
                 selectedMonitorState = SelectedCollectorHost.CurrentState;
             }
 
-            if (selectedMonitorState == null || selectedMonitorState.ChildStates== null || selectedMonitorState.ChildStates.Count == 0 || selectedMonitorState.State == CollectorState.UpdateInProgress || selectedMonitorState.State == CollectorState.NotAvailable)
+            if (selectedMonitorState == null || selectedMonitorState.ChildStates == null || selectedMonitorState.ChildStates.Count == 0 || selectedMonitorState.State == CollectorState.UpdateInProgress || selectedMonitorState.State == CollectorState.NotAvailable)
             {
                 int agentNodeStateIndex = GetNodeStateImageIndex(selectedMonitorState.State);
                 foreach (ICollector agent in SelectedCollectorHost.CollectorAgents)
@@ -688,7 +877,8 @@ namespace QuickMon
                     }
                     agentNode.ExpandAll();
                 }
-            }    
+            }   
+
         }
         private void LoadHistory()
         {
@@ -1160,6 +1350,16 @@ namespace QuickMon
         private void optHistoricStateView_CheckedChanged(object sender, EventArgs e)
         {
             agentStateSplitContainer.Panel2Collapsed = false;
+            lvwHistory.Visible = true;
+            collectorTimeGraph.Visible = false;
+            UpdateAgentStateTree();
+        }
+        private void optGraphView_CheckedChanged(object sender, EventArgs e)
+        {
+            agentStateSplitContainer.Panel2Collapsed = false;
+            lvwHistory.Visible = false;
+            collectorTimeGraph.Visible = true;
+            UpdateGraphView();
             UpdateAgentStateTree();
         }
         private void chkRAWDetails_CheckedChanged(object sender, EventArgs e)
@@ -2234,7 +2434,261 @@ namespace QuickMon
 
 
 
+
         #endregion
+
+        #region Graph events
+        private void collectorTimeGraph_GraphClicked(object sender, EventArgs e)
+        {
+            ShowGraphSelection();
+        }
+        private void collectorTimeGraph_ClosestPointSelectedChanged(string seriesName, HenIT.Windows.Controls.Graphing.TimeValue tv)
+        {
+            ShowGraphSelection(seriesName, tv);
+        } 
+        #endregion
+
+        private void ShowGraphSelection(string seriesName = "", TimeValue tv = null)
+        {
+            if (tv != null && collectorTimeGraph.LastClickedLocation == null)
+            {
+                collectorTimeGraph.LastClickedLocation = tv;
+            }
+        }
+        private void SetAxisType()
+        {
+            if (linearGraphTypeToolStripMenuItem.Checked)
+            {
+                collectorTimeGraph.GraphVerticalAxisType = HenIT.Windows.Controls.Graphing.GraphVerticalAxisType.Standard;
+                collectorTimeGraph.SetAutoMinMaxDateTimes();
+            }
+            else
+            {
+                collectorTimeGraph.GraphVerticalAxisType = HenIT.Windows.Controls.Graphing.GraphVerticalAxisType.Logarithmic;
+            }
+            collectorTimeGraph.RefreshGraph();
+        }
+
+        #region Graph Context menu events
+        private void graphContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            linearGraphTypeToolStripMenuItem.Checked = collectorTimeGraph.GraphVerticalAxisType == HenIT.Windows.Controls.Graphing.GraphVerticalAxisType.Standard;
+            logarithmicGraphTypeToolStripMenuItem.Checked = collectorTimeGraph.GraphVerticalAxisType == HenIT.Windows.Controls.Graphing.GraphVerticalAxisType.Logarithmic;
+            graphHeaderVisibleToolStripMenuItem.Checked = collectorTimeGraph.ShowGraphHeader;
+            legendVisibleToolStripMenuItem.Checked = collectorTimeGraph.ShowLegendText;
+            graphSelectionbarVisibleToolStripMenuItem.Checked = collectorTimeGraph.ShowSelectionBar;
+            graphHighlightClickedSeriesToolStripMenuItem.Checked = collectorTimeGraph.HighlightClickedSeries;
+            graphFillAreaBelowSeriesEnabledToolStripMenuItem.Checked = collectorTimeGraph.FillAreaBelowGraph;
+            graphHorisonalGridLinesVisibleToolStripMenuItem.Checked = collectorTimeGraph.ShowHorisontalGridlines;
+            graphVerticalGridLinesVisibleToolStripMenuItem.Checked = collectorTimeGraph.ShowVerticalGridLines;
+        }
+
+        private void linearGraphTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            logarithmicGraphTypeToolStripMenuItem.Checked = !linearGraphTypeToolStripMenuItem.Checked;
+            SetAxisType();
+        }
+        private void logarithmicGraphTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            linearGraphTypeToolStripMenuItem.Checked = !logarithmicGraphTypeToolStripMenuItem.Checked;            
+            SetAxisType();
+        }
+        private void graphGradientColor1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Color selectedColor = collectorTimeGraph.BackgroundGradientColor1;
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = selectedColor;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                Clipboard.SetText(colorDialog.Color.Name);
+                collectorTimeGraph.BackgroundGradientColor1 = colorDialog.Color;
+                collectorTimeGraph.RefreshGraph();
+            }
+        }
+
+        private void graphGradientColor2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Color selectedColor = collectorTimeGraph.BackgroundGradientColor2;
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = selectedColor;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                Clipboard.SetText(colorDialog.Color.Name);
+                collectorTimeGraph.BackgroundGradientColor2 = colorDialog.Color;
+                collectorTimeGraph.RefreshGraph();
+            }
+        }
+
+        private void swapGraphGradientColorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Color backgroundGradientColor1 = collectorTimeGraph.BackgroundGradientColor1;
+            Color backgroundGradientColor2 = collectorTimeGraph.BackgroundGradientColor2;
+            collectorTimeGraph.BackgroundGradientColor1 = backgroundGradientColor2;
+            collectorTimeGraph.BackgroundGradientColor2 = backgroundGradientColor1;
+            collectorTimeGraph.RefreshGraph();
+        }
+
+        private void graphGradientDirectionHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            collectorTimeGraph.RefreshGraph();
+        }
+
+        private void graphGradientDirectionVerticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            collectorTimeGraph.RefreshGraph();
+        }
+
+        private void graphGradientDirectionForwardDiagonalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            collectorTimeGraph.RefreshGraph();
+        }
+
+        private void graphGradientDirectionBackwardDiagonalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.BackwardDiagonal;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphGridColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Color selectedColor = collectorTimeGraph.GridColor;
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = selectedColor;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                Clipboard.SetText(colorDialog.Color.Name);
+                collectorTimeGraph.GridColor = colorDialog.Color;
+                collectorTimeGraph.RefreshGraph();
+            }
+        }
+        private void graphAxisLabelColorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Color selectedColor = collectorTimeGraph.AxisLabelColor;
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = selectedColor;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                Clipboard.SetText(colorDialog.Color.Name);
+                collectorTimeGraph.AxisLabelColor = colorDialog.Color;
+                collectorTimeGraph.RefreshGraph();
+            }
+        }
+        private void graphSelectionBarColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Color selectedColor = collectorTimeGraph.TimeSelectionColor;
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = selectedColor;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                Clipboard.SetText(colorDialog.Color.Name);
+                collectorTimeGraph.TimeSelectionColor = colorDialog.Color;
+                collectorTimeGraph.RefreshGraph();
+            }
+        }
+        private void graphClosestClickedColorSameAsSeriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.ClosestClickedValueColorType = HenIT.Windows.Controls.Graphing.ClosestClickedValueColorType.SeriesColor;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphClosestClickedColorInvertedColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.ClosestClickedValueColorType = HenIT.Windows.Controls.Graphing.ClosestClickedValueColorType.InvertedColor;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphClosestClickedColorCustomColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.ClosestClickedValueColorType = HenIT.Windows.Controls.Graphing.ClosestClickedValueColorType.CustomColor;
+            Color selectedColor = collectorTimeGraph.ClosestClickedValueCustomColor;
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = selectedColor;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                Clipboard.SetText(colorDialog.Color.Name);
+                collectorTimeGraph.ClosestClickedValueCustomColor = colorDialog.Color;
+                collectorTimeGraph.RefreshGraph();
+            }
+        }
+        private void graphHeaderVisibleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.ShowGraphHeader = graphHeaderVisibleToolStripMenuItem.Checked;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void legendVisibleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.ShowLegendText = legendVisibleToolStripMenuItem.Checked;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphHorisonalGridLinesVisibleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.ShowHorisontalGridlines = graphHorisonalGridLinesVisibleToolStripMenuItem.Checked;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphVerticalGridLinesVisibleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.ShowVerticalGridLines = graphVerticalGridLinesVisibleToolStripMenuItem.Checked;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphSelectionbarVisibleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.ShowSelectionBar = graphSelectionbarVisibleToolStripMenuItem.Checked;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphHighlightClickedSeriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.HighlightClickedSeries = graphHighlightClickedSeriesToolStripMenuItem.Checked;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphFillAreaBelowSeriesEnabledToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.FillAreaBelowGraph = graphFillAreaBelowSeriesEnabledToolStripMenuItem.Checked;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphFillAreaAlpha16ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.FillAreaBelowGraphAlpha = 16;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphFillAreaAlpha32ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.FillAreaBelowGraphAlpha = 32;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphFillAreaAlpha48ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.FillAreaBelowGraphAlpha = 48;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphFillAreaAlpha64ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.FillAreaBelowGraphAlpha = 64;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphFillAreaAlpha128ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.FillAreaBelowGraphAlpha = 128;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void graphFillAreaAlpha192ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            collectorTimeGraph.FillAreaBelowGraphAlpha = 192;
+            collectorTimeGraph.RefreshGraph();
+        }
+        private void exportGraphToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "PNG files|*.png";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap exportedGraph = collectorTimeGraph.SaveToBitmap();
+                exportedGraph.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                exportedGraph.Dispose();
+            }
+            
+        }
+        #endregion
+
 
     }
 }

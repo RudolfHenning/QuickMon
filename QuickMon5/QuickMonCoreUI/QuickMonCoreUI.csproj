@@ -345,6 +345,11 @@
     <Compile Include="Controls\TextBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TimeGraphControl\GraphSeries.cs" />
+    <Compile Include="Controls\TimeGraphControl\TimeGraphControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TimeGraphControl\TimeValue.cs" />
     <Compile Include="Controls\TreeListView\ITreeListViewItemComparer.cs" />
     <Compile Include="Controls\TreeListView\SelectedTreeListViewItemCollection.cs" />
     <Compile Include="Controls\TreeListView\TreeListView.cs">

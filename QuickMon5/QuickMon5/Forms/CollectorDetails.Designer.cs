@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
@@ -47,9 +47,6 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.agentsEditTabPage = new System.Windows.Forms.TabPage();
-            this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addAgentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addAgentEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,9 +168,6 @@
             this.label37 = new System.Windows.Forms.Label();
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.configVarsTabPage = new System.Windows.Forms.TabPage();
-            this.lvwConfigVars = new QuickMon.ListViewEx();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
@@ -186,14 +180,6 @@
             this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.lvwActionScriptsEdit = new QuickMon.ListViewEx();
-            this.actionScriptNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.typeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.adminColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.restorationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.warningColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.errorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.descriptiomColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.actionScriptsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.runActionScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runActionScriptWithPauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -207,28 +193,55 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.panelMetrics = new System.Windows.Forms.Panel();
-            this.lvwMetrics = new QuickMon.ListViewEx();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelAgentStates = new System.Windows.Forms.Panel();
             this.agentStateSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
-            this.lvwHistory = new QuickMon.ListViewEx();
-            this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.graphContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.graphTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linearGraphTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logarithmicGraphTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grapthColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphBackgroundColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphGradientColor1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphGradientColor2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.swapGraphGradientColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphGradientDirectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphGradientDirectionHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphGradientDirectionVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphGradientDirectionForwardDiagonalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphGradientDirectionBackwardDiagonalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphGridColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphAxisLabelColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphSelectionColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphSelectionBarColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphClosestClickedValueColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphClosestClickedColorSameAsSeriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphClosestClickedColorInvertedColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphClosestClickedColorCustomColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphVisibilityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphHeaderVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.legendVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphHorisonalGridLinesVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphVerticalGridLinesVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphSelectionbarVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphHighlightClickedSeriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphFillAreaBelowSeriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphFillAreaBelowSeriesEnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphFillAreaAlpha16ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphFillAreaAlpha32ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphFillAreaAlpha48ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphFillAreaAlpha64ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphFillAreaAlpha128ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphFillAreaAlpha192ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.chkRAWDetails = new System.Windows.Forms.CheckBox();
-            this.optHistoricStateView = new System.Windows.Forms.RadioButton();
+            this.optGraphView = new System.Windows.Forms.RadioButton();
             this.exportHistoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clipboardExportAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkRAWDetails = new System.Windows.Forms.CheckBox();
+            this.optHistoricStateView = new System.Windows.Forms.RadioButton();
             this.optCurrentStateView = new System.Windows.Forms.RadioButton();
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.rawViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -239,8 +252,6 @@
             this.optMetrics = new System.Windows.Forms.RadioButton();
             this.optAgentStates = new System.Windows.Forms.RadioButton();
             this.cmdCollectorEdit = new System.Windows.Forms.Button();
-            this.lvwActionScripts = new QuickMon.ListViewEx();
-            this.nameActionScriptColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
             this.cmdRunActionScript = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -249,6 +260,35 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
+            this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvwActionScriptsEdit = new QuickMon.ListViewEx();
+            this.actionScriptNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.typeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.adminColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.restorationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.warningColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.errorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.descriptiomColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvwMetrics = new QuickMon.ListViewEx();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.collectorTimeGraph = new HenIT.Windows.Controls.Graphing.TimeGraphControl();
+            this.lvwHistory = new QuickMon.ListViewEx();
+            this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvwActionScripts = new QuickMon.ListViewEx();
+            this.nameActionScriptColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.exportGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -306,6 +346,7 @@
             this.agentStateSplitContainer.Panel1.SuspendLayout();
             this.agentStateSplitContainer.Panel2.SuspendLayout();
             this.agentStateSplitContainer.SuspendLayout();
+            this.graphContextMenuStrip.SuspendLayout();
             this.panel3.SuspendLayout();
             this.exportHistoryContextMenuStrip.SuspendLayout();
             this.rawViewContextMenuStrip.SuspendLayout();
@@ -509,42 +550,6 @@
             this.agentsEditTabPage.TabIndex = 0;
             this.agentsEditTabPage.Text = "Agents";
             this.agentsEditTabPage.UseVisualStyleBackColor = true;
-            // 
-            // agentsTreeListView
-            // 
-            this.agentsTreeListView.AllowSorting = false;
-            this.agentsTreeListView.AutoResizeColumnEnabled = false;
-            this.agentsTreeListView.AutoResizeColumnIndex = 1;
-            this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
-            this.columnHeader4});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
-            this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
-            this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.agentsTreeListView.LabelEdit = true;
-            this.agentsTreeListView.Location = new System.Drawing.Point(3, 30);
-            this.agentsTreeListView.Name = "agentsTreeListView";
-            this.agentsTreeListView.Size = new System.Drawing.Size(948, 362);
-            this.agentsTreeListView.SmallImageList = this.agentsImageList;
-            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.TabIndex = 4;
-            this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
-            this.agentsTreeListView.AfterLabelEdit += new HenIT.Windows.Controls.TreeListViewLabelEditEventHandler(this.agentsTreeListView_AfterLabelEdit);
-            this.agentsTreeListView.BeforeLabelEdit += new HenIT.Windows.Controls.TreeListViewBeforeLabelEditEventHandler(this.agentsTreeListView_BeforeLabelEdit);
-            this.agentsTreeListView.SelectedIndexChanged += new System.EventHandler(this.agentsTreeListView_SelectedIndexChanged);
-            this.agentsTreeListView.DoubleClick += new System.EventHandler(this.agentsTreeListView_DoubleClick);
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Agent/Entry";
-            this.columnHeader3.Width = 316;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Summary";
-            this.columnHeader4.Width = 337;
             // 
             // agentsContextMenuStrip
             // 
@@ -1970,36 +1975,6 @@
             this.configVarsTabPage.Text = "Variables";
             this.configVarsTabPage.UseVisualStyleBackColor = true;
             // 
-            // lvwConfigVars
-            // 
-            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 0;
-            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5,
-            this.columnHeader6});
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.Location = new System.Drawing.Point(2, 33);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(949, 300);
-            this.lvwConfigVars.TabIndex = 9;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            this.lvwConfigVars.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwConfigVars_DeleteKeyPressed);
-            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Search for";
-            this.columnHeader5.Width = 244;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Replace by";
-            this.columnHeader6.Width = 262;
-            // 
             // txtConfigVarReplaceByValue
             // 
             this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -2128,64 +2103,6 @@
             this.tabPage1.TabIndex = 5;
             this.tabPage1.Text = "Action scripts";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // lvwActionScriptsEdit
-            // 
-            this.lvwActionScriptsEdit.AutoResizeColumnEnabled = false;
-            this.lvwActionScriptsEdit.AutoResizeColumnIndex = 6;
-            this.lvwActionScriptsEdit.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.actionScriptNameColumnHeader,
-            this.typeColumnHeader,
-            this.adminColumnHeader,
-            this.restorationColumnHeader,
-            this.warningColumnHeader,
-            this.errorColumnHeader,
-            this.descriptiomColumnHeader});
-            this.lvwActionScriptsEdit.ContextMenuStrip = this.actionScriptsContextMenuStrip;
-            this.lvwActionScriptsEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwActionScriptsEdit.FullRowSelect = true;
-            this.lvwActionScriptsEdit.Location = new System.Drawing.Point(3, 30);
-            this.lvwActionScriptsEdit.Name = "lvwActionScriptsEdit";
-            this.lvwActionScriptsEdit.Size = new System.Drawing.Size(948, 362);
-            this.lvwActionScriptsEdit.TabIndex = 3;
-            this.lvwActionScriptsEdit.UseCompatibleStateImageBehavior = false;
-            this.lvwActionScriptsEdit.View = System.Windows.Forms.View.Details;
-            this.lvwActionScriptsEdit.SelectedIndexChanged += new System.EventHandler(this.lvwActionScriptsEdit_SelectedIndexChanged);
-            this.lvwActionScriptsEdit.DoubleClick += new System.EventHandler(this.lvwActionScriptsEdit_DoubleClick);
-            // 
-            // actionScriptNameColumnHeader
-            // 
-            this.actionScriptNameColumnHeader.Text = "Name";
-            this.actionScriptNameColumnHeader.Width = 203;
-            // 
-            // typeColumnHeader
-            // 
-            this.typeColumnHeader.Text = "Type";
-            this.typeColumnHeader.Width = 88;
-            // 
-            // adminColumnHeader
-            // 
-            this.adminColumnHeader.Text = "Admin";
-            // 
-            // restorationColumnHeader
-            // 
-            this.restorationColumnHeader.Text = "Restore";
-            this.restorationColumnHeader.Width = 52;
-            // 
-            // warningColumnHeader
-            // 
-            this.warningColumnHeader.Text = "Warning";
-            this.warningColumnHeader.Width = 57;
-            // 
-            // errorColumnHeader
-            // 
-            this.errorColumnHeader.Text = "Error";
-            this.errorColumnHeader.Width = 49;
-            // 
-            // descriptiomColumnHeader
-            // 
-            this.descriptiomColumnHeader.Text = "Description";
-            this.descriptiomColumnHeader.Width = 384;
             // 
             // actionScriptsContextMenuStrip
             // 
@@ -2329,33 +2246,6 @@
             this.panelMetrics.Size = new System.Drawing.Size(964, 125);
             this.panelMetrics.TabIndex = 2;
             // 
-            // lvwMetrics
-            // 
-            this.lvwMetrics.AutoResizeColumnEnabled = false;
-            this.lvwMetrics.AutoResizeColumnIndex = 1;
-            this.lvwMetrics.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvwMetrics.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.lvwMetrics.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwMetrics.FullRowSelect = true;
-            this.lvwMetrics.Location = new System.Drawing.Point(0, 0);
-            this.lvwMetrics.Name = "lvwMetrics";
-            this.lvwMetrics.Size = new System.Drawing.Size(962, 123);
-            this.lvwMetrics.TabIndex = 0;
-            this.lvwMetrics.UseCompatibleStateImageBehavior = false;
-            this.lvwMetrics.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Property";
-            this.columnHeader1.Width = 211;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Value";
-            this.columnHeader2.Width = 198;
-            // 
             // panelAgentStates
             // 
             this.panelAgentStates.Controls.Add(this.agentStateSplitContainer);
@@ -2368,6 +2258,7 @@
             // 
             // agentStateSplitContainer
             // 
+            this.agentStateSplitContainer.BackColor = System.Drawing.Color.WhiteSmoke;
             this.agentStateSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.agentStateSplitContainer.Location = new System.Drawing.Point(0, 0);
             this.agentStateSplitContainer.Name = "agentStateSplitContainer";
@@ -2379,46 +2270,13 @@
             // 
             // agentStateSplitContainer.Panel2
             // 
+            this.agentStateSplitContainer.Panel2.Controls.Add(this.collectorTimeGraph);
             this.agentStateSplitContainer.Panel2.Controls.Add(this.lvwHistory);
             this.agentStateSplitContainer.Panel2.Controls.Add(this.label3);
             this.agentStateSplitContainer.Size = new System.Drawing.Size(964, 248);
-            this.agentStateSplitContainer.SplitterDistance = 124;
-            this.agentStateSplitContainer.SplitterWidth = 6;
+            this.agentStateSplitContainer.SplitterDistance = 96;
+            this.agentStateSplitContainer.SplitterWidth = 7;
             this.agentStateSplitContainer.TabIndex = 3;
-            // 
-            // tlvAgentStates
-            // 
-            this.tlvAgentStates.AllowSorting = false;
-            this.tlvAgentStates.AutoResizeColumnEnabled = false;
-            this.tlvAgentStates.AutoResizeColumnIndex = 0;
-            this.tlvAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.valueColumnHeader});
-            treeListViewItemCollectionComparer2.Column = 0;
-            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
-            this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlvAgentStates.HideSelection = false;
-            this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
-            this.tlvAgentStates.MultiSelect = false;
-            this.tlvAgentStates.Name = "tlvAgentStates";
-            this.tlvAgentStates.Size = new System.Drawing.Size(964, 124);
-            this.tlvAgentStates.SmallImageList = this.imagesCollectorTree;
-            this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.TabIndex = 1;
-            this.tlvAgentStates.UseCompatibleStateImageBehavior = false;
-            this.tlvAgentStates.SelectedIndexChanged += new System.EventHandler(this.tlvAgentStates_SelectedIndexChanged);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Name";
-            this.nameColumnHeader.Width = 325;
-            // 
-            // valueColumnHeader
-            // 
-            this.valueColumnHeader.Text = "Value";
-            this.valueColumnHeader.Width = 150;
             // 
             // imagesCollectorTree
             // 
@@ -2437,46 +2295,310 @@
             this.imagesCollectorTree.Images.SetKeyName(10, "Error24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(11, "Error2_24x24.png");
             // 
-            // lvwHistory
+            // graphContextMenuStrip
             // 
-            this.lvwHistory.AutoResizeColumnEnabled = false;
-            this.lvwHistory.AutoResizeColumnIndex = 1;
-            this.lvwHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.timeColumnHeader,
-            this.collectorValueColumnHeader,
-            this.durationColumnHeader,
-            this.alertCountColumnHeader});
-            this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwHistory.FullRowSelect = true;
-            this.lvwHistory.Location = new System.Drawing.Point(0, 1);
-            this.lvwHistory.Name = "lvwHistory";
-            this.lvwHistory.Size = new System.Drawing.Size(964, 117);
-            this.lvwHistory.SmallImageList = this.imagesCollectorTree;
-            this.lvwHistory.TabIndex = 0;
-            this.lvwHistory.UseCompatibleStateImageBehavior = false;
-            this.lvwHistory.View = System.Windows.Forms.View.Details;
-            this.lvwHistory.SelectedIndexChanged += new System.EventHandler(this.lvwHistory_SelectedIndexChanged);
+            this.graphContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graphTypeToolStripMenuItem,
+            this.grapthColorsToolStripMenuItem,
+            this.graphVisibilityToolStripMenuItem,
+            this.exportGraphToolStripMenuItem});
+            this.graphContextMenuStrip.Name = "graphContextMenuStrip";
+            this.graphContextMenuStrip.Size = new System.Drawing.Size(153, 114);
+            this.graphContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.graphContextMenuStrip_Opening);
             // 
-            // timeColumnHeader
+            // graphTypeToolStripMenuItem
             // 
-            this.timeColumnHeader.Text = "Time";
-            this.timeColumnHeader.Width = 153;
+            this.graphTypeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.linearGraphTypeToolStripMenuItem,
+            this.logarithmicGraphTypeToolStripMenuItem});
+            this.graphTypeToolStripMenuItem.Name = "graphTypeToolStripMenuItem";
+            this.graphTypeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.graphTypeToolStripMenuItem.Text = "Graph Type";
             // 
-            // collectorValueColumnHeader
+            // linearGraphTypeToolStripMenuItem
             // 
-            this.collectorValueColumnHeader.Text = "Value";
-            this.collectorValueColumnHeader.Width = 150;
+            this.linearGraphTypeToolStripMenuItem.CheckOnClick = true;
+            this.linearGraphTypeToolStripMenuItem.Name = "linearGraphTypeToolStripMenuItem";
+            this.linearGraphTypeToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.linearGraphTypeToolStripMenuItem.Text = "Linear Graph Type";
+            this.linearGraphTypeToolStripMenuItem.Click += new System.EventHandler(this.linearGraphTypeToolStripMenuItem_Click);
             // 
-            // durationColumnHeader
+            // logarithmicGraphTypeToolStripMenuItem
             // 
-            this.durationColumnHeader.Text = "Duration (ms)";
-            this.durationColumnHeader.Width = 87;
+            this.logarithmicGraphTypeToolStripMenuItem.CheckOnClick = true;
+            this.logarithmicGraphTypeToolStripMenuItem.Name = "logarithmicGraphTypeToolStripMenuItem";
+            this.logarithmicGraphTypeToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.logarithmicGraphTypeToolStripMenuItem.Text = "Logarithmic Graph Type";
+            this.logarithmicGraphTypeToolStripMenuItem.Click += new System.EventHandler(this.logarithmicGraphTypeToolStripMenuItem_Click);
             // 
-            // alertCountColumnHeader
+            // grapthColorsToolStripMenuItem
             // 
-            this.alertCountColumnHeader.Text = "Alerts";
-            this.alertCountColumnHeader.Width = 48;
+            this.grapthColorsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graphBackgroundColorsToolStripMenuItem,
+            this.graphGridColorToolStripMenuItem,
+            this.graphAxisLabelColorsToolStripMenuItem,
+            this.graphSelectionColorToolStripMenuItem});
+            this.grapthColorsToolStripMenuItem.Name = "grapthColorsToolStripMenuItem";
+            this.grapthColorsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.grapthColorsToolStripMenuItem.Text = "Graph Colors";
+            // 
+            // graphBackgroundColorsToolStripMenuItem
+            // 
+            this.graphBackgroundColorsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graphGradientColor1ToolStripMenuItem,
+            this.graphGradientColor2ToolStripMenuItem,
+            this.swapGraphGradientColorsToolStripMenuItem,
+            this.graphGradientDirectionToolStripMenuItem});
+            this.graphBackgroundColorsToolStripMenuItem.Name = "graphBackgroundColorsToolStripMenuItem";
+            this.graphBackgroundColorsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.graphBackgroundColorsToolStripMenuItem.Text = "Background Colors";
+            // 
+            // graphGradientColor1ToolStripMenuItem
+            // 
+            this.graphGradientColor1ToolStripMenuItem.Name = "graphGradientColor1ToolStripMenuItem";
+            this.graphGradientColor1ToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.graphGradientColor1ToolStripMenuItem.Text = "Graph Gradient Color 1";
+            this.graphGradientColor1ToolStripMenuItem.Click += new System.EventHandler(this.graphGradientColor1ToolStripMenuItem_Click);
+            // 
+            // graphGradientColor2ToolStripMenuItem
+            // 
+            this.graphGradientColor2ToolStripMenuItem.Name = "graphGradientColor2ToolStripMenuItem";
+            this.graphGradientColor2ToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.graphGradientColor2ToolStripMenuItem.Text = "Graph Gradient Color 2";
+            this.graphGradientColor2ToolStripMenuItem.Click += new System.EventHandler(this.graphGradientColor2ToolStripMenuItem_Click);
+            // 
+            // swapGraphGradientColorsToolStripMenuItem
+            // 
+            this.swapGraphGradientColorsToolStripMenuItem.Name = "swapGraphGradientColorsToolStripMenuItem";
+            this.swapGraphGradientColorsToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.swapGraphGradientColorsToolStripMenuItem.Text = "Swap Graph Gradient Colors";
+            this.swapGraphGradientColorsToolStripMenuItem.Click += new System.EventHandler(this.swapGraphGradientColorsToolStripMenuItem_Click);
+            // 
+            // graphGradientDirectionToolStripMenuItem
+            // 
+            this.graphGradientDirectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graphGradientDirectionHorizontalToolStripMenuItem,
+            this.graphGradientDirectionVerticalToolStripMenuItem,
+            this.graphGradientDirectionForwardDiagonalToolStripMenuItem,
+            this.graphGradientDirectionBackwardDiagonalToolStripMenuItem});
+            this.graphGradientDirectionToolStripMenuItem.Name = "graphGradientDirectionToolStripMenuItem";
+            this.graphGradientDirectionToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.graphGradientDirectionToolStripMenuItem.Text = "Graph Gradient Direction";
+            // 
+            // graphGradientDirectionHorizontalToolStripMenuItem
+            // 
+            this.graphGradientDirectionHorizontalToolStripMenuItem.Name = "graphGradientDirectionHorizontalToolStripMenuItem";
+            this.graphGradientDirectionHorizontalToolStripMenuItem.Size = new System.Drawing.Size(309, 22);
+            this.graphGradientDirectionHorizontalToolStripMenuItem.Text = "Graph Gradient Direction Horizontal";
+            this.graphGradientDirectionHorizontalToolStripMenuItem.Click += new System.EventHandler(this.graphGradientDirectionHorizontalToolStripMenuItem_Click);
+            // 
+            // graphGradientDirectionVerticalToolStripMenuItem
+            // 
+            this.graphGradientDirectionVerticalToolStripMenuItem.Name = "graphGradientDirectionVerticalToolStripMenuItem";
+            this.graphGradientDirectionVerticalToolStripMenuItem.Size = new System.Drawing.Size(309, 22);
+            this.graphGradientDirectionVerticalToolStripMenuItem.Text = "Graph Gradient Direction Vertical";
+            this.graphGradientDirectionVerticalToolStripMenuItem.Click += new System.EventHandler(this.graphGradientDirectionVerticalToolStripMenuItem_Click);
+            // 
+            // graphGradientDirectionForwardDiagonalToolStripMenuItem
+            // 
+            this.graphGradientDirectionForwardDiagonalToolStripMenuItem.Name = "graphGradientDirectionForwardDiagonalToolStripMenuItem";
+            this.graphGradientDirectionForwardDiagonalToolStripMenuItem.Size = new System.Drawing.Size(309, 22);
+            this.graphGradientDirectionForwardDiagonalToolStripMenuItem.Text = "Graph Gradient Direction Forward Diagonal";
+            this.graphGradientDirectionForwardDiagonalToolStripMenuItem.Click += new System.EventHandler(this.graphGradientDirectionForwardDiagonalToolStripMenuItem_Click);
+            // 
+            // graphGradientDirectionBackwardDiagonalToolStripMenuItem
+            // 
+            this.graphGradientDirectionBackwardDiagonalToolStripMenuItem.Name = "graphGradientDirectionBackwardDiagonalToolStripMenuItem";
+            this.graphGradientDirectionBackwardDiagonalToolStripMenuItem.Size = new System.Drawing.Size(309, 22);
+            this.graphGradientDirectionBackwardDiagonalToolStripMenuItem.Text = "Graph Gradient Direction Backward Diagonal";
+            this.graphGradientDirectionBackwardDiagonalToolStripMenuItem.Click += new System.EventHandler(this.graphGradientDirectionBackwardDiagonalToolStripMenuItem_Click);
+            // 
+            // graphGridColorToolStripMenuItem
+            // 
+            this.graphGridColorToolStripMenuItem.Name = "graphGridColorToolStripMenuItem";
+            this.graphGridColorToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.graphGridColorToolStripMenuItem.Text = "Grid Color";
+            this.graphGridColorToolStripMenuItem.Click += new System.EventHandler(this.graphGridColorToolStripMenuItem_Click);
+            // 
+            // graphAxisLabelColorsToolStripMenuItem
+            // 
+            this.graphAxisLabelColorsToolStripMenuItem.Name = "graphAxisLabelColorsToolStripMenuItem";
+            this.graphAxisLabelColorsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.graphAxisLabelColorsToolStripMenuItem.Text = "Axis Label Colors";
+            this.graphAxisLabelColorsToolStripMenuItem.Click += new System.EventHandler(this.graphAxisLabelColorsToolStripMenuItem_Click);
+            // 
+            // graphSelectionColorToolStripMenuItem
+            // 
+            this.graphSelectionColorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graphSelectionBarColorToolStripMenuItem,
+            this.graphClosestClickedValueColorToolStripMenuItem});
+            this.graphSelectionColorToolStripMenuItem.Name = "graphSelectionColorToolStripMenuItem";
+            this.graphSelectionColorToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.graphSelectionColorToolStripMenuItem.Text = "Selection Colors";
+            // 
+            // graphSelectionBarColorToolStripMenuItem
+            // 
+            this.graphSelectionBarColorToolStripMenuItem.Name = "graphSelectionBarColorToolStripMenuItem";
+            this.graphSelectionBarColorToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.graphSelectionBarColorToolStripMenuItem.Text = "Selection Bar Color";
+            this.graphSelectionBarColorToolStripMenuItem.Click += new System.EventHandler(this.graphSelectionBarColorToolStripMenuItem_Click);
+            // 
+            // graphClosestClickedValueColorToolStripMenuItem
+            // 
+            this.graphClosestClickedValueColorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graphClosestClickedColorSameAsSeriesToolStripMenuItem,
+            this.graphClosestClickedColorInvertedColorToolStripMenuItem,
+            this.graphClosestClickedColorCustomColorToolStripMenuItem});
+            this.graphClosestClickedValueColorToolStripMenuItem.Name = "graphClosestClickedValueColorToolStripMenuItem";
+            this.graphClosestClickedValueColorToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.graphClosestClickedValueColorToolStripMenuItem.Text = "Closest Clicked Value Color";
+            // 
+            // graphClosestClickedColorSameAsSeriesToolStripMenuItem
+            // 
+            this.graphClosestClickedColorSameAsSeriesToolStripMenuItem.Name = "graphClosestClickedColorSameAsSeriesToolStripMenuItem";
+            this.graphClosestClickedColorSameAsSeriesToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.graphClosestClickedColorSameAsSeriesToolStripMenuItem.Text = "Same as Series";
+            this.graphClosestClickedColorSameAsSeriesToolStripMenuItem.Click += new System.EventHandler(this.graphClosestClickedColorSameAsSeriesToolStripMenuItem_Click);
+            // 
+            // graphClosestClickedColorInvertedColorToolStripMenuItem
+            // 
+            this.graphClosestClickedColorInvertedColorToolStripMenuItem.Name = "graphClosestClickedColorInvertedColorToolStripMenuItem";
+            this.graphClosestClickedColorInvertedColorToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.graphClosestClickedColorInvertedColorToolStripMenuItem.Text = "Inverted Color";
+            this.graphClosestClickedColorInvertedColorToolStripMenuItem.Click += new System.EventHandler(this.graphClosestClickedColorInvertedColorToolStripMenuItem_Click);
+            // 
+            // graphClosestClickedColorCustomColorToolStripMenuItem
+            // 
+            this.graphClosestClickedColorCustomColorToolStripMenuItem.Name = "graphClosestClickedColorCustomColorToolStripMenuItem";
+            this.graphClosestClickedColorCustomColorToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.graphClosestClickedColorCustomColorToolStripMenuItem.Text = "Custom Color";
+            this.graphClosestClickedColorCustomColorToolStripMenuItem.Click += new System.EventHandler(this.graphClosestClickedColorCustomColorToolStripMenuItem_Click);
+            // 
+            // graphVisibilityToolStripMenuItem
+            // 
+            this.graphVisibilityToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graphHeaderVisibleToolStripMenuItem,
+            this.legendVisibleToolStripMenuItem,
+            this.graphHorisonalGridLinesVisibleToolStripMenuItem,
+            this.graphVerticalGridLinesVisibleToolStripMenuItem,
+            this.graphSelectionbarVisibleToolStripMenuItem,
+            this.graphHighlightClickedSeriesToolStripMenuItem,
+            this.graphFillAreaBelowSeriesToolStripMenuItem});
+            this.graphVisibilityToolStripMenuItem.Name = "graphVisibilityToolStripMenuItem";
+            this.graphVisibilityToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.graphVisibilityToolStripMenuItem.Text = "Visibility";
+            // 
+            // graphHeaderVisibleToolStripMenuItem
+            // 
+            this.graphHeaderVisibleToolStripMenuItem.CheckOnClick = true;
+            this.graphHeaderVisibleToolStripMenuItem.Name = "graphHeaderVisibleToolStripMenuItem";
+            this.graphHeaderVisibleToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.graphHeaderVisibleToolStripMenuItem.Text = "Header Visible";
+            this.graphHeaderVisibleToolStripMenuItem.Click += new System.EventHandler(this.graphHeaderVisibleToolStripMenuItem_Click);
+            // 
+            // legendVisibleToolStripMenuItem
+            // 
+            this.legendVisibleToolStripMenuItem.CheckOnClick = true;
+            this.legendVisibleToolStripMenuItem.Name = "legendVisibleToolStripMenuItem";
+            this.legendVisibleToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.legendVisibleToolStripMenuItem.Text = "Legend Visible";
+            this.legendVisibleToolStripMenuItem.Click += new System.EventHandler(this.legendVisibleToolStripMenuItem_Click);
+            // 
+            // graphHorisonalGridLinesVisibleToolStripMenuItem
+            // 
+            this.graphHorisonalGridLinesVisibleToolStripMenuItem.CheckOnClick = true;
+            this.graphHorisonalGridLinesVisibleToolStripMenuItem.Name = "graphHorisonalGridLinesVisibleToolStripMenuItem";
+            this.graphHorisonalGridLinesVisibleToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.graphHorisonalGridLinesVisibleToolStripMenuItem.Text = "Horisonal Grid Lines Visible";
+            this.graphHorisonalGridLinesVisibleToolStripMenuItem.Click += new System.EventHandler(this.graphHorisonalGridLinesVisibleToolStripMenuItem_Click);
+            // 
+            // graphVerticalGridLinesVisibleToolStripMenuItem
+            // 
+            this.graphVerticalGridLinesVisibleToolStripMenuItem.CheckOnClick = true;
+            this.graphVerticalGridLinesVisibleToolStripMenuItem.Name = "graphVerticalGridLinesVisibleToolStripMenuItem";
+            this.graphVerticalGridLinesVisibleToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.graphVerticalGridLinesVisibleToolStripMenuItem.Text = "Vertical Grid Lines Visible";
+            this.graphVerticalGridLinesVisibleToolStripMenuItem.Click += new System.EventHandler(this.graphVerticalGridLinesVisibleToolStripMenuItem_Click);
+            // 
+            // graphSelectionbarVisibleToolStripMenuItem
+            // 
+            this.graphSelectionbarVisibleToolStripMenuItem.CheckOnClick = true;
+            this.graphSelectionbarVisibleToolStripMenuItem.Name = "graphSelectionbarVisibleToolStripMenuItem";
+            this.graphSelectionbarVisibleToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.graphSelectionbarVisibleToolStripMenuItem.Text = "Selectionbar Visible";
+            this.graphSelectionbarVisibleToolStripMenuItem.Click += new System.EventHandler(this.graphSelectionbarVisibleToolStripMenuItem_Click);
+            // 
+            // graphHighlightClickedSeriesToolStripMenuItem
+            // 
+            this.graphHighlightClickedSeriesToolStripMenuItem.CheckOnClick = true;
+            this.graphHighlightClickedSeriesToolStripMenuItem.Name = "graphHighlightClickedSeriesToolStripMenuItem";
+            this.graphHighlightClickedSeriesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.graphHighlightClickedSeriesToolStripMenuItem.Text = "Highlight Clicked Series";
+            this.graphHighlightClickedSeriesToolStripMenuItem.Click += new System.EventHandler(this.graphHighlightClickedSeriesToolStripMenuItem_Click);
+            // 
+            // graphFillAreaBelowSeriesToolStripMenuItem
+            // 
+            this.graphFillAreaBelowSeriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graphFillAreaBelowSeriesEnabledToolStripMenuItem,
+            this.graphFillAreaAlpha16ToolStripMenuItem,
+            this.graphFillAreaAlpha32ToolStripMenuItem,
+            this.graphFillAreaAlpha48ToolStripMenuItem,
+            this.graphFillAreaAlpha64ToolStripMenuItem,
+            this.graphFillAreaAlpha128ToolStripMenuItem,
+            this.graphFillAreaAlpha192ToolStripMenuItem});
+            this.graphFillAreaBelowSeriesToolStripMenuItem.Name = "graphFillAreaBelowSeriesToolStripMenuItem";
+            this.graphFillAreaBelowSeriesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.graphFillAreaBelowSeriesToolStripMenuItem.Text = "Fill Area Below Series";
+            // 
+            // graphFillAreaBelowSeriesEnabledToolStripMenuItem
+            // 
+            this.graphFillAreaBelowSeriesEnabledToolStripMenuItem.CheckOnClick = true;
+            this.graphFillAreaBelowSeriesEnabledToolStripMenuItem.Name = "graphFillAreaBelowSeriesEnabledToolStripMenuItem";
+            this.graphFillAreaBelowSeriesEnabledToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.graphFillAreaBelowSeriesEnabledToolStripMenuItem.Text = "Graph Fill Area Below Series Enabled";
+            this.graphFillAreaBelowSeriesEnabledToolStripMenuItem.Click += new System.EventHandler(this.graphFillAreaBelowSeriesEnabledToolStripMenuItem_Click);
+            // 
+            // graphFillAreaAlpha16ToolStripMenuItem
+            // 
+            this.graphFillAreaAlpha16ToolStripMenuItem.Name = "graphFillAreaAlpha16ToolStripMenuItem";
+            this.graphFillAreaAlpha16ToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.graphFillAreaAlpha16ToolStripMenuItem.Text = "Graph Fill Area Alpha 16";
+            this.graphFillAreaAlpha16ToolStripMenuItem.Click += new System.EventHandler(this.graphFillAreaAlpha16ToolStripMenuItem_Click);
+            // 
+            // graphFillAreaAlpha32ToolStripMenuItem
+            // 
+            this.graphFillAreaAlpha32ToolStripMenuItem.Name = "graphFillAreaAlpha32ToolStripMenuItem";
+            this.graphFillAreaAlpha32ToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.graphFillAreaAlpha32ToolStripMenuItem.Text = "Graph Fill Area Alpha 32";
+            this.graphFillAreaAlpha32ToolStripMenuItem.Click += new System.EventHandler(this.graphFillAreaAlpha32ToolStripMenuItem_Click);
+            // 
+            // graphFillAreaAlpha48ToolStripMenuItem
+            // 
+            this.graphFillAreaAlpha48ToolStripMenuItem.Name = "graphFillAreaAlpha48ToolStripMenuItem";
+            this.graphFillAreaAlpha48ToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.graphFillAreaAlpha48ToolStripMenuItem.Text = "Graph Fill Area Alpha 48";
+            this.graphFillAreaAlpha48ToolStripMenuItem.Click += new System.EventHandler(this.graphFillAreaAlpha48ToolStripMenuItem_Click);
+            // 
+            // graphFillAreaAlpha64ToolStripMenuItem
+            // 
+            this.graphFillAreaAlpha64ToolStripMenuItem.Name = "graphFillAreaAlpha64ToolStripMenuItem";
+            this.graphFillAreaAlpha64ToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.graphFillAreaAlpha64ToolStripMenuItem.Text = "Graph Fill Area Alpha 64";
+            this.graphFillAreaAlpha64ToolStripMenuItem.Click += new System.EventHandler(this.graphFillAreaAlpha64ToolStripMenuItem_Click);
+            // 
+            // graphFillAreaAlpha128ToolStripMenuItem
+            // 
+            this.graphFillAreaAlpha128ToolStripMenuItem.Name = "graphFillAreaAlpha128ToolStripMenuItem";
+            this.graphFillAreaAlpha128ToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.graphFillAreaAlpha128ToolStripMenuItem.Text = "Graph Fill Area Alpha 128";
+            this.graphFillAreaAlpha128ToolStripMenuItem.Click += new System.EventHandler(this.graphFillAreaAlpha128ToolStripMenuItem_Click);
+            // 
+            // graphFillAreaAlpha192ToolStripMenuItem
+            // 
+            this.graphFillAreaAlpha192ToolStripMenuItem.Name = "graphFillAreaAlpha192ToolStripMenuItem";
+            this.graphFillAreaAlpha192ToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.graphFillAreaAlpha192ToolStripMenuItem.Text = "Graph Fill Area Alpha 192";
+            this.graphFillAreaAlpha192ToolStripMenuItem.Click += new System.EventHandler(this.graphFillAreaAlpha192ToolStripMenuItem_Click);
             // 
             // label3
             // 
@@ -2489,6 +2611,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.optGraphView);
             this.panel3.Controls.Add(this.chkRAWDetails);
             this.panel3.Controls.Add(this.optHistoricStateView);
             this.panel3.Controls.Add(this.optCurrentStateView);
@@ -2497,6 +2620,50 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(964, 28);
             this.panel3.TabIndex = 2;
+            // 
+            // optGraphView
+            // 
+            this.optGraphView.AutoSize = true;
+            this.optGraphView.ContextMenuStrip = this.exportHistoryContextMenuStrip;
+            this.optGraphView.Dock = System.Windows.Forms.DockStyle.Left;
+            this.optGraphView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optGraphView.Location = new System.Drawing.Point(114, 0);
+            this.optGraphView.Name = "optGraphView";
+            this.optGraphView.Size = new System.Drawing.Size(53, 28);
+            this.optGraphView.TabIndex = 4;
+            this.optGraphView.Text = "Graph";
+            this.optGraphView.UseVisualStyleBackColor = true;
+            this.optGraphView.CheckedChanged += new System.EventHandler(this.optGraphView_CheckedChanged);
+            // 
+            // exportHistoryContextMenuStrip
+            // 
+            this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToClipboardToolStripMenuItem});
+            this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
+            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(176, 26);
+            // 
+            // exportToClipboardToolStripMenuItem
+            // 
+            this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clipboardExportAsCSVToolStripMenuItem,
+            this.asXMLToolStripMenuItem});
+            this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
+            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.exportToClipboardToolStripMenuItem.Text = "Export to clipboard";
+            // 
+            // clipboardExportAsCSVToolStripMenuItem
+            // 
+            this.clipboardExportAsCSVToolStripMenuItem.Name = "clipboardExportAsCSVToolStripMenuItem";
+            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.clipboardExportAsCSVToolStripMenuItem.Text = "As CSV";
+            this.clipboardExportAsCSVToolStripMenuItem.Click += new System.EventHandler(this.clipboardExportAsCSVToolStripMenuItem_Click);
+            // 
+            // asXMLToolStripMenuItem
+            // 
+            this.asXMLToolStripMenuItem.Name = "asXMLToolStripMenuItem";
+            this.asXMLToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.asXMLToolStripMenuItem.Text = "As XML";
+            this.asXMLToolStripMenuItem.Click += new System.EventHandler(this.asXMLToolStripMenuItem_Click);
             // 
             // chkRAWDetails
             // 
@@ -2528,36 +2695,6 @@
             this.optHistoricStateView.Text = "History";
             this.optHistoricStateView.UseVisualStyleBackColor = true;
             this.optHistoricStateView.CheckedChanged += new System.EventHandler(this.optHistoricStateView_CheckedChanged);
-            // 
-            // exportHistoryContextMenuStrip
-            // 
-            this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportToClipboardToolStripMenuItem});
-            this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
-            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(176, 26);
-            // 
-            // exportToClipboardToolStripMenuItem
-            // 
-            this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clipboardExportAsCSVToolStripMenuItem,
-            this.asXMLToolStripMenuItem});
-            this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
-            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.exportToClipboardToolStripMenuItem.Text = "Export to clipboard";
-            // 
-            // clipboardExportAsCSVToolStripMenuItem
-            // 
-            this.clipboardExportAsCSVToolStripMenuItem.Name = "clipboardExportAsCSVToolStripMenuItem";
-            this.clipboardExportAsCSVToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.clipboardExportAsCSVToolStripMenuItem.Text = "As CSV";
-            this.clipboardExportAsCSVToolStripMenuItem.Click += new System.EventHandler(this.clipboardExportAsCSVToolStripMenuItem_Click);
-            // 
-            // asXMLToolStripMenuItem
-            // 
-            this.asXMLToolStripMenuItem.Name = "asXMLToolStripMenuItem";
-            this.asXMLToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.asXMLToolStripMenuItem.Text = "As XML";
-            this.asXMLToolStripMenuItem.Click += new System.EventHandler(this.asXMLToolStripMenuItem_Click);
             // 
             // optCurrentStateView
             // 
@@ -2593,19 +2730,19 @@
             this.rawViewCopyToolStripMenuItem,
             this.rawViewSelectAllToolStripMenuItem});
             this.rawViewContextMenuStrip.Name = "rawViewContextMenuStrip";
-            this.rawViewContextMenuStrip.Size = new System.Drawing.Size(153, 70);
+            this.rawViewContextMenuStrip.Size = new System.Drawing.Size(123, 48);
             // 
             // rawViewCopyToolStripMenuItem
             // 
             this.rawViewCopyToolStripMenuItem.Name = "rawViewCopyToolStripMenuItem";
-            this.rawViewCopyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rawViewCopyToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.rawViewCopyToolStripMenuItem.Text = "C&opy";
             this.rawViewCopyToolStripMenuItem.Click += new System.EventHandler(this.rawViewCopyToolStripMenuItem_Click);
             // 
             // rawViewSelectAllToolStripMenuItem
             // 
             this.rawViewSelectAllToolStripMenuItem.Name = "rawViewSelectAllToolStripMenuItem";
-            this.rawViewSelectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rawViewSelectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.rawViewSelectAllToolStripMenuItem.Text = "Select &All";
             this.rawViewSelectAllToolStripMenuItem.Click += new System.EventHandler(this.rawViewSelectAllToolStripMenuItem_Click);
             // 
@@ -2679,30 +2816,6 @@
             this.cmdCollectorEdit.TabIndex = 5;
             this.cmdCollectorEdit.UseVisualStyleBackColor = false;
             this.cmdCollectorEdit.Click += new System.EventHandler(this.cmdCollectorEdit_Click);
-            // 
-            // lvwActionScripts
-            // 
-            this.lvwActionScripts.AutoResizeColumnEnabled = false;
-            this.lvwActionScripts.AutoResizeColumnIndex = 0;
-            this.lvwActionScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvwActionScripts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameActionScriptColumnHeader});
-            this.lvwActionScripts.ContextMenuStrip = this.actionScriptsContextMenuStrip;
-            this.lvwActionScripts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwActionScripts.FullRowSelect = true;
-            this.lvwActionScripts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvwActionScripts.Location = new System.Drawing.Point(2, 25);
-            this.lvwActionScripts.Name = "lvwActionScripts";
-            this.lvwActionScripts.Size = new System.Drawing.Size(198, 615);
-            this.lvwActionScripts.TabIndex = 5;
-            this.lvwActionScripts.UseCompatibleStateImageBehavior = false;
-            this.lvwActionScripts.View = System.Windows.Forms.View.Details;
-            this.lvwActionScripts.SelectedIndexChanged += new System.EventHandler(this.lvwActionScripts_SelectedIndexChanged);
-            this.lvwActionScripts.DoubleClick += new System.EventHandler(this.lvwActionScripts_DoubleClick);
-            // 
-            // nameActionScriptColumnHeader
-            // 
-            this.nameActionScriptColumnHeader.Text = "Name";
             // 
             // panel2
             // 
@@ -2786,6 +2899,313 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
+            // 
+            // agentsTreeListView
+            // 
+            this.agentsTreeListView.AllowSorting = false;
+            this.agentsTreeListView.AutoResizeColumnEnabled = false;
+            this.agentsTreeListView.AutoResizeColumnIndex = 1;
+            this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4});
+            treeListViewItemCollectionComparer1.Column = 0;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
+            this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
+            this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.agentsTreeListView.LabelEdit = true;
+            this.agentsTreeListView.Location = new System.Drawing.Point(3, 30);
+            this.agentsTreeListView.Name = "agentsTreeListView";
+            this.agentsTreeListView.Size = new System.Drawing.Size(948, 362);
+            this.agentsTreeListView.SmallImageList = this.agentsImageList;
+            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.TabIndex = 4;
+            this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
+            this.agentsTreeListView.AfterLabelEdit += new HenIT.Windows.Controls.TreeListViewLabelEditEventHandler(this.agentsTreeListView_AfterLabelEdit);
+            this.agentsTreeListView.BeforeLabelEdit += new HenIT.Windows.Controls.TreeListViewBeforeLabelEditEventHandler(this.agentsTreeListView_BeforeLabelEdit);
+            this.agentsTreeListView.SelectedIndexChanged += new System.EventHandler(this.agentsTreeListView_SelectedIndexChanged);
+            this.agentsTreeListView.DoubleClick += new System.EventHandler(this.agentsTreeListView_DoubleClick);
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Agent/Entry";
+            this.columnHeader3.Width = 316;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Summary";
+            this.columnHeader4.Width = 337;
+            // 
+            // lvwConfigVars
+            // 
+            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 0;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.Location = new System.Drawing.Point(2, 33);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(949, 300);
+            this.lvwConfigVars.TabIndex = 9;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            this.lvwConfigVars.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwConfigVars_DeleteKeyPressed);
+            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Search for";
+            this.columnHeader5.Width = 244;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Replace by";
+            this.columnHeader6.Width = 262;
+            // 
+            // lvwActionScriptsEdit
+            // 
+            this.lvwActionScriptsEdit.AutoResizeColumnEnabled = false;
+            this.lvwActionScriptsEdit.AutoResizeColumnIndex = 6;
+            this.lvwActionScriptsEdit.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.actionScriptNameColumnHeader,
+            this.typeColumnHeader,
+            this.adminColumnHeader,
+            this.restorationColumnHeader,
+            this.warningColumnHeader,
+            this.errorColumnHeader,
+            this.descriptiomColumnHeader});
+            this.lvwActionScriptsEdit.ContextMenuStrip = this.actionScriptsContextMenuStrip;
+            this.lvwActionScriptsEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwActionScriptsEdit.FullRowSelect = true;
+            this.lvwActionScriptsEdit.Location = new System.Drawing.Point(3, 30);
+            this.lvwActionScriptsEdit.Name = "lvwActionScriptsEdit";
+            this.lvwActionScriptsEdit.Size = new System.Drawing.Size(948, 362);
+            this.lvwActionScriptsEdit.TabIndex = 3;
+            this.lvwActionScriptsEdit.UseCompatibleStateImageBehavior = false;
+            this.lvwActionScriptsEdit.View = System.Windows.Forms.View.Details;
+            this.lvwActionScriptsEdit.SelectedIndexChanged += new System.EventHandler(this.lvwActionScriptsEdit_SelectedIndexChanged);
+            this.lvwActionScriptsEdit.DoubleClick += new System.EventHandler(this.lvwActionScriptsEdit_DoubleClick);
+            // 
+            // actionScriptNameColumnHeader
+            // 
+            this.actionScriptNameColumnHeader.Text = "Name";
+            this.actionScriptNameColumnHeader.Width = 203;
+            // 
+            // typeColumnHeader
+            // 
+            this.typeColumnHeader.Text = "Type";
+            this.typeColumnHeader.Width = 88;
+            // 
+            // adminColumnHeader
+            // 
+            this.adminColumnHeader.Text = "Admin";
+            // 
+            // restorationColumnHeader
+            // 
+            this.restorationColumnHeader.Text = "Restore";
+            this.restorationColumnHeader.Width = 52;
+            // 
+            // warningColumnHeader
+            // 
+            this.warningColumnHeader.Text = "Warning";
+            this.warningColumnHeader.Width = 57;
+            // 
+            // errorColumnHeader
+            // 
+            this.errorColumnHeader.Text = "Error";
+            this.errorColumnHeader.Width = 49;
+            // 
+            // descriptiomColumnHeader
+            // 
+            this.descriptiomColumnHeader.Text = "Description";
+            this.descriptiomColumnHeader.Width = 384;
+            // 
+            // lvwMetrics
+            // 
+            this.lvwMetrics.AutoResizeColumnEnabled = false;
+            this.lvwMetrics.AutoResizeColumnIndex = 1;
+            this.lvwMetrics.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvwMetrics.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.lvwMetrics.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwMetrics.FullRowSelect = true;
+            this.lvwMetrics.Location = new System.Drawing.Point(0, 0);
+            this.lvwMetrics.Name = "lvwMetrics";
+            this.lvwMetrics.Size = new System.Drawing.Size(962, 123);
+            this.lvwMetrics.TabIndex = 0;
+            this.lvwMetrics.UseCompatibleStateImageBehavior = false;
+            this.lvwMetrics.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Property";
+            this.columnHeader1.Width = 211;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Value";
+            this.columnHeader2.Width = 198;
+            // 
+            // tlvAgentStates
+            // 
+            this.tlvAgentStates.AllowSorting = false;
+            this.tlvAgentStates.AutoResizeColumnEnabled = false;
+            this.tlvAgentStates.AutoResizeColumnIndex = 0;
+            this.tlvAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.valueColumnHeader});
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
+            this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlvAgentStates.HideSelection = false;
+            this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
+            this.tlvAgentStates.MultiSelect = false;
+            this.tlvAgentStates.Name = "tlvAgentStates";
+            this.tlvAgentStates.Size = new System.Drawing.Size(964, 96);
+            this.tlvAgentStates.SmallImageList = this.imagesCollectorTree;
+            this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.TabIndex = 1;
+            this.tlvAgentStates.UseCompatibleStateImageBehavior = false;
+            this.tlvAgentStates.SelectedIndexChanged += new System.EventHandler(this.tlvAgentStates_SelectedIndexChanged);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Name";
+            this.nameColumnHeader.Width = 325;
+            // 
+            // valueColumnHeader
+            // 
+            this.valueColumnHeader.Text = "Value";
+            this.valueColumnHeader.Width = 150;
+            // 
+            // collectorTimeGraph
+            // 
+            this.collectorTimeGraph.AxisLabelColor = System.Drawing.Color.Black;
+            this.collectorTimeGraph.BackColor = System.Drawing.Color.Black;
+            this.collectorTimeGraph.BackgroundColor = System.Drawing.Color.White;
+            this.collectorTimeGraph.BackgroundGradientColor1 = System.Drawing.Color.White;
+            this.collectorTimeGraph.BackgroundGradientColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.collectorTimeGraph.BackgroundIsGradient = true;
+            this.collectorTimeGraph.ClosestClickedValueColorType = HenIT.Windows.Controls.Graphing.ClosestClickedValueColorType.SeriesColor;
+            this.collectorTimeGraph.ClosestClickedValueCustomColor = System.Drawing.Color.White;
+            this.collectorTimeGraph.ContextMenuStrip = this.graphContextMenuStrip;
+            this.collectorTimeGraph.EndDateTime = new System.DateTime(((long)(0)));
+            this.collectorTimeGraph.FillAreaBelowGraph = true;
+            this.collectorTimeGraph.FillAreaBelowGraphAlpha = 48;
+            this.collectorTimeGraph.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            this.collectorTimeGraph.GraphHeaderFont = new System.Drawing.Font("Verdana", 12F);
+            this.collectorTimeGraph.GraphHeaderText = "";
+            this.collectorTimeGraph.GraphLineFormatType = HenIT.Windows.Controls.Graphing.GraphLineFormatType.Straight;
+            this.collectorTimeGraph.GraphTextFont = new System.Drawing.Font("Verdana", 8F);
+            this.collectorTimeGraph.GraphVerticalAxisType = HenIT.Windows.Controls.Graphing.GraphVerticalAxisType.Logarithmic;
+            this.collectorTimeGraph.GridColor = System.Drawing.Color.Silver;
+            this.collectorTimeGraph.HighlightClickedSeries = true;
+            this.collectorTimeGraph.HighlightSeriesWidth = 3;
+            this.collectorTimeGraph.InitialMaxGraphValue = ((long)(100));
+            this.collectorTimeGraph.LastClickedLocation = null;
+            this.collectorTimeGraph.LastClickedTimeSelected = false;
+            this.collectorTimeGraph.LastClickedValue = -1D;
+            this.collectorTimeGraph.LeftAxisMargin = 25;
+            this.collectorTimeGraph.Location = new System.Drawing.Point(516, 13);
+            this.collectorTimeGraph.MaxGraphValue = ((long)(1));
+            this.collectorTimeGraph.Name = "collectorTimeGraph";
+            this.collectorTimeGraph.NoHighlightSeriesWidth = 2;
+            this.collectorTimeGraph.RightAxisMargin = 25;
+            this.collectorTimeGraph.Series = null;
+            this.collectorTimeGraph.ShowClickScanSearchBlock = false;
+            this.collectorTimeGraph.ShowClosestClickedValue = true;
+            this.collectorTimeGraph.ShowGraphHeader = false;
+            this.collectorTimeGraph.ShowHorisontalGridlines = true;
+            this.collectorTimeGraph.ShowLastClickedLocation = false;
+            this.collectorTimeGraph.ShowLegendText = true;
+            this.collectorTimeGraph.ShowSelectionBar = true;
+            this.collectorTimeGraph.ShowVerticalGridLines = true;
+            this.collectorTimeGraph.Size = new System.Drawing.Size(324, 85);
+            this.collectorTimeGraph.StartDateTime = new System.DateTime(((long)(0)));
+            this.collectorTimeGraph.TabIndex = 2;
+            this.collectorTimeGraph.Text = "timeGraphControl1";
+            this.collectorTimeGraph.TimeSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.collectorTimeGraph.ClosestPointSelectedChanged += new HenIT.Windows.Controls.Graphing.TimeValueDelegate(this.collectorTimeGraph_ClosestPointSelectedChanged);
+            this.collectorTimeGraph.GraphClicked += new System.EventHandler(this.collectorTimeGraph_GraphClicked);
+            // 
+            // lvwHistory
+            // 
+            this.lvwHistory.AutoResizeColumnEnabled = false;
+            this.lvwHistory.AutoResizeColumnIndex = 1;
+            this.lvwHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.timeColumnHeader,
+            this.collectorValueColumnHeader,
+            this.durationColumnHeader,
+            this.alertCountColumnHeader});
+            this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwHistory.FullRowSelect = true;
+            this.lvwHistory.Location = new System.Drawing.Point(0, 1);
+            this.lvwHistory.Name = "lvwHistory";
+            this.lvwHistory.Size = new System.Drawing.Size(964, 144);
+            this.lvwHistory.SmallImageList = this.imagesCollectorTree;
+            this.lvwHistory.TabIndex = 0;
+            this.lvwHistory.UseCompatibleStateImageBehavior = false;
+            this.lvwHistory.View = System.Windows.Forms.View.Details;
+            this.lvwHistory.SelectedIndexChanged += new System.EventHandler(this.lvwHistory_SelectedIndexChanged);
+            // 
+            // timeColumnHeader
+            // 
+            this.timeColumnHeader.Text = "Time";
+            this.timeColumnHeader.Width = 153;
+            // 
+            // collectorValueColumnHeader
+            // 
+            this.collectorValueColumnHeader.Text = "Value";
+            this.collectorValueColumnHeader.Width = 150;
+            // 
+            // durationColumnHeader
+            // 
+            this.durationColumnHeader.Text = "Duration (ms)";
+            this.durationColumnHeader.Width = 87;
+            // 
+            // alertCountColumnHeader
+            // 
+            this.alertCountColumnHeader.Text = "Alerts";
+            this.alertCountColumnHeader.Width = 48;
+            // 
+            // lvwActionScripts
+            // 
+            this.lvwActionScripts.AutoResizeColumnEnabled = false;
+            this.lvwActionScripts.AutoResizeColumnIndex = 0;
+            this.lvwActionScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvwActionScripts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameActionScriptColumnHeader});
+            this.lvwActionScripts.ContextMenuStrip = this.actionScriptsContextMenuStrip;
+            this.lvwActionScripts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwActionScripts.FullRowSelect = true;
+            this.lvwActionScripts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvwActionScripts.Location = new System.Drawing.Point(2, 25);
+            this.lvwActionScripts.Name = "lvwActionScripts";
+            this.lvwActionScripts.Size = new System.Drawing.Size(198, 615);
+            this.lvwActionScripts.TabIndex = 5;
+            this.lvwActionScripts.UseCompatibleStateImageBehavior = false;
+            this.lvwActionScripts.View = System.Windows.Forms.View.Details;
+            this.lvwActionScripts.SelectedIndexChanged += new System.EventHandler(this.lvwActionScripts_SelectedIndexChanged);
+            this.lvwActionScripts.DoubleClick += new System.EventHandler(this.lvwActionScripts_DoubleClick);
+            // 
+            // nameActionScriptColumnHeader
+            // 
+            this.nameActionScriptColumnHeader.Text = "Name";
+            // 
+            // exportGraphToolStripMenuItem
+            // 
+            this.exportGraphToolStripMenuItem.Name = "exportGraphToolStripMenuItem";
+            this.exportGraphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportGraphToolStripMenuItem.Text = "Export Graph";
+            this.exportGraphToolStripMenuItem.Click += new System.EventHandler(this.exportGraphToolStripMenuItem_Click);
             // 
             // CollectorDetails
             // 
@@ -2880,6 +3300,7 @@
             this.agentStateSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.agentStateSplitContainer)).EndInit();
             this.agentStateSplitContainer.ResumeLayout(false);
+            this.graphContextMenuStrip.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.exportHistoryContextMenuStrip.ResumeLayout(false);
@@ -3113,5 +3534,45 @@
         private System.Windows.Forms.ToolStripMenuItem clipboardExportAsCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem asXMLToolStripMenuItem;
         private System.Windows.Forms.CheckBox chkExcludeFromMetrics;
+        private System.Windows.Forms.RadioButton optGraphView;
+        private HenIT.Windows.Controls.Graphing.TimeGraphControl collectorTimeGraph;
+        private System.Windows.Forms.ContextMenuStrip graphContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem graphTypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linearGraphTypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logarithmicGraphTypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem grapthColorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphBackgroundColorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphGradientColor1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphGradientColor2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem swapGraphGradientColorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphGradientDirectionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphGradientDirectionHorizontalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphGradientDirectionVerticalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphGradientDirectionForwardDiagonalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphGradientDirectionBackwardDiagonalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphGridColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphAxisLabelColorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphSelectionColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphSelectionBarColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphClosestClickedValueColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphClosestClickedColorSameAsSeriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphClosestClickedColorInvertedColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphClosestClickedColorCustomColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphVisibilityToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphHeaderVisibleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphHorisonalGridLinesVisibleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphVerticalGridLinesVisibleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphSelectionbarVisibleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphHighlightClickedSeriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphFillAreaBelowSeriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphFillAreaBelowSeriesEnabledToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphFillAreaAlpha16ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphFillAreaAlpha32ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphFillAreaAlpha48ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphFillAreaAlpha64ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphFillAreaAlpha128ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphFillAreaAlpha192ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem legendVisibleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportGraphToolStripMenuItem;
     }
 }

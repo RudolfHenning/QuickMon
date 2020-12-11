@@ -147,3 +147,8 @@ Version 5.2.1
 **************
 Add Collector categories management window
 Fix Audio notifier config editor (text)
+
+--------------
+Version 5.2.2
+**************
+Add Collector detail graphs
