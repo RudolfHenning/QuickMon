@@ -329,7 +329,7 @@ namespace QuickMon.UI
                     System.Xml.XmlDocument xdoc = new System.Xml.XmlDocument();
                     xdoc.LoadXml(txtConfig.Text);
                     System.Xml.XmlElement root = xdoc.DocumentElement;
-                    if (root.ReadXmlElementAttr("uniqueId", "") == "" || root.ReadXmlElementAttr("dependOnParentId", "") == "")
+                    if (root.ReadXmlElementAttr("uniqueId", "") != "" || root.ReadXmlElementAttr("dependOnParentId", "") != "")
                     {
                         root.SetAttributeValue("uniqueId", "");
                         root.SetAttributeValue("dependOnParentId", "");

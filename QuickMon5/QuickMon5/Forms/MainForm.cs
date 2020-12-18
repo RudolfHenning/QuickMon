@@ -3087,8 +3087,23 @@ namespace QuickMon
 
 
 
+
         #endregion
 
+        private void llblMonitorPack_MouseEnter(object sender, EventArgs e)
+        {
+            recentListTimer.Enabled = false;
+            recentListTimer.Enabled = true;
+        }
 
+        private void llblMonitorPack_MouseLeave(object sender, EventArgs e)
+        {
+            recentListTimer.Enabled = false;
+        }
+
+        private void recentListTimer_Tick(object sender, EventArgs e)
+        {
+            ShowRecentMonitorPackDropdown();
+        }
     }
 }

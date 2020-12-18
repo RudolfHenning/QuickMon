@@ -129,6 +129,7 @@ namespace QuickMon
             this.fullRecentListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
+            this.recentListTimer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -1167,6 +1168,8 @@ namespace QuickMon
             this.llblMonitorPack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.llblMonitorPack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblMonitorPack_LinkClicked);
             this.llblMonitorPack.Click += new System.EventHandler(this.llblMonitorPack_Click);
+            this.llblMonitorPack.MouseEnter += new System.EventHandler(this.llblMonitorPack_MouseEnter);
+            this.llblMonitorPack.MouseLeave += new System.EventHandler(this.llblMonitorPack_MouseLeave);
             // 
             // cboRecentMonitorPacks
             // 
@@ -1314,6 +1317,11 @@ namespace QuickMon
             this.saveFileDialogSave.DefaultExt = "qmp";
             this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
             // 
+            // recentListTimer
+            // 
+            this.recentListTimer.Interval = 3000;
+            this.recentListTimer.Tick += new System.EventHandler(this.recentListTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1459,6 +1467,7 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripButton viewNotifierToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem globalHistoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewByFilterToolStripMenuItem;
+        private System.Windows.Forms.Timer recentListTimer;
     }
 }
 
