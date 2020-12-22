@@ -490,6 +490,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap folder_stats {
+            get {
+                object obj = ResourceManager.GetObject("folder_stats", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap folderClock_16 {
             get {
                 object obj = ResourceManager.GetObject("folderClock-16", resourceCulture);
@@ -663,6 +673,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap info24x24 {
             get {
                 object obj = ResourceManager.GetObject("info24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LineGraph {
+            get {
+                object obj = ResourceManager.GetObject("LineGraph", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

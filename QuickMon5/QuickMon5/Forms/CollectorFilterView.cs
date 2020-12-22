@@ -75,12 +75,8 @@ namespace QuickMon
             agentStateSplitContainer.Panel2Collapsed = true;
             lvwCollectorStates.AutoResizeColumnEnabled = true;
             llblDetails.Text = agentStateSplitContainer.Panel2Collapsed ? "Show Details" : "Hide Details";
-            selectionUpdated.Tick += 
-                SelectionUpdated_Tick;
+            selectionUpdated.Tick += SelectionUpdated_Tick;
         }
-
-        
-
         private void CollectorFilterView_FormClosing(object sender, FormClosingEventArgs e)
         {
             DeRegisterChildWindow();
@@ -333,6 +329,26 @@ namespace QuickMon
                 mainForm.ShowCollectorDetails(ch);
             }
         }
+        private void viewGraphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwCollectorStates.SelectedItems.Count > 0)
+            {
+                List<CollectorHost> collectors = new List<CollectorHost>();
+                foreach (ListViewItem itm in lvwCollectorStates.SelectedItems)
+                {
+                    if (itm.Tag is CollectorHost)
+                    {
+                        collectors.Add((CollectorHost)itm.Tag);
+                    }
+                }
+                if (ParentWindow != null && ParentWindow is MainForm && collectors.Count > 0)
+                {
+                    CollectorHost ch = (CollectorHost)lvwCollectorStates.SelectedItems[0].Tag;
+                    MainForm mainForm = (MainForm)ParentWindow;
+                    mainForm.ShowCollectorGraph(collectors);
+                }
+            }
+        }
 
         private void addCategoriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -475,5 +491,7 @@ namespace QuickMon
             }
             catch { }
         }
+
+
     }
 }

@@ -169,6 +169,9 @@
   <data name="menu-alt-16w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu-alt-16w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="doc_remove3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doc_remove3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="QM4BlueStateNAA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QM4BlueStateNAA.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -190,6 +193,9 @@
   <data name="menu-alt-16b1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu-alt-16b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="folder_stats" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_stats.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="paste24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\paste24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -204,9 +210,6 @@
   </data>
   <data name="helpbwy16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\helpbwy16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="triang_red24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\triang_red24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="folderClock-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folderClock-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -316,6 +319,9 @@
   <data name="remote24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\remote24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="clock_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clock_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="doc_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\doc_edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -418,11 +424,11 @@
   <data name="clock1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clock1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="search_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\search_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="DocExport" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DocExport.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="clock_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clock_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Blue3DGearEdit24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Blue3DGearEdit24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -466,8 +472,8 @@
   <data name="remote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\remote.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="doc_remove3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_remove3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="triang_red24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\triang_red24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pastewithedit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pastewithedit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -475,7 +481,7 @@
   <data name="FireWallRule" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FireWallRule.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="search_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\search_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="LineGraph" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LineGraph.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

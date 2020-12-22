@@ -130,6 +130,7 @@ namespace QuickMon
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.recentListTimer = new System.Windows.Forms.Timer(this.components);
+            this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -582,6 +583,7 @@ namespace QuickMon
             this.configureToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.disableCollectorToolStripMenuItem,
+            this.graphToolStripMenuItem,
             this.refreshToolStripMenuItem,
             this.toolStripSeparator1,
             this.copyCollectorToolStripMenuItem,
@@ -592,7 +594,7 @@ namespace QuickMon
             this.globalHistoryToolStripMenuItem,
             this.viewByFilterToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(159, 376);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(161, 428);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // detailsToolStripMenuItem
@@ -1322,6 +1324,14 @@ namespace QuickMon
             this.recentListTimer.Interval = 3000;
             this.recentListTimer.Tick += new System.EventHandler(this.recentListTimer_Tick);
             // 
+            // graphToolStripMenuItem
+            // 
+            this.graphToolStripMenuItem.Image = global::QuickMon.Properties.Resources.LineGraph;
+            this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.graphToolStripMenuItem.Text = "Graph";
+            this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1468,6 +1478,7 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripMenuItem globalHistoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewByFilterToolStripMenuItem;
         private System.Windows.Forms.Timer recentListTimer;
+        private System.Windows.Forms.ToolStripMenuItem graphToolStripMenuItem;
     }
 }
 

@@ -143,6 +143,17 @@ namespace QuickMon
                 EditCollector();
             }
         }
+        public void ShowCollectorGraph(List<CollectorHost> list)
+        {
+            if (list != null && list.Count > 0)
+            {
+                CollectorGraph cg = new CollectorGraph();
+                cg.HostingMonitorPack = monitorPack;
+                cg.SelectedCollectors = list;
+                cg.Identifier = "CollectorGraph";
+                cg.ShowChildWindow(this);
+            }
+        }
         #endregion
 
         #region Form events
@@ -666,6 +677,17 @@ namespace QuickMon
                 DoAutoSave();
             }                
         }
+        private void graphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode currentNode = tvwCollectors.SelectedNode;
+            if (currentNode != null && currentNode.Tag is CollectorHost)
+            {
+                CollectorHost ch = (CollectorHost)currentNode.Tag;
+                List<CollectorHost> collectors = new List<CollectorHost>();
+                collectors.Add(ch);
+                ShowCollectorGraph(collectors);
+            }
+        }
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditCollector();
@@ -709,8 +731,7 @@ namespace QuickMon
         private void viewByFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowCollectorFilterView();
-        }        
-
+        }
         private void addNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddNotifier();
@@ -1416,6 +1437,7 @@ namespace QuickMon
             deleteCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
             disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             enableDisableCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
+            graphToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
 
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
@@ -2320,6 +2342,7 @@ namespace QuickMon
 
                     RefreshGlobalAgentHistory();
                     RefreshCollectorFilterViews();
+                    RefreshCollectorGraphWindows();
                 }
                 else
                 {
@@ -2337,7 +2360,6 @@ namespace QuickMon
                 firstRefresh = false;
             }
         }
-
         private void RefreshGlobalAgentHistory()
         {
             try
@@ -2363,6 +2385,13 @@ namespace QuickMon
                 }
             }
             catch (Exception ex) { System.Diagnostics.Trace.WriteLine(ex.Message); }
+        }
+        private void RefreshCollectorGraphWindows()
+        {
+            foreach (IChildWindowIdentity childWindow in GetAllChildWindowByIdentityFilter("CollectorGraph"))
+            {
+                childWindow.RefreshDetails();
+            }
         }
 
         private void SetNodesToBeingRefreshed(TreeNode root = null)
@@ -2840,6 +2869,16 @@ namespace QuickMon
             catch { }
             return child;
         }
+        private List<IChildWindowIdentity> GetAllChildWindowByIdentityFilter(string identifier)
+        {
+            List<IChildWindowIdentity> list = new List<IChildWindowIdentity>();
+            foreach (IChildWindowIdentity child in childWindows)
+            {
+                if (child.Identifier.StartsWith(identifier))
+                    list.Add(child);
+            }
+            return list;
+        }
         #endregion
 
         #region Performance counters
@@ -3105,5 +3144,7 @@ namespace QuickMon
         {
             ShowRecentMonitorPackDropdown();
         }
+
+
     }
 }

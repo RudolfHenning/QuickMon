@@ -152,3 +152,7 @@ Fix Audio notifier config editor (text)
 Version 5.2.2
 **************
 Add Collector detail graphs
+
+Version 5.2.3
+**************
+Enhance Collector detail graphs

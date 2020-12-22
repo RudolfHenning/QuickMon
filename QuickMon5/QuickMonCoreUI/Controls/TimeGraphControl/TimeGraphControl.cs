@@ -1223,7 +1223,7 @@ namespace HenIT.Windows.Controls.Graphing
             if (autoStartTime || autoEndTime)
             {
                 foreach (var serie in (from s in Series
-                                       where s.Enabled
+                                       where s != null && s.Enabled
                                        select s))
                 {
                     TimeValue oldestTimeValue = (from TimeValue dt in serie.Values
@@ -1247,7 +1247,7 @@ namespace HenIT.Windows.Controls.Graphing
             {
                 //Get Maximum value of all values/all lines
                 foreach (var serie in (from s in Series
-                                       where s.Enabled
+                                       where s != null && s.Enabled
                                        select s))
                 {
                     //TimeValue minValue = (from TimeValue dt in serie.Values

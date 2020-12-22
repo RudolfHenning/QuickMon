@@ -42,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -104,6 +105,12 @@
     <Compile Include="Forms\CollectorFilterView.Designer.cs">
       <DependentUpon>CollectorFilterView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CollectorGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CollectorGraph.Designer.cs">
+      <DependentUpon>CollectorGraph.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditActionScript.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +165,12 @@
     <Compile Include="Forms\RemoteAgentHostManagement.Designer.cs">
       <DependentUpon>RemoteAgentHostManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SelectCollectors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectCollectors.Designer.cs">
+      <DependentUpon>SelectCollectors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SelectRecentMonitorPackDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CollectorFilterView.resx">
       <DependentUpon>CollectorFilterView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CollectorGraph.resx">
+      <DependentUpon>CollectorGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditActionScript.resx">
       <DependentUpon>EditActionScript.cs</DependentUpon>
@@ -207,6 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RemoteAgentHostManagement.resx">
       <DependentUpon>RemoteAgentHostManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectCollectors.resx">
+      <DependentUpon>SelectCollectors.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SelectRecentMonitorPackDialog.resx">
       <DependentUpon>SelectRecentMonitorPackDialog.cs</DependentUpon>
@@ -464,6 +483,8 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\LineGraph.png" />
+    <None Include="Resources\folder_stats.png" />
     <None Include="Resources\search_32.png" />
     <None Include="Resources\WhiteDot.png" />
     <None Include="Resources\Forbidden32x32.png" />
