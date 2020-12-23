@@ -40,6 +40,7 @@ namespace QuickMon
                 SelectedMonitorPack = new MonitorPack();
             LoadFormControls();
             lvwConfigVars.AutoResizeColumnEnabled = true;
+            llblRawEdit.Visible = Properties.Settings.Default.EnableRawEditing;
             this.Size = new Size(600, 450);
         }
         private void MonitorPackEditor_Shown(object sender, EventArgs e)

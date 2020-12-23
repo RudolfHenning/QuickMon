@@ -176,6 +176,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Set Variables";
             this.Load += new System.EventHandler(this.SetTemplateVariables_Load);
+            this.Shown += new System.EventHandler(this.SetTemplateVariables_Shown);
             this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

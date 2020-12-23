@@ -105,6 +105,8 @@
             this.graphFillAreaAlpha128ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphFillAreaAlpha192ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblResetText = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -267,6 +269,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblResetText);
             this.panel1.Controls.Add(this.txtTextFilter);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.panel5);
@@ -287,9 +290,10 @@
             this.txtTextFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTextFilter.Location = new System.Drawing.Point(45, 204);
             this.txtTextFilter.Name = "txtTextFilter";
-            this.txtTextFilter.Size = new System.Drawing.Size(193, 20);
+            this.txtTextFilter.Size = new System.Drawing.Size(177, 20);
             this.txtTextFilter.TabIndex = 6;
             this.txtTextFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtTextFilter_EnterKeyPressed);
+            this.txtTextFilter.TextChanged += new System.EventHandler(this.txtTextFilter_TextChanged);
             // 
             // label7
             // 
@@ -872,6 +876,22 @@
             this.exportGraphToolStripMenuItem.Text = "Export Graph";
             this.exportGraphToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 
+            // lblResetText
+            // 
+            this.lblResetText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblResetText.AutoSize = true;
+            this.lblResetText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblResetText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResetText.ForeColor = System.Drawing.Color.Red;
+            this.lblResetText.Location = new System.Drawing.Point(224, 207);
+            this.lblResetText.Name = "lblResetText";
+            this.lblResetText.Size = new System.Drawing.Size(15, 13);
+            this.lblResetText.TabIndex = 7;
+            this.lblResetText.Text = "X";
+            this.toolTip1.SetToolTip(this.lblResetText, "Clear text");
+            this.lblResetText.Visible = false;
+            this.lblResetText.Click += new System.EventHandler(this.lblResetText_Click);
+            // 
             // CollectorGraph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -990,5 +1010,7 @@
         private System.Windows.Forms.ToolStripMenuItem addCollectorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem filtersToolStripMenuItem;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label lblResetText;
     }
 }

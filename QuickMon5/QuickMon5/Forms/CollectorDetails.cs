@@ -131,6 +131,7 @@ namespace QuickMon
             collectorTimeGraph.Dock = DockStyle.Fill;
             agentStateSplitContainer.Panel2Collapsed = true;
             collectorDetailSplitContainer.Panel2Collapsed = true;
+            llblRawEdit.Visible = Properties.Settings.Default.EnableRawEditing;
 
             if (SelectedCollectorHost == null)
             {

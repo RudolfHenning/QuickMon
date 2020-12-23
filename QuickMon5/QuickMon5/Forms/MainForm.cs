@@ -606,11 +606,15 @@ namespace QuickMon
         {
             TreeNode parentNode = tvwCollectors.SelectedNode;
             CollectorHost newCh = null;
+            bool editAfterCreation = false;
             if (Properties.Settings.Default.UseTemplatesForNewObjects)
             {
                 SelectNewEntityType newType = new SelectNewEntityType();
+                newType.ShowEditAfterCreation = true;
+                newType.ShowRAWEditing = Properties.Settings.Default.EnableRawEditing;
                 if (newType.ShowCollectorHostSelection() == DialogResult.OK)
                 {
+                    editAfterCreation = newType.EditAfterCreation;
                     if (newType.SelectedCollectorHost != null)
                         newCh = newType.SelectedCollectorHost;
                     else
@@ -634,33 +638,12 @@ namespace QuickMon
                 tvwCollectors.SelectedNode = (TreeNodeEx)newCh.Tag;
                 if (parentNode != null)
                     UpdateParentFolderNode((TreeNodeEx)parentNode);
-                EditCollector(true);
+                if (editAfterCreation)
+                    EditCollector(true);
 
                 SetMonitorChanged();
                 DoAutoSave();
             }
-
-
-            //SelectNewEntityType newType = new SelectNewEntityType();
-            //if (newType.ShowCollectorHostSelection() == DialogResult.OK)
-            //{
-            //    CollectorHost newCh = newType.SelectedCollectorHost;
-            //    if (parentNode != null)
-            //    {
-            //        newCh.ParentCollectorId = ((CollectorHost)(parentNode.Tag)).UniqueId;
-            //    }
-            //    else
-            //        newCh.ParentCollectorId = "";
-            //    monitorPack.AddCollectorHost(newCh);
-            //    LoadCollectorNode(parentNode, newCh);
-            //    tvwCollectors.SelectedNode = (TreeNodeEx)newCh.Tag;
-            //    if (parentNode != null)
-            //        UpdateParentFolderNode((TreeNodeEx)parentNode);
-            //    EditCollector(true);
-                
-            //    SetMonitorChanged();
-            //    DoAutoSave();
-            //}
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -929,15 +912,38 @@ namespace QuickMon
                     //Copy as is with same IDs
                     copiedCollectorList.Add(en.Clone());
                 }
-                //Clipboard.SetText(XmlFormattingUtils.NormalizeXML(CollectorHost.CollectorHostListToString(copiedCollectorList)));
+
+                string output = "";
                 try
                 {
-                    string output = CollectorHost.CollectorHostListToString(copiedCollectorList).BeautifyXML();
-                    Clipboard.SetText(output); // XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+                    output = CollectorHost.CollectorHostListToString(copiedCollectorList).BeautifyXML();
+                    Application.DoEvents();
+                    Clipboard.SetText(output);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(string.Format("Error formatting xml\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(string.Format("Error formatting xml\r\nMessage: {0}\r\nData: {1}", ex.Message, output), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                try
+                {
+                    output = CollectorHost.CollectorHostListToString(copiedCollectorList).BeautifyXML();
+                    try
+                    {
+                        Clipboard.SetText(output);
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            Application.DoEvents();
+                            Clipboard.SetText(output);
+                        }
+                        catch { }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format("Error formatting xml\r\nMessage: {0}\r\nData: {1}", ex.Message, output), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
         }
@@ -1155,6 +1161,8 @@ namespace QuickMon
         {
             TreeNode parentNode = tvwNotifiers.SelectedNode;
             SelectNewEntityType newType = new SelectNewEntityType();
+            newType.ShowEditAfterCreation = true;
+            newType.ShowRAWEditing = Properties.Settings.Default.EnableRawEditing;
             if (parentNode == null)
             {
                 NotifierHost newNh = null;
@@ -1177,7 +1185,8 @@ namespace QuickMon
                     monitorPack.AddNotifierHost(newNh);
                     LoadNotifierNode(newNh);
                     tvwNotifiers.SelectedNode = (TreeNodeEx)newNh.Tag;
-                    EditNotifier();
+                    if (newType.EditAfterCreation)
+                        EditNotifier();
                     SetMonitorChanged();
                     DoAutoSave();
                 }                
@@ -1197,7 +1206,8 @@ namespace QuickMon
                         parentNh.NotifierAgents.Add((INotifier)newNa);
                         LoadNotifierAgents(parentNode, parentNh);
 
-                        EditNotifier();
+                        if (newType.EditAfterCreation)
+                            EditNotifier();
                         SetMonitorChanged();
                         DoAutoSave();
                     }
@@ -1455,18 +1465,24 @@ namespace QuickMon
         }
         private void SetCollectorPasteMenuStates()
         {
+            pasteAndEditCollectorConfigToolStripMenuItem.Visible = Properties.Settings.Default.EnableRawEditing;
+            pasteWithEditCollectorToolStripButton.Visible = Properties.Settings.Default.EnableRawEditing;
             if (Clipboard.ContainsText() &&
                 Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').ContainsCaseInsensitive("<collectorHosts") &&
                 Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').EndsWith("</collectorHosts>", StringComparison.InvariantCulture))
             {
                 pasteCollectorToolStripButton.Enabled = true;
-                pasteWithEditCollectorToolStripButton.Enabled = true;
+                pasteCollectorToolStripMenuItem.Enabled = true;
+                pasteWithEditCollectorToolStripButton.Enabled = Properties.Settings.Default.EnableRawEditing;
+                pasteAndEditCollectorConfigToolStripMenuItem.Enabled = Properties.Settings.Default.EnableRawEditing;
 
             }
             else
             {
                 pasteCollectorToolStripButton.Enabled = false;
+                pasteCollectorToolStripMenuItem.Enabled = false;
                 pasteWithEditCollectorToolStripButton.Enabled = false;
+                pasteAndEditCollectorConfigToolStripMenuItem.Enabled = false;
             }
         }
         private void SetNotifierMenuItemStates()

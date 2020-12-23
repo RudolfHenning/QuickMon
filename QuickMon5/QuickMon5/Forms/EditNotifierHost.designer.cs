@@ -535,7 +535,7 @@
             this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblRawEdit.AutoSize = true;
             this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRawEdit.Location = new System.Drawing.Point(12, 377);
+            this.llblRawEdit.Location = new System.Drawing.Point(137, 377);
             this.llblRawEdit.Name = "llblRawEdit";
             this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
             this.llblRawEdit.TabIndex = 1;
@@ -548,7 +548,7 @@
             this.llblExportConfigAsTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblExportConfigAsTemplate.AutoSize = true;
             this.llblExportConfigAsTemplate.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblExportConfigAsTemplate.Location = new System.Drawing.Point(110, 377);
+            this.llblExportConfigAsTemplate.Location = new System.Drawing.Point(5, 377);
             this.llblExportConfigAsTemplate.Name = "llblExportConfigAsTemplate";
             this.llblExportConfigAsTemplate.Size = new System.Drawing.Size(126, 13);
             this.llblExportConfigAsTemplate.TabIndex = 2;

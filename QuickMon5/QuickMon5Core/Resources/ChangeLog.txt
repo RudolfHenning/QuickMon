@@ -156,3 +156,5 @@ Add Collector detail graphs
 Version 5.2.3
 **************
 Enhance Collector detail graphs
+Enhance seleting templates to create new entries
+Added enhanced search filters

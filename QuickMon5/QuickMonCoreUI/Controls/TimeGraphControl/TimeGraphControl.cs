@@ -110,7 +110,7 @@ namespace HenIT.Windows.Controls.Graphing
         private int headerHeight = 0;
         private int gridWidth = 1;
         private int gridHeight = 1;
-        private int minimumHeightForDetailGrid = 200;
+        private int minimumHeightForDetailGrid = 230;
         private int minimumHeightForExtraHorisontalLines = 300;
         private Timer resizeTimer = new Timer() { Interval = 200, Enabled = false };
         private bool clickedSelectedValueTime = false;
@@ -643,6 +643,8 @@ namespace HenIT.Windows.Controls.Graphing
                                                select serie))
                 {
                     string currentSeriesLabel = enabledSeries.Name;
+                    if (enabledSeries.Values.Count < 2)
+                        currentSeriesLabel += " (Not enough data)";
                     if (LastClickedLocation != null)
                     {
                         var selValEntry = selectedSeriesValues.FirstOrDefault(se => se.Item1 == enabledSeries.Name);
@@ -671,6 +673,8 @@ namespace HenIT.Windows.Controls.Graphing
                                                select serie))
                 {
                     string currentSeriesLabel = enabledSeries.Name;
+                    if (enabledSeries.Values.Count < 2)
+                        currentSeriesLabel += " (Not enough data)";
                     Font currentFont = new Font(GraphTextFont, FontStyle.Regular);
                     if (LastClickedLocation != null)
                     {
@@ -1045,8 +1049,8 @@ namespace HenIT.Windows.Controls.Graphing
             if (GraphVerticalAxisType == GraphVerticalAxisType.Logarithmic)
             {
                 
-                displayedText = log10SubScript;// + displayedText;
-                if (cookedValue >= 0 && cookedValue <= 3)
+                displayedText = log10SubScript;
+                if (cookedValue >= 0 && (cookedValue <= 3 && this.Height > minimumHeightForDetailGrid))
                 {
                     displayedText = Math.Pow(10, cookedValue).ToString("0");
                 }
@@ -1102,7 +1106,10 @@ namespace HenIT.Windows.Controls.Graphing
                 int x = 5;
                 int y = graphHeight + (i + 1) * lineHeight;
                 Brush drawBrush = new SolidBrush(enabledSeries[i].LineColor);
-                g.DrawString(enabledSeries[i].Name, GraphTextFont, drawBrush, x, y);
+                string seriesName = enabledSeries[i].Name;
+                if (enabledSeries[i].Values.Count < 2)
+                    seriesName += " (Not enough data)";
+                g.DrawString(seriesName, GraphTextFont, drawBrush, x, y);
             }
         }
         private void DrawXOnGraph(ref Graphics g, TimeValue timeValue, Color drawColor)

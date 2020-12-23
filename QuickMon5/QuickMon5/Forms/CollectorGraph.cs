@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HenIT.Windows.Controls.Graphing;
+using HenIT.Data;
 
 namespace QuickMon
 {
@@ -74,10 +75,12 @@ namespace QuickMon
         #region Form events
         private void CollectorGraph_Load(object sender, EventArgs e)
         {
+            SnappingEnabled = true;
             splitContainer1.Panel1Collapsed = !showFiltersToolStripButton.Checked;
             fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddDays(-1);
             toDateTimeChooser.SelectedDateTime = DateTime.Now;
             lvwCollectorStates.AutoResizeColumnEnabled = true;
+            toolTip1.SetToolTip(txtTextFilter, "You can use advanced filters like:\r\n\tX and Y or Z\r\n\tNot X\r\n\tmatchexactly X\r\n\tstartswith X\r\n\tendswith X");
             LoadGraphColors();
         }
         private void CollectorGraph_Shown(object sender, EventArgs e)
@@ -114,7 +117,6 @@ namespace QuickMon
 
         private void LoadControls(bool reloadList = false)
         {
-            //List<string> selectedCollectors = new List<string>();
             DateTime fromTime = fromDateTimeChooser.SelectedDateTime;
             DateTime toTime = toDateTimeChooser.SelectedDateTime;
             DateTime autoStartDateTime = DateTime.Now.AddMinutes(-1);
@@ -123,7 +125,7 @@ namespace QuickMon
             long initialMax = (long)nudinitialMax.Value;
             long maxValue = 1;
             List<string> seriesNames = new List<string>();
-            List<HenIT.Windows.Controls.Graphing.GraphSeries> graphSeriesList = new List<HenIT.Windows.Controls.Graphing.GraphSeries>();
+            List<GraphSeries> graphSeriesList = new List<GraphSeries>();
 
             if (reloadList)
             {
@@ -222,6 +224,18 @@ namespace QuickMon
             collectorTimeGraph.EndDateTime = toTime;
             collectorTimeGraph.MaxGraphValue = initialMax;
             collectorTimeGraph.Series = graphSeriesList;
+            if (graphSeriesList == null || graphSeriesList.Count == 0)
+            {
+                collectorTimeGraph.GraphHeaderText = "No Series!";
+            }
+            else if (graphSeriesList.Count == 1)
+            {
+                collectorTimeGraph.GraphHeaderText = graphSeriesList[0].Name;
+            }
+            else
+            {
+                collectorTimeGraph.GraphHeaderText = $"Collectors graph";
+            }
             collectorTimeGraph.SetAutoMinMaxDateTimes(chkAutoFromTime.Checked, chkAutoToTime.Checked, chkAutoMaxValue.Checked);
 
             this.Invoke((MethodInvoker)delegate
@@ -233,7 +247,8 @@ namespace QuickMon
         private GraphSeries SeriesFromCollector(CollectorHost collector, Color seriesColor, int lastXEntries)
         {
             GraphSeries series = null;
-            if (txtTextFilter.Text.Trim().Length < 2 || collector.PathWithoutMP.ToLower().Contains(txtTextFilter.Text.ToLower()))
+            if (txtTextFilter.Text.Trim().Length < 2 || collector.PathWithoutMP.ContainEx(txtTextFilter.Text))
+            //if (txtTextFilter.Text.Trim().Length < 2 || collector.PathWithoutMP.ToLower().Contains(txtTextFilter.Text.ToLower()))
             {
                 string stateValue = "";
                 float v = 0;
@@ -258,8 +273,13 @@ namespace QuickMon
                     series.Values.Add(new TimeValue() { Time = collector.CurrentState.Timestamp, Value = v });
                 }
             }
-            if (series.Values.Count > 0)
+            if (series != null && series.Values != null && series.Values.Count > 0)
                 return series;
+            //else if (series.Values.Count ==1)
+            //{
+            //    series.Name += " (Not enough data)";
+            //    return series;
+            //}
             else
                 return null;
         }
@@ -573,6 +593,17 @@ namespace QuickMon
 
         private void txtTextFilter_EnterKeyPressed()
         {
+            LoadControls();
+        }
+
+        private void txtTextFilter_TextChanged(object sender, EventArgs e)
+        {
+            lblResetText.Visible = txtTextFilter.Text != "";
+        }
+
+        private void lblResetText_Click(object sender, EventArgs e)
+        {
+            txtTextFilter.Text = "";
             LoadControls();
         }
     }

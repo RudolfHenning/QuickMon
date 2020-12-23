@@ -32,6 +32,9 @@ namespace QuickMon.UI
         public NotifierHost SelectedNotifierHost { get; set; }
         public List<QuickMonTemplate> Templates { get; set; }
         public string InitialRegistrationName { get; set; }
+        public bool ShowEditAfterCreation { get; set; } = false;
+        public bool EditAfterCreation { get; set; } = false;
+        public bool ShowRAWEditing { get; set; } = false;
         #endregion
 
         #region public methods
@@ -106,15 +109,22 @@ namespace QuickMon.UI
             ListViewGroup generalGroup = new ListViewGroup("General");
             lvwAgentType.Groups.Add(generalGroup);
             ListViewItem lviEmptyCollector = new ListViewItem("Folder/Blank collector");
+            //lviEmptyCollector.SubItems.Add("Creates a blank collector with no agents");
+            //lviEmptyCollector.Group = generalGroup;
+            //lviEmptyCollector.Tag = new CollectorHost() { Name = "Folder" };            
+            //lvwAgentType.Items.Add(lviEmptyCollector);
+
+            //lviEmptyCollector = new ListViewItem("Folder/Blank Collector");
             lviEmptyCollector.SubItems.Add("Creates a blank collector with no agents");
             lviEmptyCollector.Group = generalGroup;
-            lviEmptyCollector.Tag = new CollectorHost() { Name = "Folder" };
+            lviEmptyCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"[[FolderName:]]\"><collectorAgents agentCheckSequence=\"All\"></collectorAgents></collectorHost>").Clone(true);
             lvwAgentType.Items.Add(lviEmptyCollector);
+
+            //<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"[[FolderName:]]\"><collectorAgents agentCheckSequence="All"></collectorAgents></collectorHost>
 
             ListViewItem lviPingCollector = new ListViewItem("Ping (ICMP)");
             lviPingCollector.SubItems.Add("Creates a collector with a Ping (ICMP) agent");
             lviPingCollector.Group = generalGroup;
-            //lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Ping\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"Ping\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Ping\" address=\"localhost\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
             lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Ping [[MachineName:localhost]]\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"Ping [[MachineName:localhost]]\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Ping\" address=\"[[MachineName:localhost]]\" maxTimeMS=\"[[maxTimeMS:1000]]\" timeOutMS=\"[[timeOutMS:5000]]\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
             lvwAgentType.Items.Add(lviPingCollector);
 
@@ -232,6 +242,8 @@ namespace QuickMon.UI
         {
             lvwAgentType.AutoResizeColumnEnabled = true;
             lvwAgentType.BorderStyle = BorderStyle.None;
+            chkEditAfterCreate.Enabled = ShowEditAfterCreation;
+            chkShowCustomConfig.Visible = ShowRAWEditing;
         }
         #endregion
 
@@ -273,6 +285,7 @@ namespace QuickMon.UI
                 string configToUse = "";
                 if (selectingMonitorPacks)
                 {
+                    #region Monitor pack
                     if (lvwAgentType.SelectedItems[0].Tag is string)
                     {
                         configToUse = lvwAgentType.SelectedItems[0].Tag.ToString();
@@ -297,7 +310,8 @@ namespace QuickMon.UI
 
                     MonitorPack mp = new MonitorPack();
                     mp.LoadXml(configToUse);
-                    SelectedMonitorPack = mp;
+                    SelectedMonitorPack = mp; 
+                    #endregion
                 }
                 else if (selectingCollectorHosts)
                 {
@@ -442,6 +456,7 @@ namespace QuickMon.UI
                     }
                     #endregion
                 }
+                EditAfterCreation = chkEditAfterCreate.Checked;
                 DialogResult = DialogResult.OK;
                 Close();
             }

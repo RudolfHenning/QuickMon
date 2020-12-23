@@ -89,6 +89,7 @@ namespace QuickMon.UI
                 txtVariableName.Text = cv.FindValue;
                 txtVariableValue.Text = cv.ReplaceValue;
                 txtVariableValue.ReadOnly = false;
+                txtVariableValue.Focus();
                 loadingVar = false;
             }
             else
@@ -139,6 +140,14 @@ namespace QuickMon.UI
             FormattedConfig = modifiedConfig;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void SetTemplateVariables_Shown(object sender, EventArgs e)
+        {
+            if (lvwVariables.Items.Count > 0)
+            {
+                lvwVariables.Items[0].Selected = true;
+            }
         }
     }
 }

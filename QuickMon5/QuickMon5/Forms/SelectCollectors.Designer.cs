@@ -33,18 +33,19 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
-            this.lvwCollector = new QuickMon.ListViewEx();
-            this.PathColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
-            this.cmdRefresh = new System.Windows.Forms.Button();
-            this.txtFilter = new QuickMon.Controls.TextBoxEx();
-            this.cboFilterType = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.lblResetText = new System.Windows.Forms.Label();
             this.cboStateFilter = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.cmdRefresh = new System.Windows.Forms.Button();
+            this.cboFilterType = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lvwCollector = new QuickMon.ListViewEx();
+            this.PathColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtFilter = new QuickMon.Controls.TextBoxEx();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -80,38 +81,9 @@
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 0;
-            this.cmdOK.Text = "OK";
+            this.cmdOK.Text = "Select";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
-            // 
-            // lvwCollector
-            // 
-            this.lvwCollector.AutoResizeColumnEnabled = false;
-            this.lvwCollector.AutoResizeColumnIndex = 0;
-            this.lvwCollector.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvwCollector.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.PathColumnHeader,
-            this.valueColumnHeader});
-            this.lvwCollector.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwCollector.FullRowSelect = true;
-            this.lvwCollector.Location = new System.Drawing.Point(0, 31);
-            this.lvwCollector.Name = "lvwCollector";
-            this.lvwCollector.Size = new System.Drawing.Size(534, 254);
-            this.lvwCollector.SmallImageList = this.imagesCollectorTree;
-            this.lvwCollector.TabIndex = 1;
-            this.lvwCollector.UseCompatibleStateImageBehavior = false;
-            this.lvwCollector.View = System.Windows.Forms.View.Details;
-            this.lvwCollector.SelectedIndexChanged += new System.EventHandler(this.lvwCollector_SelectedIndexChanged);
-            // 
-            // PathColumnHeader
-            // 
-            this.PathColumnHeader.Text = "Collectors";
-            this.PathColumnHeader.Width = 367;
-            // 
-            // valueColumnHeader
-            // 
-            this.valueColumnHeader.Text = "Value";
-            this.valueColumnHeader.Width = 95;
             // 
             // imagesCollectorTree
             // 
@@ -144,60 +116,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(534, 31);
             this.panel2.TabIndex = 0;
-            // 
-            // cmdRefresh
-            // 
-            this.cmdRefresh.BackColor = System.Drawing.Color.Transparent;
-            this.cmdRefresh.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
-            this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cmdRefresh.FlatAppearance.BorderSize = 0;
-            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefresh.Location = new System.Drawing.Point(506, 0);
-            this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(28, 31);
-            this.cmdRefresh.TabIndex = 6;
-            this.cmdRefresh.UseVisualStyleBackColor = false;
-            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
-            // 
-            // txtFilter
-            // 
-            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFilter.HideSelection = false;
-            this.txtFilter.Location = new System.Drawing.Point(180, 6);
-            this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(163, 21);
-            this.txtFilter.TabIndex = 2;
-            this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
-            // 
-            // cboFilterType
-            // 
-            this.cboFilterType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboFilterType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboFilterType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboFilterType.FormattingEnabled = true;
-            this.cboFilterType.Items.AddRange(new object[] {
-            "All",
-            "Collector name",
-            "Category",
-            "Value"});
-            this.cboFilterType.Location = new System.Drawing.Point(65, 5);
-            this.cboFilterType.Name = "cboFilterType";
-            this.cboFilterType.Size = new System.Drawing.Size(109, 23);
-            this.cboFilterType.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(8, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 16);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Filters";
             // 
             // lblResetText
             // 
@@ -243,6 +161,92 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "State";
             // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.BackColor = System.Drawing.Color.Transparent;
+            this.cmdRefresh.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
+            this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmdRefresh.FlatAppearance.BorderSize = 0;
+            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRefresh.Location = new System.Drawing.Point(506, 0);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(28, 31);
+            this.cmdRefresh.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.cmdRefresh, "Refresh");
+            this.cmdRefresh.UseVisualStyleBackColor = false;
+            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
+            // 
+            // cboFilterType
+            // 
+            this.cboFilterType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFilterType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboFilterType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboFilterType.FormattingEnabled = true;
+            this.cboFilterType.Items.AddRange(new object[] {
+            "All",
+            "Collector name",
+            "Category",
+            "Value"});
+            this.cboFilterType.Location = new System.Drawing.Point(65, 5);
+            this.cboFilterType.Name = "cboFilterType";
+            this.cboFilterType.Size = new System.Drawing.Size(109, 23);
+            this.cboFilterType.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(8, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 16);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Filters";
+            // 
+            // lvwCollector
+            // 
+            this.lvwCollector.AutoResizeColumnEnabled = false;
+            this.lvwCollector.AutoResizeColumnIndex = 0;
+            this.lvwCollector.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvwCollector.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.PathColumnHeader,
+            this.valueColumnHeader});
+            this.lvwCollector.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwCollector.FullRowSelect = true;
+            this.lvwCollector.Location = new System.Drawing.Point(0, 31);
+            this.lvwCollector.Name = "lvwCollector";
+            this.lvwCollector.Size = new System.Drawing.Size(534, 254);
+            this.lvwCollector.SmallImageList = this.imagesCollectorTree;
+            this.lvwCollector.TabIndex = 1;
+            this.lvwCollector.UseCompatibleStateImageBehavior = false;
+            this.lvwCollector.View = System.Windows.Forms.View.Details;
+            this.lvwCollector.SelectedIndexChanged += new System.EventHandler(this.lvwCollector_SelectedIndexChanged);
+            // 
+            // PathColumnHeader
+            // 
+            this.PathColumnHeader.Text = "Collectors";
+            this.PathColumnHeader.Width = 367;
+            // 
+            // valueColumnHeader
+            // 
+            this.valueColumnHeader.Text = "Value";
+            this.valueColumnHeader.Width = 95;
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFilter.HideSelection = false;
+            this.txtFilter.Location = new System.Drawing.Point(180, 6);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(163, 21);
+            this.txtFilter.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.txtFilter, "Filter Collectors");
+            this.txtFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtFilter_EnterKeyPressed);
+            this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
+            // 
             // SelectCollectors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -283,5 +287,6 @@
         private System.Windows.Forms.Label lblResetText;
         private System.Windows.Forms.ComboBox cboStateFilter;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

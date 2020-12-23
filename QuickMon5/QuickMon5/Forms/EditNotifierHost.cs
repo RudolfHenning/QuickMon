@@ -86,6 +86,7 @@ namespace QuickMon.UI
         {
             try
             {
+                llblRawEdit.Visible = Properties.Settings.Default.EnableRawEditing;
                 if (SelectedConfig != null && SelectedConfig.Length > 0 && SelectedConfig.StartsWith("<notifierHost", StringComparison.CurrentCultureIgnoreCase))
                 {
                     editingNotifierHost = NotifierHost.FromXml(SelectedConfig, null, false);

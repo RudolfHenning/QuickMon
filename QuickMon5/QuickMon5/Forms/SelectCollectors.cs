@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HenIT.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,6 +40,7 @@ namespace QuickMon
             lvwCollector.AutoResizeColumnEnabled = true;
             cboFilterType.SelectedIndex = 0;
             cboStateFilter.SelectedIndex = 0;
+            toolTip1.SetToolTip(txtFilter, "You can use advanced filters like:\r\n\tX and Y or Z\r\n\tNot X\r\n\tmatchexactly X\r\n\tstartswith X\r\n\tendswith X");
             LoadControls();
         }
 
@@ -70,6 +72,7 @@ namespace QuickMon
             bool isNotFolderOrEmpty = (collector.CollectorAgents != null && collector.CollectorAgents.Count > 0);
             if (!ExcludeCollectors.Contains(collector))
             {
+                
                 if (txtFilter.Text.Trim().Length == 0 && cboStateFilter.SelectedIndex == 0)
                 {
                     isInFilter = true;
@@ -92,21 +95,21 @@ namespace QuickMon
                         else if (cboStateFilter.SelectedIndex == 4 && (collector.CurrentState.State == CollectorState.Warning || collector.CurrentState.State == CollectorState.Error || collector.CurrentState.State == CollectorState.ConfigurationError))
                             inState = true;
 
-                        if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 1) && collector.PathWithoutMP.ToLower().Contains(txtFilter.Text.ToLower()))
+                        if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 1) && (txtFilter.Text.Trim().Length < 2 || collector.PathWithoutMP.ContainEx(txtFilter.Text)))
+                            //if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 1) && collector.PathWithoutMP.ToLower().Contains(txtFilter.Text.ToLower()))
                             isInFilter = true;
                         else if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 2) &&
                             ((from string c in collector.Categories
-                              where c.ToLower().Contains(txtFilter.Text.ToLower())
+                              where txtFilter.Text.Trim().Length < 2 || c.ContainEx(txtFilter.Text) //  c.ToLower().Contains(txtFilter.Text.ToLower())
                               select c).FirstOrDefault() != null))
                         {
                             isInFilter = true;
                         }
                         else if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 3) &&
-                            (collector.CurrentState.ReadPrimaryOrFirstUIValue().ToLower().Contains(txtFilter.Text.ToLower())))
+                            (txtFilter.Text.Trim().Length < 2 || collector.CurrentState.ReadPrimaryOrFirstUIValue().ContainEx(txtFilter.Text)))
                         {
                             isInFilter = true;
                         }
-
                     }
                 }
             }
@@ -175,6 +178,11 @@ namespace QuickMon
         private void lblResetText_Click(object sender, EventArgs e)
         {
             txtFilter.Text = "";
+        }
+
+        private void txtFilter_EnterKeyPressed()
+        {
+            LoadControls();
         }
     }
 }

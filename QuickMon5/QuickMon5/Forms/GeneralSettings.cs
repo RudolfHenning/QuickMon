@@ -67,6 +67,7 @@ namespace QuickMon
             optTvwDetailRightAlign.Checked = Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign != 0;
 
             chkUseTemplates.Checked = Properties.Settings.Default.UseTemplatesForNewObjects;
+            chkEnableRAWEditing.Checked = Properties.Settings.Default.EnableRawEditing;
             chkDisableAutoAdminMode.Checked = Properties.Settings.Default.DisableAutoAdminMode;
 
             txtApplicationMasterKey.Text = Properties.Settings.Default.ApplicationMasterKey;
@@ -304,6 +305,7 @@ namespace QuickMon
             Properties.Settings.Default.ShowFullPathForQuickRecentList = chkDisplayFullPathForQuickRecentEntries.Checked;
             Properties.Settings.Default.SortQuickRecentList = chkSortQuickRecentList.Checked;
             Properties.Settings.Default.UseTemplatesForNewObjects = chkUseTemplates.Checked;
+            Properties.Settings.Default.EnableRawEditing = chkEnableRAWEditing.Checked;
             Properties.Settings.Default.DisableAutoAdminMode = chkDisableAutoAdminMode.Checked;
             Properties.Settings.Default.MainWindowTreeViewExtraColumnSize = (int)nudMainWindowTreeViewExtraColumnSize.Value;
             Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign = optTvwDetailRightAlign.Checked ? 1 : 0;
