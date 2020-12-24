@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HenIT.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -175,7 +176,7 @@ namespace QuickMon
                     else if (cboStateFilter.SelectedIndex == 4 && (collector.CurrentState.State == CollectorState.Warning || collector.CurrentState.State == CollectorState.Error || collector.CurrentState.State == CollectorState.ConfigurationError))
                         inState = true;
 
-                    if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 1) && collector.DisplayName.ToLower().Contains(txtFilter.Text.ToLower()))
+                    if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 1) && collector.DisplayName.ContainEx(txtFilter.Text))
                         isInFilter = true;
                     else if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 2) &&
                         ((from string c in collector.Categories
