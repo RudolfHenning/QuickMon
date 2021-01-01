@@ -531,14 +531,24 @@ namespace QuickMon
                 if (RunLocalOnRemoteHostConnectionFailure && ex.Message.Contains("There was no endpoint listening"))
                 {
                     //attempting to run locally
-                    resultMonitorState = GetStateFromLocal();
                     resultMonitorState.RawDetails = string.Format("Remote Host call failed. Attempting to run locally. {0}", resultMonitorState.RawDetails);
+                    try
+                    {
+                        resultMonitorState = GetStateFromLocal();
+                    }
+                    catch (Exception innerEx)
+                    {
+                        resultMonitorState.State = CollectorState.Error;
+                        resultMonitorState.RawDetails = string.Format("Remote Host call failed. Attempting to run locally. {0}", innerEx.ToString());
+                        resultMonitorState.CurrentValue = "Remote Host call failed(local)";
+                        resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
+                    }
                 }
                 else
                 {
                     resultMonitorState.State = CollectorState.Error;
                     resultMonitorState.RawDetails = ex.ToString();
-                    resultMonitorState.CurrentValue = "Remote Host call failed\r\n" + ex.Message;
+                    resultMonitorState.CurrentValue = "Remote Host call failed"; //\r\n" + ex.Message;
                     resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
                 }
             }

@@ -69,6 +69,7 @@ namespace QuickMon
             this.configureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.copyCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,7 +131,8 @@ namespace QuickMon
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.recentListTimer = new System.Windows.Forms.Timer(this.components);
-            this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GlobalHistoryToolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.ViewByFilterToolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -594,7 +596,7 @@ namespace QuickMon
             this.globalHistoryToolStripMenuItem,
             this.viewByFilterToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(161, 428);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(159, 406);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // detailsToolStripMenuItem
@@ -637,6 +639,14 @@ namespace QuickMon
             this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(158, 30);
             this.disableCollectorToolStripMenuItem.Text = "Disable";
             this.disableCollectorToolStripMenuItem.Click += new System.EventHandler(this.disableCollectorToolStripMenuItem_Click);
+            // 
+            // graphToolStripMenuItem
+            // 
+            this.graphToolStripMenuItem.Image = global::QuickMon.Properties.Resources.LineGraph;
+            this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(158, 30);
+            this.graphToolStripMenuItem.Text = "Graph";
+            this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
             // 
             // refreshToolStripMenuItem
             // 
@@ -752,7 +762,9 @@ namespace QuickMon
             this.pasteCollectorToolStripButton,
             this.pasteWithEditCollectorToolStripButton,
             this.toolStripSeparator4,
-            this.collectorHistoryExportToolStripDropDownButton});
+            this.collectorHistoryExportToolStripDropDownButton,
+            this.GlobalHistoryToolStripButton2,
+            this.ViewByFilterToolStripButton2});
             this.collectorQuickToolStrip.Location = new System.Drawing.Point(0, 23);
             this.collectorQuickToolStrip.Name = "collectorQuickToolStrip";
             this.collectorQuickToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -1324,13 +1336,25 @@ namespace QuickMon
             this.recentListTimer.Interval = 3000;
             this.recentListTimer.Tick += new System.EventHandler(this.recentListTimer_Tick);
             // 
-            // graphToolStripMenuItem
+            // GlobalHistoryToolStripButton2
             // 
-            this.graphToolStripMenuItem.Image = global::QuickMon.Properties.Resources.LineGraph;
-            this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
-            this.graphToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
-            this.graphToolStripMenuItem.Text = "Graph";
-            this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
+            this.GlobalHistoryToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.GlobalHistoryToolStripButton2.Image = global::QuickMon.Properties.Resources.clock1;
+            this.GlobalHistoryToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GlobalHistoryToolStripButton2.Name = "GlobalHistoryToolStripButton2";
+            this.GlobalHistoryToolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.GlobalHistoryToolStripButton2.ToolTipText = "Global history";
+            this.GlobalHistoryToolStripButton2.Click += new System.EventHandler(this.globalHistoryToolStripMenuItem_Click);
+            // 
+            // ViewByFilterToolStripButton2
+            // 
+            this.ViewByFilterToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ViewByFilterToolStripButton2.Image = global::QuickMon.Properties.Resources.search_32;
+            this.ViewByFilterToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ViewByFilterToolStripButton2.Name = "ViewByFilterToolStripButton2";
+            this.ViewByFilterToolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.ViewByFilterToolStripButton2.ToolTipText = "View by filter";
+            this.ViewByFilterToolStripButton2.Click += new System.EventHandler(this.viewByFilterToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1479,6 +1503,8 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripMenuItem viewByFilterToolStripMenuItem;
         private System.Windows.Forms.Timer recentListTimer;
         private System.Windows.Forms.ToolStripMenuItem graphToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton GlobalHistoryToolStripButton2;
+        private System.Windows.Forms.ToolStripButton ViewByFilterToolStripButton2;
     }
 }
 
