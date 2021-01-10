@@ -190,7 +190,7 @@ namespace QuickMon
             //    collectorPath = pch.Name + "/" + collectorPath;
             //}            
             //displayMS.ForAgent = collectorPath + ch.Name;
-            displayMS.ForAgent = collectorPath;
+            displayMS.ForAgent = collectorPath; // ch.ApplyConfigVarsOnString(collectorPath);
             displayMS.CurrentValue = ms.ReadPrimaryOrFirstUIValue();
             displayMS.RawDetails = ms.ReadAllRawDetails();
             return displayMS;
@@ -200,9 +200,9 @@ namespace QuickMon
             string collectorPath = "";
             foreach (CollectorHost pch in HostingMonitorPack.GetParentCollectorHostTree(ch))
             {
-                collectorPath = pch.Name + "/" + collectorPath;
+                collectorPath = pch.NameFormatted + "/" + collectorPath;
             }
-            return collectorPath + ch.Name;
+            return collectorPath + ch.NameFormatted;
         }
         private int GetNodeStateImageIndex(CollectorState state)
         {

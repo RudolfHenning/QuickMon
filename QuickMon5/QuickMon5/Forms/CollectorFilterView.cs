@@ -252,7 +252,7 @@ namespace QuickMon
                         if (selectedObject is CollectorHost)
                         {
                             CollectorHost ch = (CollectorHost)selectedObject;
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Collector: ").FontStyle(FontStyle.Regular).AppendLine(ch.Name);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Collector: ").FontStyle(FontStyle.Regular).AppendLine(ch.NameFormatted);
                             string categories = "";
                             ch.Categories.ForEach(c => categories += c + ",");
                             if (categories.Trim().Length > 0)

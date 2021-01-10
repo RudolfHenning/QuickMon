@@ -90,10 +90,10 @@ namespace QuickMon
         {
             get
             {
-                string displayName = Name;
+                string displayName = NameFormatted;
                 if (EnableRemoteExecute || ForceRemoteExcuteOnChildCollectors)
                 {
-                    displayName += " [" + (ForceRemoteExcuteOnChildCollectors ? "!" : "") + RemoteAgentHostAddress;
+                    displayName += " [" + (ForceRemoteExcuteOnChildCollectors ? "!" : "") + RemoteAgentHostAddressFormatted; // RemoteAgentHostAddress;
                     if (RemoteAgentHostPort != GlobalConstants.DefaultRemoteHostPort)
                         displayName += ":" + RemoteAgentHostPort.ToString();
                     displayName += "]";
@@ -106,12 +106,12 @@ namespace QuickMon
         {
             get
             {
-                string path = Name;
+                string path = NameFormatted;
                 if (ParentMonitorPack != null)
                 {
                     foreach (CollectorHost parent in ParentMonitorPack.GetParentCollectorHostTree(this))
                     {
-                        path = parent.Name + "\\" + path;
+                        path = parent.NameFormatted + "\\" + path;
                     }
                     path = ParentMonitorPack.Name + "\\" + path;
                 }
@@ -123,12 +123,12 @@ namespace QuickMon
         {
             get
             {
-                string path = Name;
+                string path = NameFormatted;
                 if (ParentMonitorPack != null)
                 {
                     foreach (CollectorHost parent in ParentMonitorPack.GetParentCollectorHostTree(this))
                     {
-                        path = parent.Name + "\\" + path;
+                        path = parent.NameFormatted + "\\" + path;
                     }
                 }
 

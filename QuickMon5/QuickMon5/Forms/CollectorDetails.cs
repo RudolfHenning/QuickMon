@@ -221,6 +221,7 @@ namespace QuickMon
             chkRAWDetails.Image = chkRAWDetails.Checked ? global::QuickMon.Properties.Resources._133 : global::QuickMon.Properties.Resources._131;
             optAgentStates.Enabled = false;
             optMetrics.Enabled = false;
+            txtName.Text = SelectedCollectorHost.Name;
             txtName.ReadOnly = false;
             txtName.BorderStyle = BorderStyle.FixedSingle;
             cboTextType.SelectedIndex = 0;
@@ -233,6 +234,7 @@ namespace QuickMon
         {
             optAgentStates.Enabled = true;
             optMetrics.Enabled = true;
+            txtName.Text = SelectedCollectorHost.NameFormatted;
             txtName.ReadOnly = true;
             txtName.BorderStyle = BorderStyle.None;
             if (optAgentStates.Checked)
@@ -293,6 +295,8 @@ namespace QuickMon
             }
             
             if (!inEditMode)
+                txtName.Text = SelectedCollectorHost.NameFormatted;
+            else
                 txtName.Text = SelectedCollectorHost.Name;
             LoadMetrics();
             LoadHistory();
@@ -828,7 +832,8 @@ namespace QuickMon
                 int agentNodeStateIndex = GetNodeStateImageIndex(selectedMonitorState.State);
                 foreach (ICollector agent in SelectedCollectorHost.CollectorAgents)
                 {
-                    HenIT.Windows.Controls.TreeListViewItem agentNode = new HenIT.Windows.Controls.TreeListViewItem(agent.Name, agentNodeStateIndex);
+                    string agentName = SelectedCollectorHost.ApplyConfigVarsOnString(agent.Name);
+                    TreeListViewItem agentNode = new TreeListViewItem(agentName, agentNodeStateIndex);
                     agentNode.SubItems.Add("");
                     agentNode.Tag = agent;
 
@@ -841,7 +846,7 @@ namespace QuickMon
                         {
                             foreach (ICollectorConfigSubEntry subEntry in entry.SubItems)
                             {
-                                HenIT.Windows.Controls.TreeListViewItem subEntryNode = new HenIT.Windows.Controls.TreeListViewItem(subEntry.Description, collectorNAstateImage);
+                                TreeListViewItem subEntryNode = new TreeListViewItem(subEntry.Description, collectorNAstateImage);
                                 subEntryNode.SubItems.Add("");
                                 entryNode.Items.Add(subEntryNode);
                             }

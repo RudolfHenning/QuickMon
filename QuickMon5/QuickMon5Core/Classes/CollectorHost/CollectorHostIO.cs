@@ -455,8 +455,6 @@ namespace QuickMon
             return collectorHostNode.DocumentElement;
         }
 
-
-
         /// <summary>
         /// Export current (Initial) CollectorHost config as XML string
         /// This is the config before config variables have been applied

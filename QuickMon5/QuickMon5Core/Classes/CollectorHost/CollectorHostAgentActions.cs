@@ -315,17 +315,7 @@ namespace QuickMon
                     //repeat same State
                     resultMonitorState = null;
                     resultMonitorState = CurrentState;
-                    //resultMonitorState.Timestamp = DateTime.Now;
 
-                    //if (resultMonitorState.RawDetails == null)
-                    //    resultMonitorState.RawDetails = "";
-                    //if (resultMonitorState.RawDetails.Length > 0)
-                    //    resultMonitorState.RawDetails += "\r\n";
-                    //resultMonitorState.RawDetails += "Due to polling override (OnlyAllowUpdateOncePerXSec) the previous state is repeated.";
-
-                    //resultMonitorState.State = CurrentState.State;
-                    //resultMonitorState.CurrentValue = CurrentState.ReadValues();
-                    //resultMonitorState.RawDetails = "Due to polling override (OnlyAllowUpdateOncePerXSec) the previous state is repeated.";
                     RaiseLoggingPollingOverridesTriggeredEvent(string.Format("Polling override of {0} seconds not reached yet", OnlyAllowUpdateOncePerXSec));
                 }
                 else if (CurrentState.State != CollectorState.NotAvailable && !forceRefreshNow && EnabledPollingOverride && EnablePollFrequencySliding &&
@@ -376,42 +366,7 @@ namespace QuickMon
                         LastStateUpdate = DateTime.Now;
                         stagnantStateMaxReached = true;
                     }
-                }
-
-
-
-                //else if (CurrentState.State != CollectorState.NotAvailable && !forceRefreshNow && EnabledPollingOverride && EnablePollFrequencySliding &&
-                //    (
-                //        (StagnantStateThirdRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterThirdRepeatSec) > DateTime.Now)) ||
-                //        (!StagnantStateThirdRepeat && StagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterSecondRepeatSec) > DateTime.Now)) ||
-                //        (!StagnantStateThirdRepeat && !StagnantStateSecondRepeat && StagnantStateFirstRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterFirstRepeatSec) > DateTime.Now)) ||
-                //        (!StagnantStateFirstRepeat && !StagnantStateThirdRepeat && !StagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
-                //    )
-                //   )
-                //{
-                //    //Not time yet for update
-                //    //CurrentPollAborted = true;
-                //    //repeat same State
-                //    resultMonitorState = null;
-                //    resultMonitorState = CurrentState.Clone();
-                //    resultMonitorState.Timestamp = DateTime.Now;
-
-                //    //if (resultMonitorState.RawDetails == null)
-                //    //    resultMonitorState.RawDetails = "";
-                //    //if (resultMonitorState.RawDetails.Length > 0)
-                //    //    resultMonitorState.RawDetails += "\r\n";
-
-                //    //resultMonitorState.State = CurrentState.State;
-                //    //resultMonitorState.CurrentValue = CurrentState.ReadValues();
-                //    //if (StagnantStateThirdRepeat)
-                //    //    resultMonitorState.RawDetails += "Due to polling override (StagnantStateThirdRepeat) the previous state is repeated.";
-                //    //else if (StagnantStateSecondRepeat)
-                //    //    resultMonitorState.RawDetails += "Due to polling override (StagnantStateSecondRepeat) the previous state is repeated.";
-                //    //else if (StagnantStateFirstRepeat)
-                //    //    resultMonitorState.RawDetails += "Due to polling override (StagnantStateFirstRepeat) the previous state is repeated.";
-                //    //else
-                //    //    resultMonitorState.RawDetails += "Due to polling override (EnablePollFrequencySliding) the previous state is repeated.";
-                //}
+                }  
                 else
                 {
                     stagnantStateMaxReached = false;
@@ -504,7 +459,7 @@ namespace QuickMon
         private MonitorState GetRemoteState()
         {
             MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
-            string currentHostAddress = EnableRemoteExecute ? this.RemoteAgentHostAddress : OverrideRemoteAgentHostAddress;
+            string currentHostAddress = EnableRemoteExecute ? RemoteAgentHostAddressFormatted : OverrideRemoteAgentHostAddressFormatted;
             int currentHostPort = EnableRemoteExecute ? this.RemoteAgentHostPort : OverrideRemoteAgentHostPort;
 
             try
@@ -621,7 +576,7 @@ namespace QuickMon
                     {
                         caMs = new MonitorState() { State = CollectorState.Disabled, RawDetails = "This agent is disabled", HtmlDetails = "<p>This agent is disabled</p>" };
                     }
-                    caMs.ForAgent = ca.Name;
+                    caMs.ForAgent = ApplyConfigVarsOnString(ca.Name);
                     caMs.ForAgentId = agentId;
                     caMs.PrimaryUIValue = ca.PrimaryUIValue;
                     agentId++;
