@@ -40,6 +40,7 @@ namespace QuickMon.UI
             #endregion
 
             txtName.Text = selectedEntry.Name;
+            cboOutputValueUnit.Text = selectedEntry.OutputValueUnit;
             cboReturnCheckSequence.SelectedIndex = (int)selectedEntry.ReturnCheckSequence;
             txtScript.Text = selectedEntry.TestScript;
             txtSuccess.Text = selectedEntry.GoodScriptText;
@@ -79,6 +80,7 @@ namespace QuickMon.UI
                 string errorVal = ApplyConfigVarsOnField(txtError.Text);
 
                 testEntry.Name = name;
+                testEntry.OutputValueUnit = cboOutputValueUnit.Text;
                 testEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                 //in case the static config vars are used
                 testEntry.TestScript = testScript;
@@ -110,7 +112,7 @@ namespace QuickMon.UI
                 SelectedEntry = new PowerShellScriptRunnerEntry();
             PowerShellScriptRunnerEntry selectedEntry = (PowerShellScriptRunnerEntry)SelectedEntry;
             selectedEntry.Name = txtName.Text;
-
+            selectedEntry.OutputValueUnit = cboOutputValueUnit.Text;
             selectedEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
             selectedEntry.TestScript = txtScript.Text;
             selectedEntry.GoodScriptText = txtSuccess.Text;

@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PerfCounterCollectorEditEntry));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cboInstanceValueAggregation = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.chkInverseScale = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.nudValueScale = new System.Windows.Forms.NumericUpDown();
@@ -61,6 +65,7 @@
             this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chkVerifyOnOK = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudValueScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMultiSampleWaitMS)).BeginInit();
@@ -75,6 +80,9 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.cboInstanceValueAggregation);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.chkInverseScale);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.nudValueScale);
@@ -96,10 +104,49 @@
             this.groupBox1.Controls.Add(this.optCommon);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(523, 201);
+            this.groupBox1.Size = new System.Drawing.Size(523, 223);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Performance counter definition";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(303, 199);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(152, 13);
+            this.label13.TabIndex = 22;
+            this.label13.Text = "None = specified instance only";
+            // 
+            // cboInstanceValueAggregation
+            // 
+            this.cboInstanceValueAggregation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboInstanceValueAggregation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboInstanceValueAggregation.FormattingEnabled = true;
+            this.cboInstanceValueAggregation.Items.AddRange(new object[] {
+            "None",
+            "Sum",
+            "Average",
+            "Minimum",
+            "Maximum",
+            "First",
+            "Last"});
+            this.cboInstanceValueAggregation.Location = new System.Drawing.Point(164, 196);
+            this.cboInstanceValueAggregation.Name = "cboInstanceValueAggregation";
+            this.cboInstanceValueAggregation.Size = new System.Drawing.Size(133, 21);
+            this.cboInstanceValueAggregation.TabIndex = 21;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 199);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(147, 13);
+            this.label12.TabIndex = 20;
+            this.label12.Text = "Instance(s) value aggregation";
+            this.toolTip1.SetToolTip(this.label12, "When using this feature all instances of the specified counter are used - and not" +
+        " just the specified instance");
             // 
             // chkInverseScale
             // 
@@ -343,9 +390,9 @@
             this.groupBox2.Controls.Add(this.warningNumericUpDown);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox2.Location = new System.Drawing.Point(3, 210);
+            this.groupBox2.Location = new System.Drawing.Point(3, 232);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(523, 57);
+            this.groupBox2.Size = new System.Drawing.Size(523, 47);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Alert triggering";
@@ -438,9 +485,9 @@
             this.groupBox3.Controls.Add(this.cboOutputValueUnit);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox3.Location = new System.Drawing.Point(3, 273);
+            this.groupBox3.Location = new System.Drawing.Point(3, 285);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(523, 57);
+            this.groupBox3.Size = new System.Drawing.Size(523, 45);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Display output";
@@ -558,5 +605,9 @@
         private System.Windows.Forms.NumericUpDown nudValueScale;
         private System.Windows.Forms.CheckBox chkInverseScale;
         private System.Windows.Forms.CheckBox chkVerifyOnOK;
+        private System.Windows.Forms.ComboBox cboInstanceValueAggregation;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

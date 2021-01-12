@@ -91,6 +91,7 @@ namespace QuickMon.Collectors
                 if (entry.OutputValueScaleFactor == 0)
                     entry.OutputValueScaleFactor = 1;
                 entry.OutputValueScaleFactorInverse = pcNode.ReadXmlElementAttr("valueScaleInverse", false);
+                entry.InstanceValueAggregationStyle = (AggregationStyle)pcNode.ReadXmlElementAttr("instanceAggrStyle", 0);
 
                 Entries.Add(entry);
             }
@@ -117,7 +118,8 @@ namespace QuickMon.Collectors
                 performanceCounterNode.SetAttributeValue("primaryUIValue", entry.PrimaryUIValue);
                 performanceCounterNode.SetAttributeValue("valueScale", entry.OutputValueScaleFactor);
                 performanceCounterNode.SetAttributeValue("valueScaleInverse", entry.OutputValueScaleFactorInverse);
-                
+                performanceCounterNode.SetAttributeValue("instanceAggrStyle", (int)entry.InstanceValueAggregationStyle);
+
                 performanceCountersNode.AppendChild(performanceCounterNode);
             }
             return config.OuterXml;
@@ -155,6 +157,7 @@ namespace QuickMon.Collectors
             OutputValueUnit = "";
             OutputValueScaleFactor = 1;
             OutputValueScaleFactorInverse = false;
+            InstanceValueAggregationStyle = AggregationStyle.None;
         }
 
         private PerformanceCounter pc = null;
@@ -171,6 +174,8 @@ namespace QuickMon.Collectors
         public string OutputValueUnit { get; set; }
         public int OutputValueScaleFactor { get; set; }
         public bool OutputValueScaleFactorInverse { get; set; }
+
+        public AggregationStyle InstanceValueAggregationStyle { get; set; }
         #endregion
 
         #region ICollectorConfigEntry Members
@@ -231,45 +236,137 @@ namespace QuickMon.Collectors
         }
         #endregion
 
-        public void InitializePerfCounter()
+
+        private List<PerformanceCounter> pcList = new List<PerformanceCounter>();
+
+        private void InitializePerfCounter()
         {
             string computername = ".";
             if (Computer != "" && Computer.ToLower() != "localhost")
                 computername = Computer;
-            pc = new PerformanceCounter(Category, Counter, Instance, computername);
-            pc.NextValue();
+            if (InstanceValueAggregationStyle == AggregationStyle.None)
+            {
+                pc = new PerformanceCounter(Category, Counter, Instance, computername);
+                pc.NextValue();
+                pcList.Add(pc);
+            }
+            else
+            {
+                PerformanceCounterCategory pcCat = new PerformanceCounterCategory(Category, computername);
+                if (pcCat.CategoryType == PerformanceCounterCategoryType.MultiInstance)
+                {
+                    string[] instances = pcCat.GetInstanceNames();
+                    foreach (string instanceNameItem in (from string s in instances
+                                                         orderby s
+                                                         select s))
+                    {
+                        PerformanceCounter pci = new PerformanceCounter(Category, Counter, instanceNameItem, computername);
+                        float tmpval = pci.NextValue();
+                        pcList.Add(pci);
+                    }
+                }
+                else
+                {
+                    pc = new PerformanceCounter(Category, Counter, Instance, computername);
+                    pc.NextValue();
+                    pcList.Add(pc);
+                }
+            }
         }
-        public float GetNextValue()
+        public float GetNextValue(int retries = 3)
         {
             float value = 0;
+            if (NumberOfSamplesPerRefresh == 0)
+                NumberOfSamplesPerRefresh = 1;
+            if (MultiSampleWaitMS == 0)
+                MultiSampleWaitMS = 100;
             try
             {
-                if (pc == null)
-                    InitializePerfCounter();
-                if (pc != null)
+                if (pcList == null || pcList.Count == 0)
                 {
-                    if (NumberOfSamplesPerRefresh == 0)
-                        NumberOfSamplesPerRefresh = 1;
-                    if (MultiSampleWaitMS == 0)
-                        MultiSampleWaitMS = 100;
-                    for (int i = 0; i < NumberOfSamplesPerRefresh; i++)
+                    InitializePerfCounter();
+                }
+                if (pcList != null && pcList.Count > 0)
+                {
+                    List<float> values = new List<float>();
+                    foreach(PerformanceCounter perf in pcList)
                     {
-                        if (i > 0)
-                            System.Threading.Thread.Sleep(MultiSampleWaitMS);
-                        value = pc.NextValue();
-                        if (value > 99.0 && pc.CounterName == "% Processor Time")
+                        for (int i = 0; i < NumberOfSamplesPerRefresh; i++)
                         {
-                            System.Threading.Thread.Sleep(13);
-                            value = pc.NextValue();
+                            if (i > 0)
+                                System.Threading.Thread.Sleep(MultiSampleWaitMS);
+                            value = perf.NextValue();
+                            if (value > 99.0 && perf.CounterName == "% Processor Time")
+                            {
+                                System.Threading.Thread.Sleep(13);
+                                value = perf.NextValue();
+                            }
+                            values.Add(value);
+                        }
+                    }
+                    if (values.Count > 0) {
+                        if (InstanceValueAggregationStyle == AggregationStyle.None || InstanceValueAggregationStyle == AggregationStyle.First)
+                        {
+                            value = values[0];
+                        } 
+                        else if (InstanceValueAggregationStyle == AggregationStyle.Last)
+                        {
+                            value = values[values.Count - 1];
+                        }
+                        else if (InstanceValueAggregationStyle == AggregationStyle.Max)
+                        {
+                            value = values.Max();                                    
+                        }
+                        else if (InstanceValueAggregationStyle == AggregationStyle.Min)
+                        {
+                            value = values.Min();
+                        }
+                        else if (InstanceValueAggregationStyle == AggregationStyle.Sum)
+                        {
+                            value = values.Sum();
+                        }
+                        else // if (InstanceValueAggregationStyle == AggregationStyle.Avg)
+                        {
+                            value = values.Average();
                         }
                     }
                 }
+
+                ////OLD Code
+                //if (pc == null)
+                //    InitializePerfCounter();
+                //if (pc != null)
+                //{
+                //    if (NumberOfSamplesPerRefresh == 0)
+                //        NumberOfSamplesPerRefresh = 1;
+                //    if (MultiSampleWaitMS == 0)
+                //        MultiSampleWaitMS = 100;
+                //    for (int i = 0; i < NumberOfSamplesPerRefresh; i++)
+                //    {
+                //        if (i > 0)
+                //            System.Threading.Thread.Sleep(MultiSampleWaitMS);
+                //        value = pc.NextValue();
+                //        if (value > 99.0 && pc.CounterName == "% Processor Time")
+                //        {
+                //            System.Threading.Thread.Sleep(13);
+                //            value = pc.NextValue();
+                //        }
+                //    }
+                //}
             }
-            catch
+            catch(Exception ex)
             {
-                InitializePerfCounter();
-                System.Threading.Thread.Sleep(10);
-                value = GetNextValue();
+                System.Diagnostics.Trace.WriteLine($"GetNextValue:{ex.ToString()}");
+                if (retries > 0)
+                {
+                    InitializePerfCounter();
+                    System.Threading.Thread.Sleep(10);
+                    value = GetNextValue(retries - 1);
+                }
+                else
+                {
+                    value = 0;
+                }
             }
             if (OutputValueScaleFactor > 0) {
                 if (!OutputValueScaleFactorInverse)

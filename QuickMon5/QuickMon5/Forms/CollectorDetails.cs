@@ -153,32 +153,6 @@ namespace QuickMon
             }
             UpdateStatusBar();
         }
-
-        private void LoadGraphColors()
-        {
-            seriesColors.Add(Color.Red);
-            seriesColors.Add(Color.Blue);
-            seriesColors.Add(Color.DarkOrange);
-            seriesColors.Add(Color.BlueViolet);
-            seriesColors.Add(Color.DarkGoldenrod);
-            seriesColors.Add(Color.Green);
-
-            seriesColors.Add(Color.Aqua);
-            seriesColors.Add(Color.Yellow);
-            seriesColors.Add(Color.LightBlue);
-            seriesColors.Add(Color.LightGreen);            
-            seriesColors.Add(Color.RoyalBlue);            
-            seriesColors.Add(Color.BlueViolet);
-            seriesColors.Add(Color.White);
-            seriesColors.Add(Color.LightCyan);
-            seriesColors.Add(Color.LightPink);
-            seriesColors.Add(Color.Lime);
-            seriesColors.Add(Color.Olive);
-            seriesColors.Add(Color.OrangeRed);
-            seriesColors.Add(Color.RosyBrown);
-            seriesColors.Add(Color.Violet);
-        }
-
         private void CollectorDetails_FormClosing(object sender, FormClosingEventArgs e)
         {
             DeRegisterChildWindow();
@@ -191,6 +165,33 @@ namespace QuickMon
         #endregion
 
         #region Private methods
+        private void LoadGraphColors()
+        {
+            seriesColors.AddRange((from string colorName in Properties.Settings.Default.GraphLineColors
+                                   select Color.FromName(colorName)));
+
+            //seriesColors.Add(Color.Red);
+            //seriesColors.Add(Color.Blue);
+            //seriesColors.Add(Color.DarkOrange);
+            //seriesColors.Add(Color.BlueViolet);
+            //seriesColors.Add(Color.DarkGoldenrod);
+            //seriesColors.Add(Color.Green);
+
+            //seriesColors.Add(Color.Aqua);
+            //seriesColors.Add(Color.Yellow);
+            //seriesColors.Add(Color.LightBlue);
+            //seriesColors.Add(Color.LightGreen);            
+            //seriesColors.Add(Color.RoyalBlue);            
+            //seriesColors.Add(Color.BlueViolet);
+            //seriesColors.Add(Color.White);
+            //seriesColors.Add(Color.LightCyan);
+            //seriesColors.Add(Color.LightPink);
+            //seriesColors.Add(Color.Lime);
+            //seriesColors.Add(Color.Olive);
+            //seriesColors.Add(Color.OrangeRed);
+            //seriesColors.Add(Color.RosyBrown);
+            //seriesColors.Add(Color.Violet);
+        }
         private void SetActivePanel(Panel panelAgentStates)
         {
             

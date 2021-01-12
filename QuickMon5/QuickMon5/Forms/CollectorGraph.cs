@@ -243,7 +243,6 @@ namespace QuickMon
                 collectorTimeGraph.RefreshGraph();
             });
         }
-
         private GraphSeries SeriesFromCollector(CollectorHost collector, Color seriesColor, int lastXEntries)
         {
             GraphSeries series = null;
@@ -283,7 +282,6 @@ namespace QuickMon
             else
                 return null;
         }
-
         private int GetItemIcon(CollectorHost collector)
         {
             int imageIndex = collectorNAstateImage;
@@ -316,27 +314,29 @@ namespace QuickMon
         }
         private void LoadGraphColors()
         {
-            seriesColors.Add(Color.Red);
-            seriesColors.Add(Color.Blue);
-            seriesColors.Add(Color.Green);
-            seriesColors.Add(Color.DarkOrange);
-            seriesColors.Add(Color.BlueViolet);
-            seriesColors.Add(Color.DarkGoldenrod);            
+            seriesColors.AddRange((from string colorName in Properties.Settings.Default.GraphLineColors
+                                   select Color.FromName(colorName)));
+            //seriesColors.Add(Color.Red);
+            //seriesColors.Add(Color.Blue);
+            //seriesColors.Add(Color.Green);
+            //seriesColors.Add(Color.DarkOrange);
+            //seriesColors.Add(Color.BlueViolet);
+            //seriesColors.Add(Color.DarkGoldenrod);            
 
-            seriesColors.Add(Color.Aqua);
-            seriesColors.Add(Color.Yellow);
-            seriesColors.Add(Color.LightBlue);
-            seriesColors.Add(Color.LightGreen);
-            seriesColors.Add(Color.RoyalBlue);
-            seriesColors.Add(Color.BlueViolet);
-            seriesColors.Add(Color.White);
-            seriesColors.Add(Color.LightCyan);
-            seriesColors.Add(Color.LightPink);
-            seriesColors.Add(Color.Lime);
-            seriesColors.Add(Color.Olive);
-            seriesColors.Add(Color.OrangeRed);
-            seriesColors.Add(Color.RosyBrown);
-            seriesColors.Add(Color.Violet);
+            //seriesColors.Add(Color.Aqua);
+            //seriesColors.Add(Color.Yellow);
+            //seriesColors.Add(Color.LightBlue);
+            //seriesColors.Add(Color.LightGreen);
+            //seriesColors.Add(Color.RoyalBlue);
+            //seriesColors.Add(Color.BlueViolet);
+            //seriesColors.Add(Color.White);
+            //seriesColors.Add(Color.LightCyan);
+            //seriesColors.Add(Color.LightPink);
+            //seriesColors.Add(Color.Lime);
+            //seriesColors.Add(Color.Olive);
+            //seriesColors.Add(Color.OrangeRed);
+            //seriesColors.Add(Color.RosyBrown);
+            //seriesColors.Add(Color.Violet);
         }
         private void SetAxisType()
         {
@@ -605,6 +605,12 @@ namespace QuickMon
         {
             txtTextFilter.Text = "";
             LoadControls();
+        }
+
+        private void seriesColorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GraphColorSettings graphColorSettings = new GraphColorSettings();
+            graphColorSettings.ShowDialog();
         }
     }
 }

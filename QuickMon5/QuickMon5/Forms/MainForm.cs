@@ -2858,8 +2858,14 @@ namespace QuickMon
         }
         private void CloseAllDetailWindows()
         {
-            while (childWindows.Count > 0)
+            int childCount = childWindows.Count;
+            while (childCount > 0)
+            {
                 ((Form)childWindows[0]).Close();
+                if (childCount == childWindows.Count)
+                    childWindows.RemoveAt(0);
+                childCount = childWindows.Count;
+            }
 
             //This code cause an exeption because the Close() method causes items to be removed from the childWindows List
             //foreach (Form child in childWindows)

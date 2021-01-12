@@ -355,5 +355,16 @@ namespace QuickMon.Properties {
                 this["EnableRawEditing"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection GraphLineColors {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["GraphLineColors"]));
+            }
+            set {
+                this["GraphLineColors"] = value;
+            }
+        }
     }
 }

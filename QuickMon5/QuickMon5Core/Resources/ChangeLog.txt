@@ -162,3 +162,6 @@ Added enhanced search filters
 Version 5.2.4
 **************
 Expand config variables to apply on name and remote host fields
+Add a Value unit type to PowerShell collector when outputting numbers
+Change the Performance counter collector to also use aggregated Instance values
+Tweaking some templates

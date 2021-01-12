@@ -150,6 +150,7 @@
     <Compile Include="Classes\RemoteCollectorHost\RemoteCollectorHostService.cs" />
     <Compile Include="Classes\ServiceWindows.cs" />
     <Compile Include="Enums\AgentCheckSequence.cs" />
+    <Compile Include="Enums\AggregationStyle.cs" />
     <Compile Include="Enums\AlertLevel.cs" />
     <Compile Include="Enums\AttendedOption.cs" />
     <Compile Include="Enums\ChildCheckBehaviour.cs" />

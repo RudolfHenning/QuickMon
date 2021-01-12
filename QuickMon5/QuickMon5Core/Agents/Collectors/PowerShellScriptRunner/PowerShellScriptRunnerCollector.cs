@@ -78,6 +78,7 @@ namespace QuickMon.Collectors
             {
                 PowerShellScriptRunnerEntry entry = new PowerShellScriptRunnerEntry();
                 entry.Name = powerShellScriptRunnerNode.ReadXmlElementAttr("name", "");
+
                 entry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(powerShellScriptRunnerNode.ReadXmlElementAttr("returnCheckSequence", "gwe"));
 
                 XmlNode testScriptNode = powerShellScriptRunnerNode.SelectSingleNode("testScript");
@@ -103,6 +104,7 @@ namespace QuickMon.Collectors
                 PowerShellScriptRunnerEntry entry = new PowerShellScriptRunnerEntry();
                 entry.Name = carvceEntryNode.ReadXmlElementAttr("name", "");
                 entry.PrimaryUIValue = carvceEntryNode.ReadXmlElementAttr("primaryUIValue", false);
+                entry.OutputValueUnit  = carvceEntryNode.ReadXmlElementAttr("outputValueUnit", "");
                 XmlNode testScriptNode = carvceEntryNode.SelectSingleNode("dataSource");
                 entry.TestScript = testScriptNode.InnerText;
 
@@ -137,6 +139,7 @@ namespace QuickMon.Collectors
                 XmlElement carvceEntryNode = config.CreateElement("carvceEntry");
                 carvceEntryNode.SetAttributeValue("name", queryEntry.Name);
                 carvceEntryNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
+                carvceEntryNode.SetAttributeValue("outputValueUnit", queryEntry.OutputValueUnit);
                 XmlElement dataSourceNode = config.CreateElement("dataSource");
                 dataSourceNode.InnerText = queryEntry.TestScript;
                 XmlElement testConditionsNode = config.CreateElement("testConditions");
@@ -159,24 +162,6 @@ namespace QuickMon.Collectors
                 carvceEntryNode.AppendChild(testConditionsNode);
                 carvcesEntriesNode.AppendChild(carvceEntryNode);
             }
-
-            //XmlNode powerShellScriptsNode = root.SelectSingleNode("powerShellScripts");
-            //powerShellScriptsNode.InnerXml = "";
-
-            //foreach (PowerShellScriptRunnerEntry queryEntry in Entries)
-            //{
-            //    XmlElement powerShellScriptNode = config.CreateElement("powerShellScriptRunner");
-            //    powerShellScriptNode.SetAttributeValue("name", queryEntry.Name);
-            //    powerShellScriptNode.SetAttributeValue("returnCheckSequence", queryEntry.ReturnCheckSequence.ToString());
-            //    XmlNode testScriptNode = powerShellScriptNode.AppendElementWithText("testScript", queryEntry.TestScript);
-            //    XmlNode goodScriptNode = powerShellScriptNode.AppendElementWithText("goodScript", queryEntry.GoodScriptText);
-            //    goodScriptNode.SetAttributeValue("resultMatchType", queryEntry.GoodResultMatchType.ToString());
-            //    XmlNode warningScriptNode = powerShellScriptNode.AppendElementWithText("warningScript", queryEntry.WarningScriptText);
-            //    warningScriptNode.SetAttributeValue("resultMatchType", queryEntry.WarningResultMatchType.ToString());
-            //    XmlNode errorScriptNode = powerShellScriptNode.AppendElementWithText("errorScript", queryEntry.ErrorScriptText);
-            //    errorScriptNode.SetAttributeValue("resultMatchType", queryEntry.ErrorResultMatchType.ToString());
-            //    powerShellScriptsNode.AppendChild(powerShellScriptNode);
-            //}
             return config.OuterXml;
         }
         public string GetDefaultOrEmptyXml()
@@ -187,19 +172,6 @@ namespace QuickMon.Collectors
                 "<warning testType=\"match\"></warning>" +
                 "<error testType=\"match\"></error>" +
                 "</testConditions></carvceEntry></carvcesEntries></config>";
-
-            /*
-                "<config>" +
-                "<powerShellScripts>" +
-                    "<powerShellScriptRunner name=\"\" returnCheckSequence=\"GWE\">" +
-                        "<testScript></testScript>" +
-                        "<goodScript resultMatchType=\"match|contains|regex\"></goodScript>" +
-                        "<warningScript resultMatchType=\"match|contains|regex\"></warningScript>" +
-                        "<errorScript resultMatchType=\"match|contains|regex\"></errorScript>" +
-                    "</powerShellScriptRunner>" +
-                "</powerShellScripts>" +
-            "</config>";
-            */
         }
         public string ConfigSummary
         {
@@ -223,8 +195,14 @@ namespace QuickMon.Collectors
 
     public class PowerShellScriptRunnerEntry : ICollectorConfigEntry
     {
+        public PowerShellScriptRunnerEntry()
+        {
+            Name = "";
+            OutputValueUnit = "";
+        }
         #region Properties
-        public string Name { get; set; }        
+        public string Name { get; set; }
+        public string OutputValueUnit { get; set; }
         public CollectorAgentReturnValueCheckSequence ReturnCheckSequence { get; set; }
         public string TestScript { get; set; }
         public CollectorAgentReturnValueCompareMatchType GoodResultMatchType { get; set; }
@@ -232,7 +210,7 @@ namespace QuickMon.Collectors
         public CollectorAgentReturnValueCompareMatchType WarningResultMatchType { get; set; }
         public string WarningScriptText { get; set; }
         public CollectorAgentReturnValueCompareMatchType ErrorResultMatchType { get; set; }
-        public string ErrorScriptText { get; set; }
+        public string ErrorScriptText { get; set; }        
         #endregion
 
         #region ICollectorConfigEntry Members
@@ -249,6 +227,7 @@ namespace QuickMon.Collectors
                 {
                     currentState.State = CollectorState.Error;
                     currentState.CurrentValue = "Bad command(s)";
+                    currentState.CurrentValueUnit = "";
                     CurrentAgentValue = "Bad command(s)";
                     currentState.RawDetails = scriptResultText;
                 }
@@ -256,6 +235,7 @@ namespace QuickMon.Collectors
                 {
                     currentState.State = CollectorState.Error;
                     currentState.CurrentValue = "Unauthorized";
+                    currentState.CurrentValueUnit = "";
                     CurrentAgentValue = "Unauthorized";
                     currentState.RawDetails = scriptResultText;
                 }
@@ -263,6 +243,7 @@ namespace QuickMon.Collectors
                 {
                     CurrentAgentValue = scriptResultText;
                     currentState.CurrentValue = scriptResultText;
+                    currentState.CurrentValueUnit = OutputValueUnit;
                     CollectorState currentScriptState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
                        GoodResultMatchType, GoodScriptText,
                        WarningResultMatchType, WarningScriptText,
@@ -275,6 +256,7 @@ namespace QuickMon.Collectors
             {
                 currentState.State = CollectorState.Error;
                 currentState.CurrentValue = "Unknown error";
+                currentState.CurrentValueUnit = "";
                 currentState.RawDetails = ex.Message;                
             }
 
@@ -558,7 +540,6 @@ namespace QuickMon.Collectors
                ErrorResultMatchType, ErrorScriptText,
                scriptResultText);
         }
-
        
     }
 }

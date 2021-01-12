@@ -84,32 +84,7 @@ namespace QuickMon
         }
         public void ApplyConfigVarsNow()
         {
-            currentConfigVars = GetConfigVarsNow();// new List<ConfigVariable>();
-            ////applying its own first
-            //foreach (ConfigVariable cv in ConfigVariables)
-            //{
-            //    ConfigVariable existingCV = (from ConfigVariable c in allConfigVars
-            //                                 where c.FindValue == cv.FindValue
-            //                                 select c).FirstOrDefault();
-            //    if (existingCV == null)
-            //    {
-            //        allConfigVars.Add(cv.Clone());
-            //    }
-            //}
-            ////then applying parent Collector Host variables
-            //if (ParentMonitorPack != null)
-            //{
-            //    foreach (ConfigVariable cv in GetAllParentConfigVars())
-            //    {
-            //        ConfigVariable existingCV = (from ConfigVariable c in allConfigVars
-            //                                     where c.FindValue == cv.FindValue
-            //                                     select c).FirstOrDefault();
-            //        if (existingCV == null)
-            //        {
-            //            allConfigVars.Add(cv.Clone());
-            //        }
-            //    }
-            //}
+            currentConfigVars = GetConfigVarsNow();
 
             foreach (IAgent agent in CollectorAgents)
             {

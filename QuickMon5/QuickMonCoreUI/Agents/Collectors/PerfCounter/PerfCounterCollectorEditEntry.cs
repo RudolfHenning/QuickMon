@@ -77,6 +77,7 @@ namespace QuickMon.UI
             nudNumberOfSamplesPerRefresh.SaveValueSet((decimal)currentEntry.NumberOfSamplesPerRefresh);
             nudMultiSampleWaitMS.SaveValueSet((decimal)currentEntry.MultiSampleWaitMS);
             cboOutputValueUnit.Text = currentEntry.OutputValueUnit;
+            cboInstanceValueAggregation.SelectedIndex = (int)currentEntry.InstanceValueAggregationStyle;
             CheckOkEnabled();
         }
         private bool IsValid(bool showPrompt = false)
@@ -125,15 +126,13 @@ namespace QuickMon.UI
                         currentEntry.NumberOfSamplesPerRefresh = (int)nudNumberOfSamplesPerRefresh.Value;
                         currentEntry.MultiSampleWaitMS = (int)nudMultiSampleWaitMS.Value;
                         currentEntry.OutputValueUnit = cboOutputValueUnit.Text;
+                        currentEntry.InstanceValueAggregationStyle = (AggregationStyle)cboInstanceValueAggregation.SelectedIndex;
 
                         MonitorState currentState = currentEntry.GetCurrentState();
                         float val = float.Parse(currentState.CurrentValue.ToString());// currentEntry.GetNextValue();
 
                         if (showPrompt)
                             MessageBox.Show(string.Format("Test was successful\r\n{0}", currentState.ReadAllRawDetails()), "Performance counter test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        //Clipboard.SetText(val.ToString("F4"));
-                        //MessageBox.Show(string.Format("Current value: {0}", val.ToString("F4")), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -221,8 +220,9 @@ namespace QuickMon.UI
                         currentEntry.NumberOfSamplesPerRefresh = (int)nudNumberOfSamplesPerRefresh.Value;
                         currentEntry.MultiSampleWaitMS = (int)nudMultiSampleWaitMS.Value;
                         currentEntry.OutputValueUnit = cboOutputValueUnit.Text;
+                        currentEntry.InstanceValueAggregationStyle = (AggregationStyle)cboInstanceValueAggregation.SelectedIndex;
                         SelectedEntry = currentEntry;
-                        DialogResult = System.Windows.Forms.DialogResult.OK;
+                        DialogResult = DialogResult.OK;
                         Close();
                     }
                 }

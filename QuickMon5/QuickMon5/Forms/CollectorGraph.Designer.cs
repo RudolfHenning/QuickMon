@@ -44,6 +44,7 @@
             this.removeCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblResetText = new System.Windows.Forms.Label();
             this.txtTextFilter = new QuickMon.Controls.TextBoxEx();
             this.label7 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -106,7 +107,7 @@
             this.graphFillAreaAlpha192ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lblResetText = new System.Windows.Forms.Label();
+            this.seriesColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -282,6 +283,22 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(241, 230);
             this.panel1.TabIndex = 0;
+            // 
+            // lblResetText
+            // 
+            this.lblResetText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblResetText.AutoSize = true;
+            this.lblResetText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblResetText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResetText.ForeColor = System.Drawing.Color.Red;
+            this.lblResetText.Location = new System.Drawing.Point(224, 207);
+            this.lblResetText.Name = "lblResetText";
+            this.lblResetText.Size = new System.Drawing.Size(15, 13);
+            this.lblResetText.TabIndex = 7;
+            this.lblResetText.Text = "X";
+            this.toolTip1.SetToolTip(this.lblResetText, "Clear text");
+            this.lblResetText.Visible = false;
+            this.lblResetText.Click += new System.EventHandler(this.lblResetText_Click);
             // 
             // txtTextFilter
             // 
@@ -551,27 +568,27 @@
             this.graphVisibilityToolStripMenuItem,
             this.exportGraphToolStripMenuItem});
             this.graphContextMenuStrip.Name = "graphContextMenuStrip";
-            this.graphContextMenuStrip.Size = new System.Drawing.Size(148, 142);
+            this.graphContextMenuStrip.Size = new System.Drawing.Size(153, 164);
             this.graphContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.graphContextMenuStrip_Opening);
             // 
             // addCollectorToolStripMenuItem1
             // 
             this.addCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.addGreen24x24;
             this.addCollectorToolStripMenuItem1.Name = "addCollectorToolStripMenuItem1";
-            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.addCollectorToolStripMenuItem1.Text = "Add Collector";
             this.addCollectorToolStripMenuItem1.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // filtersToolStripMenuItem
             // 
             this.filtersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tools16x16;
             this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
-            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.filtersToolStripMenuItem.Text = "Filters";
             this.filtersToolStripMenuItem.Click += new System.EventHandler(this.filtersToolStripMenuItem_Click);
             // 
@@ -581,7 +598,7 @@
             this.linearGraphTypeToolStripMenuItem,
             this.logarithmicGraphTypeToolStripMenuItem});
             this.graphTypeToolStripMenuItem.Name = "graphTypeToolStripMenuItem";
-            this.graphTypeToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.graphTypeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.graphTypeToolStripMenuItem.Text = "Graph Type";
             // 
             // linearGraphTypeToolStripMenuItem
@@ -606,9 +623,10 @@
             this.graphBackgroundColorsToolStripMenuItem,
             this.graphGridColorToolStripMenuItem,
             this.graphAxisLabelColorsToolStripMenuItem,
-            this.graphSelectionColorToolStripMenuItem});
+            this.graphSelectionColorToolStripMenuItem,
+            this.seriesColorsToolStripMenuItem});
             this.grapthColorsToolStripMenuItem.Name = "grapthColorsToolStripMenuItem";
-            this.grapthColorsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.grapthColorsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.grapthColorsToolStripMenuItem.Text = "Graph Colors";
             // 
             // graphBackgroundColorsToolStripMenuItem
@@ -754,7 +772,7 @@
             this.graphHighlightClickedSeriesToolStripMenuItem,
             this.graphFillAreaBelowSeriesToolStripMenuItem});
             this.graphVisibilityToolStripMenuItem.Name = "graphVisibilityToolStripMenuItem";
-            this.graphVisibilityToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.graphVisibilityToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.graphVisibilityToolStripMenuItem.Text = "Visibility";
             // 
             // graphHeaderVisibleToolStripMenuItem
@@ -872,25 +890,16 @@
             // exportGraphToolStripMenuItem
             // 
             this.exportGraphToolStripMenuItem.Name = "exportGraphToolStripMenuItem";
-            this.exportGraphToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.exportGraphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportGraphToolStripMenuItem.Text = "Export Graph";
             this.exportGraphToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 
-            // lblResetText
+            // seriesColorsToolStripMenuItem
             // 
-            this.lblResetText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblResetText.AutoSize = true;
-            this.lblResetText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblResetText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResetText.ForeColor = System.Drawing.Color.Red;
-            this.lblResetText.Location = new System.Drawing.Point(224, 207);
-            this.lblResetText.Name = "lblResetText";
-            this.lblResetText.Size = new System.Drawing.Size(15, 13);
-            this.lblResetText.TabIndex = 7;
-            this.lblResetText.Text = "X";
-            this.toolTip1.SetToolTip(this.lblResetText, "Clear text");
-            this.lblResetText.Visible = false;
-            this.lblResetText.Click += new System.EventHandler(this.lblResetText_Click);
+            this.seriesColorsToolStripMenuItem.Name = "seriesColorsToolStripMenuItem";
+            this.seriesColorsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.seriesColorsToolStripMenuItem.Text = "Series Colors";
+            this.seriesColorsToolStripMenuItem.Click += new System.EventHandler(this.seriesColorsToolStripMenuItem_Click);
             // 
             // CollectorGraph
             // 
@@ -1012,5 +1021,6 @@
         private System.Windows.Forms.ToolStripMenuItem filtersToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label lblResetText;
+        private System.Windows.Forms.ToolStripMenuItem seriesColorsToolStripMenuItem;
     }
 }

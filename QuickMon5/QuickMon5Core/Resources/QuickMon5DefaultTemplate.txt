@@ -130,6 +130,55 @@
       </notifierHosts>
     </monitorPack>
   </template>
+  <template name="Drive Space Free" type="CollectorHost" class="CollectorHost" description="Drive Space Free">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[Drive Letter:C]] Drive Space Free" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="Performance Counter Collector" type="QuickMon.Collectors.PerfCounterCollector" enabled="True" primaryUIValue="False">
+          <config>
+            <performanceCounters>
+              <performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="[[Drive Letter:C]]:" warningValue="15" errorValue="5" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="%" primaryUIValue="False" valueScale="1" valueScaleInverse="False" />
+            </performanceCounters>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Metrics Export settings -->
+      <metricsExport exclude="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories>
+        <category>Disk</category>
+        <category>Performance</category>
+      </categories>
+      <notes />
+    </collectorHost>
+  </template>
   <template name="Event Log Errors" type="CollectorHost" class="CollectorHost" description="Event Log Errors">
     <collectorHost uniqueId="" dependOnParentId="" name="Event Log" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
@@ -223,6 +272,42 @@
       <notes />
     </collectorHost>
   </template>
+  <template name="Folder with name" type="CollectorHost" class="CollectorHost" description="Folder with name">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[FolderName:]]" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All"></collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True" onlyOnStateChange="False">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+  </template>
   <template name="Log file errors" type="CollectorHost" class="CollectorHost" description="Check for errors in a Log file within last 5 lines">
     <collectorHost uniqueId="" dependOnParentId="" name="Log file errors" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
@@ -278,8 +363,8 @@
       <notes />
     </collectorHost>
   </template>
-  <template name="Performance Counters" type="CollectorHost" class="CollectorHost" description="Performance Counters">
-    <collectorHost uniqueId="" dependOnParentId="" name="System heath" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+  <template name="Performance Counter" type="CollectorHost" class="CollectorHost" description="Performance Counter (CPU Example)">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[Name:Performance counter]]" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -296,9 +381,7 @@
         <collectorAgent name="System healh" type="QuickMon.Collectors.PerfCounterCollector" enabled="True" primaryUIValue="True">
           <config>
             <performanceCounters>
-              <performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="80" errorValue="90" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="" primaryUIValue="False" />
-              <performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="80" errorValue="90" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="" primaryUIValue="False" />
-              <performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" warningValue="15" errorValue="5" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="" primaryUIValue="False" />
+              <performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="[[Warning:80]]" errorValue="[[Error:90]]" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="" primaryUIValue="False" />
             </performanceCounters>
           </config>
         </collectorAgent>
@@ -876,6 +959,17 @@ else {
       <config>
         <performanceCounters>
           <performanceCounter computer="." category="LogicalDisk" counter="% Disk Time" instance="C:" warningValue="80" errorValue="99" numberOfSamples="2" multiSampleWaitMS="100" outputValueUnit="%" primaryUIValue="False" />
+        </performanceCounters>
+      </config>
+    </collectorAgent>
+  </template>
+  <template name="Performance counter" type="CollectorAgent" class="QuickMon.Collectors.PerfCounterCollector" description="Performance counter (Default CPU)">
+    <collectorAgent name="System healh" type="QuickMon.Collectors.PerfCounterCollector" enabled="True" primaryUIValue="True">
+      <config>
+        <performanceCounters>
+          <performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="80" errorValue="90" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="" primaryUIValue="False" />
+          <performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="80" errorValue="90" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="" primaryUIValue="False" />
+          <performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" warningValue="15" errorValue="5" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="" primaryUIValue="False" />
         </performanceCounters>
       </config>
     </collectorAgent>
