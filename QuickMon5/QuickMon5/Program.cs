@@ -48,27 +48,17 @@ namespace QuickMon
                 Properties.Settings.Default.GraphLineColors = new System.Collections.Specialized.StringCollection();
             if (Properties.Settings.Default.GraphLineColors.Count == 0)
             {
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Red.Name);
                 Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Blue.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Green.Name);
+                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Red.Name);
+                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Teal.Name);
                 Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.DarkOrange.Name);
                 Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.BlueViolet.Name);
+                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Green.Name);
                 Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.DarkGoldenrod.Name);
-
                 Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Aqua.Name);
                 Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Yellow.Name);
                 Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.LightBlue.Name);
                 Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.LightGreen.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.RoyalBlue.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.BlueViolet.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.White.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.LightCyan.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.LightPink.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Lime.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Olive.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.OrangeRed.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.RosyBrown.Name);
-                Properties.Settings.Default.GraphLineColors.Add(System.Drawing.Color.Violet.Name);
             }
 
             try

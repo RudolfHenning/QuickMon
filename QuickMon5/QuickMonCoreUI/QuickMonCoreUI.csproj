@@ -346,6 +346,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\TimeGraphControl\GraphSeries.cs" />
+    <Compile Include="Controls\TimeGraphControl\GraphSettings.cs" />
     <Compile Include="Controls\TimeGraphControl\TimeGraphControl.cs">
       <SubType>Component</SubType>
     </Compile>

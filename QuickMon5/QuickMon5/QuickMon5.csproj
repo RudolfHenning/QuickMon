@@ -492,6 +492,10 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\UpDown.png" />
+    <None Include="Resources\page_white_get.png" />
+    <None Include="Resources\lightning.png" />
+    <None Include="Resources\smlZap.png" />
     <None Include="Resources\LineGraph.png" />
     <None Include="Resources\folder_stats.png" />
     <None Include="Resources\search_32.png" />

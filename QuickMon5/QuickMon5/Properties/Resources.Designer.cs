@@ -680,6 +680,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap lightning {
+            get {
+                object obj = ResourceManager.GetObject("lightning", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LineGraph {
             get {
                 object obj = ResourceManager.GetObject("LineGraph", resourceCulture);
@@ -773,6 +783,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap OUTLLIBR_9825 {
             get {
                 object obj = ResourceManager.GetObject("OUTLLIBR_9825", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap page_white_get {
+            get {
+                object obj = ResourceManager.GetObject("page_white_get", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1160,6 +1180,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap smlZap {
+            get {
+                object obj = ResourceManager.GetObject("smlZap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap stop16x16 {
             get {
                 object obj = ResourceManager.GetObject("stop16x16", resourceCulture);
@@ -1293,6 +1323,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap Up16x16 {
             get {
                 object obj = ResourceManager.GetObject("Up16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UpDown {
+            get {
+                object obj = ResourceManager.GetObject("UpDown", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

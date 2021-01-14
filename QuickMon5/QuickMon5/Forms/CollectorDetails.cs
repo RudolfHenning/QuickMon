@@ -168,29 +168,7 @@ namespace QuickMon
         private void LoadGraphColors()
         {
             seriesColors.AddRange((from string colorName in Properties.Settings.Default.GraphLineColors
-                                   select Color.FromName(colorName)));
-
-            //seriesColors.Add(Color.Red);
-            //seriesColors.Add(Color.Blue);
-            //seriesColors.Add(Color.DarkOrange);
-            //seriesColors.Add(Color.BlueViolet);
-            //seriesColors.Add(Color.DarkGoldenrod);
-            //seriesColors.Add(Color.Green);
-
-            //seriesColors.Add(Color.Aqua);
-            //seriesColors.Add(Color.Yellow);
-            //seriesColors.Add(Color.LightBlue);
-            //seriesColors.Add(Color.LightGreen);            
-            //seriesColors.Add(Color.RoyalBlue);            
-            //seriesColors.Add(Color.BlueViolet);
-            //seriesColors.Add(Color.White);
-            //seriesColors.Add(Color.LightCyan);
-            //seriesColors.Add(Color.LightPink);
-            //seriesColors.Add(Color.Lime);
-            //seriesColors.Add(Color.Olive);
-            //seriesColors.Add(Color.OrangeRed);
-            //seriesColors.Add(Color.RosyBrown);
-            //seriesColors.Add(Color.Violet);
+                                   select HenIT.Windows.Controls.Graphing.GraphSettings.ConvertColorFromName(colorName)));
         }
         private void SetActivePanel(Panel panelAgentStates)
         {
@@ -2489,7 +2467,6 @@ namespace QuickMon
             graphHorisonalGridLinesVisibleToolStripMenuItem.Checked = collectorTimeGraph.ShowHorisontalGridlines;
             graphVerticalGridLinesVisibleToolStripMenuItem.Checked = collectorTimeGraph.ShowVerticalGridLines;
         }
-
         private void linearGraphTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             logarithmicGraphTypeToolStripMenuItem.Checked = !linearGraphTypeToolStripMenuItem.Checked;
@@ -2512,7 +2489,6 @@ namespace QuickMon
                 collectorTimeGraph.RefreshGraph();
             }
         }
-
         private void graphGradientColor2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Color selectedColor = collectorTimeGraph.BackgroundGradientColor2;
@@ -2525,7 +2501,6 @@ namespace QuickMon
                 collectorTimeGraph.RefreshGraph();
             }
         }
-
         private void swapGraphGradientColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Color backgroundGradientColor1 = collectorTimeGraph.BackgroundGradientColor1;
@@ -2534,25 +2509,21 @@ namespace QuickMon
             collectorTimeGraph.BackgroundGradientColor2 = backgroundGradientColor1;
             collectorTimeGraph.RefreshGraph();
         }
-
         private void graphGradientDirectionHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             collectorTimeGraph.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             collectorTimeGraph.RefreshGraph();
         }
-
         private void graphGradientDirectionVerticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             collectorTimeGraph.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             collectorTimeGraph.RefreshGraph();
         }
-
         private void graphGradientDirectionForwardDiagonalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             collectorTimeGraph.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             collectorTimeGraph.RefreshGraph();
         }
-
         private void graphGradientDirectionBackwardDiagonalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             collectorTimeGraph.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.BackwardDiagonal;

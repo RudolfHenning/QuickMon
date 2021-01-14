@@ -366,5 +366,113 @@ namespace QuickMon.Properties {
                 this["GraphLineColors"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color GraphBackgroundColor1 {
+            get {
+                return ((global::System.Drawing.Color)(this["GraphBackgroundColor1"]));
+            }
+            set {
+                this["GraphBackgroundColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("224, 224, 224")]
+        public global::System.Drawing.Color GraphBackgroundColor2 {
+            get {
+                return ((global::System.Drawing.Color)(this["GraphBackgroundColor2"]));
+            }
+            set {
+                this["GraphBackgroundColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Silver")]
+        public global::System.Drawing.Color GraphGridColor {
+            get {
+                return ((global::System.Drawing.Color)(this["GraphGridColor"]));
+            }
+            set {
+                this["GraphGridColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color GraphAxisLabelsColor {
+            get {
+                return ((global::System.Drawing.Color)(this["GraphAxisLabelsColor"]));
+            }
+            set {
+                this["GraphAxisLabelsColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 128, 0")]
+        public global::System.Drawing.Color GraphSelectionBarColor {
+            get {
+                return ((global::System.Drawing.Color)(this["GraphSelectionBarColor"]));
+            }
+            set {
+                this["GraphSelectionBarColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int GraphDefaultType {
+            get {
+                return ((int)(this["GraphDefaultType"]));
+            }
+            set {
+                this["GraphDefaultType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int GraphGradientDirection {
+            get {
+                return ((int)(this["GraphGradientDirection"]));
+            }
+            set {
+                this["GraphGradientDirection"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ClosestClickedValueType {
+            get {
+                return ((int)(this["ClosestClickedValueType"]));
+            }
+            set {
+                this["ClosestClickedValueType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color ClosestClickedValueColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ClosestClickedValueColor"]));
+            }
+            set {
+                this["ClosestClickedValueColor"] = value;
+            }
+        }
     }
 }

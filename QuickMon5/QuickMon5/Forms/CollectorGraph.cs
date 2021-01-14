@@ -195,7 +195,6 @@ namespace QuickMon
                 }
             }
 
-
             if (chkAutoFromTime.Checked)
             {
                 fromTime = DateTime.Now;
@@ -237,6 +236,16 @@ namespace QuickMon
                 collectorTimeGraph.GraphHeaderText = $"Collectors graph";
             }
             collectorTimeGraph.SetAutoMinMaxDateTimes(chkAutoFromTime.Checked, chkAutoToTime.Checked, chkAutoMaxValue.Checked);
+
+            collectorTimeGraph.BackgroundGradientColor1 = Properties.Settings.Default.GraphBackgroundColor1;
+            collectorTimeGraph.BackgroundGradientColor2 = Properties.Settings.Default.GraphBackgroundColor2;
+            collectorTimeGraph.GridColor = Properties.Settings.Default.GraphGridColor;
+            collectorTimeGraph.AxisLabelColor = Properties.Settings.Default.GraphAxisLabelsColor;
+            collectorTimeGraph.TimeSelectionColor = Properties.Settings.Default.GraphSelectionBarColor;
+            collectorTimeGraph.GraphVerticalAxisType = (GraphVerticalAxisType)Properties.Settings.Default.GraphDefaultType;
+            collectorTimeGraph.GradientDirection = (System.Drawing.Drawing2D.LinearGradientMode)Properties.Settings.Default.GraphGradientDirection;
+            collectorTimeGraph.ClosestClickedValueColorType = (ClosestClickedValueColorType)Properties.Settings.Default.ClosestClickedValueType;
+            collectorTimeGraph.ClosestClickedValueCustomColor = Properties.Settings.Default.ClosestClickedValueColor;
 
             this.Invoke((MethodInvoker)delegate
             {
@@ -314,29 +323,9 @@ namespace QuickMon
         }
         private void LoadGraphColors()
         {
+            seriesColors = new List<Color>();
             seriesColors.AddRange((from string colorName in Properties.Settings.Default.GraphLineColors
-                                   select Color.FromName(colorName)));
-            //seriesColors.Add(Color.Red);
-            //seriesColors.Add(Color.Blue);
-            //seriesColors.Add(Color.Green);
-            //seriesColors.Add(Color.DarkOrange);
-            //seriesColors.Add(Color.BlueViolet);
-            //seriesColors.Add(Color.DarkGoldenrod);            
-
-            //seriesColors.Add(Color.Aqua);
-            //seriesColors.Add(Color.Yellow);
-            //seriesColors.Add(Color.LightBlue);
-            //seriesColors.Add(Color.LightGreen);
-            //seriesColors.Add(Color.RoyalBlue);
-            //seriesColors.Add(Color.BlueViolet);
-            //seriesColors.Add(Color.White);
-            //seriesColors.Add(Color.LightCyan);
-            //seriesColors.Add(Color.LightPink);
-            //seriesColors.Add(Color.Lime);
-            //seriesColors.Add(Color.Olive);
-            //seriesColors.Add(Color.OrangeRed);
-            //seriesColors.Add(Color.RosyBrown);
-            //seriesColors.Add(Color.Violet);
+                                   select HenIT.Windows.Controls.Graphing.GraphSettings.ConvertColorFromName(colorName)));
         }
         private void SetAxisType()
         {
@@ -524,6 +513,39 @@ namespace QuickMon
                 collectorTimeGraph.RefreshGraph();
             }
         }
+        private void seriesColorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GraphColorSettings graphColorSettings = new GraphColorSettings();
+            graphColorSettings.InitializeGraphSettings();
+            graphColorSettings.GraphSettings.SeriesColors.AddRange((from string s in Properties.Settings.Default.GraphLineColors select s));
+            graphColorSettings.GraphSettings.BackgroundColor1 = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphBackgroundColor1);
+            graphColorSettings.GraphSettings.BackgroundColor2 = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphBackgroundColor2);
+            graphColorSettings.GraphSettings.GridColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphGridColor);
+            graphColorSettings.GraphSettings.AxisLabelsColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphAxisLabelsColor);
+            graphColorSettings.GraphSettings.SelectionBarColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphSelectionBarColor);
+            graphColorSettings.GraphSettings.GraphType = Properties.Settings.Default.GraphDefaultType;
+            graphColorSettings.GraphSettings.GradientDirection = Properties.Settings.Default.GraphGradientDirection;
+            graphColorSettings.GraphSettings.ClosestClickedValueType = Properties.Settings.Default.ClosestClickedValueType;
+            graphColorSettings.GraphSettings.ClosestClickedValueColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.ClosestClickedValueColor);
+
+            graphColorSettings.GraphSettings.GridColor = Properties.Settings.Default.GraphGridColor.Name;
+            if (graphColorSettings.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.GraphLineColors = new System.Collections.Specialized.StringCollection();
+                Properties.Settings.Default.GraphLineColors.AddRange(graphColorSettings.GraphSettings.SeriesColors.ToArray());
+                Properties.Settings.Default.GraphBackgroundColor1 = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.BackgroundColor1);
+                Properties.Settings.Default.GraphBackgroundColor2 = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.BackgroundColor2);
+                Properties.Settings.Default.GraphGridColor = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.GridColor);
+                Properties.Settings.Default.GraphAxisLabelsColor = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.AxisLabelsColor);
+                Properties.Settings.Default.GraphDefaultType = graphColorSettings.GraphSettings.GraphType;
+                Properties.Settings.Default.GraphGradientDirection = graphColorSettings.GraphSettings.GradientDirection;
+                Properties.Settings.Default.ClosestClickedValueType = graphColorSettings.GraphSettings.ClosestClickedValueType;
+                Properties.Settings.Default.ClosestClickedValueColor = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.ClosestClickedValueColor);
+
+                LoadGraphColors();
+                LoadControls(true);
+            }
+        }
         private void graphHeaderVisibleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             collectorTimeGraph.ShowGraphHeader = graphHeaderVisibleToolStripMenuItem.Checked;
@@ -607,10 +629,6 @@ namespace QuickMon
             LoadControls();
         }
 
-        private void seriesColorsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GraphColorSettings graphColorSettings = new GraphColorSettings();
-            graphColorSettings.ShowDialog();
-        }
+
     }
 }
