@@ -86,6 +86,21 @@ namespace QuickMon
             optClosestClickedValueColorInvertedColor.Checked = GraphSettings.ClosestClickedValueType == 1;
             optClosestClickedValueColorCustomColor.Checked = GraphSettings.ClosestClickedValueType == 2;
             lblClosestClickedValueCustomColors.BackColor = HenIT.Windows.Controls.Graphing.GraphSettings.ConvertColorFromName(GraphSettings.ClosestClickedValueColor);
+
+            chkHeaderVisible.Checked = GraphSettings.HeaderVisible;
+            chkLegendVisible.Checked = GraphSettings.FooterVisible;
+            chkHorisontalGridLinesVisible.Checked = GraphSettings.HorisontalGridLinesVisible;
+            chkVerticalGridLinesVisible.Checked = GraphSettings.VerticalGridLinesVisible;
+            chkSelectionBarVisible.Checked = GraphSettings.SelectionBarVisible;
+            chkHighlighClickedValueVisible.Checked = GraphSettings.HighlightClickedSeriesVisible;
+            chkEnableFillAreaBelowSeries.Checked = GraphSettings.EnableFillAreaBelowSeries;
+            optGraphFillAreaBelowSeriesAlpha48.Checked = true; //default
+            optGraphFillAreaBelowSeriesAlpha16.Checked = GraphSettings.FillAreaBelowSeriesAlpha == 16;
+            optGraphFillAreaBelowSeriesAlpha32.Checked = GraphSettings.FillAreaBelowSeriesAlpha == 32;
+            optGraphFillAreaBelowSeriesAlpha48.Checked = GraphSettings.FillAreaBelowSeriesAlpha == 48;
+            optGraphFillAreaBelowSeriesAlpha64.Checked = GraphSettings.FillAreaBelowSeriesAlpha == 64;
+            optGraphFillAreaBelowSeriesAlpha128.Checked = GraphSettings.FillAreaBelowSeriesAlpha == 128;
+            optGraphFillAreaBelowSeriesAlpha192.Checked = GraphSettings.FillAreaBelowSeriesAlpha == 192;
         }
         private ListViewItem CreateLVI(string name, string colorName)
         {
@@ -138,6 +153,20 @@ namespace QuickMon
             GraphSettings.GradientDirection = optBackgroundGradientDirectionHorizontal.Checked ? 0 : optBackgroundGradientDirectionVertical.Checked ? 1 : optBackgroundGradientDirectionBackwardDiagonal.Checked ? 2 : 3;
             GraphSettings.ClosestClickedValueType = optClosestClickedValueColorSameAsSeries.Checked ? 0 : optClosestClickedValueColorInvertedColor.Checked ? 1 : 2;
             GraphSettings.ClosestClickedValueColor = HenIT.Windows.Controls.Graphing.GraphSettings.ConvertColorToName(lblClosestClickedValueCustomColors.BackColor);
+
+            GraphSettings.HeaderVisible = chkHeaderVisible.Checked;
+            GraphSettings.FooterVisible = chkLegendVisible.Checked;
+            GraphSettings.HorisontalGridLinesVisible = chkHorisontalGridLinesVisible.Checked;
+            GraphSettings.VerticalGridLinesVisible = chkVerticalGridLinesVisible.Checked;
+            GraphSettings.SelectionBarVisible = chkSelectionBarVisible.Checked;
+            GraphSettings.HighlightClickedSeriesVisible = chkHighlighClickedValueVisible.Checked;
+            GraphSettings.EnableFillAreaBelowSeries = chkEnableFillAreaBelowSeries.Checked;
+            GraphSettings.FillAreaBelowSeriesAlpha = optGraphFillAreaBelowSeriesAlpha16.Checked ? 16 :
+                optGraphFillAreaBelowSeriesAlpha32.Checked ? 32 :
+                optGraphFillAreaBelowSeriesAlpha48.Checked ? 48 :
+                optGraphFillAreaBelowSeriesAlpha64.Checked ? 64 :
+                optGraphFillAreaBelowSeriesAlpha128.Checked ? 128 : 192;
+
 
             return success;
         }

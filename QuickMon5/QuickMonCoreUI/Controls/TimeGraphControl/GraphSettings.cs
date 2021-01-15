@@ -41,6 +41,29 @@ namespace HenIT.Windows.Controls.Graphing
         [XmlAttribute(AttributeName = "ClosestClickedValueColor")]
         public string ClosestClickedValueColor { get; set; }
 
+        [XmlAttribute(AttributeName = "HeaderVisible")]
+        public bool HeaderVisible { get; set; }
+
+        [XmlAttribute(AttributeName = "FooterVisible")]
+        public bool FooterVisible { get; set; }
+
+        [XmlAttribute(AttributeName = "HorisontalGridLinesVisible")]
+        public bool HorisontalGridLinesVisible { get; set; }
+
+        [XmlAttribute(AttributeName = "VerticalGridLinesVisible")]
+        public bool VerticalGridLinesVisible { get; set; }
+
+        [XmlAttribute(AttributeName = "SelectionBarVisible")]
+        public bool SelectionBarVisible { get; set; }
+
+        [XmlAttribute(AttributeName = "HighlightClickedSeriesVisible")]
+        public bool HighlightClickedSeriesVisible { get; set; }
+
+        [XmlAttribute(AttributeName = "EnableFillAreaBelowSeries")]
+        public bool EnableFillAreaBelowSeries { get; set; }
+
+        [XmlAttribute(AttributeName = "FillAreaBelowSeriesAlpha")]
+        public int FillAreaBelowSeriesAlpha { get; set; }
 
         public static string ConvertColorToName(System.Drawing.Color col)
         {

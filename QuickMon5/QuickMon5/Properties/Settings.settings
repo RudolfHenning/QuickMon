@@ -110,11 +110,35 @@
     <Setting Name="GraphGradientDirection" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
-    <Setting Name="ClosestClickedValueType" Type="System.Int32" Scope="User">
+    <Setting Name="GraphClosestClickedValueType" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="ClosestClickedValueColor" Type="System.Drawing.Color" Scope="User">
+    <Setting Name="GraphClosestClickedValueColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="GraphHeaderVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="GraphLegendVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="GraphHorisontalGridLinesVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="GraphVerticalGridLinesVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="GraphSelectionBarVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="GraphHighlightClickedSeriesVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="GraphEnableFillAreaBelowSeries" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="GraphFillAreaBelowSeriesAlpha" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">48</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -82,6 +82,9 @@ namespace QuickMon
             lvwCollectorStates.AutoResizeColumnEnabled = true;
             toolTip1.SetToolTip(txtTextFilter, "You can use advanced filters like:\r\n\tX and Y or Z\r\n\tNot X\r\n\tmatchexactly X\r\n\tstartswith X\r\n\tendswith X");
             LoadGraphColors();
+
+            grapthColorsToolStripMenuItem.Visible = false;
+            graphVisibilityToolStripMenuItem.Visible = false;
         }
         private void CollectorGraph_Shown(object sender, EventArgs e)
         {
@@ -244,8 +247,17 @@ namespace QuickMon
             collectorTimeGraph.TimeSelectionColor = Properties.Settings.Default.GraphSelectionBarColor;
             collectorTimeGraph.GraphVerticalAxisType = (GraphVerticalAxisType)Properties.Settings.Default.GraphDefaultType;
             collectorTimeGraph.GradientDirection = (System.Drawing.Drawing2D.LinearGradientMode)Properties.Settings.Default.GraphGradientDirection;
-            collectorTimeGraph.ClosestClickedValueColorType = (ClosestClickedValueColorType)Properties.Settings.Default.ClosestClickedValueType;
-            collectorTimeGraph.ClosestClickedValueCustomColor = Properties.Settings.Default.ClosestClickedValueColor;
+            collectorTimeGraph.ClosestClickedValueColorType = (ClosestClickedValueColorType)Properties.Settings.Default.GraphClosestClickedValueType;
+            collectorTimeGraph.ClosestClickedValueCustomColor = Properties.Settings.Default.GraphClosestClickedValueColor;
+
+            collectorTimeGraph.ShowGraphHeader = Properties.Settings.Default.GraphHeaderVisible;
+            collectorTimeGraph.ShowLegendText = Properties.Settings.Default.GraphLegendVisible;
+            collectorTimeGraph.ShowHorisontalGridlines = Properties.Settings.Default.GraphHorisontalGridLinesVisible;
+            collectorTimeGraph.ShowVerticalGridLines = Properties.Settings.Default.GraphVerticalGridLinesVisible;
+            collectorTimeGraph.ShowSelectionBar = Properties.Settings.Default.GraphSelectionBarVisible;
+            collectorTimeGraph.HighlightClickedSeries = Properties.Settings.Default.GraphHighlightClickedSeriesVisible;
+            collectorTimeGraph.FillAreaBelowGraph = Properties.Settings.Default.GraphEnableFillAreaBelowSeries;
+            collectorTimeGraph.FillAreaBelowGraphAlpha = Properties.Settings.Default.GraphFillAreaBelowSeriesAlpha;
 
             this.Invoke((MethodInvoker)delegate
             {
@@ -525,8 +537,16 @@ namespace QuickMon
             graphColorSettings.GraphSettings.SelectionBarColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphSelectionBarColor);
             graphColorSettings.GraphSettings.GraphType = Properties.Settings.Default.GraphDefaultType;
             graphColorSettings.GraphSettings.GradientDirection = Properties.Settings.Default.GraphGradientDirection;
-            graphColorSettings.GraphSettings.ClosestClickedValueType = Properties.Settings.Default.ClosestClickedValueType;
-            graphColorSettings.GraphSettings.ClosestClickedValueColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.ClosestClickedValueColor);
+            graphColorSettings.GraphSettings.ClosestClickedValueType = Properties.Settings.Default.GraphClosestClickedValueType;
+            graphColorSettings.GraphSettings.ClosestClickedValueColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphClosestClickedValueColor);
+            graphColorSettings.GraphSettings.HeaderVisible = Properties.Settings.Default.GraphHeaderVisible;
+            graphColorSettings.GraphSettings.FooterVisible = Properties.Settings.Default.GraphLegendVisible;
+            graphColorSettings.GraphSettings.HorisontalGridLinesVisible = Properties.Settings.Default.GraphHorisontalGridLinesVisible;
+            graphColorSettings.GraphSettings.VerticalGridLinesVisible = Properties.Settings.Default.GraphVerticalGridLinesVisible;
+            graphColorSettings.GraphSettings.SelectionBarVisible = Properties.Settings.Default.GraphSelectionBarVisible;
+            graphColorSettings.GraphSettings.HighlightClickedSeriesVisible = Properties.Settings.Default.GraphHighlightClickedSeriesVisible;
+            graphColorSettings.GraphSettings.EnableFillAreaBelowSeries = Properties.Settings.Default.GraphEnableFillAreaBelowSeries;
+            graphColorSettings.GraphSettings.FillAreaBelowSeriesAlpha = Properties.Settings.Default.GraphFillAreaBelowSeriesAlpha;
 
             graphColorSettings.GraphSettings.GridColor = Properties.Settings.Default.GraphGridColor.Name;
             if (graphColorSettings.ShowDialog() == DialogResult.OK)
@@ -539,8 +559,16 @@ namespace QuickMon
                 Properties.Settings.Default.GraphAxisLabelsColor = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.AxisLabelsColor);
                 Properties.Settings.Default.GraphDefaultType = graphColorSettings.GraphSettings.GraphType;
                 Properties.Settings.Default.GraphGradientDirection = graphColorSettings.GraphSettings.GradientDirection;
-                Properties.Settings.Default.ClosestClickedValueType = graphColorSettings.GraphSettings.ClosestClickedValueType;
-                Properties.Settings.Default.ClosestClickedValueColor = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.ClosestClickedValueColor);
+                Properties.Settings.Default.GraphClosestClickedValueType = graphColorSettings.GraphSettings.ClosestClickedValueType;
+                Properties.Settings.Default.GraphClosestClickedValueColor = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.ClosestClickedValueColor);
+                Properties.Settings.Default.GraphHeaderVisible = graphColorSettings.GraphSettings.HeaderVisible;
+                Properties.Settings.Default.GraphLegendVisible = graphColorSettings.GraphSettings.FooterVisible;
+                Properties.Settings.Default.GraphHorisontalGridLinesVisible = graphColorSettings.GraphSettings.HorisontalGridLinesVisible;
+                Properties.Settings.Default.GraphVerticalGridLinesVisible = graphColorSettings.GraphSettings.VerticalGridLinesVisible;
+                Properties.Settings.Default.GraphSelectionBarVisible = graphColorSettings.GraphSettings.SelectionBarVisible;
+                Properties.Settings.Default.GraphHighlightClickedSeriesVisible = graphColorSettings.GraphSettings.HighlightClickedSeriesVisible;
+                Properties.Settings.Default.GraphEnableFillAreaBelowSeries = graphColorSettings.GraphSettings.EnableFillAreaBelowSeries;
+                Properties.Settings.Default.GraphFillAreaBelowSeriesAlpha = graphColorSettings.GraphSettings.FillAreaBelowSeriesAlpha;
 
                 LoadGraphColors();
                 LoadControls(true);

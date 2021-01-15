@@ -454,24 +454,120 @@ namespace QuickMon.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ClosestClickedValueType {
+        public int GraphClosestClickedValueType {
             get {
-                return ((int)(this["ClosestClickedValueType"]));
+                return ((int)(this["GraphClosestClickedValueType"]));
             }
             set {
-                this["ClosestClickedValueType"] = value;
+                this["GraphClosestClickedValueType"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Black")]
-        public global::System.Drawing.Color ClosestClickedValueColor {
+        public global::System.Drawing.Color GraphClosestClickedValueColor {
             get {
-                return ((global::System.Drawing.Color)(this["ClosestClickedValueColor"]));
+                return ((global::System.Drawing.Color)(this["GraphClosestClickedValueColor"]));
             }
             set {
-                this["ClosestClickedValueColor"] = value;
+                this["GraphClosestClickedValueColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool GraphHeaderVisible {
+            get {
+                return ((bool)(this["GraphHeaderVisible"]));
+            }
+            set {
+                this["GraphHeaderVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GraphLegendVisible {
+            get {
+                return ((bool)(this["GraphLegendVisible"]));
+            }
+            set {
+                this["GraphLegendVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GraphHorisontalGridLinesVisible {
+            get {
+                return ((bool)(this["GraphHorisontalGridLinesVisible"]));
+            }
+            set {
+                this["GraphHorisontalGridLinesVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GraphVerticalGridLinesVisible {
+            get {
+                return ((bool)(this["GraphVerticalGridLinesVisible"]));
+            }
+            set {
+                this["GraphVerticalGridLinesVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GraphSelectionBarVisible {
+            get {
+                return ((bool)(this["GraphSelectionBarVisible"]));
+            }
+            set {
+                this["GraphSelectionBarVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GraphHighlightClickedSeriesVisible {
+            get {
+                return ((bool)(this["GraphHighlightClickedSeriesVisible"]));
+            }
+            set {
+                this["GraphHighlightClickedSeriesVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GraphEnableFillAreaBelowSeries {
+            get {
+                return ((bool)(this["GraphEnableFillAreaBelowSeries"]));
+            }
+            set {
+                this["GraphEnableFillAreaBelowSeries"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("48")]
+        public int GraphFillAreaBelowSeriesAlpha {
+            get {
+                return ((int)(this["GraphFillAreaBelowSeriesAlpha"]));
+            }
+            set {
+                this["GraphFillAreaBelowSeriesAlpha"] = value;
             }
         }
     }

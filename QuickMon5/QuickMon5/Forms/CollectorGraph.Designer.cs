@@ -69,6 +69,7 @@
             this.addCollectorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.filtersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linearGraphTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logarithmicGraphTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,7 +108,6 @@
             this.graphFillAreaAlpha192ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.seriesColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -153,7 +153,7 @@
             // 
             this.showFiltersToolStripButton.CheckOnClick = true;
             this.showFiltersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showFiltersToolStripButton.Image = global::QuickMon.Properties.Resources.tools24x24;
+            this.showFiltersToolStripButton.Image = global::QuickMon.Properties.Resources.funnel24;
             this.showFiltersToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.showFiltersToolStripButton.Name = "showFiltersToolStripButton";
             this.showFiltersToolStripButton.Size = new System.Drawing.Size(28, 28);
@@ -563,12 +563,13 @@
             this.addCollectorToolStripMenuItem1,
             this.toolStripSeparator1,
             this.filtersToolStripMenuItem,
+            this.customizeToolStripMenuItem,
             this.graphTypeToolStripMenuItem,
             this.grapthColorsToolStripMenuItem,
             this.graphVisibilityToolStripMenuItem,
             this.exportGraphToolStripMenuItem});
             this.graphContextMenuStrip.Name = "graphContextMenuStrip";
-            this.graphContextMenuStrip.Size = new System.Drawing.Size(153, 164);
+            this.graphContextMenuStrip.Size = new System.Drawing.Size(153, 186);
             this.graphContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.graphContextMenuStrip_Opening);
             // 
             // addCollectorToolStripMenuItem1
@@ -586,11 +587,19 @@
             // 
             // filtersToolStripMenuItem
             // 
-            this.filtersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tools16x16;
+            this.filtersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.funnel24;
             this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
             this.filtersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.filtersToolStripMenuItem.Text = "Filters";
             this.filtersToolStripMenuItem.Click += new System.EventHandler(this.filtersToolStripMenuItem_Click);
+            // 
+            // customizeToolStripMenuItem
+            // 
+            this.customizeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tools16x16;
+            this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.customizeToolStripMenuItem.Text = "Customize";
+            this.customizeToolStripMenuItem.Click += new System.EventHandler(this.seriesColorsToolStripMenuItem_Click);
             // 
             // graphTypeToolStripMenuItem
             // 
@@ -623,8 +632,7 @@
             this.graphBackgroundColorsToolStripMenuItem,
             this.graphGridColorToolStripMenuItem,
             this.graphAxisLabelColorsToolStripMenuItem,
-            this.graphSelectionColorToolStripMenuItem,
-            this.seriesColorsToolStripMenuItem});
+            this.graphSelectionColorToolStripMenuItem});
             this.grapthColorsToolStripMenuItem.Name = "grapthColorsToolStripMenuItem";
             this.grapthColorsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.grapthColorsToolStripMenuItem.Text = "Graph Colors";
@@ -889,17 +897,11 @@
             // 
             // exportGraphToolStripMenuItem
             // 
+            this.exportGraphToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_export;
             this.exportGraphToolStripMenuItem.Name = "exportGraphToolStripMenuItem";
             this.exportGraphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportGraphToolStripMenuItem.Text = "Export Graph";
             this.exportGraphToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripButton_Click);
-            // 
-            // seriesColorsToolStripMenuItem
-            // 
-            this.seriesColorsToolStripMenuItem.Name = "seriesColorsToolStripMenuItem";
-            this.seriesColorsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.seriesColorsToolStripMenuItem.Text = "Series Colors";
-            this.seriesColorsToolStripMenuItem.Click += new System.EventHandler(this.seriesColorsToolStripMenuItem_Click);
             // 
             // CollectorGraph
             // 
@@ -1021,6 +1023,6 @@
         private System.Windows.Forms.ToolStripMenuItem filtersToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label lblResetText;
-        private System.Windows.Forms.ToolStripMenuItem seriesColorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem customizeToolStripMenuItem;
     }
 }
