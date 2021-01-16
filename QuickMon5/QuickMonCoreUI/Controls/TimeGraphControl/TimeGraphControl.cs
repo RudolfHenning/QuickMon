@@ -1359,6 +1359,58 @@ namespace HenIT.Windows.Controls.Graphing
         }
         #endregion
 
+        #region Get or set settings
+        public void SetFromGraphSettings(GraphSettings graphSettings)
+        {
+            GraphVerticalAxisType = (GraphVerticalAxisType)graphSettings.GraphType;
+
+            //seriesColors.AddRange((from string colorName in graphSettings.SeriesColors
+            //                       select HenIT.Windows.Controls.Graphing.GraphSettings.ConvertColorFromName(colorName)));
+
+            BackgroundGradientColor1 = GraphSettings.ConvertColorFromName(graphSettings.BackgroundColor1);
+            BackgroundGradientColor2 = GraphSettings.ConvertColorFromName(graphSettings.BackgroundColor2);
+            GridColor = GraphSettings.ConvertColorFromName(graphSettings.GridColor);
+            AxisLabelColor = GraphSettings.ConvertColorFromName(graphSettings.AxisLabelsColor);
+            TimeSelectionColor = GraphSettings.ConvertColorFromName(graphSettings.SelectionBarColor);
+
+            GradientDirection = (LinearGradientMode)graphSettings.GradientDirection;
+            ClosestClickedValueColorType = (ClosestClickedValueColorType)graphSettings.ClosestClickedValueType;
+            ClosestClickedValueCustomColor = GraphSettings.ConvertColorFromName(graphSettings.ClosestClickedValueColor);
+            ShowGraphHeader = graphSettings.HeaderVisible;
+            ShowLegendText = graphSettings.FooterVisible;
+            ShowHorisontalGridlines = graphSettings.HorisontalGridLinesVisible;
+            ShowVerticalGridLines = graphSettings.VerticalGridLinesVisible;
+            ShowSelectionBar = graphSettings.SelectionBarVisible;
+            HighlightClickedSeries = graphSettings.HighlightClickedSeriesVisible;
+            FillAreaBelowGraph = graphSettings.EnableFillAreaBelowSeries;
+            FillAreaBelowGraphAlpha = graphSettings.FillAreaBelowSeriesAlpha;
+        }
+        public GraphSettings GetGraphSettings()
+        {
+            GraphSettings graphSettings = new GraphSettings();
+            graphSettings.SeriesColors = new List<string>();
+            graphSettings.GraphType = (int)GraphVerticalAxisType;
+            graphSettings.BackgroundColor1 = GraphSettings.ConvertColorToName(BackgroundGradientColor1);
+            graphSettings.BackgroundColor2 = GraphSettings.ConvertColorToName(BackgroundGradientColor2);
+            graphSettings.GridColor = GraphSettings.ConvertColorToName(GridColor);
+            graphSettings.AxisLabelsColor = GraphSettings.ConvertColorToName(AxisLabelColor);
+            graphSettings.SelectionBarColor = GraphSettings.ConvertColorToName(TimeSelectionColor);
+
+            graphSettings.GradientDirection = (int)GradientDirection;
+            graphSettings.ClosestClickedValueType = (int)ClosestClickedValueColorType;
+            graphSettings.ClosestClickedValueColor = GraphSettings.ConvertColorToName(ClosestClickedValueCustomColor);
+            graphSettings.HeaderVisible = ShowGraphHeader;
+            graphSettings.FooterVisible = ShowLegendText;
+            graphSettings.HorisontalGridLinesVisible = ShowHorisontalGridlines;
+            graphSettings.VerticalGridLinesVisible = ShowVerticalGridLines;
+            graphSettings.SelectionBarVisible = ShowSelectionBar;
+            graphSettings.HighlightClickedSeriesVisible = HighlightClickedSeries;
+            graphSettings.EnableFillAreaBelowSeries = FillAreaBelowGraph;
+            graphSettings.FillAreaBelowSeriesAlpha = FillAreaBelowGraphAlpha;
+            return graphSettings;
+        }
+        #endregion
+
         private Color InvertColor(Color fromColor)
         {
             Color invertedColor = Color.FromArgb(fromColor.ToArgb() ^ 0xffffff);

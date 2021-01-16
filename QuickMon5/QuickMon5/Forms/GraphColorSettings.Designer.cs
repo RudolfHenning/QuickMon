@@ -80,12 +80,12 @@
             this.chkHighlighClickedValueVisible = new System.Windows.Forms.CheckBox();
             this.chkEnableFillAreaBelowSeries = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.optGraphFillAreaBelowSeriesAlpha16 = new System.Windows.Forms.RadioButton();
-            this.optGraphFillAreaBelowSeriesAlpha32 = new System.Windows.Forms.RadioButton();
-            this.optGraphFillAreaBelowSeriesAlpha48 = new System.Windows.Forms.RadioButton();
-            this.optGraphFillAreaBelowSeriesAlpha64 = new System.Windows.Forms.RadioButton();
-            this.optGraphFillAreaBelowSeriesAlpha128 = new System.Windows.Forms.RadioButton();
             this.optGraphFillAreaBelowSeriesAlpha192 = new System.Windows.Forms.RadioButton();
+            this.optGraphFillAreaBelowSeriesAlpha128 = new System.Windows.Forms.RadioButton();
+            this.optGraphFillAreaBelowSeriesAlpha64 = new System.Windows.Forms.RadioButton();
+            this.optGraphFillAreaBelowSeriesAlpha48 = new System.Windows.Forms.RadioButton();
+            this.optGraphFillAreaBelowSeriesAlpha32 = new System.Windows.Forms.RadioButton();
+            this.optGraphFillAreaBelowSeriesAlpha16 = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -350,7 +350,7 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(7, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(480, 37);
+            this.groupBox1.Size = new System.Drawing.Size(624, 37);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Graph type";
@@ -596,49 +596,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Fill area (transparency)";
             // 
-            // optGraphFillAreaBelowSeriesAlpha16
+            // optGraphFillAreaBelowSeriesAlpha192
             // 
-            this.optGraphFillAreaBelowSeriesAlpha16.AutoSize = true;
-            this.optGraphFillAreaBelowSeriesAlpha16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.optGraphFillAreaBelowSeriesAlpha16.Location = new System.Drawing.Point(10, 19);
-            this.optGraphFillAreaBelowSeriesAlpha16.Name = "optGraphFillAreaBelowSeriesAlpha16";
-            this.optGraphFillAreaBelowSeriesAlpha16.Size = new System.Drawing.Size(36, 17);
-            this.optGraphFillAreaBelowSeriesAlpha16.TabIndex = 1;
-            this.optGraphFillAreaBelowSeriesAlpha16.Text = "16";
-            this.optGraphFillAreaBelowSeriesAlpha16.UseVisualStyleBackColor = true;
-            // 
-            // optGraphFillAreaBelowSeriesAlpha32
-            // 
-            this.optGraphFillAreaBelowSeriesAlpha32.AutoSize = true;
-            this.optGraphFillAreaBelowSeriesAlpha32.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.optGraphFillAreaBelowSeriesAlpha32.Location = new System.Drawing.Point(10, 42);
-            this.optGraphFillAreaBelowSeriesAlpha32.Name = "optGraphFillAreaBelowSeriesAlpha32";
-            this.optGraphFillAreaBelowSeriesAlpha32.Size = new System.Drawing.Size(36, 17);
-            this.optGraphFillAreaBelowSeriesAlpha32.TabIndex = 2;
-            this.optGraphFillAreaBelowSeriesAlpha32.Text = "32";
-            this.optGraphFillAreaBelowSeriesAlpha32.UseVisualStyleBackColor = true;
-            // 
-            // optGraphFillAreaBelowSeriesAlpha48
-            // 
-            this.optGraphFillAreaBelowSeriesAlpha48.AutoSize = true;
-            this.optGraphFillAreaBelowSeriesAlpha48.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.optGraphFillAreaBelowSeriesAlpha48.Location = new System.Drawing.Point(10, 65);
-            this.optGraphFillAreaBelowSeriesAlpha48.Name = "optGraphFillAreaBelowSeriesAlpha48";
-            this.optGraphFillAreaBelowSeriesAlpha48.Size = new System.Drawing.Size(36, 17);
-            this.optGraphFillAreaBelowSeriesAlpha48.TabIndex = 3;
-            this.optGraphFillAreaBelowSeriesAlpha48.Text = "48";
-            this.optGraphFillAreaBelowSeriesAlpha48.UseVisualStyleBackColor = true;
-            // 
-            // optGraphFillAreaBelowSeriesAlpha64
-            // 
-            this.optGraphFillAreaBelowSeriesAlpha64.AutoSize = true;
-            this.optGraphFillAreaBelowSeriesAlpha64.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.optGraphFillAreaBelowSeriesAlpha64.Location = new System.Drawing.Point(62, 19);
-            this.optGraphFillAreaBelowSeriesAlpha64.Name = "optGraphFillAreaBelowSeriesAlpha64";
-            this.optGraphFillAreaBelowSeriesAlpha64.Size = new System.Drawing.Size(36, 17);
-            this.optGraphFillAreaBelowSeriesAlpha64.TabIndex = 4;
-            this.optGraphFillAreaBelowSeriesAlpha64.Text = "64";
-            this.optGraphFillAreaBelowSeriesAlpha64.UseVisualStyleBackColor = true;
+            this.optGraphFillAreaBelowSeriesAlpha192.AutoSize = true;
+            this.optGraphFillAreaBelowSeriesAlpha192.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optGraphFillAreaBelowSeriesAlpha192.Location = new System.Drawing.Point(62, 65);
+            this.optGraphFillAreaBelowSeriesAlpha192.Name = "optGraphFillAreaBelowSeriesAlpha192";
+            this.optGraphFillAreaBelowSeriesAlpha192.Size = new System.Drawing.Size(42, 17);
+            this.optGraphFillAreaBelowSeriesAlpha192.TabIndex = 6;
+            this.optGraphFillAreaBelowSeriesAlpha192.Text = "192";
+            this.optGraphFillAreaBelowSeriesAlpha192.UseVisualStyleBackColor = true;
             // 
             // optGraphFillAreaBelowSeriesAlpha128
             // 
@@ -651,16 +618,49 @@
             this.optGraphFillAreaBelowSeriesAlpha128.Text = "128";
             this.optGraphFillAreaBelowSeriesAlpha128.UseVisualStyleBackColor = true;
             // 
-            // optGraphFillAreaBelowSeriesAlpha192
+            // optGraphFillAreaBelowSeriesAlpha64
             // 
-            this.optGraphFillAreaBelowSeriesAlpha192.AutoSize = true;
-            this.optGraphFillAreaBelowSeriesAlpha192.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.optGraphFillAreaBelowSeriesAlpha192.Location = new System.Drawing.Point(62, 65);
-            this.optGraphFillAreaBelowSeriesAlpha192.Name = "optGraphFillAreaBelowSeriesAlpha192";
-            this.optGraphFillAreaBelowSeriesAlpha192.Size = new System.Drawing.Size(42, 17);
-            this.optGraphFillAreaBelowSeriesAlpha192.TabIndex = 6;
-            this.optGraphFillAreaBelowSeriesAlpha192.Text = "192";
-            this.optGraphFillAreaBelowSeriesAlpha192.UseVisualStyleBackColor = true;
+            this.optGraphFillAreaBelowSeriesAlpha64.AutoSize = true;
+            this.optGraphFillAreaBelowSeriesAlpha64.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optGraphFillAreaBelowSeriesAlpha64.Location = new System.Drawing.Point(62, 19);
+            this.optGraphFillAreaBelowSeriesAlpha64.Name = "optGraphFillAreaBelowSeriesAlpha64";
+            this.optGraphFillAreaBelowSeriesAlpha64.Size = new System.Drawing.Size(36, 17);
+            this.optGraphFillAreaBelowSeriesAlpha64.TabIndex = 4;
+            this.optGraphFillAreaBelowSeriesAlpha64.Text = "64";
+            this.optGraphFillAreaBelowSeriesAlpha64.UseVisualStyleBackColor = true;
+            // 
+            // optGraphFillAreaBelowSeriesAlpha48
+            // 
+            this.optGraphFillAreaBelowSeriesAlpha48.AutoSize = true;
+            this.optGraphFillAreaBelowSeriesAlpha48.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optGraphFillAreaBelowSeriesAlpha48.Location = new System.Drawing.Point(10, 65);
+            this.optGraphFillAreaBelowSeriesAlpha48.Name = "optGraphFillAreaBelowSeriesAlpha48";
+            this.optGraphFillAreaBelowSeriesAlpha48.Size = new System.Drawing.Size(36, 17);
+            this.optGraphFillAreaBelowSeriesAlpha48.TabIndex = 3;
+            this.optGraphFillAreaBelowSeriesAlpha48.Text = "48";
+            this.optGraphFillAreaBelowSeriesAlpha48.UseVisualStyleBackColor = true;
+            // 
+            // optGraphFillAreaBelowSeriesAlpha32
+            // 
+            this.optGraphFillAreaBelowSeriesAlpha32.AutoSize = true;
+            this.optGraphFillAreaBelowSeriesAlpha32.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optGraphFillAreaBelowSeriesAlpha32.Location = new System.Drawing.Point(10, 42);
+            this.optGraphFillAreaBelowSeriesAlpha32.Name = "optGraphFillAreaBelowSeriesAlpha32";
+            this.optGraphFillAreaBelowSeriesAlpha32.Size = new System.Drawing.Size(36, 17);
+            this.optGraphFillAreaBelowSeriesAlpha32.TabIndex = 2;
+            this.optGraphFillAreaBelowSeriesAlpha32.Text = "32";
+            this.optGraphFillAreaBelowSeriesAlpha32.UseVisualStyleBackColor = true;
+            // 
+            // optGraphFillAreaBelowSeriesAlpha16
+            // 
+            this.optGraphFillAreaBelowSeriesAlpha16.AutoSize = true;
+            this.optGraphFillAreaBelowSeriesAlpha16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optGraphFillAreaBelowSeriesAlpha16.Location = new System.Drawing.Point(10, 19);
+            this.optGraphFillAreaBelowSeriesAlpha16.Name = "optGraphFillAreaBelowSeriesAlpha16";
+            this.optGraphFillAreaBelowSeriesAlpha16.Size = new System.Drawing.Size(36, 17);
+            this.optGraphFillAreaBelowSeriesAlpha16.TabIndex = 1;
+            this.optGraphFillAreaBelowSeriesAlpha16.Text = "16";
+            this.optGraphFillAreaBelowSeriesAlpha16.UseVisualStyleBackColor = true;
             // 
             // GraphColorSettings
             // 

@@ -1,4 +1,5 @@
 ﻿using HenIT.ShellTools;
+using HenIT.Windows.Controls.Graphing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -604,6 +605,53 @@ namespace QuickMon
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void llblChartDefauts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            GraphColorSettings graphColorSettings = new GraphColorSettings();
+            graphColorSettings.InitializeGraphSettings();
+            graphColorSettings.GraphSettings.SeriesColors.AddRange((from string s in Properties.Settings.Default.GraphLineColors select s));
+            graphColorSettings.GraphSettings.BackgroundColor1 = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphBackgroundColor1);
+            graphColorSettings.GraphSettings.BackgroundColor2 = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphBackgroundColor2);
+            graphColorSettings.GraphSettings.GridColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphGridColor);
+            graphColorSettings.GraphSettings.AxisLabelsColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphAxisLabelsColor);
+            graphColorSettings.GraphSettings.SelectionBarColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphSelectionBarColor);
+            graphColorSettings.GraphSettings.GraphType = Properties.Settings.Default.GraphDefaultType;
+            graphColorSettings.GraphSettings.GradientDirection = Properties.Settings.Default.GraphGradientDirection;
+            graphColorSettings.GraphSettings.ClosestClickedValueType = Properties.Settings.Default.GraphClosestClickedValueType;
+            graphColorSettings.GraphSettings.ClosestClickedValueColor = GraphSettings.ConvertColorToName(Properties.Settings.Default.GraphClosestClickedValueColor);
+            graphColorSettings.GraphSettings.HeaderVisible = Properties.Settings.Default.GraphHeaderVisible;
+            graphColorSettings.GraphSettings.FooterVisible = Properties.Settings.Default.GraphLegendVisible;
+            graphColorSettings.GraphSettings.HorisontalGridLinesVisible = Properties.Settings.Default.GraphHorisontalGridLinesVisible;
+            graphColorSettings.GraphSettings.VerticalGridLinesVisible = Properties.Settings.Default.GraphVerticalGridLinesVisible;
+            graphColorSettings.GraphSettings.SelectionBarVisible = Properties.Settings.Default.GraphSelectionBarVisible;
+            graphColorSettings.GraphSettings.HighlightClickedSeriesVisible = Properties.Settings.Default.GraphHighlightClickedSeriesVisible;
+            graphColorSettings.GraphSettings.EnableFillAreaBelowSeries = Properties.Settings.Default.GraphEnableFillAreaBelowSeries;
+            graphColorSettings.GraphSettings.FillAreaBelowSeriesAlpha = Properties.Settings.Default.GraphFillAreaBelowSeriesAlpha;
+
+            graphColorSettings.GraphSettings.GridColor = Properties.Settings.Default.GraphGridColor.Name;
+            if (graphColorSettings.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.GraphLineColors = new System.Collections.Specialized.StringCollection();
+                Properties.Settings.Default.GraphLineColors.AddRange(graphColorSettings.GraphSettings.SeriesColors.ToArray());
+                Properties.Settings.Default.GraphBackgroundColor1 = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.BackgroundColor1);
+                Properties.Settings.Default.GraphBackgroundColor2 = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.BackgroundColor2);
+                Properties.Settings.Default.GraphGridColor = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.GridColor);
+                Properties.Settings.Default.GraphAxisLabelsColor = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.AxisLabelsColor);
+                Properties.Settings.Default.GraphDefaultType = graphColorSettings.GraphSettings.GraphType;
+                Properties.Settings.Default.GraphGradientDirection = graphColorSettings.GraphSettings.GradientDirection;
+                Properties.Settings.Default.GraphClosestClickedValueType = graphColorSettings.GraphSettings.ClosestClickedValueType;
+                Properties.Settings.Default.GraphClosestClickedValueColor = GraphSettings.ConvertColorFromName(graphColorSettings.GraphSettings.ClosestClickedValueColor);
+                Properties.Settings.Default.GraphHeaderVisible = graphColorSettings.GraphSettings.HeaderVisible;
+                Properties.Settings.Default.GraphLegendVisible = graphColorSettings.GraphSettings.FooterVisible;
+                Properties.Settings.Default.GraphHorisontalGridLinesVisible = graphColorSettings.GraphSettings.HorisontalGridLinesVisible;
+                Properties.Settings.Default.GraphVerticalGridLinesVisible = graphColorSettings.GraphSettings.VerticalGridLinesVisible;
+                Properties.Settings.Default.GraphSelectionBarVisible = graphColorSettings.GraphSettings.SelectionBarVisible;
+                Properties.Settings.Default.GraphHighlightClickedSeriesVisible = graphColorSettings.GraphSettings.HighlightClickedSeriesVisible;
+                Properties.Settings.Default.GraphEnableFillAreaBelowSeries = graphColorSettings.GraphSettings.EnableFillAreaBelowSeries;
+                Properties.Settings.Default.GraphFillAreaBelowSeriesAlpha = graphColorSettings.GraphSettings.FillAreaBelowSeriesAlpha;
             }
         }
     }

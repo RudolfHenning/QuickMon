@@ -439,7 +439,7 @@
             this.chkAutoToTime.Checked = true;
             this.chkAutoToTime.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAutoToTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkAutoToTime.Location = new System.Drawing.Point(45, 0);
+            this.chkAutoToTime.Location = new System.Drawing.Point(45, 1);
             this.chkAutoToTime.Name = "chkAutoToTime";
             this.chkAutoToTime.Size = new System.Drawing.Size(45, 17);
             this.chkAutoToTime.TabIndex = 1;
@@ -449,7 +449,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 2);
+            this.label3.Location = new System.Drawing.Point(3, 3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(20, 13);
             this.label3.TabIndex = 0;
@@ -482,7 +482,7 @@
             this.chkAutoFromTime.Checked = true;
             this.chkAutoFromTime.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAutoFromTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkAutoFromTime.Location = new System.Drawing.Point(45, 0);
+            this.chkAutoFromTime.Location = new System.Drawing.Point(45, 1);
             this.chkAutoFromTime.Name = "chkAutoFromTime";
             this.chkAutoFromTime.Size = new System.Drawing.Size(45, 17);
             this.chkAutoFromTime.TabIndex = 1;
@@ -492,7 +492,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 2);
+            this.label2.Location = new System.Drawing.Point(3, 3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 0;
@@ -569,27 +569,27 @@
             this.graphVisibilityToolStripMenuItem,
             this.exportGraphToolStripMenuItem});
             this.graphContextMenuStrip.Name = "graphContextMenuStrip";
-            this.graphContextMenuStrip.Size = new System.Drawing.Size(153, 186);
+            this.graphContextMenuStrip.Size = new System.Drawing.Size(148, 164);
             this.graphContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.graphContextMenuStrip_Opening);
             // 
             // addCollectorToolStripMenuItem1
             // 
             this.addCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.addGreen24x24;
             this.addCollectorToolStripMenuItem1.Name = "addCollectorToolStripMenuItem1";
-            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
             this.addCollectorToolStripMenuItem1.Text = "Add Collector";
             this.addCollectorToolStripMenuItem1.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
             // 
             // filtersToolStripMenuItem
             // 
             this.filtersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.funnel24;
             this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
-            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.filtersToolStripMenuItem.Text = "Filters";
             this.filtersToolStripMenuItem.Click += new System.EventHandler(this.filtersToolStripMenuItem_Click);
             // 
@@ -597,7 +597,7 @@
             // 
             this.customizeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tools16x16;
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.customizeToolStripMenuItem.Text = "Customize";
             this.customizeToolStripMenuItem.Click += new System.EventHandler(this.seriesColorsToolStripMenuItem_Click);
             // 
@@ -607,7 +607,7 @@
             this.linearGraphTypeToolStripMenuItem,
             this.logarithmicGraphTypeToolStripMenuItem});
             this.graphTypeToolStripMenuItem.Name = "graphTypeToolStripMenuItem";
-            this.graphTypeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.graphTypeToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.graphTypeToolStripMenuItem.Text = "Graph Type";
             // 
             // linearGraphTypeToolStripMenuItem
@@ -634,7 +634,7 @@
             this.graphAxisLabelColorsToolStripMenuItem,
             this.graphSelectionColorToolStripMenuItem});
             this.grapthColorsToolStripMenuItem.Name = "grapthColorsToolStripMenuItem";
-            this.grapthColorsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.grapthColorsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.grapthColorsToolStripMenuItem.Text = "Graph Colors";
             // 
             // graphBackgroundColorsToolStripMenuItem
@@ -780,7 +780,7 @@
             this.graphHighlightClickedSeriesToolStripMenuItem,
             this.graphFillAreaBelowSeriesToolStripMenuItem});
             this.graphVisibilityToolStripMenuItem.Name = "graphVisibilityToolStripMenuItem";
-            this.graphVisibilityToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.graphVisibilityToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.graphVisibilityToolStripMenuItem.Text = "Visibility";
             // 
             // graphHeaderVisibleToolStripMenuItem
@@ -899,7 +899,7 @@
             // 
             this.exportGraphToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_export;
             this.exportGraphToolStripMenuItem.Name = "exportGraphToolStripMenuItem";
-            this.exportGraphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportGraphToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.exportGraphToolStripMenuItem.Text = "Export Graph";
             this.exportGraphToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 

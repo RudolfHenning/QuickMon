@@ -33,6 +33,7 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanelSettings = new System.Windows.Forms.FlowLayoutPanel();
             this.panelAppSettings = new System.Windows.Forms.Panel();
+            this.chkEnableRAWEditing = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
@@ -105,7 +106,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chkEnableRAWEditing = new System.Windows.Forms.CheckBox();
+            this.llblChartDefauts = new System.Windows.Forms.LinkLabel();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -153,6 +154,7 @@
             // 
             // panelAppSettings
             // 
+            this.panelAppSettings.Controls.Add(this.llblChartDefauts);
             this.panelAppSettings.Controls.Add(this.chkEnableRAWEditing);
             this.panelAppSettings.Controls.Add(this.label16);
             this.panelAppSettings.Controls.Add(this.panel1);
@@ -179,8 +181,19 @@
             this.panelAppSettings.Controls.Add(this.cmdAppSettingsToggle);
             this.panelAppSettings.Location = new System.Drawing.Point(3, 3);
             this.panelAppSettings.Name = "panelAppSettings";
-            this.panelAppSettings.Size = new System.Drawing.Size(495, 317);
+            this.panelAppSettings.Size = new System.Drawing.Size(495, 337);
             this.panelAppSettings.TabIndex = 0;
+            // 
+            // chkEnableRAWEditing
+            // 
+            this.chkEnableRAWEditing.AutoSize = true;
+            this.chkEnableRAWEditing.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkEnableRAWEditing.Location = new System.Drawing.Point(9, 108);
+            this.chkEnableRAWEditing.Name = "chkEnableRAWEditing";
+            this.chkEnableRAWEditing.Size = new System.Drawing.Size(156, 17);
+            this.chkEnableRAWEditing.TabIndex = 7;
+            this.chkEnableRAWEditing.Text = "Allow RAW editing of config";
+            this.chkEnableRAWEditing.UseVisualStyleBackColor = true;
             // 
             // label16
             // 
@@ -505,7 +518,7 @@
             this.panelPollingSettings.Controls.Add(this.freqSecNumericUpDown);
             this.panelPollingSettings.Controls.Add(this.concurrencyLevelNnumericUpDown);
             this.panelPollingSettings.Controls.Add(this.cmdPollingSettingsToggle);
-            this.panelPollingSettings.Location = new System.Drawing.Point(3, 326);
+            this.panelPollingSettings.Location = new System.Drawing.Point(3, 346);
             this.panelPollingSettings.Name = "panelPollingSettings";
             this.panelPollingSettings.Size = new System.Drawing.Size(495, 150);
             this.panelPollingSettings.TabIndex = 1;
@@ -645,7 +658,7 @@
             this.panelPasswordManagement.Controls.Add(this.txtApplicationMasterKeyFilePath);
             this.panelPasswordManagement.Controls.Add(this.label6);
             this.panelPasswordManagement.Controls.Add(this.cmdPasswordManagementToggle);
-            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 482);
+            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 502);
             this.panelPasswordManagement.Name = "panelPasswordManagement";
             this.panelPasswordManagement.Size = new System.Drawing.Size(495, 260);
             this.panelPasswordManagement.TabIndex = 0;
@@ -784,7 +797,7 @@
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.flowLayoutPanelSettingsContent);
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.label13);
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.cmdRemoteHostServiceAndFirewallToggle);
-            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 748);
+            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 768);
             this.panelRemoteHostServiceAndFirewall.Name = "panelRemoteHostServiceAndFirewall";
             this.panelRemoteHostServiceAndFirewall.Size = new System.Drawing.Size(495, 173);
             this.panelRemoteHostServiceAndFirewall.TabIndex = 2;
@@ -1008,16 +1021,17 @@
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
             // 
-            // chkEnableRAWEditing
+            // llblChartDefauts
             // 
-            this.chkEnableRAWEditing.AutoSize = true;
-            this.chkEnableRAWEditing.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnableRAWEditing.Location = new System.Drawing.Point(9, 108);
-            this.chkEnableRAWEditing.Name = "chkEnableRAWEditing";
-            this.chkEnableRAWEditing.Size = new System.Drawing.Size(156, 17);
-            this.chkEnableRAWEditing.TabIndex = 7;
-            this.chkEnableRAWEditing.Text = "Allow RAW editing of config";
-            this.chkEnableRAWEditing.UseVisualStyleBackColor = true;
+            this.llblChartDefauts.AutoSize = true;
+            this.llblChartDefauts.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblChartDefauts.Location = new System.Drawing.Point(9, 315);
+            this.llblChartDefauts.Name = "llblChartDefauts";
+            this.llblChartDefauts.Size = new System.Drawing.Size(91, 13);
+            this.llblChartDefauts.TabIndex = 25;
+            this.llblChartDefauts.TabStop = true;
+            this.llblChartDefauts.Text = "Set Chart defaults";
+            this.llblChartDefauts.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblChartDefauts_LinkClicked);
             // 
             // GeneralSettings
             // 
@@ -1139,5 +1153,6 @@
         private System.Windows.Forms.RadioButton optJumplistRecent;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.CheckBox chkEnableRAWEditing;
+        private System.Windows.Forms.LinkLabel llblChartDefauts;
     }
 }
