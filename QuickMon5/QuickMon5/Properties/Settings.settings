@@ -140,5 +140,8 @@
     <Setting Name="GraphFillAreaBelowSeriesAlpha" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">48</Value>
     </Setting>
+    <Setting Name="MainWindowStartLocationPersistent" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

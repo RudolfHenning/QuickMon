@@ -570,5 +570,17 @@ namespace QuickMon.Properties {
                 this["GraphFillAreaBelowSeriesAlpha"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MainWindowStartLocationPersistent {
+            get {
+                return ((bool)(this["MainWindowStartLocationPersistent"]));
+            }
+            set {
+                this["MainWindowStartLocationPersistent"] = value;
+            }
+        }
     }
 }

@@ -174,10 +174,14 @@ namespace QuickMon
                 {
                     this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
                 }
-                else
+                else if (Properties.Settings.Default.MainWindowStartLocationPersistent)
                 {
                     this.Location = Properties.Settings.Default.MainWindowLocation;
                     this.Size = Properties.Settings.Default.MainWindowSize;
+                }
+                else
+                {
+                    this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
                 }
             }
             SnappingEnabled = Properties.Settings.Default.MainFormSnap;

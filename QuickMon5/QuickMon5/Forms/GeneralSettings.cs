@@ -49,6 +49,7 @@ namespace QuickMon
             cmdRemoteHostServiceAndFirewallToggle_Click(null, null);
 
             //loading = true;
+            chkMainWindowStartLocationPersistent.Checked = Properties.Settings.Default.MainWindowStartLocationPersistent;
             concurrencyLevelNnumericUpDown.Value = Properties.Settings.Default.ConcurrencyLevel;
             optJumplistFrequent.Checked = Properties.Settings.Default.UseFrequentJumpList;
             optJumplistRecent.Checked = !Properties.Settings.Default.UseFrequentJumpList;
@@ -296,6 +297,7 @@ namespace QuickMon
             }
             catch { }
 
+            Properties.Settings.Default.MainWindowStartLocationPersistent = chkMainWindowStartLocationPersistent.Checked;
             Properties.Settings.Default.UseFrequentJumpList = optJumplistFrequent.Checked;
             Properties.Settings.Default.PollFrequencySec = (int)freqSecNumericUpDown.Value;
             Properties.Settings.Default.ConcurrencyLevel = (int)concurrencyLevelNnumericUpDown.Value;

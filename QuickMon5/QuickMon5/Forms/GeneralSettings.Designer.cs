@@ -33,6 +33,7 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanelSettings = new System.Windows.Forms.FlowLayoutPanel();
             this.panelAppSettings = new System.Windows.Forms.Panel();
+            this.llblChartDefauts = new System.Windows.Forms.LinkLabel();
             this.chkEnableRAWEditing = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -106,7 +107,8 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.llblChartDefauts = new System.Windows.Forms.LinkLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkMainWindowStartLocationPersistent = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -118,6 +120,7 @@
             this.panelPasswordManagement.SuspendLayout();
             this.panelRemoteHostServiceAndFirewall.SuspendLayout();
             this.flowLayoutPanelSettingsContent.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -129,7 +132,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(547, 631);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 1;
+            this.cmdCancel.TabIndex = 0;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = false;
             // 
@@ -148,15 +151,15 @@
             this.flowLayoutPanelSettings.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanelSettings.Name = "flowLayoutPanelSettings";
             this.flowLayoutPanelSettings.Size = new System.Drawing.Size(633, 625);
-            this.flowLayoutPanelSettings.TabIndex = 2;
+            this.flowLayoutPanelSettings.TabIndex = 1;
             this.flowLayoutPanelSettings.WrapContents = false;
             this.flowLayoutPanelSettings.Resize += new System.EventHandler(this.flowLayoutPanelSettings_Resize);
             // 
             // panelAppSettings
             // 
+            this.panelAppSettings.Controls.Add(this.groupBox1);
             this.panelAppSettings.Controls.Add(this.llblChartDefauts);
             this.panelAppSettings.Controls.Add(this.chkEnableRAWEditing);
-            this.panelAppSettings.Controls.Add(this.label16);
             this.panelAppSettings.Controls.Add(this.panel1);
             this.panelAppSettings.Controls.Add(this.chkMainWindowCollectorQuickToolbarVisible);
             this.panelAppSettings.Controls.Add(this.chkSortQuickRecentList);
@@ -176,42 +179,55 @@
             this.panelAppSettings.Controls.Add(this.txtRecentMonitorPackFilter);
             this.panelAppSettings.Controls.Add(this.chkCreateBackupOnSave);
             this.panelAppSettings.Controls.Add(this.label5);
-            this.panelAppSettings.Controls.Add(this.chkSnapToDesktop);
             this.panelAppSettings.Controls.Add(this.chkAutosaveChanges);
             this.panelAppSettings.Controls.Add(this.cmdAppSettingsToggle);
             this.panelAppSettings.Location = new System.Drawing.Point(3, 3);
             this.panelAppSettings.Name = "panelAppSettings";
-            this.panelAppSettings.Size = new System.Drawing.Size(495, 337);
+            this.panelAppSettings.Size = new System.Drawing.Size(495, 386);
             this.panelAppSettings.TabIndex = 0;
+            // 
+            // llblChartDefauts
+            // 
+            this.llblChartDefauts.AutoSize = true;
+            this.llblChartDefauts.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblChartDefauts.Location = new System.Drawing.Point(9, 366);
+            this.llblChartDefauts.Name = "llblChartDefauts";
+            this.llblChartDefauts.Size = new System.Drawing.Size(91, 13);
+            this.llblChartDefauts.TabIndex = 1;
+            this.llblChartDefauts.TabStop = true;
+            this.llblChartDefauts.Text = "Set Chart defaults";
+            this.llblChartDefauts.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblChartDefauts_LinkClicked);
             // 
             // chkEnableRAWEditing
             // 
             this.chkEnableRAWEditing.AutoSize = true;
             this.chkEnableRAWEditing.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnableRAWEditing.Location = new System.Drawing.Point(9, 108);
+            this.chkEnableRAWEditing.Location = new System.Drawing.Point(9, 159);
             this.chkEnableRAWEditing.Name = "chkEnableRAWEditing";
             this.chkEnableRAWEditing.Size = new System.Drawing.Size(156, 17);
-            this.chkEnableRAWEditing.TabIndex = 7;
+            this.chkEnableRAWEditing.TabIndex = 6;
             this.chkEnableRAWEditing.Text = "Allow RAW editing of config";
             this.chkEnableRAWEditing.UseVisualStyleBackColor = true;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(247, 61);
+            this.label16.Location = new System.Drawing.Point(230, 6);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(84, 13);
-            this.label16.TabIndex = 5;
+            this.label16.TabIndex = 3;
             this.label16.Text = "Requires restart!";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.optJumplistFrequent);
             this.panel1.Controls.Add(this.optJumplistRecent);
-            this.panel1.Location = new System.Drawing.Point(7, 55);
+            this.panel1.Controls.Add(this.label16);
+            this.panel1.Location = new System.Drawing.Point(7, 108);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(234, 24);
+            this.panel1.Size = new System.Drawing.Size(328, 24);
             this.panel1.TabIndex = 4;
             // 
             // label11
@@ -226,10 +242,9 @@
             // optJumplistFrequent
             // 
             this.optJumplistFrequent.AutoSize = true;
-            this.optJumplistFrequent.Dock = System.Windows.Forms.DockStyle.Right;
-            this.optJumplistFrequent.Location = new System.Drawing.Point(107, 0);
+            this.optJumplistFrequent.Location = new System.Drawing.Point(91, 4);
             this.optJumplistFrequent.Name = "optJumplistFrequent";
-            this.optJumplistFrequent.Size = new System.Drawing.Size(67, 24);
+            this.optJumplistFrequent.Size = new System.Drawing.Size(67, 17);
             this.optJumplistFrequent.TabIndex = 1;
             this.optJumplistFrequent.TabStop = true;
             this.optJumplistFrequent.Text = "Frequent";
@@ -238,10 +253,9 @@
             // optJumplistRecent
             // 
             this.optJumplistRecent.AutoSize = true;
-            this.optJumplistRecent.Dock = System.Windows.Forms.DockStyle.Right;
-            this.optJumplistRecent.Location = new System.Drawing.Point(174, 0);
+            this.optJumplistRecent.Location = new System.Drawing.Point(164, 4);
             this.optJumplistRecent.Name = "optJumplistRecent";
-            this.optJumplistRecent.Size = new System.Drawing.Size(60, 24);
+            this.optJumplistRecent.Size = new System.Drawing.Size(60, 17);
             this.optJumplistRecent.TabIndex = 2;
             this.optJumplistRecent.TabStop = true;
             this.optJumplistRecent.Text = "Recent";
@@ -251,7 +265,7 @@
             // 
             this.chkMainWindowCollectorQuickToolbarVisible.AutoSize = true;
             this.chkMainWindowCollectorQuickToolbarVisible.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkMainWindowCollectorQuickToolbarVisible.Location = new System.Drawing.Point(9, 250);
+            this.chkMainWindowCollectorQuickToolbarVisible.Location = new System.Drawing.Point(9, 301);
             this.chkMainWindowCollectorQuickToolbarVisible.Name = "chkMainWindowCollectorQuickToolbarVisible";
             this.chkMainWindowCollectorQuickToolbarVisible.Size = new System.Drawing.Size(332, 17);
             this.chkMainWindowCollectorQuickToolbarVisible.TabIndex = 19;
@@ -262,7 +276,7 @@
             // 
             this.chkSortQuickRecentList.AutoSize = true;
             this.chkSortQuickRecentList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkSortQuickRecentList.Location = new System.Drawing.Point(195, 176);
+            this.chkSortQuickRecentList.Location = new System.Drawing.Point(195, 227);
             this.chkSortQuickRecentList.Name = "chkSortQuickRecentList";
             this.chkSortQuickRecentList.Size = new System.Drawing.Size(161, 17);
             this.chkSortQuickRecentList.TabIndex = 14;
@@ -273,7 +287,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(10, 297);
+            this.label15.Location = new System.Drawing.Point(10, 348);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(418, 12);
             this.label15.TabIndex = 23;
@@ -284,7 +298,7 @@
             // 
             this.cmdScriptsRepository.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdScriptsRepository.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdScriptsRepository.Location = new System.Drawing.Point(450, 272);
+            this.cmdScriptsRepository.Location = new System.Drawing.Point(450, 323);
             this.cmdScriptsRepository.Name = "cmdScriptsRepository";
             this.cmdScriptsRepository.Size = new System.Drawing.Size(42, 23);
             this.cmdScriptsRepository.TabIndex = 22;
@@ -296,7 +310,7 @@
             // 
             this.txtScriptsRepository.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtScriptsRepository.Location = new System.Drawing.Point(164, 274);
+            this.txtScriptsRepository.Location = new System.Drawing.Point(164, 325);
             this.txtScriptsRepository.Name = "txtScriptsRepository";
             this.txtScriptsRepository.Size = new System.Drawing.Size(280, 20);
             this.txtScriptsRepository.TabIndex = 21;
@@ -304,7 +318,7 @@
             // lblQMScriptsLocation
             // 
             this.lblQMScriptsLocation.AutoSize = true;
-            this.lblQMScriptsLocation.Location = new System.Drawing.Point(7, 277);
+            this.lblQMScriptsLocation.Location = new System.Drawing.Point(7, 328);
             this.lblQMScriptsLocation.Name = "lblQMScriptsLocation";
             this.lblQMScriptsLocation.Size = new System.Drawing.Size(157, 13);
             this.lblQMScriptsLocation.TabIndex = 20;
@@ -315,7 +329,7 @@
             // 
             this.chkEnableAutoRefreshCollectorDetailAutomatically.AutoSize = true;
             this.chkEnableAutoRefreshCollectorDetailAutomatically.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnableAutoRefreshCollectorDetailAutomatically.Location = new System.Drawing.Point(9, 227);
+            this.chkEnableAutoRefreshCollectorDetailAutomatically.Location = new System.Drawing.Point(9, 278);
             this.chkEnableAutoRefreshCollectorDetailAutomatically.Name = "chkEnableAutoRefreshCollectorDetailAutomatically";
             this.chkEnableAutoRefreshCollectorDetailAutomatically.Size = new System.Drawing.Size(245, 17);
             this.chkEnableAutoRefreshCollectorDetailAutomatically.TabIndex = 18;
@@ -328,10 +342,10 @@
             this.cmdRecreateAdminModeStartTask.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cmdRecreateAdminModeStartTask.FlatAppearance.BorderSize = 0;
             this.cmdRecreateAdminModeStartTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRecreateAdminModeStartTask.Location = new System.Drawing.Point(413, 126);
+            this.cmdRecreateAdminModeStartTask.Location = new System.Drawing.Point(413, 177);
             this.cmdRecreateAdminModeStartTask.Name = "cmdRecreateAdminModeStartTask";
             this.cmdRecreateAdminModeStartTask.Size = new System.Drawing.Size(24, 24);
-            this.cmdRecreateAdminModeStartTask.TabIndex = 9;
+            this.cmdRecreateAdminModeStartTask.TabIndex = 8;
             this.toolTip1.SetToolTip(this.cmdRecreateAdminModeStartTask, "Recreate Admin mode auto start task");
             this.cmdRecreateAdminModeStartTask.UseVisualStyleBackColor = true;
             this.cmdRecreateAdminModeStartTask.Click += new System.EventHandler(this.cmdRecreateAdminModeStartTask_Click);
@@ -340,7 +354,7 @@
             // 
             this.panelTvwDetailTextAlign.Controls.Add(this.optTvwDetailRightAlign);
             this.panelTvwDetailTextAlign.Controls.Add(this.optTvwDetailLeftAlign);
-            this.panelTvwDetailTextAlign.Location = new System.Drawing.Point(180, 193);
+            this.panelTvwDetailTextAlign.Location = new System.Drawing.Point(180, 244);
             this.panelTvwDetailTextAlign.Name = "panelTvwDetailTextAlign";
             this.panelTvwDetailTextAlign.Size = new System.Drawing.Size(306, 28);
             this.panelTvwDetailTextAlign.TabIndex = 17;
@@ -370,7 +384,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 203);
+            this.label9.Location = new System.Drawing.Point(10, 254);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(99, 13);
             this.label9.TabIndex = 15;
@@ -378,7 +392,7 @@
             // 
             // nudMainWindowTreeViewExtraColumnSize
             // 
-            this.nudMainWindowTreeViewExtraColumnSize.Location = new System.Drawing.Point(115, 201);
+            this.nudMainWindowTreeViewExtraColumnSize.Location = new System.Drawing.Point(115, 252);
             this.nudMainWindowTreeViewExtraColumnSize.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -397,10 +411,10 @@
             // 
             this.chkDisplayFullPathForQuickRecentEntries.AutoSize = true;
             this.chkDisplayFullPathForQuickRecentEntries.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(9, 176);
+            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(9, 227);
             this.chkDisplayFullPathForQuickRecentEntries.Name = "chkDisplayFullPathForQuickRecentEntries";
             this.chkDisplayFullPathForQuickRecentEntries.Size = new System.Drawing.Size(184, 17);
-            this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 13;
+            this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 12;
             this.chkDisplayFullPathForQuickRecentEntries.Text = "Display full path in quick select list";
             this.chkDisplayFullPathForQuickRecentEntries.UseVisualStyleBackColor = true;
             // 
@@ -408,10 +422,10 @@
             // 
             this.chkDisableAutoAdminMode.AutoSize = true;
             this.chkDisableAutoAdminMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisableAutoAdminMode.Location = new System.Drawing.Point(9, 130);
+            this.chkDisableAutoAdminMode.Location = new System.Drawing.Point(9, 181);
             this.chkDisableAutoAdminMode.Name = "chkDisableAutoAdminMode";
             this.chkDisableAutoAdminMode.Size = new System.Drawing.Size(399, 17);
-            this.chkDisableAutoAdminMode.TabIndex = 8;
+            this.chkDisableAutoAdminMode.TabIndex = 7;
             this.chkDisableAutoAdminMode.Text = "Disable automatic Admin mode (Must be in Admin mode to remove existing task)";
             this.chkDisableAutoAdminMode.UseVisualStyleBackColor = true;
             // 
@@ -419,10 +433,10 @@
             // 
             this.cmdEditQuickSelectTypeFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdEditQuickSelectTypeFilters.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditQuickSelectTypeFilters.Location = new System.Drawing.Point(450, 150);
+            this.cmdEditQuickSelectTypeFilters.Location = new System.Drawing.Point(450, 201);
             this.cmdEditQuickSelectTypeFilters.Name = "cmdEditQuickSelectTypeFilters";
             this.cmdEditQuickSelectTypeFilters.Size = new System.Drawing.Size(42, 23);
-            this.cmdEditQuickSelectTypeFilters.TabIndex = 12;
+            this.cmdEditQuickSelectTypeFilters.TabIndex = 11;
             this.cmdEditQuickSelectTypeFilters.Text = "- - -";
             this.cmdEditQuickSelectTypeFilters.UseVisualStyleBackColor = true;
             this.cmdEditQuickSelectTypeFilters.Click += new System.EventHandler(this.cmdEditQuickSelectTypeFilters_Click);
@@ -431,10 +445,10 @@
             // 
             this.chkUseTemplates.AutoSize = true;
             this.chkUseTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseTemplates.Location = new System.Drawing.Point(9, 85);
+            this.chkUseTemplates.Location = new System.Drawing.Point(9, 136);
             this.chkUseTemplates.Name = "chkUseTemplates";
             this.chkUseTemplates.Size = new System.Drawing.Size(385, 17);
-            this.chkUseTemplates.TabIndex = 6;
+            this.chkUseTemplates.TabIndex = 5;
             this.chkUseTemplates.Text = "Use \'Templates\' when creating new objects (Monitor packs and Agent hosts)";
             this.chkUseTemplates.UseVisualStyleBackColor = true;
             // 
@@ -442,16 +456,16 @@
             // 
             this.txtRecentMonitorPackFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(164, 152);
+            this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(164, 203);
             this.txtRecentMonitorPackFilter.Name = "txtRecentMonitorPackFilter";
             this.txtRecentMonitorPackFilter.Size = new System.Drawing.Size(280, 20);
-            this.txtRecentMonitorPackFilter.TabIndex = 11;
+            this.txtRecentMonitorPackFilter.TabIndex = 10;
             // 
             // chkCreateBackupOnSave
             // 
             this.chkCreateBackupOnSave.AutoSize = true;
             this.chkCreateBackupOnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkCreateBackupOnSave.Location = new System.Drawing.Point(333, 39);
+            this.chkCreateBackupOnSave.Location = new System.Drawing.Point(137, 83);
             this.chkCreateBackupOnSave.Name = "chkCreateBackupOnSave";
             this.chkCreateBackupOnSave.Size = new System.Drawing.Size(160, 17);
             this.chkCreateBackupOnSave.TabIndex = 3;
@@ -461,17 +475,17 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 155);
+            this.label5.Location = new System.Drawing.Point(9, 206);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(149, 13);
-            this.label5.TabIndex = 10;
+            this.label5.TabIndex = 9;
             this.label5.Text = "Quick select Type Filters (csv)";
             // 
             // chkSnapToDesktop
             // 
             this.chkSnapToDesktop.AutoSize = true;
             this.chkSnapToDesktop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkSnapToDesktop.Location = new System.Drawing.Point(9, 39);
+            this.chkSnapToDesktop.Location = new System.Drawing.Point(227, 19);
             this.chkSnapToDesktop.Name = "chkSnapToDesktop";
             this.chkSnapToDesktop.Size = new System.Drawing.Size(197, 17);
             this.chkSnapToDesktop.TabIndex = 1;
@@ -482,7 +496,7 @@
             // 
             this.chkAutosaveChanges.AutoSize = true;
             this.chkAutosaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkAutosaveChanges.Location = new System.Drawing.Point(209, 39);
+            this.chkAutosaveChanges.Location = new System.Drawing.Point(13, 83);
             this.chkAutosaveChanges.Name = "chkAutosaveChanges";
             this.chkAutosaveChanges.Size = new System.Drawing.Size(116, 17);
             this.chkAutosaveChanges.TabIndex = 2;
@@ -518,7 +532,7 @@
             this.panelPollingSettings.Controls.Add(this.freqSecNumericUpDown);
             this.panelPollingSettings.Controls.Add(this.concurrencyLevelNnumericUpDown);
             this.panelPollingSettings.Controls.Add(this.cmdPollingSettingsToggle);
-            this.panelPollingSettings.Location = new System.Drawing.Point(3, 346);
+            this.panelPollingSettings.Location = new System.Drawing.Point(3, 395);
             this.panelPollingSettings.Name = "panelPollingSettings";
             this.panelPollingSettings.Size = new System.Drawing.Size(495, 150);
             this.panelPollingSettings.TabIndex = 1;
@@ -658,7 +672,7 @@
             this.panelPasswordManagement.Controls.Add(this.txtApplicationMasterKeyFilePath);
             this.panelPasswordManagement.Controls.Add(this.label6);
             this.panelPasswordManagement.Controls.Add(this.cmdPasswordManagementToggle);
-            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 502);
+            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 551);
             this.panelPasswordManagement.Name = "panelPasswordManagement";
             this.panelPasswordManagement.Size = new System.Drawing.Size(495, 260);
             this.panelPasswordManagement.TabIndex = 0;
@@ -797,7 +811,7 @@
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.flowLayoutPanelSettingsContent);
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.label13);
             this.panelRemoteHostServiceAndFirewall.Controls.Add(this.cmdRemoteHostServiceAndFirewallToggle);
-            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 768);
+            this.panelRemoteHostServiceAndFirewall.Location = new System.Drawing.Point(3, 817);
             this.panelRemoteHostServiceAndFirewall.Name = "panelRemoteHostServiceAndFirewall";
             this.panelRemoteHostServiceAndFirewall.Size = new System.Drawing.Size(495, 173);
             this.panelRemoteHostServiceAndFirewall.TabIndex = 2;
@@ -1021,17 +1035,29 @@
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
             // 
-            // llblChartDefauts
+            // groupBox1
             // 
-            this.llblChartDefauts.AutoSize = true;
-            this.llblChartDefauts.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblChartDefauts.Location = new System.Drawing.Point(9, 315);
-            this.llblChartDefauts.Name = "llblChartDefauts";
-            this.llblChartDefauts.Size = new System.Drawing.Size(91, 13);
-            this.llblChartDefauts.TabIndex = 25;
-            this.llblChartDefauts.TabStop = true;
-            this.llblChartDefauts.Text = "Set Chart defaults";
-            this.llblChartDefauts.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblChartDefauts_LinkClicked);
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.chkMainWindowStartLocationPersistent);
+            this.groupBox1.Controls.Add(this.chkSnapToDesktop);
+            this.groupBox1.Location = new System.Drawing.Point(6, 33);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(486, 44);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Main Window size && location";
+            // 
+            // chkMainWindowStartLocationPersistent
+            // 
+            this.chkMainWindowStartLocationPersistent.AutoSize = true;
+            this.chkMainWindowStartLocationPersistent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkMainWindowStartLocationPersistent.Location = new System.Drawing.Point(7, 19);
+            this.chkMainWindowStartLocationPersistent.Name = "chkMainWindowStartLocationPersistent";
+            this.chkMainWindowStartLocationPersistent.Size = new System.Drawing.Size(214, 17);
+            this.chkMainWindowStartLocationPersistent.TabIndex = 0;
+            this.chkMainWindowStartLocationPersistent.Text = "Remember size/location of main window";
+            this.chkMainWindowStartLocationPersistent.UseVisualStyleBackColor = true;
             // 
             // GeneralSettings
             // 
@@ -1072,6 +1098,8 @@
             this.panelRemoteHostServiceAndFirewall.ResumeLayout(false);
             this.flowLayoutPanelSettingsContent.ResumeLayout(false);
             this.flowLayoutPanelSettingsContent.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1154,5 +1182,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.CheckBox chkEnableRAWEditing;
         private System.Windows.Forms.LinkLabel llblChartDefauts;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox chkMainWindowStartLocationPersistent;
     }
 }
