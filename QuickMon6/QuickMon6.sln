@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMon6Core", "QuickMon6Core\QuickMon6Core\QuickMon6Core.csproj", "{34E6E311-60A5-462B-83A9-A6A7E7F55A55}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastColoredTextBox", "FastColoredTextBox\FastColoredTextBox.csproj", "{6DD14A85-CCFC-4774-BD26-0F5772512319}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonCore", "QuickMon6Core\QuickMonCore.csproj", "{34E6E311-60A5-462B-83A9-A6A7E7F55A55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMon6", "QuickMon6\QuickMon6.csproj", "{4D756422-6BA7-463A-952C-8C9D2D20E790}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonCoreUI", "QuickMonCoreUI\QuickMonCoreUI.csproj", "{505B17E9-0CEC-48CB-B50A-96A76C5CDC03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonService", "QuickMonService\QuickMonService.csproj", "{1FB6031C-6141-4FE2-9CC1-5C9F01BE5C65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Any CPU.Build.0 = Release|Any CPU
 		{34E6E311-60A5-462B-83A9-A6A7E7F55A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{34E6E311-60A5-462B-83A9-A6A7E7F55A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34E6E311-60A5-462B-83A9-A6A7E7F55A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34E6E311-60A5-462B-83A9-A6A7E7F55A55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D756422-6BA7-463A-952C-8C9D2D20E790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D756422-6BA7-463A-952C-8C9D2D20E790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D756422-6BA7-463A-952C-8C9D2D20E790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D756422-6BA7-463A-952C-8C9D2D20E790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{505B17E9-0CEC-48CB-B50A-96A76C5CDC03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{505B17E9-0CEC-48CB-B50A-96A76C5CDC03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{505B17E9-0CEC-48CB-B50A-96A76C5CDC03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{505B17E9-0CEC-48CB-B50A-96A76C5CDC03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB6031C-6141-4FE2-9CC1-5C9F01BE5C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB6031C-6141-4FE2-9CC1-5C9F01BE5C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB6031C-6141-4FE2-9CC1-5C9F01BE5C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB6031C-6141-4FE2-9CC1-5C9F01BE5C65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
