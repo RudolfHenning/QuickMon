@@ -32,6 +32,12 @@ namespace HenIT.Windows.Controls.Graphing
         public bool Enabled { get; set; } = true;
         public bool Selected { get; set; } = false;
 
+        #region Legend details
+        public string CurrentSeriesLabelText { get; set; }
+        public Point CurrentSeriesLabelLocation { get; set; }
+        public SizeF CurrentSeriesLabelSize { get; set; }
+        #endregion
+
         public GraphSeries Clone()
         {
             GraphSeries newSeries = new GraphSeries();

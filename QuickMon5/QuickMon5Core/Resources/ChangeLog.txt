@@ -167,3 +167,9 @@ Change the Performance counter collector to also use aggregated Instance values
 Tweaked some templates
 Add Graph color/settings customisation
 Add setting to allow control over main window startup size/location
+
+Version 5.2.5
+**************
+First version compiled with VS2019
+Graph control selected series can be changed by up/down keys
+Graph control selected series can be selected by clicking on the legend

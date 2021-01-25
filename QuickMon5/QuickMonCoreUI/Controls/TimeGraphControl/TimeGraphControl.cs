@@ -245,6 +245,14 @@ namespace HenIT.Windows.Controls.Graphing
                     SetNextFromClosestPointSelected();
                     RefreshGraph();                    
                     break;
+                case Keys.Up:
+                    SetPreviousSelectedSeries();
+                    RefreshGraph();
+                    break;
+                case Keys.Down:
+                    SetNextSelectedSeries();
+                    RefreshGraph();
+                    break;
                 default:
                     return base.ProcessCmdKey(ref msg, keyData);
             }
@@ -261,16 +269,38 @@ namespace HenIT.Windows.Controls.Graphing
             {
                 lastClickTime = DateTime.Now;
 
-                LastClickedLocation = ConvertPointToTimeValue(e.X, e.Y);
-                if (LastClickedLocation != null)
-                {
-                    SetClosestPointSelected();
-                }
-                else
+                if (ShowLegendText && e.Y > (Height - legendHeight)) //legend area
                 {
                     ClosestClickedTimeValue = null;
                     foreach (GraphSeries s in Series)
                         s.Selected = false;
+
+                    foreach (var enabledSeries in (from serie in Series
+                                                   where serie.Enabled
+                                                   select serie))
+                    {
+                        if (enabledSeries.CurrentSeriesLabelLocation.X <= e.X && enabledSeries.CurrentSeriesLabelLocation.X + enabledSeries.CurrentSeriesLabelSize.Width > e.X)
+                        {
+                            if (enabledSeries.CurrentSeriesLabelLocation.Y <= e.Y && enabledSeries.CurrentSeriesLabelLocation.Y + enabledSeries.CurrentSeriesLabelSize.Height > e.Y)
+                            {
+                                SetSelectedSeriesByName(enabledSeries.Name);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    LastClickedLocation = ConvertPointToTimeValue(e.X, e.Y);
+                    if (LastClickedLocation != null)
+                    {
+                        SetClosestPointSelected();
+                    }
+                    else
+                    {
+                        ClosestClickedTimeValue = null;
+                        foreach (GraphSeries s in Series)
+                            s.Selected = false;
+                    }
                 }
                 SetHightlightSeries();
 
@@ -349,6 +379,30 @@ namespace HenIT.Windows.Controls.Graphing
             }
             return null;
         }
+        public int GetSeriesIndexByName(string name)
+        {
+            for (int i = 0; i < Series.Count; i++)
+            {
+                if (Series[i].Name == name)
+                {
+                    return i;
+                }
+            }
+            return 0;
+        }
+        public void SetSelectedSeriesByName(string name)
+        {            
+            foreach (var s in Series)
+            {
+                if (s.Name == name)
+                {
+                    s.Selected = true;
+                    ClosestClickedTimeSeriesName = name;
+                }
+                else
+                    s.Selected = false;
+            }
+        }
         public void SetClosestPointSelected()
         {
             if (LastClickedLocation != null)
@@ -365,11 +419,6 @@ namespace HenIT.Windows.Controls.Graphing
                         else
                             s.Selected = false;
                     }
-                    //if (HighlightClickedSeries)
-
-                    //ClosestClickedSeries = (from s in Series
-                    //                        where s.Name == closetValue.Item1
-                    //                        select s).FirstOrDefault();
                 }
                 else
                 {
@@ -397,6 +446,37 @@ namespace HenIT.Windows.Controls.Graphing
                 }
             }
         }
+
+        private TimeValue GetClosestPointForSeries(GraphSeries selectedSeries, TimeValue selectedPoint)
+        {
+            TimeValue tv = null;
+            if (selectedPoint != null)
+            {
+                TimeValue tv1 = (from sv in selectedSeries.Values
+                                 orderby sv.Time descending
+                                 where sv.Time <= selectedPoint.Time
+                                 select sv).FirstOrDefault();
+                TimeValue tv2 = (from sv in selectedSeries.Values
+                                 orderby sv.Time
+                                 where sv.Time >= selectedPoint.Time
+                                 select sv).FirstOrDefault();
+
+                if (tv1 != null && tv2 != null)
+                {
+                    if (selectedPoint.Time.Subtract(tv1.Time) < tv2.Time.Subtract(selectedPoint.Time))
+                    {
+                        tv = tv1;
+                    }
+                    else
+                        tv = tv2;
+                }
+                else if (tv1 != null)
+                    tv = tv1;
+                else
+                    tv = tv2;
+            }
+            return tv;
+        }
         public void SetNextFromClosestPointSelected()
         {
             if (ClosestClickedTimeSeriesName != null && ClosestClickedTimeSeriesName != "" && ClosestClickedTimeValue != null)
@@ -414,6 +494,61 @@ namespace HenIT.Windows.Controls.Graphing
                 }
             }
         }
+        public void SetNextSelectedSeries()
+        {
+            if (Series.Count > 0)
+            {
+                int selectedSeriesIndex = 0; 
+                if (ClosestClickedTimeSeriesName != null && ClosestClickedTimeSeriesName != "")
+                {
+                    selectedSeriesIndex = GetSeriesIndexByName(ClosestClickedTimeSeriesName);
+                    if (selectedSeriesIndex == Series.Count - 1)
+                        selectedSeriesIndex = 0;
+                    else
+                        selectedSeriesIndex++;
+                }
+                GraphSeries selectedSeries = Series[selectedSeriesIndex];
+                SetSelectedSeriesByName(selectedSeries.Name);
+                
+                if (ClosestClickedTimeValue != null)
+                {
+                    TimeValue tv = GetClosestPointForSeries(selectedSeries, ClosestClickedTimeValue);
+                    if (tv != null)
+                    {
+                        ClosestClickedTimeValue = tv;
+                        LastClickedLocation = tv;
+                        ClosestPointSelectedChanged?.Invoke(ClosestClickedTimeSeriesName, tv);
+                    }
+                }
+            }
+        }
+        public void SetPreviousSelectedSeries()
+        {
+            if (Series.Count > 0)
+            {
+                int selectedSeriesIndex = Series.Count - 1;
+                if (ClosestClickedTimeSeriesName != null && ClosestClickedTimeSeriesName != "")
+                {
+                    selectedSeriesIndex = GetSeriesIndexByName(ClosestClickedTimeSeriesName);                    
+                    if (selectedSeriesIndex <= 0)
+                        selectedSeriesIndex = Series.Count - 1;
+                    else
+                        selectedSeriesIndex--;
+                }
+                GraphSeries selectedSeries = Series[selectedSeriesIndex];
+                SetSelectedSeriesByName(selectedSeries.Name);
+                if (ClosestClickedTimeValue != null)
+                {
+                    TimeValue tv = GetClosestPointForSeries(selectedSeries, ClosestClickedTimeValue);                   
+                    if (tv != null)
+                    {
+                        ClosestClickedTimeValue = tv;
+                        LastClickedLocation = tv;
+                        ClosestPointSelectedChanged?.Invoke(ClosestClickedTimeSeriesName, tv);
+                    }
+                }
+            }
+        }
         private void SetHightlightSeries()
         {
             if (HighlightClickedSeries)
@@ -428,6 +563,23 @@ namespace HenIT.Windows.Controls.Graphing
         private TimeValue ConvertPointToTimeValue(int x, int y, bool forceInBounds = false)
         {
             TimeValue timeValue = null;
+
+            //if (ShowLegendText && y > (Height - legendHeight)) //legend area
+            //{
+            //    foreach (var enabledSeries in (from serie in Series
+            //                                   where serie.Enabled
+            //                                   select serie))
+            //    {
+            //        if (enabledSeries.CurrentSeriesLabelLocation.X <= x && enabledSeries.CurrentSeriesLabelLocation.X + enabledSeries.CurrentSeriesLabelSize.Width > x)
+            //        {
+            //            if (enabledSeries.CurrentSeriesLabelLocation.Y <= y && enabledSeries.CurrentSeriesLabelLocation.Y + enabledSeries.CurrentSeriesLabelSize.Height > y)
+            //            {
+            //                System.Diagnostics.Trace.WriteLine(enabledSeries.Name);
+            //            }
+            //        }
+            //    }
+            //}
+
             if (forceInBounds)
             {
                 if (x < LeftAxisMargin)
@@ -473,6 +625,7 @@ namespace HenIT.Windows.Controls.Graphing
                     }
                 }
             }
+            
             return timeValue;
         }
         private Point ConvertTimeValueToPoint(TimeValue tv)
@@ -686,7 +839,6 @@ namespace HenIT.Windows.Controls.Graphing
                     }
                     if (enabledSeries.Selected)
                     {
-                        //currentSeriesLabel = $">{currentSeriesLabel}<";
                         currentFont = new Font(GraphTextFont, FontStyle.Bold);
                     }
                     SizeF currentLabelSize = g.MeasureString(currentSeriesLabel, currentFont);
@@ -695,15 +847,22 @@ namespace HenIT.Windows.Controls.Graphing
                     if (legendXPos + currentLabelSize.Width + bufferBetweenLabels < this.Width)
                     {
                         g.DrawString(currentSeriesLabel, currentFont, drawBrush, legendXPos, legendYPos);
-                        legendXPos += (int)currentLabelSize.Width + bufferBetweenLabels;
+                        enabledSeries.CurrentSeriesLabelText = currentSeriesLabel;
+                        enabledSeries.CurrentSeriesLabelLocation = new Point(legendXPos, legendYPos);
+                        enabledSeries.CurrentSeriesLabelSize = currentLabelSize;
+
+                        legendXPos += (int)currentLabelSize.Width + bufferBetweenLabels;                        
                     }
                     else
                     {
                         legendYPos += stdLineHeight;
                         legendXPos = bufferBetweenLabels;
                         g.DrawString(currentSeriesLabel, currentFont, drawBrush, legendXPos, legendYPos);
-                        legendXPos += (int)currentLabelSize.Width + bufferBetweenLabels;
+                        enabledSeries.CurrentSeriesLabelText = currentSeriesLabel;
+                        enabledSeries.CurrentSeriesLabelLocation = new Point(legendXPos, legendYPos);
+                        enabledSeries.CurrentSeriesLabelSize = currentLabelSize;
 
+                        legendXPos += (int)currentLabelSize.Width + bufferBetweenLabels;
                     }
                 }
                 bottomMarginHeight += stdLineHeight;
