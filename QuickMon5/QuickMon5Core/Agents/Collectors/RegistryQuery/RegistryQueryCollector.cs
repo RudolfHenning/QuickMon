@@ -15,38 +15,6 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new RegistryQueryCollectorConfig();
         }
-
-        //public override List<System.Data.DataTable> GetDetailDataTables()
-        //{
-        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-        //    System.Data.DataTable dt = new System.Data.DataTable();
-        //    try
-        //    {
-        //        dt.Columns.Add(new System.Data.DataColumn("Path", typeof(string)));
-        //        dt.Columns.Add(new System.Data.DataColumn("Value", typeof(string)));                
-
-        //        RegistryQueryCollectorConfig currentConfig = (RegistryQueryCollectorConfig)AgentConfig;
-        //        foreach (RegistryQueryCollectorConfigEntry entry in currentConfig.Entries)
-        //        {
-
-        //            object value = entry.GetValue();
-        //            if (value.GetType().IsArray)
-        //            {
-        //                value = FormatUtils.FormatArrayToString(value);
-        //            }
-
-        //            dt.Rows.Add(entry.Description, value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        dt = new System.Data.DataTable("Exception");
-        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-        //        dt.Rows.Add(ex.ToString());
-        //    }
-        //    tables.Add(dt);
-        //    return tables;
-        //}
     }
     public class RegistryQueryCollectorConfig : ICollectorConfig
     {
@@ -231,20 +199,13 @@ namespace QuickMon.Collectors
             try
             {
                 wsData = GetValue();
-                //if (ReturnValueIsNumber && !wsData.IsNumber())
-                //{
-                //    agentState = CollectorState.Error;
-                //    wsData = "Returned value is not a number! (" + wsData.ToString() + ")";
-                //}
-                //else
-                //{
-                    CurrentAgentValue = FormatUtils.FormatArrayToString(wsData, "[null]");
-                    agentState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
-                           GoodResultMatchType, GoodValue,
-                           WarningResultMatchType, WarningValue,
-                           ErrorResultMatchType, ErrorValue,
-                           CurrentAgentValue);
-                //}
+
+                CurrentAgentValue = FormatUtils.FormatArrayToString(wsData, "[null]");
+                agentState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
+                       GoodResultMatchType, GoodValue,
+                       WarningResultMatchType, WarningValue,
+                       ErrorResultMatchType, ErrorValue,
+                       CurrentAgentValue);
             }
             catch (Exception wsException)
             {
@@ -261,33 +222,6 @@ namespace QuickMon.Collectors
             };
 
             return currentState;
-
-            //object value = GetValue();
-            //CurrentAgentValue = value;
-            //MonitorState currentState = new MonitorState()
-            //{
-            //    ForAgent = Name,
-            //    CurrentValue = FormatUtils.FormatArrayToString(value, "[null]"),
-            //    State = EvaluateValue(value)
-            //};
-
-            //if (currentState.State == CollectorState.Error)
-            //{
-            //    currentState.RawDetails = string.Format("'{0}' - value '{1}' - Error (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), ErrorValue);
-            //    currentState.HtmlDetails = string.Format("'{0}' - value '{1}' - <b>Error</b> (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), ErrorValue);
-            //}
-            //else if (currentState.State == CollectorState.Warning)
-            //{
-            //    currentState.RawDetails = string.Format("'{0}' - value '{1}' - Warning (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), WarningValue);
-            //    currentState.HtmlDetails = string.Format("'{0}' - value '{1}' - <b>Warning</b> (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), WarningValue);
-            //}
-            //else
-            //{
-            //    currentState.RawDetails = string.Format("'{0}' - value '{1}'", Name, FormatUtils.FormatArrayToString(value, "[null]"));
-            //    currentState.HtmlDetails = string.Format("'{0}' - value '{1}'", Name, FormatUtils.FormatArrayToString(value, "[null]"));
-            //}
-
-            //return currentState;
         }
         public string Description
         {
@@ -319,12 +253,6 @@ namespace QuickMon.Collectors
         public string Path { get; set; }
         public string KeyName { get; set; }
         public bool ExpandEnvironmentNames { get; set; }
-        //public bool ReturnValueIsNumber { get; set; }
-        //public bool ReturnValueInARange { get; set; }
-        //public bool ReturnValueInverted { get; set; }
-        //public string SuccessValue { get; set; }
-        //public string WarningValue { get; set; }
-        //public string ErrorValue { get; set; }
 
         public CollectorAgentReturnValueCheckSequence ReturnCheckSequence { get; set; }
         public CollectorAgentReturnValueCompareMatchType GoodResultMatchType { get; set; }
@@ -369,116 +297,7 @@ namespace QuickMon.Collectors
         }
         #endregion
 
-        #region Public methods
-        //public CollectorState EvaluateValue(object value)
-        //{
-        //    CollectorState result = CollectorState.Good;
-        //    if (value == null || value == DBNull.Value)
-        //    {
-        //        if (ErrorValue == "[null]")
-        //            result = CollectorState.Error;
-        //        else if (WarningValue == "[null]")
-        //            result = CollectorState.Warning;
-        //        else if (SuccessValue == "[null]")
-        //            result = CollectorState.Good;
-        //        else if (SuccessValue != "[any]")
-        //            result = CollectorState.Error;
-        //    }
-        //    else if (value.ToString() == "[notExists]")
-        //    {
-        //        if (ErrorValue == "[notExists]")
-        //            result = CollectorState.Error;
-        //        else if (WarningValue == "[notExists]")
-        //            result = CollectorState.Warning;
-        //        else if (SuccessValue == "[notExists]")
-        //            result = CollectorState.Good;
-        //        else
-        //            result = CollectorState.Error;
-        //    }
-        //    else //non empty value but it DOES exist
-        //    {
-        //        if (!ReturnValueIsNumber || !ReturnValueInARange) //so it's not a number
-        //        {
-        //            if (value.GetType().IsArray)
-        //            {
-        //                value = FormatUtils.FormatArrayToString(value);
-        //            }
-
-        //            //first eliminate matching values
-        //            if (SuccessValue == value.ToString())
-        //                result = CollectorState.Good;
-        //            else if (value.ToString() == ErrorValue)
-        //                result = CollectorState.Error;
-        //            else if (value.ToString() == WarningValue)
-        //                result = CollectorState.Warning;
-
-        //            //test for [contains] <value>, [beginswith] <value> or [endswith] <value>
-        //            else if (SuccessValue.StartsWith("[contains]") && value.ToString().Contains(SuccessValue.Substring(("[contains]").Length).Trim()))
-        //                result = CollectorState.Good;
-        //            else if (SuccessValue.StartsWith("[beginswith]") && value.ToString().StartsWith(SuccessValue.Substring(("[beginswith]").Length).Trim()))
-        //                result = CollectorState.Good;
-        //            else if (SuccessValue.StartsWith("[endswith]") && value.ToString().EndsWith(SuccessValue.Substring(("[endswith]").Length).Trim()))
-        //                result = CollectorState.Good;
-        //            else if (WarningValue.StartsWith("[contains]") && value.ToString().Contains(WarningValue.Substring(("[contains]").Length).Trim()))
-        //                result = CollectorState.Good;
-        //            else if (WarningValue.StartsWith("[beginswith]") && value.ToString().StartsWith(WarningValue.Substring(("[beginswith]").Length).Trim()))
-        //                result = CollectorState.Good;
-        //            else if (WarningValue.StartsWith("[endswith]") && value.ToString().EndsWith(WarningValue.Substring(("[endswith]").Length).Trim()))
-        //                result = CollectorState.Good;
-        //            else if (ErrorValue.StartsWith("[contains]") && value.ToString().Contains(ErrorValue.Substring(("[contains]").Length).Trim()))
-        //                result = CollectorState.Good;
-        //            else if (ErrorValue.StartsWith("[beginswith]") && value.ToString().StartsWith(ErrorValue.Substring(("[beginswith]").Length).Trim()))
-        //                result = CollectorState.Good;
-        //            else if (ErrorValue.StartsWith("[endswith]") && value.ToString().EndsWith(ErrorValue.Substring(("[endswith]").Length).Trim()))
-        //                result = CollectorState.Good;
-
-        //            //Existing tests
-        //            else if (ErrorValue == "[exists]")
-        //                result = CollectorState.Error;
-        //            else if (WarningValue == "[exists]")
-        //                result = CollectorState.Warning;
-        //            else if (SuccessValue == "[exists]")
-        //                result = CollectorState.Good;
-
-        //            //Any tests
-        //            else if (ErrorValue == "[any]")
-        //                result = CollectorState.Error;
-        //            else if (WarningValue == "[any]")
-        //                result = CollectorState.Warning;
-
-        //            //Not matching success
-        //            else if (SuccessValue != "[any]")
-        //                result = CollectorState.Warning;
-        //        }
-        //        else if (!value.IsNumber()) //value must be a number!
-        //        {
-        //            result = CollectorState.Error;
-        //        }
-        //        else //so it is a number and must be inside a range
-        //        {
-        //            if (ErrorValue != "[any]" && ErrorValue != "[null]" &&
-        //                            (
-        //                             (!ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(ErrorValue)) ||
-        //                             (ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(ErrorValue))
-        //                            )
-        //                        )
-        //            {
-        //                result = CollectorState.Error;
-        //            }
-        //            else if (WarningValue != "[any]" && WarningValue != "[null]" &&
-        //                   (
-        //                    (!ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(WarningValue)) ||
-        //                    (ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(WarningValue))
-        //                   )
-        //                )
-        //            {
-        //                result = CollectorState.Warning;
-        //            }
-        //        }
-        //    }
-
-        //    return result;
-        //}
+        #region Public methods        
         public object GetValue()
         {
             object result = null;

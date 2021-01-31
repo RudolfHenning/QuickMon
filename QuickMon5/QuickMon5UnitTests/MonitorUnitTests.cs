@@ -376,6 +376,51 @@ namespace QuickMon
             }
         }
         [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void TestProcessCollector()
+        {
+            string mconfig = "<monitorPack><configVars></configVars>" +
+                "<collectorHosts>" +
+                "   <collectorHost uniqueId=\"1234\" dependOnParentId=\"\" name=\"QuickMon 5 Process collector\" enabled=\"True\" expandOnStart=\"Auto\" " +
+                "     childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                "     <collectorAgents agentCheckSequence=\"All\">" +
+                "        <collectorAgent name=\"Process Collector\" type=\"ProcessCollector\" enabled=\"True\">" +
+                "           <config>" +
+                "               <processes>" +
+                "                   <process name=\"QuickMon Service\" filterType=\"0\" filter=\"QuickMonService\" testType=\"0\" " +
+                "                    instanceCount=\"1\" minInstances=\"1\" maxInstances=\"1\" checkPerf=\"false\" />" +
+                "               </processes>" +
+                "           </config>" +
+                "        </collectorAgent>" +
+                "     </collectorAgents>" +
+                "   </collectorHost>" +
+                "</collectorHosts>" +
+                "<notifierHosts></notifierHosts>" +
+                "<logging><collectorCategories/></logging></monitorPack>";
+
+            MonitorPack m = new MonitorPack();
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            if (m != null)
+            {
+                Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector host is expected");
+                if (m.CollectorHosts.Count == 1)
+                {
+                    Assert.AreEqual("QuickMon 5 Process collector", m.CollectorHosts[0].Name, "Collector host name not set");
+                    Assert.AreEqual("1234", m.CollectorHosts[0].UniqueId, "Collector host UniqueId not set");
+                    Assert.AreEqual(true, m.CollectorHosts[0].Enabled, "Collector host Enabled property not set");
+
+                    CollectorState cs = m.RefreshStates();
+
+                    Assert.AreNotEqual(CollectorState.ConfigurationChanged, cs, "Configuration wrong!");
+
+                    mconfig = mconfig.Replace("testType=\"0\"", "testType=\"1\"");
+                    m.LoadXml(mconfig);
+                    CollectorState cs2 = m.RefreshStates();
+                    Assert.AreNotEqual(cs, cs2, "CollectorStates should not be the same!");
+
+                }
+            }
+        }
         public void AllCollectorTest()
         {
             if (!System.IO.Directory.Exists("C:\\Test"))
@@ -419,6 +464,7 @@ namespace QuickMon
             }
         }
         [TestMethod, TestCategory("MonitorPack-Agents")]
+
         public void CollectorHostConfigVarsTests()
         {
             MonitorPack m = new MonitorPack();

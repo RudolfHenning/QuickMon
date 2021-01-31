@@ -76,6 +76,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Agents\Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollector.cs" />
+    <Compile Include="Agents\Collectors\Process\ProcessCollector.cs" />
     <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollector.cs" />
     <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollector.cs" />
     <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollector.cs" />

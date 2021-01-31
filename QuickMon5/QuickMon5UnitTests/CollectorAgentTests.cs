@@ -94,5 +94,7 @@ namespace QuickMon
             Assert.AreEqual(CollectorState.Good, testState.State, "Cannot ping self");
 
         }
+
+
     }
 }
