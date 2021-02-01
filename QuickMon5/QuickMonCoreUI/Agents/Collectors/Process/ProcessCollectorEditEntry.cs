@@ -33,7 +33,7 @@ namespace QuickMon.UI
                 cboTestType.SelectedIndex = (int)selectedEntry.ProcessCollectorTestType;
                 nudMinInstanceCount.Value = selectedEntry.MinimumRunningInstanceCount;
                 nudMaxInstanceCount.Value = selectedEntry.MaximumRunningInstanceCount;
-                chkCheckPerf.Checked = selectedEntry.CheckPerformance;
+                //chkCheckPerf.Checked = selectedEntry.CheckPerformance;
                 nudCPUWarn.Value = selectedEntry.ProcessorPercWarningTrigger;
                 nudCPUErr.Value = selectedEntry.ProcessorPercErrorTrigger;
                 nudMemWarn.Value = selectedEntry.MemoryKBWarningTrigger;
@@ -59,23 +59,14 @@ namespace QuickMon.UI
 
         private void EnableDisableControls()
         {
-            if (cboTestType.SelectedIndex == 2)
-            {
-                nudMinInstanceCount.Enabled = true;
-                nudMaxInstanceCount.Enabled = true;
-                chkCheckPerf.Enabled = true;
-                nudCPUWarn.Enabled = chkCheckPerf.Checked;
-                nudCPUErr.Enabled = chkCheckPerf.Checked;
-                nudMemWarn.Enabled = chkCheckPerf.Checked;
-                nudMemErr.Enabled = chkCheckPerf.Checked;
-                nudThreadCountWarn.Enabled = chkCheckPerf.Checked;
-                nudThreadCountErr.Enabled = chkCheckPerf.Checked;
-            }
-            else
+            if (cboFilterType.SelectedIndex == -1)
+                cboFilterType.SelectedIndex = 0;
+            if (cboTestType.SelectedIndex == -1)
+                cboTestType.SelectedIndex = 0;
+            if (cboTestType.SelectedIndex == 0 || cboTestType.SelectedIndex == 1)
             {
                 nudMinInstanceCount.Enabled = false;
                 nudMaxInstanceCount.Enabled = false;
-                chkCheckPerf.Enabled = false;
                 nudCPUWarn.Enabled = false;
                 nudCPUErr.Enabled = false;
                 nudMemWarn.Enabled = false;
@@ -83,8 +74,145 @@ namespace QuickMon.UI
                 nudThreadCountWarn.Enabled = false;
                 nudThreadCountErr.Enabled = false;
             }
+            else if (cboTestType.SelectedIndex == 2)
+            {
+                nudMinInstanceCount.Enabled = true;
+                nudMaxInstanceCount.Enabled = true;
+                nudCPUWarn.Enabled = false;
+                nudCPUErr.Enabled = false;
+                nudMemWarn.Enabled = false;
+                nudMemErr.Enabled = false;
+                nudThreadCountWarn.Enabled = false;
+                nudThreadCountErr.Enabled = false;
+            }
+            else if (cboTestType.SelectedIndex == 3)
+            {
+                nudMinInstanceCount.Enabled = false;
+                nudMaxInstanceCount.Enabled = false;
+                nudCPUWarn.Enabled = false;
+                nudCPUErr.Enabled = false;
+                nudMemWarn.Enabled = false;
+                nudMemErr.Enabled = false;
+                nudThreadCountWarn.Enabled = true;
+                nudThreadCountErr.Enabled = true;
+            }
+            else
+            {
+                nudMinInstanceCount.Enabled = false;
+                nudMaxInstanceCount.Enabled = false;
+                nudCPUWarn.Enabled = true;
+                nudCPUErr.Enabled = true;
+                nudMemWarn.Enabled = true;
+                nudMemErr.Enabled = true;
+                nudThreadCountWarn.Enabled = false;
+                nudThreadCountErr.Enabled = false;
+            }
+            
         }
 
+        private void cmdTest_Click(object sender, EventArgs e)
+        {
+            if (CheckControls(true))
+            {
+                ProcessCollectorConfigEntry testEntry = new ProcessCollectorConfigEntry()
+                {
+                    Name = txtName.Text,
+                    ProcessFilterType = (ProcessCollectorFilterType)cboFilterType.SelectedIndex,
+                    ProcessFilter = txtFilter.Text,
+                    ProcessCollectorTestType = (ProcessCollectorTestType)cboTestType.SelectedIndex,
+                    MinimumRunningInstanceCount = (int)nudMinInstanceCount.Value,
+                    MaximumRunningInstanceCount = (int)nudMaxInstanceCount.Value,
+                    //CheckPerformance = chkCheckPerf.Checked,
+                    ProcessorPercWarningTrigger = (int)nudCPUWarn.Value,
+                    ProcessorPercErrorTrigger = (int)nudCPUErr.Value,
+                    MemoryKBWarningTrigger = (int)nudMemWarn.Value,
+                    MemoryKBErrorTrigger = (int)nudMemErr.Value,
+                    ThreadCountWarningTrigger = (int)nudThreadCountWarn.Value,
+                    ThreadCountErrorTrigger = (int)nudThreadCountErr.Value
+                };
+                MonitorState testState = testEntry.GetCurrentState();
+                string rawDetails = testState.ReadAllRawDetails();
 
+                //MessageBox.Show(string.Format("State: {0}\r\nDetails: {1}", testState.State, rawDetails), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                Forms.ShowTextDialog td = new Forms.ShowTextDialog();
+                td.Height = 300;
+                td.ShowText("Test results", string.Format("State: {0}\r\n\r\nDetails: {1}", testState.State, rawDetails), true);
+            }
+        }
+
+        private bool CheckControls(bool warningPrompt = false)
+        {
+            bool success = false;
+            if (txtName.Text.Length < 3)
+            {
+                if (warningPrompt)
+                {
+                    MessageBox.Show("You must specify a name for the entry!", "Name", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtName.Focus();
+                }
+            }
+            else if (txtFilter.Text.Length < 3)
+            {
+                if (warningPrompt)
+                {
+                    MessageBox.Show("You must specify a filter to find the process!", "Filter", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtFilter.Focus();
+                }
+            }
+            else if (cboTestType.SelectedIndex == 2 && nudMinInstanceCount.Value > nudMaxInstanceCount.Value)
+            {
+                MessageBox.Show("The minimum instance count must be less than the maximum!", "Instance count", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                nudMinInstanceCount.Focus();
+            }
+            else if (cboTestType.SelectedIndex == 3 && nudThreadCountWarn.Value > nudThreadCountErr.Value)
+            {
+                MessageBox.Show("The thread warning value must be less than the error value!", "Threads", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                nudMemWarn.Focus();
+            }
+            else if (cboTestType.SelectedIndex == 4 && nudCPUWarn.Value > nudCPUErr.Value)
+            {
+                MessageBox.Show("The CPU warning value must be less than the error value!", "CPU", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                nudCPUWarn.Focus();
+            }
+            else if (cboTestType.SelectedIndex == 4 && nudMemWarn.Value > nudMemErr.Value)
+            {
+                MessageBox.Show("The memory warning value must be less than the error value!", "Memory", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                nudMemWarn.Focus();
+            }
+            else
+            {
+                success = true;
+            }           
+
+            return success;
+        }
+
+        private void cmdOK_Click(object sender, EventArgs e)
+        {
+            if (!chkVerifyOnOK.Checked || CheckControls(true))
+            {
+                if (SelectedEntry == null)
+                    SelectedEntry = new ProcessCollectorConfigEntry();
+                ProcessCollectorConfigEntry selectedEntry = (ProcessCollectorConfigEntry)SelectedEntry;
+                selectedEntry.Name = txtName.Text;
+                selectedEntry.ProcessFilterType = (ProcessCollectorFilterType)cboFilterType.SelectedIndex;
+                selectedEntry.ProcessFilter = txtFilter.Text;
+                selectedEntry.ProcessCollectorTestType = (ProcessCollectorTestType)cboTestType.SelectedIndex;
+                selectedEntry.MinimumRunningInstanceCount = (int)nudMinInstanceCount.Value;
+                selectedEntry.MaximumRunningInstanceCount = (int)nudMaxInstanceCount.Value;
+                //selectedEntry.CheckPerformance = chkCheckPerf.Checked;
+                selectedEntry.ProcessorPercWarningTrigger = (int)nudCPUWarn.Value;
+                selectedEntry.ProcessorPercErrorTrigger = (int)nudCPUErr.Value;
+                selectedEntry.MemoryKBWarningTrigger = (int)nudMemWarn.Value;
+                selectedEntry.MemoryKBErrorTrigger = (int)nudMemErr.Value;
+                selectedEntry.ThreadCountWarningTrigger = (int)nudThreadCountWarn.Value;
+                selectedEntry.ThreadCountErrorTrigger = (int)nudThreadCountErr.Value;
+
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+        }
     }
 }

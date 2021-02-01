@@ -57,7 +57,7 @@ namespace QuickMon.Collectors
                 //processEntry.InstanceCount = carvceEntryNode.ReadXmlElementAttr("instanceCount", 1);
                 processEntry.MinimumRunningInstanceCount = carvceEntryNode.ReadXmlElementAttr("minInstances", 1);
                 processEntry.MaximumRunningInstanceCount = carvceEntryNode.ReadXmlElementAttr("maxInstances", 1);
-                processEntry.CheckPerformance = carvceEntryNode.ReadXmlElementAttr("checkPerf", false);
+                //processEntry.CheckPerformance = carvceEntryNode.ReadXmlElementAttr("checkPerf", false);
                 processEntry.ProcessorPercWarningTrigger = carvceEntryNode.ReadXmlElementAttr("cpuWarn", 20);
                 processEntry.ProcessorPercErrorTrigger = carvceEntryNode.ReadXmlElementAttr("cpuErr", 50);
                 processEntry.MemoryKBWarningTrigger = carvceEntryNode.ReadXmlElementAttr("memWarn", 51200);
@@ -81,14 +81,14 @@ namespace QuickMon.Collectors
                 XmlElement processNode = config.CreateElement("process");
 
                 processNode.SetAttributeValue("name", processEntry.Name);
-                processNode.SetAttributeValue("filterType", processEntry.ProcessFilterType.ToString());
+                processNode.SetAttributeValue("filterType", (int)processEntry.ProcessFilterType);
                 processNode.SetAttributeValue("filter", processEntry.ProcessFilter);
 
-                processNode.SetAttributeValue("testType", processEntry.ProcessCollectorTestType.ToString());
+                processNode.SetAttributeValue("testType", (int)processEntry.ProcessCollectorTestType);
                 //processNode.SetAttributeValue("instanceCount", processEntry.InstanceCount);
                 processNode.SetAttributeValue("minInstances", processEntry.MinimumRunningInstanceCount);
                 processNode.SetAttributeValue("maxInstances", processEntry.MaximumRunningInstanceCount);
-                processNode.SetAttributeValue("checkPerf", processEntry.CheckPerformance);
+                //processNode.SetAttributeValue("checkPerf", processEntry.CheckPerformance);
                 processNode.SetAttributeValue("cpuWarn", processEntry.ProcessorPercWarningTrigger);
                 processNode.SetAttributeValue("cpuErr", processEntry.ProcessorPercErrorTrigger);
                 processNode.SetAttributeValue("memWarn", processEntry.MemoryKBWarningTrigger);
@@ -158,7 +158,7 @@ namespace QuickMon.Collectors
                 {
                     ProcessId = p.Id,
                     ExecutableName = "",
-                    Path= "",
+                    Path = "",
                     ProcessName = p.ProcessName,
                     DisplayName = p.MainWindowTitle,
                     ThreadCount = p.Threads.Count,
@@ -229,44 +229,70 @@ namespace QuickMon.Collectors
         public MonitorState GetCurrentState()
         {
             List<ProcessInfo> processes = null;
-            CollectorState agentState = CollectorState.NotAvailable;
+            //CollectorState agentState = CollectorState.NotAvailable;
             StringBuilder sbRawDetails = new StringBuilder();
-            try
-            {
-                processes = GetValue();
-                agentState = GetStateFromValue(processes);
-
-                if (processes == null || processes.Count == 0)
-                {
-                    sbRawDetails.Append("No process found!");
-                }
-                else
-                {
-                    foreach (ProcessInfo p in processes)
-                    {
-                        sbRawDetails.Append($"{p}");
-                        if (CheckPerformance)
-                        {
-                            sbRawDetails.Append($"mId:{p.ProcessId},CPU:{p.CPUPerc.ToString("0.00")},Mem:{(p.PrivateBytes / 1024).ToString("0.00")}KB");
-                        }
-                        sbRawDetails.AppendLine();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                agentState = CollectorState.Error;
-                sbRawDetails.AppendLine(ex.Message);
-            }
-
+            object reportedValue = "";
             MonitorState currentState = new MonitorState()
             {
                 ForAgent = Description,
-                State = agentState,
-                CurrentValue = processes != null ? processes.Count.ToString() : "No",
-                CurrentValueUnit = "process(es)",
-                RawDetails = sbRawDetails.ToString()
+                State = CollectorState.NotAvailable
             };
+
+            try
+            {
+                processes = GetValue();
+                currentState.State = GetStateFromValue(processes);
+
+                if (processes == null || processes.Count == 0)
+                {
+                    currentState.CurrentValue = "No processes!";
+                    currentState.CurrentValueUnit = "";
+                    sbRawDetails.Append("No process found!");
+                }
+                else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceCount ||
+                         ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceNotRunning ||
+                         ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceRunning)
+                {
+                    currentState.CurrentValue = processes.Count;
+                    currentState.CurrentValueUnit = "process(es)";
+                    sbRawDetails.Append($"{processes.Count} process(es)");                    
+                } 
+                else if (ProcessCollectorTestType == ProcessCollectorTestType.ThreadCount)
+                {
+                    currentState.CurrentValue = (from ProcessInfo p in processes
+                                                 select p.ThreadCount).Max();
+                    currentState.CurrentValueUnit = "Thread(s)";
+                    sbRawDetails.Append($"{processes.Count} process(es), Threads(Max): {currentState.CurrentValue}");
+                }
+                else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessorAndMemoryUsage)
+                {
+                    var maxCPU = (from ProcessInfo p in processes
+                                  select p.CPUPerc).Max();
+                    var maxMem = (from ProcessInfo p in processes
+                                  select p.WorkingSetSize).Max();
+                    currentState.CurrentValue = $"CPU:{maxCPU.ToString("0.00")},Mem:{FormatUtils.FormatFileSize(maxMem)}(Max)";
+                    currentState.CurrentValueUnit = "";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                currentState.State = CollectorState.Error;
+                sbRawDetails.AppendLine(ex.Message);
+            }
+            
+            foreach (ProcessInfo p in processes)
+            {
+                MonitorState processState = new MonitorState()
+                {
+                    ForAgent = p.ToString(),
+                    State = CollectorState.NotAvailable,
+                    CurrentValue = ""
+                };
+                processState.RawDetails = $"ProcessId:{p.ProcessId},Threads:{p.ThreadCount},CPU:{p.CPUPerc.ToString("0.00")}%,Mem:{FormatUtils.FormatFileSize(p.WorkingSetSize)}";
+
+                currentState.ChildStates.Add(processState);
+            }
 
             return currentState;
         }        
@@ -308,10 +334,13 @@ namespace QuickMon.Collectors
                     output += " : IsRunning";
                 else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceNotRunning)
                     output += " : NotRunning";
-                else 
-                    output += " : Count";
-                if (CheckPerformance)
-                    output += " (Incl Perf)";
+                else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceCount)
+                    output += " : Instance Count";
+                else if (ProcessCollectorTestType == ProcessCollectorTestType.ThreadCount)
+                    output += " : Thread Count";
+                else
+                    output += " : CPU/Memory";
+                
                 return output;
             }
         }
@@ -334,7 +363,7 @@ namespace QuickMon.Collectors
         public int MinimumRunningInstanceCount { get; set; }
         [DefaultValue(1)]
         public int MaximumRunningInstanceCount { get; set; }
-        public bool CheckPerformance { get; set; }
+        //public bool CheckPerformance { get; set; }
         [DefaultValue(20)]
         public int ProcessorPercWarningTrigger { get; set; }
         [DefaultValue(50)]
@@ -415,7 +444,7 @@ namespace QuickMon.Collectors
             {
                 foreach(Process process in processes)
                 {
-                    procesInfos.Add(ProcessInfo.CreateFromProcess(process, CheckPerformance));                    
+                    procesInfos.Add(ProcessInfo.CreateFromProcess(process, true)); // CheckPerformance));                    
                 }
             }
 
@@ -439,43 +468,48 @@ namespace QuickMon.Collectors
                 else if (processes.Count > 0)
                     collectorState = CollectorState.Good;
             }
-            //else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceFixedCount)
-            //{
-            //    if (processes == null || processes.Count != InstanceCount)
-            //        collectorState = CollectorState.Error;
-            //    else 
-            //        collectorState = CollectorState.Good;
-            //}
-            else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceMinMaxCount)
+            else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceCount)
             {
                 if (processes == null)
                     collectorState = CollectorState.Error;
-                else if (processes.Count < MinimumRunningInstanceCount || processes.Count > MaximumRunningInstanceCount)
+                else if (processes.Count >= MinimumRunningInstanceCount && processes.Count <= MaximumRunningInstanceCount)
                     collectorState = CollectorState.Good;
                 else
                     collectorState = CollectorState.Error;
             }
-            if (CheckPerformance && collectorState != CollectorState.Error && processes.Count > 0)
+            else if (ProcessCollectorTestType == ProcessCollectorTestType.ThreadCount)
             {
-                foreach(ProcessInfo p in processes)
+                if (processes == null)
+                    collectorState = CollectorState.Error;
+                else
+                {
+                    foreach (ProcessInfo p in processes)
+                    {
+                        if (p.ThreadCount >= ThreadCountWarningTrigger)
+                            collectorState = CollectorState.Warning;
+                        else if (p.ThreadCount >= ThreadCountErrorTrigger)
+                            collectorState = CollectorState.Error;
+                        if (collectorState == CollectorState.Error)
+                            break;
+                    }
+                }
+            }
+            else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessorAndMemoryUsage)
+            {
+                foreach (ProcessInfo p in processes)
                 {
                     if (p.CPUPerc > ProcessorPercWarningTrigger)
                         collectorState = CollectorState.Warning;
                     else if (p.CPUPerc > ProcessorPercErrorTrigger)
                         collectorState = CollectorState.Warning;
-                    else if ((p.PrivateBytes * 1024) > MemoryKBWarningTrigger)
+                    else if ((p.WorkingSetSize * 1024) > MemoryKBWarningTrigger)
                         collectorState = CollectorState.Warning;
-                    else if ((p.PrivateBytes * 1024) > MemoryKBErrorTrigger)
-                        collectorState = CollectorState.Error;
-                    else if (p.ThreadCount >= ThreadCountWarningTrigger)
-                        collectorState = CollectorState.Warning;
-                    else if (p.ThreadCount >= ThreadCountErrorTrigger)
-                        collectorState = CollectorState.Error;
+                    else if ((p.WorkingSetSize * 1024) > MemoryKBErrorTrigger)
+                        collectorState = CollectorState.Error;                    
                     if (collectorState == CollectorState.Error)
                         break;
                 }
             }
-
             return collectorState;
         }
         #endregion
@@ -484,7 +518,9 @@ namespace QuickMon.Collectors
     {
         ProcessInstanceRunning,
         ProcessInstanceNotRunning,
-        ProcessInstanceMinMaxCount,
+        ProcessInstanceCount,
+        ThreadCount,
+        ProcessorAndMemoryUsage
     }
     public enum ProcessCollectorFilterType
     {
