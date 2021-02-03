@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("Hen IT")]
 [assembly: AssemblyProduct("QuickMon")]
-[assembly: AssemblyCopyright("Copyright © Hen IT 2020")]
+[assembly: AssemblyCopyright("Copyright © Hen IT 2021")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -15,5 +15,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("5.2.5.0060")]
-[assembly: AssemblyFileVersion("5.2.5.0060")]
+[assembly: AssemblyVersion("5.3.0.0061")]
+[assembly: AssemblyFileVersion("5.3.0.0061")]

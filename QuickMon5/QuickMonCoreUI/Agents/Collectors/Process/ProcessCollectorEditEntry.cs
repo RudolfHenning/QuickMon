@@ -33,7 +33,6 @@ namespace QuickMon.UI
                 cboTestType.SelectedIndex = (int)selectedEntry.ProcessCollectorTestType;
                 nudMinInstanceCount.Value = selectedEntry.MinimumRunningInstanceCount;
                 nudMaxInstanceCount.Value = selectedEntry.MaximumRunningInstanceCount;
-                //chkCheckPerf.Checked = selectedEntry.CheckPerformance;
                 nudCPUWarn.Value = selectedEntry.ProcessorPercWarningTrigger;
                 nudCPUErr.Value = selectedEntry.ProcessorPercErrorTrigger;
                 nudMemWarn.Value = selectedEntry.MemoryKBWarningTrigger;
@@ -55,6 +54,80 @@ namespace QuickMon.UI
         private void chkCheckPerf_CheckedChanged(object sender, EventArgs e)
         {
             EnableDisableControls();
+        }
+        private void cmdBrowseProcesses_Click(object sender, EventArgs e)
+        {
+            ProcessListSelectDialog processListSelectDialog = new ProcessListSelectDialog();
+            processListSelectDialog.ProcessCollectorFilterType = (ProcessCollectorFilterType)cboFilterType.SelectedIndex;
+            if (processListSelectDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtFilter.Text = processListSelectDialog.SelectedValue;
+                cboFilterType.SelectedIndex = (int)processListSelectDialog.ProcessCollectorFilterType;
+            }            
+        }
+
+        private void nudMemWarn_ValueChanged(object sender, EventArgs e)
+        {
+            lblMemWarningFormatted.Text = FormatUtils.FormatFileSize((long)nudMemWarn.Value * 1024);
+        }
+
+        private void nudMemErr_ValueChanged(object sender, EventArgs e)
+        {
+            lblMemErrorFormatted.Text = FormatUtils.FormatFileSize((long)nudMemErr.Value * 1024);
+        }
+
+
+        private void cmdTest_Click(object sender, EventArgs e)
+        {
+            if (CheckControls(true))
+            {
+                ProcessCollectorConfigEntry testEntry = new ProcessCollectorConfigEntry()
+                {
+                    Name = txtName.Text,
+                    ProcessFilterType = (ProcessCollectorFilterType)cboFilterType.SelectedIndex,
+                    ProcessFilter = txtFilter.Text,
+                    ProcessCollectorTestType = (ProcessCollectorTestType)cboTestType.SelectedIndex,
+                    MinimumRunningInstanceCount = (int)nudMinInstanceCount.Value,
+                    MaximumRunningInstanceCount = (int)nudMaxInstanceCount.Value,
+                    ProcessorPercWarningTrigger = (int)nudCPUWarn.Value,
+                    ProcessorPercErrorTrigger = (int)nudCPUErr.Value,
+                    MemoryKBWarningTrigger = (int)nudMemWarn.Value,
+                    MemoryKBErrorTrigger = (int)nudMemErr.Value,
+                    ThreadCountWarningTrigger = (int)nudThreadCountWarn.Value,
+                    ThreadCountErrorTrigger = (int)nudThreadCountErr.Value
+                };
+                MonitorState testState = testEntry.GetCurrentState();
+                string value = testState.ReadFirstValue(true);
+                string rawDetails = testState.ReadAllRawDetails();
+
+                Forms.ShowTextDialog td = new Forms.ShowTextDialog();
+                td.Height = 300;
+                td.ShowText("Test results", string.Format($"State: {testState.State}\r\n\r\nValue: {value}\r\nDetails: {rawDetails}"), true);
+            }
+        }
+        private void cmdOK_Click(object sender, EventArgs e)
+        {
+            if (CheckControls(true))
+            {
+                if (SelectedEntry == null)
+                    SelectedEntry = new ProcessCollectorConfigEntry();
+                ProcessCollectorConfigEntry selectedEntry = (ProcessCollectorConfigEntry)SelectedEntry;
+                selectedEntry.Name = txtName.Text;
+                selectedEntry.ProcessFilterType = (ProcessCollectorFilterType)cboFilterType.SelectedIndex;
+                selectedEntry.ProcessFilter = txtFilter.Text;
+                selectedEntry.ProcessCollectorTestType = (ProcessCollectorTestType)cboTestType.SelectedIndex;
+                selectedEntry.MinimumRunningInstanceCount = (int)nudMinInstanceCount.Value;
+                selectedEntry.MaximumRunningInstanceCount = (int)nudMaxInstanceCount.Value;
+                selectedEntry.ProcessorPercWarningTrigger = (int)nudCPUWarn.Value;
+                selectedEntry.ProcessorPercErrorTrigger = (int)nudCPUErr.Value;
+                selectedEntry.MemoryKBWarningTrigger = (int)nudMemWarn.Value;
+                selectedEntry.MemoryKBErrorTrigger = (int)nudMemErr.Value;
+                selectedEntry.ThreadCountWarningTrigger = (int)nudThreadCountWarn.Value;
+                selectedEntry.ThreadCountErrorTrigger = (int)nudThreadCountErr.Value;
+
+                DialogResult = DialogResult.OK;
+                Close();
+            }
         }
 
         private void EnableDisableControls()
@@ -109,39 +182,6 @@ namespace QuickMon.UI
             }
             
         }
-
-        private void cmdTest_Click(object sender, EventArgs e)
-        {
-            if (CheckControls(true))
-            {
-                ProcessCollectorConfigEntry testEntry = new ProcessCollectorConfigEntry()
-                {
-                    Name = txtName.Text,
-                    ProcessFilterType = (ProcessCollectorFilterType)cboFilterType.SelectedIndex,
-                    ProcessFilter = txtFilter.Text,
-                    ProcessCollectorTestType = (ProcessCollectorTestType)cboTestType.SelectedIndex,
-                    MinimumRunningInstanceCount = (int)nudMinInstanceCount.Value,
-                    MaximumRunningInstanceCount = (int)nudMaxInstanceCount.Value,
-                    //CheckPerformance = chkCheckPerf.Checked,
-                    ProcessorPercWarningTrigger = (int)nudCPUWarn.Value,
-                    ProcessorPercErrorTrigger = (int)nudCPUErr.Value,
-                    MemoryKBWarningTrigger = (int)nudMemWarn.Value,
-                    MemoryKBErrorTrigger = (int)nudMemErr.Value,
-                    ThreadCountWarningTrigger = (int)nudThreadCountWarn.Value,
-                    ThreadCountErrorTrigger = (int)nudThreadCountErr.Value
-                };
-                MonitorState testState = testEntry.GetCurrentState();
-                string rawDetails = testState.ReadAllRawDetails();
-
-                //MessageBox.Show(string.Format("State: {0}\r\nDetails: {1}", testState.State, rawDetails), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-                Forms.ShowTextDialog td = new Forms.ShowTextDialog();
-                td.Height = 300;
-                td.ShowText("Test results", string.Format("State: {0}\r\n\r\nDetails: {1}", testState.State, rawDetails), true);
-            }
-        }
-
         private bool CheckControls(bool warningPrompt = false)
         {
             bool success = false;
@@ -189,30 +229,5 @@ namespace QuickMon.UI
             return success;
         }
 
-        private void cmdOK_Click(object sender, EventArgs e)
-        {
-            if (!chkVerifyOnOK.Checked || CheckControls(true))
-            {
-                if (SelectedEntry == null)
-                    SelectedEntry = new ProcessCollectorConfigEntry();
-                ProcessCollectorConfigEntry selectedEntry = (ProcessCollectorConfigEntry)SelectedEntry;
-                selectedEntry.Name = txtName.Text;
-                selectedEntry.ProcessFilterType = (ProcessCollectorFilterType)cboFilterType.SelectedIndex;
-                selectedEntry.ProcessFilter = txtFilter.Text;
-                selectedEntry.ProcessCollectorTestType = (ProcessCollectorTestType)cboTestType.SelectedIndex;
-                selectedEntry.MinimumRunningInstanceCount = (int)nudMinInstanceCount.Value;
-                selectedEntry.MaximumRunningInstanceCount = (int)nudMaxInstanceCount.Value;
-                //selectedEntry.CheckPerformance = chkCheckPerf.Checked;
-                selectedEntry.ProcessorPercWarningTrigger = (int)nudCPUWarn.Value;
-                selectedEntry.ProcessorPercErrorTrigger = (int)nudCPUErr.Value;
-                selectedEntry.MemoryKBWarningTrigger = (int)nudMemWarn.Value;
-                selectedEntry.MemoryKBErrorTrigger = (int)nudMemErr.Value;
-                selectedEntry.ThreadCountWarningTrigger = (int)nudThreadCountWarn.Value;
-                selectedEntry.ThreadCountErrorTrigger = (int)nudThreadCountErr.Value;
-
-                DialogResult = DialogResult.OK;
-                Close();
-            }
-        }
     }
 }

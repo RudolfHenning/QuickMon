@@ -809,6 +809,52 @@
       <configVars></configVars>
     </collectorHost>
   </template>
+  <template name="Windows Process" type="CollectorHost" class="CollectorHost" description="Process monitoring">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[CollectorName:Process]]" enabled="True" expandOnStart="Always" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="Process Collector" type="QuickMon.Collectors.ProcessCollector" enabled="True" primaryUIValue="False">
+          <config>
+            <processes>
+              <process name="[[AgentName:Process]]" filterType="0" filter="[[Filter:QuickMon]]" testType="0" minInstances="1" maxInstances="3" cpuWarn="20" cpuErr="50" memWarn="51200" memErr="102400" threadWarn="50" threadErr="150" />
+            </processes>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Metrics Export settings -->
+      <metricsExport exclude="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+  </template>
   <template name="Windows Service State" type="CollectorHost" class="CollectorHost" description="Windows Service State">
     <collectorHost uniqueId="" dependOnParentId="" name="Windows Service State" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->

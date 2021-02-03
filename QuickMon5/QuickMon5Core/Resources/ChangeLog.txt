@@ -173,3 +173,7 @@ Version 5.2.5
 First version compiled with VS2019
 Graph control selected series can be changed by up/down keys
 Graph control selected series can be selected by clicking on the legend
+
+Version 5.3
+**************
+Adding the (Windows) Process Collector

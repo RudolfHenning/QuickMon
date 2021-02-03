@@ -31,6 +31,8 @@ namespace QuickMon.UI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessCollectorEditEntry));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblMemErrorFormatted = new System.Windows.Forms.Label();
+            this.lblMemWarningFormatted = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.nudThreadCountErr = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
@@ -59,6 +61,7 @@ namespace QuickMon.UI
             this.cmdTest = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
+            this.cmdBrowseProcesses = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudThreadCountErr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudThreadCountWarn)).BeginInit();
@@ -74,6 +77,8 @@ namespace QuickMon.UI
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.lblMemErrorFormatted);
+            this.groupBox1.Controls.Add(this.lblMemWarningFormatted);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.nudThreadCountErr);
             this.groupBox1.Controls.Add(this.label11);
@@ -95,15 +100,33 @@ namespace QuickMon.UI
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(7, 91);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(433, 155);
+            this.groupBox1.Size = new System.Drawing.Size(644, 155);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Test conditions";
             // 
+            // lblMemErrorFormatted
+            // 
+            this.lblMemErrorFormatted.AutoSize = true;
+            this.lblMemErrorFormatted.Location = new System.Drawing.Point(514, 126);
+            this.lblMemErrorFormatted.Name = "lblMemErrorFormatted";
+            this.lblMemErrorFormatted.Size = new System.Drawing.Size(10, 13);
+            this.lblMemErrorFormatted.TabIndex = 20;
+            this.lblMemErrorFormatted.Text = ".";
+            // 
+            // lblMemWarningFormatted
+            // 
+            this.lblMemWarningFormatted.AutoSize = true;
+            this.lblMemWarningFormatted.Location = new System.Drawing.Point(220, 126);
+            this.lblMemWarningFormatted.Name = "lblMemWarningFormatted";
+            this.lblMemWarningFormatted.Size = new System.Drawing.Size(10, 13);
+            this.lblMemWarningFormatted.TabIndex = 19;
+            this.lblMemWarningFormatted.Text = ".";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(228, 74);
+            this.label10.Location = new System.Drawing.Point(319, 74);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(51, 13);
             this.label10.TabIndex = 8;
@@ -111,7 +134,7 @@ namespace QuickMon.UI
             // 
             // nudThreadCountErr
             // 
-            this.nudThreadCountErr.Location = new System.Drawing.Point(335, 72);
+            this.nudThreadCountErr.Location = new System.Drawing.Point(425, 72);
             this.nudThreadCountErr.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -155,7 +178,7 @@ namespace QuickMon.UI
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(228, 126);
+            this.label8.Location = new System.Drawing.Point(319, 126);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(78, 13);
             this.label8.TabIndex = 17;
@@ -163,7 +186,7 @@ namespace QuickMon.UI
             // 
             // nudMemErr
             // 
-            this.nudMemErr.Location = new System.Drawing.Point(335, 124);
+            this.nudMemErr.Location = new System.Drawing.Point(425, 124);
             this.nudMemErr.Maximum = new decimal(new int[] {
             -2147483648,
             0,
@@ -177,6 +200,7 @@ namespace QuickMon.UI
             0,
             0,
             0});
+            this.nudMemErr.ValueChanged += new System.EventHandler(this.nudMemErr_ValueChanged);
             // 
             // label9
             // 
@@ -203,11 +227,12 @@ namespace QuickMon.UI
             0,
             0,
             0});
+            this.nudMemWarn.ValueChanged += new System.EventHandler(this.nudMemWarn_ValueChanged);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(228, 100);
+            this.label7.Location = new System.Drawing.Point(319, 100);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 13);
             this.label7.TabIndex = 13;
@@ -215,7 +240,7 @@ namespace QuickMon.UI
             // 
             // nudCPUErr
             // 
-            this.nudCPUErr.Location = new System.Drawing.Point(335, 98);
+            this.nudCPUErr.Location = new System.Drawing.Point(425, 98);
             this.nudCPUErr.Name = "nudCPUErr";
             this.nudCPUErr.Size = new System.Drawing.Size(83, 20);
             this.nudCPUErr.TabIndex = 14;
@@ -249,7 +274,7 @@ namespace QuickMon.UI
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(229, 48);
+            this.label5.Location = new System.Drawing.Point(319, 48);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 13);
             this.label5.TabIndex = 4;
@@ -257,7 +282,7 @@ namespace QuickMon.UI
             // 
             // nudMaxInstanceCount
             // 
-            this.nudMaxInstanceCount.Location = new System.Drawing.Point(335, 46);
+            this.nudMaxInstanceCount.Location = new System.Drawing.Point(425, 46);
             this.nudMaxInstanceCount.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -307,7 +332,8 @@ namespace QuickMon.UI
             "Instance Not Running",
             "Instance Count",
             "Thread Count",
-            "Processor And Memory Usage"});
+            "Processor Usage",
+            "Memory Usage"});
             this.cboTestType.Location = new System.Drawing.Point(135, 19);
             this.cboTestType.Name = "cboTestType";
             this.cboTestType.Size = new System.Drawing.Size(178, 21);
@@ -336,9 +362,10 @@ namespace QuickMon.UI
             // 
             this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtFilter.Location = new System.Drawing.Point(142, 65);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(294, 20);
+            this.txtFilter.Size = new System.Drawing.Size(467, 20);
             this.txtFilter.TabIndex = 5;
             // 
             // cboFilterType
@@ -380,7 +407,7 @@ namespace QuickMon.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(142, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(294, 20);
+            this.txtName.Size = new System.Drawing.Size(505, 20);
             this.txtName.TabIndex = 1;
             // 
             // chkVerifyOnOK
@@ -389,19 +416,20 @@ namespace QuickMon.UI
             this.chkVerifyOnOK.AutoSize = true;
             this.chkVerifyOnOK.Checked = true;
             this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkVerifyOnOK.Location = new System.Drawing.Point(69, 255);
+            this.chkVerifyOnOK.Location = new System.Drawing.Point(280, 259);
             this.chkVerifyOnOK.Name = "chkVerifyOnOK";
             this.chkVerifyOnOK.Size = new System.Drawing.Size(123, 17);
             this.chkVerifyOnOK.TabIndex = 7;
             this.chkVerifyOnOK.Text = "Test on clicking \'OK\'";
             this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkVerifyOnOK.UseVisualStyleBackColor = true;
+            this.chkVerifyOnOK.Visible = false;
             // 
             // cmdTest
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTest.Location = new System.Drawing.Point(199, 251);
+            this.cmdTest.Location = new System.Drawing.Point(410, 255);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
             this.cmdTest.TabIndex = 8;
@@ -414,7 +442,7 @@ namespace QuickMon.UI
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(361, 251);
+            this.cmdCancel.Location = new System.Drawing.Point(572, 255);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 10;
@@ -425,7 +453,7 @@ namespace QuickMon.UI
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(280, 251);
+            this.cmdOK.Location = new System.Drawing.Point(491, 255);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 9;
@@ -433,12 +461,25 @@ namespace QuickMon.UI
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
+            // cmdBrowseProcesses
+            // 
+            this.cmdBrowseProcesses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseProcesses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdBrowseProcesses.Location = new System.Drawing.Point(615, 63);
+            this.cmdBrowseProcesses.Name = "cmdBrowseProcesses";
+            this.cmdBrowseProcesses.Size = new System.Drawing.Size(36, 23);
+            this.cmdBrowseProcesses.TabIndex = 11;
+            this.cmdBrowseProcesses.Text = "- - -";
+            this.cmdBrowseProcesses.UseVisualStyleBackColor = true;
+            this.cmdBrowseProcesses.Click += new System.EventHandler(this.cmdBrowseProcesses_Click);
+            // 
             // ProcessCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(448, 286);
+            this.ClientSize = new System.Drawing.Size(659, 290);
+            this.Controls.Add(this.cmdBrowseProcesses);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtFilter);
@@ -450,6 +491,7 @@ namespace QuickMon.UI
             this.Controls.Add(this.cmdTest);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -503,5 +545,8 @@ namespace QuickMon.UI
         private System.Windows.Forms.NumericUpDown nudMemErr;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown nudMemWarn;
+        private System.Windows.Forms.Button cmdBrowseProcesses;
+        private System.Windows.Forms.Label lblMemWarningFormatted;
+        private System.Windows.Forms.Label lblMemErrorFormatted;
     }
 }

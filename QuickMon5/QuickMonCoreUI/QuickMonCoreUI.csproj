@@ -135,6 +135,12 @@
       <DependentUpon>ProcessCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Agents\Collectors\Process\ProcessCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\Process\ProcessListSelectDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\Process\ProcessListSelectDialog.Designer.cs">
+      <DependentUpon>ProcessListSelectDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -481,6 +487,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\Process\ProcessCollectorEditEntry.resx">
       <DependentUpon>ProcessCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\Process\ProcessListSelectDialog.resx">
+      <DependentUpon>ProcessListSelectDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorEditEntry.resx">
       <DependentUpon>RegistryQueryCollectorEditEntry.cs</DependentUpon>

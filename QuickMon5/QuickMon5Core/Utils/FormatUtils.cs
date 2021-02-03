@@ -98,25 +98,43 @@ namespace QuickMon
                 return o.ToString().IsDouble();
             }
         }
-        public static string FormatFileSize(long fileSize)
+        public static string FormatFileSize(long fileSize, bool includeUnit = true)
         {
             if (fileSize < 1024)
             {
-                return fileSize.ToString() + " bytes";
+                return fileSize.ToString() + (includeUnit ? " bytes" : "");
             }
             else if (fileSize < 1048576)
             {
-                return (fileSize / 1024).ToString() + " KB";
+                return (fileSize / 1024).ToString() + (includeUnit ? " KB" : "");
             }
             else if (fileSize < 1073741824)
             {
-                return (fileSize / 1048576.0).ToString("0.00") + " MB";
+                return (fileSize / 1048576.0).ToString("0.00") + (includeUnit ? " MB" : "");
             }
             else
             {
-                return (fileSize / 1073741824.00).ToString("0.00") + " GB";
+                return (fileSize / 1073741824.00).ToString("0.00") + (includeUnit ? " GB" : "");
             }
-
+        }
+        public static string FormatFileSizeUnitOnly(long fileSize)
+        {
+            if (fileSize < 1024)
+            {
+                return "bytes";
+            }
+            else if (fileSize < 1048576)
+            {
+                return "KB";
+            }
+            else if (fileSize < 1073741824)
+            {
+                return "MB";
+            }
+            else
+            {
+                return "GB";
+            }
         }
         public static string FormatFileSizePerSec(long fileSize)
         {

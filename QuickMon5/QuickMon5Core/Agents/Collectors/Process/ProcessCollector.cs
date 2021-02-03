@@ -264,14 +264,19 @@ namespace QuickMon.Collectors
                     currentState.CurrentValueUnit = "Thread(s)";
                     sbRawDetails.Append($"{processes.Count} process(es), Threads(Max): {currentState.CurrentValue}");
                 }
-                else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessorAndMemoryUsage)
+                else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessorUsage)
                 {
                     var maxCPU = (from ProcessInfo p in processes
                                   select p.CPUPerc).Max();
+                    currentState.CurrentValue = maxCPU.ToString("0.0");
+                    currentState.CurrentValueUnit = "%";
+                }
+                else if (ProcessCollectorTestType == ProcessCollectorTestType.MemoryUsage)
+                {
                     var maxMem = (from ProcessInfo p in processes
                                   select p.WorkingSetSize).Max();
-                    currentState.CurrentValue = $"CPU:{maxCPU.ToString("0.00")},Mem:{FormatUtils.FormatFileSize(maxMem)}(Max)";
-                    currentState.CurrentValueUnit = "";
+                    currentState.CurrentValue = FormatUtils.FormatFileSize(maxMem, false);
+                    currentState.CurrentValueUnit = FormatUtils.FormatFileSizeUnitOnly(maxMem);
                 }
 
             }
@@ -287,9 +292,39 @@ namespace QuickMon.Collectors
                 {
                     ForAgent = p.ToString(),
                     State = CollectorState.NotAvailable,
-                    CurrentValue = ""
+                    CurrentValue = $"Threads:{p.ThreadCount}, Id:{p.ProcessId}",
+                    CurrentValueUnit = ""
                 };
-                processState.RawDetails = $"ProcessId:{p.ProcessId},Threads:{p.ThreadCount},CPU:{p.CPUPerc.ToString("0.00")}%,Mem:{FormatUtils.FormatFileSize(p.WorkingSetSize)}";
+                if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceCount ||
+                    ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceRunning ||
+                    ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceNotRunning)
+                {
+                    processState.CurrentValue = $"Id:{p.ProcessId}";
+                    
+                }
+                else if (ProcessCollectorTestType == ProcessCollectorTestType.ThreadCount)
+                {
+                    processState.CurrentValue = p.ThreadCount;
+                    processState.CurrentValueUnit = "Thread(s)";
+                }
+                else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessorUsage)
+                {
+                    processState.CurrentValue = p.CPUPerc.ToString("0.0");
+                    processState.CurrentValueUnit = "%";
+                }
+                else if (ProcessCollectorTestType == ProcessCollectorTestType.MemoryUsage)
+                {
+                    processState.CurrentValue = FormatUtils.FormatFileSize(p.WorkingSetSize, false);
+                    processState.CurrentValueUnit = FormatUtils.FormatFileSizeUnitOnly(p.WorkingSetSize);
+                }
+
+                processState.RawDetails = $"ProcessId:{p.ProcessId}\r\n" +
+                    $"Path:{p.Path}\r\n" +
+                    $"CMD:{p.CommandLine}\r\n" +
+                    $"Threads:{p.ThreadCount}\r\n" +
+                    $"CPU:{p.CPUPerc.ToString("0.00")}%\r\n" +
+                    $"Mem:{FormatUtils.FormatFileSize(p.WorkingSetSize)}";
+
 
                 currentState.ChildStates.Add(processState);
             }
@@ -392,9 +427,15 @@ namespace QuickMon.Collectors
                         processes.AddRange(Process.GetProcessesByName(ProcessFilter));
                         break;
                     case ProcessCollectorFilterType.ExecutableName:
-                        processes.AddRange((from p in Process.GetProcesses()
-                                            where p.MainModule != null && p.MainModule.ModuleName.ToLower() == ProcessFilter.ToLower()
-                                            select p));
+                        foreach (var p in Process.GetProcesses())
+                        {
+                            try
+                            {
+                                if (p.MainModule != null && p.MainModule.ModuleName.ToLower() == ProcessFilter.ToLower())
+                                    processes.Add(p);
+                            }
+                            catch { }
+                        }
                         break;
                     case ProcessCollectorFilterType.DisplayName:
                         processes.AddRange((from p in Process.GetProcesses()
@@ -402,12 +443,8 @@ namespace QuickMon.Collectors
                                             select p));
                         break;
                     case ProcessCollectorFilterType.FullPath:
-                        processes.AddRange((from p in Process.GetProcesses()
-                                            where p.MainModule != null && p.MainModule.FileName.ToLower() == ProcessFilter.ToLower()
-                                            select p));
-                        break;
-                    case ProcessCollectorFilterType.StartUpCommandLine:
-                        using (ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT ProcessId,CommandLine FROM Win32_Process WHERE CommandLine like '%{ProcessFilter}%'"))
+                        //
+                        using (ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT ProcessId,ExecutablePath FROM Win32_Process WHERE ExecutablePath like '{ProcessFilter.Replace("\\","\\\\")}%'"))
                         {
                             using (ManagementObjectCollection results = searcher.Get())
                             {
@@ -420,6 +457,30 @@ namespace QuickMon.Collectors
                                         try
                                         {
                                             //int processId = 0;
+                                            if (int.TryParse(val.ToString(), out int processId))
+                                            {
+                                                processes.Add(Process.GetProcessById(processId));
+                                            }
+                                        }
+                                        catch { }
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case ProcessCollectorFilterType.StartUpCommandLine:
+                        using (ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT ProcessId,CommandLine FROM Win32_Process WHERE CommandLine like '{ProcessFilter.Replace("\\","\\\\")}'"))
+                        {
+                            using (ManagementObjectCollection results = searcher.Get())
+                            {
+                                int nItems = results.Count;
+                                if (nItems > 0)
+                                {
+                                    foreach (ManagementObject objServiceInstance in results)
+                                    {
+                                        object val = objServiceInstance.Properties["ProcessId"].Value;
+                                        try
+                                        {
                                             if (int.TryParse(val.ToString(), out int processId))
                                             {
                                                 processes.Add(Process.GetProcessById(processId));
@@ -470,7 +531,7 @@ namespace QuickMon.Collectors
             }
             else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceCount)
             {
-                if (processes == null)
+                if (processes == null || processes.Count == 0)
                     collectorState = CollectorState.Error;
                 else if (processes.Count >= MinimumRunningInstanceCount && processes.Count <= MaximumRunningInstanceCount)
                     collectorState = CollectorState.Good;
@@ -479,10 +540,11 @@ namespace QuickMon.Collectors
             }
             else if (ProcessCollectorTestType == ProcessCollectorTestType.ThreadCount)
             {
-                if (processes == null)
+                if (processes == null || processes.Count == 0)
                     collectorState = CollectorState.Error;
                 else
                 {
+                    collectorState = CollectorState.Good;
                     foreach (ProcessInfo p in processes)
                     {
                         if (p.ThreadCount >= ThreadCountWarningTrigger)
@@ -494,20 +556,40 @@ namespace QuickMon.Collectors
                     }
                 }
             }
-            else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessorAndMemoryUsage)
+            else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessorUsage)
             {
-                foreach (ProcessInfo p in processes)
+                if (processes == null || processes.Count == 0)
+                    collectorState = CollectorState.Error;
+                else
                 {
-                    if (p.CPUPerc > ProcessorPercWarningTrigger)
-                        collectorState = CollectorState.Warning;
-                    else if (p.CPUPerc > ProcessorPercErrorTrigger)
-                        collectorState = CollectorState.Warning;
-                    else if ((p.WorkingSetSize * 1024) > MemoryKBWarningTrigger)
-                        collectorState = CollectorState.Warning;
-                    else if ((p.WorkingSetSize * 1024) > MemoryKBErrorTrigger)
-                        collectorState = CollectorState.Error;                    
-                    if (collectorState == CollectorState.Error)
-                        break;
+                    collectorState = CollectorState.Good;
+                    foreach (ProcessInfo p in processes)
+                    {
+                        if (p.CPUPerc > ProcessorPercWarningTrigger)
+                            collectorState = CollectorState.Warning;
+                        else if (p.CPUPerc > ProcessorPercErrorTrigger)
+                            collectorState = CollectorState.Warning;                        
+                        if (collectorState == CollectorState.Error)
+                            break;
+                    }
+                }
+            }
+            else if (ProcessCollectorTestType == ProcessCollectorTestType.MemoryUsage)
+            {
+                if (processes == null || processes.Count == 0)
+                    collectorState = CollectorState.Error;
+                else
+                {
+                    collectorState = CollectorState.Good;
+                    foreach (ProcessInfo p in processes)
+                    {
+                        if ((p.WorkingSetSize) > MemoryKBWarningTrigger * 1024)
+                            collectorState = CollectorState.Warning;
+                        else if ((p.WorkingSetSize) > MemoryKBErrorTrigger * 1024)
+                            collectorState = CollectorState.Error;
+                        if (collectorState == CollectorState.Error)
+                            break;
+                    }
                 }
             }
             return collectorState;
@@ -520,7 +602,8 @@ namespace QuickMon.Collectors
         ProcessInstanceNotRunning,
         ProcessInstanceCount,
         ThreadCount,
-        ProcessorAndMemoryUsage
+        ProcessorUsage,
+        MemoryUsage
     }
     public enum ProcessCollectorFilterType
     {

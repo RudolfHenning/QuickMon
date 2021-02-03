@@ -238,7 +238,6 @@ namespace QuickMon.UI
         {
             if (txtServiceURL.Text.Trim().Length > 0)
             {
-                Cursor.Current = Cursors.WaitCursor;
                 try
                 {
                     cboEndPoint.Items.Clear();
