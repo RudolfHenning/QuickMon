@@ -407,8 +407,8 @@ namespace QuickMon
             }
         }
         private void splitButtonRecent_ButtonClicked(object sender, EventArgs e)
-        {
-            ShowRecentMonitorPackDropdown();
+        {            
+            ShowRecentMonitorPackWindow();
         }
         private void splitButtonRecent_SplitButtonClicked(object sender, EventArgs e)
         {
@@ -424,12 +424,7 @@ namespace QuickMon
         }
         private void fullRecentListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
-            if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
-            {
-                LoadMonitorPack(selectRecentMonitorPackDialog.SelectedMonitorPack);
-                RefreshMonitorPack(true, true);
-            }
+            ShowRecentMonitorPackDropdown();
         }
         private void splitButtonCollectors_ButtonClicked(object sender, EventArgs e)
         {
@@ -1033,6 +1028,15 @@ namespace QuickMon
             LoadRecentMonitorPackList();
             cboRecentMonitorPacks.Focus();
             SendKeys.Send("{F4}");
+        }
+        private void ShowRecentMonitorPackWindow()
+        {
+            SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
+            if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadMonitorPack(selectRecentMonitorPackDialog.SelectedMonitorPack);
+                RefreshMonitorPack(true, true);
+            }
         }
         private void EditCollector(bool editmode = false)
         {
@@ -2660,48 +2664,7 @@ namespace QuickMon
                             cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(entryDisplayName, recentItem));
                         }
                     }
-                }
-
-
-                //foreach (string filePath in orderedList)
-                //{
-                //    bool mpVisible = false;
-                //    if (System.IO.File.Exists(filePath))
-                //    {
-                //        MonitorPack.NameAndTypeSummary summary = MonitorPack.GetMonitorPackTypeName(filePath);
-                //        if ((from string s in allowFilters
-                //             where s == "*" || s.ToLower() == summary.TypeName.ToLower()
-                //             select s).Count() > 0)
-                //            mpVisible = true;
-                //        if ((from string s in disallowFilters
-                //             where s.ToLower() == summary.TypeName.ToLower()
-                //             select s).Count() > 0)
-                //            mpVisible = false;
-                //        if (mpVisible)
-                //        {
-                //            string entryDisplayName;
-                //            if (Properties.Settings.Default.ShowFullPathForQuickRecentList)
-                //                entryDisplayName = summary.Name + " (" + filePath + ")";
-                //            else
-                //                entryDisplayName = summary.Name;
-
-                //            if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(entryDisplayName + "........", cboRecentMonitorPacks.Font).Width && entryDisplayName.Length > 20)
-                //            {
-                //                string ellipseText = entryDisplayName.Substring(0, 20) + "....";
-                //                string tmpStr = entryDisplayName.Substring(4);
-                //                while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth && tmpStr.Length > 0)
-                //                {
-                //                    tmpStr = tmpStr.Substring(1);
-                //                }
-                //                cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(ellipseText + tmpStr, summary));
-                //            }
-                //            else
-                //            {
-                //                cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(entryDisplayName, summary));
-                //            }
-                //        }
-                //    }
-                //}
+                }                
             }
             catch (Exception ex)
             {
@@ -3157,20 +3120,23 @@ namespace QuickMon
 
         private void llblMonitorPack_MouseEnter(object sender, EventArgs e)
         {
-            recentListTimer.Enabled = false;
-            recentListTimer.Enabled = true;
+            //recentListTimer.Enabled = false;
+            //recentListTimer.Enabled = true;
         }
 
         private void llblMonitorPack_MouseLeave(object sender, EventArgs e)
         {
-            recentListTimer.Enabled = false;
+            //recentListTimer.Enabled = false;
         }
 
         private void recentListTimer_Tick(object sender, EventArgs e)
         {
-            ShowRecentMonitorPackDropdown();
+            //ShowRecentMonitorPackDropdown();
         }
 
-
+        private void cndShowQuickRecentList_Click(object sender, EventArgs e)
+        {
+            ShowRecentMonitorPackDropdown();
+        }
     }
 }

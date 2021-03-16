@@ -54,6 +54,7 @@ namespace QuickMon
             this.cmdTemplates = new System.Windows.Forms.Button();
             this.cmdAdminMode = new System.Windows.Forms.Button();
             this.cmdSettings = new System.Windows.Forms.Button();
+            this.cndShowQuickRecentList = new System.Windows.Forms.Button();
             this.settingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pollingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,6 +100,8 @@ namespace QuickMon
             this.monitorPackHistoryToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collectorHistoryToXMLToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.monitorPackHistoryToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GlobalHistoryToolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.ViewByFilterToolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblCollectors = new HenIT.Windows.Controls.HiLightLabel();
             this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
@@ -131,8 +134,6 @@ namespace QuickMon
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.recentListTimer = new System.Windows.Forms.Timer(this.components);
-            this.GlobalHistoryToolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.ViewByFilterToolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -265,7 +266,7 @@ namespace QuickMon
             this.cmdPauseRunMP.Location = new System.Drawing.Point(369, 0);
             this.cmdPauseRunMP.Name = "cmdPauseRunMP";
             this.cmdPauseRunMP.Size = new System.Drawing.Size(35, 38);
-            this.cmdPauseRunMP.TabIndex = 3;
+            this.cmdPauseRunMP.TabIndex = 2;
             this.toolTip1.SetToolTip(this.cmdPauseRunMP, "Pause Auto refresh");
             this.cmdPauseRunMP.UseVisualStyleBackColor = false;
             this.cmdPauseRunMP.Click += new System.EventHandler(this.cmdPauseRunMP_Click);
@@ -284,7 +285,7 @@ namespace QuickMon
             this.cmdRefresh.Location = new System.Drawing.Point(404, 0);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(35, 38);
-            this.cmdRefresh.TabIndex = 1;
+            this.cmdRefresh.TabIndex = 3;
             this.toolTip1.SetToolTip(this.cmdRefresh, "Refresh current Monitor Pack");
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
@@ -451,6 +452,25 @@ namespace QuickMon
             this.toolTip1.SetToolTip(this.cmdSettings, "Settings");
             this.cmdSettings.UseVisualStyleBackColor = false;
             this.cmdSettings.Click += new System.EventHandler(this.cmdSettings_Click);
+            // 
+            // cndShowQuickRecentList
+            // 
+            this.cndShowQuickRecentList.BackColor = System.Drawing.Color.Transparent;
+            this.cndShowQuickRecentList.BackgroundImage = global::QuickMon.Properties.Resources.DownTriAngleBlue;
+            this.cndShowQuickRecentList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cndShowQuickRecentList.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cndShowQuickRecentList.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cndShowQuickRecentList.FlatAppearance.BorderSize = 0;
+            this.cndShowQuickRecentList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.cndShowQuickRecentList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cndShowQuickRecentList.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cndShowQuickRecentList.Location = new System.Drawing.Point(339, 0);
+            this.cndShowQuickRecentList.Name = "cndShowQuickRecentList";
+            this.cndShowQuickRecentList.Size = new System.Drawing.Size(30, 38);
+            this.cndShowQuickRecentList.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.cndShowQuickRecentList, "Show quick recent list");
+            this.cndShowQuickRecentList.UseVisualStyleBackColor = false;
+            this.cndShowQuickRecentList.Click += new System.EventHandler(this.cndShowQuickRecentList_Click);
             // 
             // settingsContextMenuStrip
             // 
@@ -904,6 +924,26 @@ namespace QuickMon
             this.monitorPackHistoryToXMLToolStripMenuItem.Text = "Monitor pack History to XML";
             this.monitorPackHistoryToXMLToolStripMenuItem.Click += new System.EventHandler(this.allHistoryToXMLToolStripMenuItem_Click);
             // 
+            // GlobalHistoryToolStripButton2
+            // 
+            this.GlobalHistoryToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.GlobalHistoryToolStripButton2.Image = global::QuickMon.Properties.Resources.clock1;
+            this.GlobalHistoryToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GlobalHistoryToolStripButton2.Name = "GlobalHistoryToolStripButton2";
+            this.GlobalHistoryToolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.GlobalHistoryToolStripButton2.ToolTipText = "Global history";
+            this.GlobalHistoryToolStripButton2.Click += new System.EventHandler(this.globalHistoryToolStripMenuItem_Click);
+            // 
+            // ViewByFilterToolStripButton2
+            // 
+            this.ViewByFilterToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ViewByFilterToolStripButton2.Image = global::QuickMon.Properties.Resources.search_32;
+            this.ViewByFilterToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ViewByFilterToolStripButton2.Name = "ViewByFilterToolStripButton2";
+            this.ViewByFilterToolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.ViewByFilterToolStripButton2.ToolTipText = "View by filter";
+            this.ViewByFilterToolStripButton2.Click += new System.EventHandler(this.viewByFilterToolStripMenuItem_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.lblCollectors);
@@ -1159,6 +1199,7 @@ namespace QuickMon
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Controls.Add(this.llblMonitorPack);
             this.panel1.Controls.Add(this.cboRecentMonitorPacks);
+            this.panel1.Controls.Add(this.cndShowQuickRecentList);
             this.panel1.Controls.Add(this.cmdPauseRunMP);
             this.panel1.Controls.Add(this.cmdRefresh);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1175,7 +1216,7 @@ namespace QuickMon
             this.llblMonitorPack.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.llblMonitorPack.Location = new System.Drawing.Point(0, 0);
             this.llblMonitorPack.Name = "llblMonitorPack";
-            this.llblMonitorPack.Size = new System.Drawing.Size(369, 38);
+            this.llblMonitorPack.Size = new System.Drawing.Size(339, 38);
             this.llblMonitorPack.TabIndex = 0;
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "<New Monitor Pack>";
@@ -1196,7 +1237,7 @@ namespace QuickMon
             this.cboRecentMonitorPacks.Location = new System.Drawing.Point(0, 0);
             this.cboRecentMonitorPacks.MaxDropDownItems = 16;
             this.cboRecentMonitorPacks.Name = "cboRecentMonitorPacks";
-            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(120, 24);
+            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(304, 24);
             this.cboRecentMonitorPacks.TabIndex = 4;
             this.cboRecentMonitorPacks.SelectionChangeCommitted += new System.EventHandler(this.cboRecentMonitorPacks_SelectionChangeCommitted);
             this.cboRecentMonitorPacks.DropDownClosed += new System.EventHandler(this.cboRecentMonitorPacks_DropDownClosed);
@@ -1316,14 +1357,14 @@ namespace QuickMon
             this.recentMPContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fullRecentListToolStripMenuItem});
             this.recentMPContextMenuStrip.Name = "recentMPContextMenuStrip";
-            this.recentMPContextMenuStrip.Size = new System.Drawing.Size(112, 26);
+            this.recentMPContextMenuStrip.Size = new System.Drawing.Size(181, 48);
             // 
             // fullRecentListToolStripMenuItem
             // 
             this.fullRecentListToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folderClock_16;
             this.fullRecentListToolStripMenuItem.Name = "fullRecentListToolStripMenuItem";
-            this.fullRecentListToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
-            this.fullRecentListToolStripMenuItem.Text = "Full list";
+            this.fullRecentListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fullRecentListToolStripMenuItem.Text = "Quick list";
             this.fullRecentListToolStripMenuItem.Click += new System.EventHandler(this.fullRecentListToolStripMenuItem_Click);
             // 
             // saveFileDialogSave
@@ -1335,26 +1376,6 @@ namespace QuickMon
             // 
             this.recentListTimer.Interval = 3000;
             this.recentListTimer.Tick += new System.EventHandler(this.recentListTimer_Tick);
-            // 
-            // GlobalHistoryToolStripButton2
-            // 
-            this.GlobalHistoryToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.GlobalHistoryToolStripButton2.Image = global::QuickMon.Properties.Resources.clock1;
-            this.GlobalHistoryToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.GlobalHistoryToolStripButton2.Name = "GlobalHistoryToolStripButton2";
-            this.GlobalHistoryToolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.GlobalHistoryToolStripButton2.ToolTipText = "Global history";
-            this.GlobalHistoryToolStripButton2.Click += new System.EventHandler(this.globalHistoryToolStripMenuItem_Click);
-            // 
-            // ViewByFilterToolStripButton2
-            // 
-            this.ViewByFilterToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ViewByFilterToolStripButton2.Image = global::QuickMon.Properties.Resources.search_32;
-            this.ViewByFilterToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ViewByFilterToolStripButton2.Name = "ViewByFilterToolStripButton2";
-            this.ViewByFilterToolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.ViewByFilterToolStripButton2.ToolTipText = "View by filter";
-            this.ViewByFilterToolStripButton2.Click += new System.EventHandler(this.viewByFilterToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1505,6 +1526,7 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripMenuItem graphToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton GlobalHistoryToolStripButton2;
         private System.Windows.Forms.ToolStripButton ViewByFilterToolStripButton2;
+        private System.Windows.Forms.Button cndShowQuickRecentList;
     }
 }
 

@@ -492,6 +492,7 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\DownTriAngleBlue.png" />
     <None Include="Resources\funnel24.png" />
     <None Include="Resources\UpDown.png" />
     <None Include="Resources\page_white_get.png" />
