@@ -209,6 +209,7 @@
             this.lvwCollectorStates.ContextMenuStrip = this.collectorListContextMenuStrip;
             this.lvwCollectorStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwCollectorStates.FullRowSelect = true;
+            this.lvwCollectorStates.HideSelection = false;
             this.lvwCollectorStates.Location = new System.Drawing.Point(0, 230);
             this.lvwCollectorStates.Name = "lvwCollectorStates";
             this.lvwCollectorStates.Size = new System.Drawing.Size(241, 175);
@@ -344,6 +345,11 @@
             // nudLastXEntries
             // 
             this.nudLastXEntries.Location = new System.Drawing.Point(45, 3);
+            this.nudLastXEntries.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.nudLastXEntries.Name = "nudLastXEntries";
             this.nudLastXEntries.Size = new System.Drawing.Size(87, 20);
             this.nudLastXEntries.TabIndex = 1;
