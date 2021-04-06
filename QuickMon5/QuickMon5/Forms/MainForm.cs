@@ -2195,7 +2195,8 @@ namespace QuickMon
                                     {
                                         tvwCollectors.EndUpdate();
                                     }
-                                    currentFocusNode.EnsureVisible();
+                                    if (currentFocusNode != null)
+                                        currentFocusNode.EnsureVisible();
                                 }
                             }
 

@@ -186,3 +186,8 @@ Adding the (Windows) Process Collector
 Version 5.3.1 (2021-3-16)
 **************
 Change the way the full and quick recent monitor pack lists get launched. To be more consistent.
+
+--------------
+Version 5.3.2 (2021-4-6)
+**************
+Small change in file system collector agent to separate the value and the unit for graphing.

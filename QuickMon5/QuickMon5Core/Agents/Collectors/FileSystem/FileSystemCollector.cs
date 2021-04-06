@@ -354,7 +354,12 @@ namespace QuickMon.Collectors
                         }
                         else if (ShowFileSizeInOutputValue)
                         {
-                            currentState.CurrentValue = FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize);
+                            currentState.CurrentValueUnit = FormatUtils.FormatFileSizeUnitOnly(directoryFileInfo.TotalFileSize);
+                            string fileSizeFull = FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize);
+
+                            if (currentState.CurrentValueUnit != "" && fileSizeFull.EndsWith(currentState.CurrentValueUnit))
+                                fileSizeFull = fileSizeFull.Replace(currentState.CurrentValueUnit,"").TrimEnd();
+                            currentState.CurrentValue = fileSizeFull;
                         }
                         else
                         {
