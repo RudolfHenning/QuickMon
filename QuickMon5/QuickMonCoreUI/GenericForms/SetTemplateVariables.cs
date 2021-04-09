@@ -110,6 +110,7 @@ namespace QuickMon.UI
                 if (txtVariableName.Text == cv.FindValue)
                 {
                     cv.ReplaceValue = txtVariableValue.Text;
+                    lvwVariables.SelectedItems[0].SubItems[1].Text = txtVariableValue.Text;
                 }
             }
         }
