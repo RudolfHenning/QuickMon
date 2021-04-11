@@ -197,3 +197,4 @@ Version 5.3.3 (2021-4-9)
 **************
 Fix create new object from Template window to show edit values in list
 Fix HTTP Ping template to not add extra http://
+Change SSHQuery collector to exclude empty leading and trailing lines/characters

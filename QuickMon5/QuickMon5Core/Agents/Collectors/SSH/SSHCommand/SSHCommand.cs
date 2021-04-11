@@ -235,6 +235,10 @@ namespace QuickMon.Collectors
                         {
                             int length = output.Length;
                             output = length.ToString();
+                        } 
+                        else
+                        {
+                            output = output.Trim(' ', '\r', '\n');
                         }
 
                     }
