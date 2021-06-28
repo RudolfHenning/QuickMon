@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer3 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -218,6 +218,7 @@
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.collectorTimeGraph = new HenIT.Windows.Controls.Graphing.TimeGraphControl();
             this.graphContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linearGraphTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logarithmicGraphTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -289,7 +290,6 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
-            this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -560,11 +560,12 @@
             this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
-            treeListViewItemCollectionComparer3.Column = 0;
-            treeListViewItemCollectionComparer3.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer3;
+            treeListViewItemCollectionComparer1.Column = 0;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
             this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
             this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.agentsTreeListView.HideSelection = false;
             this.agentsTreeListView.LabelEdit = true;
             this.agentsTreeListView.Location = new System.Drawing.Point(3, 30);
             this.agentsTreeListView.Name = "agentsTreeListView";
@@ -2023,6 +2024,7 @@
             this.columnHeader5,
             this.columnHeader6});
             this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.HideSelection = false;
             this.lvwConfigVars.Location = new System.Drawing.Point(2, 33);
             this.lvwConfigVars.Name = "lvwConfigVars";
             this.lvwConfigVars.Size = new System.Drawing.Size(949, 300);
@@ -2186,6 +2188,7 @@
             this.lvwActionScriptsEdit.ContextMenuStrip = this.actionScriptsContextMenuStrip;
             this.lvwActionScriptsEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwActionScriptsEdit.FullRowSelect = true;
+            this.lvwActionScriptsEdit.HideSelection = false;
             this.lvwActionScriptsEdit.Location = new System.Drawing.Point(3, 30);
             this.lvwActionScriptsEdit.Name = "lvwActionScriptsEdit";
             this.lvwActionScriptsEdit.Size = new System.Drawing.Size(948, 362);
@@ -2339,6 +2342,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.BackColor = System.Drawing.Color.Transparent;
             this.cmdOK.Enabled = false;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(800, 7);
             this.cmdOK.Name = "cmdOK";
@@ -2352,6 +2356,7 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.BackColor = System.Drawing.Color.Transparent;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(881, 7);
             this.cmdCancel.Name = "cmdCancel";
@@ -2381,6 +2386,7 @@
             this.columnHeader2});
             this.lvwMetrics.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwMetrics.FullRowSelect = true;
+            this.lvwMetrics.HideSelection = false;
             this.lvwMetrics.Location = new System.Drawing.Point(0, 0);
             this.lvwMetrics.Name = "lvwMetrics";
             this.lvwMetrics.Size = new System.Drawing.Size(962, 123);
@@ -2439,9 +2445,9 @@
             this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.valueColumnHeader});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer1;
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
             this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlvAgentStates.HideSelection = false;
             this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
@@ -2540,8 +2546,16 @@
             this.graphVisibilityToolStripMenuItem,
             this.exportGraphToolStripMenuItem});
             this.graphContextMenuStrip.Name = "graphContextMenuStrip";
-            this.graphContextMenuStrip.Size = new System.Drawing.Size(153, 136);
+            this.graphContextMenuStrip.Size = new System.Drawing.Size(144, 114);
             this.graphContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.graphContextMenuStrip_Opening);
+            // 
+            // customizeToolStripMenuItem
+            // 
+            this.customizeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tools16x16;
+            this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.customizeToolStripMenuItem.Text = "Customize";
+            this.customizeToolStripMenuItem.Click += new System.EventHandler(this.customizeToolStripMenuItem_Click);
             // 
             // graphTypeToolStripMenuItem
             // 
@@ -2549,7 +2563,7 @@
             this.linearGraphTypeToolStripMenuItem,
             this.logarithmicGraphTypeToolStripMenuItem});
             this.graphTypeToolStripMenuItem.Name = "graphTypeToolStripMenuItem";
-            this.graphTypeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.graphTypeToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.graphTypeToolStripMenuItem.Text = "Graph Type";
             // 
             // linearGraphTypeToolStripMenuItem
@@ -2576,7 +2590,7 @@
             this.graphAxisLabelColorsToolStripMenuItem,
             this.graphSelectionColorToolStripMenuItem});
             this.grapthColorsToolStripMenuItem.Name = "grapthColorsToolStripMenuItem";
-            this.grapthColorsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.grapthColorsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.grapthColorsToolStripMenuItem.Text = "Graph Colors";
             // 
             // graphBackgroundColorsToolStripMenuItem
@@ -2722,7 +2736,7 @@
             this.graphHighlightClickedSeriesToolStripMenuItem,
             this.graphFillAreaBelowSeriesToolStripMenuItem});
             this.graphVisibilityToolStripMenuItem.Name = "graphVisibilityToolStripMenuItem";
-            this.graphVisibilityToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.graphVisibilityToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.graphVisibilityToolStripMenuItem.Text = "Visibility";
             // 
             // graphHeaderVisibleToolStripMenuItem
@@ -2841,7 +2855,7 @@
             // 
             this.exportGraphToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_export;
             this.exportGraphToolStripMenuItem.Name = "exportGraphToolStripMenuItem";
-            this.exportGraphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportGraphToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.exportGraphToolStripMenuItem.Text = "Export Graph";
             this.exportGraphToolStripMenuItem.Click += new System.EventHandler(this.exportGraphToolStripMenuItem_Click);
             // 
@@ -2857,6 +2871,7 @@
             this.alertCountColumnHeader});
             this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwHistory.FullRowSelect = true;
+            this.lvwHistory.HideSelection = false;
             this.lvwHistory.Location = new System.Drawing.Point(0, 1);
             this.lvwHistory.Name = "lvwHistory";
             this.lvwHistory.Size = new System.Drawing.Size(964, 144);
@@ -3114,6 +3129,7 @@
             this.lvwActionScripts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwActionScripts.FullRowSelect = true;
             this.lvwActionScripts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvwActionScripts.HideSelection = false;
             this.lvwActionScripts.Location = new System.Drawing.Point(2, 25);
             this.lvwActionScripts.Name = "lvwActionScripts";
             this.lvwActionScripts.Size = new System.Drawing.Size(198, 615);
@@ -3209,14 +3225,6 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
-            // 
-            // customizeToolStripMenuItem
-            // 
-            this.customizeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tools16x16;
-            this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.customizeToolStripMenuItem.Text = "Customize";
-            this.customizeToolStripMenuItem.Click += new System.EventHandler(this.customizeToolStripMenuItem_Click);
             // 
             // CollectorDetails
             // 

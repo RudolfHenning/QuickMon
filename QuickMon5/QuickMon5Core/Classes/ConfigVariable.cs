@@ -10,11 +10,24 @@ namespace QuickMon
     public class ConfigVariable
     {
         public string FindValue { get; set; }
+        public string DislayValue
+        {
+            get
+            {
+                if (FindValue != null && FindValue.Length > 0)
+                {
+                    return FindValue.Trim('[', ']').TrimStart('!');
+                }
+                else
+                    return "";
+            }
+        }
         public string ReplaceValue { get; set; }
+        public bool Important { get; set; }
 
         public override string ToString()
         {
-            return string.Format("(f:{0})(r:{1})", FindValue, ReplaceValue);
+            return string.Format("(f:{0})(r:{1}){2}", FindValue, ReplaceValue, Important ? "!" : "");
         }
         public string ToXml()
         {
@@ -25,6 +38,7 @@ namespace QuickMon
             XmlElement root = config.DocumentElement;
             XmlNode findNode = root.SelectSingleNode("find");
             XmlNode replaceNode = root.SelectSingleNode("replace");
+            findNode.SetAttributeValue("important", Important);
             findNode.InnerText = FindValue;
             replaceNode.InnerText = ReplaceValue;
             //root.SetAttributeValue("find", FindValue);
@@ -35,6 +49,7 @@ namespace QuickMon
         {
             ConfigVariable newConfigVariable = new ConfigVariable();
             XmlNode findNode = configVarNode.SelectSingleNode("find");
+            
             XmlNode replaceNode = configVarNode.SelectSingleNode("replace");
             if (findNode == null || replaceNode == null)
             {
@@ -45,7 +60,9 @@ namespace QuickMon
             {
                 newConfigVariable.FindValue = findNode.InnerText;
                 newConfigVariable.ReplaceValue = replaceNode.InnerText;
-            }
+                bool important = findNode.ReadXmlElementAttr("important", false);
+                newConfigVariable.Important = important;
+            }            
             return newConfigVariable;
         }
         public static ConfigVariable FromXml(string xmlStr)

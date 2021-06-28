@@ -43,7 +43,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(412, 332);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -55,7 +56,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(331, 332);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -79,7 +81,8 @@
             // cmdSkip
             // 
             this.cmdSkip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSkip.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSkip.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSkip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSkip.Location = new System.Drawing.Point(493, 332);
             this.cmdSkip.Name = "cmdSkip";
             this.cmdSkip.Size = new System.Drawing.Size(75, 23);

@@ -33,17 +33,22 @@ namespace QuickMon.UI
                 {
                     string variableUnformatted = m.ToString();
                     string initialValue = "";
+                    bool imporant = false;
                     if (variableUnformatted.Contains(":"))
                     {
                         initialValue = variableUnformatted.Substring(variableUnformatted.IndexOf(':') + 1).TrimEnd(']');
+                    }
+                    if (variableUnformatted.StartsWith("[[!"))
+                    {
+                        imporant = true;
                     }
                     ConfigVariable cv = (from ConfigVariable c in SelectedVariables
                                          where c.FindValue == variableUnformatted
                                          select c).FirstOrDefault();
                     if (cv == null)
                     {
-                        cv = new ConfigVariable() { FindValue = variableUnformatted, ReplaceValue = initialValue };
-                        cv.FindValue = variableUnformatted;
+                        cv = new ConfigVariable() { FindValue = variableUnformatted, ReplaceValue = initialValue, Important = imporant };
+                        //cv.FindValue = variableUnformatted;
                         SelectedVariables.Add(cv);
                     }
                 }
@@ -66,9 +71,11 @@ namespace QuickMon.UI
                 {
                     foreach (ConfigVariable cv in SelectedVariables)
                     {
-                        ListViewItem lvi = new ListViewItem(cv.FindValue);
+                        ListViewItem lvi = new ListViewItem(cv.DislayValue);
                         lvi.SubItems.Add(cv.ReplaceValue);
                         lvi.Tag = cv;
+                        if (cv.Important)
+                            lvi.Selected = true;
                         lvwVariables.Items.Add(lvi);
                     }
                 }
@@ -86,7 +93,7 @@ namespace QuickMon.UI
             {
                 loadingVar = true;
                 ConfigVariable cv = (ConfigVariable)lvwVariables.SelectedItems[0].Tag;
-                txtVariableName.Text = cv.FindValue;
+                txtVariableName.Text = cv.DislayValue;
                 txtVariableValue.Text = cv.ReplaceValue;
                 txtVariableValue.ReadOnly = false;
                 txtVariableValue.Focus();
@@ -107,7 +114,7 @@ namespace QuickMon.UI
             if (!loadingVar == true && lvwVariables.SelectedItems.Count > 0)
             {
                 ConfigVariable cv = (ConfigVariable)lvwVariables.SelectedItems[0].Tag;
-                if (txtVariableName.Text == cv.FindValue)
+                if (txtVariableName.Text == cv.DislayValue)
                 {
                     cv.ReplaceValue = txtVariableValue.Text;
                     lvwVariables.SelectedItems[0].SubItems[1].Text = txtVariableValue.Text;
@@ -145,9 +152,47 @@ namespace QuickMon.UI
 
         private void SetTemplateVariables_Shown(object sender, EventArgs e)
         {
-            if (lvwVariables.Items.Count > 0)
+            if (lvwVariables.SelectedItems.Count == 0 && lvwVariables.Items.Count > 0)
             {
                 lvwVariables.Items[0].Selected = true;
+            }
+            else
+            {
+                lvwVariables.SelectedItems[0].Selected = true;
+            }
+        }
+
+        private void cmdPrevVar_Click(object sender, EventArgs e)
+        {
+            if (lvwVariables.SelectedItems.Count > 0)
+            {
+                int currentIndex = lvwVariables.SelectedItems[0].Index;
+                if (currentIndex > 0)
+                {
+                    currentIndex--;
+                }
+                else
+                {
+                    currentIndex = lvwVariables.Items.Count - 1;
+                }
+                lvwVariables.Items[currentIndex].Selected = true;
+            }
+        }
+
+        private void cmdNextVar_Click(object sender, EventArgs e)
+        {
+            if (lvwVariables.SelectedItems.Count > 0)
+            {
+                int currentIndex = lvwVariables.SelectedItems[0].Index;
+                if (currentIndex < lvwVariables.Items.Count - 1)
+                {
+                    currentIndex++;
+                }
+                else
+                {
+                    currentIndex = 0;
+                }
+                lvwVariables.Items[currentIndex].Selected = true;
             }
         }
     }

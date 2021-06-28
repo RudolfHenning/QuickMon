@@ -19,7 +19,7 @@ namespace QuickMon.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -158,6 +158,24 @@ namespace QuickMon.Properties {
         internal static string ExampleSqlDatabaseCreateScript {
             get {
                 return ResourceManager.GetString("ExampleSqlDatabaseCreateScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;collectorHost uniqueId=&quot;&quot; dependOnParentId=&quot;&quot; name=&quot;[[NamePrefix:Ping ]][[Protocol:http://]][[!Address:localhost]]&quot;&gt;&lt;collectorAgents agentCheckSequence=&quot;All&quot;&gt;&lt;collectorAgent name=&quot;[[NamePrefix:Ping ]][[Protocol:http://]][[!Address:localhost]]&quot; type=&quot;QuickMon.Collectors.PingCollector&quot; enabled=&quot;True&quot;&gt;&lt;config&gt;&lt;entries&gt;&lt;entry pingMethod=&quot;Http&quot; address=&quot;[[Protocol:http://]][[!Address:localhost]]&quot; maxTimeMS=&quot;[[maxTimeMS:1000]]&quot; timeOutMS=&quot;[[timeOutMS:5000]]&quot; /&gt;&lt;/entries&gt;&lt;/config&gt;&lt;/collectorAgent&gt;&lt;/collectorAgent [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string HTTPPingTemplate {
+            get {
+                return ResourceManager.GetString("HTTPPingTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;collectorHost uniqueId=&quot;&quot; dependOnParentId=&quot;&quot; name=&quot;[[NamePrefix:Ping ]][[!MachineName:localhost]]&quot;&gt;&lt;collectorAgents agentCheckSequence=&quot;All&quot;&gt;&lt;collectorAgent name=&quot;[[NamePrefix:Ping ]][[!MachineName:localhost]]&quot; type=&quot;QuickMon.Collectors.PingCollector&quot; enabled=&quot;True&quot;&gt;&lt;config&gt;&lt;entries&gt;&lt;entry pingMethod=&quot;Ping&quot; address=&quot;[[!MachineName:localhost]]&quot; maxTimeMS=&quot;[[maxTimeMS:1000]]&quot; timeOutMS=&quot;[[timeOutMS:5000]]&quot; /&gt;&lt;/entries&gt;&lt;/config&gt;&lt;/collectorAgent&gt;&lt;/collectorAgents&gt;&lt;/collectorHost&gt;.
+        /// </summary>
+        internal static string ICMPPingTemplate {
+            get {
+                return ResourceManager.GetString("ICMPPingTemplate", resourceCulture);
             }
         }
         

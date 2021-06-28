@@ -235,6 +235,7 @@
             this.descriptionColumnHeader});
             this.lvwTemplates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwTemplates.FullRowSelect = true;
+            this.lvwTemplates.HideSelection = false;
             this.lvwTemplates.Location = new System.Drawing.Point(0, 22);
             this.lvwTemplates.Name = "lvwTemplates";
             this.lvwTemplates.Size = new System.Drawing.Size(405, 416);
@@ -323,7 +324,6 @@
             this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtConfig.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtConfig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtConfig.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtConfig.IsReplaceMode = false;
             this.txtConfig.Language = FastColoredTextBoxNS.Language.XML;
             this.txtConfig.LeftBracket = '<';
@@ -406,7 +406,8 @@
             // cmdFormat
             // 
             this.cmdFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdFormat.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdFormat.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdFormat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdFormat.Image = global::QuickMon.Properties.Resources.calculator;
             this.cmdFormat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdFormat.Location = new System.Drawing.Point(344, 6);
@@ -421,7 +422,8 @@
             // cmdSaveTemplate
             // 
             this.cmdSaveTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSaveTemplate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSaveTemplate.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSaveTemplate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSaveTemplate.Image = global::QuickMon.Properties.Resources.save16x16;
             this.cmdSaveTemplate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdSaveTemplate.Location = new System.Drawing.Point(420, 6);

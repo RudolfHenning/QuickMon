@@ -180,7 +180,7 @@
     </collectorHost>
   </template>
   <template name="Event Log Errors" type="CollectorHost" class="CollectorHost" description="Event Log Errors">
-    <collectorHost uniqueId="" dependOnParentId="" name="Event Log" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="" dependOnParentId="" name="Event Log - [[Eventlog:Application]]" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -197,7 +197,7 @@
         <collectorAgent name="Event Log Collector" type="QuickMon.Collectors.EventLogCollector" enabled="True" primaryUIValue="False">
           <config>
             <eventlogs>
-              <log computer="." eventLog="Application" typeInfo="False" typeWarn="False" typeErr="True" containsText="False" useRegEx="False" textFilter="" withInLastXEntries="1000" withInLastXMinutes="60" warningValue="1" errorValue="10" primaryUIValue="False">
+              <log computer="." eventLog="[[Eventlog:Application]]" typeInfo="False" typeWarn="False" typeErr="True" containsText="False" useRegEx="False" textFilter="" withInLastXEntries="1000" withInLastXMinutes="60" warningValue="1" errorValue="10" primaryUIValue="False">
                 <sources>
                   <source>QuickMon</source>
                 </sources>
@@ -246,7 +246,7 @@
         <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
           <config>
             <directoryList>
-              <directory directoryPathFilter="%userprofile%\Downloads\*.*" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="True" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+              <directory directoryPathFilter="[[!DirectoryPath:%userprofile%\Downloads]]\[[FileMask:*.*]]" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="[[ShowFilenames:False]]" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
             </directoryList>
           </config>
         </collectorAgent>
