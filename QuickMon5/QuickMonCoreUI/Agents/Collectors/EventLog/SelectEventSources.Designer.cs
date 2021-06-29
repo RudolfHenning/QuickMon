@@ -87,7 +87,8 @@
             // cmdLoadEventLogs
             // 
             this.cmdLoadEventLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoadEventLogs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdLoadEventLogs.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdLoadEventLogs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoadEventLogs.Location = new System.Drawing.Point(652, 6);
             this.cmdLoadEventLogs.Name = "cmdLoadEventLogs";
             this.cmdLoadEventLogs.Size = new System.Drawing.Size(42, 23);
@@ -190,7 +191,8 @@
             // cmdApplyFilter
             // 
             this.cmdApplyFilter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cmdApplyFilter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdApplyFilter.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdApplyFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdApplyFilter.Location = new System.Drawing.Point(274, 0);
             this.cmdApplyFilter.Name = "cmdApplyFilter";
             this.cmdApplyFilter.Size = new System.Drawing.Size(45, 23);
@@ -257,6 +259,8 @@
             // cmdRemoveSource
             // 
             this.cmdRemoveSource.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdRemoveSource.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRemoveSource.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemoveSource.Image = global::QuickMon.Properties.Resources.arrow_left;
             this.cmdRemoveSource.Location = new System.Drawing.Point(0, 23);
             this.cmdRemoveSource.Name = "cmdRemoveSource";
@@ -268,6 +272,8 @@
             // cmdAddSource
             // 
             this.cmdAddSource.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdAddSource.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAddSource.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAddSource.Image = global::QuickMon.Properties.Resources.arrow_right;
             this.cmdAddSource.Location = new System.Drawing.Point(0, 0);
             this.cmdAddSource.Name = "cmdAddSource";
@@ -301,7 +307,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(619, 397);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -313,7 +320,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(538, 397);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);

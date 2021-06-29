@@ -104,7 +104,7 @@ namespace QuickMon
             this.ViewByFilterToolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblCollectors = new HenIT.Windows.Controls.HiLightLabel();
-            this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
+            this.llblNotifierViewToggle = new QuickMon.Controls.LinkLabelEx();
             this.tvwNotifiers = new QuickMon.Controls.TreeViewExBase();
             this.notifiersContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -122,7 +122,7 @@ namespace QuickMon
             this.lblNotifiers = new HenIT.Windows.Controls.HiLightLabel();
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
+            this.llblMonitorPack = new QuickMon.Controls.LinkLabelEx();
             this.cboRecentMonitorPacks = new System.Windows.Forms.ComboBox();
             this.panelSlimMenu = new System.Windows.Forms.Panel();
             this.splitButtonNotifiers = new QuickMon.Controls.SplitButton.SplitButton();
@@ -456,7 +456,7 @@ namespace QuickMon
             // cndShowQuickRecentList
             // 
             this.cndShowQuickRecentList.BackColor = System.Drawing.Color.Transparent;
-            this.cndShowQuickRecentList.BackgroundImage = global::QuickMon.Properties.Resources.DownTriAngleBlue;
+            this.cndShowQuickRecentList.BackgroundImage = global::QuickMon.Properties.Resources.lightningblue2;
             this.cndShowQuickRecentList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cndShowQuickRecentList.Dock = System.Windows.Forms.DockStyle.Right;
             this.cndShowQuickRecentList.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -964,7 +964,7 @@ namespace QuickMon
             this.lblCollectors.FadedColor = System.Drawing.SystemColors.ControlText;
             this.lblCollectors.FadedFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCollectors.HighLightBackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblCollectors.HighLightBackColor = System.Drawing.Color.AliceBlue;
             this.lblCollectors.HighLightColor = System.Drawing.SystemColors.ControlText;
             this.lblCollectors.HighLightFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCollectors.LabelText = "Collectors";
@@ -980,7 +980,9 @@ namespace QuickMon
             // 
             // llblNotifierViewToggle
             // 
-            this.llblNotifierViewToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.llblNotifierViewToggle.BackColor = System.Drawing.Color.Transparent;
+            this.llblNotifierViewToggle.BackColorOnEnter = System.Drawing.Color.AliceBlue;
+            this.llblNotifierViewToggle.BackColorOnLeave = System.Drawing.Color.Transparent;
             this.llblNotifierViewToggle.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.llblNotifierViewToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llblNotifierViewToggle.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
@@ -1211,9 +1213,11 @@ namespace QuickMon
             // llblMonitorPack
             // 
             this.llblMonitorPack.BackColor = System.Drawing.Color.Transparent;
+            this.llblMonitorPack.BackColorOnEnter = System.Drawing.Color.AliceBlue;
+            this.llblMonitorPack.BackColorOnLeave = System.Drawing.Color.Transparent;
             this.llblMonitorPack.Dock = System.Windows.Forms.DockStyle.Fill;
             this.llblMonitorPack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.llblMonitorPack.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblMonitorPack.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.llblMonitorPack.Location = new System.Drawing.Point(0, 0);
             this.llblMonitorPack.Name = "llblMonitorPack";
             this.llblMonitorPack.Size = new System.Drawing.Size(339, 38);
@@ -1357,13 +1361,13 @@ namespace QuickMon
             this.recentMPContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fullRecentListToolStripMenuItem});
             this.recentMPContextMenuStrip.Name = "recentMPContextMenuStrip";
-            this.recentMPContextMenuStrip.Size = new System.Drawing.Size(181, 48);
+            this.recentMPContextMenuStrip.Size = new System.Drawing.Size(124, 26);
             // 
             // fullRecentListToolStripMenuItem
             // 
             this.fullRecentListToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folderClock_16;
             this.fullRecentListToolStripMenuItem.Name = "fullRecentListToolStripMenuItem";
-            this.fullRecentListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fullRecentListToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.fullRecentListToolStripMenuItem.Text = "Quick list";
             this.fullRecentListToolStripMenuItem.Click += new System.EventHandler(this.fullRecentListToolStripMenuItem_Click);
             // 
@@ -1439,7 +1443,7 @@ namespace QuickMon
         private System.Windows.Forms.ContextMenuStrip openContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.LinkLabel llblMonitorPack;
+        private LinkLabelEx llblMonitorPack;
         private System.Windows.Forms.Button cmdRefresh;
         private TreeViewExBase tvwCollectors;
         private System.Windows.Forms.ToolStripMenuItem addCollectorToolStripMenuItem;
@@ -1453,7 +1457,7 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripMenuItem remoteHostsToolStripMenuItem;
         private System.Windows.Forms.Button cmdOpen;
         private System.Windows.Forms.SplitContainer masterSplitContainer;
-        private System.Windows.Forms.LinkLabel llblNotifierViewToggle;
+        private LinkLabelEx llblNotifierViewToggle;
         private TreeViewExBase tvwNotifiers;
         private System.Windows.Forms.Panel panel2;
         private HiLightLabel lblCollectors;

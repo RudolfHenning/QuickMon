@@ -40,19 +40,20 @@ namespace HenIT.Controls
             // panelTime
             // 
             this.panelTime.BackColor = System.Drawing.SystemColors.Window;
-            this.panelTime.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelTime.Controls.Add(this.txtMinute);
             this.panelTime.Controls.Add(this.txtHour);
             this.panelTime.Controls.Add(this.label2);
             this.panelTime.Location = new System.Drawing.Point(84, 1);
+            this.panelTime.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.panelTime.Name = "panelTime";
+            this.panelTime.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.panelTime.Size = new System.Drawing.Size(40, 21);
             this.panelTime.TabIndex = 12;
             // 
             // txtMinute
             // 
             this.txtMinute.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMinute.Location = new System.Drawing.Point(18, 2);
+            this.txtMinute.Location = new System.Drawing.Point(18, 3);
             this.txtMinute.Name = "txtMinute";
             this.txtMinute.Size = new System.Drawing.Size(15, 13);
             this.txtMinute.TabIndex = 10;
@@ -65,7 +66,7 @@ namespace HenIT.Controls
             // txtHour
             // 
             this.txtHour.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtHour.Location = new System.Drawing.Point(0, 2);
+            this.txtHour.Location = new System.Drawing.Point(0, 3);
             this.txtHour.Name = "txtHour";
             this.txtHour.Size = new System.Drawing.Size(15, 13);
             this.txtHour.TabIndex = 8;
@@ -94,14 +95,16 @@ namespace HenIT.Controls
             // 
             // cmdTimePicker
             // 
-            this.cmdTimePicker.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTimePicker.BackColor = System.Drawing.Color.White;
+            this.cmdTimePicker.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTimePicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTimePicker.Font = new System.Drawing.Font("Wingdings", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cmdTimePicker.Location = new System.Drawing.Point(123, 1);
             this.cmdTimePicker.Name = "cmdTimePicker";
             this.cmdTimePicker.Size = new System.Drawing.Size(20, 20);
             this.cmdTimePicker.TabIndex = 13;
             this.cmdTimePicker.Text = "·";
-            this.cmdTimePicker.UseVisualStyleBackColor = true;
+            this.cmdTimePicker.UseVisualStyleBackColor = false;
             this.cmdTimePicker.Click += new System.EventHandler(this.cmdTimePicker_Click);
             // 
             // DateTimeChooser

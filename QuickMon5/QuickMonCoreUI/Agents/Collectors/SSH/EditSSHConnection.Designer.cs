@@ -86,7 +86,8 @@
             // 
             this.cmdBrowsePrivateKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowsePrivateKeyFile.Enabled = false;
-            this.cmdBrowsePrivateKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowsePrivateKeyFile.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdBrowsePrivateKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdBrowsePrivateKeyFile.Location = new System.Drawing.Point(390, 167);
             this.cmdBrowsePrivateKeyFile.Name = "cmdBrowsePrivateKeyFile";
             this.cmdBrowsePrivateKeyFile.Size = new System.Drawing.Size(41, 23);
@@ -147,7 +148,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(275, 284);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -160,7 +162,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(356, 284);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -229,9 +232,10 @@
             // optKeyboardInteractive
             // 
             this.optKeyboardInteractive.AutoSize = true;
+            this.optKeyboardInteractive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optKeyboardInteractive.Location = new System.Drawing.Point(250, 21);
             this.optKeyboardInteractive.Name = "optKeyboardInteractive";
-            this.optKeyboardInteractive.Size = new System.Drawing.Size(122, 17);
+            this.optKeyboardInteractive.Size = new System.Drawing.Size(121, 17);
             this.optKeyboardInteractive.TabIndex = 2;
             this.optKeyboardInteractive.Text = "Keyboard interactive";
             this.optKeyboardInteractive.UseVisualStyleBackColor = true;
@@ -240,9 +244,10 @@
             // optPrivateKey
             // 
             this.optPrivateKey.AutoSize = true;
+            this.optPrivateKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optPrivateKey.Location = new System.Drawing.Point(157, 21);
             this.optPrivateKey.Name = "optPrivateKey";
-            this.optPrivateKey.Size = new System.Drawing.Size(78, 17);
+            this.optPrivateKey.Size = new System.Drawing.Size(77, 17);
             this.optPrivateKey.TabIndex = 1;
             this.optPrivateKey.Text = "Private key";
             this.optPrivateKey.UseVisualStyleBackColor = true;
@@ -252,9 +257,10 @@
             // 
             this.optPassword.AutoSize = true;
             this.optPassword.Checked = true;
+            this.optPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optPassword.Location = new System.Drawing.Point(13, 21);
             this.optPassword.Name = "optPassword";
-            this.optPassword.Size = new System.Drawing.Size(124, 17);
+            this.optPassword.Size = new System.Drawing.Size(123, 17);
             this.optPassword.TabIndex = 0;
             this.optPassword.TabStop = true;
             this.optPassword.Text = "Username/Password";
@@ -282,7 +288,8 @@
             // cmdTest
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(12, 284);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(105, 23);
@@ -299,9 +306,10 @@
             // chkPersistent
             // 
             this.chkPersistent.AutoSize = true;
+            this.chkPersistent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkPersistent.Location = new System.Drawing.Point(18, 220);
             this.chkPersistent.Name = "chkPersistent";
-            this.chkPersistent.Size = new System.Drawing.Size(258, 17);
+            this.chkPersistent.Size = new System.Drawing.Size(255, 17);
             this.chkPersistent.TabIndex = 14;
             this.chkPersistent.Text = "Persistent (try to keep connection open for reuse)";
             this.chkPersistent.UseVisualStyleBackColor = true;
@@ -332,7 +340,8 @@
             // cmdOpenConnectionStringFile
             // 
             this.cmdOpenConnectionStringFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOpenConnectionStringFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOpenConnectionStringFile.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOpenConnectionStringFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOpenConnectionStringFile.Location = new System.Drawing.Point(343, 256);
             this.cmdOpenConnectionStringFile.Name = "cmdOpenConnectionStringFile";
             this.cmdOpenConnectionStringFile.Size = new System.Drawing.Size(41, 23);
@@ -356,7 +365,8 @@
             // cmdSaveToFile
             // 
             this.cmdSaveToFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdSaveToFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSaveToFile.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSaveToFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSaveToFile.Location = new System.Drawing.Point(123, 284);
             this.cmdSaveToFile.Name = "cmdSaveToFile";
             this.cmdSaveToFile.Size = new System.Drawing.Size(75, 23);
@@ -368,7 +378,8 @@
             // cmdSetFromFile
             // 
             this.cmdSetFromFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSetFromFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSetFromFile.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSetFromFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSetFromFile.Location = new System.Drawing.Point(390, 256);
             this.cmdSetFromFile.Name = "cmdSetFromFile";
             this.cmdSetFromFile.Size = new System.Drawing.Size(41, 23);

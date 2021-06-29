@@ -83,9 +83,10 @@
             this.chkAutoRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAutoRefresh.AutoSize = true;
             this.chkAutoRefresh.BackColor = System.Drawing.Color.Transparent;
-            this.chkAutoRefresh.Location = new System.Drawing.Point(298, 8);
+            this.chkAutoRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkAutoRefresh.Location = new System.Drawing.Point(301, 8);
             this.chkAutoRefresh.Name = "chkAutoRefresh";
-            this.chkAutoRefresh.Size = new System.Drawing.Size(83, 17);
+            this.chkAutoRefresh.Size = new System.Drawing.Size(80, 17);
             this.chkAutoRefresh.TabIndex = 11;
             this.chkAutoRefresh.Text = "Auto refresh";
             this.chkAutoRefresh.UseVisualStyleBackColor = false;
@@ -108,6 +109,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "InMemoryNotifierViewer";
+            this.SnappingEnabled = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "In Memory Notifier Viewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InMemoryNotifierViewer_FormClosing);

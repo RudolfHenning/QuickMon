@@ -106,10 +106,10 @@
             // chkTLS
             // 
             this.chkTLS.AutoSize = true;
-            this.chkTLS.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkTLS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkTLS.Location = new System.Drawing.Point(248, 38);
             this.chkTLS.Name = "chkTLS";
-            this.chkTLS.Size = new System.Drawing.Size(91, 17);
+            this.chkTLS.Size = new System.Drawing.Size(90, 17);
             this.chkTLS.TabIndex = 5;
             this.chkTLS.Text = "Use TLS/SSL";
             this.chkTLS.UseVisualStyleBackColor = true;
@@ -172,9 +172,10 @@
             // optPriorityHigh
             // 
             this.optPriorityHigh.AutoSize = true;
+            this.optPriorityHigh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optPriorityHigh.Location = new System.Drawing.Point(8, 67);
             this.optPriorityHigh.Name = "optPriorityHigh";
-            this.optPriorityHigh.Size = new System.Drawing.Size(47, 17);
+            this.optPriorityHigh.Size = new System.Drawing.Size(46, 17);
             this.optPriorityHigh.TabIndex = 2;
             this.optPriorityHigh.Text = "High";
             this.optPriorityHigh.UseVisualStyleBackColor = true;
@@ -183,9 +184,10 @@
             // 
             this.optPriorityNormal.AutoSize = true;
             this.optPriorityNormal.Checked = true;
+            this.optPriorityNormal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optPriorityNormal.Location = new System.Drawing.Point(8, 44);
             this.optPriorityNormal.Name = "optPriorityNormal";
-            this.optPriorityNormal.Size = new System.Drawing.Size(58, 17);
+            this.optPriorityNormal.Size = new System.Drawing.Size(57, 17);
             this.optPriorityNormal.TabIndex = 1;
             this.optPriorityNormal.TabStop = true;
             this.optPriorityNormal.Text = "Normal";
@@ -194,9 +196,10 @@
             // optPriorityLow
             // 
             this.optPriorityLow.AutoSize = true;
+            this.optPriorityLow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optPriorityLow.Location = new System.Drawing.Point(8, 22);
             this.optPriorityLow.Name = "optPriorityLow";
-            this.optPriorityLow.Size = new System.Drawing.Size(45, 17);
+            this.optPriorityLow.Size = new System.Drawing.Size(44, 17);
             this.optPriorityLow.TabIndex = 0;
             this.optPriorityLow.Text = "Low";
             this.optPriorityLow.UseVisualStyleBackColor = true;
@@ -251,10 +254,10 @@
             // chkIsBodyHtml
             // 
             this.chkIsBodyHtml.AutoSize = true;
-            this.chkIsBodyHtml.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkIsBodyHtml.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIsBodyHtml.Location = new System.Drawing.Point(105, 290);
             this.chkIsBodyHtml.Name = "chkIsBodyHtml";
-            this.chkIsBodyHtml.Size = new System.Drawing.Size(91, 17);
+            this.chkIsBodyHtml.Size = new System.Drawing.Size(90, 17);
             this.chkIsBodyHtml.TabIndex = 19;
             this.chkIsBodyHtml.Text = "Is body HTML";
             this.chkIsBodyHtml.UseVisualStyleBackColor = true;
@@ -334,10 +337,10 @@
             // chkUseDefaultCredentials
             // 
             this.chkUseDefaultCredentials.AutoSize = true;
-            this.chkUseDefaultCredentials.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkUseDefaultCredentials.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkUseDefaultCredentials.Location = new System.Drawing.Point(105, 38);
             this.chkUseDefaultCredentials.Name = "chkUseDefaultCredentials";
-            this.chkUseDefaultCredentials.Size = new System.Drawing.Size(132, 17);
+            this.chkUseDefaultCredentials.Size = new System.Drawing.Size(131, 17);
             this.chkUseDefaultCredentials.TabIndex = 4;
             this.chkUseDefaultCredentials.Text = "Use default credentials";
             this.chkUseDefaultCredentials.UseVisualStyleBackColor = true;
@@ -414,7 +417,8 @@
             // cmdTest
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(305, 459);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
@@ -427,7 +431,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(467, 459);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -438,7 +443,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(386, 459);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -450,10 +456,10 @@
             // chkSplitToAddressOnSend
             // 
             this.chkSplitToAddressOnSend.AutoSize = true;
-            this.chkSplitToAddressOnSend.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkSplitToAddressOnSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSplitToAddressOnSend.Location = new System.Drawing.Point(105, 213);
             this.chkSplitToAddressOnSend.Name = "chkSplitToAddressOnSend";
-            this.chkSplitToAddressOnSend.Size = new System.Drawing.Size(336, 17);
+            this.chkSplitToAddressOnSend.Size = new System.Drawing.Size(335, 17);
             this.chkSplitToAddressOnSend.TabIndex = 14;
             this.chkSplitToAddressOnSend.Text = "Split \'To\' address (each recipient will  receive a separate message)";
             this.chkSplitToAddressOnSend.UseVisualStyleBackColor = true;

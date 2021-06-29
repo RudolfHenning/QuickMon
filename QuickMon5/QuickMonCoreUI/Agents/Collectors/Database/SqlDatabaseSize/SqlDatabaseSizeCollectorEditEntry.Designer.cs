@@ -151,7 +151,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(451, 253);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -163,7 +164,8 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.Enabled = false;
-            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(289, 253);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
@@ -176,7 +178,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(370, 253);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -209,7 +212,8 @@
             // 
             // cmdLoadDBs
             // 
-            this.cmdLoadDBs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdLoadDBs.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdLoadDBs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoadDBs.Location = new System.Drawing.Point(111, 147);
             this.cmdLoadDBs.Name = "cmdLoadDBs";
             this.cmdLoadDBs.Size = new System.Drawing.Size(25, 23);
@@ -290,10 +294,10 @@
             this.chkIntegratedSec.AutoSize = true;
             this.chkIntegratedSec.Checked = true;
             this.chkIntegratedSec.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIntegratedSec.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkIntegratedSec.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIntegratedSec.Location = new System.Drawing.Point(142, 38);
             this.chkIntegratedSec.Name = "chkIntegratedSec";
-            this.chkIntegratedSec.Size = new System.Drawing.Size(111, 17);
+            this.chkIntegratedSec.Size = new System.Drawing.Size(110, 17);
             this.chkIntegratedSec.TabIndex = 2;
             this.chkIntegratedSec.Text = "Integrated security";
             this.chkIntegratedSec.UseVisualStyleBackColor = true;

@@ -46,7 +46,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(229, 208);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -59,7 +60,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(310, 208);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -89,7 +91,8 @@
             // cmdAddUpdate
             // 
             this.cmdAddUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAddUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdAddUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAddUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAddUpdate.Location = new System.Drawing.Point(310, 10);
             this.cmdAddUpdate.Name = "cmdAddUpdate";
             this.cmdAddUpdate.Size = new System.Drawing.Size(75, 23);
@@ -115,7 +118,8 @@
             // cmdNew
             // 
             this.cmdNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdNew.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdNew.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdNew.Location = new System.Drawing.Point(310, 39);
             this.cmdNew.Name = "cmdNew";
             this.cmdNew.Size = new System.Drawing.Size(75, 23);
@@ -128,7 +132,8 @@
             // 
             this.cmdRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRemove.Enabled = false;
-            this.cmdRemove.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemove.Location = new System.Drawing.Point(310, 68);
             this.cmdRemove.Name = "cmdRemove";
             this.cmdRemove.Size = new System.Drawing.Size(75, 23);
@@ -151,7 +156,8 @@
             // 
             this.cmdMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdMoveUp.Enabled = false;
-            this.cmdMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdMoveUp.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdMoveUp.Location = new System.Drawing.Point(310, 97);
             this.cmdMoveUp.Name = "cmdMoveUp";
             this.cmdMoveUp.Size = new System.Drawing.Size(75, 23);
@@ -165,7 +171,8 @@
             // 
             this.cmdMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdMoveDown.Enabled = false;
-            this.cmdMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdMoveDown.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdMoveDown.Location = new System.Drawing.Point(310, 126);
             this.cmdMoveDown.Name = "cmdMoveDown";
             this.cmdMoveDown.Size = new System.Drawing.Size(75, 23);

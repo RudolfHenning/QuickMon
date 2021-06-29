@@ -203,3 +203,4 @@ Change SSHQuery collector to exclude empty leading and trailing lines/characters
 Version 5.3.4 (2021-6-28)
 **************
 A few template enhancements
+Updated UI - Mostly buttons and checkboxes to be flat.

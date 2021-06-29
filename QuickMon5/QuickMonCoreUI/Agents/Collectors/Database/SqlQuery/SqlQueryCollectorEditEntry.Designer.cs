@@ -71,15 +71,15 @@
             this.linkLabelQueryTips = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
-            this.txtErrorValueOrMacro = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtErrorValueOrMacro = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.cboErrorMatchType = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.txtWarningValueOrMacro = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtWarningValueOrMacro = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.cboWarningMatchType = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.txtGoodValueOrMacro = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtGoodValueOrMacro = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.cboSuccessMatchType = new System.Windows.Forms.ComboBox();
@@ -106,7 +106,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(577, 417);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -117,7 +118,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(496, 417);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -233,10 +235,10 @@
             // chkUsePersistentConnection
             // 
             this.chkUsePersistentConnection.AutoSize = true;
-            this.chkUsePersistentConnection.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkUsePersistentConnection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkUsePersistentConnection.Location = new System.Drawing.Point(138, 62);
             this.chkUsePersistentConnection.Name = "chkUsePersistentConnection";
-            this.chkUsePersistentConnection.Size = new System.Drawing.Size(147, 17);
+            this.chkUsePersistentConnection.Size = new System.Drawing.Size(146, 17);
             this.chkUsePersistentConnection.TabIndex = 5;
             this.chkUsePersistentConnection.Text = "Use persistent connection";
             this.chkUsePersistentConnection.UseVisualStyleBackColor = true;
@@ -278,7 +280,8 @@
             // cmdBuildConnStr
             // 
             this.cmdBuildConnStr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBuildConnStr.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBuildConnStr.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdBuildConnStr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdBuildConnStr.Location = new System.Drawing.Point(474, 2);
             this.cmdBuildConnStr.Name = "cmdBuildConnStr";
             this.cmdBuildConnStr.Size = new System.Drawing.Size(137, 23);
@@ -340,7 +343,8 @@
             // 
             // cmdLoadDBs
             // 
-            this.cmdLoadDBs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdLoadDBs.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdLoadDBs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoadDBs.Location = new System.Drawing.Point(114, 33);
             this.cmdLoadDBs.Name = "cmdLoadDBs";
             this.cmdLoadDBs.Size = new System.Drawing.Size(18, 23);
@@ -363,10 +367,10 @@
             this.chkIntegratedSec.AutoSize = true;
             this.chkIntegratedSec.Checked = true;
             this.chkIntegratedSec.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIntegratedSec.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkIntegratedSec.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIntegratedSec.Location = new System.Drawing.Point(138, 61);
             this.chkIntegratedSec.Name = "chkIntegratedSec";
-            this.chkIntegratedSec.Size = new System.Drawing.Size(111, 17);
+            this.chkIntegratedSec.Size = new System.Drawing.Size(110, 17);
             this.chkIntegratedSec.TabIndex = 5;
             this.chkIntegratedSec.Text = "Integrated security";
             this.chkIntegratedSec.UseVisualStyleBackColor = true;
@@ -454,7 +458,7 @@
             // 
             this.optSqlServer.AutoSize = true;
             this.optSqlServer.Checked = true;
-            this.optSqlServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optSqlServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optSqlServer.Location = new System.Drawing.Point(144, 8);
             this.optSqlServer.Name = "optSqlServer";
             this.optSqlServer.Size = new System.Drawing.Size(73, 17);
@@ -467,7 +471,7 @@
             // optOLEDb
             // 
             this.optOLEDb.AutoSize = true;
-            this.optOLEDb.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optOLEDb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optOLEDb.Location = new System.Drawing.Point(223, 8);
             this.optOLEDb.Name = "optOLEDb";
             this.optOLEDb.Size = new System.Drawing.Size(63, 17);
@@ -503,7 +507,7 @@
         '\'',
         '\''};
             this.txtStateQuery.AutoIndentCharsPatterns = "";
-            this.txtStateQuery.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.txtStateQuery.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.txtStateQuery.BackBrush = null;
             this.txtStateQuery.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtStateQuery.CharHeight = 14;
@@ -512,7 +516,6 @@
             this.txtStateQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtStateQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtStateQuery.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtStateQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtStateQuery.IsReplaceMode = false;
             this.txtStateQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtStateQuery.LeftBracket = '(';
@@ -541,10 +544,10 @@
             // chkUseSPForState
             // 
             this.chkUseSPForState.AutoSize = true;
-            this.chkUseSPForState.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkUseSPForState.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkUseSPForState.Location = new System.Drawing.Point(12, 9);
             this.chkUseSPForState.Name = "chkUseSPForState";
-            this.chkUseSPForState.Size = new System.Drawing.Size(135, 17);
+            this.chkUseSPForState.Size = new System.Drawing.Size(134, 17);
             this.chkUseSPForState.TabIndex = 0;
             this.chkUseSPForState.Text = "Use stored procuredure";
             this.chkUseSPForState.UseVisualStyleBackColor = true;
@@ -806,7 +809,8 @@
             // cmdTest
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(415, 417);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);

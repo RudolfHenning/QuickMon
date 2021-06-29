@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WSCollectorEditEntry));
             this.cmdGetWSDL = new System.Windows.Forms.Button();
             this.txtParameters = new System.Windows.Forms.TextBox();
@@ -53,13 +54,13 @@
             this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
             this.errorGroupBox = new System.Windows.Forms.GroupBox();
             this.cboErrorMatchType = new System.Windows.Forms.ComboBox();
-            this.txtError = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtError = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.warningGroupBox = new System.Windows.Forms.GroupBox();
             this.cboWarningMatchType = new System.Windows.Forms.ComboBox();
-            this.txtWarning = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtWarning = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.successGroupBox = new System.Windows.Forms.GroupBox();
             this.cboSuccessMatchType = new System.Windows.Forms.ComboBox();
-            this.txtSuccess = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtSuccess = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -74,7 +75,8 @@
             // cmdGetWSDL
             // 
             this.cmdGetWSDL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdGetWSDL.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdGetWSDL.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdGetWSDL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdGetWSDL.Location = new System.Drawing.Point(548, 12);
             this.cmdGetWSDL.Name = "cmdGetWSDL";
             this.cmdGetWSDL.Size = new System.Drawing.Size(59, 23);
@@ -178,7 +180,8 @@
             // 
             this.cmdTestService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTestService.Enabled = false;
-            this.cmdTestService.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTestService.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTestService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTestService.Location = new System.Drawing.Point(369, 431);
             this.cmdTestService.Name = "cmdTestService";
             this.cmdTestService.Size = new System.Drawing.Size(75, 23);
@@ -191,7 +194,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(531, 431);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -203,7 +207,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(450, 431);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);

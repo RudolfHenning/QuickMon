@@ -333,6 +333,9 @@
     <Compile Include="Controls\Label\HiLightLabel.Designer.cs">
       <DependentUpon>HiLightLabel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LinkLabelEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ListViewEx\ListViewColumnSorter.cs" />
     <Compile Include="Controls\ListViewEx\ListViewEx.cs">
       <SubType>Component</SubType>

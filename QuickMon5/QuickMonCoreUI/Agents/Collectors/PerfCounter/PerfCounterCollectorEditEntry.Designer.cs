@@ -151,10 +151,10 @@
             // chkInverseScale
             // 
             this.chkInverseScale.AutoSize = true;
-            this.chkInverseScale.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkInverseScale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkInverseScale.Location = new System.Drawing.Point(277, 171);
             this.chkInverseScale.Name = "chkInverseScale";
-            this.chkInverseScale.Size = new System.Drawing.Size(103, 17);
+            this.chkInverseScale.Size = new System.Drawing.Size(102, 17);
             this.chkInverseScale.TabIndex = 19;
             this.chkInverseScale.Text = "Inverse (x/scale)";
             this.chkInverseScale.UseVisualStyleBackColor = true;
@@ -288,7 +288,8 @@
             // cmdEditPerfCounter
             // 
             this.cmdEditPerfCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditPerfCounter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditPerfCounter.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdEditPerfCounter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditPerfCounter.Location = new System.Drawing.Point(473, 114);
             this.cmdEditPerfCounter.Name = "cmdEditPerfCounter";
             this.cmdEditPerfCounter.Size = new System.Drawing.Size(41, 23);
@@ -372,7 +373,8 @@
             // cmdSample
             // 
             this.cmdSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSample.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSample.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSample.Location = new System.Drawing.Point(280, 336);
             this.cmdSample.Name = "cmdSample";
             this.cmdSample.Size = new System.Drawing.Size(75, 23);
@@ -457,7 +459,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(442, 336);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -469,7 +472,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(361, 336);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);

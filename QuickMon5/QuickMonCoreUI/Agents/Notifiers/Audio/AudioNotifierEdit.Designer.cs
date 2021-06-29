@@ -202,7 +202,8 @@
             // cmdErrorBrowseAudioFile
             // 
             this.cmdErrorBrowseAudioFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdErrorBrowseAudioFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdErrorBrowseAudioFile.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdErrorBrowseAudioFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdErrorBrowseAudioFile.Location = new System.Drawing.Point(519, 50);
             this.cmdErrorBrowseAudioFile.Name = "cmdErrorBrowseAudioFile";
             this.cmdErrorBrowseAudioFile.Size = new System.Drawing.Size(35, 23);
@@ -250,7 +251,8 @@
             // cmdErrorTestSound
             // 
             this.cmdErrorTestSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdErrorTestSound.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdErrorTestSound.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdErrorTestSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdErrorTestSound.Image = global::QuickMon.Properties.Resources.TriangleRight;
             this.cmdErrorTestSound.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdErrorTestSound.Location = new System.Drawing.Point(479, 11);
@@ -266,9 +268,10 @@
             // chkErrorEnabled
             // 
             this.chkErrorEnabled.AutoSize = true;
+            this.chkErrorEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkErrorEnabled.Location = new System.Drawing.Point(15, 19);
             this.chkErrorEnabled.Name = "chkErrorEnabled";
-            this.chkErrorEnabled.Size = new System.Drawing.Size(65, 17);
+            this.chkErrorEnabled.Size = new System.Drawing.Size(62, 17);
             this.chkErrorEnabled.TabIndex = 0;
             this.chkErrorEnabled.Text = "Enabled";
             this.chkErrorEnabled.UseVisualStyleBackColor = true;
@@ -277,9 +280,10 @@
             // chkErrorUseSystemSounds
             // 
             this.chkErrorUseSystemSounds.AutoSize = true;
+            this.chkErrorUseSystemSounds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkErrorUseSystemSounds.Location = new System.Drawing.Point(104, 19);
             this.chkErrorUseSystemSounds.Name = "chkErrorUseSystemSounds";
-            this.chkErrorUseSystemSounds.Size = new System.Drawing.Size(97, 17);
+            this.chkErrorUseSystemSounds.Size = new System.Drawing.Size(94, 17);
             this.chkErrorUseSystemSounds.TabIndex = 1;
             this.chkErrorUseSystemSounds.Text = "System sounds";
             this.chkErrorUseSystemSounds.UseVisualStyleBackColor = true;
@@ -301,7 +305,8 @@
             // cmdWarningBrowseAudioFile
             // 
             this.cmdWarningBrowseAudioFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdWarningBrowseAudioFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdWarningBrowseAudioFile.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdWarningBrowseAudioFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdWarningBrowseAudioFile.Location = new System.Drawing.Point(519, 50);
             this.cmdWarningBrowseAudioFile.Name = "cmdWarningBrowseAudioFile";
             this.cmdWarningBrowseAudioFile.Size = new System.Drawing.Size(35, 23);
@@ -391,7 +396,8 @@
             // cmdGoodBrowseAudioFile
             // 
             this.cmdGoodBrowseAudioFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdGoodBrowseAudioFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdGoodBrowseAudioFile.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdGoodBrowseAudioFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdGoodBrowseAudioFile.Location = new System.Drawing.Point(519, 50);
             this.cmdGoodBrowseAudioFile.Name = "cmdGoodBrowseAudioFile";
             this.cmdGoodBrowseAudioFile.Size = new System.Drawing.Size(35, 23);
@@ -439,7 +445,8 @@
             // cmdGoodTestSound
             // 
             this.cmdGoodTestSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdGoodTestSound.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdGoodTestSound.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdGoodTestSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdGoodTestSound.Image = global::QuickMon.Properties.Resources.TriangleRight;
             this.cmdGoodTestSound.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdGoodTestSound.Location = new System.Drawing.Point(479, 11);
@@ -455,9 +462,10 @@
             // chkGoodEnabled
             // 
             this.chkGoodEnabled.AutoSize = true;
+            this.chkGoodEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkGoodEnabled.Location = new System.Drawing.Point(15, 19);
             this.chkGoodEnabled.Name = "chkGoodEnabled";
-            this.chkGoodEnabled.Size = new System.Drawing.Size(65, 17);
+            this.chkGoodEnabled.Size = new System.Drawing.Size(62, 17);
             this.chkGoodEnabled.TabIndex = 0;
             this.chkGoodEnabled.Text = "Enabled";
             this.chkGoodEnabled.UseVisualStyleBackColor = true;
@@ -466,9 +474,10 @@
             // chkGoodUseSystemSounds
             // 
             this.chkGoodUseSystemSounds.AutoSize = true;
+            this.chkGoodUseSystemSounds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkGoodUseSystemSounds.Location = new System.Drawing.Point(104, 19);
             this.chkGoodUseSystemSounds.Name = "chkGoodUseSystemSounds";
-            this.chkGoodUseSystemSounds.Size = new System.Drawing.Size(97, 17);
+            this.chkGoodUseSystemSounds.Size = new System.Drawing.Size(94, 17);
             this.chkGoodUseSystemSounds.TabIndex = 1;
             this.chkGoodUseSystemSounds.Text = "System sounds";
             this.chkGoodUseSystemSounds.UseVisualStyleBackColor = true;
@@ -513,7 +522,8 @@
             // cmdWarningTestSound
             // 
             this.cmdWarningTestSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdWarningTestSound.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdWarningTestSound.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdWarningTestSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdWarningTestSound.Image = global::QuickMon.Properties.Resources.TriangleRight;
             this.cmdWarningTestSound.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdWarningTestSound.Location = new System.Drawing.Point(479, 11);
@@ -529,9 +539,10 @@
             // chkWarningEnabled
             // 
             this.chkWarningEnabled.AutoSize = true;
+            this.chkWarningEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkWarningEnabled.Location = new System.Drawing.Point(15, 19);
             this.chkWarningEnabled.Name = "chkWarningEnabled";
-            this.chkWarningEnabled.Size = new System.Drawing.Size(65, 17);
+            this.chkWarningEnabled.Size = new System.Drawing.Size(62, 17);
             this.chkWarningEnabled.TabIndex = 0;
             this.chkWarningEnabled.Text = "Enabled";
             this.chkWarningEnabled.UseVisualStyleBackColor = true;
@@ -540,9 +551,10 @@
             // chkWarningUseSystemSounds
             // 
             this.chkWarningUseSystemSounds.AutoSize = true;
+            this.chkWarningUseSystemSounds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkWarningUseSystemSounds.Location = new System.Drawing.Point(104, 19);
             this.chkWarningUseSystemSounds.Name = "chkWarningUseSystemSounds";
-            this.chkWarningUseSystemSounds.Size = new System.Drawing.Size(97, 17);
+            this.chkWarningUseSystemSounds.Size = new System.Drawing.Size(94, 17);
             this.chkWarningUseSystemSounds.TabIndex = 1;
             this.chkWarningUseSystemSounds.Text = "System sounds";
             this.chkWarningUseSystemSounds.UseVisualStyleBackColor = true;
@@ -572,7 +584,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(497, 420);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -583,7 +596,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(416, 420);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);

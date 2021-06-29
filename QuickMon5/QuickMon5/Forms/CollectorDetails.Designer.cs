@@ -1071,7 +1071,8 @@
             // 
             this.cmdTestRunAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTestRunAs.Enabled = false;
-            this.cmdTestRunAs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTestRunAs.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTestRunAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTestRunAs.Location = new System.Drawing.Point(872, 17);
             this.cmdTestRunAs.Name = "cmdTestRunAs";
             this.cmdTestRunAs.Size = new System.Drawing.Size(70, 23);
@@ -1095,9 +1096,10 @@
             this.chkRunAsEnabled.BackColor = System.Drawing.Color.White;
             this.chkRunAsEnabled.Checked = true;
             this.chkRunAsEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRunAsEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkRunAsEnabled.Location = new System.Drawing.Point(72, 0);
             this.chkRunAsEnabled.Name = "chkRunAsEnabled";
-            this.chkRunAsEnabled.Size = new System.Drawing.Size(65, 17);
+            this.chkRunAsEnabled.Size = new System.Drawing.Size(62, 17);
             this.chkRunAsEnabled.TabIndex = 1;
             this.chkRunAsEnabled.Text = "Enabled";
             this.chkRunAsEnabled.UseVisualStyleBackColor = false;
@@ -1174,9 +1176,10 @@
             // chkRunLocalOnRemoteHostConnectionFailure
             // 
             this.chkRunLocalOnRemoteHostConnectionFailure.AutoSize = true;
+            this.chkRunLocalOnRemoteHostConnectionFailure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkRunLocalOnRemoteHostConnectionFailure.Location = new System.Drawing.Point(256, 50);
             this.chkRunLocalOnRemoteHostConnectionFailure.Name = "chkRunLocalOnRemoteHostConnectionFailure";
-            this.chkRunLocalOnRemoteHostConnectionFailure.Size = new System.Drawing.Size(221, 17);
+            this.chkRunLocalOnRemoteHostConnectionFailure.Size = new System.Drawing.Size(218, 17);
             this.chkRunLocalOnRemoteHostConnectionFailure.TabIndex = 10;
             this.chkRunLocalOnRemoteHostConnectionFailure.Text = "Run locally if remote host connection fails";
             this.chkRunLocalOnRemoteHostConnectionFailure.UseVisualStyleBackColor = true;
@@ -1184,9 +1187,10 @@
             // chkBlockParentRHOverride
             // 
             this.chkBlockParentRHOverride.AutoSize = true;
+            this.chkBlockParentRHOverride.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkBlockParentRHOverride.Location = new System.Drawing.Point(28, 50);
             this.chkBlockParentRHOverride.Name = "chkBlockParentRHOverride";
-            this.chkBlockParentRHOverride.Size = new System.Drawing.Size(190, 17);
+            this.chkBlockParentRHOverride.Size = new System.Drawing.Size(187, 17);
             this.chkBlockParentRHOverride.TabIndex = 9;
             this.chkBlockParentRHOverride.Text = "Block parent remote agent settings";
             this.chkBlockParentRHOverride.UseVisualStyleBackColor = true;
@@ -1195,9 +1199,10 @@
             // 
             this.chkForceRemoteExcuteOnChildCollectors.AutoSize = true;
             this.chkForceRemoteExcuteOnChildCollectors.BackColor = System.Drawing.Color.White;
+            this.chkForceRemoteExcuteOnChildCollectors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(256, 0);
             this.chkForceRemoteExcuteOnChildCollectors.Name = "chkForceRemoteExcuteOnChildCollectors";
-            this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(139, 17);
+            this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(136, 17);
             this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 2;
             this.chkForceRemoteExcuteOnChildCollectors.Text = "Override child collectors";
             this.chkForceRemoteExcuteOnChildCollectors.UseVisualStyleBackColor = false;
@@ -1231,9 +1236,10 @@
             // 
             this.chkRemoteAgentEnabled.AutoSize = true;
             this.chkRemoteAgentEnabled.BackColor = System.Drawing.Color.White;
+            this.chkRemoteAgentEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(108, 0);
             this.chkRemoteAgentEnabled.Name = "chkRemoteAgentEnabled";
-            this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(142, 17);
+            this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(139, 17);
             this.chkRemoteAgentEnabled.TabIndex = 1;
             this.chkRemoteAgentEnabled.Text = "Enabled for this collector";
             this.chkRemoteAgentEnabled.UseVisualStyleBackColor = false;
@@ -1286,7 +1292,8 @@
             // 
             this.cmdRemoteAgentTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRemoteAgentTest.Enabled = false;
-            this.cmdRemoteAgentTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRemoteAgentTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRemoteAgentTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemoteAgentTest.Location = new System.Drawing.Point(872, 21);
             this.cmdRemoteAgentTest.Name = "cmdRemoteAgentTest";
             this.cmdRemoteAgentTest.Size = new System.Drawing.Size(70, 23);
@@ -1336,9 +1343,10 @@
             this.chkEnablePollingOverride.BackColor = System.Drawing.Color.White;
             this.chkEnablePollingOverride.Checked = true;
             this.chkEnablePollingOverride.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkEnablePollingOverride.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkEnablePollingOverride.Location = new System.Drawing.Point(117, -1);
             this.chkEnablePollingOverride.Name = "chkEnablePollingOverride";
-            this.chkEnablePollingOverride.Size = new System.Drawing.Size(65, 17);
+            this.chkEnablePollingOverride.Size = new System.Drawing.Size(62, 17);
             this.chkEnablePollingOverride.TabIndex = 1;
             this.chkEnablePollingOverride.Text = "Enabled";
             this.chkEnablePollingOverride.UseVisualStyleBackColor = false;
@@ -1467,9 +1475,10 @@
             // chkEnablePollingFrequencySliding
             // 
             this.chkEnablePollingFrequencySliding.AutoSize = true;
+            this.chkEnablePollingFrequencySliding.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkEnablePollingFrequencySliding.Location = new System.Drawing.Point(14, 45);
             this.chkEnablePollingFrequencySliding.Name = "chkEnablePollingFrequencySliding";
-            this.chkEnablePollingFrequencySliding.Size = new System.Drawing.Size(370, 17);
+            this.chkEnablePollingFrequencySliding.Size = new System.Drawing.Size(367, 17);
             this.chkEnablePollingFrequencySliding.TabIndex = 6;
             this.chkEnablePollingFrequencySliding.Text = "Enable frequency sliding - (Frequency decrease if state does not change)";
             this.chkEnablePollingFrequencySliding.UseVisualStyleBackColor = true;
@@ -1559,7 +1568,8 @@
             // 
             this.cmdSetNoteText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSetNoteText.Enabled = false;
-            this.cmdSetNoteText.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSetNoteText.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSetNoteText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSetNoteText.Location = new System.Drawing.Point(905, 14);
             this.cmdSetNoteText.Name = "cmdSetNoteText";
             this.cmdSetNoteText.Size = new System.Drawing.Size(39, 23);
@@ -1738,9 +1748,10 @@
             // 
             this.chkCorrectiveScriptDisabled.AutoSize = true;
             this.chkCorrectiveScriptDisabled.BackColor = System.Drawing.Color.White;
+            this.chkCorrectiveScriptDisabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkCorrectiveScriptDisabled.Location = new System.Drawing.Point(134, 2);
             this.chkCorrectiveScriptDisabled.Name = "chkCorrectiveScriptDisabled";
-            this.chkCorrectiveScriptDisabled.Size = new System.Drawing.Size(144, 17);
+            this.chkCorrectiveScriptDisabled.Size = new System.Drawing.Size(141, 17);
             this.chkCorrectiveScriptDisabled.TabIndex = 1;
             this.chkCorrectiveScriptDisabled.Text = "Disable corrective scripts";
             this.chkCorrectiveScriptDisabled.UseVisualStyleBackColor = false;
@@ -1798,9 +1809,10 @@
             // 
             this.chkAlertsPaused.AutoSize = true;
             this.chkAlertsPaused.BackColor = System.Drawing.Color.White;
+            this.chkAlertsPaused.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkAlertsPaused.Location = new System.Drawing.Point(125, -1);
             this.chkAlertsPaused.Name = "chkAlertsPaused";
-            this.chkAlertsPaused.Size = new System.Drawing.Size(208, 17);
+            this.chkAlertsPaused.Size = new System.Drawing.Size(205, 17);
             this.chkAlertsPaused.TabIndex = 1;
             this.chkAlertsPaused.Text = "Pause/ignore all alerts for this collector";
             this.chkAlertsPaused.UseVisualStyleBackColor = false;

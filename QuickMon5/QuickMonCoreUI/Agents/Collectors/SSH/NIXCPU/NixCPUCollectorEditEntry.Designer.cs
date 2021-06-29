@@ -126,10 +126,10 @@
             this.chkUseOnlyTotalCPUvalue.AutoSize = true;
             this.chkUseOnlyTotalCPUvalue.Checked = true;
             this.chkUseOnlyTotalCPUvalue.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUseOnlyTotalCPUvalue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkUseOnlyTotalCPUvalue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkUseOnlyTotalCPUvalue.Location = new System.Drawing.Point(12, 83);
             this.chkUseOnlyTotalCPUvalue.Name = "chkUseOnlyTotalCPUvalue";
-            this.chkUseOnlyTotalCPUvalue.Size = new System.Drawing.Size(124, 17);
+            this.chkUseOnlyTotalCPUvalue.Size = new System.Drawing.Size(123, 17);
             this.chkUseOnlyTotalCPUvalue.TabIndex = 3;
             this.chkUseOnlyTotalCPUvalue.Text = "Total CPU value only";
             this.chkUseOnlyTotalCPUvalue.UseVisualStyleBackColor = true;
@@ -138,7 +138,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(346, 175);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -149,7 +150,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(265, 175);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);

@@ -276,7 +276,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(518, 430);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -287,7 +288,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(437, 430);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -370,7 +372,8 @@
             // cmdBrowse
             // 
             this.cmdBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowse.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdBrowse.Location = new System.Drawing.Point(506, 22);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(68, 23);
@@ -421,10 +424,10 @@
             // chkUseRegEx
             // 
             this.chkUseRegEx.AutoSize = true;
-            this.chkUseRegEx.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkUseRegEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkUseRegEx.Location = new System.Drawing.Point(93, 102);
             this.chkUseRegEx.Name = "chkUseRegEx";
-            this.chkUseRegEx.Size = new System.Drawing.Size(141, 17);
+            this.chkUseRegEx.Size = new System.Drawing.Size(140, 17);
             this.chkUseRegEx.TabIndex = 9;
             this.chkUseRegEx.Text = "Use Regular expressions";
             this.chkUseRegEx.UseVisualStyleBackColor = true;
@@ -500,10 +503,10 @@
             // chkIncludeSubDirs
             // 
             this.chkIncludeSubDirs.AutoSize = true;
-            this.chkIncludeSubDirs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkIncludeSubDirs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIncludeSubDirs.Location = new System.Drawing.Point(290, 51);
             this.chkIncludeSubDirs.Name = "chkIncludeSubDirs";
-            this.chkIncludeSubDirs.Size = new System.Drawing.Size(257, 17);
+            this.chkIncludeSubDirs.Size = new System.Drawing.Size(256, 17);
             this.chkIncludeSubDirs.TabIndex = 6;
             this.chkIncludeSubDirs.Text = "Include Sub Directories (Warning - could be slow)";
             this.chkIncludeSubDirs.UseVisualStyleBackColor = true;
@@ -615,7 +618,7 @@
             // 
             this.optCounts.AutoSize = true;
             this.optCounts.Checked = true;
-            this.optCounts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optCounts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optCounts.Location = new System.Drawing.Point(21, 19);
             this.optCounts.Name = "optCounts";
             this.optCounts.Size = new System.Drawing.Size(90, 17);
@@ -628,7 +631,7 @@
             // optErrorOnFilesExist
             // 
             this.optErrorOnFilesExist.AutoSize = true;
-            this.optErrorOnFilesExist.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optErrorOnFilesExist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optErrorOnFilesExist.Location = new System.Drawing.Point(21, 88);
             this.optErrorOnFilesExist.Name = "optErrorOnFilesExist";
             this.optErrorOnFilesExist.Size = new System.Drawing.Size(136, 17);
@@ -640,7 +643,7 @@
             // optCheckIfFilesExistOnly
             // 
             this.optCheckIfFilesExistOnly.AutoSize = true;
-            this.optCheckIfFilesExistOnly.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optCheckIfFilesExistOnly.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optCheckIfFilesExistOnly.Location = new System.Drawing.Point(21, 65);
             this.optCheckIfFilesExistOnly.Name = "optCheckIfFilesExistOnly";
             this.optCheckIfFilesExistOnly.Size = new System.Drawing.Size(168, 17);
@@ -652,7 +655,7 @@
             // optDirectoryExistOnly
             // 
             this.optDirectoryExistOnly.AutoSize = true;
-            this.optDirectoryExistOnly.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optDirectoryExistOnly.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optDirectoryExistOnly.Location = new System.Drawing.Point(21, 42);
             this.optDirectoryExistOnly.Name = "optDirectoryExistOnly";
             this.optDirectoryExistOnly.Size = new System.Drawing.Size(158, 17);
@@ -664,10 +667,10 @@
             // chkShowFilenamesInDetails
             // 
             this.chkShowFilenamesInDetails.AutoSize = true;
-            this.chkShowFilenamesInDetails.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkShowFilenamesInDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkShowFilenamesInDetails.Location = new System.Drawing.Point(12, 19);
             this.chkShowFilenamesInDetails.Name = "chkShowFilenamesInDetails";
-            this.chkShowFilenamesInDetails.Size = new System.Drawing.Size(90, 17);
+            this.chkShowFilenamesInDetails.Size = new System.Drawing.Size(89, 17);
             this.chkShowFilenamesInDetails.TabIndex = 0;
             this.chkShowFilenamesInDetails.Text = "List file names";
             this.chkShowFilenamesInDetails.UseVisualStyleBackColor = true;
@@ -675,7 +678,8 @@
             // cmdTest
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(356, 430);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
@@ -748,9 +752,10 @@
             // ShowFileCountAndSizeInOutputValue
             // 
             this.ShowFileCountAndSizeInOutputValue.AutoSize = true;
+            this.ShowFileCountAndSizeInOutputValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ShowFileCountAndSizeInOutputValue.Location = new System.Drawing.Point(437, 19);
             this.ShowFileCountAndSizeInOutputValue.Name = "ShowFileCountAndSizeInOutputValue";
-            this.ShowFileCountAndSizeInOutputValue.Size = new System.Drawing.Size(113, 17);
+            this.ShowFileCountAndSizeInOutputValue.Size = new System.Drawing.Size(112, 17);
             this.ShowFileCountAndSizeInOutputValue.TabIndex = 6;
             this.ShowFileCountAndSizeInOutputValue.TabStop = true;
             this.ShowFileCountAndSizeInOutputValue.Text = "File count and size";
@@ -759,9 +764,10 @@
             // optShowFileSizeInOutputValue
             // 
             this.optShowFileSizeInOutputValue.AutoSize = true;
+            this.optShowFileSizeInOutputValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optShowFileSizeInOutputValue.Location = new System.Drawing.Point(369, 19);
             this.optShowFileSizeInOutputValue.Name = "optShowFileSizeInOutputValue";
-            this.optShowFileSizeInOutputValue.Size = new System.Drawing.Size(62, 17);
+            this.optShowFileSizeInOutputValue.Size = new System.Drawing.Size(61, 17);
             this.optShowFileSizeInOutputValue.TabIndex = 5;
             this.optShowFileSizeInOutputValue.TabStop = true;
             this.optShowFileSizeInOutputValue.Text = "File size";
@@ -770,9 +776,10 @@
             // optShowFileCountInOutputValue
             // 
             this.optShowFileCountInOutputValue.AutoSize = true;
+            this.optShowFileCountInOutputValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optShowFileCountInOutputValue.Location = new System.Drawing.Point(292, 19);
             this.optShowFileCountInOutputValue.Name = "optShowFileCountInOutputValue";
-            this.optShowFileCountInOutputValue.Size = new System.Drawing.Size(71, 17);
+            this.optShowFileCountInOutputValue.Size = new System.Drawing.Size(70, 17);
             this.optShowFileCountInOutputValue.TabIndex = 4;
             this.optShowFileCountInOutputValue.TabStop = true;
             this.optShowFileCountInOutputValue.Text = "File count";

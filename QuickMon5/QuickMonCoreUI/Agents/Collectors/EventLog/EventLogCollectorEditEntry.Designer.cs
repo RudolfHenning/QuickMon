@@ -92,7 +92,7 @@
             // 
             this.optTextStartWith.AutoSize = true;
             this.optTextStartWith.Checked = true;
-            this.optTextStartWith.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optTextStartWith.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optTextStartWith.Location = new System.Drawing.Point(16, 17);
             this.optTextStartWith.Name = "optTextStartWith";
             this.optTextStartWith.Size = new System.Drawing.Size(73, 17);
@@ -142,7 +142,7 @@
             // optTextContains
             // 
             this.optTextContains.AutoSize = true;
-            this.optTextContains.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optTextContains.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optTextContains.Location = new System.Drawing.Point(99, 17);
             this.optTextContains.Name = "optTextContains";
             this.optTextContains.Size = new System.Drawing.Size(65, 17);
@@ -322,7 +322,7 @@
             // optUseRegEx
             // 
             this.optUseRegEx.AutoSize = true;
-            this.optUseRegEx.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optUseRegEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optUseRegEx.Location = new System.Drawing.Point(178, 17);
             this.optUseRegEx.Name = "optUseRegEx";
             this.optUseRegEx.Size = new System.Drawing.Size(115, 17);
@@ -342,7 +342,8 @@
             // cmdEditEventIds
             // 
             this.cmdEditEventIds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditEventIds.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditEventIds.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdEditEventIds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditEventIds.Location = new System.Drawing.Point(504, 221);
             this.cmdEditEventIds.Name = "cmdEditEventIds";
             this.cmdEditEventIds.Size = new System.Drawing.Size(42, 23);
@@ -400,10 +401,10 @@
             this.chkErr.AutoSize = true;
             this.chkErr.Checked = true;
             this.chkErr.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkErr.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkErr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkErr.Location = new System.Drawing.Point(266, 200);
             this.chkErr.Name = "chkErr";
-            this.chkErr.Size = new System.Drawing.Size(46, 17);
+            this.chkErr.Size = new System.Drawing.Size(45, 17);
             this.chkErr.TabIndex = 11;
             this.chkErr.Text = "Error";
             this.chkErr.UseVisualStyleBackColor = true;
@@ -415,10 +416,10 @@
             this.chkWarn.AutoSize = true;
             this.chkWarn.Checked = true;
             this.chkWarn.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkWarn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkWarn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkWarn.Location = new System.Drawing.Point(187, 200);
             this.chkWarn.Name = "chkWarn";
-            this.chkWarn.Size = new System.Drawing.Size(64, 17);
+            this.chkWarn.Size = new System.Drawing.Size(63, 17);
             this.chkWarn.TabIndex = 10;
             this.chkWarn.Text = "Warning";
             this.chkWarn.UseVisualStyleBackColor = true;
@@ -430,10 +431,10 @@
             this.chkInfo.AutoSize = true;
             this.chkInfo.Checked = true;
             this.chkInfo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkInfo.Location = new System.Drawing.Point(103, 200);
             this.chkInfo.Name = "chkInfo";
-            this.chkInfo.Size = new System.Drawing.Size(76, 17);
+            this.chkInfo.Size = new System.Drawing.Size(75, 17);
             this.chkInfo.TabIndex = 9;
             this.chkInfo.Text = "Information";
             this.chkInfo.UseVisualStyleBackColor = true;
@@ -452,7 +453,8 @@
             // cmdLoadEventLogs
             // 
             this.cmdLoadEventLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoadEventLogs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdLoadEventLogs.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdLoadEventLogs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoadEventLogs.Location = new System.Drawing.Point(504, 12);
             this.cmdLoadEventLogs.Name = "cmdLoadEventLogs";
             this.cmdLoadEventLogs.Size = new System.Drawing.Size(42, 23);
@@ -505,7 +507,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(471, 384);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -517,7 +520,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(390, 384);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -533,7 +537,8 @@
             // cmdSelectSources
             // 
             this.cmdSelectSources.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSelectSources.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSelectSources.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSelectSources.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSelectSources.Location = new System.Drawing.Point(504, 73);
             this.cmdSelectSources.Name = "cmdSelectSources";
             this.cmdSelectSources.Size = new System.Drawing.Size(42, 23);
@@ -546,7 +551,8 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.Enabled = false;
-            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(309, 384);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);

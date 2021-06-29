@@ -47,6 +47,8 @@
             this.cboPingType = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.httpGroupBox = new System.Windows.Forms.GroupBox();
+            this.cboHttpsProtocol = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.txtHTMLContent = new System.Windows.Forms.TextBox();
             this.txtProxyPassword = new System.Windows.Forms.TextBox();
@@ -79,8 +81,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkVerifyOnOK = new System.Windows.Forms.CheckBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.cboHttpsProtocol = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -96,7 +96,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(368, 482);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -108,7 +109,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(287, 482);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -140,7 +142,8 @@
             // 
             this.cmdTestAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTestAddress.Enabled = false;
-            this.cmdTestAddress.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTestAddress.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTestAddress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTestAddress.Location = new System.Drawing.Point(214, 482);
             this.cmdTestAddress.Name = "cmdTestAddress";
             this.cmdTestAddress.Size = new System.Drawing.Size(67, 23);
@@ -319,6 +322,29 @@
             this.httpGroupBox.TabIndex = 1;
             this.httpGroupBox.TabStop = false;
             this.httpGroupBox.Text = "HTTP(S) Ping";
+            // 
+            // cboHttpsProtocol
+            // 
+            this.cboHttpsProtocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboHttpsProtocol.FormattingEnabled = true;
+            this.cboHttpsProtocol.Items.AddRange(new object[] {
+            "Ssl3",
+            "Tls",
+            "Tls11",
+            "Tls12"});
+            this.cboHttpsProtocol.Location = new System.Drawing.Point(304, 100);
+            this.cboHttpsProtocol.Name = "cboHttpsProtocol";
+            this.cboHttpsProtocol.Size = new System.Drawing.Size(91, 21);
+            this.cboHttpsProtocol.TabIndex = 14;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(225, 103);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(73, 13);
+            this.label22.TabIndex = 13;
+            this.label22.Text = "Https protocol";
             // 
             // label20
             // 
@@ -662,29 +688,6 @@
             this.chkVerifyOnOK.Text = "Test on clicking \'OK\'";
             this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkVerifyOnOK.UseVisualStyleBackColor = true;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(225, 103);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(73, 13);
-            this.label22.TabIndex = 13;
-            this.label22.Text = "Https protocol";
-            // 
-            // cboHttpsProtocol
-            // 
-            this.cboHttpsProtocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboHttpsProtocol.FormattingEnabled = true;
-            this.cboHttpsProtocol.Items.AddRange(new object[] {
-            "Ssl3",
-            "Tls",
-            "Tls11",
-            "Tls12"});
-            this.cboHttpsProtocol.Location = new System.Drawing.Point(304, 100);
-            this.cboHttpsProtocol.Name = "cboHttpsProtocol";
-            this.cboHttpsProtocol.Size = new System.Drawing.Size(91, 21);
-            this.cboHttpsProtocol.TabIndex = 14;
             // 
             // PingCollectorEditHostAddress
             // 

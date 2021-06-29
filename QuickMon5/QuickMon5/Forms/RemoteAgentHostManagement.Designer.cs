@@ -52,9 +52,9 @@
             this.lblComputer = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.label13 = new System.Windows.Forms.Label();
             this.shadePanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.remoteHostListContextMenuStrip.SuspendLayout();
@@ -79,9 +79,9 @@
             this.cmdEditMonitorPackList.BackColor = System.Drawing.Color.Transparent;
             this.cmdEditMonitorPackList.BackgroundImage = global::QuickMon.Properties.Resources.doc_edit;
             this.cmdEditMonitorPackList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cmdEditMonitorPackList.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
+            this.cmdEditMonitorPackList.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdEditMonitorPackList.FlatAppearance.BorderSize = 0;
-            this.cmdEditMonitorPackList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditMonitorPackList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditMonitorPackList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdEditMonitorPackList.Location = new System.Drawing.Point(36, 1);
             this.cmdEditMonitorPackList.Name = "cmdEditMonitorPackList";
@@ -96,9 +96,9 @@
             this.cmdRefresh.BackColor = System.Drawing.Color.Transparent;
             this.cmdRefresh.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
             this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
+            this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
-            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdRefresh.Location = new System.Drawing.Point(2, 1);
             this.cmdRefresh.Name = "cmdRefresh";
@@ -135,6 +135,7 @@
             this.packsColumnHeader});
             this.lvwRemoteHosts.ContextMenuStrip = this.remoteHostListContextMenuStrip;
             this.lvwRemoteHosts.FullRowSelect = true;
+            this.lvwRemoteHosts.HideSelection = false;
             this.lvwRemoteHosts.Location = new System.Drawing.Point(0, 0);
             this.lvwRemoteHosts.Name = "lvwRemoteHosts";
             this.lvwRemoteHosts.Size = new System.Drawing.Size(584, 188);
@@ -227,7 +228,8 @@
             // 
             this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdAdd.Enabled = false;
-            this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAdd.Location = new System.Drawing.Point(531, 194);
             this.cmdAdd.Name = "cmdAdd";
             this.cmdAdd.Size = new System.Drawing.Size(50, 23);
@@ -301,17 +303,6 @@
             this.panel1.Size = new System.Drawing.Size(584, 31);
             this.panel1.TabIndex = 23;
             // 
-            // refreshTimer
-            // 
-            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
-            // 
-            // quickMonServiceOpenFileDialog
-            // 
-            this.quickMonServiceOpenFileDialog.DefaultExt = "exe";
-            this.quickMonServiceOpenFileDialog.FileName = "QuickMonService.exe";
-            this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
-            this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -322,6 +313,17 @@
             this.label13.TabIndex = 10;
             this.label13.Text = "To set up the QuickMon Service/Remote host and Firewall settings please go to set" +
     "tings";
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+            // 
+            // quickMonServiceOpenFileDialog
+            // 
+            this.quickMonServiceOpenFileDialog.DefaultExt = "exe";
+            this.quickMonServiceOpenFileDialog.FileName = "QuickMonService.exe";
+            this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
+            this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
             // 
             // RemoteAgentHostManagement
             // 

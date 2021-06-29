@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WMIQueryCollectorEditEntry));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
@@ -43,13 +44,13 @@
             this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
             this.errorGroupBox = new System.Windows.Forms.GroupBox();
             this.cboErrorMatchType = new System.Windows.Forms.ComboBox();
-            this.txtError = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtError = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.warningGroupBox = new System.Windows.Forms.GroupBox();
             this.cboWarningMatchType = new System.Windows.Forms.ComboBox();
-            this.txtWarning = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtWarning = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.successGroupBox = new System.Windows.Forms.GroupBox();
             this.cboSuccessMatchType = new System.Windows.Forms.ComboBox();
-            this.txtSuccess = new Controls.STDCollectorOutputValueMatchTextBox();
+            this.txtSuccess = new QuickMon.Controls.STDCollectorOutputValueMatchTextBox();
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cmdEditSummaryQuery = new System.Windows.Forms.Button();
@@ -70,7 +71,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(463, 446);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -81,7 +83,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(382, 446);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -184,9 +187,10 @@
             // 
             this.chkUseRowCountAsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkUseRowCountAsValue.AutoSize = true;
-            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(370, 6);
+            this.chkUseRowCountAsValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(373, 6);
             this.chkUseRowCountAsValue.Name = "chkUseRowCountAsValue";
-            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(139, 17);
+            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(136, 17);
             this.chkUseRowCountAsValue.TabIndex = 2;
             this.chkUseRowCountAsValue.Text = "Row count as the value";
             this.chkUseRowCountAsValue.UseVisualStyleBackColor = true;
@@ -381,7 +385,8 @@
             // 
             // cmdEditSummaryQuery
             // 
-            this.cmdEditSummaryQuery.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditSummaryQuery.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdEditSummaryQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditSummaryQuery.Image = global::QuickMon.Properties.Resources.settings_16;
             this.cmdEditSummaryQuery.Location = new System.Drawing.Point(136, 2);
             this.cmdEditSummaryQuery.Name = "cmdEditSummaryQuery";
@@ -393,7 +398,8 @@
             // cmdTestDB
             // 
             this.cmdTestDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTestDB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTestDB.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTestDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTestDB.Location = new System.Drawing.Point(301, 446);
             this.cmdTestDB.Name = "cmdTestDB";
             this.cmdTestDB.Size = new System.Drawing.Size(75, 23);

@@ -60,10 +60,10 @@
             this.chkTrustedConnection.AutoSize = true;
             this.chkTrustedConnection.Checked = true;
             this.chkTrustedConnection.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.chkTrustedConnection.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkTrustedConnection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkTrustedConnection.Location = new System.Drawing.Point(343, 155);
             this.chkTrustedConnection.Name = "chkTrustedConnection";
-            this.chkTrustedConnection.Size = new System.Drawing.Size(117, 17);
+            this.chkTrustedConnection.Size = new System.Drawing.Size(116, 17);
             this.chkTrustedConnection.TabIndex = 16;
             this.chkTrustedConnection.Text = "Trusted Connection";
             this.chkTrustedConnection.ThreeState = true;
@@ -72,10 +72,10 @@
             // chkPersistSecurityInfo
             // 
             this.chkPersistSecurityInfo.AutoSize = true;
-            this.chkPersistSecurityInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkPersistSecurityInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkPersistSecurityInfo.Location = new System.Drawing.Point(129, 155);
             this.chkPersistSecurityInfo.Name = "chkPersistSecurityInfo";
-            this.chkPersistSecurityInfo.Size = new System.Drawing.Size(117, 17);
+            this.chkPersistSecurityInfo.Size = new System.Drawing.Size(116, 17);
             this.chkPersistSecurityInfo.TabIndex = 15;
             this.chkPersistSecurityInfo.Text = "Persist Security Info";
             this.chkPersistSecurityInfo.UseVisualStyleBackColor = true;
@@ -115,7 +115,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(415, 309);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -128,7 +129,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(496, 309);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -154,7 +156,8 @@
             // 
             // cmdReadFromConnString
             // 
-            this.cmdReadFromConnString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdReadFromConnString.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdReadFromConnString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdReadFromConnString.Location = new System.Drawing.Point(200, 184);
             this.cmdReadFromConnString.Name = "cmdReadFromConnString";
             this.cmdReadFromConnString.Size = new System.Drawing.Size(183, 23);
@@ -165,7 +168,8 @@
             // 
             // cmdConstructConnString
             // 
-            this.cmdConstructConnString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdConstructConnString.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdConstructConnString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdConstructConnString.Location = new System.Drawing.Point(11, 184);
             this.cmdConstructConnString.Name = "cmdConstructConnString";
             this.cmdConstructConnString.Size = new System.Drawing.Size(183, 23);

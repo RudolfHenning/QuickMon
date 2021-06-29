@@ -37,6 +37,7 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanelSettings = new System.Windows.Forms.FlowLayoutPanel();
             this.panelGeneralSettings = new System.Windows.Forms.Panel();
+            this.chkEnableStickyMainWindowLocation = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -122,7 +123,6 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.fbdLogging = new System.Windows.Forms.FolderBrowserDialog();
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.chkEnableStickyMainWindowLocation = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelGeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
@@ -146,10 +146,10 @@
             this.chkEnabled.BackColor = System.Drawing.Color.Transparent;
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkEnabled.Location = new System.Drawing.Point(20, 70);
             this.chkEnabled.Name = "chkEnabled";
-            this.chkEnabled.Size = new System.Drawing.Size(129, 17);
+            this.chkEnabled.Size = new System.Drawing.Size(128, 17);
             this.chkEnabled.TabIndex = 3;
             this.chkEnabled.Text = "Monitor Pack &Enabled";
             this.chkEnabled.UseVisualStyleBackColor = false;
@@ -180,6 +180,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.BackColor = System.Drawing.Color.Transparent;
             this.cmdOK.Enabled = false;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(413, 631);
             this.cmdOK.Name = "cmdOK";
@@ -194,6 +195,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.BackColor = System.Drawing.Color.Transparent;
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(494, 631);
             this.cmdCancel.Name = "cmdCancel";
@@ -238,6 +240,20 @@
             this.panelGeneralSettings.Name = "panelGeneralSettings";
             this.panelGeneralSettings.Size = new System.Drawing.Size(549, 175);
             this.panelGeneralSettings.TabIndex = 0;
+            // 
+            // chkEnableStickyMainWindowLocation
+            // 
+            this.chkEnableStickyMainWindowLocation.AutoSize = true;
+            this.chkEnableStickyMainWindowLocation.BackColor = System.Drawing.Color.Transparent;
+            this.chkEnableStickyMainWindowLocation.Checked = true;
+            this.chkEnableStickyMainWindowLocation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkEnableStickyMainWindowLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkEnableStickyMainWindowLocation.Location = new System.Drawing.Point(155, 70);
+            this.chkEnableStickyMainWindowLocation.Name = "chkEnableStickyMainWindowLocation";
+            this.chkEnableStickyMainWindowLocation.Size = new System.Drawing.Size(213, 17);
+            this.chkEnableStickyMainWindowLocation.TabIndex = 4;
+            this.chkEnableStickyMainWindowLocation.Text = "Remember size/location of main window";
+            this.chkEnableStickyMainWindowLocation.UseVisualStyleBackColor = false;
             // 
             // label6
             // 
@@ -370,7 +386,7 @@
             this.exportHistoryContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportToClipboardToolStripMenuItem});
             this.exportHistoryContextMenuStrip.Name = "exportHistoryContextMenuStrip";
-            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(175, 26);
+            this.exportHistoryContextMenuStrip.Size = new System.Drawing.Size(176, 26);
             // 
             // exportToClipboardToolStripMenuItem
             // 
@@ -378,7 +394,7 @@
             this.clipboardExportAsCSVToolStripMenuItem,
             this.asXMLToolStripMenuItem});
             this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
-            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.exportToClipboardToolStripMenuItem.Text = "Export to clipboard";
             // 
             // clipboardExportAsCSVToolStripMenuItem
@@ -398,9 +414,10 @@
             // chkCorrectiveScripts
             // 
             this.chkCorrectiveScripts.AutoSize = true;
+            this.chkCorrectiveScripts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkCorrectiveScripts.Location = new System.Drawing.Point(12, 41);
             this.chkCorrectiveScripts.Name = "chkCorrectiveScripts";
-            this.chkCorrectiveScripts.Size = new System.Drawing.Size(187, 17);
+            this.chkCorrectiveScripts.Size = new System.Drawing.Size(184, 17);
             this.chkCorrectiveScripts.TabIndex = 1;
             this.chkCorrectiveScripts.Text = "&Allow corrective scripts to execute";
             this.chkCorrectiveScripts.UseVisualStyleBackColor = true;
@@ -452,6 +469,7 @@
             this.valueColumnHeader});
             this.lvwConfigVars.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.HideSelection = false;
             this.lvwConfigVars.Location = new System.Drawing.Point(0, 58);
             this.lvwConfigVars.Name = "lvwConfigVars";
             this.lvwConfigVars.Size = new System.Drawing.Size(549, 85);
@@ -682,7 +700,8 @@
             // 
             this.cmdRemoveUserNameFromCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRemoveUserNameFromCache.Enabled = false;
-            this.cmdRemoveUserNameFromCache.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRemoveUserNameFromCache.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRemoveUserNameFromCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemoveUserNameFromCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cmdRemoveUserNameFromCache.Location = new System.Drawing.Point(501, 154);
             this.cmdRemoveUserNameFromCache.Name = "cmdRemoveUserNameFromCache";
@@ -695,7 +714,8 @@
             // cmdAddUserNameToCache
             // 
             this.cmdAddUserNameToCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAddUserNameToCache.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdAddUserNameToCache.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAddUserNameToCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAddUserNameToCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cmdAddUserNameToCache.Location = new System.Drawing.Point(501, 125);
             this.cmdAddUserNameToCache.Name = "cmdAddUserNameToCache";
@@ -718,6 +738,7 @@
             this.columnHeader3});
             this.lvwUserNameCache.ContextMenuStrip = this.userCacheContextMenuStrip;
             this.lvwUserNameCache.FullRowSelect = true;
+            this.lvwUserNameCache.HideSelection = false;
             this.lvwUserNameCache.Location = new System.Drawing.Point(9, 107);
             this.lvwUserNameCache.Name = "lvwUserNameCache";
             this.lvwUserNameCache.Size = new System.Drawing.Size(486, 143);
@@ -820,7 +841,8 @@
             // cmdSelectMasterKeyFile
             // 
             this.cmdSelectMasterKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSelectMasterKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSelectMasterKeyFile.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSelectMasterKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSelectMasterKeyFile.Location = new System.Drawing.Point(501, 63);
             this.cmdSelectMasterKeyFile.Name = "cmdSelectMasterKeyFile";
             this.cmdSelectMasterKeyFile.Size = new System.Drawing.Size(42, 23);
@@ -918,7 +940,8 @@
             // cmdBrowseCollectorMetricsExportPath
             // 
             this.cmdBrowseCollectorMetricsExportPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseCollectorMetricsExportPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowseCollectorMetricsExportPath.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdBrowseCollectorMetricsExportPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdBrowseCollectorMetricsExportPath.Location = new System.Drawing.Point(498, 42);
             this.cmdBrowseCollectorMetricsExportPath.Name = "cmdBrowseCollectorMetricsExportPath";
             this.cmdBrowseCollectorMetricsExportPath.Size = new System.Drawing.Size(42, 23);
@@ -1092,9 +1115,10 @@
             // chkLoggingEnabled
             // 
             this.chkLoggingEnabled.AutoSize = true;
+            this.chkLoggingEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkLoggingEnabled.Location = new System.Drawing.Point(12, 42);
             this.chkLoggingEnabled.Name = "chkLoggingEnabled";
-            this.chkLoggingEnabled.Size = new System.Drawing.Size(115, 17);
+            this.chkLoggingEnabled.Size = new System.Drawing.Size(112, 17);
             this.chkLoggingEnabled.TabIndex = 1;
             this.chkLoggingEnabled.Text = "Logging is enabled";
             this.chkLoggingEnabled.UseVisualStyleBackColor = true;
@@ -1102,7 +1126,8 @@
             // cmdLoggingPath
             // 
             this.cmdLoggingPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoggingPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdLoggingPath.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdLoggingPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoggingPath.Location = new System.Drawing.Point(501, 67);
             this.cmdLoggingPath.Name = "cmdLoggingPath";
             this.cmdLoggingPath.Size = new System.Drawing.Size(42, 23);
@@ -1170,20 +1195,6 @@
             this.qmmxmlOpenFileDialog.DefaultExt = "qmmxml";
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
-            // 
-            // chkEnableStickyMainWindowLocation
-            // 
-            this.chkEnableStickyMainWindowLocation.AutoSize = true;
-            this.chkEnableStickyMainWindowLocation.BackColor = System.Drawing.Color.Transparent;
-            this.chkEnableStickyMainWindowLocation.Checked = true;
-            this.chkEnableStickyMainWindowLocation.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEnableStickyMainWindowLocation.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnableStickyMainWindowLocation.Location = new System.Drawing.Point(155, 70);
-            this.chkEnableStickyMainWindowLocation.Name = "chkEnableStickyMainWindowLocation";
-            this.chkEnableStickyMainWindowLocation.Size = new System.Drawing.Size(214, 17);
-            this.chkEnableStickyMainWindowLocation.TabIndex = 4;
-            this.chkEnableStickyMainWindowLocation.Text = "Remember size/location of main window";
-            this.chkEnableStickyMainWindowLocation.UseVisualStyleBackColor = false;
             // 
             // MonitorPackEditor
             // 

@@ -219,7 +219,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(487, 464);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -230,7 +231,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(406, 464);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -242,7 +244,8 @@
             // cmdRunScript
             // 
             this.cmdRunScript.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cmdRunScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRunScript.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRunScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRunScript.Location = new System.Drawing.Point(168, 0);
             this.cmdRunScript.Name = "cmdRunScript";
             this.cmdRunScript.Size = new System.Drawing.Size(67, 28);
@@ -254,7 +257,8 @@
             // cmdLoadScript
             // 
             this.cmdLoadScript.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cmdLoadScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdLoadScript.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdLoadScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoadScript.Location = new System.Drawing.Point(87, 0);
             this.cmdLoadScript.Name = "cmdLoadScript";
             this.cmdLoadScript.Size = new System.Drawing.Size(81, 28);
@@ -302,7 +306,8 @@
             // cmdImportScript
             // 
             this.cmdImportScript.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cmdImportScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdImportScript.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdImportScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdImportScript.Location = new System.Drawing.Point(0, 0);
             this.cmdImportScript.Name = "cmdImportScript";
             this.cmdImportScript.Size = new System.Drawing.Size(87, 28);

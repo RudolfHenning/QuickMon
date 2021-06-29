@@ -32,21 +32,21 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.chkPM = new System.Windows.Forms.CheckBox();
-            this.cmdNow = new System.Windows.Forms.Button();
-            this.lbl6 = new System.Windows.Forms.Label();
-            this.lbl7 = new System.Windows.Forms.Label();
-            this.lbl8 = new System.Windows.Forms.Label();
-            this.lbl9 = new System.Windows.Forms.Label();
-            this.lbl10 = new System.Windows.Forms.Label();
-            this.lbl11 = new System.Windows.Forms.Label();
-            this.lbl1 = new System.Windows.Forms.Label();
-            this.lbl2 = new System.Windows.Forms.Label();
-            this.lbl3 = new System.Windows.Forms.Label();
-            this.lbl4 = new System.Windows.Forms.Label();
-            this.lbl5 = new System.Windows.Forms.Label();
             this.lbl12 = new System.Windows.Forms.Label();
+            this.lbl5 = new System.Windows.Forms.Label();
+            this.lbl4 = new System.Windows.Forms.Label();
+            this.lbl3 = new System.Windows.Forms.Label();
+            this.lbl2 = new System.Windows.Forms.Label();
+            this.lbl1 = new System.Windows.Forms.Label();
+            this.lbl11 = new System.Windows.Forms.Label();
+            this.lbl10 = new System.Windows.Forms.Label();
+            this.lbl9 = new System.Windows.Forms.Label();
+            this.lbl8 = new System.Windows.Forms.Label();
+            this.lbl7 = new System.Windows.Forms.Label();
+            this.lbl6 = new System.Windows.Forms.Label();
+            this.chkPM = new System.Windows.Forms.CheckBox();
             this.clockControl1 = new HenIT.Controls.ClockControl();
+            this.cmdNow = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +54,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(154, 239);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -67,7 +68,8 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(73, 239);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -100,139 +102,16 @@
             this.panel1.Size = new System.Drawing.Size(236, 232);
             this.panel1.TabIndex = 0;
             // 
-            // chkPM
+            // lbl12
             // 
-            this.chkPM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkPM.AutoSize = true;
-            this.chkPM.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkPM.Location = new System.Drawing.Point(5, 210);
-            this.chkPM.Name = "chkPM";
-            this.chkPM.Size = new System.Drawing.Size(41, 17);
-            this.chkPM.TabIndex = 1;
-            this.chkPM.Text = "PM";
-            this.chkPM.UseVisualStyleBackColor = true;
-            this.chkPM.CheckedChanged += new System.EventHandler(this.chkPM_CheckedChanged);
-            // 
-            // cmdNow
-            // 
-            this.cmdNow.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdNow.Location = new System.Drawing.Point(12, 239);
-            this.cmdNow.Name = "cmdNow";
-            this.cmdNow.Size = new System.Drawing.Size(47, 23);
-            this.cmdNow.TabIndex = 0;
-            this.cmdNow.Text = "Now";
-            this.cmdNow.UseVisualStyleBackColor = true;
-            this.cmdNow.Click += new System.EventHandler(this.cmdNow_Click);
-            // 
-            // lbl6
-            // 
-            this.lbl6.BackColor = System.Drawing.Color.Transparent;
-            this.lbl6.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl6.Location = new System.Drawing.Point(112, 210);
-            this.lbl6.Name = "lbl6";
-            this.lbl6.Size = new System.Drawing.Size(10, 15);
-            this.lbl6.TabIndex = 14;
-            this.lbl6.Text = "o";
-            this.lbl6.Click += new System.EventHandler(this.cmd6_Click);
-            // 
-            // lbl7
-            // 
-            this.lbl7.BackColor = System.Drawing.Color.Transparent;
-            this.lbl7.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl7.Location = new System.Drawing.Point(62, 198);
-            this.lbl7.Name = "lbl7";
-            this.lbl7.Size = new System.Drawing.Size(10, 15);
-            this.lbl7.TabIndex = 15;
-            this.lbl7.Text = "o";
-            this.lbl7.Click += new System.EventHandler(this.cmd7_Click);
-            // 
-            // lbl8
-            // 
-            this.lbl8.BackColor = System.Drawing.Color.Transparent;
-            this.lbl8.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl8.Location = new System.Drawing.Point(24, 161);
-            this.lbl8.Name = "lbl8";
-            this.lbl8.Size = new System.Drawing.Size(10, 15);
-            this.lbl8.TabIndex = 16;
-            this.lbl8.Text = "o";
-            this.lbl8.Click += new System.EventHandler(this.cmd8_Click);
-            // 
-            // lbl9
-            // 
-            this.lbl9.BackColor = System.Drawing.Color.Transparent;
-            this.lbl9.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl9.Location = new System.Drawing.Point(10, 108);
-            this.lbl9.Name = "lbl9";
-            this.lbl9.Size = new System.Drawing.Size(10, 15);
-            this.lbl9.TabIndex = 17;
-            this.lbl9.Text = "o";
-            this.lbl9.Click += new System.EventHandler(this.cmd21_Click);
-            // 
-            // lbl10
-            // 
-            this.lbl10.BackColor = System.Drawing.Color.Transparent;
-            this.lbl10.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl10.Location = new System.Drawing.Point(23, 56);
-            this.lbl10.Name = "lbl10";
-            this.lbl10.Size = new System.Drawing.Size(10, 15);
-            this.lbl10.TabIndex = 18;
-            this.lbl10.Text = "o";
-            this.lbl10.Click += new System.EventHandler(this.cmd10_Click);
-            // 
-            // lbl11
-            // 
-            this.lbl11.BackColor = System.Drawing.Color.Transparent;
-            this.lbl11.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl11.Location = new System.Drawing.Point(62, 17);
-            this.lbl11.Name = "lbl11";
-            this.lbl11.Size = new System.Drawing.Size(10, 15);
-            this.lbl11.TabIndex = 19;
-            this.lbl11.Text = "o";
-            this.lbl11.Click += new System.EventHandler(this.cmd11_Click);
-            // 
-            // lbl1
-            // 
-            this.lbl1.BackColor = System.Drawing.Color.Transparent;
-            this.lbl1.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl1.Location = new System.Drawing.Point(165, 18);
-            this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(10, 15);
-            this.lbl1.TabIndex = 20;
-            this.lbl1.Text = "o";
-            this.lbl1.Click += new System.EventHandler(this.cmd1_Click);
-            // 
-            // lbl2
-            // 
-            this.lbl2.BackColor = System.Drawing.Color.Transparent;
-            this.lbl2.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl2.Location = new System.Drawing.Point(204, 54);
-            this.lbl2.Name = "lbl2";
-            this.lbl2.Size = new System.Drawing.Size(10, 15);
-            this.lbl2.TabIndex = 21;
-            this.lbl2.Text = "o";
-            this.lbl2.Click += new System.EventHandler(this.cmd2_Click);
-            // 
-            // lbl3
-            // 
-            this.lbl3.BackColor = System.Drawing.Color.Transparent;
-            this.lbl3.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl3.Location = new System.Drawing.Point(214, 108);
-            this.lbl3.Name = "lbl3";
-            this.lbl3.Size = new System.Drawing.Size(10, 15);
-            this.lbl3.TabIndex = 22;
-            this.lbl3.Text = "o";
-            this.lbl3.Click += new System.EventHandler(this.cmd3_Click);
-            // 
-            // lbl4
-            // 
-            this.lbl4.BackColor = System.Drawing.Color.Transparent;
-            this.lbl4.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl4.Location = new System.Drawing.Point(204, 161);
-            this.lbl4.Name = "lbl4";
-            this.lbl4.Size = new System.Drawing.Size(10, 15);
-            this.lbl4.TabIndex = 23;
-            this.lbl4.Text = "o";
-            this.lbl4.Click += new System.EventHandler(this.cmd4_Click);
+            this.lbl12.BackColor = System.Drawing.Color.Transparent;
+            this.lbl12.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl12.Location = new System.Drawing.Point(112, 5);
+            this.lbl12.Name = "lbl12";
+            this.lbl12.Size = new System.Drawing.Size(10, 15);
+            this.lbl12.TabIndex = 25;
+            this.lbl12.Text = "o";
+            this.lbl12.Click += new System.EventHandler(this.cmd12_Click);
             // 
             // lbl5
             // 
@@ -245,16 +124,128 @@
             this.lbl5.Text = "o";
             this.lbl5.Click += new System.EventHandler(this.cmd5_Click);
             // 
-            // lbl12
+            // lbl4
             // 
-            this.lbl12.BackColor = System.Drawing.Color.Transparent;
-            this.lbl12.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbl12.Location = new System.Drawing.Point(112, 5);
-            this.lbl12.Name = "lbl12";
-            this.lbl12.Size = new System.Drawing.Size(10, 15);
-            this.lbl12.TabIndex = 25;
-            this.lbl12.Text = "o";
-            this.lbl12.Click += new System.EventHandler(this.cmd12_Click);
+            this.lbl4.BackColor = System.Drawing.Color.Transparent;
+            this.lbl4.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl4.Location = new System.Drawing.Point(204, 161);
+            this.lbl4.Name = "lbl4";
+            this.lbl4.Size = new System.Drawing.Size(10, 15);
+            this.lbl4.TabIndex = 23;
+            this.lbl4.Text = "o";
+            this.lbl4.Click += new System.EventHandler(this.cmd4_Click);
+            // 
+            // lbl3
+            // 
+            this.lbl3.BackColor = System.Drawing.Color.Transparent;
+            this.lbl3.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl3.Location = new System.Drawing.Point(214, 108);
+            this.lbl3.Name = "lbl3";
+            this.lbl3.Size = new System.Drawing.Size(10, 15);
+            this.lbl3.TabIndex = 22;
+            this.lbl3.Text = "o";
+            this.lbl3.Click += new System.EventHandler(this.cmd3_Click);
+            // 
+            // lbl2
+            // 
+            this.lbl2.BackColor = System.Drawing.Color.Transparent;
+            this.lbl2.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl2.Location = new System.Drawing.Point(204, 54);
+            this.lbl2.Name = "lbl2";
+            this.lbl2.Size = new System.Drawing.Size(10, 15);
+            this.lbl2.TabIndex = 21;
+            this.lbl2.Text = "o";
+            this.lbl2.Click += new System.EventHandler(this.cmd2_Click);
+            // 
+            // lbl1
+            // 
+            this.lbl1.BackColor = System.Drawing.Color.Transparent;
+            this.lbl1.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl1.Location = new System.Drawing.Point(165, 18);
+            this.lbl1.Name = "lbl1";
+            this.lbl1.Size = new System.Drawing.Size(10, 15);
+            this.lbl1.TabIndex = 20;
+            this.lbl1.Text = "o";
+            this.lbl1.Click += new System.EventHandler(this.cmd1_Click);
+            // 
+            // lbl11
+            // 
+            this.lbl11.BackColor = System.Drawing.Color.Transparent;
+            this.lbl11.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl11.Location = new System.Drawing.Point(62, 17);
+            this.lbl11.Name = "lbl11";
+            this.lbl11.Size = new System.Drawing.Size(10, 15);
+            this.lbl11.TabIndex = 19;
+            this.lbl11.Text = "o";
+            this.lbl11.Click += new System.EventHandler(this.cmd11_Click);
+            // 
+            // lbl10
+            // 
+            this.lbl10.BackColor = System.Drawing.Color.Transparent;
+            this.lbl10.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl10.Location = new System.Drawing.Point(23, 56);
+            this.lbl10.Name = "lbl10";
+            this.lbl10.Size = new System.Drawing.Size(10, 15);
+            this.lbl10.TabIndex = 18;
+            this.lbl10.Text = "o";
+            this.lbl10.Click += new System.EventHandler(this.cmd10_Click);
+            // 
+            // lbl9
+            // 
+            this.lbl9.BackColor = System.Drawing.Color.Transparent;
+            this.lbl9.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl9.Location = new System.Drawing.Point(10, 108);
+            this.lbl9.Name = "lbl9";
+            this.lbl9.Size = new System.Drawing.Size(10, 15);
+            this.lbl9.TabIndex = 17;
+            this.lbl9.Text = "o";
+            this.lbl9.Click += new System.EventHandler(this.cmd21_Click);
+            // 
+            // lbl8
+            // 
+            this.lbl8.BackColor = System.Drawing.Color.Transparent;
+            this.lbl8.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl8.Location = new System.Drawing.Point(24, 161);
+            this.lbl8.Name = "lbl8";
+            this.lbl8.Size = new System.Drawing.Size(10, 15);
+            this.lbl8.TabIndex = 16;
+            this.lbl8.Text = "o";
+            this.lbl8.Click += new System.EventHandler(this.cmd8_Click);
+            // 
+            // lbl7
+            // 
+            this.lbl7.BackColor = System.Drawing.Color.Transparent;
+            this.lbl7.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl7.Location = new System.Drawing.Point(62, 198);
+            this.lbl7.Name = "lbl7";
+            this.lbl7.Size = new System.Drawing.Size(10, 15);
+            this.lbl7.TabIndex = 15;
+            this.lbl7.Text = "o";
+            this.lbl7.Click += new System.EventHandler(this.cmd7_Click);
+            // 
+            // lbl6
+            // 
+            this.lbl6.BackColor = System.Drawing.Color.Transparent;
+            this.lbl6.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lbl6.Location = new System.Drawing.Point(112, 210);
+            this.lbl6.Name = "lbl6";
+            this.lbl6.Size = new System.Drawing.Size(10, 15);
+            this.lbl6.TabIndex = 14;
+            this.lbl6.Text = "o";
+            this.lbl6.Click += new System.EventHandler(this.cmd6_Click);
+            // 
+            // chkPM
+            // 
+            this.chkPM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkPM.AutoSize = true;
+            this.chkPM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkPM.Location = new System.Drawing.Point(5, 210);
+            this.chkPM.Name = "chkPM";
+            this.chkPM.Size = new System.Drawing.Size(39, 17);
+            this.chkPM.TabIndex = 1;
+            this.chkPM.Text = "PM";
+            this.chkPM.UseVisualStyleBackColor = true;
+            this.chkPM.CheckedChanged += new System.EventHandler(this.chkPM_CheckedChanged);
             // 
             // clockControl1
             // 
@@ -278,11 +269,24 @@
             this.clockControl1.AMPMChanged += new HenIT.Controls.AMPMChangedDelegate(this.clockControl1_AMPMChanged);
             this.clockControl1.TimeChanged += new HenIT.Controls.TimeChangedDelegate(this.clockControl1_TimeChanged);
             // 
+            // cmdNow
+            // 
+            this.cmdNow.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdNow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdNow.Location = new System.Drawing.Point(12, 239);
+            this.cmdNow.Name = "cmdNow";
+            this.cmdNow.Size = new System.Drawing.Size(47, 23);
+            this.cmdNow.TabIndex = 0;
+            this.cmdNow.Text = "Now";
+            this.cmdNow.UseVisualStyleBackColor = true;
+            this.cmdNow.Click += new System.EventHandler(this.cmdNow_Click);
+            // 
             // ChooseTimeDialog
             // 
             this.AcceptButton = this.cmdOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(237, 268);
             this.ControlBox = false;

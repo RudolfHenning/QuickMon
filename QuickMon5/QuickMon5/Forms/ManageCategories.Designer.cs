@@ -56,7 +56,7 @@
             // cmdRemove
             // 
             this.cmdRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemove.Location = new System.Drawing.Point(93, 7);
             this.cmdRemove.Name = "cmdRemove";
@@ -69,7 +69,7 @@
             // cmdAdd
             // 
             this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAdd.Location = new System.Drawing.Point(12, 7);
             this.cmdAdd.Name = "cmdAdd";
@@ -82,7 +82,7 @@
             // cmdClose
             // 
             this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdClose.Location = new System.Drawing.Point(430, 7);
             this.cmdClose.Name = "cmdClose";
@@ -96,7 +96,7 @@
             // 
             this.cmdOKSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOKSelect.Enabled = false;
-            this.cmdOKSelect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmdOKSelect.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdOKSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOKSelect.Location = new System.Drawing.Point(349, 7);
             this.cmdOKSelect.Name = "cmdOKSelect";
@@ -124,6 +124,7 @@
             this.collectorsColumnHeader});
             this.lvwCategories.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwCategories.FullRowSelect = true;
+            this.lvwCategories.HideSelection = false;
             this.lvwCategories.Location = new System.Drawing.Point(0, 0);
             this.lvwCategories.Name = "lvwCategories";
             this.lvwCategories.Size = new System.Drawing.Size(517, 347);

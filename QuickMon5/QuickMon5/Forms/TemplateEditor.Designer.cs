@@ -324,6 +324,7 @@
             this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtConfig.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtConfig.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtConfig.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtConfig.IsReplaceMode = false;
             this.txtConfig.Language = FastColoredTextBoxNS.Language.XML;
             this.txtConfig.LeftBracket = '<';
@@ -441,9 +442,10 @@
             this.chkWrapText.AutoSize = true;
             this.chkWrapText.Checked = true;
             this.chkWrapText.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkWrapText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkWrapText.Location = new System.Drawing.Point(6, 10);
             this.chkWrapText.Name = "chkWrapText";
-            this.chkWrapText.Size = new System.Drawing.Size(72, 17);
+            this.chkWrapText.Size = new System.Drawing.Size(69, 17);
             this.chkWrapText.TabIndex = 0;
             this.chkWrapText.Text = "Wrap text";
             this.chkWrapText.UseVisualStyleBackColor = true;

@@ -85,9 +85,10 @@
             // 
             this.optDOS.AutoSize = true;
             this.optDOS.Checked = true;
+            this.optDOS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optDOS.Location = new System.Drawing.Point(85, 39);
             this.optDOS.Name = "optDOS";
-            this.optDOS.Size = new System.Drawing.Size(122, 17);
+            this.optDOS.Size = new System.Drawing.Size(121, 17);
             this.optDOS.TabIndex = 3;
             this.optDOS.TabStop = true;
             this.optDOS.Text = "DOS (command line)";
@@ -96,9 +97,10 @@
             // optPowerShell
             // 
             this.optPowerShell.AutoSize = true;
+            this.optPowerShell.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optPowerShell.Location = new System.Drawing.Point(213, 39);
             this.optPowerShell.Name = "optPowerShell";
-            this.optPowerShell.Size = new System.Drawing.Size(78, 17);
+            this.optPowerShell.Size = new System.Drawing.Size(77, 17);
             this.optPowerShell.TabIndex = 4;
             this.optPowerShell.Text = "PowerShell";
             this.optPowerShell.UseVisualStyleBackColor = true;
@@ -149,7 +151,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(495, 381);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -161,7 +164,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(414, 381);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -197,10 +201,10 @@
             // chkAdminMode
             // 
             this.chkAdminMode.AutoSize = true;
-            this.chkAdminMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkAdminMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkAdminMode.Location = new System.Drawing.Point(216, 64);
             this.chkAdminMode.Name = "chkAdminMode";
-            this.chkAdminMode.Size = new System.Drawing.Size(116, 17);
+            this.chkAdminMode.Size = new System.Drawing.Size(115, 17);
             this.chkAdminMode.TabIndex = 7;
             this.chkAdminMode.Text = "Run in Admin mode";
             this.chkAdminMode.UseVisualStyleBackColor = true;
@@ -234,9 +238,10 @@
             // chkIsErrorCorrectiveScript
             // 
             this.chkIsErrorCorrectiveScript.AutoSize = true;
+            this.chkIsErrorCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIsErrorCorrectiveScript.Location = new System.Drawing.Point(206, 19);
             this.chkIsErrorCorrectiveScript.Name = "chkIsErrorCorrectiveScript";
-            this.chkIsErrorCorrectiveScript.Size = new System.Drawing.Size(48, 17);
+            this.chkIsErrorCorrectiveScript.Size = new System.Drawing.Size(45, 17);
             this.chkIsErrorCorrectiveScript.TabIndex = 2;
             this.chkIsErrorCorrectiveScript.Text = "Error";
             this.chkIsErrorCorrectiveScript.UseVisualStyleBackColor = true;
@@ -244,9 +249,10 @@
             // chkIsWarningCorrectiveScript
             // 
             this.chkIsWarningCorrectiveScript.AutoSize = true;
+            this.chkIsWarningCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIsWarningCorrectiveScript.Location = new System.Drawing.Point(111, 19);
             this.chkIsWarningCorrectiveScript.Name = "chkIsWarningCorrectiveScript";
-            this.chkIsWarningCorrectiveScript.Size = new System.Drawing.Size(66, 17);
+            this.chkIsWarningCorrectiveScript.Size = new System.Drawing.Size(63, 17);
             this.chkIsWarningCorrectiveScript.TabIndex = 1;
             this.chkIsWarningCorrectiveScript.Text = "Warning";
             this.chkIsWarningCorrectiveScript.UseVisualStyleBackColor = true;
@@ -254,9 +260,10 @@
             // chkIsRestorationScript
             // 
             this.chkIsRestorationScript.AutoSize = true;
+            this.chkIsRestorationScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIsRestorationScript.Location = new System.Drawing.Point(6, 19);
             this.chkIsRestorationScript.Name = "chkIsRestorationScript";
-            this.chkIsRestorationScript.Size = new System.Drawing.Size(80, 17);
+            this.chkIsRestorationScript.Size = new System.Drawing.Size(77, 17);
             this.chkIsRestorationScript.TabIndex = 0;
             this.chkIsRestorationScript.Text = "Restoration";
             this.chkIsRestorationScript.UseVisualStyleBackColor = true;

@@ -107,7 +107,7 @@
             // 
             // cmdImportSeriesColors
             // 
-            this.cmdImportSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.cmdImportSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdImportSeriesColors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdImportSeriesColors.Image = global::QuickMon.Properties.Resources.page_white_get;
             this.cmdImportSeriesColors.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -124,7 +124,7 @@
             // 
             this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdClose.Location = new System.Drawing.Point(556, 7);
             this.cmdClose.Name = "cmdClose";
@@ -135,7 +135,7 @@
             // 
             // cmdExportSeriesColors
             // 
-            this.cmdExportSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.cmdExportSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdExportSeriesColors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdExportSeriesColors.Image = global::QuickMon.Properties.Resources.save16x16;
             this.cmdExportSeriesColors.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -151,7 +151,7 @@
             // cmdOKSelect
             // 
             this.cmdOKSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOKSelect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmdOKSelect.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdOKSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOKSelect.Location = new System.Drawing.Point(475, 7);
             this.cmdOKSelect.Name = "cmdOKSelect";
@@ -198,7 +198,7 @@
             // 
             // cmdAdd
             // 
-            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAdd.Image = global::QuickMon.Properties.Resources.Plus16x16;
             this.cmdAdd.Location = new System.Drawing.Point(50, 63);
@@ -212,7 +212,7 @@
             // cmdRemove
             // 
             this.cmdRemove.Enabled = false;
-            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemove.Image = global::QuickMon.Properties.Resources.stop16x16;
             this.cmdRemove.Location = new System.Drawing.Point(92, 63);
@@ -226,7 +226,7 @@
             // cmdMoveUp
             // 
             this.cmdMoveUp.Enabled = false;
-            this.cmdMoveUp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.cmdMoveUp.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdMoveUp.Image = global::QuickMon.Properties.Resources.Up16x16;
             this.cmdMoveUp.Location = new System.Drawing.Point(191, 191);
@@ -240,7 +240,7 @@
             // cmdMoveDown
             // 
             this.cmdMoveDown.Enabled = false;
-            this.cmdMoveDown.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.cmdMoveDown.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdMoveDown.Image = global::QuickMon.Properties.Resources.Down16x16;
             this.cmdMoveDown.Location = new System.Drawing.Point(191, 220);
@@ -254,7 +254,7 @@
             // cmdChange
             // 
             this.cmdChange.Enabled = false;
-            this.cmdChange.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.cmdChange.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdChange.Image = global::QuickMon.Properties.Resources.tools16x16;
             this.cmdChange.Location = new System.Drawing.Point(8, 63);
@@ -267,7 +267,7 @@
             // 
             // cmdResetSeriesColors
             // 
-            this.cmdResetSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.cmdResetSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdResetSeriesColors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdResetSeriesColors.Image = global::QuickMon.Properties.Resources.lightning;
             this.cmdResetSeriesColors.Location = new System.Drawing.Point(134, 63);
@@ -292,6 +292,7 @@
             this.lvwGraphComponentColors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader1,
             this.colorColumnHeader1});
+            this.lvwGraphComponentColors.HideSelection = false;
             this.lvwGraphComponentColors.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2,
@@ -319,7 +320,7 @@
             // cmdChange2
             // 
             this.cmdChange2.Enabled = false;
-            this.cmdChange2.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.cmdChange2.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdChange2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdChange2.Image = global::QuickMon.Properties.Resources.tools16x16;
             this.cmdChange2.Location = new System.Drawing.Point(224, 63);
@@ -332,7 +333,7 @@
             // 
             // cmdSwapBackgroundColors
             // 
-            this.cmdSwapBackgroundColors.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.cmdSwapBackgroundColors.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdSwapBackgroundColors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSwapBackgroundColors.Image = global::QuickMon.Properties.Resources.UpDown;
             this.cmdSwapBackgroundColors.Location = new System.Drawing.Point(266, 63);
@@ -513,9 +514,10 @@
             // chkHeaderVisible
             // 
             this.chkHeaderVisible.AutoSize = true;
+            this.chkHeaderVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkHeaderVisible.Location = new System.Drawing.Point(481, 69);
             this.chkHeaderVisible.Name = "chkHeaderVisible";
-            this.chkHeaderVisible.Size = new System.Drawing.Size(61, 17);
+            this.chkHeaderVisible.Size = new System.Drawing.Size(58, 17);
             this.chkHeaderVisible.TabIndex = 16;
             this.chkHeaderVisible.Text = "Header";
             this.chkHeaderVisible.UseVisualStyleBackColor = true;
@@ -523,9 +525,10 @@
             // chkLegendVisible
             // 
             this.chkLegendVisible.AutoSize = true;
+            this.chkLegendVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkLegendVisible.Location = new System.Drawing.Point(481, 92);
             this.chkLegendVisible.Name = "chkLegendVisible";
-            this.chkLegendVisible.Size = new System.Drawing.Size(62, 17);
+            this.chkLegendVisible.Size = new System.Drawing.Size(59, 17);
             this.chkLegendVisible.TabIndex = 17;
             this.chkLegendVisible.Text = "Legend";
             this.chkLegendVisible.UseVisualStyleBackColor = true;
@@ -533,9 +536,10 @@
             // chkHorisontalGridLinesVisible
             // 
             this.chkHorisontalGridLinesVisible.AutoSize = true;
+            this.chkHorisontalGridLinesVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkHorisontalGridLinesVisible.Location = new System.Drawing.Point(481, 115);
             this.chkHorisontalGridLinesVisible.Name = "chkHorisontalGridLinesVisible";
-            this.chkHorisontalGridLinesVisible.Size = new System.Drawing.Size(117, 17);
+            this.chkHorisontalGridLinesVisible.Size = new System.Drawing.Size(114, 17);
             this.chkHorisontalGridLinesVisible.TabIndex = 18;
             this.chkHorisontalGridLinesVisible.Text = "Horisontal grid lines";
             this.chkHorisontalGridLinesVisible.UseVisualStyleBackColor = true;
@@ -543,9 +547,10 @@
             // chkVerticalGridLinesVisible
             // 
             this.chkVerticalGridLinesVisible.AutoSize = true;
+            this.chkVerticalGridLinesVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkVerticalGridLinesVisible.Location = new System.Drawing.Point(481, 138);
             this.chkVerticalGridLinesVisible.Name = "chkVerticalGridLinesVisible";
-            this.chkVerticalGridLinesVisible.Size = new System.Drawing.Size(105, 17);
+            this.chkVerticalGridLinesVisible.Size = new System.Drawing.Size(102, 17);
             this.chkVerticalGridLinesVisible.TabIndex = 19;
             this.chkVerticalGridLinesVisible.Text = "Vertical grid lines";
             this.chkVerticalGridLinesVisible.UseVisualStyleBackColor = true;
@@ -553,9 +558,10 @@
             // chkSelectionBarVisible
             // 
             this.chkSelectionBarVisible.AutoSize = true;
+            this.chkSelectionBarVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSelectionBarVisible.Location = new System.Drawing.Point(481, 161);
             this.chkSelectionBarVisible.Name = "chkSelectionBarVisible";
-            this.chkSelectionBarVisible.Size = new System.Drawing.Size(85, 17);
+            this.chkSelectionBarVisible.Size = new System.Drawing.Size(82, 17);
             this.chkSelectionBarVisible.TabIndex = 20;
             this.chkSelectionBarVisible.Text = "Selectionbar";
             this.chkSelectionBarVisible.UseVisualStyleBackColor = true;
@@ -563,9 +569,10 @@
             // chkHighlighClickedValueVisible
             // 
             this.chkHighlighClickedValueVisible.AutoSize = true;
+            this.chkHighlighClickedValueVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkHighlighClickedValueVisible.Location = new System.Drawing.Point(481, 184);
             this.chkHighlighClickedValueVisible.Name = "chkHighlighClickedValueVisible";
-            this.chkHighlighClickedValueVisible.Size = new System.Drawing.Size(133, 17);
+            this.chkHighlighClickedValueVisible.Size = new System.Drawing.Size(130, 17);
             this.chkHighlighClickedValueVisible.TabIndex = 21;
             this.chkHighlighClickedValueVisible.Text = "Highlight clicked value";
             this.chkHighlighClickedValueVisible.UseVisualStyleBackColor = true;
@@ -573,9 +580,10 @@
             // chkEnableFillAreaBelowSeries
             // 
             this.chkEnableFillAreaBelowSeries.AutoSize = true;
+            this.chkEnableFillAreaBelowSeries.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkEnableFillAreaBelowSeries.Location = new System.Drawing.Point(481, 207);
             this.chkEnableFillAreaBelowSeries.Name = "chkEnableFillAreaBelowSeries";
-            this.chkEnableFillAreaBelowSeries.Size = new System.Drawing.Size(123, 17);
+            this.chkEnableFillAreaBelowSeries.Size = new System.Drawing.Size(120, 17);
             this.chkEnableFillAreaBelowSeries.TabIndex = 22;
             this.chkEnableFillAreaBelowSeries.Text = "Fill area below series";
             this.chkEnableFillAreaBelowSeries.UseVisualStyleBackColor = true;

@@ -90,10 +90,10 @@
             // chkAll
             // 
             this.chkAll.AutoSize = true;
-            this.chkAll.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkAll.Location = new System.Drawing.Point(363, 18);
             this.chkAll.Name = "chkAll";
-            this.chkAll.Size = new System.Drawing.Size(35, 17);
+            this.chkAll.Size = new System.Drawing.Size(34, 17);
             this.chkAll.TabIndex = 12;
             this.chkAll.Tag = "All";
             this.chkAll.Text = "All";
@@ -104,7 +104,8 @@
             // 
             this.cmdUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdUpdate.Enabled = false;
-            this.cmdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdUpdate.Location = new System.Drawing.Point(328, 39);
             this.cmdUpdate.Name = "cmdUpdate";
             this.cmdUpdate.Size = new System.Drawing.Size(75, 23);
@@ -156,10 +157,10 @@
             // chkSat
             // 
             this.chkSat.AutoSize = true;
-            this.chkSat.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkSat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSat.Location = new System.Drawing.Point(318, 18);
             this.chkSat.Name = "chkSat";
-            this.chkSat.Size = new System.Drawing.Size(40, 17);
+            this.chkSat.Size = new System.Drawing.Size(39, 17);
             this.chkSat.TabIndex = 6;
             this.chkSat.Tag = "Saturday";
             this.chkSat.Text = "Sat";
@@ -169,10 +170,10 @@
             // chkFri
             // 
             this.chkFri.AutoSize = true;
-            this.chkFri.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkFri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkFri.Location = new System.Drawing.Point(275, 18);
             this.chkFri.Name = "chkFri";
-            this.chkFri.Size = new System.Drawing.Size(35, 17);
+            this.chkFri.Size = new System.Drawing.Size(34, 17);
             this.chkFri.TabIndex = 5;
             this.chkFri.Tag = "Friday";
             this.chkFri.Text = "Fri";
@@ -182,10 +183,10 @@
             // chkThur
             // 
             this.chkThur.AutoSize = true;
-            this.chkThur.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkThur.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkThur.Location = new System.Drawing.Point(224, 18);
             this.chkThur.Name = "chkThur";
-            this.chkThur.Size = new System.Drawing.Size(43, 17);
+            this.chkThur.Size = new System.Drawing.Size(42, 17);
             this.chkThur.TabIndex = 4;
             this.chkThur.Tag = "Thursday";
             this.chkThur.Text = "Thu";
@@ -195,10 +196,10 @@
             // chkWed
             // 
             this.chkWed.AutoSize = true;
-            this.chkWed.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkWed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkWed.Location = new System.Drawing.Point(169, 18);
             this.chkWed.Name = "chkWed";
-            this.chkWed.Size = new System.Drawing.Size(47, 17);
+            this.chkWed.Size = new System.Drawing.Size(46, 17);
             this.chkWed.TabIndex = 3;
             this.chkWed.Tag = "Wednesday";
             this.chkWed.Text = "Wed";
@@ -208,10 +209,10 @@
             // chkTue
             // 
             this.chkTue.AutoSize = true;
-            this.chkTue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkTue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkTue.Location = new System.Drawing.Point(118, 18);
             this.chkTue.Name = "chkTue";
-            this.chkTue.Size = new System.Drawing.Size(43, 17);
+            this.chkTue.Size = new System.Drawing.Size(42, 17);
             this.chkTue.TabIndex = 2;
             this.chkTue.Tag = "Tuesday";
             this.chkTue.Text = "Tue";
@@ -221,10 +222,10 @@
             // chkMon
             // 
             this.chkMon.AutoSize = true;
-            this.chkMon.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkMon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkMon.Location = new System.Drawing.Point(65, 18);
             this.chkMon.Name = "chkMon";
-            this.chkMon.Size = new System.Drawing.Size(45, 17);
+            this.chkMon.Size = new System.Drawing.Size(44, 17);
             this.chkMon.TabIndex = 1;
             this.chkMon.Tag = "Monday";
             this.chkMon.Text = "Mon";
@@ -234,10 +235,10 @@
             // chkSun
             // 
             this.chkSun.AutoSize = true;
-            this.chkSun.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkSun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSun.Location = new System.Drawing.Point(14, 18);
             this.chkSun.Name = "chkSun";
-            this.chkSun.Size = new System.Drawing.Size(43, 17);
+            this.chkSun.Size = new System.Drawing.Size(42, 17);
             this.chkSun.TabIndex = 0;
             this.chkSun.Tag = "Sunday";
             this.chkSun.Text = "Sun";
@@ -263,7 +264,8 @@
             // cmdClear
             // 
             this.cmdClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdClear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdClear.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdClear.Location = new System.Drawing.Point(224, 77);
             this.cmdClear.Name = "cmdClear";
             this.cmdClear.Size = new System.Drawing.Size(75, 23);
@@ -285,7 +287,8 @@
             // cmdImport
             // 
             this.cmdImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdImport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdImport.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdImport.Location = new System.Drawing.Point(224, 48);
             this.cmdImport.Name = "cmdImport";
             this.cmdImport.Size = new System.Drawing.Size(75, 23);
@@ -306,7 +309,8 @@
             // cmdAdd
             // 
             this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAdd.Location = new System.Drawing.Point(224, 19);
             this.cmdAdd.Name = "cmdAdd";
             this.cmdAdd.Size = new System.Drawing.Size(75, 23);
@@ -319,7 +323,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(346, 387);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -330,7 +335,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(265, 387);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);

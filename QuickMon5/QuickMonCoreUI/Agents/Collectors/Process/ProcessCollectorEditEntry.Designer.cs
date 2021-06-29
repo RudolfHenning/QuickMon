@@ -416,9 +416,10 @@ namespace QuickMon.UI
             this.chkVerifyOnOK.AutoSize = true;
             this.chkVerifyOnOK.Checked = true;
             this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkVerifyOnOK.Location = new System.Drawing.Point(280, 259);
+            this.chkVerifyOnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkVerifyOnOK.Location = new System.Drawing.Point(283, 259);
             this.chkVerifyOnOK.Name = "chkVerifyOnOK";
-            this.chkVerifyOnOK.Size = new System.Drawing.Size(123, 17);
+            this.chkVerifyOnOK.Size = new System.Drawing.Size(120, 17);
             this.chkVerifyOnOK.TabIndex = 7;
             this.chkVerifyOnOK.Text = "Test on clicking \'OK\'";
             this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -428,7 +429,8 @@ namespace QuickMon.UI
             // cmdTest
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(410, 255);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
@@ -441,7 +443,8 @@ namespace QuickMon.UI
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(572, 255);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -452,7 +455,8 @@ namespace QuickMon.UI
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(491, 255);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -464,6 +468,7 @@ namespace QuickMon.UI
             // cmdBrowseProcesses
             // 
             this.cmdBrowseProcesses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseProcesses.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdBrowseProcesses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdBrowseProcesses.Location = new System.Drawing.Point(615, 63);
             this.cmdBrowseProcesses.Name = "cmdBrowseProcesses";

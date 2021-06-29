@@ -137,7 +137,8 @@
             // cmdRefresh
             // 
             this.cmdRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRefresh.Image = global::QuickMon.Properties.Resources.refresh24x24;
             this.cmdRefresh.Location = new System.Drawing.Point(624, 3);
             this.cmdRefresh.Name = "cmdRefresh";
@@ -159,10 +160,10 @@
             this.chkStayCurrent.AutoSize = true;
             this.chkStayCurrent.Checked = true;
             this.chkStayCurrent.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStayCurrent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkStayCurrent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkStayCurrent.Location = new System.Drawing.Point(385, 32);
             this.chkStayCurrent.Name = "chkStayCurrent";
-            this.chkStayCurrent.Size = new System.Drawing.Size(81, 17);
+            this.chkStayCurrent.Size = new System.Drawing.Size(80, 17);
             this.chkStayCurrent.TabIndex = 9;
             this.chkStayCurrent.Text = "Stay current";
             this.chkStayCurrent.UseVisualStyleBackColor = true;
@@ -450,6 +451,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(590, 426);
             this.Name = "SqlDatabaseNotifierShowViewer";
+            this.SnappingEnabled = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sql Database Notifier Viewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SqlDatabaseNotifierShowViewer_FormClosing);
