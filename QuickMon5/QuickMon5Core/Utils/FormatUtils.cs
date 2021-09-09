@@ -197,5 +197,17 @@ namespace QuickMon
         {
             return N(str).Replace("\\", "_").Replace("&", "_").Replace("@", "").Replace("#", "").Replace(":", "").Replace(";", "").Replace("*", "").Replace("%", "").Replace("'", "").Replace("\"", "");
         }
+        public static string ToStringAuto(this float value)
+        {
+            string outputFormat = "F2";
+            if (IsIntegerTypeNumber(value))
+                outputFormat = "F0";
+            else if (value > 9999)
+                outputFormat = "F0";
+            else if (value > 99)
+                outputFormat = "F1";
+
+            return value.ToString(outputFormat);
+        }
     }
 }

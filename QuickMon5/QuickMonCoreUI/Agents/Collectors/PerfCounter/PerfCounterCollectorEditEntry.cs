@@ -127,9 +127,14 @@ namespace QuickMon.UI
                         currentEntry.MultiSampleWaitMS = (int)nudMultiSampleWaitMS.Value;
                         currentEntry.OutputValueUnit = cboOutputValueUnit.Text;
                         currentEntry.InstanceValueAggregationStyle = (AggregationStyle)cboInstanceValueAggregation.SelectedIndex;
+                        if (currentEntry.InstanceValueAggregationStyle == AggregationStyle.Count)
+                        {
+                            currentEntry.OutputValueScaleFactor = 1;
+                            currentEntry.OutputValueScaleFactorInverse = false;
+                        }
 
                         MonitorState currentState = currentEntry.GetCurrentState();
-                        float val = float.Parse(currentState.CurrentValue.ToString());// currentEntry.GetNextValue();
+                        float val = float.Parse(currentState.CurrentValue.ToString());
 
                         if (showPrompt)
                             MessageBox.Show(string.Format("Test was successful\r\n{0}", currentState.ReadAllRawDetails()), "Performance counter test", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -171,7 +176,7 @@ namespace QuickMon.UI
                 editPerfCounter.InitialCounter = thisEntry.Counter;
                 editPerfCounter.InitialInstance = thisEntry.Instance;
                 editPerfCounter.ConfigVariables = ConfigVariables;
-                if (editPerfCounter.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (editPerfCounter.ShowDialog() == DialogResult.OK)
                 {
                     SelectedEntry = editPerfCounter.SelectedPCInstance;
                     txtPerfCounter.Text = editPerfCounter.SelectedPCInstance.Description;
@@ -221,6 +226,11 @@ namespace QuickMon.UI
                         currentEntry.MultiSampleWaitMS = (int)nudMultiSampleWaitMS.Value;
                         currentEntry.OutputValueUnit = cboOutputValueUnit.Text;
                         currentEntry.InstanceValueAggregationStyle = (AggregationStyle)cboInstanceValueAggregation.SelectedIndex;
+                        if (currentEntry.InstanceValueAggregationStyle == AggregationStyle.Count)
+                        {
+                            currentEntry.OutputValueScaleFactor = 1;
+                            currentEntry.OutputValueScaleFactorInverse = false;
+                        }
                         SelectedEntry = currentEntry;
                         DialogResult = DialogResult.OK;
                         Close();
@@ -234,35 +244,8 @@ namespace QuickMon.UI
         }
         private void cmdSample_Click(object sender, EventArgs e)
         {
-            IsValid(true);
-            //try
-            //{
-            //    PerfCounterCollectorEntry currentEntry = null;
-            //    string computerName = ApplyConfigVarsOnField(txtComputerName.Text);
-            //    string perfCounterText = ApplyConfigVarsOnField(txtPerfCounter.Text);
-            //    if (optCommon.Checked)
-            //    {
-            //        currentEntry = PerfCounterCollectorEntry.FromStringDefinition(computerName + "\\" + cboPerformanceCounter.Text);
-            //    }
-            //    else
-            //    {
-            //        currentEntry = PerfCounterCollectorEntry.FromStringDefinition(perfCounterText);
-            //    }
-            //    if (currentEntry == null || currentEntry.Computer.Length == 0)
-            //        MessageBox.Show("Performance counter definition could not be created!", "Definition", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    else
-            //    {
-            //        float val = currentEntry.GetNextValue();
-            //        Clipboard.SetText(val.ToString("F4"));
-            //        MessageBox.Show(string.Format("Current value: {0}", val.ToString("F4")), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-        }
-        
+            IsValid(true);           
+        }        
         #endregion
 
     }

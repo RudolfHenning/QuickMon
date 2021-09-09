@@ -94,5 +94,16 @@ namespace HenIT.Data
             }
             return match;
         }
+        public static bool MatchStarWildcard(this string text, string stringToMatch)
+        {
+            bool isMatch = true;
+            string[] textMatches = stringToMatch.Split('*');
+            foreach(string m in textMatches)
+            {
+                if (!text.Contains(m))
+                    return false;
+            }
+            return isMatch;
+        }
     }
 }

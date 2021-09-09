@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PerfCounterCollectorEditEntry));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.cboInstanceValueAggregation = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -80,6 +81,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.cboInstanceValueAggregation);
             this.groupBox1.Controls.Add(this.label12);
@@ -104,15 +106,24 @@
             this.groupBox1.Controls.Add(this.optCommon);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(523, 223);
+            this.groupBox1.Size = new System.Drawing.Size(523, 242);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Performance counter definition";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(161, 139);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(310, 13);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "You can use * in the instance name. This implies multi instancing";
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(303, 199);
+            this.label13.Location = new System.Drawing.Point(277, 218);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(152, 13);
             this.label13.TabIndex = 22;
@@ -131,16 +142,17 @@
             "Minimum",
             "Maximum",
             "First",
-            "Last"});
-            this.cboInstanceValueAggregation.Location = new System.Drawing.Point(164, 196);
+            "Last",
+            "Count"});
+            this.cboInstanceValueAggregation.Location = new System.Drawing.Point(164, 215);
             this.cboInstanceValueAggregation.Name = "cboInstanceValueAggregation";
-            this.cboInstanceValueAggregation.Size = new System.Drawing.Size(133, 21);
+            this.cboInstanceValueAggregation.Size = new System.Drawing.Size(107, 21);
             this.cboInstanceValueAggregation.TabIndex = 21;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 199);
+            this.label12.Location = new System.Drawing.Point(6, 218);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(147, 13);
             this.label12.TabIndex = 20;
@@ -152,7 +164,7 @@
             // 
             this.chkInverseScale.AutoSize = true;
             this.chkInverseScale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkInverseScale.Location = new System.Drawing.Point(277, 171);
+            this.chkInverseScale.Location = new System.Drawing.Point(277, 189);
             this.chkInverseScale.Name = "chkInverseScale";
             this.chkInverseScale.Size = new System.Drawing.Size(102, 17);
             this.chkInverseScale.TabIndex = 19;
@@ -163,7 +175,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label11.Location = new System.Drawing.Point(6, 172);
+            this.label11.Location = new System.Drawing.Point(6, 190);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(94, 13);
             this.label11.TabIndex = 17;
@@ -171,7 +183,7 @@
             // 
             // nudValueScale
             // 
-            this.nudValueScale.Location = new System.Drawing.Point(164, 170);
+            this.nudValueScale.Location = new System.Drawing.Point(164, 188);
             this.nudValueScale.Maximum = new decimal(new int[] {
             -1,
             2147483647,
@@ -194,15 +206,16 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(399, 146);
+            this.label10.Location = new System.Drawing.Point(399, 164);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(108, 13);
+            this.label10.Size = new System.Drawing.Size(105, 13);
             this.label10.TabIndex = 16;
-            this.label10.Text = "MS between samples";
+            this.label10.Text = "ms between samples";
+            this.toolTip1.SetToolTip(this.label10, "Milliseconds between samples");
             // 
             // nudMultiSampleWaitMS
             // 
-            this.nudMultiSampleWaitMS.Location = new System.Drawing.Point(327, 144);
+            this.nudMultiSampleWaitMS.Location = new System.Drawing.Point(327, 162);
             this.nudMultiSampleWaitMS.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -225,7 +238,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(292, 146);
+            this.label9.Location = new System.Drawing.Point(292, 164);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 13);
             this.label9.TabIndex = 14;
@@ -234,7 +247,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(236, 146);
+            this.label8.Location = new System.Drawing.Point(236, 164);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(35, 13);
             this.label8.TabIndex = 13;
@@ -243,7 +256,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(116, 146);
+            this.label7.Location = new System.Drawing.Point(116, 164);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(42, 13);
             this.label7.TabIndex = 12;
@@ -252,7 +265,7 @@
             // 
             // nudNumberOfSamplesPerRefresh
             // 
-            this.nudNumberOfSamplesPerRefresh.Location = new System.Drawing.Point(164, 144);
+            this.nudNumberOfSamplesPerRefresh.Location = new System.Drawing.Point(164, 162);
             this.nudNumberOfSamplesPerRefresh.Minimum = new decimal(new int[] {
             1,
             0,
@@ -270,7 +283,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 146);
+            this.label4.Location = new System.Drawing.Point(6, 164);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(73, 13);
             this.label4.TabIndex = 10;
@@ -289,6 +302,7 @@
             // 
             this.cmdEditPerfCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdEditPerfCounter.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdEditPerfCounter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.cmdEditPerfCounter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditPerfCounter.Location = new System.Drawing.Point(473, 114);
             this.cmdEditPerfCounter.Name = "cmdEditPerfCounter";
@@ -374,8 +388,9 @@
             // 
             this.cmdSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSample.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSample.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.cmdSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdSample.Location = new System.Drawing.Point(280, 336);
+            this.cmdSample.Location = new System.Drawing.Point(280, 355);
             this.cmdSample.Name = "cmdSample";
             this.cmdSample.Size = new System.Drawing.Size(75, 23);
             this.cmdSample.TabIndex = 4;
@@ -392,7 +407,7 @@
             this.groupBox2.Controls.Add(this.warningNumericUpDown);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox2.Location = new System.Drawing.Point(3, 232);
+            this.groupBox2.Location = new System.Drawing.Point(3, 251);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(523, 47);
             this.groupBox2.TabIndex = 1;
@@ -460,8 +475,9 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(442, 336);
+            this.cmdCancel.Location = new System.Drawing.Point(442, 355);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 6;
@@ -473,8 +489,9 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(361, 336);
+            this.cmdOK.Location = new System.Drawing.Point(361, 355);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 5;
@@ -489,7 +506,7 @@
             this.groupBox3.Controls.Add(this.cboOutputValueUnit);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox3.Location = new System.Drawing.Point(3, 285);
+            this.groupBox3.Location = new System.Drawing.Point(3, 304);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(523, 45);
             this.groupBox3.TabIndex = 2;
@@ -530,7 +547,7 @@
             this.chkVerifyOnOK.AutoSize = true;
             this.chkVerifyOnOK.Checked = true;
             this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkVerifyOnOK.Location = new System.Drawing.Point(151, 340);
+            this.chkVerifyOnOK.Location = new System.Drawing.Point(151, 359);
             this.chkVerifyOnOK.Name = "chkVerifyOnOK";
             this.chkVerifyOnOK.Size = new System.Drawing.Size(123, 17);
             this.chkVerifyOnOK.TabIndex = 3;
@@ -543,7 +560,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(529, 371);
+            this.ClientSize = new System.Drawing.Size(529, 390);
             this.Controls.Add(this.chkVerifyOnOK);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.cmdCancel);
@@ -613,5 +630,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label14;
     }
 }

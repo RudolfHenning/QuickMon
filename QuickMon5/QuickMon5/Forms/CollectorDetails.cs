@@ -300,7 +300,7 @@ namespace QuickMon
             
             if (!inEditMode)
                 txtName.Text = SelectedCollectorHost.NameFormatted;
-            else
+            else if (txtName.Text == "")
                 txtName.Text = SelectedCollectorHost.Name;
             LoadMetrics();
             LoadHistory();

@@ -14,6 +14,7 @@ namespace QuickMon
         Min = 3,
         Max = 4,
         First = 5,
-        Last = 6
+        Last = 6,
+        Count = 7
     }
 }
