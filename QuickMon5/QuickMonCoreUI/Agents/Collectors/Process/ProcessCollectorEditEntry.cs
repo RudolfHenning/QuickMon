@@ -29,6 +29,7 @@ namespace QuickMon.UI
 
                 txtName.Text = selectedEntry.Name;
                 cboFilterType.SelectedIndex = (int)selectedEntry.ProcessFilterType;
+                txtComputer.Text = selectedEntry.ComputerName;
                 txtFilter.Text = selectedEntry.ProcessFilter;
                 cboTestType.SelectedIndex = (int)selectedEntry.ProcessCollectorTestType;
                 nudMinInstanceCount.Value = selectedEntry.MinimumRunningInstanceCount;
@@ -59,8 +60,10 @@ namespace QuickMon.UI
         {
             ProcessListSelectDialog processListSelectDialog = new ProcessListSelectDialog();
             processListSelectDialog.ProcessCollectorFilterType = (ProcessCollectorFilterType)cboFilterType.SelectedIndex;
+            processListSelectDialog.ComputerName = txtComputer.Text;
             if (processListSelectDialog.ShowDialog() == DialogResult.OK)
             {
+                txtComputer.Text = processListSelectDialog.ComputerName;
                 txtFilter.Text = processListSelectDialog.SelectedValue;
                 cboFilterType.SelectedIndex = (int)processListSelectDialog.ProcessCollectorFilterType;
             }            
@@ -85,6 +88,7 @@ namespace QuickMon.UI
                 {
                     Name = txtName.Text,
                     ProcessFilterType = (ProcessCollectorFilterType)cboFilterType.SelectedIndex,
+                    ComputerName = txtComputer.Text,
                     ProcessFilter = txtFilter.Text,
                     ProcessCollectorTestType = (ProcessCollectorTestType)cboTestType.SelectedIndex,
                     MinimumRunningInstanceCount = (int)nudMinInstanceCount.Value,
@@ -114,6 +118,7 @@ namespace QuickMon.UI
                 ProcessCollectorConfigEntry selectedEntry = (ProcessCollectorConfigEntry)SelectedEntry;
                 selectedEntry.Name = txtName.Text;
                 selectedEntry.ProcessFilterType = (ProcessCollectorFilterType)cboFilterType.SelectedIndex;
+                selectedEntry.ComputerName = txtComputer.Text;
                 selectedEntry.ProcessFilter = txtFilter.Text;
                 selectedEntry.ProcessCollectorTestType = (ProcessCollectorTestType)cboTestType.SelectedIndex;
                 selectedEntry.MinimumRunningInstanceCount = (int)nudMinInstanceCount.Value;

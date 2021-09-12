@@ -51,6 +51,7 @@ namespace QuickMon.Collectors
 
                 processEntry.Name = carvceEntryNode.ReadXmlElementAttr("name", "");
                 processEntry.ProcessFilterType = (ProcessCollectorFilterType)carvceEntryNode.ReadXmlElementAttr("filterType", 0);
+                processEntry.ComputerName = carvceEntryNode.ReadXmlElementAttr("computerName", ".");
                 processEntry.ProcessFilter = carvceEntryNode.ReadXmlElementAttr("filter", "");
 
                 processEntry.ProcessCollectorTestType = (ProcessCollectorTestType)carvceEntryNode.ReadXmlElementAttr("testType", 0);
@@ -82,6 +83,7 @@ namespace QuickMon.Collectors
 
                 processNode.SetAttributeValue("name", processEntry.Name);
                 processNode.SetAttributeValue("filterType", (int)processEntry.ProcessFilterType);
+                processNode.SetAttributeValue("computerName", processEntry.ComputerName);
                 processNode.SetAttributeValue("filter", processEntry.ProcessFilter);
 
                 processNode.SetAttributeValue("testType", (int)processEntry.ProcessCollectorTestType);
@@ -149,30 +151,95 @@ namespace QuickMon.Collectors
 
             public override string ToString()
             {
-                return DisplayName.Length > 0 ? DisplayName : ProcessName;
+                return (DisplayName != null && DisplayName.Length > 0) ? DisplayName : ProcessName;
             }
-
-            public static ProcessInfo CreateFromProcess(Process p, bool includePerfStats = false)
+            public static ProcessInfo CreateFromProcessInfo(int processId, string computerName = ".")
             {
+                ProcessInfo pi = new ProcessInfo() { ProcessId = processId };
+                if (computerName == "" || computerName == ".")
+                    computerName = System.Environment.MachineName;
+                
+                try
+                {
+                    ManagementScope managementScope = new ManagementScope(new ManagementPath("root\\cimv2") { Server = computerName });
+                    managementScope.Options.Timeout = new TimeSpan(0, 0, 15);
+
+                    using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(managementScope, new WqlObjectQuery($"SELECT Name,CommandLine,ExecutablePath,ReadTransferCount,WriteTransferCount FROM Win32_Process WHERE ProcessId = {processId}")))
+                    {
+                        long readTransferCount1 = 0;
+                        long writeTransferCount1 = 0;
+                        long readTransferCount2 = 0;
+                        long writeTransferCount2 = 0;
+                        DateTime firstTm = DateTime.Now;
+                        using (ManagementObjectCollection objects = searcher.Get())
+                        {
+                            pi.ExecutableName = objects.Cast<ManagementBaseObject>().SingleOrDefault()?["Name"]?.ToString();
+                            pi.CommandLine = objects.Cast<ManagementBaseObject>().SingleOrDefault()?["CommandLine"]?.ToString();
+                            pi.Path = objects.Cast<ManagementBaseObject>().SingleOrDefault()?["ExecutablePath"]?.ToString();
+                            readTransferCount1 = long.Parse(objects.Cast<ManagementBaseObject>().SingleOrDefault()?["ReadTransferCount"]?.ToString());
+                            writeTransferCount1 = long.Parse(objects.Cast<ManagementBaseObject>().SingleOrDefault()?["WriteTransferCount"]?.ToString());
+                        }
+
+                        System.Threading.Thread.Sleep(100);
+                        DateTime secondTm = DateTime.Now;
+                        using (ManagementObjectCollection objects = searcher.Get())
+                        {
+                            readTransferCount2 = long.Parse(objects.Cast<ManagementBaseObject>().SingleOrDefault()?["ReadTransferCount"]?.ToString());
+                            writeTransferCount2 = long.Parse(objects.Cast<ManagementBaseObject>().SingleOrDefault()?["WriteTransferCount"]?.ToString());
+                        }
+                        pi.NetworkIOTotalPerSec = Convert.ToInt64(((readTransferCount2 - readTransferCount1) + (writeTransferCount2 - writeTransferCount1)) / (secondTm.Subtract(firstTm).TotalSeconds));
+
+                    }
+                }
+                catch { }
+
+                return pi;
+            }
+            public static ProcessInfo CreateFromProcess(Process p, bool includePerfStats = false, string computerName = ".")
+            {
+                if (computerName == "" || computerName == ".")
+                    computerName = System.Environment.MachineName;
+
                 ProcessInfo pi = new ProcessInfo()
                 {
                     ProcessId = p.Id,
                     ExecutableName = "",
                     Path = "",
                     ProcessName = p.ProcessName,
-                    DisplayName = p.MainWindowTitle,
                     ThreadCount = p.Threads.Count,
                     WorkingSetSize = p.WorkingSet64,
                     PrivateBytes = p.PrivateMemorySize64
                 };
 
+                if (includePerfStats)
+                {
+                    try
+                    {
+                        PerformanceCounter pc = PerfCounterCollectorEntry.GetProcessCPUPercTime(p.Id, p.ProcessName, computerName);
+                        if (pc != null)
+                        {
+                            pi.CPUPerc = pc.NextValue();
+                        }
+                    }
+                    catch { }
+                }
+                try
+                {
+                    pi.DisplayName = p.MainWindowTitle;
+                }
+                catch { }
+
                 //CPU
                 DateTime lastTime = DateTime.Now;
-                TimeSpan lastTotalProcessorTime = p.TotalProcessorTime;
+                //TimeSpan lastTotalProcessorTime = new TimeSpan();
+                //try { lastTotalProcessorTime = p.TotalProcessorTime; } catch { }
 
                 try
                 {
-                    using (ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Name,CommandLine,ExecutablePath,ReadTransferCount,WriteTransferCount FROM Win32_Process WHERE ProcessId = " + p.Id))
+                    ManagementScope managementScope = new ManagementScope(new ManagementPath("root\\cimv2") { Server = computerName });
+                    managementScope.Options.Timeout = new TimeSpan(0, 0, 15);
+
+                    using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(managementScope, new WqlObjectQuery("SELECT Name,CommandLine,ExecutablePath,ReadTransferCount,WriteTransferCount FROM Win32_Process WHERE ProcessId = " + p.Id)))
                     {
                         long readTransferCount1 = 0;
                         long writeTransferCount1 = 0;
@@ -214,13 +281,16 @@ namespace QuickMon.Collectors
                 }
                 catch { }
 
-                if (includePerfStats)
-                {
-                    DateTime curTime = DateTime.Now;
-                    p.Refresh();
-                    TimeSpan curTotalProcessorTime = p.TotalProcessorTime;
-                    pi.CPUPerc = 100.0 * (curTotalProcessorTime.TotalMilliseconds - lastTotalProcessorTime.TotalMilliseconds) / curTime.Subtract(lastTime).TotalMilliseconds / Convert.ToDouble(Environment.ProcessorCount);
-                }
+                //if (includePerfStats)
+                //{
+                //    DateTime curTime = DateTime.Now;
+                //    p.Refresh();
+                //    TimeSpan curTotalProcessorTime = new TimeSpan();
+                //    try { curTotalProcessorTime = p.TotalProcessorTime; 
+                //        pi.CPUPerc = 100.0 * (curTotalProcessorTime.TotalMilliseconds - lastTotalProcessorTime.TotalMilliseconds) / curTime.Subtract(lastTime).TotalMilliseconds / Convert.ToDouble(Environment.ProcessorCount);
+                //    }
+                //    catch { }
+                //}
                 return pi;
             }
         }
@@ -285,49 +355,52 @@ namespace QuickMon.Collectors
                 currentState.State = CollectorState.Error;
                 sbRawDetails.AppendLine(ex.Message);
             }
-            
-            foreach (ProcessInfo p in processes)
+
+            if (processes != null)
             {
-                MonitorState processState = new MonitorState()
+                foreach (ProcessInfo p in processes)
                 {
-                    ForAgent = p.ToString(),
-                    State = CollectorState.NotAvailable,
-                    CurrentValue = $"Threads:{p.ThreadCount}, Id:{p.ProcessId}",
-                    CurrentValueUnit = ""
-                };
-                if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceCount ||
-                    ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceRunning ||
-                    ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceNotRunning)
-                {
-                    processState.CurrentValue = $"Id:{p.ProcessId}";
-                    
-                }
-                else if (ProcessCollectorTestType == ProcessCollectorTestType.ThreadCount)
-                {
-                    processState.CurrentValue = p.ThreadCount;
-                    processState.CurrentValueUnit = "Thread(s)";
-                }
-                else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessorUsage)
-                {
-                    processState.CurrentValue = p.CPUPerc.ToString("0.0");
-                    processState.CurrentValueUnit = "%";
-                }
-                else if (ProcessCollectorTestType == ProcessCollectorTestType.MemoryUsage)
-                {
-                    processState.CurrentValue = FormatUtils.FormatFileSize(p.WorkingSetSize, false);
-                    processState.CurrentValueUnit = FormatUtils.FormatFileSizeUnitOnly(p.WorkingSetSize);
-                }
+                    MonitorState processState = new MonitorState()
+                    {
+                        ForAgent = p.ToString(),
+                        State = CollectorState.NotAvailable,
+                        CurrentValue = $"Threads:{p.ThreadCount}, Id:{p.ProcessId}",
+                        CurrentValueUnit = ""
+                    };
+                    if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceCount ||
+                        ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceRunning ||
+                        ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceNotRunning)
+                    {
+                        processState.CurrentValue = $"Id:{p.ProcessId}";
 
-                processState.RawDetails = $"ProcessId:{p.ProcessId}\r\n" +
-                    $"Path:{p.Path}\r\n" +
-                    $"CMD:{p.CommandLine}\r\n" +
-                    $"Threads:{p.ThreadCount}\r\n" +
-                    $"CPU:{p.CPUPerc.ToString("0.00")}%\r\n" +
-                    $"Mem:{FormatUtils.FormatFileSize(p.WorkingSetSize)}";
+                    }
+                    else if (ProcessCollectorTestType == ProcessCollectorTestType.ThreadCount)
+                    {
+                        processState.CurrentValue = p.ThreadCount;
+                        processState.CurrentValueUnit = "Thread(s)";
+                    }
+                    else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessorUsage)
+                    {
+                        processState.CurrentValue = p.CPUPerc.ToString("0.0");
+                        processState.CurrentValueUnit = "%";
+                    }
+                    else if (ProcessCollectorTestType == ProcessCollectorTestType.MemoryUsage)
+                    {
+                        processState.CurrentValue = FormatUtils.FormatFileSize(p.WorkingSetSize, false);
+                        processState.CurrentValueUnit = FormatUtils.FormatFileSizeUnitOnly(p.WorkingSetSize);
+                    }
+
+                    processState.RawDetails = $"ProcessId:{p.ProcessId}\r\n" +
+                        $"Path:{p.Path}\r\n" +
+                        $"CMD:{p.CommandLine}\r\n" +
+                        $"Threads:{p.ThreadCount}\r\n" +
+                        $"CPU:{p.CPUPerc.ToString("0.00")}%\r\n" +
+                        $"Mem:{FormatUtils.FormatFileSize(p.WorkingSetSize)}";
 
 
-                currentState.ChildStates.Add(processState);
-            }
+                    currentState.ChildStates.Add(processState);
+                }
+            }            
 
             return currentState;
         }        
@@ -388,6 +461,7 @@ namespace QuickMon.Collectors
         public string Name { get; set; }
         public ProcessCollectorFilterType ProcessFilterType { get; set; }
         public string ProcessFilter { get; set; }
+        public string ComputerName { get; set; } = ".";
 
         //State triggers
         #region State triggers
@@ -421,13 +495,16 @@ namespace QuickMon.Collectors
             List<Process> processes = new List<Process>();
             try
             {
+                string computerName = ComputerName;
+                if (computerName == "" || computerName == ".")
+                    computerName = System.Environment.MachineName;
                 switch (ProcessFilterType)
                 {
                     case ProcessCollectorFilterType.ProcessName:
-                        processes.AddRange(Process.GetProcessesByName(ProcessFilter));
+                        processes.AddRange(Process.GetProcessesByName(ProcessFilter, computerName));
                         break;
                     case ProcessCollectorFilterType.ExecutableName:
-                        foreach (var p in Process.GetProcesses())
+                        foreach (var p in Process.GetProcesses(computerName))
                         {
                             try
                             {
@@ -438,13 +515,16 @@ namespace QuickMon.Collectors
                         }
                         break;
                     case ProcessCollectorFilterType.DisplayName:
-                        processes.AddRange((from p in Process.GetProcesses()
+                        processes.AddRange((from p in Process.GetProcesses(computerName)
                                             where p.MainWindowTitle.ToLower() == ProcessFilter.ToLower()
                                             select p));
                         break;
                     case ProcessCollectorFilterType.FullPath:
                         //
-                        using (ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT ProcessId,ExecutablePath FROM Win32_Process WHERE ExecutablePath like '{ProcessFilter.Replace("\\","\\\\")}%'"))
+                        ManagementScope managementScope = new ManagementScope(new ManagementPath("root\\cimv2") { Server = computerName });
+                        managementScope.Options.Timeout = new TimeSpan(0, 0, 30);
+
+                        using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(managementScope , new WqlObjectQuery($"SELECT ProcessId,Name,ExecutablePath,CommandLine,ThreadCount,WorkingSetSize FROM Win32_Process WHERE ExecutablePath like '{ProcessFilter.Replace("\\","\\\\")}%'")))
                         {
                             using (ManagementObjectCollection results = searcher.Get())
                             {
@@ -459,17 +539,38 @@ namespace QuickMon.Collectors
                                             //int processId = 0;
                                             if (int.TryParse(val.ToString(), out int processId))
                                             {
-                                                processes.Add(Process.GetProcessById(processId));
+                                                try
+                                                {
+                                                    processes.Add(Process.GetProcessById(processId, computerName));
+                                                }
+                                                catch
+                                                {
+                                                    procesInfos.Add(new ProcessInfo()
+                                                    {
+                                                        ProcessId = processId,
+                                                        CommandLine = objServiceInstance.Properties["CommandLine"].Value?.ToString(),
+                                                        Path = objServiceInstance.Properties["ExecutablePath"].Value?.ToString(),
+                                                        ProcessName = objServiceInstance.Properties["Name"].Value?.ToString(),
+                                                        DisplayName = objServiceInstance.Properties["ExecutablePath"].Value?.ToString(),
+                                                        ThreadCount = int.Parse(objServiceInstance.Properties["ThreadCount"].Value?.ToString()),
+                                                        WorkingSetSize = long.Parse(objServiceInstance.Properties["WorkingSetSize"].Value?.ToString()),
+                                                        PrivateBytes = long.Parse(objServiceInstance.Properties["WorkingSetSize"].Value?.ToString())
+                                                    });
+                                                }
                                             }
                                         }
-                                        catch { }
+                                        catch(Exception ex) {
+                                            System.Diagnostics.Trace.WriteLine(ex.ToString());
+                                        }
                                     }
                                 }
                             }
                         }
                         break;
                     case ProcessCollectorFilterType.StartUpCommandLine:
-                        using (ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT ProcessId,CommandLine FROM Win32_Process WHERE CommandLine like '{ProcessFilter.Replace("\\","\\\\")}'"))
+                        ManagementScope managementScope2 = new ManagementScope(new ManagementPath("root\\cimv2") { Server = computerName });
+                        managementScope2.Options.Timeout = new TimeSpan(0, 0, 30);
+                        using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(managementScope2, new WqlObjectQuery($"SELECT ProcessId,Name,ExecutablePath,CommandLine,ThreadCount,WorkingSetSize FROM Win32_Process WHERE CommandLine like '{ProcessFilter.Replace("\\", "\\\\")}'")))
                         {
                             using (ManagementObjectCollection results = searcher.Get())
                             {
@@ -483,7 +584,24 @@ namespace QuickMon.Collectors
                                         {
                                             if (int.TryParse(val.ToString(), out int processId))
                                             {
-                                                processes.Add(Process.GetProcessById(processId));
+                                                try
+                                                {
+                                                    processes.Add(Process.GetProcessById(processId, computerName));
+                                                }
+                                                catch
+                                                {
+                                                    procesInfos.Add(new ProcessInfo()
+                                                    {
+                                                        ProcessId = processId,
+                                                        CommandLine = objServiceInstance.Properties["CommandLine"].Value?.ToString(),
+                                                        Path = objServiceInstance.Properties["ExecutablePath"].Value?.ToString(),
+                                                        ProcessName = objServiceInstance.Properties["Name"].Value?.ToString(),
+                                                        DisplayName = objServiceInstance.Properties["ExecutablePath"].Value?.ToString(),
+                                                        ThreadCount = int.Parse(objServiceInstance.Properties["ThreadCount"].Value?.ToString()),
+                                                        WorkingSetSize = long.Parse(objServiceInstance.Properties["WorkingSetSize"].Value?.ToString()),
+                                                        PrivateBytes = long.Parse(objServiceInstance.Properties["WorkingSetSize"].Value?.ToString())
+                                                    });
+                                                }
                                             }
                                         }
                                         catch { }
@@ -505,7 +623,7 @@ namespace QuickMon.Collectors
             {
                 foreach(Process process in processes)
                 {
-                    procesInfos.Add(ProcessInfo.CreateFromProcess(process, true)); // CheckPerformance));                    
+                    procesInfos.Add(ProcessInfo.CreateFromProcess(process, true, ComputerName)); // CheckPerformance));                    
                 }
             }
 
@@ -515,14 +633,14 @@ namespace QuickMon.Collectors
         {
             CollectorState collectorState = CollectorState.NotAvailable;
 
-            if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceNotRunning)
+            if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceRunning)
             {
                 if (processes == null || processes.Count == 0)
                     collectorState = CollectorState.Good;
                 else if (processes.Count > 0)
                     collectorState = CollectorState.Error;
             }
-            else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceRunning)
+            else if (ProcessCollectorTestType == ProcessCollectorTestType.ProcessInstanceNotRunning)
             {
                 if (processes == null || processes.Count == 0)
                     collectorState = CollectorState.Error;

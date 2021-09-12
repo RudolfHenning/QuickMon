@@ -473,6 +473,37 @@ namespace QuickMon.Collectors
                 return null;
         }
 
+        public static PerformanceCounter GetProcessCPUPercTime(int processId, string processFilter = "*", string computerName = ".")
+        {
+            PerformanceCounter pc = null;
+            try
+            {
+                List<string> instanceIds = GetInstanceNamesByCategory("Process", computerName).Where(p=> processFilter == "*" || p.StartsWith(processFilter)).ToList();
+                foreach (string instance in instanceIds)
+                {
+                    pc = new PerformanceCounter("Process", "ID Process", instance, computerName);
+                    float pid = pc.NextValue();
+                    if (pid == processId)
+                    {
+                        pc = new PerformanceCounter("Process", "% Processor Time", instance, computerName);
+                        pc.NextValue();
+                        return pc;
+                    }
+                }
+            }
+            catch { }
+
+            return null;
+        }
+
+        public static List<string> GetInstanceNamesByCategory(string category, string computername = ".")
+        {
+            List<string> list = new List<string>();
+            PerformanceCounterCategory pcCat = new PerformanceCounterCategory(category, computername );
+            list.AddRange(pcCat.GetInstanceNames());               
+            
+            return list;
+        }
 
     }
 }

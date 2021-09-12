@@ -21,11 +21,13 @@ namespace QuickMon.UI
         }
 
         public string SelectedValue { get; set; }
+        public string ComputerName { get; set; } = ".";
         public ProcessCollectorFilterType ProcessCollectorFilterType { get; set; }
 
         private void ProcessListSelectDialog_Load(object sender, EventArgs e)
         {
             cboFieldSelector.SelectedIndex = (int)ProcessCollectorFilterType;
+            txtComputer.Text = ComputerName;
         }
         private void ProcessListSelectDialog_Shown(object sender, EventArgs e)
         {
@@ -39,45 +41,78 @@ namespace QuickMon.UI
 
         private void RefreshProcessList()
         {
+            lvwProcess.AutoResizeColumnEnabled = false;
             lvwProcess.Items.Clear();
             lvwProcess.Items.Add("Loading...");
             Application.DoEvents();
             Cursor.Current = Cursors.WaitCursor;
 
-            List<ListViewItem> list = new List<ListViewItem>();
+            string computerName = txtComputer.Text;
+            if (computerName == "" || computerName == ".")
+                computerName = System.Environment.MachineName;
 
-            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT ProcessId,Name,ExecutablePath,CommandLine FROM Win32_Process where CommandLine != null"))
+            List<ListViewItem> list = new List<ListViewItem>();
+            string filter = txtFilter.Text.ToLower();
+            try
             {
-                using (ManagementObjectCollection results = searcher.Get())
+                ManagementScope managementScope = new ManagementScope(new ManagementPath("root\\cimv2") { Server = computerName });
+                managementScope.Options.Timeout = new TimeSpan(0, 0, 15);
+
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(managementScope, new WqlObjectQuery($"SELECT ProcessId,Name,ExecutablePath,CommandLine FROM Win32_Process where CommandLine != null")))
                 {
-                    int nItems = results.Count;
-                    if (nItems > 0)
+                    using (ManagementObjectCollection results = searcher.Get())
                     {
-                        foreach (ManagementObject objServiceInstance in results)
+                        int nItems = results.Count;
+                        if (nItems > 0)
                         {
-                            object pid = objServiceInstance.Properties["ProcessId"].Value;
-                            object pName = objServiceInstance.Properties["Name"].Value; 
-                            object exePath = objServiceInstance.Properties["ExecutablePath"].Value;
-                            object cmdLine = objServiceInstance.Properties["CommandLine"].Value;
-                            try
+                            foreach (ManagementObject objServiceInstance in results)
                             {
-                                if (int.TryParse(pid.ToString(), out int processId))
-                                {
-                                    Process process = Process.GetProcessById(processId);
-                                    ListViewItem lvi = new ListViewItem(processId.ToString());
-                                    lvi.SubItems.Add(process.ProcessName);
-                                    lvi.SubItems.Add(pName?.ToString());
-                                    lvi.SubItems.Add(process.MainWindowTitle);
-                                    lvi.SubItems.Add(exePath?.ToString());
-                                    lvi.SubItems.Add(cmdLine?.ToString());
-                                    list.Add(lvi);
+                                try { 
+                                    object pid = objServiceInstance.Properties["ProcessId"].Value;
+                                    string pName = objServiceInstance.Properties["Name"].Value?.ToString();
+                                    string exePath = objServiceInstance.Properties["ExecutablePath"].Value.ToString();
+                                    string cmdLine = objServiceInstance.Properties["CommandLine"].Value.ToString();
+                                    if (filter.Trim().Length < 1 || pName.ToLower().Contains(filter) || exePath.ToLower().Contains(filter) || exePath.ToLower().Contains(cmdLine))
+                                        if (int.TryParse(pid.ToString(), out int processId))
+                                        {
+                                            string processName = "";
+                                            string windowTitle = "";
+                                            try
+                                            {
+                                                Process process = Process.GetProcessById(processId, computerName);
+                                                processName = process.ProcessName;
+                                                if (System.Environment.MachineName == computerName)
+                                                    windowTitle = process.MainWindowTitle;
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                System.Diagnostics.Trace.WriteLine(ex.Message);
+                                            }
+
+                                            ListViewItem lvi = new ListViewItem(processId.ToString());
+                                            lvi.SubItems.Add(processName);
+                                            lvi.SubItems.Add(pName?.ToString());
+                                            lvi.SubItems.Add(windowTitle);
+                                            lvi.SubItems.Add(exePath?.ToString());
+                                            lvi.SubItems.Add(cmdLine?.ToString());
+                                            list.Add(lvi);
+                                        }
+                                }
+                                catch(Exception ex) {
+                                    System.Diagnostics.Trace.WriteLine(ex.Message);
                                 }
                             }
-                            catch { }
                         }
                     }
                 }
+                lvwProcess.AutoResizeColumnIndex = 4;
+                lvwProcess.AutoResizeColumnEnabled = true;
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             lvwProcess.Items.Clear();
             lvwProcess.Items.AddRange((from ListViewItem i in list
                                        orderby i.SubItems[1].Text
@@ -94,11 +129,25 @@ namespace QuickMon.UI
         {
             if(lvwProcess.SelectedItems.Count == 1)
             {
+                ComputerName = txtComputer.Text;
                 SelectedValue = lvwProcess.SelectedItems[0].SubItems[cboFieldSelector.SelectedIndex+1].Text;
                 ProcessCollectorFilterType = (ProcessCollectorFilterType)cboFieldSelector.SelectedIndex;
                 DialogResult = DialogResult.OK;
                 Close();
             }
+        }
+
+        private void txtComputer_EnterKeyPressed()
+        {
+            RefreshProcessList();
+        }
+
+        private void txtFilter_EnterKeyPressed()
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                RefreshProcessList();
+            });
         }
     }
 }

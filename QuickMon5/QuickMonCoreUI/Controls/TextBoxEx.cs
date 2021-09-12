@@ -20,16 +20,20 @@ namespace QuickMon.Controls
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.Enter)
-            {
-                EnterKeyPressed?.Invoke();
+            {                
                 e.SuppressKeyPress = true;
                 e.Handled = true;
+                EnterKeyPressed?.Invoke();
             }
             else
                 base.OnKeyDown(e);
         }
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+            }
             base.OnKeyPress(e);
         }
     }

@@ -209,4 +209,5 @@ Updated UI - Mostly buttons and checkboxes to be flat.
 Version 5.3.5 (2021-9-9)
 **************
 Enhancing PerfCounterCollector to handle more multi-Instance scenarios.
-Fix bug - editing collector name gets overwritten when refresh of monitor pack happens
+Fix bug - editing collector name gets overwritten when refresh of monitor pack happens.
+Add Computer name property on Process collector.
