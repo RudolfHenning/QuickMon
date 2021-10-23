@@ -197,9 +197,9 @@
         <collectorAgent name="Event Log Collector" type="QuickMon.Collectors.EventLogCollector" enabled="True" primaryUIValue="False">
           <config>
             <eventlogs>
-              <log computer="." eventLog="[[Eventlog:Application]]" typeInfo="False" typeWarn="False" typeErr="True" containsText="False" useRegEx="False" textFilter="" withInLastXEntries="1000" withInLastXMinutes="60" warningValue="1" errorValue="10" primaryUIValue="False">
+              <log computer="[[Computer:.]]" eventLog="[[Eventlog:Application]]" typeInfo="False" typeWarn="False" typeErr="True" containsText="False" useRegEx="False" textFilter="" withInLastXEntries="1000" withInLastXMinutes="60" warningValue="1" errorValue="10" primaryUIValue="False">
                 <sources>
-                  <source>QuickMon</source>
+                  <source>[[Source:QuickMon]]</source>
                 </sources>
                 <eventIds />
               </log>
@@ -408,7 +408,7 @@
     </collectorHost>
   </template>
   <template name="PowerShell script" type="CollectorHost" class="CollectorHost" description="Run a PowerShell script">
-    <collectorHost uniqueId="" dependOnParentId="" name="PowerShell Example" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[Name:PowerShell Example]]" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -426,11 +426,11 @@
           <config>
             <carvcesEntries>
               <carvceEntry name="PowerShell Test" primaryUIValue="False">
-                <dataSource>"Hello"</dataSource>
-                <testConditions testSequence="GWE">
-                  <success testType="Match">Hello</success>
-                  <warning testType="Contains">[any]</warning>
-                  <error testType="Contains">[Null]</error>
+                <dataSource>[[Script:"Hello"]]</dataSource>
+                <testConditions testSequence="[[Test sequence:GWE]]">
+                  <success testType="Match">[[Success value:Hello]]</success>
+                  <warning testType="Match">[[Warning value:[null]]]</warning>
+                  <error testType="Match">[[Error value:[Null]]]</error>
                 </testConditions>
               </carvceEntry>
             </carvcesEntries>
@@ -512,7 +512,7 @@
     </collectorHost>
   </template>
   <template name="Registry Query" type="CollectorHost" class="CollectorHost" description="Registry Query">
-    <collectorHost uniqueId="" dependOnParentId="" name="Registry Query" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[Name:Registry Query]]" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -530,11 +530,11 @@
           <config>
             <carvcesEntries>
               <carvceEntry>
-                <dataSource name="Registry Query" useRemoteServer="False" server="" registryHive="ClassesRoot" path=".txt" keyName="" expandEnvironmentNames="False" primaryUIValue="False" outputValueUnit="" />
-                <testConditions testSequence="GEW">
-                  <success testType="StartsWith">txtfile</success>
-                  <warning testType="Match">[null]</warning>
-                  <error testType="Match">[any]</error>
+                <dataSource name="Registry Query" useRemoteServer="False" server="" registryHive="[[Registry Hive:ClassesRoot]]" path="[[Path:.txt]]" keyName="[[Key name:]]" expandEnvironmentNames="False" primaryUIValue="False" outputValueUnit="" />
+                <testConditions testSequence="[[Test sequence:GEW]]">
+                  <success testType="Match">[[Success value:txtfile]]</success>
+                  <warning testType="Match">[[Warning value:[null]]]</warning>
+                  <error testType="Match">[[Error value:[any]]]</error>
                 </testConditions>
               </carvceEntry>
             </carvcesEntries>
@@ -856,7 +856,7 @@
     </collectorHost>
   </template>
   <template name="Windows Service State" type="CollectorHost" class="CollectorHost" description="Windows Service State">
-    <collectorHost uniqueId="" dependOnParentId="" name="Windows Service State" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[Name:Windows Service State]]" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -872,8 +872,8 @@
       <collectorAgents agentCheckSequence="All">
         <collectorAgent name="Windows Service State Collector" type="QuickMon.Collectors.WindowsServiceStateCollector" enabled="True" primaryUIValue="False">
           <config>
-            <machine name="." primaryUIValue="False">
-              <service name="QuickMon 5 Service" />
+            <machine name="[[Computer:.]]" primaryUIValue="False">
+              <service name="[[Service name:QuickMon 5 Service]]" />
             </machine>
           </config>
         </collectorAgent>
@@ -900,7 +900,7 @@
     </collectorHost>
   </template>
   <template name="WMI Query" type="CollectorHost" class="CollectorHost" description="WMI Query">
-    <collectorHost uniqueId="" dependOnParentId="" name="WMI Query" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[Name:WMI Query]]" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -918,14 +918,14 @@
           <config>
             <carvcesEntries>
               <carvceEntry>
-                <dataSource name="WMI Query" namespace="root\cimv2" machineName="." primaryUIValue="False" outputValueUnit="CPU(s)">
-                  <stateQuery useRowCountAsValue="False">select NumberOfProcessors from Win32_ComputerSystem</stateQuery>
-                  <detailQuery columnNames="NumberOfProcessors">select NumberOfProcessors from Win32_ComputerSystem</detailQuery>
+                <dataSource name="WMI Query" namespace="[[Namespace:root\cimv2]]" machineName="[[Computer:.]]" primaryUIValue="False" outputValueUnit="[[Output value unit:CPU(s)]]">
+                  <stateQuery useRowCountAsValue="[[Use rowcount as value:False]]">[[State query:select NumberOfProcessors from Win32_ComputerSystem]]</stateQuery>
+                  <detailQuery columnNames="[[Column names:NumberOfProcessors]]">[[Detail query:select NumberOfProcessors from Win32_ComputerSystem]]</detailQuery>
                 </dataSource>
-                <testConditions testSequence="GWE">
-                  <success testType="Match">[any]</success>
-                  <warning testType="Match">[null]</warning>
-                  <error testType="Match">0</error>
+                <testConditions testSequence="[[Test sequence:GEW]]">
+                  <success testType="Match">[[Success value:[any]]]</success>
+                  <warning testType="Match">[[Warning value:[null]]]</warning>
+                  <error testType="Match">[[Error value:0]]</error>
                 </testConditions>
               </carvceEntry>
             </carvcesEntries>

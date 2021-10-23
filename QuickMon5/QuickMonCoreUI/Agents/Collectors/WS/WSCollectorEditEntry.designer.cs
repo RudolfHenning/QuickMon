@@ -75,7 +75,8 @@
             // cmdGetWSDL
             // 
             this.cmdGetWSDL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdGetWSDL.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdGetWSDL.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdGetWSDL.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdGetWSDL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdGetWSDL.Location = new System.Drawing.Point(548, 12);
             this.cmdGetWSDL.Name = "cmdGetWSDL";
@@ -180,7 +181,8 @@
             // 
             this.cmdTestService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTestService.Enabled = false;
-            this.cmdTestService.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTestService.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdTestService.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTestService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTestService.Location = new System.Drawing.Point(369, 431);
             this.cmdTestService.Name = "cmdTestService";
@@ -194,7 +196,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(531, 431);
             this.cmdCancel.Name = "cmdCancel";
@@ -207,7 +210,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(450, 431);
             this.cmdOK.Name = "cmdOK";

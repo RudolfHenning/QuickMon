@@ -36,10 +36,10 @@ namespace QuickMon.UI
             this.cboFieldSelector = new System.Windows.Forms.ComboBox();
             this.llblRefresh = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.txtFilter = new QuickMon.Controls.TextBoxEx();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtComputer = new QuickMon.Controls.TextBoxEx();
+            this.label2 = new System.Windows.Forms.Label();
             this.lvwProcess = new QuickMon.ListViewEx();
             this.idColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.processNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -54,8 +54,8 @@ namespace QuickMon.UI
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(697, 526);
             this.cmdCancel.Name = "cmdCancel";
@@ -68,8 +68,8 @@ namespace QuickMon.UI
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(616, 526);
             this.cmdOK.Name = "cmdOK";
@@ -131,24 +131,6 @@ namespace QuickMon.UI
             this.panel1.Size = new System.Drawing.Size(784, 27);
             this.panel1.TabIndex = 0;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 8);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Computer";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(285, 8);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Filter";
-            // 
             // txtFilter
             // 
             this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -159,6 +141,15 @@ namespace QuickMon.UI
             this.txtFilter.TabIndex = 3;
             this.txtFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtFilter_EnterKeyPressed);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(285, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Filter";
+            // 
             // txtComputer
             // 
             this.txtComputer.Location = new System.Drawing.Point(80, 5);
@@ -166,6 +157,15 @@ namespace QuickMon.UI
             this.txtComputer.Size = new System.Drawing.Size(192, 20);
             this.txtComputer.TabIndex = 1;
             this.txtComputer.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtComputer_EnterKeyPressed);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(5, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Computer";
             // 
             // lvwProcess
             // 

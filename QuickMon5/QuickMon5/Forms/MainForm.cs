@@ -375,7 +375,7 @@ namespace QuickMon
         private void cmdNew_Click(object sender, EventArgs e)
         {
             //CloseAllDetailWindows();
-            CloseAllMPDetailWindows();
+            //CloseAllMPDetailWindows();
             NewMonitorPack();
         }
         private void cmdOpen_Click(object sender, EventArgs e)
@@ -450,6 +450,46 @@ namespace QuickMon
         {
             ShowSettings();
         }
+        private void aboutSplitButton_ButtonClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                AboutQuickMon aboutQuickMon = new AboutQuickMon();
+                aboutQuickMon.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void aboutSplitButton_SplitButtonClicked(object sender, EventArgs e)
+        {
+            aboutContextMenuStrip.Show(aboutSplitButton, new Point(aboutSplitButton.Width, 0));
+        }
+
+        private void changeLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Forms.ShowTextDialog dlg = new Forms.ShowTextDialog();
+                string changeLog = ChangeLog.GetChangeLog();
+                string[] changeParts = changeLog.Split(new string[] { "--------------" }, StringSplitOptions.RemoveEmptyEntries);
+                changeLog = "CHANGE LOG\r\n";
+                for (int i = changeParts.Length-1; i >= 0; i--)
+                {
+                    if (changeParts[i].Trim() != "")
+                        changeLog += changeParts[i] + "\r\n";
+                }
+
+                changeLog = changeLog.Replace("\r\n", "-=>").Replace("\r", "-=>").Replace("\n", "-=>").Replace("-=>", "\r\n");
+                dlg.ShowText("Change log", changeLog);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void splitButtonTools_ButtonClicked(object sender, EventArgs e)
         {
             GeneralSettings generalSettings = new GeneralSettings();
@@ -1368,7 +1408,7 @@ namespace QuickMon
                 cmdSettings.Text = "";
                 cmdTemplates.Text = "";                
                 cmdRemoteHosts.Text = "";
-                cmdAbout.Text = "";
+                aboutSplitButton.ButtonText = "";
                 cmdAdminMode.Text = "";
             }
             else
@@ -1384,7 +1424,7 @@ namespace QuickMon
                 cmdSettings.Text = " Settings";
                 cmdTemplates.Text = " Templates";                
                 cmdRemoteHosts.Text = " Remote Hosts";
-                cmdAbout.Text = " About";
+                aboutSplitButton.ButtonText = " About";
                 cmdAdminMode.Text = " Admin Mode";
             }
         }
@@ -1611,48 +1651,76 @@ namespace QuickMon
                         return;
                 }
             }
-            PausePolling(false);
-            try
-            {
-                if (monitorPack != null)
-                {
-                    CloseAllMPDetailWindows();
-                    MPStickySave();
+            bool isNewMonitorPack = false;
 
-                    monitorPack.CloseMonitorPack();
-                    monitorPack = null;
-                }
-            }
-            catch { }
+            PausePolling(false);
 
             if (Properties.Settings.Default.UseTemplatesForNewObjects)
             {
                 SelectNewEntityType snet = new SelectNewEntityType();
-                if (snet.ShowMonitorPackSelection() == DialogResult.OK && snet.SelectedMonitorPack != null)
+                if (snet.ShowMonitorPackSelection() == DialogResult.OK)
                 {
-                    monitorPack = snet.SelectedMonitorPack;
-                }
-                else
-                {
-                    monitorPack = new MonitorPack();
-                    monitorPack.LoadXml(Properties.Resources.BlankMonitorPack);
-                }
+                    isNewMonitorPack = true;
+                    try
+                    {
+                        if (monitorPack != null)
+                        {
+                            CloseAllMPDetailWindows();
+                            MPStickySave();
+
+                            monitorPack.CloseMonitorPack();
+                            monitorPack = null;
+                        }
+                    }
+                    catch { }
+
+                    if (snet.SelectedMonitorPack != null)
+                    {
+                        monitorPack = snet.SelectedMonitorPack;
+                    }
+                    else
+                    {
+                        monitorPack = new MonitorPack();
+                        monitorPack.LoadXml(Properties.Resources.BlankMonitorPack);
+                    }
+                }                
             }
             else
             {
+                isNewMonitorPack = true;
+                try
+                {
+                    if (monitorPack != null)
+                    {
+                        CloseAllMPDetailWindows();
+                        MPStickySave();
+
+                        monitorPack.CloseMonitorPack();
+                        monitorPack = null;
+                    }
+                }
+                catch { }
                 monitorPack = new MonitorPack();
 
                 string newMonitorPackConfig = Properties.Resources.BlankMonitorPack;
                 monitorPack.LoadXml(newMonitorPackConfig);
             }
-            monitorPack.MonitorPackPath = "";
-            LoadControlsFromMonitorPack();
-            monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
-            monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
-            SetMonitorPackEvents();
-            monitorPackChanged = false;
-            if (!Properties.Settings.Default.UseTemplatesForNewObjects)
-                EditMonitorSettings();
+
+            if (isNewMonitorPack)
+            {
+                monitorPack.MonitorPackPath = "";
+                LoadControlsFromMonitorPack();
+                monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+                monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
+                SetMonitorPackEvents();
+                monitorPackChanged = false;
+                if (!Properties.Settings.Default.UseTemplatesForNewObjects)
+                    EditMonitorSettings();
+            }
+            else
+            {
+                ResumePolling();
+            }
         }
         private void LoadMonitorPack(string monitorPackPath)
         {
@@ -3139,5 +3207,7 @@ namespace QuickMon
         {
             ShowRecentMonitorPackDropdown();
         }
+
+        
     }
 }

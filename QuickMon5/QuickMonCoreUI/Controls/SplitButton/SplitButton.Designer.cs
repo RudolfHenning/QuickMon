@@ -58,6 +58,7 @@
             this.cmdSideButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdSideButton.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdSideButton.FlatAppearance.BorderSize = 0;
+            this.cmdSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdSideButton.Location = new System.Drawing.Point(59, 0);

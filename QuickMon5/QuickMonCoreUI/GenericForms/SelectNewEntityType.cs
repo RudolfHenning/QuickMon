@@ -495,5 +495,10 @@ namespace QuickMon.UI
         }
         #endregion
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
     }
 }

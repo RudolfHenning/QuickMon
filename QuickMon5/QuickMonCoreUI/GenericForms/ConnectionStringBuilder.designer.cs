@@ -115,7 +115,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(415, 309);
             this.cmdOK.Name = "cmdOK";
@@ -129,7 +130,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(496, 309);
             this.cmdCancel.Name = "cmdCancel";
@@ -156,7 +158,8 @@
             // 
             // cmdReadFromConnString
             // 
-            this.cmdReadFromConnString.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdReadFromConnString.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdReadFromConnString.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdReadFromConnString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdReadFromConnString.Location = new System.Drawing.Point(200, 184);
             this.cmdReadFromConnString.Name = "cmdReadFromConnString";
@@ -168,7 +171,8 @@
             // 
             // cmdConstructConnString
             // 
-            this.cmdConstructConnString.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdConstructConnString.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdConstructConnString.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdConstructConnString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdConstructConnString.Location = new System.Drawing.Point(11, 184);
             this.cmdConstructConnString.Name = "cmdConstructConnString";
@@ -227,7 +231,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(129, 32);
+            this.label15.Location = new System.Drawing.Point(129, 33);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(136, 13);
             this.label15.TabIndex = 2;

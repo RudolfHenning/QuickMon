@@ -87,7 +87,8 @@
             // cmdLoadEventLogs
             // 
             this.cmdLoadEventLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoadEventLogs.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdLoadEventLogs.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdLoadEventLogs.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdLoadEventLogs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoadEventLogs.Location = new System.Drawing.Point(652, 6);
             this.cmdLoadEventLogs.Name = "cmdLoadEventLogs";
@@ -191,7 +192,8 @@
             // cmdApplyFilter
             // 
             this.cmdApplyFilter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cmdApplyFilter.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdApplyFilter.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdApplyFilter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdApplyFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdApplyFilter.Location = new System.Drawing.Point(274, 0);
             this.cmdApplyFilter.Name = "cmdApplyFilter";
@@ -259,7 +261,8 @@
             // cmdRemoveSource
             // 
             this.cmdRemoveSource.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdRemoveSource.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRemoveSource.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdRemoveSource.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRemoveSource.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemoveSource.Image = global::QuickMon.Properties.Resources.arrow_left;
             this.cmdRemoveSource.Location = new System.Drawing.Point(0, 23);
@@ -272,7 +275,8 @@
             // cmdAddSource
             // 
             this.cmdAddSource.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdAddSource.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAddSource.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdAddSource.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdAddSource.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAddSource.Image = global::QuickMon.Properties.Resources.arrow_right;
             this.cmdAddSource.Location = new System.Drawing.Point(0, 0);
@@ -307,7 +311,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(619, 397);
             this.cmdCancel.Name = "cmdCancel";
@@ -320,7 +325,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(538, 397);
             this.cmdOK.Name = "cmdOK";

@@ -1,14 +1,14 @@
--------------
+--------------
 Version 5.0.0
 *************
 First release of version 5.x
 
--------------
+--------------
 Version 5.0.1
 *************
 File/Directory collector: Search for text in the last X number of lines of a file (Text file implied). 
 
--------------
+--------------
 Version 5.0.2
 *************
 Quick recent list
@@ -16,7 +16,7 @@ Quick recent list
 	More details about which alerts/notifications have been raised/fired in the Collector detail view
 	Success, Warning and Error text boxes have context menu with predefined values like [any] and [null]
 
--------------
+--------------
 Version 5.0.3
 *************
 Add Edit context menu option on main Window for Collectors.
@@ -26,14 +26,14 @@ Added a 'Skip' button on template selection dialog.
 Refreshing of individual collector host (still a bit experimental)
 Change log visible from About Dialog.
 
--------------
+--------------
 Version 5.0.4
 *************
 Removed automatic restart of firewall service after rule was added. Causing problems on RDP sessions/VMs.
 Config variables are now applied when in edit mode for some collector agents e.g. PowerShell, WMI, Registry, Eventlog etc.
 Some SSH agent edit windows are now resizable.
 
--------------
+--------------
 Version 5.0.5
 *************
 Exporting of Collector host state history metrics (for reporting) 
@@ -42,14 +42,14 @@ Exporting of Collector host state history metrics (for reporting)
 	CSV and XML formats
 Error icon changed to red triangle
 
--------------
+--------------
 Version 5.0.6
 *************
 AutoRefreshCollectorDetailAutomatically set to true by default
 Clicking on refresh button in collector detail window will trigger a state refresh
 When using ShowFilenamesInDetails you can also specify top # filenames to return.
 
--------------
+--------------
 Version 5.0.7
 *************
 Log file notifier changes
@@ -60,7 +60,7 @@ Collector metrics exports
 	Two formats available - CSV and XML
 	QuickMon Service now enables collector state history(was always disabled in past)
 
--------------
+--------------
 Version 5.0.8
 *************
 Recent monitor pack menu item moved on main window
@@ -69,7 +69,7 @@ CollectorMetrics export to CSV
 	Exclude NotAvailable state unless Include None/Disabled option is enabled
 Added Quick toolbars for Collectors and Notifiers
 
--------------
+--------------
 Version 5.0.9
 *************
 Eventlog collector edit fixes and enhancements
@@ -211,3 +211,10 @@ Version 5.3.5 (2021-9-9)
 Enhancing PerfCounterCollector to handle more multi-Instance scenarios.
 Fix bug - editing collector name gets overwritten when refresh of monitor pack happens.
 Add Computer name property on Process collector.
+
+--------------
+Version 5.3.6 (2021-10-23)
+**************
+Cosmetic changes - Button styles.
+Fix: Config variables in Templates: allow [null] and [any] values.
+Add 'reset templates' button on the General settings window.

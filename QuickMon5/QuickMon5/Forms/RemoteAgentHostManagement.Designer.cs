@@ -81,6 +81,7 @@
             this.cmdEditMonitorPackList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cmdEditMonitorPackList.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdEditMonitorPackList.FlatAppearance.BorderSize = 0;
+            this.cmdEditMonitorPackList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdEditMonitorPackList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditMonitorPackList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdEditMonitorPackList.Location = new System.Drawing.Point(36, 1);
@@ -98,6 +99,7 @@
             this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
+            this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdRefresh.Location = new System.Drawing.Point(2, 1);
@@ -228,7 +230,8 @@
             // 
             this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdAdd.Enabled = false;
-            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAdd.Location = new System.Drawing.Point(531, 194);
             this.cmdAdd.Name = "cmdAdd";

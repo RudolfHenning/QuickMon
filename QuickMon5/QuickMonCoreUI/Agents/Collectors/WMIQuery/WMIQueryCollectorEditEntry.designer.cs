@@ -71,7 +71,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(463, 446);
             this.cmdCancel.Name = "cmdCancel";
@@ -83,7 +84,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(382, 446);
             this.cmdOK.Name = "cmdOK";
@@ -385,7 +387,8 @@
             // 
             // cmdEditSummaryQuery
             // 
-            this.cmdEditSummaryQuery.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdEditSummaryQuery.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdEditSummaryQuery.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdEditSummaryQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditSummaryQuery.Image = global::QuickMon.Properties.Resources.settings_16;
             this.cmdEditSummaryQuery.Location = new System.Drawing.Point(136, 2);
@@ -398,7 +401,8 @@
             // cmdTestDB
             // 
             this.cmdTestDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTestDB.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTestDB.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdTestDB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTestDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTestDB.Location = new System.Drawing.Point(301, 446);
             this.cmdTestDB.Name = "cmdTestDB";

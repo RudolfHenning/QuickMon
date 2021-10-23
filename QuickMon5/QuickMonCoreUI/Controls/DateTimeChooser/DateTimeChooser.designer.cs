@@ -97,6 +97,7 @@ namespace HenIT.Controls
             // 
             this.cmdTimePicker.BackColor = System.Drawing.Color.White;
             this.cmdTimePicker.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTimePicker.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTimePicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTimePicker.Font = new System.Drawing.Font("Wingdings", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cmdTimePicker.Location = new System.Drawing.Point(123, 1);

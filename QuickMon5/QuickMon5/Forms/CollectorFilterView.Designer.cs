@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorFilterView));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblResetText = new System.Windows.Forms.Label();
+            this.lblResetText = new QuickMon.Controls.LinkLabelEx();
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.txtFilter = new QuickMon.Controls.TextBoxEx();
             this.cboStateFilter = new System.Windows.Forms.ComboBox();
@@ -46,6 +46,10 @@
             this.itemCountToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.agentStateSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.lvwCollectorStates = new QuickMon.ListViewEx();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.PathColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collectorContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.collectorDetailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,10 +64,6 @@
             this.rawViewSelectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.PathColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvwCollectorStates = new QuickMon.ListViewEx();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.agentStateSplitContainer)).BeginInit();
@@ -93,13 +93,18 @@
             // 
             this.lblResetText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblResetText.AutoSize = true;
+            this.lblResetText.BackColorOnEnter = System.Drawing.Color.LightCyan;
+            this.lblResetText.BackColorOnLeave = System.Drawing.Color.White;
             this.lblResetText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblResetText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResetText.ForeColor = System.Drawing.Color.Red;
+            this.lblResetText.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lblResetText.LinkColor = System.Drawing.Color.Red;
             this.lblResetText.Location = new System.Drawing.Point(535, 10);
             this.lblResetText.Name = "lblResetText";
             this.lblResetText.Size = new System.Drawing.Size(15, 13);
             this.lblResetText.TabIndex = 6;
+            this.lblResetText.TabStop = true;
             this.lblResetText.Text = "X";
             this.toolTip1.SetToolTip(this.lblResetText, "Clear filter test");
             this.lblResetText.Visible = false;
@@ -112,6 +117,7 @@
             this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
+            this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRefresh.Location = new System.Drawing.Point(703, 0);
             this.cmdRefresh.Name = "cmdRefresh";
@@ -182,6 +188,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(3, 9);
             this.label4.Name = "label4";
@@ -266,6 +273,44 @@
             this.agentStateSplitContainer.SplitterDistance = 254;
             this.agentStateSplitContainer.SplitterWidth = 8;
             this.agentStateSplitContainer.TabIndex = 14;
+            // 
+            // lvwCollectorStates
+            // 
+            this.lvwCollectorStates.AutoResizeColumnEnabled = false;
+            this.lvwCollectorStates.AutoResizeColumnIndex = 1;
+            this.lvwCollectorStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvwCollectorStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.PathColumnHeader,
+            this.collectorValueColumnHeader});
+            this.lvwCollectorStates.ContextMenuStrip = this.collectorContextMenuStrip;
+            this.lvwCollectorStates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwCollectorStates.FullRowSelect = true;
+            this.lvwCollectorStates.HideSelection = false;
+            this.lvwCollectorStates.Location = new System.Drawing.Point(0, 0);
+            this.lvwCollectorStates.Name = "lvwCollectorStates";
+            this.lvwCollectorStates.Size = new System.Drawing.Size(731, 236);
+            this.lvwCollectorStates.SmallImageList = this.imagesCollectorTree;
+            this.lvwCollectorStates.TabIndex = 0;
+            this.lvwCollectorStates.UseCompatibleStateImageBehavior = false;
+            this.lvwCollectorStates.View = System.Windows.Forms.View.Details;
+            this.lvwCollectorStates.SelectedIndexChanged += new System.EventHandler(this.lvwCollectorStates_SelectedIndexChanged);
+            this.lvwCollectorStates.DoubleClick += new System.EventHandler(this.collectorDetailToolStripMenuItem_Click);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Name";
+            this.nameColumnHeader.Width = 242;
+            // 
+            // PathColumnHeader
+            // 
+            this.PathColumnHeader.Text = "Path";
+            this.PathColumnHeader.Width = 299;
+            // 
+            // collectorValueColumnHeader
+            // 
+            this.collectorValueColumnHeader.Text = "Value";
+            this.collectorValueColumnHeader.Width = 157;
             // 
             // collectorContextMenuStrip
             // 
@@ -394,43 +439,6 @@
             this.label3.Size = new System.Drawing.Size(731, 1);
             this.label3.TabIndex = 1;
             // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Name";
-            this.nameColumnHeader.Width = 242;
-            // 
-            // PathColumnHeader
-            // 
-            this.PathColumnHeader.Text = "Path";
-            this.PathColumnHeader.Width = 299;
-            // 
-            // collectorValueColumnHeader
-            // 
-            this.collectorValueColumnHeader.Text = "Value";
-            this.collectorValueColumnHeader.Width = 157;
-            // 
-            // lvwCollectorStates
-            // 
-            this.lvwCollectorStates.AutoResizeColumnEnabled = false;
-            this.lvwCollectorStates.AutoResizeColumnIndex = 1;
-            this.lvwCollectorStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvwCollectorStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.PathColumnHeader,
-            this.collectorValueColumnHeader});
-            this.lvwCollectorStates.ContextMenuStrip = this.collectorContextMenuStrip;
-            this.lvwCollectorStates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwCollectorStates.FullRowSelect = true;
-            this.lvwCollectorStates.Location = new System.Drawing.Point(0, 0);
-            this.lvwCollectorStates.Name = "lvwCollectorStates";
-            this.lvwCollectorStates.Size = new System.Drawing.Size(731, 236);
-            this.lvwCollectorStates.SmallImageList = this.imagesCollectorTree;
-            this.lvwCollectorStates.TabIndex = 0;
-            this.lvwCollectorStates.UseCompatibleStateImageBehavior = false;
-            this.lvwCollectorStates.View = System.Windows.Forms.View.Details;
-            this.lvwCollectorStates.SelectedIndexChanged += new System.EventHandler(this.lvwCollectorStates_SelectedIndexChanged);
-            this.lvwCollectorStates.DoubleClick += new System.EventHandler(this.collectorDetailToolStripMenuItem_Click);
-            // 
             // CollectorFilterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -487,7 +495,7 @@
         private System.Windows.Forms.ToolStripMenuItem rawViewCopyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rawViewSelectAllToolStripMenuItem;
         private System.Windows.Forms.LinkLabel llblDetails;
-        private System.Windows.Forms.Label lblResetText;
+        private QuickMon.Controls.LinkLabelEx lblResetText;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripStatusLabel selectedCountToolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;

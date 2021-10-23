@@ -342,7 +342,8 @@
             // cmdEditEventIds
             // 
             this.cmdEditEventIds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditEventIds.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdEditEventIds.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdEditEventIds.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdEditEventIds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditEventIds.Location = new System.Drawing.Point(504, 221);
             this.cmdEditEventIds.Name = "cmdEditEventIds";
@@ -453,7 +454,8 @@
             // cmdLoadEventLogs
             // 
             this.cmdLoadEventLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoadEventLogs.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdLoadEventLogs.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdLoadEventLogs.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdLoadEventLogs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoadEventLogs.Location = new System.Drawing.Point(504, 12);
             this.cmdLoadEventLogs.Name = "cmdLoadEventLogs";
@@ -507,7 +509,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(471, 384);
             this.cmdCancel.Name = "cmdCancel";
@@ -520,7 +523,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(390, 384);
             this.cmdOK.Name = "cmdOK";
@@ -537,7 +541,8 @@
             // cmdSelectSources
             // 
             this.cmdSelectSources.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSelectSources.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSelectSources.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdSelectSources.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdSelectSources.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSelectSources.Location = new System.Drawing.Point(504, 73);
             this.cmdSelectSources.Name = "cmdSelectSources";
@@ -551,7 +556,8 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.Enabled = false;
-            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(309, 384);
             this.cmdTest.Name = "cmdTest";

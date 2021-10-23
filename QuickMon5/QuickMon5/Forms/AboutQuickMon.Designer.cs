@@ -65,7 +65,7 @@
             this.lblCreateDate.Location = new System.Drawing.Point(12, 286);
             this.lblCreateDate.Name = "lblCreateDate";
             this.lblCreateDate.Size = new System.Drawing.Size(366, 21);
-            this.lblCreateDate.TabIndex = 3;
+            this.lblCreateDate.TabIndex = 5;
             this.lblCreateDate.Text = "Created on";
             this.lblCreateDate.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -78,7 +78,7 @@
             this.lblCompany.Location = new System.Drawing.Point(12, 257);
             this.lblCompany.Name = "lblCompany";
             this.lblCompany.Size = new System.Drawing.Size(365, 21);
-            this.lblCompany.TabIndex = 2;
+            this.lblCompany.TabIndex = 4;
             this.lblCompany.Text = "Created by";
             this.lblCompany.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -86,7 +86,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Segoe Print", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.OrangeRed;
             this.label1.Location = new System.Drawing.Point(99, 4);
@@ -116,10 +116,10 @@
             this.linkLabel1.ForeColor = System.Drawing.Color.DarkBlue;
             this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabel1.LinkColor = System.Drawing.Color.MediumBlue;
-            this.linkLabel1.Location = new System.Drawing.Point(107, 121);
+            this.linkLabel1.Location = new System.Drawing.Point(107, 328);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(183, 18);
-            this.linkLabel1.TabIndex = 4;
+            this.linkLabel1.TabIndex = 6;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Check for latest version";
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -134,7 +134,7 @@
             this.lblCoreVersion.Location = new System.Drawing.Point(107, 95);
             this.lblCoreVersion.Name = "lblCoreVersion";
             this.lblCoreVersion.Size = new System.Drawing.Size(183, 21);
-            this.lblCoreVersion.TabIndex = 6;
+            this.lblCoreVersion.TabIndex = 2;
             this.lblCoreVersion.Text = "Core";
             this.lblCoreVersion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -151,8 +151,9 @@
             this.lblReleaseState.Location = new System.Drawing.Point(145, 229);
             this.lblReleaseState.Name = "lblReleaseState";
             this.lblReleaseState.Size = new System.Drawing.Size(98, 25);
-            this.lblReleaseState.TabIndex = 7;
+            this.lblReleaseState.TabIndex = 3;
             this.lblReleaseState.Text = "Release";
+            this.lblReleaseState.Visible = false;
             // 
             // llblChangeLog
             // 
@@ -165,17 +166,19 @@
             this.llblChangeLog.TabStop = true;
             this.llblChangeLog.Text = "Change log";
             this.llblChangeLog.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.llblChangeLog.Visible = false;
             this.llblChangeLog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblChangeLog_LinkClicked);
             // 
             // cmdClose
             // 
             this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdClose.BackColor = System.Drawing.Color.Transparent;
+            this.cmdClose.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.Firebrick;
             this.cmdClose.FlatAppearance.BorderSize = 0;
             this.cmdClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdClose.ForeColor = System.Drawing.Color.White;
+            this.cmdClose.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.cmdClose.Location = new System.Drawing.Point(363, -1);
             this.cmdClose.Name = "cmdClose";
             this.cmdClose.Size = new System.Drawing.Size(27, 27);
@@ -193,7 +196,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(390, 356);
             this.Controls.Add(this.cmdClose);
-            this.Controls.Add(this.llblChangeLog);
             this.Controls.Add(this.lblReleaseState);
             this.Controls.Add(this.lblCoreVersion);
             this.Controls.Add(this.linkLabel1);
@@ -202,6 +204,7 @@
             this.Controls.Add(this.lblCompany);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblVersionInfo);
+            this.Controls.Add(this.llblChangeLog);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

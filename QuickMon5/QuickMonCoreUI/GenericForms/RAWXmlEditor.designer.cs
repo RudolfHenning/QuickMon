@@ -49,7 +49,8 @@
             // 
             this.cmdFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdFormat.Enabled = false;
-            this.cmdFormat.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdFormat.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdFormat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdFormat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdFormat.Location = new System.Drawing.Point(341, 386);
             this.cmdFormat.Name = "cmdFormat";
@@ -63,7 +64,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(503, 386);
             this.cmdCancel.Name = "cmdCancel";
@@ -76,7 +78,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(422, 386);
             this.cmdOK.Name = "cmdOK";
@@ -124,7 +127,6 @@
             this.txtConfig.ContextMenuStrip = this.configEditContextMenuStrip;
             this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtConfig.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.txtConfig.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtConfig.IsReplaceMode = false;
             this.txtConfig.Language = FastColoredTextBoxNS.Language.XML;
             this.txtConfig.LeftBracket = '<';

@@ -107,7 +107,8 @@
             // 
             // cmdImportSeriesColors
             // 
-            this.cmdImportSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdImportSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdImportSeriesColors.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdImportSeriesColors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdImportSeriesColors.Image = global::QuickMon.Properties.Resources.page_white_get;
             this.cmdImportSeriesColors.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -124,7 +125,8 @@
             // 
             this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdClose.Location = new System.Drawing.Point(556, 7);
             this.cmdClose.Name = "cmdClose";
@@ -135,7 +137,8 @@
             // 
             // cmdExportSeriesColors
             // 
-            this.cmdExportSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdExportSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdExportSeriesColors.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdExportSeriesColors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdExportSeriesColors.Image = global::QuickMon.Properties.Resources.save16x16;
             this.cmdExportSeriesColors.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -151,7 +154,8 @@
             // cmdOKSelect
             // 
             this.cmdOKSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOKSelect.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOKSelect.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOKSelect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOKSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOKSelect.Location = new System.Drawing.Point(475, 7);
             this.cmdOKSelect.Name = "cmdOKSelect";
@@ -198,7 +202,8 @@
             // 
             // cmdAdd
             // 
-            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAdd.Image = global::QuickMon.Properties.Resources.Plus16x16;
             this.cmdAdd.Location = new System.Drawing.Point(50, 63);
@@ -212,7 +217,8 @@
             // cmdRemove
             // 
             this.cmdRemove.Enabled = false;
-            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdRemove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemove.Image = global::QuickMon.Properties.Resources.stop16x16;
             this.cmdRemove.Location = new System.Drawing.Point(92, 63);
@@ -254,7 +260,8 @@
             // cmdChange
             // 
             this.cmdChange.Enabled = false;
-            this.cmdChange.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdChange.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdChange.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdChange.Image = global::QuickMon.Properties.Resources.tools16x16;
             this.cmdChange.Location = new System.Drawing.Point(8, 63);
@@ -267,7 +274,8 @@
             // 
             // cmdResetSeriesColors
             // 
-            this.cmdResetSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdResetSeriesColors.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdResetSeriesColors.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdResetSeriesColors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdResetSeriesColors.Image = global::QuickMon.Properties.Resources.lightning;
             this.cmdResetSeriesColors.Location = new System.Drawing.Point(134, 63);
@@ -320,7 +328,8 @@
             // cmdChange2
             // 
             this.cmdChange2.Enabled = false;
-            this.cmdChange2.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdChange2.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdChange2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdChange2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdChange2.Image = global::QuickMon.Properties.Resources.tools16x16;
             this.cmdChange2.Location = new System.Drawing.Point(224, 63);
@@ -333,7 +342,8 @@
             // 
             // cmdSwapBackgroundColors
             // 
-            this.cmdSwapBackgroundColors.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSwapBackgroundColors.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdSwapBackgroundColors.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdSwapBackgroundColors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSwapBackgroundColors.Image = global::QuickMon.Properties.Resources.UpDown;
             this.cmdSwapBackgroundColors.Location = new System.Drawing.Point(266, 63);

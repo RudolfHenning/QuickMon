@@ -96,7 +96,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(368, 482);
             this.cmdCancel.Name = "cmdCancel";
@@ -109,7 +110,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(287, 482);
             this.cmdOK.Name = "cmdOK";
@@ -142,7 +144,8 @@
             // 
             this.cmdTestAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTestAddress.Enabled = false;
-            this.cmdTestAddress.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTestAddress.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdTestAddress.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTestAddress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTestAddress.Location = new System.Drawing.Point(214, 482);
             this.cmdTestAddress.Name = "cmdTestAddress";
@@ -681,9 +684,10 @@
             this.chkVerifyOnOK.AutoSize = true;
             this.chkVerifyOnOK.Checked = true;
             this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkVerifyOnOK.Location = new System.Drawing.Point(87, 486);
+            this.chkVerifyOnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkVerifyOnOK.Location = new System.Drawing.Point(90, 486);
             this.chkVerifyOnOK.Name = "chkVerifyOnOK";
-            this.chkVerifyOnOK.Size = new System.Drawing.Size(123, 17);
+            this.chkVerifyOnOK.Size = new System.Drawing.Size(120, 17);
             this.chkVerifyOnOK.TabIndex = 3;
             this.chkVerifyOnOK.Text = "Test on clicking \'OK\'";
             this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

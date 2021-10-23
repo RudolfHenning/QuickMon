@@ -109,6 +109,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cmdResetTemplates = new System.Windows.Forms.Button();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -128,7 +129,8 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.BackColor = System.Drawing.Color.Transparent;
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(547, 631);
             this.cmdCancel.Name = "cmdCancel";
@@ -158,6 +160,7 @@
             // 
             // panelAppSettings
             // 
+            this.panelAppSettings.Controls.Add(this.cmdResetTemplates);
             this.panelAppSettings.Controls.Add(this.groupBox1);
             this.panelAppSettings.Controls.Add(this.llblChartDefauts);
             this.panelAppSettings.Controls.Add(this.chkEnableRAWEditing);
@@ -229,7 +232,7 @@
             this.llblChartDefauts.Location = new System.Drawing.Point(9, 366);
             this.llblChartDefauts.Name = "llblChartDefauts";
             this.llblChartDefauts.Size = new System.Drawing.Size(91, 13);
-            this.llblChartDefauts.TabIndex = 1;
+            this.llblChartDefauts.TabIndex = 24;
             this.llblChartDefauts.TabStop = true;
             this.llblChartDefauts.Text = "Set Chart defaults";
             this.llblChartDefauts.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblChartDefauts_LinkClicked);
@@ -241,7 +244,7 @@
             this.chkEnableRAWEditing.Location = new System.Drawing.Point(9, 159);
             this.chkEnableRAWEditing.Name = "chkEnableRAWEditing";
             this.chkEnableRAWEditing.Size = new System.Drawing.Size(155, 17);
-            this.chkEnableRAWEditing.TabIndex = 6;
+            this.chkEnableRAWEditing.TabIndex = 7;
             this.chkEnableRAWEditing.Text = "Allow RAW editing of config";
             this.chkEnableRAWEditing.UseVisualStyleBackColor = true;
             // 
@@ -268,9 +271,10 @@
             // optJumplistFrequent
             // 
             this.optJumplistFrequent.AutoSize = true;
+            this.optJumplistFrequent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optJumplistFrequent.Location = new System.Drawing.Point(91, 4);
             this.optJumplistFrequent.Name = "optJumplistFrequent";
-            this.optJumplistFrequent.Size = new System.Drawing.Size(67, 17);
+            this.optJumplistFrequent.Size = new System.Drawing.Size(66, 17);
             this.optJumplistFrequent.TabIndex = 1;
             this.optJumplistFrequent.TabStop = true;
             this.optJumplistFrequent.Text = "Frequent";
@@ -279,9 +283,10 @@
             // optJumplistRecent
             // 
             this.optJumplistRecent.AutoSize = true;
+            this.optJumplistRecent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optJumplistRecent.Location = new System.Drawing.Point(164, 4);
             this.optJumplistRecent.Name = "optJumplistRecent";
-            this.optJumplistRecent.Size = new System.Drawing.Size(60, 17);
+            this.optJumplistRecent.Size = new System.Drawing.Size(59, 17);
             this.optJumplistRecent.TabIndex = 2;
             this.optJumplistRecent.TabStop = true;
             this.optJumplistRecent.Text = "Recent";
@@ -333,7 +338,8 @@
             // cmdScriptsRepository
             // 
             this.cmdScriptsRepository.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdScriptsRepository.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdScriptsRepository.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdScriptsRepository.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdScriptsRepository.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdScriptsRepository.Location = new System.Drawing.Point(450, 323);
             this.cmdScriptsRepository.Name = "cmdScriptsRepository";
@@ -377,12 +383,14 @@
             // 
             this.cmdRecreateAdminModeStartTask.BackgroundImage = global::QuickMon.Properties.Resources.Restart24x24;
             this.cmdRecreateAdminModeStartTask.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdRecreateAdminModeStartTask.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdRecreateAdminModeStartTask.FlatAppearance.BorderSize = 0;
+            this.cmdRecreateAdminModeStartTask.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Khaki;
             this.cmdRecreateAdminModeStartTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRecreateAdminModeStartTask.Location = new System.Drawing.Point(413, 177);
             this.cmdRecreateAdminModeStartTask.Name = "cmdRecreateAdminModeStartTask";
             this.cmdRecreateAdminModeStartTask.Size = new System.Drawing.Size(24, 24);
-            this.cmdRecreateAdminModeStartTask.TabIndex = 8;
+            this.cmdRecreateAdminModeStartTask.TabIndex = 9;
             this.toolTip1.SetToolTip(this.cmdRecreateAdminModeStartTask, "Recreate Admin mode auto start task");
             this.cmdRecreateAdminModeStartTask.UseVisualStyleBackColor = true;
             this.cmdRecreateAdminModeStartTask.Click += new System.EventHandler(this.cmdRecreateAdminModeStartTask_Click);
@@ -451,7 +459,7 @@
             this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(9, 227);
             this.chkDisplayFullPathForQuickRecentEntries.Name = "chkDisplayFullPathForQuickRecentEntries";
             this.chkDisplayFullPathForQuickRecentEntries.Size = new System.Drawing.Size(183, 17);
-            this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 12;
+            this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 13;
             this.chkDisplayFullPathForQuickRecentEntries.Text = "Display full path in quick select list";
             this.chkDisplayFullPathForQuickRecentEntries.UseVisualStyleBackColor = true;
             // 
@@ -462,19 +470,20 @@
             this.chkDisableAutoAdminMode.Location = new System.Drawing.Point(9, 181);
             this.chkDisableAutoAdminMode.Name = "chkDisableAutoAdminMode";
             this.chkDisableAutoAdminMode.Size = new System.Drawing.Size(398, 17);
-            this.chkDisableAutoAdminMode.TabIndex = 7;
+            this.chkDisableAutoAdminMode.TabIndex = 8;
             this.chkDisableAutoAdminMode.Text = "Disable automatic Admin mode (Must be in Admin mode to remove existing task)";
             this.chkDisableAutoAdminMode.UseVisualStyleBackColor = true;
             // 
             // cmdEditQuickSelectTypeFilters
             // 
             this.cmdEditQuickSelectTypeFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditQuickSelectTypeFilters.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdEditQuickSelectTypeFilters.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdEditQuickSelectTypeFilters.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdEditQuickSelectTypeFilters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditQuickSelectTypeFilters.Location = new System.Drawing.Point(450, 201);
             this.cmdEditQuickSelectTypeFilters.Name = "cmdEditQuickSelectTypeFilters";
             this.cmdEditQuickSelectTypeFilters.Size = new System.Drawing.Size(42, 23);
-            this.cmdEditQuickSelectTypeFilters.TabIndex = 11;
+            this.cmdEditQuickSelectTypeFilters.TabIndex = 12;
             this.cmdEditQuickSelectTypeFilters.Text = "- - -";
             this.cmdEditQuickSelectTypeFilters.UseVisualStyleBackColor = true;
             this.cmdEditQuickSelectTypeFilters.Click += new System.EventHandler(this.cmdEditQuickSelectTypeFilters_Click);
@@ -497,7 +506,7 @@
             this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(164, 203);
             this.txtRecentMonitorPackFilter.Name = "txtRecentMonitorPackFilter";
             this.txtRecentMonitorPackFilter.Size = new System.Drawing.Size(280, 20);
-            this.txtRecentMonitorPackFilter.TabIndex = 10;
+            this.txtRecentMonitorPackFilter.TabIndex = 11;
             // 
             // chkCreateBackupOnSave
             // 
@@ -516,7 +525,7 @@
             this.label5.Location = new System.Drawing.Point(9, 206);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(149, 13);
-            this.label5.TabIndex = 9;
+            this.label5.TabIndex = 10;
             this.label5.Text = "Quick select Type Filters (csv)";
             // 
             // chkAutosaveChanges
@@ -534,6 +543,7 @@
             // 
             this.cmdAppSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdAppSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdAppSettingsToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdAppSettingsToggle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.cmdAppSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAppSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
@@ -673,6 +683,7 @@
             // 
             this.cmdPollingSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdPollingSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdPollingSettingsToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdPollingSettingsToggle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.cmdPollingSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdPollingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
@@ -743,7 +754,8 @@
             // 
             this.cmdRemoveUserNameFromCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRemoveUserNameFromCache.Enabled = false;
-            this.cmdRemoveUserNameFromCache.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRemoveUserNameFromCache.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdRemoveUserNameFromCache.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRemoveUserNameFromCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemoveUserNameFromCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cmdRemoveUserNameFromCache.Location = new System.Drawing.Point(444, 139);
@@ -756,7 +768,8 @@
             // cmdAddUserNameToCache
             // 
             this.cmdAddUserNameToCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAddUserNameToCache.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAddUserNameToCache.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdAddUserNameToCache.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdAddUserNameToCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAddUserNameToCache.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdAddUserNameToCache.Location = new System.Drawing.Point(444, 110);
@@ -789,7 +802,8 @@
             // cmdSelectMasterKeyFile
             // 
             this.cmdSelectMasterKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSelectMasterKeyFile.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSelectMasterKeyFile.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdSelectMasterKeyFile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdSelectMasterKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSelectMasterKeyFile.Location = new System.Drawing.Point(444, 65);
             this.cmdSelectMasterKeyFile.Name = "cmdSelectMasterKeyFile";
@@ -822,6 +836,7 @@
             // 
             this.cmdPasswordManagementToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdPasswordManagementToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdPasswordManagementToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdPasswordManagementToggle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.cmdPasswordManagementToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdPasswordManagementToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
@@ -853,8 +868,9 @@
             this.cmdRefreshServiceState.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
             this.cmdRefreshServiceState.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cmdRefreshServiceState.FlatAppearance.BorderSize = 0;
+            this.cmdRefreshServiceState.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRefreshServiceState.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefreshServiceState.Location = new System.Drawing.Point(470, 34);
+            this.cmdRefreshServiceState.Location = new System.Drawing.Point(470, 28);
             this.cmdRefreshServiceState.Name = "cmdRefreshServiceState";
             this.cmdRefreshServiceState.Size = new System.Drawing.Size(24, 24);
             this.cmdRefreshServiceState.TabIndex = 2;
@@ -1022,6 +1038,7 @@
             // 
             this.cmdRemoteHostServiceAndFirewallToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdRemoteHostServiceAndFirewallToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdRemoteHostServiceAndFirewallToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdRemoteHostServiceAndFirewallToggle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.cmdRemoteHostServiceAndFirewallToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemoteHostServiceAndFirewallToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
@@ -1040,7 +1057,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.BackColor = System.Drawing.Color.Transparent;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(466, 631);
             this.cmdOK.Name = "cmdOK";
@@ -1066,6 +1084,22 @@
             this.quickMonServiceOpenFileDialog.FileName = "QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
+            // 
+            // cmdResetTemplates
+            // 
+            this.cmdResetTemplates.BackgroundImage = global::QuickMon.Properties.Resources.Restart24x24;
+            this.cmdResetTemplates.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdResetTemplates.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdResetTemplates.FlatAppearance.BorderSize = 0;
+            this.cmdResetTemplates.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Khaki;
+            this.cmdResetTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdResetTemplates.Location = new System.Drawing.Point(399, 132);
+            this.cmdResetTemplates.Name = "cmdResetTemplates";
+            this.cmdResetTemplates.Size = new System.Drawing.Size(24, 24);
+            this.cmdResetTemplates.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.cmdResetTemplates, "Reset Templates to default");
+            this.cmdResetTemplates.UseVisualStyleBackColor = true;
+            this.cmdResetTemplates.Click += new System.EventHandler(this.cmdResetTemplates_Click);
             // 
             // GeneralSettings
             // 
@@ -1192,5 +1226,6 @@
         private System.Windows.Forms.LinkLabel llblChartDefauts;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox chkMainWindowStartLocationPersistent;
+        private System.Windows.Forms.Button cmdResetTemplates;
     }
 }

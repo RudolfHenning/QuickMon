@@ -137,7 +137,8 @@
             // cmdRefresh
             // 
             this.cmdRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRefresh.Image = global::QuickMon.Properties.Resources.refresh24x24;
             this.cmdRefresh.Location = new System.Drawing.Point(624, 3);

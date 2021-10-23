@@ -55,7 +55,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(640, 399);
             this.cmdCancel.Name = "cmdCancel";
@@ -67,7 +68,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(552, 399);
             this.cmdOK.Name = "cmdOK";
@@ -176,7 +178,8 @@
             // 
             this.cmdRemove.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cmdRemove.Enabled = false;
-            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdRemove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemove.Font = new System.Drawing.Font("Marlett", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdRemove.Image = global::QuickMon.Properties.Resources.stop;
@@ -191,7 +194,8 @@
             // 
             this.cmdAdd.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cmdAdd.Enabled = false;
-            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAdd.Font = new System.Drawing.Font("Marlett", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdAdd.Image = global::QuickMon.Properties.Resources.add;
@@ -224,11 +228,13 @@
             // cmdLoadServices
             // 
             this.cmdLoadServices.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoadServices.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdLoadServices.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdLoadServices.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdLoadServices.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdLoadServices.Location = new System.Drawing.Point(665, 15);
+            this.cmdLoadServices.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdLoadServices.Location = new System.Drawing.Point(665, 12);
             this.cmdLoadServices.Name = "cmdLoadServices";
-            this.cmdLoadServices.Size = new System.Drawing.Size(50, 43);
+            this.cmdLoadServices.Size = new System.Drawing.Size(50, 46);
             this.cmdLoadServices.TabIndex = 4;
             this.cmdLoadServices.Text = "Load";
             this.cmdLoadServices.UseVisualStyleBackColor = true;

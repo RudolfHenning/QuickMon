@@ -92,7 +92,9 @@
             // cmdLoadClasses
             // 
             this.cmdLoadClasses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoadClasses.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdLoadClasses.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdLoadClasses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.cmdLoadClasses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoadClasses.Location = new System.Drawing.Point(512, 63);
             this.cmdLoadClasses.Name = "cmdLoadClasses";
             this.cmdLoadClasses.Size = new System.Drawing.Size(58, 23);
@@ -125,7 +127,9 @@
             // cmdLoadNameSpaces
             // 
             this.cmdLoadNameSpaces.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoadNameSpaces.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdLoadNameSpaces.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdLoadNameSpaces.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.cmdLoadNameSpaces.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoadNameSpaces.Location = new System.Drawing.Point(512, 36);
             this.cmdLoadNameSpaces.Name = "cmdLoadNameSpaces";
             this.cmdLoadNameSpaces.Size = new System.Drawing.Size(58, 23);
@@ -180,7 +184,9 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.Enabled = false;
-            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(334, 275);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
@@ -193,7 +199,9 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(496, 275);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
@@ -205,7 +213,9 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(415, 275);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -234,9 +244,10 @@
             this.chkAccessdniedErrors.AutoSize = true;
             this.chkAccessdniedErrors.Checked = true;
             this.chkAccessdniedErrors.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAccessdniedErrors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkAccessdniedErrors.Location = new System.Drawing.Point(347, 15);
             this.chkAccessdniedErrors.Name = "chkAccessdniedErrors";
-            this.chkAccessdniedErrors.Size = new System.Drawing.Size(159, 17);
+            this.chkAccessdniedErrors.Size = new System.Drawing.Size(156, 17);
             this.chkAccessdniedErrors.TabIndex = 2;
             this.chkAccessdniedErrors.Text = "Show \'Access denied\' errors";
             this.chkAccessdniedErrors.UseVisualStyleBackColor = true;

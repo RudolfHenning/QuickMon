@@ -56,7 +56,8 @@
             // cmdRemove
             // 
             this.cmdRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRemove.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdRemove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemove.Location = new System.Drawing.Point(93, 7);
             this.cmdRemove.Name = "cmdRemove";
@@ -69,7 +70,8 @@
             // cmdAdd
             // 
             this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAdd.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAdd.Location = new System.Drawing.Point(12, 7);
             this.cmdAdd.Name = "cmdAdd";
@@ -82,7 +84,8 @@
             // cmdClose
             // 
             this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdClose.Location = new System.Drawing.Point(430, 7);
             this.cmdClose.Name = "cmdClose";
@@ -96,7 +99,8 @@
             // 
             this.cmdOKSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOKSelect.Enabled = false;
-            this.cmdOKSelect.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOKSelect.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOKSelect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOKSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOKSelect.Location = new System.Drawing.Point(349, 7);
             this.cmdOKSelect.Name = "cmdOKSelect";

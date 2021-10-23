@@ -180,7 +180,8 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.BackColor = System.Drawing.Color.Transparent;
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(413, 631);
             this.cmdOK.Name = "cmdOK";
@@ -195,7 +196,8 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.BackColor = System.Drawing.Color.Transparent;
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(494, 631);
             this.cmdCancel.Name = "cmdCancel";
@@ -318,6 +320,7 @@
             // 
             this.cmdGeneralSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdGeneralSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdGeneralSettingsToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdGeneralSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdGeneralSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             this.cmdGeneralSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -435,6 +438,7 @@
             // 
             this.cmdAgentSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdAgentSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdAgentSettingsToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdAgentSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAgentSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             this.cmdAgentSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -622,6 +626,7 @@
             // 
             this.cmdVariablesToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdVariablesToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdVariablesToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdVariablesToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdVariablesToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             this.cmdVariablesToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -700,7 +705,8 @@
             // 
             this.cmdRemoveUserNameFromCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRemoveUserNameFromCache.Enabled = false;
-            this.cmdRemoveUserNameFromCache.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdRemoveUserNameFromCache.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdRemoveUserNameFromCache.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRemoveUserNameFromCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemoveUserNameFromCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cmdRemoveUserNameFromCache.Location = new System.Drawing.Point(501, 154);
@@ -714,7 +720,8 @@
             // cmdAddUserNameToCache
             // 
             this.cmdAddUserNameToCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAddUserNameToCache.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdAddUserNameToCache.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdAddUserNameToCache.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdAddUserNameToCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAddUserNameToCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cmdAddUserNameToCache.Location = new System.Drawing.Point(501, 125);
@@ -841,7 +848,8 @@
             // cmdSelectMasterKeyFile
             // 
             this.cmdSelectMasterKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSelectMasterKeyFile.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSelectMasterKeyFile.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdSelectMasterKeyFile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdSelectMasterKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSelectMasterKeyFile.Location = new System.Drawing.Point(501, 63);
             this.cmdSelectMasterKeyFile.Name = "cmdSelectMasterKeyFile";
@@ -873,6 +881,7 @@
             // 
             this.cmdSecuritySettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdSecuritySettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdSecuritySettingsToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdSecuritySettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSecuritySettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             this.cmdSecuritySettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -940,7 +949,8 @@
             // cmdBrowseCollectorMetricsExportPath
             // 
             this.cmdBrowseCollectorMetricsExportPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseCollectorMetricsExportPath.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdBrowseCollectorMetricsExportPath.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdBrowseCollectorMetricsExportPath.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdBrowseCollectorMetricsExportPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdBrowseCollectorMetricsExportPath.Location = new System.Drawing.Point(498, 42);
             this.cmdBrowseCollectorMetricsExportPath.Name = "cmdBrowseCollectorMetricsExportPath";
@@ -1126,7 +1136,8 @@
             // cmdLoggingPath
             // 
             this.cmdLoggingPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoggingPath.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdLoggingPath.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdLoggingPath.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdLoggingPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoggingPath.Location = new System.Drawing.Point(501, 67);
             this.cmdLoggingPath.Name = "cmdLoggingPath";
@@ -1159,6 +1170,7 @@
             // 
             this.cmdLoggingSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdLoggingSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdLoggingSettingsToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdLoggingSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLoggingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             this.cmdLoggingSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;

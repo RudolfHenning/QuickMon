@@ -20,7 +20,7 @@ namespace QuickMon.UI
         public string FormattedConfig { get; set; } = "";
         public List<ConfigVariable> SelectedVariables { get; set; }
 
-        private bool loadingVar = false;
+        private bool loadingVar = false;        
         public bool ContainVariables()
         {
             if (InputConfig == "")
@@ -29,19 +29,24 @@ namespace QuickMon.UI
             {
                 System.Text.RegularExpressions.Regex re = new System.Text.RegularExpressions.Regex("(\\[\\[).*?(\\]\\])", System.Text.RegularExpressions.RegexOptions.Multiline);
                 SelectedVariables = new List<ConfigVariable>();
-                foreach (var m in re.Matches(InputConfig))
+
+                string preFormatText = ConfigVariable.TextToSafeText(InputConfig);
+
+                foreach (var m in re.Matches(preFormatText))
                 {
                     string variableUnformatted = m.ToString();
+
                     string initialValue = "";
                     bool imporant = false;
                     if (variableUnformatted.Contains(":"))
                     {
-                        initialValue = variableUnformatted.Substring(variableUnformatted.IndexOf(':') + 1).TrimEnd(']');
+                        initialValue = ConfigVariable.SafeTextToText(variableUnformatted.Substring(variableUnformatted.IndexOf(':') + 1).TrimEnd(']'));
                     }
                     if (variableUnformatted.StartsWith("[[!"))
                     {
                         imporant = true;
                     }
+                    variableUnformatted = ConfigVariable.SafeTextToText(variableUnformatted);
                     ConfigVariable cv = (from ConfigVariable c in SelectedVariables
                                          where c.FindValue == variableUnformatted
                                          select c).FirstOrDefault();

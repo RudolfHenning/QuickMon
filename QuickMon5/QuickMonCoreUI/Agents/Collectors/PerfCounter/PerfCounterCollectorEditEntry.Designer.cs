@@ -301,8 +301,8 @@
             // cmdEditPerfCounter
             // 
             this.cmdEditPerfCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditPerfCounter.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.cmdEditPerfCounter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.cmdEditPerfCounter.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdEditPerfCounter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdEditPerfCounter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditPerfCounter.Location = new System.Drawing.Point(473, 114);
             this.cmdEditPerfCounter.Name = "cmdEditPerfCounter";
@@ -325,9 +325,10 @@
             // optCustom
             // 
             this.optCustom.AutoSize = true;
+            this.optCustom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optCustom.Location = new System.Drawing.Point(9, 99);
             this.optCustom.Name = "optCustom";
-            this.optCustom.Size = new System.Drawing.Size(60, 17);
+            this.optCustom.Size = new System.Drawing.Size(59, 17);
             this.optCustom.TabIndex = 5;
             this.optCustom.TabStop = true;
             this.optCustom.Text = "Custom";
@@ -375,9 +376,10 @@
             // optCommon
             // 
             this.optCommon.AutoSize = true;
+            this.optCommon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.optCommon.Location = new System.Drawing.Point(9, 19);
             this.optCommon.Name = "optCommon";
-            this.optCommon.Size = new System.Drawing.Size(66, 17);
+            this.optCommon.Size = new System.Drawing.Size(65, 17);
             this.optCommon.TabIndex = 0;
             this.optCommon.TabStop = true;
             this.optCommon.Text = "Common";
@@ -387,8 +389,8 @@
             // cmdSample
             // 
             this.cmdSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSample.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.cmdSample.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.cmdSample.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdSample.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSample.Location = new System.Drawing.Point(280, 355);
             this.cmdSample.Name = "cmdSample";
@@ -474,8 +476,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(442, 355);
             this.cmdCancel.Name = "cmdCancel";
@@ -488,8 +490,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(361, 355);
             this.cmdOK.Name = "cmdOK";
@@ -547,9 +549,10 @@
             this.chkVerifyOnOK.AutoSize = true;
             this.chkVerifyOnOK.Checked = true;
             this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkVerifyOnOK.Location = new System.Drawing.Point(151, 359);
+            this.chkVerifyOnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkVerifyOnOK.Location = new System.Drawing.Point(154, 359);
             this.chkVerifyOnOK.Name = "chkVerifyOnOK";
-            this.chkVerifyOnOK.Size = new System.Drawing.Size(123, 17);
+            this.chkVerifyOnOK.Size = new System.Drawing.Size(120, 17);
             this.chkVerifyOnOK.TabIndex = 3;
             this.chkVerifyOnOK.Text = "Test on clicking \'OK\'";
             this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

@@ -65,7 +65,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(462, 400);
             this.cmdCancel.Name = "cmdCancel";
@@ -78,7 +79,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(381, 400);
             this.cmdOK.Name = "cmdOK";
@@ -156,7 +158,8 @@
             // 
             this.cmdUpdateTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cmdUpdateTable.Enabled = false;
-            this.cmdUpdateTable.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdUpdateTable.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdUpdateTable.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdUpdateTable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdUpdateTable.Location = new System.Drawing.Point(392, 17);
             this.cmdUpdateTable.Name = "cmdUpdateTable";

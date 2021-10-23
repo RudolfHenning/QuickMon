@@ -656,5 +656,13 @@ namespace QuickMon
                 Properties.Settings.Default.GraphFillAreaBelowSeriesAlpha = graphColorSettings.GraphSettings.FillAreaBelowSeriesAlpha;
             }
         }
+
+        private void cmdResetTemplates_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to reset all templates to the defaults that came with the original installation?", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+            {
+                QuickMonTemplate.ResetTemplates();
+            }
+        }
     }
 }

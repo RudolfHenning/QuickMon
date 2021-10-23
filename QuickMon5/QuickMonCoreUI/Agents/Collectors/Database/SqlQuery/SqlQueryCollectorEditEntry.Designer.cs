@@ -106,7 +106,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(577, 417);
             this.cmdCancel.Name = "cmdCancel";
@@ -118,7 +119,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(496, 417);
             this.cmdOK.Name = "cmdOK";
@@ -516,6 +518,7 @@
             this.txtStateQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtStateQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtStateQuery.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtStateQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtStateQuery.IsReplaceMode = false;
             this.txtStateQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtStateQuery.LeftBracket = '(';
@@ -809,7 +812,8 @@
             // cmdTest
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(415, 417);
             this.cmdTest.Name = "cmdTest";

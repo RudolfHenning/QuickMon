@@ -442,8 +442,8 @@ namespace QuickMon.UI
             // cmdTest
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.cmdTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.cmdTest.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTest.Location = new System.Drawing.Point(410, 281);
             this.cmdTest.Name = "cmdTest";
@@ -457,8 +457,8 @@ namespace QuickMon.UI
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(572, 281);
             this.cmdCancel.Name = "cmdCancel";
@@ -470,8 +470,8 @@ namespace QuickMon.UI
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(491, 281);
             this.cmdOK.Name = "cmdOK";
@@ -484,7 +484,7 @@ namespace QuickMon.UI
             // cmdBrowseProcesses
             // 
             this.cmdBrowseProcesses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseProcesses.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdBrowseProcesses.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdBrowseProcesses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.cmdBrowseProcesses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdBrowseProcesses.Location = new System.Drawing.Point(615, 90);

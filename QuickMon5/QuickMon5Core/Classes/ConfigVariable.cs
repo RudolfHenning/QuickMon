@@ -16,7 +16,7 @@ namespace QuickMon
             {
                 if (FindValue != null && FindValue.Length > 0)
                 {
-                    return FindValue.Trim('[', ']').TrimStart('!');
+                    return SafeTextToText(TextToSafeText(FindValue).Trim('[', ']').TrimStart('!'));
                 }
                 else
                     return "";
@@ -94,6 +94,21 @@ namespace QuickMon
                 return appliedConfig.ReplaceCaseInsensitive(FindValue, ReplaceValue);
             else
                 return appliedConfig;
+        }
+
+        public static string TextToSafeText(string original)
+        {
+            return original.Replace("[any]", "##any##")
+                .Replace("[null]", "##null##")
+                .Replace("[Any]", "##Any##")
+                .Replace("[Null]", "##Null##");
+        }
+        public static string SafeTextToText(string original)
+        {
+            return original.Replace("##any##", "[any]")
+                .Replace("##null##", "[null]")
+                .Replace("##Any##", "[Any]")
+                .Replace("##Null##", "[Null]");
         }
     }
     public static class ConfigVariables

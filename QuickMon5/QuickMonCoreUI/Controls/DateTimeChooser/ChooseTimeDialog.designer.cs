@@ -54,7 +54,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(154, 239);
             this.cmdCancel.Name = "cmdCancel";
@@ -68,7 +69,8 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(73, 239);
             this.cmdOK.Name = "cmdOK";
@@ -271,7 +273,8 @@
             // 
             // cmdNow
             // 
-            this.cmdNow.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdNow.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdNow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdNow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdNow.Location = new System.Drawing.Point(12, 239);
             this.cmdNow.Name = "cmdNow";

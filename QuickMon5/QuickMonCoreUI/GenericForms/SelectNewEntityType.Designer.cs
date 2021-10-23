@@ -33,17 +33,18 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.chkShowCustomConfig = new System.Windows.Forms.CheckBox();
             this.cmdSkip = new System.Windows.Forms.Button();
+            this.chkEditAfterCreate = new System.Windows.Forms.CheckBox();
             this.lvwAgentType = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chkEditAfterCreate = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(412, 332);
             this.cmdCancel.Name = "cmdCancel";
@@ -56,7 +57,8 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(331, 332);
             this.cmdOK.Name = "cmdOK";
@@ -81,7 +83,8 @@
             // cmdSkip
             // 
             this.cmdSkip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSkip.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdSkip.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdSkip.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdSkip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSkip.Location = new System.Drawing.Point(493, 332);
             this.cmdSkip.Name = "cmdSkip";
@@ -90,6 +93,18 @@
             this.cmdSkip.Text = "Skip";
             this.cmdSkip.UseVisualStyleBackColor = true;
             this.cmdSkip.Click += new System.EventHandler(this.cmdSkip_Click);
+            // 
+            // chkEditAfterCreate
+            // 
+            this.chkEditAfterCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkEditAfterCreate.AutoSize = true;
+            this.chkEditAfterCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkEditAfterCreate.Location = new System.Drawing.Point(12, 335);
+            this.chkEditAfterCreate.Name = "chkEditAfterCreate";
+            this.chkEditAfterCreate.Size = new System.Drawing.Size(106, 17);
+            this.chkEditAfterCreate.TabIndex = 1;
+            this.chkEditAfterCreate.Text = "Edit after creation";
+            this.chkEditAfterCreate.UseVisualStyleBackColor = true;
             // 
             // lvwAgentType
             // 
@@ -124,18 +139,6 @@
             // 
             this.detailsColumnHeader.Text = "Details";
             this.detailsColumnHeader.Width = 264;
-            // 
-            // chkEditAfterCreate
-            // 
-            this.chkEditAfterCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkEditAfterCreate.AutoSize = true;
-            this.chkEditAfterCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkEditAfterCreate.Location = new System.Drawing.Point(12, 335);
-            this.chkEditAfterCreate.Name = "chkEditAfterCreate";
-            this.chkEditAfterCreate.Size = new System.Drawing.Size(106, 17);
-            this.chkEditAfterCreate.TabIndex = 1;
-            this.chkEditAfterCreate.Text = "Edit after creation";
-            this.chkEditAfterCreate.UseVisualStyleBackColor = true;
             // 
             // SelectNewEntityType
             // 

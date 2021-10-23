@@ -205,6 +205,7 @@ namespace QuickMon
             this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
+            this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRefresh.Location = new System.Drawing.Point(0, 0);
             this.cmdRefresh.Name = "cmdRefresh";
@@ -220,6 +221,7 @@ namespace QuickMon
             this.cmdViewDetails.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdViewDetails.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdViewDetails.FlatAppearance.BorderSize = 0;
+            this.cmdViewDetails.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdViewDetails.Location = new System.Drawing.Point(756, 0);
             this.cmdViewDetails.Name = "cmdViewDetails";
@@ -294,6 +296,7 @@ namespace QuickMon
             this.alertCountColumnHeader});
             this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwHistory.FullRowSelect = true;
+            this.lvwHistory.HideSelection = false;
             this.lvwHistory.Location = new System.Drawing.Point(0, 0);
             this.lvwHistory.Name = "lvwHistory";
             this.lvwHistory.Size = new System.Drawing.Size(784, 304);

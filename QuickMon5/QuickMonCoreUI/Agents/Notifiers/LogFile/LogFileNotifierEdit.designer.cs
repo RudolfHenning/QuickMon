@@ -88,7 +88,8 @@
             // cmdBrowse
             // 
             this.cmdBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowse.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdBrowse.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdBrowse.Location = new System.Drawing.Point(443, 10);
             this.cmdBrowse.Name = "cmdBrowse";
@@ -114,7 +115,8 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Location = new System.Drawing.Point(400, 105);
             this.cmdCancel.Name = "cmdCancel";
@@ -126,7 +128,8 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Location = new System.Drawing.Point(319, 105);
             this.cmdOK.Name = "cmdOK";
