@@ -275,8 +275,9 @@ namespace QuickMon.Collectors
             };
             if (pingResult.PingTime > -1)
             {
-                if (pingResult.PingTime > TimeOutMS)
+                if (pingResult.PingTime >= TimeOutMS)
                 {
+                    currentState.CurrentValue += " (Time out)";
                     currentState.State = CollectorState.Error;
                     currentState.RawDetails = string.Format("Operation timed out! Max time allowed: {0}ms, {1}", TimeOutMS, pingResult.ResponseDetails);
                 }
@@ -301,6 +302,16 @@ namespace QuickMon.Collectors
                 if (pingResult.ResponseDetails == "No such host is known")
                 {
                     currentState.CurrentValue = "Host not found";
+                    currentState.CurrentValueUnit = "";
+                }
+                else if (pingResult.ResponseDetails == "DestinationHostUnreachable")
+                {
+                    currentState.CurrentValue = "Host unreachable";
+                    currentState.CurrentValueUnit = "";
+                }
+                else
+                {
+                    currentState.CurrentValue = pingResult.ResponseDetails;
                     currentState.CurrentValueUnit = "";
                 }
                 currentState.RawDetails = pingResult.ResponseDetails;
@@ -400,6 +411,11 @@ namespace QuickMon.Collectors
                             result.Success = true;
                             if (reply.Address != null)
                                 result.ResponseDetails = reply.Address.ToString();
+                        }
+                        else  if (reply.Status == System.Net.NetworkInformation.IPStatus.TimedOut)
+                        {
+                            result.PingTime = -1;
+                            result.ResponseDetails = "Timed out";
                         }
                         else // if (reply.Status == System.Net.NetworkInformation.IPStatus.TimedOut)
                         {
@@ -555,7 +571,7 @@ namespace QuickMon.Collectors
                         }
                         else
                         {
-                            result.ResponseDetails = string.Format("The URL '{0}' returned an HTTP error: {1}", httpResp);
+                            result.ResponseDetails = string.Format("The URL '{0}' returned an HTTP error: {1}", httpResp, ex);
                         }
                     }
                     else

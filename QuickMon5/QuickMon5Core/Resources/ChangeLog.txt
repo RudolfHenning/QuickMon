@@ -218,3 +218,8 @@ Version 5.3.6 (2021-10-23)
 Cosmetic changes - Button styles.
 Fix: Config variables in Templates: allow [null] and [any] values.
 Add 'reset templates' button on the General settings window.
+
+--------------
+Version 5.3.7 (2022-03-09)
+**************
+Change Ping collector to use max TimeOut value as return value when IPStatus is TimeOut.
