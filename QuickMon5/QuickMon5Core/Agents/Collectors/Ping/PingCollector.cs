@@ -417,6 +417,11 @@ namespace QuickMon.Collectors
                             result.PingTime = -1;
                             result.ResponseDetails = "Timed out";
                         }
+                        else if (reply.Status == System.Net.NetworkInformation.IPStatus.DestinationHostUnreachable)
+                        {
+                            result.PingTime = -1;
+                            result.ResponseDetails = "Host unreachable";
+                        }
                         else // if (reply.Status == System.Net.NetworkInformation.IPStatus.TimedOut)
                         {
                             result.Success = false;
@@ -460,7 +465,7 @@ namespace QuickMon.Collectors
                         System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
                     else
                         System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Ssl3;
-                    //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
                     if (IgnoreInvalidHTTPSCerts)
                         System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                     else

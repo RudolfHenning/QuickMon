@@ -222,4 +222,5 @@ Add 'reset templates' button on the General settings window.
 --------------
 Version 5.3.7 (2022-03-09)
 **************
-Change Ping collector to use max TimeOut value as return value when IPStatus is TimeOut.
+Ping collector - displa error details in stead of -1 on main UI like Time Out.
+Add 'Check sequence' override on monitor pack level.
