@@ -123,6 +123,9 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.fbdLogging = new System.Windows.Forms.FolderBrowserDialog();
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.cboChildCheckBehaviour = new System.Windows.Forms.ComboBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.chkCollectorChildCheckBehaviourOverride = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelGeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
@@ -352,6 +355,9 @@
             // 
             // panelAgentSettings
             // 
+            this.panelAgentSettings.Controls.Add(this.chkCollectorChildCheckBehaviourOverride);
+            this.panelAgentSettings.Controls.Add(this.cboChildCheckBehaviour);
+            this.panelAgentSettings.Controls.Add(this.label39);
             this.panelAgentSettings.Controls.Add(this.collectorStateHistorySizeNumericUpDown);
             this.panelAgentSettings.Controls.Add(this.label2);
             this.panelAgentSettings.Controls.Add(this.chkCorrectiveScripts);
@@ -359,7 +365,7 @@
             this.panelAgentSettings.Controls.Add(this.cmdAgentSettingsToggle);
             this.panelAgentSettings.Location = new System.Drawing.Point(3, 184);
             this.panelAgentSettings.Name = "panelAgentSettings";
-            this.panelAgentSettings.Size = new System.Drawing.Size(549, 103);
+            this.panelAgentSettings.Size = new System.Drawing.Size(549, 146);
             this.panelAgentSettings.TabIndex = 1;
             // 
             // collectorStateHistorySizeNumericUpDown
@@ -459,7 +465,7 @@
             this.panelVariables.Controls.Add(this.toolStripVariables);
             this.panelVariables.Controls.Add(this.cmdVariablesToggle);
             this.panelVariables.Controls.Add(this.label42);
-            this.panelVariables.Location = new System.Drawing.Point(3, 293);
+            this.panelVariables.Location = new System.Drawing.Point(3, 336);
             this.panelVariables.Name = "panelVariables";
             this.panelVariables.Size = new System.Drawing.Size(549, 300);
             this.panelVariables.TabIndex = 2;
@@ -656,7 +662,7 @@
             // 
             this.panelSecuritySettings.Controls.Add(this.groupBox2);
             this.panelSecuritySettings.Controls.Add(this.cmdSecuritySettingsToggle);
-            this.panelSecuritySettings.Location = new System.Drawing.Point(3, 599);
+            this.panelSecuritySettings.Location = new System.Drawing.Point(3, 642);
             this.panelSecuritySettings.Name = "panelSecuritySettings";
             this.panelSecuritySettings.Size = new System.Drawing.Size(549, 289);
             this.panelSecuritySettings.TabIndex = 3;
@@ -913,7 +919,7 @@
             this.panelLoggingSettings.Controls.Add(this.label12);
             this.panelLoggingSettings.Controls.Add(this.txtLoggingPath);
             this.panelLoggingSettings.Controls.Add(this.cmdLoggingSettingsToggle);
-            this.panelLoggingSettings.Location = new System.Drawing.Point(3, 894);
+            this.panelLoggingSettings.Location = new System.Drawing.Point(3, 937);
             this.panelLoggingSettings.Name = "panelLoggingSettings";
             this.panelLoggingSettings.Size = new System.Drawing.Size(549, 350);
             this.panelLoggingSettings.TabIndex = 4;
@@ -1208,6 +1214,41 @@
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
             // 
+            // cboChildCheckBehaviour
+            // 
+            this.cboChildCheckBehaviour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboChildCheckBehaviour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboChildCheckBehaviour.FormattingEnabled = true;
+            this.cboChildCheckBehaviour.Items.AddRange(new object[] {
+            "Only Run On Success",
+            "Continue On Warning",
+            "Continue On Warning Or Error"});
+            this.cboChildCheckBehaviour.Location = new System.Drawing.Point(125, 94);
+            this.cboChildCheckBehaviour.Name = "cboChildCheckBehaviour";
+            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(412, 21);
+            this.cboChildCheckBehaviour.TabIndex = 6;
+            // 
+            // label39
+            // 
+            this.label39.Location = new System.Drawing.Point(9, 97);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(125, 18);
+            this.label39.TabIndex = 5;
+            this.label39.Text = "Child check sequence behaviour";
+            // 
+            // chkCollectorChildCheckBehaviourOverride
+            // 
+            this.chkCollectorChildCheckBehaviourOverride.AutoSize = true;
+            this.chkCollectorChildCheckBehaviourOverride.BackColor = System.Drawing.Color.Transparent;
+            this.chkCollectorChildCheckBehaviourOverride.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkCollectorChildCheckBehaviourOverride.Location = new System.Drawing.Point(16, 118);
+            this.chkCollectorChildCheckBehaviourOverride.Name = "chkCollectorChildCheckBehaviourOverride";
+            this.chkCollectorChildCheckBehaviourOverride.Size = new System.Drawing.Size(377, 17);
+            this.chkCollectorChildCheckBehaviourOverride.TabIndex = 7;
+            this.chkCollectorChildCheckBehaviourOverride.Text = "Override Collector host(s). If not selected use setting on each Collector host";
+            this.chkCollectorChildCheckBehaviourOverride.UseVisualStyleBackColor = false;
+            // 
             // MonitorPackEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1352,5 +1393,8 @@
         private System.Windows.Forms.CheckBox chkCollectorMetricsExportToCSVEnabled;
         private System.Windows.Forms.CheckBox chkCollectorMetricsExportIncludeDisabled;
         private System.Windows.Forms.CheckBox chkEnableStickyMainWindowLocation;
+        private System.Windows.Forms.ComboBox cboChildCheckBehaviour;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.CheckBox chkCollectorChildCheckBehaviourOverride;
     }
 }

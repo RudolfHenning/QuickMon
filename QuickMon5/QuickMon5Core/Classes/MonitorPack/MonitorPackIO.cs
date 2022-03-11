@@ -100,7 +100,9 @@ namespace QuickMon
                 {
                     CorrectiveScriptsEnabled = collectorHostsNode.ReadXmlElementAttr("correctiveScriptsEnabled", CorrectiveScriptsEnabled);
                     CollectorStateHistorySize = collectorHostsNode.ReadXmlElementAttr("stateHistorySize", CollectorStateHistorySize);
-                    PollingFrequencyOverrideSec = collectorHostsNode.ReadXmlElementAttr("pollingFreqSecOverride", PollingFrequencyOverrideSec);                    
+                    PollingFrequencyOverrideSec = collectorHostsNode.ReadXmlElementAttr("pollingFreqSecOverride", PollingFrequencyOverrideSec);
+                    CollectorChildCheckBehaviourOverride = collectorHostsNode.ReadXmlElementAttr("childCheckBehaviourOverride", false);
+                    CollectorChildCheckBehaviour = ChildCheckBehaviourConverter.FromString(collectorHostsNode.ReadXmlElementAttr("childCheckBehaviour", "OnlyRunOnSuccess"));
 
                     XmlNode collectorMetricsExportsNode = collectorHostsNode.SelectSingleNode("metricsExports");
                     if (collectorMetricsExportsNode != null)
@@ -352,6 +354,8 @@ namespace QuickMon
             collectorHostsNode.SetAttributeValue("runCorrectiveScripts", CorrectiveScriptsEnabled);
             collectorHostsNode.SetAttributeValue("stateHistorySize", CollectorStateHistorySize);
             collectorHostsNode.SetAttributeValue("pollingFreqSecOverride", PollingFrequencyOverrideSec);
+            collectorHostsNode.SetAttributeValue("childCheckBehaviourOverride", CollectorChildCheckBehaviourOverride);
+            collectorHostsNode.SetAttributeValue("childCheckBehaviour", CollectorChildCheckBehaviour.ToString());
 
             XmlNode collectorMetricsExportsNode = collectorHostsNode.SelectSingleNode("metricsExports");
             if (collectorMetricsExportsNode != null)

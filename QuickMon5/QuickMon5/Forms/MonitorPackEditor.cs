@@ -166,6 +166,8 @@ namespace QuickMon
             chkEnabled.Checked = SelectedMonitorPack.Enabled;
             chkEnableStickyMainWindowLocation.Checked = SelectedMonitorPack.EnableStickyMainWindowLocation;
             collectorStateHistorySizeNumericUpDown.Value = SelectedMonitorPack.CollectorStateHistorySize;
+            cboChildCheckBehaviour.SelectedIndex = (int)SelectedMonitorPack.CollectorChildCheckBehaviour;
+            chkCollectorChildCheckBehaviourOverride.Checked = SelectedMonitorPack.CollectorChildCheckBehaviourOverride;
             SetFrequency(SelectedMonitorPack.PollingFrequencyOverrideSec);
             txtMasterKey.Text = SelectedMonitorPack.UserNameCacheMasterKey;
             txtMasterKeyFilePath.Text = SelectedMonitorPack.UserNameCacheFilePath;
@@ -616,6 +618,8 @@ namespace QuickMon
                 SelectedMonitorPack.EnableStickyMainWindowLocation = chkEnableStickyMainWindowLocation.Checked;
                 SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
                 SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
+                SelectedMonitorPack.CollectorChildCheckBehaviour = (ChildCheckBehaviour)cboChildCheckBehaviour.SelectedIndex;
+                SelectedMonitorPack.CollectorChildCheckBehaviourOverride = chkCollectorChildCheckBehaviourOverride.Checked;
                 SelectedMonitorPack.UserNameCacheMasterKey = txtMasterKey.Text;
                 SelectedMonitorPack.UserNameCacheFilePath = txtMasterKeyFilePath.Text;
                 SelectedMonitorPack.ConfigVariables = new List<ConfigVariable>();

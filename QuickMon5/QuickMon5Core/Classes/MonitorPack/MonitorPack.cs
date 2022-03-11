@@ -26,6 +26,7 @@ namespace QuickMon
             IsBusyPolling = false;
             CollectorStateHistorySize = 100;
             CorrectiveScriptsEnabled = true;
+            CollectorChildCheckBehaviour = ChildCheckBehaviour.OnlyRunOnSuccess;
             RunningAttended = AttendedOption.AttendedAndUnAttended;
             //AgentLoadingErrors = "";
             LastMPLoadError = "";
@@ -46,6 +47,11 @@ namespace QuickMon
         public string TypeName { get; set; }
         public bool CorrectiveScriptsEnabled { get; set; }
         public string MonitorPackPath { get; set; }
+
+        public List<CollectorHost> CollectorHosts { get; private set; }
+        public List<NotifierHost> NotifierHosts { get; private set; }
+
+        #region Collector related properties
         public int CollectorStateHistorySize { get; set; }
         /// <summary>
         /// Polling frequency for background operations. Measured in milliseconds. Default 1 Second
@@ -56,10 +62,9 @@ namespace QuickMon
         /// </summary>
         public int PollingFrequencyOverrideSec { get; set; }
         public bool PreloadCollectorInstances { get; set; }
-        //public List<ActionScript> ActionScripts { get; set; }
-        public List<CollectorHost> CollectorHosts { get; private set; }
-        public List<NotifierHost> NotifierHosts { get; private set; }
-        //public NotifierHost DefaultViewerNotifier { get; set; }
+        public bool CollectorChildCheckBehaviourOverride { get; set; }
+        public ChildCheckBehaviour CollectorChildCheckBehaviour { get; set; }
+        #endregion
 
         /// <summary>
         /// The scripts repository is usable through config variables
@@ -252,9 +257,14 @@ namespace QuickMon
                     chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
 
                     #region Do/Check/Set dependant CollectorHosts
-                    if (chms.State == CollectorState.Error && collectorHost.ChildCheckBehaviour != ChildCheckBehaviour.ContinueOnWarningOrError)
+
+                    ChildCheckBehaviour currentChildCheckBehaviour = collectorHost.ChildCheckBehaviour;
+                    if (CollectorChildCheckBehaviourOverride)
+                        currentChildCheckBehaviour = CollectorChildCheckBehaviour;
+
+                    if (chms.State == CollectorState.Error && currentChildCheckBehaviour != ChildCheckBehaviour.ContinueOnWarningOrError)
                         SetDependantCollectorHostStates(collectorHost, CollectorState.NotAvailable);
-                    else if (chms.State == CollectorState.Warning && collectorHost.ChildCheckBehaviour == ChildCheckBehaviour.OnlyRunOnSuccess)
+                    else if (chms.State == CollectorState.Warning && currentChildCheckBehaviour == ChildCheckBehaviour.OnlyRunOnSuccess)
                         SetDependantCollectorHostStates(collectorHost, CollectorState.NotAvailable);
                     else if (chms.State == CollectorState.Disabled || chms.State == CollectorState.ConfigurationError || !collectorHost.IsEnabledNow())
                         SetDependantCollectorHostStates(collectorHost, CollectorState.Disabled);

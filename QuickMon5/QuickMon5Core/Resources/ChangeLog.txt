@@ -223,4 +223,4 @@ Add 'reset templates' button on the General settings window.
 Version 5.3.7 (2022-03-09)
 **************
 Ping collector - displa error details in stead of -1 on main UI like Time Out.
-Add 'Check sequence' override on monitor pack level.
+Add 'Check sequence' override on monitor pack level. Default is not enabled.
