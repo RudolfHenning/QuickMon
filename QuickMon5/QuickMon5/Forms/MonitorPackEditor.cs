@@ -42,13 +42,15 @@ namespace QuickMon
             lvwConfigVars.AutoResizeColumnEnabled = true;
             llblRawEdit.Visible = Properties.Settings.Default.EnableRawEditing;
             this.Size = new Size(600, 450);
+            
         }
         private void MonitorPackEditor_Shown(object sender, EventArgs e)
-        {
+        {            
             cmdAgentSettingsToggle_Click(null, null);
             cmdVariablesToggle_Click(null, null);
             cmdSecuritySettingsToggle_Click(null, null);
             cmdLoggingSettingsToggle_Click(null, null);
+            //Height = 450;
         }
         #endregion
 
@@ -714,6 +716,23 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void panelGeneralSettings_Resize(object sender, EventArgs e)
+        {
+            //txtName.Width = panelGeneralSettings.Width - txtName.Left - 15;
+        }
+
+        private void MonitorPackEditor_ResizeEnd(object sender, EventArgs e)
+        {
+            //txtName.Width = panelGeneralSettings.Width - txtName.Left - 15;
+            //txtType.Width = panelGeneralSettings.Width - txtType.Left - 15;
+            //cboChildCheckBehaviour.Width = panelAgentSettings.Width - cboChildCheckBehaviour.Left - 15;
+            //txtConfigVarSearchFor.Width = panelVarEdit.Width - txtConfigVarSearchFor.Left - 5;
+            //txtConfigVarReplaceByValue.Width = panelVarEdit.Width - txtConfigVarReplaceByValue.Left - 5;
+
+            //cmdLoggingPath.Left = panelLoggingSettings.Width - cmdLoggingPath.Width - 5;
+            //txtLoggingPath.Width = panelLoggingSettings.Width - cmdLoggingPath.Width - 10;
         }
     }
 }
