@@ -129,10 +129,14 @@ namespace QuickMon
             txtName.BorderStyle = BorderStyle.None;
             collectorTimeGraph.Visible = false;
             collectorTimeGraph.Dock = DockStyle.Fill;
+            panelEditing.Dock = DockStyle.Fill;
+            panel4.Dock = DockStyle.Fill;
+            //splitContainer2.IsSplitterFixed = false;
 
             graphTypeToolStripMenuItem.Visible = false;
             grapthColorsToolStripMenuItem.Visible = false;
             graphVisibilityToolStripMenuItem.Visible = false;
+            cmdSave.Visible = false;
 
             agentStateSplitContainer.Panel2Collapsed = true;
             collectorDetailSplitContainer.Panel2Collapsed = true;
@@ -229,6 +233,7 @@ namespace QuickMon
             txtName.ReadOnly = false;
             txtName.BorderStyle = BorderStyle.FixedSingle;
             cboTextType.SelectedIndex = 0;
+            cmdSave.Visible = true;
             SetActivePanel(panelEditing);
             EnableAgentContextMenuItems();
             
@@ -245,6 +250,7 @@ namespace QuickMon
                 optAgentStates_CheckedChanged(null, null);
             else if (optMetrics.Checked)
                 optMetrics_CheckedChanged(null, null);
+            cmdSave.Visible = false;
             inEditMode = false;
         }
         private int GetNodeStateImageIndex(CollectorState state)
@@ -1328,7 +1334,10 @@ namespace QuickMon
         }
         private void cmdCollectorEdit_Click(object sender, EventArgs e)
         {
-            StartEditMode();
+            if (!inEditMode)
+                StartEditMode();
+            else
+                StopEditMode();
         }
         private void cmdCancel_Click(object sender, EventArgs e)
         {

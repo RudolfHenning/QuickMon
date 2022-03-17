@@ -224,3 +224,7 @@ Version 5.3.7 (2022-03-09)
 **************
 Ping collector - display error details in stead of -1 on main UI like Time Out.
 Add 'Check sequence' override on monitor pack level. Default is not enabled.
+--------------
+Version 5.3.8 (2022-03-17)
+**************
+High DPI bug fix. OK and Cancel button not visible for Collector details/edit window.

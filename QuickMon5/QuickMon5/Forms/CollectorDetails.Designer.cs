@@ -255,8 +255,8 @@
             this.optAgentStates = new System.Windows.Forms.RadioButton();
             this.cmdCollectorEdit = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.cmdRunActionScript = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.cmdRunActionScript = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
@@ -290,6 +290,9 @@
             this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvwActionScripts = new QuickMon.ListViewEx();
             this.nameActionScriptColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.cmdSave = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -354,6 +357,8 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelTop.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtName
@@ -368,7 +373,7 @@
             this.txtName.Multiline = true;
             this.txtName.Name = "txtName";
             this.txtName.ReadOnly = true;
-            this.txtName.Size = new System.Drawing.Size(1067, 21);
+            this.txtName.Size = new System.Drawing.Size(1088, 21);
             this.txtName.TabIndex = 5;
             this.txtName.WordWrap = false;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
@@ -394,7 +399,7 @@
             this.lastUpdateTimeToolStripStatusLabel});
             this.statusStripCollector.Location = new System.Drawing.Point(0, 679);
             this.statusStripCollector.Name = "statusStripCollector";
-            this.statusStripCollector.Size = new System.Drawing.Size(1199, 22);
+            this.statusStripCollector.Size = new System.Drawing.Size(1220, 22);
             this.statusStripCollector.TabIndex = 7;
             this.statusStripCollector.Text = "statusStrip1";
             this.statusStripCollector.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStripCollector_ItemClicked);
@@ -457,8 +462,8 @@
             this.splitContainerMain.Panel2.Controls.Add(this.panel2);
             this.splitContainerMain.Panel2.Controls.Add(this.label1);
             this.splitContainerMain.Panel2MinSize = 200;
-            this.splitContainerMain.Size = new System.Drawing.Size(1185, 640);
-            this.splitContainerMain.SplitterDistance = 981;
+            this.splitContainerMain.Size = new System.Drawing.Size(1206, 640);
+            this.splitContainerMain.SplitterDistance = 1002;
             this.splitContainerMain.TabIndex = 8;
             // 
             // collectorDetailSplitContainer
@@ -475,8 +480,8 @@
             // collectorDetailSplitContainer.Panel2
             // 
             this.collectorDetailSplitContainer.Panel2.Controls.Add(this.rtxDetails);
-            this.collectorDetailSplitContainer.Size = new System.Drawing.Size(981, 615);
-            this.collectorDetailSplitContainer.SplitterDistance = 418;
+            this.collectorDetailSplitContainer.Size = new System.Drawing.Size(1002, 615);
+            this.collectorDetailSplitContainer.SplitterDistance = 417;
             this.collectorDetailSplitContainer.SplitterWidth = 6;
             this.collectorDetailSplitContainer.TabIndex = 4;
             // 
@@ -489,7 +494,7 @@
             this.panelCollectorDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCollectorDetails.Location = new System.Drawing.Point(0, 0);
             this.panelCollectorDetails.Name = "panelCollectorDetails";
-            this.panelCollectorDetails.Size = new System.Drawing.Size(981, 418);
+            this.panelCollectorDetails.Size = new System.Drawing.Size(1002, 417);
             this.panelCollectorDetails.TabIndex = 3;
             // 
             // panelEditing
@@ -499,7 +504,7 @@
             this.panelEditing.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelEditing.Location = new System.Drawing.Point(0, 401);
             this.panelEditing.Name = "panelEditing";
-            this.panelEditing.Size = new System.Drawing.Size(964, 465);
+            this.panelEditing.Size = new System.Drawing.Size(985, 465);
             this.panelEditing.TabIndex = 4;
             // 
             // splitContainer2
@@ -518,10 +523,8 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.llblRawEdit);
-            this.splitContainer2.Panel2.Controls.Add(this.cmdOK);
-            this.splitContainer2.Panel2.Controls.Add(this.cmdCancel);
-            this.splitContainer2.Size = new System.Drawing.Size(962, 463);
+            this.splitContainer2.Panel2.Controls.Add(this.panel4);
+            this.splitContainer2.Size = new System.Drawing.Size(983, 463);
             this.splitContainer2.SplitterDistance = 421;
             this.splitContainer2.TabIndex = 7;
             // 
@@ -537,7 +540,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(962, 421);
+            this.tabControl1.Size = new System.Drawing.Size(983, 421);
             this.tabControl1.TabIndex = 11;
             // 
             // agentsEditTabPage
@@ -547,7 +550,7 @@
             this.agentsEditTabPage.Location = new System.Drawing.Point(4, 22);
             this.agentsEditTabPage.Name = "agentsEditTabPage";
             this.agentsEditTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.agentsEditTabPage.Size = new System.Drawing.Size(954, 395);
+            this.agentsEditTabPage.Size = new System.Drawing.Size(975, 395);
             this.agentsEditTabPage.TabIndex = 0;
             this.agentsEditTabPage.Text = "Agents";
             this.agentsEditTabPage.UseVisualStyleBackColor = true;
@@ -670,7 +673,7 @@
             this.agentCheckSequenceToolStripComboBox});
             this.collectorAgentsEditToolStrip.Location = new System.Drawing.Point(3, 3);
             this.collectorAgentsEditToolStrip.Name = "collectorAgentsEditToolStrip";
-            this.collectorAgentsEditToolStrip.Size = new System.Drawing.Size(948, 27);
+            this.collectorAgentsEditToolStrip.Size = new System.Drawing.Size(969, 27);
             this.collectorAgentsEditToolStrip.TabIndex = 3;
             this.collectorAgentsEditToolStrip.TabStop = true;
             this.collectorAgentsEditToolStrip.Text = "toolStrip1";
@@ -799,7 +802,7 @@
             this.hostSettingsTabPage.Location = new System.Drawing.Point(4, 22);
             this.hostSettingsTabPage.Name = "hostSettingsTabPage";
             this.hostSettingsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.hostSettingsTabPage.Size = new System.Drawing.Size(954, 395);
+            this.hostSettingsTabPage.Size = new System.Drawing.Size(975, 395);
             this.hostSettingsTabPage.TabIndex = 1;
             this.hostSettingsTabPage.Text = "Host settings";
             this.hostSettingsTabPage.UseVisualStyleBackColor = true;
@@ -823,7 +826,7 @@
             this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox7.Location = new System.Drawing.Point(3, 176);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(948, 105);
+            this.groupBox7.Size = new System.Drawing.Size(969, 105);
             this.groupBox7.TabIndex = 5;
             this.groupBox7.TabStop = false;
             // 
@@ -834,7 +837,7 @@
             this.txtCategories.Multiline = true;
             this.txtCategories.Name = "txtCategories";
             this.txtCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCategories.Size = new System.Drawing.Size(942, 86);
+            this.txtCategories.Size = new System.Drawing.Size(963, 86);
             this.txtCategories.TabIndex = 6;
             // 
             // label46
@@ -857,7 +860,7 @@
             this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox4.Location = new System.Drawing.Point(3, 81);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(948, 95);
+            this.groupBox4.Size = new System.Drawing.Size(969, 95);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             // 
@@ -868,7 +871,7 @@
             this.txtAdditionalNotes.Multiline = true;
             this.txtAdditionalNotes.Name = "txtAdditionalNotes";
             this.txtAdditionalNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAdditionalNotes.Size = new System.Drawing.Size(942, 76);
+            this.txtAdditionalNotes.Size = new System.Drawing.Size(963, 76);
             this.txtAdditionalNotes.TabIndex = 1;
             // 
             // label15
@@ -894,7 +897,7 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(948, 78);
+            this.groupBox1.Size = new System.Drawing.Size(969, 78);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
@@ -913,7 +916,7 @@
             "Always"});
             this.cboExpandOnStartOption.Location = new System.Drawing.Point(172, 47);
             this.cboExpandOnStartOption.Name = "cboExpandOnStartOption";
-            this.cboExpandOnStartOption.Size = new System.Drawing.Size(770, 21);
+            this.cboExpandOnStartOption.Size = new System.Drawing.Size(791, 21);
             this.cboExpandOnStartOption.TabIndex = 6;
             // 
             // label47
@@ -949,7 +952,7 @@
             "Continue On Warning Or Error"});
             this.cboChildCheckBehaviour.Location = new System.Drawing.Point(172, 20);
             this.cboChildCheckBehaviour.Name = "cboChildCheckBehaviour";
-            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(770, 21);
+            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(791, 21);
             this.cboChildCheckBehaviour.TabIndex = 4;
             // 
             // label39
@@ -970,7 +973,7 @@
             this.operationalTabPage.Location = new System.Drawing.Point(4, 22);
             this.operationalTabPage.Name = "operationalTabPage";
             this.operationalTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.operationalTabPage.Size = new System.Drawing.Size(954, 395);
+            this.operationalTabPage.Size = new System.Drawing.Size(975, 395);
             this.operationalTabPage.TabIndex = 2;
             this.operationalTabPage.Text = "Operational";
             this.operationalTabPage.UseVisualStyleBackColor = true;
@@ -985,7 +988,7 @@
             this.serviceWindowsGroupBox.Location = new System.Drawing.Point(3, 235);
             this.serviceWindowsGroupBox.MinimumSize = new System.Drawing.Size(100, 50);
             this.serviceWindowsGroupBox.Name = "serviceWindowsGroupBox";
-            this.serviceWindowsGroupBox.Size = new System.Drawing.Size(948, 70);
+            this.serviceWindowsGroupBox.Size = new System.Drawing.Size(969, 70);
             this.serviceWindowsGroupBox.TabIndex = 12;
             this.serviceWindowsGroupBox.TabStop = false;
             // 
@@ -1007,7 +1010,7 @@
             this.linkLabelServiceWindows.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabelServiceWindows.Location = new System.Drawing.Point(3, 16);
             this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
-            this.linkLabelServiceWindows.Size = new System.Drawing.Size(942, 51);
+            this.linkLabelServiceWindows.Size = new System.Drawing.Size(963, 51);
             this.linkLabelServiceWindows.TabIndex = 1;
             this.linkLabelServiceWindows.TabStop = true;
             this.linkLabelServiceWindows.Text = "None";
@@ -1026,7 +1029,7 @@
             this.runAsGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.runAsGroupBox.Location = new System.Drawing.Point(3, 173);
             this.runAsGroupBox.Name = "runAsGroupBox";
-            this.runAsGroupBox.Size = new System.Drawing.Size(948, 62);
+            this.runAsGroupBox.Size = new System.Drawing.Size(969, 62);
             this.runAsGroupBox.TabIndex = 11;
             this.runAsGroupBox.TabStop = false;
             // 
@@ -1036,7 +1039,7 @@
             this.cmdTestRunAs.Enabled = false;
             this.cmdTestRunAs.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdTestRunAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdTestRunAs.Location = new System.Drawing.Point(872, 17);
+            this.cmdTestRunAs.Location = new System.Drawing.Point(893, 17);
             this.cmdTestRunAs.Name = "cmdTestRunAs";
             this.cmdTestRunAs.Size = new System.Drawing.Size(70, 23);
             this.cmdTestRunAs.TabIndex = 4;
@@ -1076,7 +1079,7 @@
             this.txtRunAs.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtRunAs.Location = new System.Drawing.Point(108, 19);
             this.txtRunAs.Name = "txtRunAs";
-            this.txtRunAs.Size = new System.Drawing.Size(758, 20);
+            this.txtRunAs.Size = new System.Drawing.Size(779, 20);
             this.txtRunAs.TabIndex = 3;
             this.txtRunAs.TextChanged += new System.EventHandler(this.txtRunAs_TextChanged);
             // 
@@ -1118,7 +1121,7 @@
             this.remoteAgentGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.remoteAgentGroupBox.Location = new System.Drawing.Point(3, 98);
             this.remoteAgentGroupBox.Name = "remoteAgentGroupBox";
-            this.remoteAgentGroupBox.Size = new System.Drawing.Size(948, 75);
+            this.remoteAgentGroupBox.Size = new System.Drawing.Size(969, 75);
             this.remoteAgentGroupBox.TabIndex = 10;
             this.remoteAgentGroupBox.TabStop = false;
             // 
@@ -1129,7 +1132,7 @@
             this.cboRemoteAgentServer.FormattingEnabled = true;
             this.cboRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
             this.cboRemoteAgentServer.Name = "cboRemoteAgentServer";
-            this.cboRemoteAgentServer.Size = new System.Drawing.Size(616, 21);
+            this.cboRemoteAgentServer.Size = new System.Drawing.Size(637, 21);
             this.cboRemoteAgentServer.Sorted = true;
             this.cboRemoteAgentServer.TabIndex = 5;
             this.cboRemoteAgentServer.SelectedIndexChanged += new System.EventHandler(this.cboRemoteAgentServer_SelectedIndexChanged);
@@ -1176,7 +1179,7 @@
             this.llblRemoteAgentInstallHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.llblRemoteAgentInstallHelp.AutoSize = true;
             this.llblRemoteAgentInstallHelp.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(881, 1);
+            this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(902, 1);
             this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
             this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
             this.llblRemoteAgentInstallHelp.TabIndex = 3;
@@ -1212,7 +1215,7 @@
             // 
             this.remoteportNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.remoteportNumericUpDown.Enabled = false;
-            this.remoteportNumericUpDown.Location = new System.Drawing.Point(795, 24);
+            this.remoteportNumericUpDown.Location = new System.Drawing.Point(816, 24);
             this.remoteportNumericUpDown.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -1245,7 +1248,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(763, 26);
+            this.label14.Location = new System.Drawing.Point(784, 26);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
             this.label14.TabIndex = 6;
@@ -1257,7 +1260,7 @@
             this.cmdRemoteAgentTest.Enabled = false;
             this.cmdRemoteAgentTest.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdRemoteAgentTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRemoteAgentTest.Location = new System.Drawing.Point(872, 21);
+            this.cmdRemoteAgentTest.Location = new System.Drawing.Point(893, 21);
             this.cmdRemoteAgentTest.Name = "cmdRemoteAgentTest";
             this.cmdRemoteAgentTest.Size = new System.Drawing.Size(70, 23);
             this.cmdRemoteAgentTest.TabIndex = 8;
@@ -1287,7 +1290,7 @@
             this.pollingOverridesGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.pollingOverridesGroupBox.Location = new System.Drawing.Point(3, 3);
             this.pollingOverridesGroupBox.Name = "pollingOverridesGroupBox";
-            this.pollingOverridesGroupBox.Size = new System.Drawing.Size(948, 95);
+            this.pollingOverridesGroupBox.Size = new System.Drawing.Size(969, 95);
             this.pollingOverridesGroupBox.TabIndex = 9;
             this.pollingOverridesGroupBox.TabStop = false;
             // 
@@ -1507,7 +1510,7 @@
             this.alertsTabPage.Location = new System.Drawing.Point(4, 22);
             this.alertsTabPage.Name = "alertsTabPage";
             this.alertsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.alertsTabPage.Size = new System.Drawing.Size(954, 395);
+            this.alertsTabPage.Size = new System.Drawing.Size(975, 395);
             this.alertsTabPage.TabIndex = 3;
             this.alertsTabPage.Text = "Alerts";
             this.alertsTabPage.UseVisualStyleBackColor = true;
@@ -1523,7 +1526,7 @@
             this.groupBox9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox9.Location = new System.Drawing.Point(3, 168);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(948, 131);
+            this.groupBox9.Size = new System.Drawing.Size(969, 131);
             this.groupBox9.TabIndex = 9;
             this.groupBox9.TabStop = false;
             // 
@@ -1533,7 +1536,7 @@
             this.cmdSetNoteText.Enabled = false;
             this.cmdSetNoteText.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
             this.cmdSetNoteText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdSetNoteText.Location = new System.Drawing.Point(905, 14);
+            this.cmdSetNoteText.Location = new System.Drawing.Point(926, 14);
             this.cmdSetNoteText.Name = "cmdSetNoteText";
             this.cmdSetNoteText.Size = new System.Drawing.Size(39, 23);
             this.cmdSetNoteText.TabIndex = 3;
@@ -1550,7 +1553,7 @@
             this.txtNotesText.Multiline = true;
             this.txtNotesText.Name = "txtNotesText";
             this.txtNotesText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNotesText.Size = new System.Drawing.Size(767, 113);
+            this.txtNotesText.Size = new System.Drawing.Size(788, 113);
             this.txtNotesText.TabIndex = 2;
             this.txtNotesText.TextChanged += new System.EventHandler(this.txtNotesText_TextChanged);
             // 
@@ -1600,7 +1603,7 @@
             this.correctiveScriptsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.correctiveScriptsGroupBox.Location = new System.Drawing.Point(3, 97);
             this.correctiveScriptsGroupBox.Name = "correctiveScriptsGroupBox";
-            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(948, 71);
+            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(969, 71);
             this.correctiveScriptsGroupBox.TabIndex = 8;
             this.correctiveScriptsGroupBox.TabStop = false;
             // 
@@ -1764,7 +1767,7 @@
             this.alertSuppressionGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.alertSuppressionGroupBox.Location = new System.Drawing.Point(3, 3);
             this.alertSuppressionGroupBox.Name = "alertSuppressionGroupBox";
-            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(948, 94);
+            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(969, 94);
             this.alertSuppressionGroupBox.TabIndex = 7;
             this.alertSuppressionGroupBox.TabStop = false;
             // 
@@ -1983,7 +1986,7 @@
             this.configVarsTabPage.Location = new System.Drawing.Point(4, 22);
             this.configVarsTabPage.Name = "configVarsTabPage";
             this.configVarsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.configVarsTabPage.Size = new System.Drawing.Size(954, 395);
+            this.configVarsTabPage.Size = new System.Drawing.Size(975, 395);
             this.configVarsTabPage.TabIndex = 4;
             this.configVarsTabPage.Text = "Variables";
             this.configVarsTabPage.UseVisualStyleBackColor = true;
@@ -2032,7 +2035,7 @@
             this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label42.Location = new System.Drawing.Point(3, 364);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(948, 28);
+            this.label42.Size = new System.Drawing.Size(969, 28);
             this.label42.TabIndex = 8;
             this.label42.Text = "Suggestions: Use \'variable\' names that are unique in the config XML. e.g. %SomeVa" +
     "lue%. Be careful when using quotes/doublequotes or any other characters that are" +
@@ -2051,7 +2054,7 @@
             this.moveDownConfigVarToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(3, 3);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(948, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(969, 27);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.TabStop = true;
             this.toolStrip1.Text = "toolStrip1";
@@ -2112,7 +2115,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(954, 395);
+            this.tabPage1.Size = new System.Drawing.Size(975, 395);
             this.tabPage1.TabIndex = 5;
             this.tabPage1.Text = "Action scripts";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -2154,7 +2157,7 @@
             this.runToolStripButton});
             this.toolStrip2.Location = new System.Drawing.Point(3, 3);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(948, 27);
+            this.toolStrip2.Size = new System.Drawing.Size(969, 27);
             this.toolStrip2.TabIndex = 2;
             this.toolStrip2.TabStop = true;
             this.toolStrip2.Text = "toolStrip2";
@@ -2211,10 +2214,9 @@
             // 
             // llblRawEdit
             // 
-            this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblRawEdit.AutoSize = true;
             this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRawEdit.Location = new System.Drawing.Point(10, 12);
+            this.llblRawEdit.Location = new System.Drawing.Point(13, 13);
             this.llblRawEdit.Name = "llblRawEdit";
             this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
             this.llblRawEdit.TabIndex = 7;
@@ -2224,13 +2226,13 @@
             // 
             // cmdOK
             // 
-            this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.BackColor = System.Drawing.Color.Transparent;
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(800, 7);
+            this.cmdOK.Location = new System.Drawing.Point(7, 7);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 2;
@@ -2240,12 +2242,12 @@
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.BackColor = System.Drawing.Color.Transparent;
             this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
             this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(881, 7);
+            this.cmdCancel.Location = new System.Drawing.Point(88, 7);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 3;
@@ -2260,7 +2262,7 @@
             this.panelMetrics.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMetrics.Location = new System.Drawing.Point(0, 276);
             this.panelMetrics.Name = "panelMetrics";
-            this.panelMetrics.Size = new System.Drawing.Size(964, 125);
+            this.panelMetrics.Size = new System.Drawing.Size(985, 125);
             this.panelMetrics.TabIndex = 2;
             // 
             // panelAgentStates
@@ -2270,7 +2272,7 @@
             this.panelAgentStates.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelAgentStates.Location = new System.Drawing.Point(0, 0);
             this.panelAgentStates.Name = "panelAgentStates";
-            this.panelAgentStates.Size = new System.Drawing.Size(964, 276);
+            this.panelAgentStates.Size = new System.Drawing.Size(985, 276);
             this.panelAgentStates.TabIndex = 1;
             // 
             // agentStateSplitContainer
@@ -2290,7 +2292,7 @@
             this.agentStateSplitContainer.Panel2.Controls.Add(this.collectorTimeGraph);
             this.agentStateSplitContainer.Panel2.Controls.Add(this.lvwHistory);
             this.agentStateSplitContainer.Panel2.Controls.Add(this.label3);
-            this.agentStateSplitContainer.Size = new System.Drawing.Size(964, 248);
+            this.agentStateSplitContainer.Size = new System.Drawing.Size(985, 248);
             this.agentStateSplitContainer.SplitterDistance = 96;
             this.agentStateSplitContainer.SplitterWidth = 7;
             this.agentStateSplitContainer.TabIndex = 3;
@@ -2640,7 +2642,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(964, 1);
+            this.label3.Size = new System.Drawing.Size(985, 1);
             this.label3.TabIndex = 1;
             // 
             // panel3
@@ -2652,7 +2654,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 248);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(964, 28);
+            this.panel3.Size = new System.Drawing.Size(985, 28);
             this.panel3.TabIndex = 2;
             // 
             // optGraphView
@@ -2710,7 +2712,7 @@
             this.chkRAWDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkRAWDetails.Image = global::QuickMon.Properties.Resources._131;
             this.chkRAWDetails.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.chkRAWDetails.Location = new System.Drawing.Point(869, 0);
+            this.chkRAWDetails.Location = new System.Drawing.Point(890, 0);
             this.chkRAWDetails.Name = "chkRAWDetails";
             this.chkRAWDetails.Size = new System.Drawing.Size(95, 28);
             this.chkRAWDetails.TabIndex = 3;
@@ -2759,7 +2761,7 @@
             this.rtxDetails.Location = new System.Drawing.Point(0, 0);
             this.rtxDetails.Name = "rtxDetails";
             this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(981, 191);
+            this.rtxDetails.Size = new System.Drawing.Size(1002, 192);
             this.rtxDetails.TabIndex = 2;
             this.rtxDetails.Text = "";
             // 
@@ -2790,11 +2792,12 @@
             this.panel1.Controls.Add(this.cmdActionScriptsVisible);
             this.panel1.Controls.Add(this.optMetrics);
             this.panel1.Controls.Add(this.optAgentStates);
+            this.panel1.Controls.Add(this.cmdSave);
             this.panel1.Controls.Add(this.cmdCollectorEdit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(981, 25);
+            this.panel1.Size = new System.Drawing.Size(1002, 25);
             this.panel1.TabIndex = 1;
             // 
             // cmdActionScriptsVisible
@@ -2806,7 +2809,7 @@
             this.cmdActionScriptsVisible.FlatAppearance.BorderSize = 0;
             this.cmdActionScriptsVisible.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdActionScriptsVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdActionScriptsVisible.Location = new System.Drawing.Point(954, 0);
+            this.cmdActionScriptsVisible.Location = new System.Drawing.Point(975, 0);
             this.cmdActionScriptsVisible.Name = "cmdActionScriptsVisible";
             this.cmdActionScriptsVisible.Size = new System.Drawing.Size(27, 25);
             this.cmdActionScriptsVisible.TabIndex = 4;
@@ -2819,7 +2822,7 @@
             this.optMetrics.Dock = System.Windows.Forms.DockStyle.Left;
             this.optMetrics.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
             this.optMetrics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.optMetrics.Location = new System.Drawing.Point(120, 0);
+            this.optMetrics.Location = new System.Drawing.Point(147, 0);
             this.optMetrics.Name = "optMetrics";
             this.optMetrics.Size = new System.Drawing.Size(101, 25);
             this.optMetrics.TabIndex = 1;
@@ -2834,7 +2837,7 @@
             this.optAgentStates.Dock = System.Windows.Forms.DockStyle.Left;
             this.optAgentStates.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
             this.optAgentStates.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.optAgentStates.Location = new System.Drawing.Point(27, 0);
+            this.optAgentStates.Location = new System.Drawing.Point(54, 0);
             this.optAgentStates.Name = "optAgentStates";
             this.optAgentStates.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.optAgentStates.Size = new System.Drawing.Size(93, 25);
@@ -2857,6 +2860,7 @@
             this.cmdCollectorEdit.Name = "cmdCollectorEdit";
             this.cmdCollectorEdit.Size = new System.Drawing.Size(27, 25);
             this.cmdCollectorEdit.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.cmdCollectorEdit, "Start/Stop editing");
             this.cmdCollectorEdit.UseVisualStyleBackColor = false;
             this.cmdCollectorEdit.Click += new System.EventHandler(this.cmdCollectorEdit_Click);
             // 
@@ -2869,6 +2873,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(198, 25);
             this.panel2.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(171, 25);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Action scripts";
             // 
             // cmdRunActionScript
             // 
@@ -2886,17 +2901,6 @@
             this.cmdRunActionScript.TabIndex = 8;
             this.cmdRunActionScript.UseVisualStyleBackColor = false;
             this.cmdRunActionScript.Click += new System.EventHandler(this.cmdRunActionScript_Click);
-            // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(171, 25);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Action scripts";
             // 
             // label1
             // 
@@ -2927,7 +2931,7 @@
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
             this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefresh.Location = new System.Drawing.Point(1169, 0);
+            this.cmdRefresh.Location = new System.Drawing.Point(1190, 0);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(30, 33);
             this.cmdRefresh.TabIndex = 9;
@@ -2943,7 +2947,7 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1199, 33);
+            this.panelTop.Size = new System.Drawing.Size(1220, 33);
             this.panelTop.TabIndex = 10;
             // 
             // agentsTreeListView
@@ -2963,7 +2967,7 @@
             this.agentsTreeListView.LabelEdit = true;
             this.agentsTreeListView.Location = new System.Drawing.Point(3, 30);
             this.agentsTreeListView.Name = "agentsTreeListView";
-            this.agentsTreeListView.Size = new System.Drawing.Size(948, 362);
+            this.agentsTreeListView.Size = new System.Drawing.Size(969, 362);
             this.agentsTreeListView.SmallImageList = this.agentsImageList;
             this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
             this.agentsTreeListView.TabIndex = 4;
@@ -2997,7 +3001,7 @@
             this.lvwConfigVars.HideSelection = false;
             this.lvwConfigVars.Location = new System.Drawing.Point(2, 33);
             this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(949, 300);
+            this.lvwConfigVars.Size = new System.Drawing.Size(970, 300);
             this.lvwConfigVars.TabIndex = 9;
             this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
             this.lvwConfigVars.View = System.Windows.Forms.View.Details;
@@ -3032,7 +3036,7 @@
             this.lvwActionScriptsEdit.HideSelection = false;
             this.lvwActionScriptsEdit.Location = new System.Drawing.Point(3, 30);
             this.lvwActionScriptsEdit.Name = "lvwActionScriptsEdit";
-            this.lvwActionScriptsEdit.Size = new System.Drawing.Size(948, 362);
+            this.lvwActionScriptsEdit.Size = new System.Drawing.Size(969, 362);
             this.lvwActionScriptsEdit.TabIndex = 3;
             this.lvwActionScriptsEdit.UseCompatibleStateImageBehavior = false;
             this.lvwActionScriptsEdit.View = System.Windows.Forms.View.Details;
@@ -3086,7 +3090,7 @@
             this.lvwMetrics.HideSelection = false;
             this.lvwMetrics.Location = new System.Drawing.Point(0, 0);
             this.lvwMetrics.Name = "lvwMetrics";
-            this.lvwMetrics.Size = new System.Drawing.Size(962, 123);
+            this.lvwMetrics.Size = new System.Drawing.Size(983, 123);
             this.lvwMetrics.TabIndex = 0;
             this.lvwMetrics.UseCompatibleStateImageBehavior = false;
             this.lvwMetrics.View = System.Windows.Forms.View.Details;
@@ -3118,7 +3122,7 @@
             this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
             this.tlvAgentStates.MultiSelect = false;
             this.tlvAgentStates.Name = "tlvAgentStates";
-            this.tlvAgentStates.Size = new System.Drawing.Size(964, 96);
+            this.tlvAgentStates.Size = new System.Drawing.Size(985, 96);
             this.tlvAgentStates.SmallImageList = this.imagesCollectorTree;
             this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
             this.tlvAgentStates.TabIndex = 1;
@@ -3200,7 +3204,7 @@
             this.lvwHistory.HideSelection = false;
             this.lvwHistory.Location = new System.Drawing.Point(0, 1);
             this.lvwHistory.Name = "lvwHistory";
-            this.lvwHistory.Size = new System.Drawing.Size(964, 144);
+            this.lvwHistory.Size = new System.Drawing.Size(985, 144);
             this.lvwHistory.SmallImageList = this.imagesCollectorTree;
             this.lvwHistory.TabIndex = 0;
             this.lvwHistory.UseCompatibleStateImageBehavior = false;
@@ -3252,12 +3256,49 @@
             // 
             this.nameActionScriptColumnHeader.Text = "Name";
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.panel5);
+            this.panel4.Controls.Add(this.llblRawEdit);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(983, 38);
+            this.panel4.TabIndex = 8;
+            // 
+            // cmdSave
+            // 
+            this.cmdSave.BackColor = System.Drawing.Color.Transparent;
+            this.cmdSave.BackgroundImage = global::QuickMon.Properties.Resources.save24x24;
+            this.cmdSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdSave.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cmdSave.FlatAppearance.BorderSize = 0;
+            this.cmdSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.cmdSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdSave.Location = new System.Drawing.Point(27, 0);
+            this.cmdSave.Name = "cmdSave";
+            this.cmdSave.Size = new System.Drawing.Size(27, 25);
+            this.cmdSave.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.cmdSave, "Save changes");
+            this.cmdSave.UseVisualStyleBackColor = false;
+            this.cmdSave.Click += new System.EventHandler(this.cmdOK_Click);
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.cmdCancel);
+            this.panel5.Controls.Add(this.cmdOK);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel5.Location = new System.Drawing.Point(817, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(166, 38);
+            this.panel5.TabIndex = 8;
+            // 
             // CollectorDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1199, 701);
+            this.ClientSize = new System.Drawing.Size(1220, 701);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.statusStripCollector);
@@ -3283,7 +3324,6 @@
             this.panelEditing.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -3355,6 +3395,9 @@
             this.panel2.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3620,5 +3663,8 @@
         private System.Windows.Forms.ToolStripMenuItem legendVisibleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportGraphToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem customizeToolStripMenuItem;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button cmdSave;
+        private System.Windows.Forms.Panel panel5;
     }
 }
