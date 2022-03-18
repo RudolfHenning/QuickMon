@@ -1413,19 +1413,26 @@ namespace QuickMon
             }
             else
             {
+                SizeF menuSz = this.CreateGraphics().MeasureString(" Collectors", splitButtonCollectors.Font);
+
                 panelSlimMenu.Width = 120;
-                cmdMenu.Text = " Menu";
-                cmdNew.Text = " New";
-                cmdOpen.Text = " Open";
-                splitButtonSave.ButtonText = " Save";
-                splitButtonCollectors.ButtonText = " Collectors";
-                splitButtonNotifiers.ButtonText = " Notifiers";
-                splitButtonRecent.ButtonText = " Recent";
-                cmdSettings.Text = " Settings";
-                cmdTemplates.Text = " Templates";                
-                cmdRemoteHosts.Text = " Remote Hosts";
-                aboutSplitButton.ButtonText = " About";
-                cmdAdminMode.Text = " Admin Mode";
+                if (menuSz.Width > 60)
+                    panelSlimMenu.Width = 140;
+                string nbsp = " ";
+                cmdMenu.Text = nbsp + "Menu";
+                cmdNew.Text = nbsp + "New";
+                cmdOpen.Text = nbsp + "Open";
+                splitButtonSave.ButtonText = nbsp + "Save";
+                splitButtonCollectors.ButtonText = nbsp + "Collectors";
+                splitButtonNotifiers.ButtonText = nbsp + "Notifiers";
+                splitButtonRecent.ButtonText = nbsp + "Recent";
+                cmdSettings.Text = nbsp + "Settings";
+                cmdTemplates.Text = nbsp + "Templates";                
+                cmdRemoteHosts.Text = nbsp + "Remote" + nbsp + "Hosts";
+                aboutSplitButton.ButtonText = nbsp + "About";
+                cmdAdminMode.Text = nbsp + "Admin" + nbsp + "Mode";
+
+                toolStripStatusLabelStatus.Text = $"{menuSz.Width}:{panelSlimMenu.Width}:{splitButtonCollectors.Width}:{this.Width}";
             }
         }
         private void ShowTemplates()
