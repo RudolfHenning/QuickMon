@@ -232,7 +232,8 @@ namespace QuickMon
                     monitorPack = null;
                     NewMonitorPack();
                 }
-                monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+                if (monitorPack != null)                
+                    monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
                 UpdatePauseButton();
             }
             catch (Exception ex)
@@ -672,6 +673,8 @@ namespace QuickMon
                 }
                 else
                     newCh.ParentCollectorId = "";
+                if (monitorPack == null)
+                    monitorPack = new MonitorPack();
                 monitorPack.AddCollectorHost(newCh);
                 LoadCollectorNode(parentNode, newCh);
                 tvwCollectors.SelectedNode = (TreeNodeEx)newCh.Tag;
@@ -1684,13 +1687,14 @@ namespace QuickMon
                     if (snet.SelectedMonitorPack != null)
                     {
                         monitorPack = snet.SelectedMonitorPack;
-                    }
-                    else
-                    {
-                        monitorPack = new MonitorPack();
-                        monitorPack.LoadXml(Properties.Resources.BlankMonitorPack);
-                    }
-                }                
+                    }                    
+                }
+                if (monitorPack == null)
+                {
+                    isNewMonitorPack = true;
+                    monitorPack = new MonitorPack();
+                    monitorPack.LoadXml(Properties.Resources.BlankMonitorPack);
+                }
             }
             else
             {

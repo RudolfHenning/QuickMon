@@ -109,31 +109,21 @@ namespace QuickMon.UI
             ListViewGroup generalGroup = new ListViewGroup("General");
             lvwAgentType.Groups.Add(generalGroup);
             ListViewItem lviEmptyCollector = new ListViewItem("Folder/Blank collector");
-            //lviEmptyCollector.SubItems.Add("Creates a blank collector with no agents");
-            //lviEmptyCollector.Group = generalGroup;
-            //lviEmptyCollector.Tag = new CollectorHost() { Name = "Folder" };            
-            //lvwAgentType.Items.Add(lviEmptyCollector);
-
-            //lviEmptyCollector = new ListViewItem("Folder/Blank Collector");
             lviEmptyCollector.SubItems.Add("Creates a blank collector with no agents");
             lviEmptyCollector.Group = generalGroup;
             lviEmptyCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"[[FolderName:]]\"><collectorAgents agentCheckSequence=\"All\"></collectorAgents></collectorHost>").Clone(true);
             lvwAgentType.Items.Add(lviEmptyCollector);
 
-            //<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"[[FolderName:]]\"><collectorAgents agentCheckSequence="All"></collectorAgents></collectorHost>
-
             ListViewItem lviPingCollector = new ListViewItem("Ping (ICMP)");
             lviPingCollector.SubItems.Add("Creates a collector with a Ping (ICMP) agent");
             lviPingCollector.Group = generalGroup;
             lviPingCollector.Tag = CollectorHost.FromXml(Properties.Resources.ICMPPingTemplate).Clone(true);
-            //lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"[[NamePrefix:Ping ]][[!MachineName:localhost]]\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"[[NamePrefix:Ping ]][[!MachineName:localhost]]\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Ping\" address=\"[[!MachineName:localhost]]\" maxTimeMS=\"[[maxTimeMS:1000]]\" timeOutMS=\"[[timeOutMS:5000]]\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
             lvwAgentType.Items.Add(lviPingCollector);
 
             lviPingCollector = new ListViewItem("Ping (http)");
             lviPingCollector.SubItems.Add("Creates a collector with a Ping (http) agent");
             lviPingCollector.Group = generalGroup;
             lviPingCollector.Tag = CollectorHost.FromXml(Properties.Resources.HTTPPingTemplate).Clone(true);
-            //lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"[[NamePrefix:Ping ]][[Protocol:http://]][[!Address:localhost]]\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"[[NamePrefix:Ping ]][[Protocol:http://]][[!Address:localhost]]\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Http\" address=\"[[Protocol:http://]][[!Address:localhost]]\" maxTimeMS=\"[[maxTimeMS:2000]]\" timeOutMS=\"[[timeOutMS:5000]]\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
             lvwAgentType.Items.Add(lviPingCollector);
 
             ListViewGroup templatesGroup = new ListViewGroup("Templates");
