@@ -384,7 +384,6 @@
             this.llblDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.llblDetails.Cursor = System.Windows.Forms.Cursors.Hand;
             this.llblDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.llblDetails.Enabled = false;
             this.llblDetails.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.llblDetails.Location = new System.Drawing.Point(0, 236);
             this.llblDetails.Name = "llblDetails";
@@ -449,6 +448,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "CollectorFilterView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Collector states by filter";

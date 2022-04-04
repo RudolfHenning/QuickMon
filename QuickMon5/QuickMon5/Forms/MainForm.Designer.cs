@@ -976,7 +976,7 @@ namespace QuickMon
             this.llblNotifierViewToggle.Size = new System.Drawing.Size(439, 25);
             this.llblNotifierViewToggle.TabIndex = 40;
             this.llblNotifierViewToggle.TabStop = true;
-            this.llblNotifierViewToggle.Text = "► Show Notifiers";
+            this.llblNotifierViewToggle.Text = "+ Show Notifiers";
             this.llblNotifierViewToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.llblNotifierViewToggle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblNotifierViewToggle_LinkClicked);
             this.llblNotifierViewToggle.DoubleClick += new System.EventHandler(this.llblNotifierViewToggle_DoubleClick);
@@ -1262,7 +1262,7 @@ namespace QuickMon
             this.aboutSplitButton.ButtonPadding = new System.Windows.Forms.Padding(0);
             this.aboutSplitButton.ButtonText = "";
             this.aboutSplitButton.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.aboutSplitButton.ButtonToolTip = "Notifiers";
+            this.aboutSplitButton.ButtonToolTip = "About";
             this.aboutSplitButton.ContextMenuStrip = this.notifiersContextMenuStrip;
             this.aboutSplitButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.aboutSplitButton.Location = new System.Drawing.Point(0, 307);
@@ -1396,7 +1396,7 @@ namespace QuickMon
             // changeLogToolStripMenuItem
             // 
             this.changeLogToolStripMenuItem.Name = "changeLogToolStripMenuItem";
-            this.changeLogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeLogToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.changeLogToolStripMenuItem.Text = "Change log";
             this.changeLogToolStripMenuItem.Click += new System.EventHandler(this.changeLogToolStripMenuItem_Click);
             // 

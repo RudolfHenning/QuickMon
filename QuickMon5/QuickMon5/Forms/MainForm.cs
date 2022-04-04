@@ -905,7 +905,7 @@ namespace QuickMon
         private void UpdateNotifiersLabel()
         {
             //TreeNode notifierRoot = tvwNotifiers.Nodes[0];
-            llblNotifierViewToggle.Text = masterSplitContainer.Panel2Collapsed ? "► Show Notifiers" : "▼ Hide Notifiers";
+            llblNotifierViewToggle.Text = masterSplitContainer.Panel2Collapsed ? "+ Show Notifiers" : "- Hide Notifiers";
             if (tvwNotifiers.Nodes.Count > 0)
             {
                 StringBuilder notSummary = new StringBuilder();

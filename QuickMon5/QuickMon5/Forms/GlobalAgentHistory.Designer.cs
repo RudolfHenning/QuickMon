@@ -60,6 +60,8 @@ namespace QuickMon
             this.rawViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rawViewCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rawViewSelectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.llblDetails = new System.Windows.Forms.LinkLabel();
+            this.lblResetText = new QuickMon.Controls.LinkLabelEx();
             this.panelTop.SuspendLayout();
             this.filtersPanel.SuspendLayout();
             this.statusStripCollector.SuspendLayout();
@@ -82,21 +84,22 @@ namespace QuickMon
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(784, 33);
-            this.panelTop.TabIndex = 11;
+            this.panelTop.TabIndex = 0;
             // 
             // filtersPanel
             // 
             this.filtersPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.filtersPanel.Controls.Add(this.lblResetText);
             this.filtersPanel.Controls.Add(this.txtFilter);
             this.filtersPanel.Controls.Add(this.label6);
             this.filtersPanel.Controls.Add(this.cboStateFilter);
             this.filtersPanel.Controls.Add(this.label5);
             this.filtersPanel.Controls.Add(this.label4);
-            this.filtersPanel.Location = new System.Drawing.Point(34, 0);
+            this.filtersPanel.Location = new System.Drawing.Point(0, 0);
             this.filtersPanel.Name = "filtersPanel";
             this.filtersPanel.Size = new System.Drawing.Size(542, 33);
-            this.filtersPanel.TabIndex = 14;
+            this.filtersPanel.TabIndex = 0;
             // 
             // txtFilter
             // 
@@ -107,9 +110,10 @@ namespace QuickMon
             this.txtFilter.HideSelection = false;
             this.txtFilter.Location = new System.Drawing.Point(243, 5);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(296, 21);
+            this.txtFilter.Size = new System.Drawing.Size(280, 21);
             this.txtFilter.TabIndex = 4;
             this.txtFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtFilter_EnterKeyPressed);
+            this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             // 
             // label6
             // 
@@ -163,10 +167,10 @@ namespace QuickMon
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(705, 7);
+            this.label2.Location = new System.Drawing.Point(671, 7);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 15);
-            this.label2.TabIndex = 12;
+            this.label2.TabIndex = 3;
             this.label2.Text = "Entries";
             // 
             // cbomaxResults
@@ -182,20 +186,20 @@ namespace QuickMon
             "1000",
             "10000",
             "100000"});
-            this.cbomaxResults.Location = new System.Drawing.Point(621, 6);
+            this.cbomaxResults.Location = new System.Drawing.Point(587, 6);
             this.cbomaxResults.Name = "cbomaxResults";
             this.cbomaxResults.Size = new System.Drawing.Size(78, 21);
-            this.cbomaxResults.TabIndex = 11;
+            this.cbomaxResults.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(582, 8);
+            this.label1.Location = new System.Drawing.Point(548, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 16);
-            this.label1.TabIndex = 10;
+            this.label1.TabIndex = 1;
             this.label1.Text = "Last";
             // 
             // cmdRefresh
@@ -203,14 +207,14 @@ namespace QuickMon
             this.cmdRefresh.BackColor = System.Drawing.Color.Transparent;
             this.cmdRefresh.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
             this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
             this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefresh.Location = new System.Drawing.Point(0, 0);
+            this.cmdRefresh.Location = new System.Drawing.Point(728, 0);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(28, 33);
-            this.cmdRefresh.TabIndex = 9;
+            this.cmdRefresh.TabIndex = 4;
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
@@ -226,7 +230,7 @@ namespace QuickMon
             this.cmdViewDetails.Location = new System.Drawing.Point(756, 0);
             this.cmdViewDetails.Name = "cmdViewDetails";
             this.cmdViewDetails.Size = new System.Drawing.Size(28, 33);
-            this.cmdViewDetails.TabIndex = 13;
+            this.cmdViewDetails.TabIndex = 5;
             this.cmdViewDetails.UseVisualStyleBackColor = false;
             this.cmdViewDetails.Click += new System.EventHandler(this.cmdViewDetails_Click);
             // 
@@ -239,7 +243,7 @@ namespace QuickMon
             this.statusStripCollector.Location = new System.Drawing.Point(0, 539);
             this.statusStripCollector.Name = "statusStripCollector";
             this.statusStripCollector.Size = new System.Drawing.Size(784, 22);
-            this.statusStripCollector.TabIndex = 12;
+            this.statusStripCollector.TabIndex = 2;
             this.statusStripCollector.Text = "statusStrip1";
             // 
             // lastUpdateTimeToolStripStatusLabel
@@ -273,6 +277,7 @@ namespace QuickMon
             // agentStateSplitContainer.Panel1
             // 
             this.agentStateSplitContainer.Panel1.Controls.Add(this.lvwHistory);
+            this.agentStateSplitContainer.Panel1.Controls.Add(this.llblDetails);
             // 
             // agentStateSplitContainer.Panel2
             // 
@@ -281,7 +286,7 @@ namespace QuickMon
             this.agentStateSplitContainer.Size = new System.Drawing.Size(784, 506);
             this.agentStateSplitContainer.SplitterDistance = 304;
             this.agentStateSplitContainer.SplitterWidth = 6;
-            this.agentStateSplitContainer.TabIndex = 13;
+            this.agentStateSplitContainer.TabIndex = 1;
             // 
             // lvwHistory
             // 
@@ -299,7 +304,7 @@ namespace QuickMon
             this.lvwHistory.HideSelection = false;
             this.lvwHistory.Location = new System.Drawing.Point(0, 0);
             this.lvwHistory.Name = "lvwHistory";
-            this.lvwHistory.Size = new System.Drawing.Size(784, 304);
+            this.lvwHistory.Size = new System.Drawing.Size(784, 286);
             this.lvwHistory.SmallImageList = this.imagesCollectorTree;
             this.lvwHistory.TabIndex = 0;
             this.lvwHistory.UseCompatibleStateImageBehavior = false;
@@ -383,6 +388,42 @@ namespace QuickMon
             this.rawViewSelectAllToolStripMenuItem.Text = "Select &All";
             this.rawViewSelectAllToolStripMenuItem.Click += new System.EventHandler(this.rawViewSelectAllToolStripMenuItem_Click);
             // 
+            // llblDetails
+            // 
+            this.llblDetails.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.llblDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.llblDetails.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.llblDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.llblDetails.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.llblDetails.Location = new System.Drawing.Point(0, 286);
+            this.llblDetails.Name = "llblDetails";
+            this.llblDetails.Size = new System.Drawing.Size(784, 18);
+            this.llblDetails.TabIndex = 2;
+            this.llblDetails.TabStop = true;
+            this.llblDetails.Text = "Details";
+            this.llblDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.llblDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblDetails_LinkClicked);
+            // 
+            // lblResetText
+            // 
+            this.lblResetText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblResetText.AutoSize = true;
+            this.lblResetText.BackColorOnEnter = System.Drawing.Color.LightCyan;
+            this.lblResetText.BackColorOnLeave = System.Drawing.Color.White;
+            this.lblResetText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblResetText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResetText.ForeColor = System.Drawing.Color.Red;
+            this.lblResetText.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lblResetText.LinkColor = System.Drawing.Color.Red;
+            this.lblResetText.Location = new System.Drawing.Point(524, 8);
+            this.lblResetText.Name = "lblResetText";
+            this.lblResetText.Size = new System.Drawing.Size(15, 13);
+            this.lblResetText.TabIndex = 7;
+            this.lblResetText.TabStop = true;
+            this.lblResetText.Text = "X";
+            this.lblResetText.Visible = false;
+            this.lblResetText.Click += new System.EventHandler(this.lblResetText_Click);
+            // 
             // GlobalAgentHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -446,5 +487,7 @@ namespace QuickMon
         private System.Windows.Forms.Label label5;
         private TextBoxEx txtFilter;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.LinkLabel llblDetails;
+        private LinkLabelEx lblResetText;
     }
 }

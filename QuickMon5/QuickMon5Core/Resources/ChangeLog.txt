@@ -235,3 +235,5 @@ Version 5.3.9 (2022-03-30)
 **************
 Bugfix - Error when creating new Monitor pack and close the select template window without choosing a template.
 Bugfix - When creating new Monitor pack and close the select template window without choosing a template update events of collectors do not fire.
+BugFix - Tooltip on About button
+Global Agent History window - change control layout to be more consistent with rest of the application

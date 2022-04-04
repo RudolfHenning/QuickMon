@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HenIT.Data;
 
 namespace QuickMon
 {
@@ -81,6 +82,7 @@ namespace QuickMon
             cboStateFilter.SelectedIndex = 0;
             cbomaxResults.SelectedIndex = 2;
             agentStateSplitContainer.Panel2Collapsed = true;
+            cmdViewDetails.Visible = false;
         }
         private void GlobalAgentHistory_Shown(object sender, EventArgs e)
         {
@@ -123,7 +125,6 @@ namespace QuickMon
                             if (IsInStateFilter(st, stateFilter))
                                 allMonitorStates.Add(FormatMonitorState(collector, st));
                         }
-                        //collector.StateHistory.OrderByDescending(st=>st.Timestamp).Take(maxResults).ToList().ForEach(st => allMonitorStates.Add(FormatMonitorState(collector, st)));
                     }
                 }
 
@@ -133,10 +134,11 @@ namespace QuickMon
                     ListViewItem lvi = new ListViewItem(st.ForAgent) { Tag = st };
                     lvi.ImageIndex = GetNodeStateImageIndex(st.State);
                     lvi.SubItems.Add(st.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
-                    lvi.SubItems.Add(st.CurrentValue.ToString()); // ReadPrimaryOrFirstUIValue());
+                    lvi.SubItems.Add(st.CurrentValue.ToString());
                     lvi.SubItems.Add(st.CallDurationMS.ToString());
                     lvi.SubItems.Add(st.AlertsRaised.Count.ToString());
                     listViewItems.Add(lvi);
+                    lvi.Tag = st;
                 }
 
                 this.Invoke((MethodInvoker)delegate ()
@@ -155,11 +157,11 @@ namespace QuickMon
         {
             if (textFilter.Trim().Length == 0)
                 return true;
-            else if (collector.Name.ToLower().Contains(textFilter.ToLower()))
+            else if (collector.Name.ToLower().ContainEx(textFilter.ToLower()))
                 return true;
-            else if (collector.CurrentState.ExecutedOnHostComputer != null && collector.CurrentState.ExecutedOnHostComputer.ToLower().Contains(textFilter.ToLower()))
+            else if (collector.CurrentState.ExecutedOnHostComputer != null && collector.CurrentState.ExecutedOnHostComputer.ToLower().ContainEx(textFilter.ToLower()))
                 return true;
-            else if (GetCollectorPath(collector).ToLower().Contains(textFilter.ToLower()))
+            else if (GetCollectorPath(collector).ToLower().ContainEx(textFilter.ToLower()))
                 return true;
             else
                 return false;
@@ -287,6 +289,7 @@ namespace QuickMon
         private void cmdViewDetails_Click(object sender, EventArgs e)
         {
             agentStateSplitContainer.Panel2Collapsed = !agentStateSplitContainer.Panel2Collapsed;
+            llblDetails.Text = agentStateSplitContainer.Panel2Collapsed ? "Show Details" : "Hide Details";
         }
 
         private void rawViewCopyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -301,6 +304,22 @@ namespace QuickMon
         private void txtFilter_EnterKeyPressed()
         {
             LoadControls();
+        }
+
+        private void llblDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            agentStateSplitContainer.Panel2Collapsed = !agentStateSplitContainer.Panel2Collapsed;
+            llblDetails.Text = agentStateSplitContainer.Panel2Collapsed ? "Show Details" : "Hide Details";
+        }
+
+        private void txtFilter_TextChanged(object sender, EventArgs e)
+        {
+            lblResetText.Visible = txtFilter.Text.Length > 0;
+        }
+
+        private void lblResetText_Click(object sender, EventArgs e)
+        {
+            txtFilter.Text = "";
         }
     }
 }

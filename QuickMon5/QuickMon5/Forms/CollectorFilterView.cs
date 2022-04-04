@@ -233,7 +233,7 @@ namespace QuickMon
             UpdateRawView();
             addCategoriesToolStripMenuItem.Enabled = (lvwCollectorStates.SelectedItems.Count > 0);
             removeCategoriesToolStripMenuItem.Enabled = (lvwCollectorStates.SelectedItems.Count > 0);
-            llblDetails.Enabled = (lvwCollectorStates.SelectedItems.Count > 0) || !agentStateSplitContainer.Panel2Collapsed;
+            //llblDetails.Enabled = (lvwCollectorStates.SelectedItems.Count > 0) || !agentStateSplitContainer.Panel2Collapsed;
             
             selectionUpdated.Enabled = false;
             selectionUpdated.Enabled = true;
@@ -473,7 +473,7 @@ namespace QuickMon
 
         private void txtFilter_TextChanged(object sender, EventArgs e)
         {
-            lblResetText.Visible = txtFilter.Text.Length > 0;            
+            lblResetText.Visible = txtFilter.Text.Length > 0;
         }
 
         private void lblResetText_Click(object sender, EventArgs e)
