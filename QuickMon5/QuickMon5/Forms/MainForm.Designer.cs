@@ -302,6 +302,7 @@ namespace QuickMon
             this.cmdRemoteHosts.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRemoteHosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdRemoteHosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRemoteHosts.ForeColor = System.Drawing.Color.Navy;
             this.cmdRemoteHosts.Image = global::QuickMon.Properties.Resources.remote24x24;
             this.cmdRemoteHosts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdRemoteHosts.Location = new System.Drawing.Point(0, 247);
@@ -322,6 +323,7 @@ namespace QuickMon
             this.cmdOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdOpen.ForeColor = System.Drawing.Color.Navy;
             this.cmdOpen.Image = global::QuickMon.Properties.Resources.folderOpen24x24;
             this.cmdOpen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdOpen.Location = new System.Drawing.Point(0, 63);
@@ -342,6 +344,7 @@ namespace QuickMon
             this.cmdNew.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdNew.ForeColor = System.Drawing.Color.Navy;
             this.cmdNew.Image = global::QuickMon.Properties.Resources.doc_new1;
             this.cmdNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdNew.Location = new System.Drawing.Point(0, 33);
@@ -363,6 +366,7 @@ namespace QuickMon
             this.cmdMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdMenu.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdMenu.ForeColor = System.Drawing.Color.Navy;
             this.cmdMenu.Image = global::QuickMon.Properties.Resources.menu_alt_16b1;
             this.cmdMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdMenu.Location = new System.Drawing.Point(0, 0);
@@ -385,6 +389,7 @@ namespace QuickMon
             this.cmdTemplates.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTemplates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdTemplates.ForeColor = System.Drawing.Color.Navy;
             this.cmdTemplates.Image = global::QuickMon.Properties.Resources.tables24x24;
             this.cmdTemplates.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdTemplates.Location = new System.Drawing.Point(0, 217);
@@ -425,6 +430,7 @@ namespace QuickMon
             this.cmdSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdSettings.ForeColor = System.Drawing.Color.Navy;
             this.cmdSettings.Image = global::QuickMon.Properties.Resources.tools24x24;
             this.cmdSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdSettings.Location = new System.Drawing.Point(0, 277);
@@ -1265,6 +1271,7 @@ namespace QuickMon
             this.aboutSplitButton.ButtonToolTip = "About";
             this.aboutSplitButton.ContextMenuStrip = this.notifiersContextMenuStrip;
             this.aboutSplitButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.aboutSplitButton.ForeColor = System.Drawing.Color.Navy;
             this.aboutSplitButton.Location = new System.Drawing.Point(0, 307);
             this.aboutSplitButton.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.aboutSplitButton.Name = "aboutSplitButton";
@@ -1287,6 +1294,7 @@ namespace QuickMon
             this.splitButtonNotifiers.ButtonToolTip = "Notifiers";
             this.splitButtonNotifiers.ContextMenuStrip = this.notifiersContextMenuStrip;
             this.splitButtonNotifiers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitButtonNotifiers.ForeColor = System.Drawing.Color.Navy;
             this.splitButtonNotifiers.Location = new System.Drawing.Point(0, 186);
             this.splitButtonNotifiers.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.splitButtonNotifiers.Name = "splitButtonNotifiers";
@@ -1309,6 +1317,7 @@ namespace QuickMon
             this.splitButtonCollectors.ButtonToolTip = "Collectors";
             this.splitButtonCollectors.ContextMenuStrip = this.collectorsContextMenuStrip;
             this.splitButtonCollectors.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitButtonCollectors.ForeColor = System.Drawing.Color.Navy;
             this.splitButtonCollectors.Location = new System.Drawing.Point(0, 155);
             this.splitButtonCollectors.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.splitButtonCollectors.Name = "splitButtonCollectors";
@@ -1331,6 +1340,7 @@ namespace QuickMon
             this.splitButtonSave.ButtonToolTip = "Save  (CTRL+S)";
             this.splitButtonSave.ContextMenuStrip = this.saveContextMenuStrip;
             this.splitButtonSave.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitButtonSave.ForeColor = System.Drawing.Color.Navy;
             this.splitButtonSave.Location = new System.Drawing.Point(0, 124);
             this.splitButtonSave.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.splitButtonSave.Name = "splitButtonSave";
@@ -1353,6 +1363,7 @@ namespace QuickMon
             this.splitButtonRecent.ButtonToolTip = "Recent Monitor Packs (CTRL+R)";
             this.splitButtonRecent.ContextMenuStrip = this.recentMPContextMenuStrip;
             this.splitButtonRecent.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitButtonRecent.ForeColor = System.Drawing.Color.Navy;
             this.splitButtonRecent.Location = new System.Drawing.Point(0, 93);
             this.splitButtonRecent.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.splitButtonRecent.Name = "splitButtonRecent";
@@ -1370,7 +1381,7 @@ namespace QuickMon
             // 
             // fullRecentListToolStripMenuItem
             // 
-            this.fullRecentListToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folderClock_16;
+            this.fullRecentListToolStripMenuItem.Image = global::QuickMon.Properties.Resources.lightningblue;
             this.fullRecentListToolStripMenuItem.Name = "fullRecentListToolStripMenuItem";
             this.fullRecentListToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.fullRecentListToolStripMenuItem.Text = "Quick list";

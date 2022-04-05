@@ -522,7 +522,10 @@ namespace QuickMon.UI
             tipWindow.TextAlign = HorizontalAlignment.Center;
             tipWindow.FormBorderStyle = FormBorderStyle.SizableToolWindow;
             tipWindow.TopMost = true;
-            tipWindow.ShowText("Variables tip", "\r\nYou can set up variables that will be use to prompt you for a value when use the template.\r\n\r\nUse [[Variable Name]] to create a variable named 'Variable Name'\r\n\r\nTo specify a default value use [[Variable Name:default value]]", true);
+            tipWindow.ShowText("Variables tip", "\r\nYou can set up variables that will be use to prompt you for a value when use the template.\r\n\r\n" + 
+                "Use [[Variable Name]] to create a variable named 'Variable Name'\r\n\r\n" +
+                "To specify a default value use [[Variable Name:default value]]\r\n\r\n" +
+                "To set a variable as the first one to get focus use [[!Variable Name:default value]]", true);
         }
     }
 }

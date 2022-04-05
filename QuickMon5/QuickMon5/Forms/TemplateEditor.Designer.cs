@@ -324,7 +324,6 @@
             this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtConfig.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtConfig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtConfig.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtConfig.IsReplaceMode = false;
             this.txtConfig.Language = FastColoredTextBoxNS.Language.XML;
             this.txtConfig.LeftBracket = '<';
@@ -396,7 +395,7 @@
             // 
             this.llblVariableTip.AutoSize = true;
             this.llblVariableTip.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblVariableTip.Location = new System.Drawing.Point(86, 11);
+            this.llblVariableTip.Location = new System.Drawing.Point(86, 12);
             this.llblVariableTip.Name = "llblVariableTip";
             this.llblVariableTip.Size = new System.Drawing.Size(64, 13);
             this.llblVariableTip.TabIndex = 3;
