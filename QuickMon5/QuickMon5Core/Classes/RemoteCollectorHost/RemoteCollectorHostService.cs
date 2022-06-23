@@ -84,11 +84,16 @@ namespace QuickMon
                     monitorState.HtmlDetails= collectorHostConfig.EscapeXml();
                     monitorState.State = CollectorState.Error;
                 }
+                
+
                 //If hosted in console test app
                 consoleOutPut.AppendFormat("{0}: Results for collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);                
                 consoleOutPut.AppendFormat(" State   : {0}\r\n", monitorState.State);
                 consoleOutPut.AppendFormat(" Ran as  : {0}\r\n", monitorState.RanAs);
-                consoleOutPut.AppendFormat(" Details : {0}\r\n", monitorState.ReadAllRawDetails());                
+                consoleOutPut.AppendFormat(" Details : {0}\r\n", monitorState.ReadAllRawDetails());
+
+                m.CloseMonitorPack();
+                m = null;
             }
             catch (Exception ex)
             {

@@ -132,6 +132,9 @@ namespace QuickMon
                 monitorPack.IsPollingEnabled = false;
                 monitorPack.CloseMonitorPack();
             }
+            packs.Clear();
+            packs = null;
+            PCSetMonitorPacksLoaded(0);
             if (wcfServiceHost != null)
             {
                 wcfServiceHost.Close();
@@ -185,7 +188,6 @@ namespace QuickMon
                 monitorPack.Load(monitorPackPath);
                 monitorPack.ApplicationUserNameCacheMasterKey = Properties.Settings.Default.ApplicationMasterKey;
                 monitorPack.ApplicationUserNameCacheFilePath = Properties.Settings.Default.ApplicationUserNameCacheFilePath;
-                //monitorPack.CollectorStateHistorySize = 0; //For service history is always disabled!!
                 if (monitorPack.NotifierHosts != null && monitorPack.NotifierHosts.Count > 0)
                 {
                     foreach (var notifier in monitorPack.NotifierHosts)

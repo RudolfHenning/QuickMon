@@ -342,24 +342,6 @@ namespace QuickMon.Collectors
                                 }
                             }
                         }
-
-                        //if (pipeline.HadErrors)
-                        //{
-                        //    PipelineReader<object> errs = pipeline.Error;
-                        //    //while (!pipeline.Error.EndOfPipeline)
-                        //    //{
-                        //    //    errorLogged += errs.Read().ToString();
-                        //    //}
-
-                        //    if (errs.Count > 0)
-                        //    {
-                        //        for (int i = 0; i < errs.Count; i++)
-                        //        {
-                        //            errorLogged += errs.Read().ToString() + "\r\n";
-                        //        }
-                        //        System.Diagnostics.Trace.WriteLine($"Error: {errs.Read()}");
-                        //    }                                
-                        //}
                     }                   
 
                     // close the runspace
@@ -386,7 +368,13 @@ namespace QuickMon.Collectors
                 {
                     stringBuilder.AppendLine($"Exception(s):{errorLogged}");
                 }
-                output = stringBuilder.ToString();                
+                output = stringBuilder.ToString();
+
+                //cleanups
+                if (results != null)
+                    results.Clear();
+                results = null;
+                stringBuilder = null;
             }
             catch (Exception ex)
             {
@@ -407,7 +395,7 @@ namespace QuickMon.Collectors
             {
                 //in order to ensure there is an exit code wrap it inside a PowerShell {} block
 
-                testScript = "PowerShell {\r\n" + testScript + "\r\n}";//\r\n\"Exit code : $LASTEXITCODE\"";
+                testScript = "PowerShell {\r\n" + testScript + "\r\n}";
 
                 Collection<PSObject> results = null;
                 Collection<PSObject> exitCodeResults = null;
@@ -474,8 +462,6 @@ namespace QuickMon.Collectors
                 // convert the script result into a single string
                 StringBuilder stringBuilder = new StringBuilder();
 
-                
-
                 if (results != null)
                 {
                     foreach (PSObject obj in results)
@@ -513,6 +499,14 @@ namespace QuickMon.Collectors
 
                 output = stringBuilder.ToString();
 
+                //cleanups
+                if (results != null)
+                    results.Clear();
+                results = null;
+                if (exitCodeResults != null)
+                    exitCodeResults.Clear();
+                exitCodeResults = null;
+                stringBuilder = null;
             }
             catch (Exception ex)
             {
