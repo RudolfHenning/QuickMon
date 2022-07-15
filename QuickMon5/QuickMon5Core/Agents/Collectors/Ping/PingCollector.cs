@@ -293,7 +293,8 @@ namespace QuickMon.Collectors
                 }
                 else
                 {
-                    currentState.State = CollectorState.Good;                    
+                    currentState.State = CollectorState.Good;
+                    currentState.RawDetails = pingResult.ResponseDetails;
                 }
             }
             else
@@ -445,6 +446,7 @@ namespace QuickMon.Collectors
         }
         private PingCollectorResult PingHTTP()
         {
+            int httpCode = 200;
             PingCollectorResult result = new PingCollectorResult();
             string lastStep = "[Create WebClientEx]";
             result.Success = false;
@@ -520,6 +522,13 @@ namespace QuickMon.Collectors
                     lastStep = "[OpenRead]";
                     using (System.IO.Stream webRequest = wc.OpenRead(Address))
                     {
+                        lastStep = "[CheckHTTPStatus]";
+                        if (wc.LastWebResponse != null)
+                        {
+                            httpCode = (int)(((System.Net.HttpWebResponse)wc.LastWebResponse).StatusCode);
+                            Trace.WriteLine($"HTTP Status Code: {httpCode}");
+                        }
+
                         int chars = 0;
                         StringBuilder docContents = new StringBuilder();
                         lastStep = "[CanRead]";
@@ -541,7 +550,11 @@ namespace QuickMon.Collectors
                             if (chars > 1)
                             {
                                 result.ResponseContent = docContents.ToString();
-                                result.ResponseDetails = "Characters returned:" + chars.ToString();
+                                result.ResponseDetails = $"HTTP status code: {httpCode}, Characters returned: " + chars.ToString();
+                                foreach (var rh in wc.ResponseHeaders)
+                                {
+                                    Trace.WriteLine(rh.ToString());
+                                }                                
                             }
                         }
                         else
@@ -549,14 +562,30 @@ namespace QuickMon.Collectors
                     }
                     sw.Stop();
                 }
-                result.PingTime = (int)sw.ElapsedMilliseconds;
-                if (sw.ElapsedMilliseconds < TimeOutMS)
+
+                if (httpCode < 300)
                 {
-                    result.Success = true;
+                    result.PingTime = (int)sw.ElapsedMilliseconds;
+                    if (sw.ElapsedMilliseconds < TimeOutMS)
+                    {
+                        result.Success = true;
+                    }
+                    else
+                    {
+                        result.Success = false;
+                    }
+                } 
+                else if (httpCode < 400)
+                {
+                    result.PingTime = (int)sw.ElapsedMilliseconds;
+                    result.Success = false;
+                    result.ResponseDetails = $"HTTP code: {httpCode}";
                 }
                 else
                 {
                     result.Success = false;
+                    result.PingTime = -1;
+                    result.ResponseDetails = $"HTTP error: {httpCode}";
                 }
 
             }

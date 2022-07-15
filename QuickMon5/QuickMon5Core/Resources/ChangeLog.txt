@@ -242,3 +242,7 @@ Global Agent History window - change control layout to be more consistent with r
 Version 5.3.10 (2022-06-23)
 **************
 Debugging build - QuickMonService is creating temp dll's that is never cleared.
+--------------
+Version 5.3.11 (2022-07-15)
+**************
+Changing HTTP Ping Collector to show HTTP Status code error codes.

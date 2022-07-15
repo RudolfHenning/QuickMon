@@ -36,6 +36,8 @@ namespace QuickMon.Collectors
             get { return keepAlive; }
             set { keepAlive = value; }
         }
+        public WebResponse LastWebResponse { get; private set; }
+        
 
         public WebClientEx()
         {
@@ -57,6 +59,25 @@ namespace QuickMon.Collectors
             }
 
             return request;
+        }
+        protected override WebResponse GetWebResponse(WebRequest request)
+        {
+            try
+            {
+                LastWebResponse = base.GetWebResponse(request);
+            }
+            catch (Exception ex)
+            {
+                LastWebResponse = null;
+                if (ex is System.Net.WebException)
+                {
+                    if (((System.Net.WebException)ex).Response != null && ((System.Net.WebException)ex).Response is System.Net.HttpWebResponse)
+                    {
+                        LastWebResponse = ((System.Net.HttpWebResponse)((System.Net.WebException)ex).Response);                        
+                    }
+                }
+            }
+            return LastWebResponse;
         }
     }
 }
