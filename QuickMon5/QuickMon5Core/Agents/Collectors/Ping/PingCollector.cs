@@ -106,6 +106,7 @@ namespace QuickMon.Collectors
                 hostEntry.TelnetPassword = host.ReadXmlElementAttr("password");
                 hostEntry.IgnoreInvalidHTTPSCerts = host.ReadXmlElementAttr("ignoreInvalidHTTPSCerts", false);
                 hostEntry.HttpsSecurityProtocol = host.ReadXmlElementAttr("httpsSecurityProtocol");
+                hostEntry.AllowHTTP3xx = host.ReadXmlElementAttr("allowHTTP3xx", false);
                 hostEntry.SocketPingMsgBody = host.ReadXmlElementAttr("socketPingMsgBody", "QuickMon Ping Test");
                 hostEntry.PrimaryUIValue = host.ReadXmlElementAttr("primaryUIValue", false);
 
@@ -138,6 +139,7 @@ namespace QuickMon.Collectors
                 hostXmlNode.SetAttributeValue("password", hostEntry.TelnetPassword);
                 hostXmlNode.SetAttributeValue("ignoreInvalidHTTPSCerts", hostEntry.IgnoreInvalidHTTPSCerts);
                 hostXmlNode.SetAttributeValue("httpsSecurityProtocol", hostEntry.HttpsSecurityProtocol);
+                hostXmlNode.SetAttributeValue("allowHTTP3xx", hostEntry.AllowHTTP3xx);
                 hostXmlNode.SetAttributeValue("socketPingMsgBody", hostEntry.SocketPingMsgBody);
                 hostXmlNode.SetAttributeValue("primaryUIValue", hostEntry.PrimaryUIValue);
 
@@ -273,11 +275,24 @@ namespace QuickMon.Collectors
                 CurrentValue = pingResult.PingTime,
                 CurrentValueUnit = "ms"
             };
-            if (pingResult.PingTime > -1)
+
+            if (!pingResult.Success)
+            {
+                currentState.CurrentValue = pingResult.ResponseDetails;
+                currentState.State = CollectorState.Error;
+                currentState.RawDetails = pingResult.ResponseDetails;
+                if (pingResult.ResponseContent != null && pingResult.ResponseContent.Length > 0)
+                {
+                    currentState.RawDetails += $"\r\n{pingResult.ResponseContent}";
+                }
+                currentState.CurrentValueUnit = "";
+            }
+            else if (pingResult.PingTime > -1)
             {
                 if (pingResult.PingTime >= TimeOutMS)
                 {
                     currentState.CurrentValue += " (Time out)";
+                    currentState.CurrentValueUnit = "";
                     currentState.State = CollectorState.Error;
                     currentState.RawDetails = string.Format("Operation timed out! Max time allowed: {0}ms, {1}", TimeOutMS, pingResult.ResponseDetails);
                 }
@@ -290,11 +305,20 @@ namespace QuickMon.Collectors
                 {
                     currentState.State = CollectorState.Warning;
                     currentState.RawDetails = string.Format("The returned HTML does not contain the specified string '{0}'", HTMLContentContain);
+                    if (pingResult.ResponseContent != null && pingResult.ResponseContent.Length > 0)
+                    {
+                        currentState.RawDetails += $"\r\n{pingResult.ResponseContent}";
+                    }
                 }
                 else
                 {
                     currentState.State = CollectorState.Good;
                     currentState.RawDetails = pingResult.ResponseDetails;
+                    if (pingResult.ResponseContent != null && pingResult.ResponseContent.Length > 0)
+                    {
+                        if (currentState.RawDetails.Length > 0) currentState.RawDetails += "\r\n";
+                        currentState.RawDetails += $"{pingResult.ResponseContent}";
+                    }
                 }
             }
             else
@@ -337,8 +361,7 @@ namespace QuickMon.Collectors
         private int maxTimeMS = 1000;
         public int MaxTimeMS { get { return maxTimeMS; } set { maxTimeMS = value; } }
         private int timeOutMS = 5000;
-        public int TimeOutMS { get { return timeOutMS; } set { timeOutMS = value; } }
-        public bool IgnoreInvalidHTTPSCerts { get; set; }
+        public int TimeOutMS { get { return timeOutMS; } set { timeOutMS = value; } }        
         #endregion
 
         #region HTTP ping
@@ -349,6 +372,8 @@ namespace QuickMon.Collectors
         public string HttpProxyPassword { get; set; }
         public string HTMLContentContain { get; set; }
         public string HttpsSecurityProtocol { get; set; }
+        public bool IgnoreInvalidHTTPSCerts { get; set; }
+        public bool AllowHTTP3xx { get; set; }
         #endregion
 
         #region Socket ping
@@ -447,6 +472,7 @@ namespace QuickMon.Collectors
         private PingCollectorResult PingHTTP()
         {
             int httpCode = 200;
+            string httpCodeStr = "OK";
             PingCollectorResult result = new PingCollectorResult();
             string lastStep = "[Create WebClientEx]";
             result.Success = false;
@@ -517,8 +543,9 @@ namespace QuickMon.Collectors
                     }
                     else
                         wc.UseDefaultCredentials = true;
+                    wc.AllowRedirect = AllowHTTP3xx;
 
-                     sw.Start();
+                    sw.Start();
                     lastStep = "[OpenRead]";
                     using (System.IO.Stream webRequest = wc.OpenRead(Address))
                     {
@@ -526,6 +553,7 @@ namespace QuickMon.Collectors
                         if (wc.LastWebResponse != null)
                         {
                             httpCode = (int)(((System.Net.HttpWebResponse)wc.LastWebResponse).StatusCode);
+                            httpCodeStr = (((System.Net.HttpWebResponse)wc.LastWebResponse).StatusCode).ToString();
                             Trace.WriteLine($"HTTP Status Code: {httpCode}");
                         }
 
@@ -548,9 +576,8 @@ namespace QuickMon.Collectors
                                 }
                             }
                             if (chars > 1)
-                            {
-                                result.ResponseContent = docContents.ToString();
-                                result.ResponseDetails = $"HTTP status code: {httpCode}, Characters returned: " + chars.ToString();
+                            {                                
+                                result.ResponseContent = $"Response length: {chars}\r\n{docContents}";                                
                                 foreach (var rh in wc.ResponseHeaders)
                                 {
                                     Trace.WriteLine(rh.ToString());
@@ -575,17 +602,23 @@ namespace QuickMon.Collectors
                         result.Success = false;
                     }
                 } 
+                else if (httpCode < 400 && !AllowHTTP3xx)
+                {
+                    result.PingTime = -1; // (int)sw.ElapsedMilliseconds;
+                    result.Success = false;
+                    result.ResponseDetails = $"HTTP code: {httpCode}";
+                }
                 else if (httpCode < 400)
                 {
                     result.PingTime = (int)sw.ElapsedMilliseconds;
-                    result.Success = false;
-                    result.ResponseDetails = $"HTTP code: {httpCode}";
+                    result.Success = true;
+                    //result.ResponseDetails = $"HTTP code: {httpCode}";
                 }
                 else
                 {
                     result.Success = false;
                     result.PingTime = -1;
-                    result.ResponseDetails = $"HTTP error: {httpCode}";
+                    result.ResponseDetails = $"HTTP code: {httpCode}";
                 }
 
             }

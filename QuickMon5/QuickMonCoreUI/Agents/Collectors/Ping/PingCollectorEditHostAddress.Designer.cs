@@ -81,6 +81,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkVerifyOnOK = new System.Windows.Forms.CheckBox();
+            this.chkAllowHTTP3xx = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -99,7 +100,7 @@
             this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
             this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(368, 482);
+            this.cmdCancel.Location = new System.Drawing.Point(371, 506);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 6;
@@ -113,7 +114,7 @@
             this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(287, 482);
+            this.cmdOK.Location = new System.Drawing.Point(290, 506);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 5;
@@ -136,7 +137,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAddress.Location = new System.Drawing.Point(103, 43);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(337, 20);
+            this.txtAddress.Size = new System.Drawing.Size(340, 20);
             this.txtAddress.TabIndex = 3;
             this.txtAddress.TextChanged += new System.EventHandler(this.txtAddress_TextChanged);
             // 
@@ -147,7 +148,7 @@
             this.cmdTestAddress.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdTestAddress.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTestAddress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdTestAddress.Location = new System.Drawing.Point(214, 482);
+            this.cmdTestAddress.Location = new System.Drawing.Point(217, 506);
             this.cmdTestAddress.Name = "cmdTestAddress";
             this.cmdTestAddress.Size = new System.Drawing.Size(67, 23);
             this.cmdTestAddress.TabIndex = 4;
@@ -161,7 +162,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Location = new System.Drawing.Point(103, 69);
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(337, 20);
+            this.txtDescription.Size = new System.Drawing.Size(340, 20);
             this.txtDescription.TabIndex = 6;
             // 
             // label2
@@ -295,7 +296,7 @@
             this.groupBox1.Controls.Add(this.nudExpextedTime);
             this.groupBox1.Location = new System.Drawing.Point(3, 1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(447, 155);
+            this.groupBox1.Size = new System.Drawing.Size(450, 155);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General settings";
@@ -304,6 +305,7 @@
             // 
             this.httpGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.httpGroupBox.Controls.Add(this.chkAllowHTTP3xx);
             this.httpGroupBox.Controls.Add(this.cboHttpsProtocol);
             this.httpGroupBox.Controls.Add(this.label22);
             this.httpGroupBox.Controls.Add(this.label20);
@@ -321,7 +323,7 @@
             this.httpGroupBox.Controls.Add(this.txtHttpProxy);
             this.httpGroupBox.Location = new System.Drawing.Point(3, 162);
             this.httpGroupBox.Name = "httpGroupBox";
-            this.httpGroupBox.Size = new System.Drawing.Size(447, 180);
+            this.httpGroupBox.Size = new System.Drawing.Size(450, 204);
             this.httpGroupBox.TabIndex = 1;
             this.httpGroupBox.TabStop = false;
             this.httpGroupBox.Text = "HTTP(S) Ping";
@@ -335,43 +337,43 @@
             "Tls",
             "Tls11",
             "Tls12"});
-            this.cboHttpsProtocol.Location = new System.Drawing.Point(304, 100);
+            this.cboHttpsProtocol.Location = new System.Drawing.Point(308, 100);
             this.cboHttpsProtocol.Name = "cboHttpsProtocol";
             this.cboHttpsProtocol.Size = new System.Drawing.Size(91, 21);
-            this.cboHttpsProtocol.TabIndex = 14;
+            this.cboHttpsProtocol.TabIndex = 12;
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(225, 103);
+            this.label22.Location = new System.Drawing.Point(229, 103);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(73, 13);
-            this.label22.TabIndex = 13;
+            this.label22.TabIndex = 11;
             this.label22.Text = "Https protocol";
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(11, 127);
+            this.label20.Location = new System.Drawing.Point(11, 151);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(87, 13);
-            this.label20.TabIndex = 11;
+            this.label20.TabIndex = 14;
             this.label20.Text = "Contains content";
             // 
             // txtHTMLContent
             // 
             this.txtHTMLContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtHTMLContent.Location = new System.Drawing.Point(116, 124);
+            this.txtHTMLContent.Location = new System.Drawing.Point(116, 148);
             this.txtHTMLContent.Multiline = true;
             this.txtHTMLContent.Name = "txtHTMLContent";
             this.txtHTMLContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtHTMLContent.Size = new System.Drawing.Size(318, 50);
-            this.txtHTMLContent.TabIndex = 12;
+            this.txtHTMLContent.Size = new System.Drawing.Size(321, 50);
+            this.txtHTMLContent.TabIndex = 15;
             // 
             // txtProxyPassword
             // 
-            this.txtProxyPassword.Location = new System.Drawing.Point(304, 75);
+            this.txtProxyPassword.Location = new System.Drawing.Point(308, 75);
             this.txtProxyPassword.Name = "txtProxyPassword";
             this.txtProxyPassword.PasswordChar = '*';
             this.txtProxyPassword.Size = new System.Drawing.Size(91, 20);
@@ -387,7 +389,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(245, 78);
+            this.label18.Location = new System.Drawing.Point(249, 78);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(53, 13);
             this.label18.TabIndex = 8;
@@ -406,7 +408,7 @@
             // 
             // txtHTTPHeaderPassword
             // 
-            this.txtHTTPHeaderPassword.Location = new System.Drawing.Point(304, 19);
+            this.txtHTTPHeaderPassword.Location = new System.Drawing.Point(308, 19);
             this.txtHTTPHeaderPassword.Name = "txtHTTPHeaderPassword";
             this.txtHTTPHeaderPassword.PasswordChar = '*';
             this.txtHTTPHeaderPassword.Size = new System.Drawing.Size(91, 20);
@@ -422,7 +424,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(245, 22);
+            this.label16.Location = new System.Drawing.Point(249, 22);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(53, 13);
             this.label16.TabIndex = 2;
@@ -463,7 +465,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHttpProxy.Location = new System.Drawing.Point(116, 49);
             this.txtHttpProxy.Name = "txtHttpProxy";
-            this.txtHttpProxy.Size = new System.Drawing.Size(280, 20);
+            this.txtHttpProxy.Size = new System.Drawing.Size(283, 20);
             this.txtHttpProxy.TabIndex = 5;
             // 
             // socketPingGroupBox
@@ -481,9 +483,9 @@
             this.socketPingGroupBox.Controls.Add(this.label14);
             this.socketPingGroupBox.Controls.Add(this.nudPortNumber);
             this.socketPingGroupBox.Controls.Add(this.label15);
-            this.socketPingGroupBox.Location = new System.Drawing.Point(3, 348);
+            this.socketPingGroupBox.Location = new System.Drawing.Point(3, 372);
             this.socketPingGroupBox.Name = "socketPingGroupBox";
-            this.socketPingGroupBox.Size = new System.Drawing.Size(447, 128);
+            this.socketPingGroupBox.Size = new System.Drawing.Size(450, 128);
             this.socketPingGroupBox.TabIndex = 2;
             this.socketPingGroupBox.TabStop = false;
             this.socketPingGroupBox.Text = "Socket Ping";
@@ -503,7 +505,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSocketPingMsgBody.Location = new System.Drawing.Point(103, 97);
             this.txtSocketPingMsgBody.Name = "txtSocketPingMsgBody";
-            this.txtSocketPingMsgBody.Size = new System.Drawing.Size(331, 20);
+            this.txtSocketPingMsgBody.Size = new System.Drawing.Size(334, 20);
             this.txtSocketPingMsgBody.TabIndex = 10;
             // 
             // groupBox2
@@ -685,7 +687,7 @@
             this.chkVerifyOnOK.Checked = true;
             this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkVerifyOnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkVerifyOnOK.Location = new System.Drawing.Point(90, 486);
+            this.chkVerifyOnOK.Location = new System.Drawing.Point(93, 510);
             this.chkVerifyOnOK.Name = "chkVerifyOnOK";
             this.chkVerifyOnOK.Size = new System.Drawing.Size(120, 17);
             this.chkVerifyOnOK.TabIndex = 3;
@@ -693,13 +695,24 @@
             this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkVerifyOnOK.UseVisualStyleBackColor = true;
             // 
+            // chkAllowHTTP3xx
+            // 
+            this.chkAllowHTTP3xx.AutoSize = true;
+            this.chkAllowHTTP3xx.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkAllowHTTP3xx.Location = new System.Drawing.Point(32, 124);
+            this.chkAllowHTTP3xx.Name = "chkAllowHTTP3xx";
+            this.chkAllowHTTP3xx.Size = new System.Drawing.Size(100, 17);
+            this.chkAllowHTTP3xx.TabIndex = 13;
+            this.chkAllowHTTP3xx.Text = "Allow HTTP 3xx";
+            this.chkAllowHTTP3xx.UseVisualStyleBackColor = true;
+            // 
             // PingCollectorEditHostAddress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(455, 517);
+            this.ClientSize = new System.Drawing.Size(458, 541);
             this.Controls.Add(this.chkVerifyOnOK);
             this.Controls.Add(this.socketPingGroupBox);
             this.Controls.Add(this.httpGroupBox);
@@ -786,5 +799,6 @@
         private System.Windows.Forms.CheckBox chkVerifyOnOK;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox cboHttpsProtocol;
+        private System.Windows.Forms.CheckBox chkAllowHTTP3xx;
     }
 }

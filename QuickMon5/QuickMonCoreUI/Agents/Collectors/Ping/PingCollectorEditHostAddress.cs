@@ -130,6 +130,7 @@ namespace QuickMon.UI
             txtPassword.Text = HostEntry.TelnetPassword;
             cboHttpsProtocol.SelectedIndex = 0;
             chkIgnoreInvalidHTTPSCerts.Checked = HostEntry.IgnoreInvalidHTTPSCerts;
+            chkAllowHTTP3xx.Checked = HostEntry.AllowHTTP3xx;
             if (HostEntry.HttpsSecurityProtocol != null)
             {
                 if (HostEntry.HttpsSecurityProtocol == "Tls")
@@ -166,6 +167,7 @@ namespace QuickMon.UI
                 HostEntry.HttpProxyPassword = txtProxyPassword.Text;
                 HostEntry.HTMLContentContain = txtHTMLContent.Text;
                 HostEntry.IgnoreInvalidHTTPSCerts = chkIgnoreInvalidHTTPSCerts.Checked;
+                HostEntry.AllowHTTP3xx = chkAllowHTTP3xx.Checked;
                 HostEntry.SocketPort = (int)nudPortNumber.Value;
                 HostEntry.ReceiveTimeOutMS = (int)nudReceiveTimeout.Value;
                 HostEntry.SendTimeOutMS = (int)nudSendTimeout.Value;
@@ -226,6 +228,7 @@ namespace QuickMon.UI
             tmpPingCollectorHostEntry.TelnetPassword = telnetPassword;
             tmpPingCollectorHostEntry.SocketPingMsgBody = socketPingMsgBody;
             tmpPingCollectorHostEntry.HttpsSecurityProtocol = cboHttpsProtocol.Text;
+            tmpPingCollectorHostEntry.AllowHTTP3xx = chkAllowHTTP3xx.Checked;
 
             result = tmpPingCollectorHostEntry.GetCurrentState();            
             return result;

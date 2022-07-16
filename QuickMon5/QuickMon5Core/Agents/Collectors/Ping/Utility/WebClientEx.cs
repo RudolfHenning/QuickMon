@@ -36,6 +36,7 @@ namespace QuickMon.Collectors
             get { return keepAlive; }
             set { keepAlive = value; }
         }
+        public bool AllowRedirect { get; set; } = true;
         public WebResponse LastWebResponse { get; private set; }
         
 
@@ -56,6 +57,7 @@ namespace QuickMon.Collectors
                 ((HttpWebRequest)request).UserAgent = userAgent;
                 ((HttpWebRequest)request).Timeout = timeout;
                 ((HttpWebRequest)request).KeepAlive = keepAlive;
+                ((HttpWebRequest)request).AllowAutoRedirect = AllowRedirect;
             }
 
             return request;

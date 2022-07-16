@@ -1050,7 +1050,8 @@ namespace QuickMon
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.State.ToString());
                             rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.ReadAgentValues());
-                            if (c.CurrentState.State != CollectorState.Good && c.CurrentState.RawDetails != null && c.CurrentState.RawDetails.Length > 0)
+                            if (c.CurrentState.RawDetails != null && c.CurrentState.RawDetails.Length > 0)
+                            //if (c.CurrentState.State != CollectorState.Good && c.CurrentState.RawDetails != null && c.CurrentState.RawDetails.Length > 0)
                             {
                                 rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Raw details: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.RawDetails);
                             }
@@ -1114,7 +1115,8 @@ namespace QuickMon
                 rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(ms.ExecutedOnHostComputer));
                 rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ").FontStyle(FontStyle.Regular).AppendLine(FormatUtils.N(ms.RanAs));
                 rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Value(s): ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadAgentValues());
-                if (ms.State != CollectorState.Good && ms.RawDetails != null && ms.RawDetails.Length > 0)
+                if (ms.RawDetails != null && ms.RawDetails.Length > 0)
+                //if (ms.State != CollectorState.Good && ms.RawDetails != null && ms.RawDetails.Length > 0)
                 {
                     rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Raw details: ").FontStyle(FontStyle.Regular).AppendLine(ms.RawDetails);
                 }
