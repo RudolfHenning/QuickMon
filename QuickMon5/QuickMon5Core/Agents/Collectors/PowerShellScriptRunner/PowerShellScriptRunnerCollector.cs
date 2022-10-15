@@ -17,41 +17,7 @@ namespace QuickMon.Collectors
         public PowerShellScriptRunnerCollector()
         {
             AgentConfig = new PowerShellScriptRunnerCollectorConfig();
-        }
-
-        //public override List<System.Data.DataTable> GetDetailDataTables()
-        //{
-        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-        //    System.Data.DataTable dt = new System.Data.DataTable();
-        //    try
-        //    {
-        //        dt.Columns.Add(new System.Data.DataColumn("Script name", typeof(string)));
-        //        dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));
-
-        //        PowerShellScriptRunnerCollectorConfig currentConfig = (PowerShellScriptRunnerCollectorConfig)AgentConfig;
-        //        foreach (PowerShellScriptRunnerEntry entry in currentConfig.Entries)
-        //        {
-        //            string output = "N/A";
-        //            try
-        //            {
-        //                output = entry.RunScript();
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                output = ex.Message;
-        //            }
-        //            dt.Rows.Add(entry.Name, output);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        dt = new System.Data.DataTable("Exception");
-        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-        //        dt.Rows.Add(ex.ToString());
-        //    }
-        //    tables.Add(dt);
-        //    return tables;
-        //}
+        }        
     }
 
     public class PowerShellScriptRunnerCollectorConfig : ICollectorConfig
@@ -288,7 +254,7 @@ namespace QuickMon.Collectors
 
         public string RunScript()
         {
-            if (TestScript.StartsWith("#UseExitCode")) //.ToUpper().Contains("$LASTEXITCODE"))
+            if (TestScript.StartsWith("#UseExitCode"))
                 return RunScriptWithExitCode(TestScript);
             else 
                 return RunScript(TestScript);
@@ -312,26 +278,18 @@ namespace QuickMon.Collectors
                     using (Pipeline pipeline = runspace.CreatePipeline())
                     {
                         pipeline.Commands.AddScript(testScript);
-
-                        // add an extra command to transform the script
-                        // output objects into nicely formatted strings
-
-                        // remove this line to get the actual objects
-                        // that the script returns. For example, the script
-
-                        // "Get-Process" returns a collection
-                        // of System.Diagnostics.Process instances.
-
                         pipeline.Commands.Add("Out-String");
 
                         // execute the script
                         lock (lockObject)
                         {
                             results = pipeline.Invoke();
-                            
-                            if (pipeline.HadErrors)
+                        }
+                        if (pipeline.HadErrors)
+                        {
+                            PipelineReader<object> errs = pipeline.Error;
+                            if (errs != null)
                             {
-                                PipelineReader<object> errs = pipeline.Error;
                                 if (errs.Count > 0)
                                 {
                                     for (int i = 0; i < errs.Count; i++)
@@ -340,9 +298,11 @@ namespace QuickMon.Collectors
                                     }
                                     System.Diagnostics.Trace.WriteLine($"Error: {errs.Read()}");
                                 }
+                                errs.Close();
+                                errs = null;
                             }
                         }
-                    }                   
+                    }                
 
                     // close the runspace
                     runspace.Close();
@@ -410,20 +370,7 @@ namespace QuickMon.Collectors
                     using (Pipeline pipeline = runspace.CreatePipeline())
                     {
                         pipeline.Commands.AddScript(testScript);
-                        //pipeline.Commands.AddScript("$LASTEXITCODE");
-
-                        // add an extra command to transform the script
-                        // output objects into nicely formatted strings
-
-                        // remove this line to get the actual objects
-                        // that the script returns. For example, the script
-
-                        // "Get-Process" returns a collection
-                        // of System.Diagnostics.Process instances.
-
                         pipeline.Commands.Add("Out-String");
-                        //pipeline.Commands.Add("$LASTEXITCODE");
-                        //pipeline.Commands.AddScript("$LASTEXITCODE");
 
                         // execute the script
                         lock (lockObject)

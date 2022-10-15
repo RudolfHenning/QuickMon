@@ -365,14 +365,6 @@ namespace QuickMon
                 collectorMetricsExportsNode.SetAttributeValue("metricsExportPath", CollectorMetricsExportPath);
                 collectorMetricsExportsNode.SetAttributeValue("metricsExportIncludeDisabled", CollectorMetricsExportIncludeDisabled);
             }
-
-            //XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
-            //foreach (ActionScript ascr in ActionScripts)
-            //{
-            //    XmlNode scriptParameterNode = outDoc.ImportNode(ascr.ToXmlNode(), true);
-            //    actionScriptsNode.AppendChild(scriptParameterNode);
-            //}
-
             foreach (CollectorHost collectorHost in CollectorHosts)
             {
                 XmlNode collectorHostNode = outDoc.ImportNode(collectorHost.ToXmlNode(), true);
@@ -406,7 +398,7 @@ namespace QuickMon
             }
             #endregion
 
-            return outDoc.OuterXml.BeautifyXML(); // XmlFormattingUtils.NormalizeXML(outDoc.OuterXml);
+            return outDoc.OuterXml.BeautifyXML();
         }
         private string GetConfigVarXml()
         {
@@ -417,24 +409,6 @@ namespace QuickMon
             }
             return configVarXml.ToString();
         }
-        //private string GetConfigForCollectors()
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    foreach (CollectorHost collectorHost in CollectorHosts)
-        //    {
-        //        sb.AppendLine(collectorHost.ToXml());
-        //    }
-        //    return sb.ToString();
-        //}
-        //private string GetConfigForNotifiers()
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    foreach (NotifierHost notifierHost in NotifierHosts)
-        //    {
-        //        sb.AppendLine(notifierHost.ToXml());
-        //    }
-        //    return sb.ToString();
-        //}
         #endregion
 
         #region Global settings
