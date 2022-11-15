@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="AgentMapper\RegisteredAgentUIMapper.cs" />
     <Compile Include="AgentMapper\WinFormsUIBase.cs" />
+    <Compile Include="Agents\Collectors\AppVersion\AppVersionCollector.cs" />
     <Compile Include="Agents\Collectors\Database\Generic\GenericSQLServerDAL.cs" />
     <Compile Include="Agents\Collectors\EventLog\EventLogCollector.cs" />
     <Compile Include="Agents\Collectors\EventLog\EventLogEntryEx.cs" />

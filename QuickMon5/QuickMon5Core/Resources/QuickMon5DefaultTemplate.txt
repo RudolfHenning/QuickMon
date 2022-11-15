@@ -130,8 +130,58 @@
       </notifierHosts>
     </monitorPack>
   </template>
+  <template name="Application version" type="CollectorHost" class="CollectorHost" description="Application version">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[!Collector name:Notepad]]" enabled="True" expandOnStart="Always" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="Application Version Collector" type="QuickMon.Collectors.AppVersionCollector" enabled="True" primaryUIValue="False">
+          <config>
+            <applications>
+              <application name="[[Application name:Notepad]]" expectedVersion="[[expectedVersion:10.0.19041*]]" useFileVersion="[[UseFileVersion:False]]" useFirstValidPath="True" primaryUIValue="False">
+                <paths>
+                  <path>[[!Exe path:C:\Windows\System32\notepad.exe]]</path>
+                </paths>
+              </application>
+            </applications>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Metrics Export settings -->
+      <metricsExport exclude="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+  </template>
   <template name="Drive Space Free" type="CollectorHost" class="CollectorHost" description="Drive Space Free">
-    <collectorHost uniqueId="" dependOnParentId="" name="[[Drive Letter:C]] Drive Space Free" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[!Drive Letter:C]] Drive Space Free" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -148,7 +198,7 @@
         <collectorAgent name="Performance Counter Collector" type="QuickMon.Collectors.PerfCounterCollector" enabled="True" primaryUIValue="False">
           <config>
             <performanceCounters>
-              <performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="[[Drive Letter:C]]:" warningValue="15" errorValue="5" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="%" primaryUIValue="False" valueScale="1" valueScaleInverse="False" />
+              <performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="[[!Drive Letter:C]]:" warningValue="[[WarningValue:15]]" errorValue="[[ErrorValue:5]]" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="%" primaryUIValue="False" valueScale="1" valueScaleInverse="False" />
             </performanceCounters>
           </config>
         </collectorAgent>
@@ -180,7 +230,7 @@
     </collectorHost>
   </template>
   <template name="Event Log Errors" type="CollectorHost" class="CollectorHost" description="Event Log Errors">
-    <collectorHost uniqueId="" dependOnParentId="" name="Event Log - [[Eventlog:Application]]" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="" dependOnParentId="" name="Event Log - [[!Eventlog:Application]]" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -197,7 +247,7 @@
         <collectorAgent name="Event Log Collector" type="QuickMon.Collectors.EventLogCollector" enabled="True" primaryUIValue="False">
           <config>
             <eventlogs>
-              <log computer="[[Computer:.]]" eventLog="[[Eventlog:Application]]" typeInfo="False" typeWarn="False" typeErr="True" containsText="False" useRegEx="False" textFilter="" withInLastXEntries="1000" withInLastXMinutes="60" warningValue="1" errorValue="10" primaryUIValue="False">
+              <log computer="[[Computer:.]]" eventLog="[[!Eventlog:Application]]" typeInfo="[[TypeInfo:False]]" typeWarn="[[TypeWarn:False]]" typeErr="[[TypeErr:True]]" containsText="[[ContainsText:False]]" useRegEx="False" textFilter="[[TextFilter:]]" withInLastXEntries="1000" withInLastXMinutes="60" warningValue="[[WarningValue:1]]" errorValue="[[ErrorValue:10]]" primaryUIValue="False">
                 <sources>
                   <source>[[Source:QuickMon]]</source>
                 </sources>
@@ -229,7 +279,7 @@
     </collectorHost>
   </template>
   <template name="File/Directory check" type="CollectorHost" class="CollectorHost" description="Checks for file(s) or directory(s)">
-    <collectorHost uniqueId="" dependOnParentId="" name="File/Directory check" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="" dependOnParentId="" name="[[CollectorName:File/Directory check]]" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -246,7 +296,7 @@
         <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
           <config>
             <directoryList>
-              <directory directoryPathFilter="[[!DirectoryPath:%userprofile%\Downloads]]\[[FileMask:*.*]]" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="[[ShowFilenames:False]]" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+              <directory directoryPathFilter="[[!DirectoryPath:%userprofile%\Downloads]]\[[FileMask:*.*]]" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="[[IncludeSubDirs:True]]" containsText="" useRegEx="False" warningFileCountMax="[[WarningFileCountMax:50]]" errorFileCountMax="[[errorFileCountMax:100]]" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="[[ShowFilenames:False]]" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
             </directoryList>
           </config>
         </collectorAgent>
@@ -1123,6 +1173,33 @@ else {
         </carvcesEntries>
       </config>
     </collectorAgent>
+  </template>
+  <template name="Audio Notifier" type="NotifierHost" class="NotifierHost" description="Audio Notifier">
+    <notifierHost name="Audio Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+      <!-- collectorHosts -->
+      <collectorHosts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Categories -->
+      <categories>
+        <category>*</category>
+      </categories>
+      <!-- Config variables -->
+      <configVars />
+      <recordOnHosts />
+      <!-- notifierAgents -->
+      <notifierAgents>
+        <notifierAgent name="Audio Notifier" type="QuickMon.Notifiers.AudioNotifier" enabled="True">
+          <config>
+            <audioConfig>
+              <goodState enabled="False" useSystemSounds="True" soundPath="" systemSound="1" repeatCount="1" soundVolumePerc="-1" audioFilePath="" />
+              <warningState enabled="True" useSystemSounds="True" soundPath="" systemSound="3" repeatCount="1" soundVolumePerc="-1" audioFilePath="" />
+              <errorState enabled="True" useSystemSounds="True" soundPath="" systemSound="2" repeatCount="1" soundVolumePerc="-1" audioFilePath="" />
+            </audioConfig>
+          </config>
+        </notifierAgent>
+      </notifierAgents>
+    </notifierHost>
   </template>
   <template name="Eventlog Notifier" type="NotifierHost" class="NotifierHost" description="Eventlog Notifier">
     <notifierHost name="Eventlog Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">

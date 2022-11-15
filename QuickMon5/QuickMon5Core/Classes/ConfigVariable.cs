@@ -24,6 +24,20 @@ namespace QuickMon
         }
         public string ReplaceValue { get; set; }
         public bool Important { get; set; }
+        public string DefaultValue
+        {
+            get
+            {
+                if (FindValue.Contains(":"))
+                {
+                    return SafeTextToText(FindValue.Substring(FindValue.IndexOf(':') + 1).TrimEnd(']'));
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
 
         public override string ToString()
         {

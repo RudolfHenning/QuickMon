@@ -76,7 +76,7 @@ namespace QuickMon
                 "     </collectorAgents>" +
                 "   </collectorHost>";
             CollectorHost ch = CollectorHost.FromXml(mconfig);
-            Assert.IsNotNull(ch, "Monitor pack is null");
+            Assert.IsNotNull(ch, "Collector is null");
             Assert.AreEqual("Ping", ch.Name, "Collector host name not set");
             Assert.AreEqual("123", ch.UniqueId, "Collector host UniqueId not set");
             Assert.AreEqual(true, ch.Enabled, "Collector host Enabled property not set");
@@ -95,6 +95,41 @@ namespace QuickMon
 
         }
 
+        [TestMethod, TestCategory("Agent Tests")]
+        public void FileVersionCollectorTest()
+        {
+            string mconfig = "<collectorHost uniqueId=\"123\" dependOnParentId=\"\" name=\"Application Version\" enabled=\"True\" expandOnStart=\"Auto\" " +
+                " childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                "     <collectorAgents agentCheckSequence=\"All\">" +
+                "         <collectorAgent name=\"Notepad version\" type=\"QuickMon.Collectors.AppVersionCollector\" enabled=\"True\">" +
+                "                <config>" +
+                "                    <applications>" +
+                "                       <application name=\"Notepad\" expectedVersion=\"10.0.19041*\" useFileVersion=\"True\" useFirstValidPath=\"True\" primaryUIValue=\"False\">" +
+                "                           <paths><path>C:\\Windows\\notepad.exe</path></paths>" +
+                "                       </application>" +
+                "                    </applications>" +
+                "                </config>" +
+                "         </collectorAgent>" +
+                "     </collectorAgents>" +
+                "   </collectorHost>";
 
+            CollectorHost ch = CollectorHost.FromXml(mconfig);
+            Assert.IsNotNull(ch, "Collector is null");
+            Assert.AreEqual("Application Version", ch.Name, "Collector host name not set");
+            Assert.IsNotNull(ch.CollectorAgents, "No agents!");
+            if (ch.CollectorAgents.Count > 0)
+            {
+                Assert.AreEqual("Notepad version", ch.CollectorAgents[0].Name, "collectorAgent name");
+                Assert.AreEqual("QuickMon.Collectors.AppVersionCollector", ch.CollectorAgents[0].GetType().ToString(), "collectorAgent type");
+                QuickMon.Collectors.AppVersionCollector appVersionCollector = (QuickMon.Collectors.AppVersionCollector)ch.CollectorAgents[0];
+                Assert.AreEqual(true, ((ICollectorConfig)appVersionCollector.AgentConfig).Entries.Count > 0, "No Application version entries");
+                Collectors.AppVersionEntry appVersionEntry = (Collectors.AppVersionEntry)((ICollectorConfig)appVersionCollector.AgentConfig).Entries[0];
+                Assert.AreEqual("Notepad", appVersionEntry.ApplicationName, "Application name");
+
+                MonitorState testState = ch.RefreshCurrentState();
+                Assert.AreEqual(1, ch.RefreshCount, "1 refresh expected");
+                Assert.AreEqual(CollectorState.Good, testState.State, "Version different");
+            }
+        }
     }
 }

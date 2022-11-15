@@ -135,7 +135,7 @@ namespace QuickMon.UI
             foreach (ListViewItem lvi in lvwVariables.Items)
             {
                 ConfigVariable cv = (ConfigVariable)lvi.Tag;
-                if (cv.ReplaceValue.Length == 0)
+                if ( cv.Important && cv.ReplaceValue.Length == 0) // && cv.DefaultValue.Length > 0)
                 {
                     if (MessageBox.Show($"The variable '{cv.FindValue}' has no value! Do you want to accept this?", "Accept", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     {
