@@ -185,34 +185,7 @@ namespace QuickMon.Collectors
                 return -1;
             else //if (v1majorVersion == v2majorVersion && v1minorVersion == v2minorVersion && v1buildVersion > v2buildVersion)
                 return 1;
-
-            //if (fileVersion)
-            //{
-            //    if (v1.FileVersion == v2.FileVersion)
-            //        return 0;
-            //    else if (v1.FileMajorPart > v2.FileMajorPart)
-            //        return 1;
-            //    else if (v1.FileMajorPart < v2.FileMajorPart)
-            //        return -1;
-            //    else if (v1.FileMajorPart == v2.FileMajorPart && v1.FileMinorPart < v2.FileMinorPart)
-            //        return -1;
-            //    else if (v1.FileMajorPart == v2.FileMajorPart && v1.FileMinorPart == v2.FileMinorPart && v1.FileBuildPart < v2.FileBuildPart)
-            //        return -1;
-            //    else 
-            //        return 1;
-            //}
-            //else
-            //{
-            //    if (v1.ProductVersion == v2.ProductVersion)
-            //        return 0;
-            //    else if (v1.ProductMajorPart < v2.ProductMajorPart ||
-            //            v1.ProductMinorPart < v2.ProductMinorPart ||
-            //            v1.ProductBuildPart < v2.ProductBuildPart)
-            //    {
-            //        return -1;
-            //    }
-            //    else return 1;
-            //}
+            
         }
         public MonitorState GetCurrentState()
         {

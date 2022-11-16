@@ -250,6 +250,6 @@ Changing HTTP Ping Collector to show HTTP Status code error codes.
 Additional changes to Ping Collector to display more details in UI.
 
 --------------
-Version 5.3.12 (2022-11-14)
+Version 5.3.12 (2022-11-16)
 **************
 Adding new Application version Collector.

@@ -14,6 +14,7 @@ namespace QuickMon
         {
             Agents = new List<RemoteCollectorAgent>();
         }
+
         #region Properties
         [DataMember(Name = "Name")]
         public string Name { get; set; }

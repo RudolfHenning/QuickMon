@@ -30,10 +30,12 @@ namespace QuickMon
         #region IRemoteCollectorHostService
         public MonitorState GetState(QuickMon.RemoteCollectorHost entry)
         {
-            StringBuilder consoleOutPut = new StringBuilder();
+            
             MonitorState monitorState = new MonitorState();
 
             /*** For Console debugging **/
+#if DEBUG
+            StringBuilder consoleOutPut = new StringBuilder();
             consoleOutPut.AppendFormat("{0}: Running collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);            
             try
             {
@@ -51,6 +53,7 @@ namespace QuickMon
             consoleOutPut.AppendFormat("{0}\r\n", new string('*', 79));
             Console.WriteLine(consoleOutPut.ToString());
             consoleOutPut = new StringBuilder();
+#endif
             /*** For Console debugging **/
 
             try
@@ -84,36 +87,40 @@ namespace QuickMon
                     monitorState.HtmlDetails= collectorHostConfig.EscapeXml();
                     monitorState.State = CollectorState.Error;
                 }
-                
 
+#if DEBUG
                 //If hosted in console test app
                 consoleOutPut.AppendFormat("{0}: Results for collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);                
                 consoleOutPut.AppendFormat(" State   : {0}\r\n", monitorState.State);
                 consoleOutPut.AppendFormat(" Ran as  : {0}\r\n", monitorState.RanAs);
                 consoleOutPut.AppendFormat(" Details : {0}\r\n", monitorState.ReadAllRawDetails());
+#endif
 
                 m.CloseMonitorPack();
                 m = null;
             }
             catch (Exception ex)
             {
+#if DEBUG
                 consoleOutPut.AppendFormat(" Error: {0}\r\n", ex);
+#endif
                 monitorState.CurrentValue = ex.Message;
                 monitorState.State = CollectorState.Error;
                 monitorState.RawDetails = ex.ToString();
                 monitorState.HtmlDetails= ex.ToString().EscapeXml();
             }
-            
+#if DEBUG
             consoleOutPut.AppendLine(new string('*', 79));
             Console.WriteLine(consoleOutPut.ToString());
-
+#endif
             monitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
             return monitorState;
         }
         public string GetQuickMonCoreVersion()
         {
-            StringBuilder consoleOutPut = new StringBuilder();
             string versionInfo = System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString();
+#if DEBUG
+            StringBuilder consoleOutPut = new StringBuilder();
             consoleOutPut.AppendFormat("Version request response: {0}\r\n", versionInfo);
 
             try
@@ -122,72 +129,18 @@ namespace QuickMon
                 System.ServiceModel.Channels.MessageProperties messageProperties = context.IncomingMessageProperties;
                 System.ServiceModel.Channels.RemoteEndpointMessageProperty endpointProperty =
                   messageProperties[System.ServiceModel.Channels.RemoteEndpointMessageProperty.Name] as System.ServiceModel.Channels.RemoteEndpointMessageProperty;
-
                 consoleOutPut.AppendFormat("Requested from {0}:{1}\r\n", endpointProperty.Address, endpointProperty.Port);
             }
             catch(Exception ex)
             {
                 consoleOutPut.AppendFormat("Error getting caller info: {0}\r\n", ex.Message);
             }
+
             consoleOutPut.AppendLine(new string('*', 79));
             Console.WriteLine(consoleOutPut.ToString());
+#endif
             return versionInfo;
         }
-        //public System.Data.DataSet GetCollectorHostDetails(QuickMon.RemoteCollectorHost entry)
-        //{
-        //    StringBuilder consoleOutPut = new StringBuilder();
-        //    System.Data.DataSet result = new System.Data.DataSet();
-        //    try
-        //    {
-        //        Console.WriteLine("{0}: Getting collector host data set: {1}\r\n{2}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name, new string('*', 79));
-        //        CollectorHost ch = CollectorHost.FromXml(entry.ToCollectorHostXml());
-        //        result = ch.GetAllAgentDetails();
-        //        consoleOutPut.AppendFormat("{0}: Results for collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);
-        //        consoleOutPut.AppendFormat("  Data set request received: {0}\r\n", entry.Name);
-        //        if (result != null)
-        //        {
-        //            consoleOutPut.AppendFormat("   Tables: {0}\r\n", result.Tables.Count);
-        //            for(int i = 0; i < result.Tables.Count; i++)
-        //            {
-        //                consoleOutPut.AppendFormat("    Table[{0}]: {1} row(s)\r\n", i, result.Tables[i].Rows.Count);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            consoleOutPut.AppendFormat("  Warning! Data set is empty!\r\n");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        consoleOutPut.AppendFormat(" Error: {0}\r\n", ex);
-        //        System.Data.DataTable dt = new System.Data.DataTable("Exception");
-        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-        //        dt.Rows.Add(ex.ToString());
-        //        result.Tables.Add(dt);                
-        //    }
-        //    consoleOutPut.AppendLine(new string('*', 79));
-        //    Console.WriteLine(consoleOutPut.ToString());
-        //    return result;
-        //}
-        //public System.Data.DataSet GetAgentDetails(string collectorAgentConfig)
-        //{
-        //    System.Data.DataSet result = new System.Data.DataSet();
-        //    try
-        //    {
-        //        ICollector ca = CollectorHost.GetCollectorAgentFromString(collectorAgentConfig);
-        //        foreach (System.Data.DataTable dt in ca.GetDetailDataTables())
-        //            result.Tables.Add(dt);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(" Error: {0}", ex);
-        //        System.Data.DataTable dt = new System.Data.DataTable("Exception");
-        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-        //        dt.Rows.Add(ex.ToString());
-        //        result.Tables.Add(dt);
-        //    }
-        //    return result;
-        //}
         public List<string> GetCurrentMonitorPacks()
         {
             List<string> list = new List<string>();
@@ -204,69 +157,90 @@ namespace QuickMon
             }
             return list;
         }
-        #endregion
+#endregion
 
-        #region Static methods
+#region Static methods
         public static MonitorState GetCollectorHostState(CollectorHost rh)
         {
             return GetCollectorHostState(rh, rh.RemoteAgentHostAddress, rh.RemoteAgentHostPort);
         }
         public static MonitorState GetCollectorHostState(CollectorHost entry, string hostAddressOverride, int portNumberOverride)
         {
-            BasicHttpBinding myBinding = new BasicHttpBinding();
-            myBinding.MaxReceivedMessageSize = 2147483647;
-            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
-            ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);            
-            IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
+            MonitorState monitorState = null;
+            try { 
+                BasicHttpBinding myBinding = new BasicHttpBinding();
+                myBinding.MaxReceivedMessageSize = 2147483647;
+                EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
+                ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);            
+                IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
 
-            RemoteCollectorHost colReq = new RemoteCollectorHost();
-            colReq.FromCollectorHost(entry);
-            return relay.GetState(colReq);
+                RemoteCollectorHost colReq = new RemoteCollectorHost();
+                colReq.FromCollectorHost(entry);
+                monitorState =  relay.GetState(colReq); 
+
+                myChannelFactory.Close();
+                relay = null;
+                myChannelFactory = null;
+                myEndpoint = null;
+                myBinding = null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed getting remote state from {hostAddressOverride}.\r\n{ex.Message}");
+            }
+
+            return monitorState;
         }
         public static string GetRemoteAgentHostVersion(string hostAddress, int portNumber)
         {
-            BasicHttpBinding myBinding = new BasicHttpBinding();
-            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddress, portNumber));
-            ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
-            IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
-            return relay.GetQuickMonCoreVersion();
-        }
-        //public static System.Data.DataSet GetRemoteHostAllAgentDetails(CollectorHost entry)
-        //{
-        //    return GetRemoteHostAllAgentDetails(entry, entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort);
-        //}
-        //public static System.Data.DataSet GetRemoteHostAllAgentDetails(CollectorHost entry, string hostAddressOverride, int portNumberOverride)
-        //{
-        //    BasicHttpBinding myBinding = new BasicHttpBinding();
-        //    myBinding.MaxReceivedMessageSize = 2147483647;
-        //    EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));            
-        //    ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
-        //    IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
+            string output = "";
+            try
+            {
+                BasicHttpBinding myBinding = new BasicHttpBinding();
+                EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddress, portNumber));
+                ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
+                IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
 
-        //    RemoteCollectorHost colReq = new RemoteCollectorHost();
-        //    colReq.FromCollectorHost(entry);
-        //    return relay.GetCollectorHostDetails(colReq);
-        //} 
-        //public static System.Data.DataSet GetRemoteHostAgentDetails(string collectorAgentConfig, string hostAddressOverride, int portNumberOverride)
-        //{
-        //    BasicHttpBinding myBinding = new BasicHttpBinding();
-        //    EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
-        //    ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
-        //    IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
-        //    return relay.GetAgentDetails(collectorAgentConfig);
-        //}
+                output = relay.GetQuickMonCoreVersion();
+
+                myChannelFactory.Close();
+                relay = null;
+                myChannelFactory = null;
+                myEndpoint = null;
+                myBinding = null;
+            }
+            catch (Exception ex)
+            {
+                output = ex.Message;
+            }
+            return output;
+        }
         public static List<string> GetCurrentMonitorPacks(string hostAddressOverride, int portNumberOverride)
         {
-            BasicHttpBinding myBinding = new BasicHttpBinding();
-            myBinding.MaxReceivedMessageSize = 2147483647;
-            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
-            ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
-            IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
+            List<string> list = new List<string>();
+            try
+            {
+                BasicHttpBinding myBinding = new BasicHttpBinding();
+                myBinding.MaxReceivedMessageSize = 2147483647;
+                EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
+                ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
+                IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
 
-            RemoteCollectorHost colReq = new RemoteCollectorHost();
-            return relay.GetCurrentMonitorPacks();
+                list = relay.GetCurrentMonitorPacks();
+
+                myChannelFactory.Close();
+                relay = null;
+                myChannelFactory = null;
+                myEndpoint = null;
+                myBinding = null;                
+            }
+            catch (Exception ex)
+            {
+                list.Add($"Error:{ex.Message}");
+            }
+            return list;
         }
-        #endregion
+#endregion
 
     }
 
@@ -327,6 +301,26 @@ namespace QuickMon
 
         public void ReleaseInstance(InstanceContext instanceContext, object instance)
         {
+            try
+            {
+                if (instanceContext != null)
+                {
+                    instanceContext.ReleaseServiceInstance();
+                    instanceContext.Close();
+                    instanceContext = null;
+                }
+            }
+            catch { }
+            try
+            {
+                if (instance != null && instance is IDisposable)
+                {
+                    ((IDisposable)instance).Dispose();
+                }
+                instance = null;
+            }
+            catch { }
+            
         }
     }
 }
