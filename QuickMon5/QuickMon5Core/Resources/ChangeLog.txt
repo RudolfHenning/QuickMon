@@ -253,3 +253,9 @@ Additional changes to Ping Collector to display more details in UI.
 Version 5.3.12 (2022-11-16)
 **************
 Adding new Application version Collector.
+
+--------------
+Version 5.3.13 (2022-11-17)
+**************
+Internal optimization: Load Collector agent types from local Assembly if available.
+Web Service Collector bugfix. Dynamically created/compiled dll's was never released or cleaned up.

@@ -821,8 +821,16 @@ namespace QuickMon
         #region Closing
         public void CloseMonitorPack()
         {
+            CloseCollectorHosts();
             ClosePerformanceCounters();
             LoggingMonitorPackClosed();
+        }
+        private void CloseCollectorHosts()
+        {
+            foreach(CollectorHost ch in CollectorHosts)
+            {
+                ch.Close();
+            }
         }
         #endregion
     }

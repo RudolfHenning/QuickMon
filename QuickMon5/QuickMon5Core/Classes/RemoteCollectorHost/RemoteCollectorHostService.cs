@@ -159,7 +159,7 @@ namespace QuickMon
         }
 #endregion
 
-#region Static methods
+        #region Static methods
         public static MonitorState GetCollectorHostState(CollectorHost rh)
         {
             return GetCollectorHostState(rh, rh.RemoteAgentHostAddress, rh.RemoteAgentHostPort);
@@ -240,7 +240,7 @@ namespace QuickMon
             }
             return list;
         }
-#endregion
+        #endregion
 
     }
 

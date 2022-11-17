@@ -338,6 +338,18 @@ namespace QuickMon
             #endregion
             return newCollectorHost;
         }
+        private static ICollector CreateCollectorFromRegisteredAgent(RegisteredAgent currentRA)
+        {
+            ICollector currentAgent = null;
+            if (System.IO.File.Exists(currentRA.AssemblyPath))
+            {
+                Assembly collectorEntryAssembly = Assembly.LoadFile(currentRA.AssemblyPath);
+                currentAgent = (ICollector)collectorEntryAssembly.CreateInstance(currentRA.ClassName);
+                currentAgent.AgentClassName = currentRA.ClassName;
+                currentAgent.AgentClassDisplayName = currentRA.DisplayName;
+            }
+            return currentAgent;
+        }
         public static ICollector CreateCollectorFromClassName(string agentClassName)
         {
             ICollector currentAgent = null;
@@ -346,13 +358,22 @@ namespace QuickMon
             RegisteredAgent currentRA = RegisteredAgentCache.GetRegisteredAgentByClassName(agentClassName, true);
             if (currentRA != null)
             {
-                if (System.IO.File.Exists(currentRA.AssemblyPath))
+                if (currentRA.AssemblyPath == Assembly.GetExecutingAssembly().Location)
                 {
-                    Assembly collectorEntryAssembly = Assembly.LoadFile(currentRA.AssemblyPath);
-                    currentAgent = (ICollector)collectorEntryAssembly.CreateInstance(currentRA.ClassName);
-                    currentAgent.AgentClassName = currentRA.ClassName;
-                    currentAgent.AgentClassDisplayName = currentRA.DisplayName;
+                    System.Diagnostics.Trace.WriteLine($"{agentClassName} is in local Assembly");
+
+                    Type classType = Type.GetType(agentClassName);
+                    if (classType != null)
+                    {
+                        currentAgent = (ICollector)Activator.CreateInstance(classType);
+                        currentAgent.AgentClassName = currentRA.ClassName;
+                        currentAgent.AgentClassDisplayName = currentRA.DisplayName;
+                    }
+                    else
+                        currentAgent = CreateCollectorFromRegisteredAgent(currentRA);
                 }
+                else
+                    currentAgent = CreateCollectorFromRegisteredAgent(currentRA);                
             }
             return currentAgent;
         }
@@ -847,6 +868,14 @@ namespace QuickMon
             if (newId)
                 clone.UniqueId = Guid.NewGuid().ToString();
             return clone;
+        }
+
+        public void Close()
+        {
+            foreach(ICollector collector in CollectorAgents)
+            {
+                collector.Close();
+            }
         }
     }
 }

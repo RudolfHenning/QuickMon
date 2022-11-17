@@ -15,40 +15,18 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new WSCollectorConfig();
         }
-
-        //public override List<System.Data.DataTable> GetDetailDataTables()
-        //{
-        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-        //    System.Data.DataTable dt = new System.Data.DataTable();
-        //    try
-        //    {
-        //        dt.Columns.Add(new System.Data.DataColumn("Web service", typeof(string)));
-        //        dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));
-
-        //        WSCollectorConfig currentConfig = (WSCollectorConfig)AgentConfig;
-        //        foreach (WSCollectorConfigEntry entry in currentConfig.Entries)
-        //        {
-        //            object wsData = "N/A";
-        //            try
-        //            {
-        //                wsData = entry.RunMethod();
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                wsData = ex.Message;
-        //            }
-        //            dt.Rows.Add(entry.Description, wsData.ToString());
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        dt = new System.Data.DataTable("Exception");
-        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-        //        dt.Rows.Add(ex.ToString());
-        //    }
-        //    tables.Add(dt);
-        //    return tables;
-        //}
+        public override void Close()
+        {
+            if (AgentConfig != null)
+            {
+                WSCollectorConfig config = (WSCollectorConfig)AgentConfig;
+                foreach(WSCollectorConfigEntry wsce in config.Entries)
+                {
+                    wsce.Close();
+                }
+            }
+            base.Close();
+        }
     }
 
     public class WSCollectorConfig : ICollectorConfig
@@ -502,7 +480,8 @@ namespace QuickMon.Collectors
             }
             catch (Exception ex)
             {
-                proxy = null; //set null so it can be retried from scratch
+                Close();
+                
                 if (ex.Message.Contains("There was an error downloading"))
                     throw new Exception("Specified web service invalid or not available!", ex);
                 if (ex.Message.Contains("Method") && ex.Message.Contains("not found"))
@@ -616,6 +595,19 @@ namespace QuickMon.Collectors
                     #endregion
             }
             return CurrentAgentValue;
+        }
+
+        public void Close()
+        {
+            if (proxy != null)
+            {
+                try
+                {
+                    proxy.Close();
+                    proxy = null; //set null so it can be retried from scratch
+                }
+                catch { }
+            }
         }
     }
 }
