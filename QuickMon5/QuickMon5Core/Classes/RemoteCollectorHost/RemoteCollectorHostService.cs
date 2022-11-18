@@ -74,10 +74,12 @@ namespace QuickMon
                 m.ScriptsRepositoryDirectory = ScriptsRepositoryDirectory;
                 if (m.CollectorHosts.Count == 1)
                 {
-                    m.RefreshStates();
+                    //m.RefreshStates();
+
                     //Since there is only one CollectorHost
                     CollectorHost ch = m.CollectorHosts[0];
-                    monitorState = ch.CurrentState;
+                    monitorState = ch.CollectorAgents[0].GetState();
+                    //monitorState = ch.CurrentState;
                     monitorState.RanAs = ch.CurrentState.RanAs;
                 }
                 else
@@ -95,7 +97,7 @@ namespace QuickMon
                 consoleOutPut.AppendFormat(" Ran as  : {0}\r\n", monitorState.RanAs);
                 consoleOutPut.AppendFormat(" Details : {0}\r\n", monitorState.ReadAllRawDetails());
 #endif
-
+                
                 m.CloseMonitorPack();
                 m = null;
             }

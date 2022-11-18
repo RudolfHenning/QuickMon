@@ -440,7 +440,13 @@ namespace QuickMon.Collectors
             }
 
             this.compilerWarnings = ToEnumerable(results.Errors);
-            this.proxyAssembly = Assembly.LoadFile(results.PathToAssembly);
+            //this.proxyAssembly = Assembly.LoadFile(results.PathToAssembly);
+            this.proxyAssembly = Assembly.Load(File.ReadAllBytes(results.PathToAssembly));
+            try
+            {
+                File.Delete(results.PathToAssembly);
+            }
+            catch { }
         }
         private void AddAssemblyReference(Assembly referencedAssembly,
             StringCollection refAssemblies)

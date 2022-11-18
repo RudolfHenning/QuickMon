@@ -604,6 +604,11 @@ namespace QuickMon.Collectors
                 try
                 {
                     proxy.Close();
+                    if (proxy.ObjectInstance != null && proxy.ObjectInstance is IDisposable)
+                    {
+                        ((IDisposable)proxy.ObjectInstance).Dispose();
+                        proxy.CloseObj();
+                    }
                     proxy = null; //set null so it can be retried from scratch
                 }
                 catch { }

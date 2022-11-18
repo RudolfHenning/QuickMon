@@ -42,14 +42,20 @@ namespace QuickMon.Collectors
 
         public void CallConstructor(Type[] paramTypes, object[] paramValues)
         {
-            ConstructorInfo ctor = this.objType.GetConstructor(paramTypes);
+            ConstructorInfo ctor = this.objType.GetConstructor(paramTypes);            
             if (ctor == null)
             {
-                throw new DynamicProxyException(
-                        DynamicProxyConstants.ErrorMessages.ProxyCtorNotFound);
+                throw new DynamicProxyException(DynamicProxyConstants.ErrorMessages.ProxyCtorNotFound);
             }
 
             this.obj = ctor.Invoke(paramValues);
+        }
+        public void CloseObj()
+        {
+            if (obj != null)
+            {
+                obj = null;
+            }
         }
 
         public object GetProperty(string property)
