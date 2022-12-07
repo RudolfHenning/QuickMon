@@ -79,6 +79,7 @@ namespace QuickMon
             splitContainer1.Panel1Collapsed = !showFiltersToolStripButton.Checked;
             fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddDays(-1);
             toDateTimeChooser.SelectedDateTime = DateTime.Now;
+            cboGroupBy.SelectedIndex = 0;
             lvwCollectorStates.AutoResizeColumnEnabled = true;
             toolTip1.SetToolTip(txtTextFilter, "You can use advanced filters like:\r\n\tX and Y or Z\r\n\tNot X\r\n\tmatchexactly X\r\n\tstartswith X\r\n\tendswith X");
             LoadDefaultGraphSettings();
@@ -276,9 +277,9 @@ namespace QuickMon
             {
                 string stateValue = "";
                 float v = 0;
+                List<TimeValue> filteredList = new List<TimeValue>();
                 if (lastXEntries == 0)
                     lastXEntries = collector.StateHistory.Count;
-                series = new GraphSeries(collector.PathWithoutMP, seriesColor);
                 foreach (MonitorState agentState in (from hsm in collector.StateHistory
                                                      orderby hsm.Timestamp descending
                                                      select hsm).Take(lastXEntries))
@@ -287,15 +288,52 @@ namespace QuickMon
                     stateValue = agentState.ReadFirstValue(false);
                     if (stateValue != null && float.TryParse(stateValue, out v))
                     {
-                        series.Values.Add(new TimeValue() { Time = agentState.Timestamp, Value = v });
+                        filteredList.Add(new TimeValue() { Time = agentState.Timestamp, Value = v });
                     }
                 }
+                //Last value
                 v = 0;
                 stateValue = collector.CurrentState.ReadFirstValue(false);
                 if (stateValue != null && float.TryParse(stateValue, out v))
                 {
-                    series.Values.Add(new TimeValue() { Time = collector.CurrentState.Timestamp, Value = v });
+                    filteredList.Add(new TimeValue() { Time = collector.CurrentState.Timestamp, Value = v });
                 }
+
+                series = new GraphSeries(collector.PathWithoutMP, seriesColor);
+                if (cboGroupBy.SelectedIndex <= 0)
+                {
+                    series.Values.AddRange(filteredList);
+                } 
+                else
+                {
+                    int groupByMinutes = 1;
+                    if (cboGroupBy.SelectedItem.IsNumber())
+                    {
+                        groupByMinutes = int.Parse(cboGroupBy.SelectedItem.ToString());
+                    }
+                    series.Values.AddRange(filteredList.GroupByMinutes(groupByMinutes));
+                }
+
+
+                //foreach (MonitorState agentState in (from hsm in collector.StateHistory
+                //                                     orderby hsm.Timestamp descending
+                //                                     select hsm).Take(lastXEntries))
+                //{
+                //    v = 0;
+                //    stateValue = agentState.ReadFirstValue(false);
+                //    if (stateValue != null && float.TryParse(stateValue, out v))
+                //    {
+                //        series.Values.Add(new TimeValue() { Time = agentState.Timestamp, Value = v });
+                //    }
+                //}
+                //v = 0;
+                //stateValue = collector.CurrentState.ReadFirstValue(false);
+                //if (stateValue != null && float.TryParse(stateValue, out v))
+                //{
+                //    series.Values.Add(new TimeValue() { Time = collector.CurrentState.Timestamp, Value = v });
+                //}
+
+
             }
             if (series != null && series.Values != null && series.Values.Count > 0)
                 return series;

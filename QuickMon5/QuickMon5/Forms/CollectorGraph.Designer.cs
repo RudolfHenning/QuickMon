@@ -44,6 +44,10 @@
             this.removeCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panelGroupBy = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cboGroupBy = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.lblResetText = new System.Windows.Forms.Label();
             this.txtTextFilter = new QuickMon.Controls.TextBoxEx();
             this.label7 = new System.Windows.Forms.Label();
@@ -108,6 +112,7 @@
             this.graphFillAreaAlpha192ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.CustomizeGraphToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -115,6 +120,7 @@
             this.splitContainer1.SuspendLayout();
             this.collectorListContextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panelGroupBy.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLastXEntries)).BeginInit();
             this.panel4.SuspendLayout();
@@ -131,6 +137,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripButton,
             this.showFiltersToolStripButton,
+            this.CustomizeGraphToolStripButton,
             this.exportToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -210,9 +217,9 @@
             this.lvwCollectorStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwCollectorStates.FullRowSelect = true;
             this.lvwCollectorStates.HideSelection = false;
-            this.lvwCollectorStates.Location = new System.Drawing.Point(0, 230);
+            this.lvwCollectorStates.Location = new System.Drawing.Point(0, 257);
             this.lvwCollectorStates.Name = "lvwCollectorStates";
-            this.lvwCollectorStates.Size = new System.Drawing.Size(241, 175);
+            this.lvwCollectorStates.Size = new System.Drawing.Size(241, 148);
             this.lvwCollectorStates.SmallImageList = this.imagesCollectorTree;
             this.lvwCollectorStates.TabIndex = 0;
             this.lvwCollectorStates.UseCompatibleStateImageBehavior = false;
@@ -271,6 +278,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panelGroupBy);
             this.panel1.Controls.Add(this.lblResetText);
             this.panel1.Controls.Add(this.txtTextFilter);
             this.panel1.Controls.Add(this.label7);
@@ -282,8 +290,62 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(241, 230);
+            this.panel1.Size = new System.Drawing.Size(241, 257);
             this.panel1.TabIndex = 0;
+            // 
+            // panelGroupBy
+            // 
+            this.panelGroupBy.Controls.Add(this.label8);
+            this.panelGroupBy.Controls.Add(this.cboGroupBy);
+            this.panelGroupBy.Controls.Add(this.label9);
+            this.panelGroupBy.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelGroupBy.Location = new System.Drawing.Point(0, 200);
+            this.panelGroupBy.Name = "panelGroupBy";
+            this.panelGroupBy.Size = new System.Drawing.Size(241, 29);
+            this.panelGroupBy.TabIndex = 5;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(184, 7);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(50, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Minute(s)";
+            // 
+            // cboGroupBy
+            // 
+            this.cboGroupBy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboGroupBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboGroupBy.FormattingEnabled = true;
+            this.cboGroupBy.Items.AddRange(new object[] {
+            "None",
+            "1",
+            "5",
+            "10",
+            "15",
+            "30",
+            "60",
+            "120",
+            "180",
+            "360",
+            "720",
+            "1440"});
+            this.cboGroupBy.Location = new System.Drawing.Point(70, 4);
+            this.cboGroupBy.Name = "cboGroupBy";
+            this.cboGroupBy.Size = new System.Drawing.Size(107, 21);
+            this.cboGroupBy.TabIndex = 1;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 7);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(50, 13);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Group by";
             // 
             // lblResetText
             // 
@@ -292,10 +354,10 @@
             this.lblResetText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblResetText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResetText.ForeColor = System.Drawing.Color.Red;
-            this.lblResetText.Location = new System.Drawing.Point(224, 207);
+            this.lblResetText.Location = new System.Drawing.Point(224, 236);
             this.lblResetText.Name = "lblResetText";
             this.lblResetText.Size = new System.Drawing.Size(15, 13);
-            this.lblResetText.TabIndex = 7;
+            this.lblResetText.TabIndex = 8;
             this.lblResetText.Text = "X";
             this.toolTip1.SetToolTip(this.lblResetText, "Clear text");
             this.lblResetText.Visible = false;
@@ -306,20 +368,20 @@
             this.txtTextFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTextFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTextFilter.Location = new System.Drawing.Point(45, 204);
+            this.txtTextFilter.Location = new System.Drawing.Point(45, 233);
             this.txtTextFilter.Name = "txtTextFilter";
             this.txtTextFilter.Size = new System.Drawing.Size(177, 20);
-            this.txtTextFilter.TabIndex = 6;
+            this.txtTextFilter.TabIndex = 7;
             this.txtTextFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtTextFilter_EnterKeyPressed);
             this.txtTextFilter.TextChanged += new System.EventHandler(this.txtTextFilter_TextChanged);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 207);
+            this.label7.Location = new System.Drawing.Point(3, 236);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(28, 13);
-            this.label7.TabIndex = 5;
+            this.label7.TabIndex = 6;
             this.label7.Text = "Text";
             // 
             // panel5
@@ -909,6 +971,16 @@
             this.exportGraphToolStripMenuItem.Text = "Export Graph";
             this.exportGraphToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 
+            // CustomizeGraphToolStripButton
+            // 
+            this.CustomizeGraphToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CustomizeGraphToolStripButton.Image = global::QuickMon.Properties.Resources.tools;
+            this.CustomizeGraphToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CustomizeGraphToolStripButton.Name = "CustomizeGraphToolStripButton";
+            this.CustomizeGraphToolStripButton.Size = new System.Drawing.Size(28, 28);
+            this.CustomizeGraphToolStripButton.Text = "Customize Graph";
+            this.CustomizeGraphToolStripButton.Click += new System.EventHandler(this.seriesColorsToolStripMenuItem_Click);
+            // 
             // CollectorGraph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -934,6 +1006,8 @@
             this.collectorListContextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panelGroupBy.ResumeLayout(false);
+            this.panelGroupBy.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLastXEntries)).EndInit();
@@ -1030,5 +1104,10 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label lblResetText;
         private System.Windows.Forms.ToolStripMenuItem customizeToolStripMenuItem;
+        private System.Windows.Forms.Panel panelGroupBy;
+        private System.Windows.Forms.ComboBox cboGroupBy;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolStripButton CustomizeGraphToolStripButton;
     }
 }

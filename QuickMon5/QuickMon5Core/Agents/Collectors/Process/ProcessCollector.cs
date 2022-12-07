@@ -616,7 +616,7 @@ namespace QuickMon.Collectors
             }
             catch(Exception ex)
             {
-
+                Trace.WriteLine($"GetValue: {ex}");
             }
 
             if (processes.Count > 0)

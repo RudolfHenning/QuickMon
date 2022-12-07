@@ -250,8 +250,8 @@ namespace QuickMon
             {
                 if (TaskbarManager.IsPlatformSupported)
                 {
-                    JumpList recentJumpList = null;
-                    JumpList frequentJumpList = null;
+                    //JumpList recentJumpList = null;
+                    //JumpList frequentJumpList = null;
                     JumpList jumpList = null;
 
                     TaskbarManager.Instance.ApplicationId = Application.ProductName;
@@ -284,16 +284,14 @@ namespace QuickMon
 
         private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            bool ctrl = ((Control.ModifierKeys & Keys.Control) == Keys.Control);
-            if (ctrl)
-            {
-                if (e.KeyChar == 'M')
-                {
+            //bool ctrl = ((Control.ModifierKeys & Keys.Control) == Keys.Control);
+            //if (ctrl)
+            //{
+            //    if (e.KeyChar == 'M')
+            //    {
                     
-                }
-            }
-
-
+            //    }
+            //}
         }
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -2361,7 +2359,10 @@ namespace QuickMon
                     {
                         autoRefreshTimer.Stop();                        
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine($"RefreshMonitorPack: {ex}");
+                    }
                 }
 
                 while (!forceUpdateNow && refreshBackgroundWorker.IsBusy && abortStart.AddSeconds(5) > DateTime.Now)
@@ -2374,7 +2375,10 @@ namespace QuickMon
                     refreshBackgroundWorker.RunWorkerAsync(disablePollingOverride);
                 }
             }
-            catch { }
+            catch(Exception ex) 
+            {
+                Trace.WriteLine($"RefreshMonitorPack: {ex}");
+            }
             finally
             {
                 if (isPollingEnabled)
@@ -2880,8 +2884,7 @@ namespace QuickMon
         public void RemoveChildWindow(IChildWindowIdentity childWindow)
         {
             IChildWindowIdentity child = (from IChildWindowIdentity c in childWindows
-
-                                          where c.Identifier == childWindow.Identifier
+                                          where c != null && c.Identifier == childWindow.Identifier
                                           select c).FirstOrDefault();
             if (child != null)
             {

@@ -55,6 +55,7 @@ namespace QuickMon
         }
         public void DeRegisterChildWindow()
         {
+            AutoRefreshEnabled = false;
             if (ParentWindow != null)
                 ParentWindow.RemoveChildWindow(this);
         }
@@ -80,6 +81,9 @@ namespace QuickMon
         }
         private void CollectorFilterView_FormClosing(object sender, FormClosingEventArgs e)
         {
+            selectionUpdated.Enabled = false;
+            selectionUpdated.Dispose();
+            selectionUpdated = null;
             DeRegisterChildWindow();
         }
         private void CollectorFilterView_Shown(object sender, EventArgs e)
@@ -177,6 +181,8 @@ namespace QuickMon
                         inState = true;
 
                     if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 1) && collector.DisplayName.ContainEx(txtFilter.Text))
+                        isInFilter = true;
+                    else if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 1) && collector.PathWithoutMP.ContainEx(txtFilter.Text))
                         isInFilter = true;
                     else if ((cboFilterType.SelectedIndex == 0 || cboFilterType.SelectedIndex == 2) &&
                         ((from string c in collector.Categories
