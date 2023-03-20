@@ -38,13 +38,6 @@ namespace QuickMon
         /// </summary>
         private CollectorHost editingCollectorHost = null;
         private int previousSelectedAlertTextIndex = -1;
-
-        private int agentsEditSplitContainerHeight = 0;
-        private int hostSettingsSplitContainerHeight = 0;
-        private int operationalSplitContainerHeight = 0;
-        private int alertsSplitContainerHeight = 0;
-        private int configVariSplitContainerHeight = 0;
-
         private string currentSelectedControl = "";
         private bool inEditMode = false;
         private static bool updateAgentsDetailViewBusy = false;
