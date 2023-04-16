@@ -266,3 +266,8 @@ Version 5.3.14 (2022-12-07)
 Filter view - now also include 'Path' to filter by.
 BugFix: Internal error (not visible to user) when closing filter view some internal Forms errors started and never stops.
 Add 'group by minutes' to Collector graph control.
+
+--------------
+Version 5.3.15 (2023-04-16)
+**************
+Add version format options to App/File version Collector.

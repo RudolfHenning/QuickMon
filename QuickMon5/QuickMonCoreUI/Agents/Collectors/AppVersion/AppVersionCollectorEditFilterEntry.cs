@@ -29,6 +29,9 @@ namespace QuickMon.UI
                 txtAppName.Text = selectedEntry.ApplicationName;
                 optFileVersion.Checked = selectedEntry.UseFileVersion;
                 optProductVersion.Checked = !selectedEntry.UseFileVersion;
+                optDisplayFormatRAW.Checked = selectedEntry.VersionFormat == VersionFormatType.RAWString;
+                optDisplayFormatMMB.Checked = selectedEntry.VersionFormat == VersionFormatType.MajorMinorBuild;
+                optDisplayFormatMM.Checked = selectedEntry.VersionFormat == VersionFormatType.MajorMinor;
                 txtApplicationPaths.Text = "";
                 selectedEntry.ExecutablePaths.ForEach(a => txtApplicationPaths.Text += a + "\r\n");
                 chkFirstValidPath.Checked = selectedEntry.UseFirstValidPath;
@@ -84,6 +87,7 @@ namespace QuickMon.UI
                     AppVersionEntry selectedEntry = new AppVersionEntry();
                     selectedEntry.ApplicationName = txtAppName.Text;
                     selectedEntry.UseFileVersion = optFileVersion.Checked;
+                    selectedEntry.VersionFormat = optDisplayFormatRAW.Checked ? VersionFormatType.RAWString : optDisplayFormatMMB.Checked  ? VersionFormatType.MajorMinorBuild : VersionFormatType.MajorMinor;
                     string[] paths = txtApplicationPaths.Text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                     selectedEntry.ExecutablePaths = new List<string>();
                     selectedEntry.ExecutablePaths.AddRange(paths);
@@ -118,6 +122,7 @@ namespace QuickMon.UI
 
                 selectedEntry.ApplicationName = txtAppName.Text;
                 selectedEntry.UseFileVersion = optFileVersion.Checked;
+                selectedEntry.VersionFormat = optDisplayFormatRAW.Checked ? VersionFormatType.RAWString : optDisplayFormatMMB.Checked ? VersionFormatType.MajorMinorBuild : VersionFormatType.MajorMinor;
                 string[] paths = txtApplicationPaths.Text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 selectedEntry.ExecutablePaths = new List<string>();
                 selectedEntry.ExecutablePaths.AddRange(paths);

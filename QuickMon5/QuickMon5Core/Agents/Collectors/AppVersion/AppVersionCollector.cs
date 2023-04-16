@@ -44,6 +44,7 @@ namespace QuickMon.Collectors
                 appVersionEntry.ApplicationName = appVersion.Attributes.GetNamedItem("name").Value;
                 appVersionEntry.ExpectedVersion = appVersion.Attributes.GetNamedItem("expectedVersion").Value;
                 appVersionEntry.UseFileVersion = bool.Parse(appVersion.ReadXmlElementAttr("useFileVersion", "True"));
+                appVersionEntry.VersionFormat = (VersionFormatType)appVersion.ReadXmlElementAttr("versionFormat", 0);
                 appVersionEntry.UseFirstValidPath = bool.Parse(appVersion.ReadXmlElementAttr("useFirstValidPath", "True"));
                 appVersionEntry.PrimaryUIValue = appVersion.ReadXmlElementAttr("primaryUIValue", false);
 
@@ -67,6 +68,7 @@ namespace QuickMon.Collectors
                 applicationXmlNode.SetAttributeValue("name", de.ApplicationName);
                 applicationXmlNode.SetAttributeValue("expectedVersion", de.ExpectedVersion);
                 applicationXmlNode.SetAttributeValue("useFileVersion", de.UseFileVersion);
+                applicationXmlNode.SetAttributeValue("versionFormat", (int)de.VersionFormat);
                 applicationXmlNode.SetAttributeValue("useFirstValidPath", de.UseFirstValidPath);
                 applicationXmlNode.SetAttributeValue("primaryUIValue", de.PrimaryUIValue);
 
@@ -131,7 +133,7 @@ namespace QuickMon.Collectors
         /// Can use * wildcard at the end to match any string that starts with value
         /// </summary>
         public string ExpectedVersion { get; set; }
-        //public FileVersionMatchType MatchType { get; set; }
+        public VersionFormatType VersionFormat { get; set; }
         #endregion
 
         #region ICollectorConfigEntry Members
@@ -233,7 +235,26 @@ namespace QuickMon.Collectors
             }
             else
             {
-                currentState.CurrentValue = UseFileVersion ? fvi.FileVersion : fvi.ProductVersion;
+                string vi = "";
+                if (UseFileVersion)
+                {
+                    if (VersionFormat == VersionFormatType.MajorMinorBuild)
+                        vi = $"{fvi.FileMajorPart}.{fvi.FileMinorPart}.{fvi.FileBuildPart}";
+                    else if (VersionFormat == VersionFormatType.MajorMinor)
+                        vi = $"{fvi.FileMajorPart}.{fvi.FileMinorPart}";
+                    else
+                        vi = fvi.FileVersion;
+                }
+                else
+                {
+                    if (VersionFormat == VersionFormatType.MajorMinorBuild)
+                        vi = $"{fvi.ProductMajorPart}.{fvi.ProductMinorPart}.{fvi.ProductBuildPart}";
+                    else if (VersionFormat == VersionFormatType.MajorMinor)
+                        vi = $"{fvi.ProductMajorPart}.{fvi.ProductMinorPart}";
+                    else
+                        vi = fvi.ProductVersion;
+                }
+                currentState.CurrentValue = vi; // UseFileVersion ? fvi.FileVersion : fvi.ProductVersion;
                 currentState.RawDetails = $"exe path : {fvi.FileName}";
                 currentState.RawDetails += $"\r\nProduct name : {fvi.ProductName}";
                 currentState.RawDetails += $"\r\nExpected version : {ExpectedVersion}";
