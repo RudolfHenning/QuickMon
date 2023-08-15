@@ -173,21 +173,14 @@ namespace HenIT.Security
             }
             if (CheckIfAdminLaunchTaskExist(appTaskId))
             {
-                //if (!IsAdminLaunchTaskAlreadyRunning())
+                tsEngine.TaskScheduler ts = new tsEngine.TaskScheduler();
+                ts.Connect(null, null, null, null);
+                if (ts.Connected)
                 {
-                    tsEngine.TaskScheduler ts = new tsEngine.TaskScheduler();
-                    ts.Connect(null, null, null, null);
-                    if (ts.Connected)
-                    {
-                        tsEngine.ITaskFolder root = ts.GetFolder("\\");
-                        tsEngine.IRegisteredTask task = root.GetTask(appTaskId);
-                        tsEngine.IRunningTask runTask = task.Run(null);
-                    }
+                    tsEngine.ITaskFolder root = ts.GetFolder("\\");
+                    tsEngine.IRegisteredTask task = root.GetTask(appTaskId);
+                    tsEngine.IRunningTask runTask = task.Run(null);
                 }
-                //else
-                //{
-                //    throw new Exception("The task is already running!");
-                //}
             }
             else
             {
