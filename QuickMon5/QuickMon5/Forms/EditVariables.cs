@@ -24,7 +24,7 @@ namespace QuickMon
         private void EditVariables_Load(object sender, EventArgs e)
         {
             LoadFormControls();
-            
+            lvwConfigVars.AutoResizeColumnEnabled = true;
         }
 
         private void LoadFormControls()
