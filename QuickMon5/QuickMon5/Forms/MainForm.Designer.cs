@@ -54,6 +54,7 @@ namespace QuickMon
             this.cmdAdminMode = new System.Windows.Forms.Button();
             this.cmdSettings = new System.Windows.Forms.Button();
             this.cndShowQuickRecentList = new System.Windows.Forms.Button();
+            this.cmdVariables = new System.Windows.Forms.Button();
             this.settingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pollingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -305,7 +306,7 @@ namespace QuickMon
             this.cmdRemoteHosts.ForeColor = System.Drawing.Color.Navy;
             this.cmdRemoteHosts.Image = global::QuickMon.Properties.Resources.remote24x24;
             this.cmdRemoteHosts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdRemoteHosts.Location = new System.Drawing.Point(0, 247);
+            this.cmdRemoteHosts.Location = new System.Drawing.Point(0, 277);
             this.cmdRemoteHosts.Name = "cmdRemoteHosts";
             this.cmdRemoteHosts.Size = new System.Drawing.Size(45, 30);
             this.cmdRemoteHosts.TabIndex = 8;
@@ -392,7 +393,7 @@ namespace QuickMon
             this.cmdTemplates.ForeColor = System.Drawing.Color.Navy;
             this.cmdTemplates.Image = global::QuickMon.Properties.Resources.tables24x24;
             this.cmdTemplates.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdTemplates.Location = new System.Drawing.Point(0, 217);
+            this.cmdTemplates.Location = new System.Drawing.Point(0, 247);
             this.cmdTemplates.Name = "cmdTemplates";
             this.cmdTemplates.Size = new System.Drawing.Size(45, 30);
             this.cmdTemplates.TabIndex = 7;
@@ -433,7 +434,7 @@ namespace QuickMon
             this.cmdSettings.ForeColor = System.Drawing.Color.Navy;
             this.cmdSettings.Image = global::QuickMon.Properties.Resources.tools24x24;
             this.cmdSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdSettings.Location = new System.Drawing.Point(0, 277);
+            this.cmdSettings.Location = new System.Drawing.Point(0, 307);
             this.cmdSettings.Name = "cmdSettings";
             this.cmdSettings.Size = new System.Drawing.Size(45, 30);
             this.cmdSettings.TabIndex = 9;
@@ -460,6 +461,27 @@ namespace QuickMon
             this.toolTip1.SetToolTip(this.cndShowQuickRecentList, "Show quick recent list");
             this.cndShowQuickRecentList.UseVisualStyleBackColor = false;
             this.cndShowQuickRecentList.Click += new System.EventHandler(this.cndShowQuickRecentList_Click);
+            // 
+            // cmdVariables
+            // 
+            this.cmdVariables.BackColor = System.Drawing.Color.Transparent;
+            this.cmdVariables.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdVariables.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdVariables.FlatAppearance.BorderSize = 0;
+            this.cmdVariables.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.cmdVariables.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdVariables.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdVariables.ForeColor = System.Drawing.Color.Navy;
+            this.cmdVariables.Image = global::QuickMon.Properties.Resources.doc_var_24;
+            this.cmdVariables.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdVariables.Location = new System.Drawing.Point(0, 217);
+            this.cmdVariables.Name = "cmdVariables";
+            this.cmdVariables.Size = new System.Drawing.Size(45, 30);
+            this.cmdVariables.TabIndex = 12;
+            this.cmdVariables.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.cmdVariables, "Config Variables");
+            this.cmdVariables.UseVisualStyleBackColor = false;
+            this.cmdVariables.Click += new System.EventHandler(this.cmdVariables_Click);
             // 
             // settingsContextMenuStrip
             // 
@@ -1243,6 +1265,7 @@ namespace QuickMon
             this.panelSlimMenu.Controls.Add(this.cmdSettings);
             this.panelSlimMenu.Controls.Add(this.cmdRemoteHosts);
             this.panelSlimMenu.Controls.Add(this.cmdTemplates);
+            this.panelSlimMenu.Controls.Add(this.cmdVariables);
             this.panelSlimMenu.Controls.Add(this.splitButtonNotifiers);
             this.panelSlimMenu.Controls.Add(this.splitButtonCollectors);
             this.panelSlimMenu.Controls.Add(this.splitButtonSave);
@@ -1272,7 +1295,7 @@ namespace QuickMon
             this.aboutSplitButton.ContextMenuStrip = this.notifiersContextMenuStrip;
             this.aboutSplitButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.aboutSplitButton.ForeColor = System.Drawing.Color.Navy;
-            this.aboutSplitButton.Location = new System.Drawing.Point(0, 307);
+            this.aboutSplitButton.Location = new System.Drawing.Point(0, 337);
             this.aboutSplitButton.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.aboutSplitButton.Name = "aboutSplitButton";
             this.aboutSplitButton.Size = new System.Drawing.Size(45, 31);
@@ -1564,6 +1587,7 @@ namespace QuickMon
         private Controls.SplitButton.SplitButton aboutSplitButton;
         private System.Windows.Forms.ContextMenuStrip aboutContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem changeLogToolStripMenuItem;
+        private System.Windows.Forms.Button cmdVariables;
     }
 }
 

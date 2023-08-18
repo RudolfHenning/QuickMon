@@ -445,6 +445,11 @@ namespace QuickMon
         {
             notifiersContextMenuStrip.Show(splitButtonNotifiers, new Point(splitButtonNotifiers.Width, 0));
         }
+        private void cmdVariables_Click(object sender, EventArgs e)
+        {
+            ShowVariables();
+        }        
+
         private void cmdSettings_Click(object sender, EventArgs e)
         {
             ShowSettings();
@@ -1465,6 +1470,40 @@ namespace QuickMon
                 HenIT.Security.AdminModeTools.RestartInAdminMode(AppGlobals.AppTaskId);
             }
         }
+        private void ShowVariables()
+        {
+            
+            if (monitorPack != null && monitorPack.ConfigVariables != null)
+            {
+                if (isPollingEnabled)
+                {
+                    UpdateStatusbar("Pausing polling...");
+                    PausePolling(false);
+                    WaitForPollingToFinish(5);
+                    UpdateStatusbar("Waiting for editing to finish");
+                }
+
+                EditVariables editVariables = new EditVariables();
+                editVariables.ConfigVariables = monitorPack.ConfigVariables;
+                if (editVariables.ShowDialog() == DialogResult.OK)
+                {
+                    if (editVariables.ChangesWereMade)
+                    {
+                        monitorPack.ConfigVariables = editVariables.ConfigVariables;
+                        SetMonitorChanged();
+                        DoAutoSave();
+                    }
+                }
+
+                if (isPollingEnabled)
+                {
+                    UpdateStatusbar("Starting/Resuming polling...");
+                    ResumePolling(true);
+                }
+                else
+                    UpdateStatusbar("");
+            }
+        }
         private void ShowSettings()
         {
             GeneralSettings generalSettings = new GeneralSettings();
@@ -2032,7 +2071,7 @@ namespace QuickMon
         }
         private void EditMonitorSettings()
         {
-            if (!isPollingEnabled)
+            if (isPollingEnabled)
             {
                 UpdateStatusbar("Pausing polling...");
                 PausePolling(false);

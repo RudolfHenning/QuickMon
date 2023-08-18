@@ -123,6 +123,12 @@
     <Compile Include="Forms\EditNotifierHost.designer.cs">
       <DependentUpon>EditNotifierHost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EditVariables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditVariables.Designer.cs">
+      <DependentUpon>EditVariables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\GlobalAgentHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,6 +214,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditNotifierHost.resx">
       <DependentUpon>EditNotifierHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditVariables.resx">
+      <DependentUpon>EditVariables.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GlobalAgentHistory.resx">
       <DependentUpon>GlobalAgentHistory.cs</DependentUpon>
@@ -492,6 +501,8 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\doc_var-24.png" />
+    <None Include="Resources\doc_var.png" />
     <None Include="Resources\cancel2.png" />
     <None Include="Resources\lightningblue2.png" />
     <None Include="Resources\lightningblue.png" />
