@@ -274,6 +274,8 @@ namespace QuickMon
                     RaiseExitingServiceWindow();
                 }
 
+                //Applies config vars to Initial configs of agents (on the run)
+                ApplyConfigVarsNow();
                 if (!Enabled)
                 {
                     resultMonitorState.State = CollectorState.Disabled;
@@ -297,6 +299,7 @@ namespace QuickMon
                     StagnantStateSecondRepeat = false;
                     StagnantStateThirdRepeat = false;
                     resultMonitorState.RawDetails = "There are no agents.";
+                    
                 }
                 else if (CollectorAgents != null && CollectorAgents.Count == CollectorAgents.Count(ca => !ca.Enabled))
                 {
@@ -374,7 +377,7 @@ namespace QuickMon
                     LastStateCheckAttemptBegin = DateTime.Now;
                     System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
                     //Applies config vars to Initial configs of agents (on the run)
-                    ApplyConfigVarsNow();
+                    //ApplyConfigVarsNow();
                     sw.Start();
 
                     //first check if remote host exection is required

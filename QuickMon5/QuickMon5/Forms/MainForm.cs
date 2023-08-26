@@ -1639,16 +1639,33 @@ namespace QuickMon
             bool loaded = false;
             try
             {
+                if (monitorPack == null && System.IO.File.Exists(monitorPackPath))
+                {
+                    monitorPack = new MonitorPack();
+                    monitorPack.Load(monitorPackPath);
+                }
+
                 if (monitorPackPath == "" & monitorPack != null)
                 {
                     monitorPackPath = monitorPack.MonitorPackPath;
                 }
-                //if (monitorPack != null && monitorPack.EnableStickyMainWindowLocation)
+
+                if (monitorPackPath != "")
                 {
                     string qmAppDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
                     string mpUISettingsName = System.IO.Path.GetFileNameWithoutExtension(monitorPackPath);
                     string mpUISettingsPath = System.IO.Path.Combine(qmAppDataPath, mpUISettingsName + ".uisettings");
-                    if (System.IO.File.Exists(mpUISettingsPath))
+                    bool useStickyPosition = false;
+                    if (monitorPack == null)
+                    {
+                        useStickyPosition = System.IO.File.Exists(mpUISettingsPath);
+                    }
+                    else
+                    {
+                        useStickyPosition = monitorPack.EnableStickyMainWindowLocation;
+                    }
+
+                    if (useStickyPosition && System.IO.File.Exists(mpUISettingsPath))
                     {
                         MonitorPackUISettings mpUISettings = new MonitorPackUISettings();
                         mpUISettings.Load(mpUISettingsPath);
@@ -1662,6 +1679,26 @@ namespace QuickMon
                         }
                     }
                 }
+                
+                //if (monitorPack != null && monitorPack.EnableStickyMainWindowLocation)
+                //{
+                //    string qmAppDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
+                //    string mpUISettingsName = System.IO.Path.GetFileNameWithoutExtension(monitorPackPath);
+                //    string mpUISettingsPath = System.IO.Path.Combine(qmAppDataPath, mpUISettingsName + ".uisettings");
+                //    if (System.IO.File.Exists(mpUISettingsPath))
+                //    {
+                //        MonitorPackUISettings mpUISettings = new MonitorPackUISettings();
+                //        mpUISettings.Load(mpUISettingsPath);
+                //        if (
+                //            (mpUISettings.Width > 0) && (mpUISettings.Height > 0)
+                //            )
+                //        {
+                //            this.Location = new Point(mpUISettings.LocationX, mpUISettings.LocationY);
+                //            this.Size = new Size(mpUISettings.Width, mpUISettings.Height);
+                //            loaded = true;
+                //        }
+                //    }
+                //}
             }
             catch { }
             return loaded;

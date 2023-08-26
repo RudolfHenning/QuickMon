@@ -115,6 +115,7 @@ namespace QuickMon
                 {
                     foreach (ListViewItem lvi in lvwConfigVars.SelectedItems)
                         lvwConfigVars.Items.Remove(lvi);
+                    ChangesWereMade = true;
                 }
                 txtConfigVarSearchFor.Text = "";
                 txtConfigVarReplaceByValue.Text = "";
