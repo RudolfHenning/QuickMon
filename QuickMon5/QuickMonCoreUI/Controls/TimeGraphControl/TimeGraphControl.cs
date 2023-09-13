@@ -803,7 +803,12 @@ namespace HenIT.Windows.Controls.Graphing
                         var selValEntry = selectedSeriesValues.FirstOrDefault(se => se.Item1 == enabledSeries.Name);
                         if (selValEntry != null)
                         {
-                            currentSeriesLabel += $" ({selValEntry.Item2.Value.ToString("0.00")})";
+                            string valueFormatted = $"{selValEntry.Item2.Value.ToString("0.00")}";
+                            if (valueFormatted.EndsWith(".00"))
+                                valueFormatted = valueFormatted.Substring(0, valueFormatted.Length - 3);
+                            if ($"{enabledSeries.ValueUnit}" != "")
+                                valueFormatted += $" {enabledSeries.ValueUnit}";
+                            currentSeriesLabel += $" ({valueFormatted})";
                         }
                     }
                     SizeF currentLabelSize = g.MeasureString(currentSeriesLabel, GraphTextFont);
@@ -834,7 +839,14 @@ namespace HenIT.Windows.Controls.Graphing
                         var selValEntry = selectedSeriesValues.FirstOrDefault(se => se.Item1 == enabledSeries.Name);
                         if (selValEntry != null)
                         {
-                            currentSeriesLabel += $" ({selValEntry.Item2.Value.ToString("0.00")})";
+                            string valueFormatted = $"{selValEntry.Item2.Value.ToString("0.00")}";
+                            if (valueFormatted.EndsWith(".00"))
+                                valueFormatted = valueFormatted.Substring(0, valueFormatted.Length - 3);
+                            if ($"{enabledSeries.ValueUnit}" != "")
+                                valueFormatted += $" {enabledSeries.ValueUnit}";
+                            currentSeriesLabel += $" ({valueFormatted})";
+
+                            //currentSeriesLabel += $" ({selValEntry.Item2.Value.ToString("0.00")})";
                         }
                     }
                     if (enabledSeries.Selected)

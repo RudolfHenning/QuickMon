@@ -189,6 +189,18 @@ namespace QuickMon
                 GraphSeries series = SeriesFromCollector(collector, seriesColor, (int)nudLastXEntries.Value);
                 if (series != null)
                 {
+                    if(collector.StateHistory.Count > 0)
+                    {
+                        MonitorState ms = (from m in collector.StateHistory
+                                           where m.ReadFirstValueUnit() != ""
+                                           select m).FirstOrDefault();
+
+                        if (ms != null)
+                        {
+                            series.ValueUnit = ms.ReadFirstValueUnit();
+                        }
+                    }
+
                     seriesNames.Add(series.Name);
                     float val = series.Values.OrderByDescending(v => v.Value).FirstOrDefault().Value;
                     if (maxValue < val)

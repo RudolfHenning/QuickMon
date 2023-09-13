@@ -31,6 +31,7 @@ namespace HenIT.Windows.Controls.Graphing
         public int LineWidth { get; set; }
         public bool Enabled { get; set; } = true;
         public bool Selected { get; set; } = false;
+        public string ValueUnit { get; set; } = "";
 
         #region Legend details
         public string CurrentSeriesLabelText { get; set; }

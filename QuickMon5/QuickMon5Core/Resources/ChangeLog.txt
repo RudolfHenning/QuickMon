@@ -284,3 +284,8 @@ Version 5.3.17 (2023-08-27)
 A few small fixes. 
 Config variables editor did not register deletions as changes.
 Using config variables in Collector display names improved.
+
+--------------
+Version 5.3.18 (2023-09-13)
+**************
+Collector graphs show value unit when the series is clicked on.

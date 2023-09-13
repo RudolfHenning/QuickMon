@@ -344,6 +344,19 @@ namespace QuickMon
                 {
                     Color seriesColor = seriesColors[graphSeriesList.Count % seriesColors.Count];
                     HenIT.Windows.Controls.Graphing.GraphSeries series = new HenIT.Windows.Controls.Graphing.GraphSeries(seriesName, seriesColor);
+
+                    if (SelectedCollectorHost.StateHistory.Count > 0)
+                    {
+                        MonitorState ms = (from m in SelectedCollectorHost.StateHistory
+                                           where m.ReadFirstValueUnit() != ""
+                                           select m).FirstOrDefault();
+
+                        if (ms != null)
+                        {
+                            series.ValueUnit = ms.ReadFirstValueUnit();
+                        }
+                    }
+
                     foreach (MonitorState historyState in SelectedCollectorHost.StateHistory)
                     {
                         foreach (MonitorState agentState in historyState.ChildStates)
