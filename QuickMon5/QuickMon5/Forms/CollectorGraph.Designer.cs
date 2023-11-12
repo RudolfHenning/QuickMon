@@ -33,6 +33,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.refreshToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.showFiltersToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.CustomizeGraphToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.exportToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -112,8 +113,9 @@
             this.graphFillAreaAlpha192ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.CustomizeGraphToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.refreshDetailsToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -167,6 +169,16 @@
             this.showFiltersToolStripButton.Text = "View Filters";
             this.showFiltersToolStripButton.CheckStateChanged += new System.EventHandler(this.showFiltersToolStripButton_CheckStateChanged);
             // 
+            // CustomizeGraphToolStripButton
+            // 
+            this.CustomizeGraphToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CustomizeGraphToolStripButton.Image = global::QuickMon.Properties.Resources.tools;
+            this.CustomizeGraphToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CustomizeGraphToolStripButton.Name = "CustomizeGraphToolStripButton";
+            this.CustomizeGraphToolStripButton.Size = new System.Drawing.Size(28, 28);
+            this.CustomizeGraphToolStripButton.Text = "Customize Graph";
+            this.CustomizeGraphToolStripButton.Click += new System.EventHandler(this.seriesColorsToolStripMenuItem_Click);
+            // 
             // exportToolStripButton
             // 
             this.exportToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -179,6 +191,8 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshDetailsToolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 436);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(834, 22);
@@ -674,6 +688,7 @@
             this.graphTypeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.linearGraphTypeToolStripMenuItem,
             this.logarithmicGraphTypeToolStripMenuItem});
+            this.graphTypeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.LineGraph;
             this.graphTypeToolStripMenuItem.Name = "graphTypeToolStripMenuItem";
             this.graphTypeToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.graphTypeToolStripMenuItem.Text = "Graph Type";
@@ -971,15 +986,13 @@
             this.exportGraphToolStripMenuItem.Text = "Export Graph";
             this.exportGraphToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 
-            // CustomizeGraphToolStripButton
+            // refreshDetailsToolStripStatusLabel
             // 
-            this.CustomizeGraphToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.CustomizeGraphToolStripButton.Image = global::QuickMon.Properties.Resources.tools;
-            this.CustomizeGraphToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CustomizeGraphToolStripButton.Name = "CustomizeGraphToolStripButton";
-            this.CustomizeGraphToolStripButton.Size = new System.Drawing.Size(28, 28);
-            this.CustomizeGraphToolStripButton.Text = "Customize Graph";
-            this.CustomizeGraphToolStripButton.Click += new System.EventHandler(this.seriesColorsToolStripMenuItem_Click);
+            this.refreshDetailsToolStripStatusLabel.Name = "refreshDetailsToolStripStatusLabel";
+            this.refreshDetailsToolStripStatusLabel.Size = new System.Drawing.Size(788, 17);
+            this.refreshDetailsToolStripStatusLabel.Spring = true;
+            this.refreshDetailsToolStripStatusLabel.Text = ".";
+            this.refreshDetailsToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // CollectorGraph
             // 
@@ -999,6 +1012,8 @@
             this.Shown += new System.EventHandler(this.CollectorGraph_Shown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -1109,5 +1124,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripButton CustomizeGraphToolStripButton;
+        private System.Windows.Forms.ToolStripStatusLabel refreshDetailsToolStripStatusLabel;
     }
 }

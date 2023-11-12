@@ -84,7 +84,7 @@ namespace QuickMon
             toolTip1.SetToolTip(txtTextFilter, "You can use advanced filters like:\r\n\tX and Y or Z\r\n\tNot X\r\n\tmatchexactly X\r\n\tstartswith X\r\n\tendswith X");
             LoadDefaultGraphSettings();
 
-            graphTypeToolStripMenuItem.Visible = false;
+            //graphTypeToolStripMenuItem.Visible = false;
             grapthColorsToolStripMenuItem.Visible = false;
             graphVisibilityToolStripMenuItem.Visible = false;
         }
@@ -279,6 +279,7 @@ namespace QuickMon
             this.Invoke((MethodInvoker)delegate
             {
                 collectorTimeGraph.RefreshGraph();
+                refreshDetailsToolStripStatusLabel.Text = $"Last updated: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}";                
             });
         }
         private GraphSeries SeriesFromCollector(CollectorHost collector, Color seriesColor, int lastXEntries)
