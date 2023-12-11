@@ -117,17 +117,18 @@
             this.label14.Location = new System.Drawing.Point(161, 139);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(310, 13);
-            this.label14.TabIndex = 23;
+            this.label14.TabIndex = 9;
             this.label14.Text = "You can use * in the instance name. This implies multi instancing";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(277, 218);
+            this.label13.Location = new System.Drawing.Point(277, 191);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(152, 13);
-            this.label13.TabIndex = 22;
-            this.label13.Text = "None = specified instance only";
+            this.label13.Size = new System.Drawing.Size(217, 13);
+            this.label13.TabIndex = 19;
+            this.label13.Text = "None = avg value when multi sample is used";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // cboInstanceValueAggregation
             // 
@@ -144,19 +145,19 @@
             "First",
             "Last",
             "Count"});
-            this.cboInstanceValueAggregation.Location = new System.Drawing.Point(164, 215);
+            this.cboInstanceValueAggregation.Location = new System.Drawing.Point(164, 188);
             this.cboInstanceValueAggregation.Name = "cboInstanceValueAggregation";
             this.cboInstanceValueAggregation.Size = new System.Drawing.Size(107, 21);
-            this.cboInstanceValueAggregation.TabIndex = 21;
+            this.cboInstanceValueAggregation.TabIndex = 18;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 218);
+            this.label12.Location = new System.Drawing.Point(6, 191);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(147, 13);
-            this.label12.TabIndex = 20;
-            this.label12.Text = "Instance(s) value aggregation";
+            this.label12.Size = new System.Drawing.Size(124, 13);
+            this.label12.TabIndex = 17;
+            this.label12.Text = "Multi sample aggregation";
             this.toolTip1.SetToolTip(this.label12, "When using this feature all instances of the specified counter are used - and not" +
         " just the specified instance");
             // 
@@ -164,10 +165,10 @@
             // 
             this.chkInverseScale.AutoSize = true;
             this.chkInverseScale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkInverseScale.Location = new System.Drawing.Point(277, 189);
+            this.chkInverseScale.Location = new System.Drawing.Point(277, 215);
             this.chkInverseScale.Name = "chkInverseScale";
             this.chkInverseScale.Size = new System.Drawing.Size(102, 17);
-            this.chkInverseScale.TabIndex = 19;
+            this.chkInverseScale.TabIndex = 22;
             this.chkInverseScale.Text = "Inverse (x/scale)";
             this.chkInverseScale.UseVisualStyleBackColor = true;
             // 
@@ -175,15 +176,15 @@
             // 
             this.label11.AutoSize = true;
             this.label11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label11.Location = new System.Drawing.Point(6, 190);
+            this.label11.Location = new System.Drawing.Point(6, 217);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(94, 13);
-            this.label11.TabIndex = 17;
+            this.label11.TabIndex = 20;
             this.label11.Text = "Value Scale factor";
             // 
             // nudValueScale
             // 
-            this.nudValueScale.Location = new System.Drawing.Point(164, 188);
+            this.nudValueScale.Location = new System.Drawing.Point(164, 215);
             this.nudValueScale.Maximum = new decimal(new int[] {
             -1,
             2147483647,
@@ -196,7 +197,7 @@
             0});
             this.nudValueScale.Name = "nudValueScale";
             this.nudValueScale.Size = new System.Drawing.Size(107, 20);
-            this.nudValueScale.TabIndex = 18;
+            this.nudValueScale.TabIndex = 21;
             this.nudValueScale.Value = new decimal(new int[] {
             1,
             0,
@@ -259,7 +260,7 @@
             this.label7.Location = new System.Drawing.Point(116, 164);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(42, 13);
-            this.label7.TabIndex = 12;
+            this.label7.TabIndex = 11;
             this.label7.Text = "Repeat";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -273,7 +274,7 @@
             0});
             this.nudNumberOfSamplesPerRefresh.Name = "nudNumberOfSamplesPerRefresh";
             this.nudNumberOfSamplesPerRefresh.Size = new System.Drawing.Size(66, 20);
-            this.nudNumberOfSamplesPerRefresh.TabIndex = 11;
+            this.nudNumberOfSamplesPerRefresh.TabIndex = 12;
             this.nudNumberOfSamplesPerRefresh.Value = new decimal(new int[] {
             1,
             0,

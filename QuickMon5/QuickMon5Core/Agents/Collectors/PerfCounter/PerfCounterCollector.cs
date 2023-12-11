@@ -259,7 +259,7 @@ namespace QuickMon.Collectors
             pcList = new List<PerformanceCounter>();
             if (Computer != "" && Computer.ToLower() != "localhost")
                 computername = Computer;
-            if (InstanceValueAggregationStyle == AggregationStyle.None)
+            if (InstanceValueAggregationStyle == AggregationStyle.None && !Instance.Contains("*"))
             {
                 pc = new PerformanceCounter(Category, Counter, Instance, computername);
                 pc.NextValue();
@@ -275,7 +275,15 @@ namespace QuickMon.Collectors
                                                          orderby s
                                                          select s))
                     {
-                        if (Instance == null || Instance == "" || !Instance.Contains("*") || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
+                        bool useInstance = false;
+                        if (Instance == null || Instance == "")
+                            useInstance = true;
+                        else if (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance))
+                            useInstance = true;
+                        else if (instanceNameItem.ToLower() == Instance.ToLower())
+                            useInstance = true;
+
+                        if (useInstance) // Instance == null || Instance == "" || !Instance.Contains("*") || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
                         {
                             PerformanceCounter pci = new PerformanceCounter(Category, Counter, instanceNameItem, computername);
                             float tmpval = pci.NextValue();
@@ -300,7 +308,8 @@ namespace QuickMon.Collectors
                 MultiSampleWaitMS = 100;
             try
             {
-                if (pcList == null || pcList.Count == 0 || InstanceValueAggregationStyle != AggregationStyle.None)
+                if (pcList == null || pcList.Count == 0 || 
+                    (InstanceValueAggregationStyle != AggregationStyle.None && ($"{Instance}" == "" || "{Instance}".Contains('*'))))
                 {
                     InitializePerfCounter();
                 }
@@ -310,6 +319,12 @@ namespace QuickMon.Collectors
                     List<float> values = new List<float>();
                     foreach(PerformanceCounter perf in pcList)
                     {
+                        if (perf.CounterName.StartsWith("%")) //in the case of some perf counters that need time to initialize internally
+                        {                            
+                            value = perf.NextValue();
+                            System.Threading.Thread.Sleep(50);
+                        }
+
                         for (int i = 0; i < NumberOfSamplesPerRefresh; i++)
                         {
                             if (i > 0)
@@ -318,6 +333,11 @@ namespace QuickMon.Collectors
                             try
                             {
                                 value = perf.NextValue();
+                                //if (perf.CounterName.StartsWith("%"))
+                                //{
+                                //    System.Threading.Thread.Sleep(5);
+                                //    value = perf.NextValue();
+                                //}
                                 if (value > 99.0 && perf.CounterName == "% Processor Time")
                                 {
                                     System.Threading.Thread.Sleep(13);
@@ -337,7 +357,15 @@ namespace QuickMon.Collectors
                             multiValues.Add(new Tuple<string, float>(perf.InstanceName, value));
                     }
                     if (values.Count > 0) {
-                        if (InstanceValueAggregationStyle == AggregationStyle.None || InstanceValueAggregationStyle == AggregationStyle.First)
+                        if (values.Count == 1)
+                        {
+                            value = values[0];
+                        }
+                        else if (InstanceValueAggregationStyle == AggregationStyle.None || InstanceValueAggregationStyle == AggregationStyle.Avg)
+                        {
+                            value = values.Average();
+                        }
+                        else if (InstanceValueAggregationStyle == AggregationStyle.First)
                         {
                             value = values[0];
                         } 

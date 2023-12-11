@@ -289,3 +289,9 @@ Using config variables in Collector display names improved.
 Version 5.3.18 (2023-09-13)
 **************
 Collector graphs show value unit when the series is clicked on.
+
+--------------
+Version 5.3.19 (2023-12-11)
+**************
+Enhance the Performance counter collector to handle % Disk Time and other Performance counters that requires more time to initialize.
+Performance counter collector now multisample single instance counters as well.

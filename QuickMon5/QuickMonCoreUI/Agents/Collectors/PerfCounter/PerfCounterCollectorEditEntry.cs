@@ -134,7 +134,7 @@ namespace QuickMon.UI
                         }
 
                         MonitorState currentState = currentEntry.GetCurrentState();
-                        float val = float.Parse(currentState.CurrentValue.ToString());
+                        //float val = float.Parse($"{currentState.CurrentValue}");
 
                         if (showPrompt)
                             MessageBox.Show(string.Format("Test was successful\r\n{0}", currentState.ReadAllRawDetails()), "Performance counter test", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -245,8 +245,12 @@ namespace QuickMon.UI
         private void cmdSample_Click(object sender, EventArgs e)
         {
             IsValid(true);           
-        }        
+        }
         #endregion
 
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
