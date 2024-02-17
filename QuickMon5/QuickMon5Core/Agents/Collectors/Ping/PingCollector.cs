@@ -291,8 +291,8 @@ namespace QuickMon.Collectors
             {
                 if (pingResult.PingTime >= TimeOutMS)
                 {
-                    currentState.CurrentValue += " (Time out)";
-                    currentState.CurrentValueUnit = "";
+                    //currentState.CurrentValue += " (Time out)";
+                    currentState.CurrentValueUnit = "ms (Time out)";
                     currentState.State = CollectorState.Error;
                     currentState.RawDetails = string.Format("Operation timed out! Max time allowed: {0}ms, {1}", TimeOutMS, pingResult.ResponseDetails);
                 }
@@ -440,7 +440,8 @@ namespace QuickMon.Collectors
                         }
                         else  if (reply.Status == System.Net.NetworkInformation.IPStatus.TimedOut)
                         {
-                            result.PingTime = -1;
+                            result.PingTime = TimeOutMS;
+                            result.Success = true; //the operation was still successfull
                             result.ResponseDetails = "Timed out";
                         }
                         else if (reply.Status == System.Net.NetworkInformation.IPStatus.DestinationHostUnreachable)
@@ -493,6 +494,8 @@ namespace QuickMon.Collectors
                         System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
                     else
                         System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Ssl3;
+
+                    //TLS13 = 12288 - only in .Net 4.8
 
                     if (IgnoreInvalidHTTPSCerts)
                         System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -593,14 +596,15 @@ namespace QuickMon.Collectors
                 if (httpCode < 300)
                 {
                     result.PingTime = (int)sw.ElapsedMilliseconds;
-                    if (sw.ElapsedMilliseconds < TimeOutMS)
-                    {
-                        result.Success = true;
-                    }
-                    else
-                    {
-                        result.Success = false;
-                    }
+                    result.Success = true;
+                    //if (sw.ElapsedMilliseconds < TimeOutMS)
+                    //{
+                    //    result.Success = true;
+                    //}
+                    //else
+                    //{
+                    //    result.Success = false;
+                    //}
                 } 
                 else if (httpCode < 400 && !AllowHTTP3xx)
                 {

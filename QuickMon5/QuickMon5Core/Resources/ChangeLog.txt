@@ -295,3 +295,8 @@ Version 5.3.19 (2023-12-11)
 **************
 Enhance the Performance counter collector to handle % Disk Time and other Performance counters that requires more time to initialize.
 Performance counter collector now multisample single instance counters as well.
+
+--------------
+Version 5.3.20 (2024-02-17)
+**************
+Small change to Ping collector to record number value even when timeout is raised so it shows these values on graphs.
