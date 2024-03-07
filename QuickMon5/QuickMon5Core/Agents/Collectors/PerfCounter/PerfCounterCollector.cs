@@ -160,7 +160,7 @@ namespace QuickMon.Collectors
             InstanceValueAggregationStyle = AggregationStyle.None;
         }
 
-        private PerformanceCounter pc = null;
+        //private PerformanceCounter pc = null;
 
         #region Properties
         public string Computer { get; set; }
@@ -181,7 +181,29 @@ namespace QuickMon.Collectors
         #region ICollectorConfigEntry Members
         public string Description
         {
-            get { return string.Format("{0}\\{1}\\{2}\\{3}", Computer, Category, Counter, Instance); }
+            get
+            {
+                try
+                {
+                    if (pcList == null || pcList.Count == 0)
+                    {
+                        InitializePerfCounter();
+                    }
+                }
+                catch { }
+
+                if (pcList != null && pcList.Count > 0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var perfc in pcList)
+                    {
+                        sb.Append(string.Format("{0}\\{1}\\{2}\\{3},", Computer, Category, Counter, perfc.InstanceName));
+                    }
+                    return sb.ToString().TrimEnd(',');
+                }
+                else
+                    return string.Format("{0}\\{1}\\{2}\\{3}", Computer, Category, Counter, Instance);
+            }
         }
         public string TriggerSummary
         {
@@ -199,7 +221,7 @@ namespace QuickMon.Collectors
             float value = 0;
             MonitorState currentState = new MonitorState()
             {
-                ForAgent = Description                
+                ForAgent = Description
             };
             try
             {
@@ -231,11 +253,11 @@ namespace QuickMon.Collectors
                                       ForAgent = multiValues[i].Item1,
                                       ForAgentType = "PerformanceCounter",
                                       CurrentValue = multiValues[i].Item2.ToStringAuto()
-                    });
+                                  });
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 currentState.State = CollectorState.Error;
                 if (ex.Message.Contains("Instance") && ex.Message.Contains("does not exist in the specified Category"))
@@ -244,7 +266,7 @@ namespace QuickMon.Collectors
                 }
                 currentState.RawDetails = ex.Message;
             }
-            
+
             return currentState;
         }
         #endregion
@@ -259,9 +281,9 @@ namespace QuickMon.Collectors
             pcList = new List<PerformanceCounter>();
             if (Computer != "" && Computer.ToLower() != "localhost")
                 computername = Computer;
-            if (InstanceValueAggregationStyle == AggregationStyle.None && !Instance.Contains("*"))
+            if (InstanceValueAggregationStyle == AggregationStyle.None)
             {
-                pc = new PerformanceCounter(Category, Counter, Instance, computername);
+                PerformanceCounter pc = new PerformanceCounter(Category, Counter, Instance, computername);
                 pc.NextValue();
                 pcList.Add(pc);
             }
@@ -275,15 +297,7 @@ namespace QuickMon.Collectors
                                                          orderby s
                                                          select s))
                     {
-                        bool useInstance = false;
-                        if (Instance == null || Instance == "")
-                            useInstance = true;
-                        else if (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance))
-                            useInstance = true;
-                        else if (instanceNameItem.ToLower() == Instance.ToLower())
-                            useInstance = true;
-
-                        if (useInstance) // Instance == null || Instance == "" || !Instance.Contains("*") || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
+                        if (Instance == null || Instance == "" || !Instance.Contains("*") || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
                         {
                             PerformanceCounter pci = new PerformanceCounter(Category, Counter, instanceNameItem, computername);
                             float tmpval = pci.NextValue();
@@ -293,7 +307,7 @@ namespace QuickMon.Collectors
                 }
                 else
                 {
-                    pc = new PerformanceCounter(Category, Counter, Instance, computername);
+                    PerformanceCounter pc = new PerformanceCounter(Category, Counter, Instance, computername);
                     pc.NextValue();
                     pcList.Add(pc);
                 }
@@ -308,8 +322,7 @@ namespace QuickMon.Collectors
                 MultiSampleWaitMS = 100;
             try
             {
-                if (pcList == null || pcList.Count == 0 || 
-                    (InstanceValueAggregationStyle != AggregationStyle.None && ($"{Instance}" == "" || "{Instance}".Contains('*'))))
+                if (pcList == null || pcList.Count == 0 || InstanceValueAggregationStyle != AggregationStyle.None)
                 {
                     InitializePerfCounter();
                 }
@@ -317,14 +330,8 @@ namespace QuickMon.Collectors
                 if (pcList != null && pcList.Count > 0)
                 {
                     List<float> values = new List<float>();
-                    foreach(PerformanceCounter perf in pcList)
+                    foreach (PerformanceCounter perf in pcList)
                     {
-                        if (perf.CounterName.StartsWith("%")) //in the case of some perf counters that need time to initialize internally
-                        {                            
-                            value = perf.NextValue();
-                            System.Threading.Thread.Sleep(50);
-                        }
-
                         for (int i = 0; i < NumberOfSamplesPerRefresh; i++)
                         {
                             if (i > 0)
@@ -333,19 +340,14 @@ namespace QuickMon.Collectors
                             try
                             {
                                 value = perf.NextValue();
-                                //if (perf.CounterName.StartsWith("%"))
-                                //{
-                                //    System.Threading.Thread.Sleep(5);
-                                //    value = perf.NextValue();
-                                //}
                                 if (value > 99.0 && perf.CounterName == "% Processor Time")
                                 {
                                     System.Threading.Thread.Sleep(13);
                                     value = perf.NextValue();
                                 }
-                                values.Add(value);                                
+                                values.Add(value);
                             }
-                            catch(Exception exReadVal)
+                            catch (Exception exReadVal)
                             {
                                 if (InstanceValueAggregationStyle == AggregationStyle.None || !exReadVal.Message.Contains("does not exist in the specified Category"))
                                 {
@@ -356,26 +358,19 @@ namespace QuickMon.Collectors
                         if (perf.InstanceName != null)
                             multiValues.Add(new Tuple<string, float>(perf.InstanceName, value));
                     }
-                    if (values.Count > 0) {
-                        if (values.Count == 1)
+                    if (values.Count > 0)
+                    {
+                        if (InstanceValueAggregationStyle == AggregationStyle.None || InstanceValueAggregationStyle == AggregationStyle.First)
                         {
                             value = values[0];
                         }
-                        else if (InstanceValueAggregationStyle == AggregationStyle.None || InstanceValueAggregationStyle == AggregationStyle.Avg)
-                        {
-                            value = values.Average();
-                        }
-                        else if (InstanceValueAggregationStyle == AggregationStyle.First)
-                        {
-                            value = values[0];
-                        } 
                         else if (InstanceValueAggregationStyle == AggregationStyle.Last)
                         {
                             value = values[values.Count - 1];
                         }
                         else if (InstanceValueAggregationStyle == AggregationStyle.Max)
                         {
-                            value = values.Max();                                    
+                            value = values.Max();
                         }
                         else if (InstanceValueAggregationStyle == AggregationStyle.Min)
                         {
@@ -389,7 +384,7 @@ namespace QuickMon.Collectors
                         {
                             value = values.Count;
                         }
-                        else 
+                        else
                         {
                             value = values.Average();
                         }
@@ -418,9 +413,9 @@ namespace QuickMon.Collectors
                 //    }
                 //}
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                System.Diagnostics.Trace.WriteLine($"GetNextValue:{ex.ToString()}");
+                System.Diagnostics.Trace.WriteLine($"GetNextValue:{ex}");
                 if (retries > 0)
                 {
                     InitializePerfCounter();
@@ -432,7 +427,8 @@ namespace QuickMon.Collectors
                     value = 0;
                 }
             }
-            if (OutputValueScaleFactor > 0) {
+            if (OutputValueScaleFactor > 0)
+            {
                 if (!OutputValueScaleFactorInverse)
                     value = value * OutputValueScaleFactor;
                 else
@@ -506,7 +502,7 @@ namespace QuickMon.Collectors
             PerformanceCounter pc = null;
             try
             {
-                List<string> instanceIds = GetInstanceNamesByCategory("Process", computerName).Where(p=> processFilter == "*" || p.StartsWith(processFilter)).ToList();
+                List<string> instanceIds = GetInstanceNamesByCategory("Process", computerName).Where(p => processFilter == "*" || p.StartsWith(processFilter)).ToList();
                 foreach (string instance in instanceIds)
                 {
                     pc = new PerformanceCounter("Process", "ID Process", instance, computerName);
@@ -527,9 +523,9 @@ namespace QuickMon.Collectors
         public static List<string> GetInstanceNamesByCategory(string category, string computername = ".")
         {
             List<string> list = new List<string>();
-            PerformanceCounterCategory pcCat = new PerformanceCounterCategory(category, computername );
-            list.AddRange(pcCat.GetInstanceNames());               
-            
+            PerformanceCounterCategory pcCat = new PerformanceCounterCategory(category, computername);
+            list.AddRange(pcCat.GetInstanceNames());
+
             return list;
         }
 
