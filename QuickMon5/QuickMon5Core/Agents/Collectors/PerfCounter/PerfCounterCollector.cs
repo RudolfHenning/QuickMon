@@ -15,42 +15,6 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new PerfCounterCollectorConfig();
         }
-
-        //public override List<System.Data.DataTable> GetDetailDataTables()
-        //{
-        //    List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
-        //    System.Data.DataTable dt = new System.Data.DataTable();
-        //    try
-        //    {
-        //        dt.Columns.Add(new System.Data.DataColumn("Computer", typeof(string)));
-        //        dt.Columns[0].ExtendedProperties.Add("groupby", "true");
-        //        dt.Columns.Add(new System.Data.DataColumn("Perf counter", typeof(string)));
-        //        dt.Columns.Add(new System.Data.DataColumn("Value", typeof(float)));
-
-        //        PerfCounterCollectorConfig currentConfig = (PerfCounterCollectorConfig)AgentConfig;
-        //        foreach (PerfCounterCollectorEntry entry in currentConfig.Entries)
-        //        {
-        //            float value = 0;
-        //            try
-        //            {
-        //                value = entry.GetNextValue();
-        //            }
-        //            catch
-        //            {
-        //                value = -1;
-        //            }
-        //            dt.Rows.Add(entry.Computer, entry.PCNameWithoutComputerName, value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        dt = new System.Data.DataTable("Exception");
-        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-        //        dt.Rows.Add(ex.ToString());
-        //    }
-        //    tables.Add(dt);
-        //    return tables;
-        //}
     }
 
     public class PerfCounterCollectorConfig : ICollectorConfig
@@ -183,14 +147,24 @@ namespace QuickMon.Collectors
         {
             get
             {
+                return string.Format("{0}\\{1}\\{2}\\{3}", Computer, Category, Counter, Instance);
+            }
+        }
+        private string RunTimeDescription
+        {
+            get
+            {
                 try
                 {
-                    if (pcList == null || pcList.Count == 0)
+                    if (pcList == null || pcList.Count == 0 || (pcList.Count > 0 && DateTime.Now.Subtract(lastInstanceRefresh).TotalSeconds > minimumInstanceNameRefreshSec)) // InstanceValueAggregationStyle != AggregationStyle.None)
                     {
                         InitializePerfCounter();
                     }
                 }
-                catch { }
+                catch
+                {
+                    return string.Format("{0}\\{1}\\{2}\\{3}", Computer, Category, Counter, Instance);
+                }
 
                 if (pcList != null && pcList.Count > 0)
                 {
@@ -217,11 +191,11 @@ namespace QuickMon.Collectors
         public bool PrimaryUIValue { get; set; }
         public MonitorState GetCurrentState()
         {
-            //string outputFormat = "F2";
             float value = 0;
+
             MonitorState currentState = new MonitorState()
             {
-                ForAgent = Description
+                ForAgent = RunTimeDescription
             };
             try
             {
@@ -252,8 +226,9 @@ namespace QuickMon.Collectors
                                   {
                                       ForAgent = multiValues[i].Item1,
                                       ForAgentType = "PerformanceCounter",
-                                      CurrentValue = multiValues[i].Item2.ToStringAuto()
-                                  });
+                                      CurrentValue = multiValues[i].Item2.ToStringAuto(),
+                                      CurrentValueUnit = OutputValueUnit
+                    });
                     }
                 }
             }
@@ -274,6 +249,8 @@ namespace QuickMon.Collectors
 
         private List<PerformanceCounter> pcList = new List<PerformanceCounter>();
         private List<Tuple<string, float>> multiValues = new List<Tuple<string, float>>();
+        private DateTime lastInstanceRefresh = DateTime.Now;
+        private int minimumInstanceNameRefreshSec = 10;
 
         private void InitializePerfCounter()
         {
@@ -281,37 +258,62 @@ namespace QuickMon.Collectors
             pcList = new List<PerformanceCounter>();
             if (Computer != "" && Computer.ToLower() != "localhost")
                 computername = Computer;
-            if (InstanceValueAggregationStyle == AggregationStyle.None)
+
+            PerformanceCounterCategory pcCat = new PerformanceCounterCategory(Category, computername);
+            if (pcCat.CategoryType == PerformanceCounterCategoryType.SingleInstance)
             {
-                PerformanceCounter pc = new PerformanceCounter(Category, Counter, Instance, computername);
+                PerformanceCounter pc = new PerformanceCounter(Category, Counter, "", computername);
                 pc.NextValue();
                 pcList.Add(pc);
             }
-            else
+            else //if ($"{Instance}".Contains("*"))
             {
-                PerformanceCounterCategory pcCat = new PerformanceCounterCategory(Category, computername);
-                if (pcCat.CategoryType == PerformanceCounterCategoryType.MultiInstance)
+                string[] instances = pcCat.GetInstanceNames();
+                foreach (string instanceNameItem in (from string s in instances
+                                                     orderby s
+                                                     select s))
                 {
-                    string[] instances = pcCat.GetInstanceNames();
-                    foreach (string instanceNameItem in (from string s in instances
-                                                         orderby s
-                                                         select s))
+                    if (Instance == null || Instance == "" || Instance == "*" || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
                     {
-                        if (Instance == null || Instance == "" || !Instance.Contains("*") || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
-                        {
-                            PerformanceCounter pci = new PerformanceCounter(Category, Counter, instanceNameItem, computername);
-                            float tmpval = pci.NextValue();
-                            pcList.Add(pci);
-                        }
+                        PerformanceCounter pci = new PerformanceCounter(Category, Counter, instanceNameItem, computername);
+                        float tmpval = pci.NextValue();
+                        pcList.Add(pci);
                     }
                 }
-                else
-                {
-                    PerformanceCounter pc = new PerformanceCounter(Category, Counter, Instance, computername);
-                    pc.NextValue();
-                    pcList.Add(pc);
-                }
             }
+            lastInstanceRefresh = DateTime.Now;
+
+            //if (InstanceValueAggregationStyle == AggregationStyle.None)
+            //{
+            //    PerformanceCounter pc = new PerformanceCounter(Category, Counter, Instance, computername);
+            //    pc.NextValue();
+            //    pcList.Add(pc);
+            //}
+            //else
+            //{
+            //    //PerformanceCounterCategory pcCat = new PerformanceCounterCategory(Category, computername);
+            //    if (pcCat.CategoryType == PerformanceCounterCategoryType.MultiInstance)
+            //    {
+            //        string[] instances = pcCat.GetInstanceNames();
+            //        foreach (string instanceNameItem in (from string s in instances
+            //                                             orderby s
+            //                                             select s))
+            //        {
+            //            if (Instance == null || Instance == "" || !Instance.Contains("*") || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
+            //            {
+            //                PerformanceCounter pci = new PerformanceCounter(Category, Counter, instanceNameItem, computername);
+            //                float tmpval = pci.NextValue();
+            //                pcList.Add(pci);
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        PerformanceCounter pc = new PerformanceCounter(Category, Counter, Instance, computername);
+            //        pc.NextValue();
+            //        pcList.Add(pc);
+            //    }
+            //}
         }
         public float GetNextValue(int retries = 3)
         {
@@ -322,7 +324,7 @@ namespace QuickMon.Collectors
                 MultiSampleWaitMS = 100;
             try
             {
-                if (pcList == null || pcList.Count == 0 || InstanceValueAggregationStyle != AggregationStyle.None)
+                if (pcList == null || pcList.Count == 0 || (pcList.Count > 0 && DateTime.Now.Subtract( lastInstanceRefresh).TotalSeconds > minimumInstanceNameRefreshSec)) // InstanceValueAggregationStyle != AggregationStyle.None)
                 {
                     InitializePerfCounter();
                 }

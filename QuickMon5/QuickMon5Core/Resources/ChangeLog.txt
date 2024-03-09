@@ -300,3 +300,8 @@ Performance counter collector now multisample single instance counters as well.
 Version 5.3.20 (2024-02-17)
 **************
 Small change to Ping collector to record number value even when timeout is raised so it shows these values on graphs.
+
+--------------
+Version 5.3.21 (2024-03-08)
+**************
+Perfmon collector - Rework Instance handling - allow Instance names to be filtered by wildcard ( * ).
