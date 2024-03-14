@@ -273,7 +273,7 @@ namespace QuickMon.Collectors
                                                      orderby s
                                                      select s))
                 {
-                    if (Instance == null || Instance == "" || Instance == "*" || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
+                    if (Instance == null || Instance == "" || Instance == "*" || Instance.ToLower() == instanceNameItem.ToLower() || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
                     {
                         PerformanceCounter pci = new PerformanceCounter(Category, Counter, instanceNameItem, computername);
                         float tmpval = pci.NextValue();
