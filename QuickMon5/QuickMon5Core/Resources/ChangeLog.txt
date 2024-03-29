@@ -305,3 +305,8 @@ Small change to Ping collector to record number value even when timeout is raise
 Version 5.3.21 (2024-03-08)
 **************
 Perfmon collector - Rework Instance handling - allow Instance names to be filtered by wildcard ( * ).
+
+--------------
+Version 5.3.22 (2024-03-29)
+**************
+Perfmon collector - Made 'Average' the default when multiple instance values are available.

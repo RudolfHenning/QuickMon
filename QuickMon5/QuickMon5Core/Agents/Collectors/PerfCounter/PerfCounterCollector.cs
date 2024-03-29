@@ -362,7 +362,11 @@ namespace QuickMon.Collectors
                     }
                     if (values.Count > 0)
                     {
-                        if (InstanceValueAggregationStyle == AggregationStyle.None || InstanceValueAggregationStyle == AggregationStyle.First)
+                        if (InstanceValueAggregationStyle == AggregationStyle.None)
+                        {
+                            value = values.Average();
+                        }
+                        if (InstanceValueAggregationStyle == AggregationStyle.First)
                         {
                             value = values[0];
                         }
