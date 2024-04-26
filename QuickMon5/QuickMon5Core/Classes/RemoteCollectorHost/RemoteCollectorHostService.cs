@@ -178,13 +178,19 @@ namespace QuickMon
 
                 RemoteCollectorHost colReq = new RemoteCollectorHost();
                 colReq.FromCollectorHost(entry);
-                monitorState =  relay.GetState(colReq); 
+                monitorState =  relay.GetState(colReq);
 
-                myChannelFactory.Close();
-                relay = null;
-                myChannelFactory = null;
-                myEndpoint = null;
-                myBinding = null;
+                try //force cleanups
+                {
+                    myChannelFactory.Close();
+                    colReq = null;
+                    relay = null;
+                    myChannelFactory = null;
+                    myEndpoint = null;
+                    myBinding = null;
+                    GC.Collect();
+                }
+                catch { }
             }
             catch (Exception ex)
             {

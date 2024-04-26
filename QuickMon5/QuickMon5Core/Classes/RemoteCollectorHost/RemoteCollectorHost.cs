@@ -14,6 +14,19 @@ namespace QuickMon
         {
             Agents = new List<RemoteCollectorAgent>();
         }
+        ~RemoteCollectorHost()
+        {
+            try
+            {
+                if (Agents != null && Agents.Count > 0)
+                {
+                    if (Agents.Count > 0)
+                        Agents.Clear();
+                    Agents = null;
+                }
+            }
+            catch { }
+        }
 
         #region Properties
         [DataMember(Name = "Name")]

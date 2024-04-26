@@ -522,6 +522,7 @@
             this.cboOutputValueUnit.Items.AddRange(new object[] {
             "%",
             "Bytes/sec",
+            "C",
             "Connections",
             "IO/sec",
             "Operations/sec",

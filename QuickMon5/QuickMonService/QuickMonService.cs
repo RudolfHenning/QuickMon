@@ -207,6 +207,7 @@ namespace QuickMon
                 monitorPack.PollingFreq = Properties.Settings.Default.PollingFreqSec * 1000;
                 monitorPack.ConcurrencyLevel = concurrencyLevel;
                 monitorPack.RunningAttended = AttendedOption.OnlyUnAttended;
+                monitorPack.CollectorStateHistorySize = 0; //no need to keep history that no user cannot see anyway
                 packs.Add(monitorPack);
                 monitorPack.StartPolling();
                 PCSetMonitorPacksLoaded(packs.Count);
