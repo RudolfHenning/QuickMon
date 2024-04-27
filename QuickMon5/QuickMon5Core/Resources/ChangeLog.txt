@@ -315,3 +315,4 @@ Perfmon collector - Made 'Average' the default when multiple instance values are
 Version 5.3.23 (2024-04-26)
 **************
 Disable collector history when monitor pack runs inside Quickmon service.
+Add Value Scale modification to WMI Collector.

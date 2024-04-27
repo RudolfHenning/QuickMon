@@ -40,6 +40,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSummary = new System.Windows.Forms.TabPage();
+            this.chkInverseScale = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.nudValueScale = new System.Windows.Forms.NumericUpDown();
             this.chkUseRowCountAsValue = new System.Windows.Forms.CheckBox();
             this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
             this.errorGroupBox = new System.Windows.Forms.GroupBox();
@@ -61,6 +64,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageSummary.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudValueScale)).BeginInit();
             this.sequenceGroupBox.SuspendLayout();
             this.errorGroupBox.SuspendLayout();
             this.warningGroupBox.SuspendLayout();
@@ -74,7 +78,7 @@
             this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
             this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(463, 446);
+            this.cmdCancel.Location = new System.Drawing.Point(455, 451);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 11;
@@ -87,7 +91,7 @@
             this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(382, 446);
+            this.cmdOK.Location = new System.Drawing.Point(374, 451);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 10;
@@ -101,7 +105,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNamespace.Location = new System.Drawing.Point(152, 35);
             this.txtNamespace.Name = "txtNamespace";
-            this.txtNamespace.Size = new System.Drawing.Size(386, 20);
+            this.txtNamespace.Size = new System.Drawing.Size(378, 20);
             this.txtNamespace.TabIndex = 3;
             this.txtNamespace.Text = "root\\CIMV2";
             this.txtNamespace.TextChanged += new System.EventHandler(this.txtNamespace_TextChanged);
@@ -121,7 +125,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMachines.Location = new System.Drawing.Point(152, 61);
             this.txtMachines.Name = "txtMachines";
-            this.txtMachines.Size = new System.Drawing.Size(386, 20);
+            this.txtMachines.Size = new System.Drawing.Size(378, 20);
             this.txtMachines.TabIndex = 5;
             this.txtMachines.Text = ".";
             this.txtMachines.TextChanged += new System.EventHandler(this.txtMachines_TextChanged);
@@ -140,23 +144,24 @@
             this.txtStateQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtStateQuery.Location = new System.Drawing.Point(13, 25);
+            this.txtStateQuery.Location = new System.Drawing.Point(13, 6);
             this.txtStateQuery.Multiline = true;
             this.txtStateQuery.Name = "txtStateQuery";
             this.txtStateQuery.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtStateQuery.Size = new System.Drawing.Size(495, 93);
-            this.txtStateQuery.TabIndex = 3;
+            this.txtStateQuery.Size = new System.Drawing.Size(487, 68);
+            this.txtStateQuery.TabIndex = 0;
             this.txtStateQuery.Text = "SELECT FreeSpace FROM Win32_LogicalDisk where Caption = \'C:\'";
             this.txtStateQuery.TextChanged += new System.EventHandler(this.txtStateQuery_TextChanged);
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 9);
+            this.label3.Location = new System.Drawing.Point(9, 83);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "WMI query for summary";
+            this.label3.Size = new System.Drawing.Size(93, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "WMI query builder";
             // 
             // tabControl1
             // 
@@ -167,12 +172,15 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 87);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(526, 353);
+            this.tabControl1.Size = new System.Drawing.Size(518, 358);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPageSummary
             // 
             this.tabPageSummary.BackColor = System.Drawing.Color.White;
+            this.tabPageSummary.Controls.Add(this.chkInverseScale);
+            this.tabPageSummary.Controls.Add(this.label11);
+            this.tabPageSummary.Controls.Add(this.nudValueScale);
             this.tabPageSummary.Controls.Add(this.chkUseRowCountAsValue);
             this.tabPageSummary.Controls.Add(this.sequenceGroupBox);
             this.tabPageSummary.Controls.Add(this.cmdEditSummaryQuery);
@@ -181,19 +189,65 @@
             this.tabPageSummary.Location = new System.Drawing.Point(4, 22);
             this.tabPageSummary.Name = "tabPageSummary";
             this.tabPageSummary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSummary.Size = new System.Drawing.Size(518, 327);
+            this.tabPageSummary.Size = new System.Drawing.Size(510, 332);
             this.tabPageSummary.TabIndex = 0;
-            this.tabPageSummary.Text = "State query";
+            this.tabPageSummary.Text = "Query";
+            // 
+            // chkInverseScale
+            // 
+            this.chkInverseScale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkInverseScale.AutoSize = true;
+            this.chkInverseScale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkInverseScale.Location = new System.Drawing.Point(251, 107);
+            this.chkInverseScale.Name = "chkInverseScale";
+            this.chkInverseScale.Size = new System.Drawing.Size(102, 17);
+            this.chkInverseScale.TabIndex = 6;
+            this.chkInverseScale.Text = "Inverse (x/scale)";
+            this.chkInverseScale.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label11.AutoSize = true;
+            this.label11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label11.Location = new System.Drawing.Point(10, 109);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(94, 13);
+            this.label11.TabIndex = 4;
+            this.label11.Text = "Value Scale factor";
+            // 
+            // nudValueScale
+            // 
+            this.nudValueScale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nudValueScale.Location = new System.Drawing.Point(138, 107);
+            this.nudValueScale.Maximum = new decimal(new int[] {
+            -1,
+            2147483647,
+            0,
+            0});
+            this.nudValueScale.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudValueScale.Name = "nudValueScale";
+            this.nudValueScale.Size = new System.Drawing.Size(107, 20);
+            this.nudValueScale.TabIndex = 5;
+            this.nudValueScale.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // chkUseRowCountAsValue
             // 
-            this.chkUseRowCountAsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkUseRowCountAsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkUseRowCountAsValue.AutoSize = true;
             this.chkUseRowCountAsValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(373, 6);
+            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(373, 81);
             this.chkUseRowCountAsValue.Name = "chkUseRowCountAsValue";
             this.chkUseRowCountAsValue.Size = new System.Drawing.Size(136, 17);
-            this.chkUseRowCountAsValue.TabIndex = 2;
+            this.chkUseRowCountAsValue.TabIndex = 3;
             this.chkUseRowCountAsValue.Text = "Row count as the value";
             this.chkUseRowCountAsValue.UseVisualStyleBackColor = true;
             // 
@@ -205,10 +259,10 @@
             this.sequenceGroupBox.Controls.Add(this.cboReturnCheckSequence);
             this.sequenceGroupBox.Controls.Add(this.label5);
             this.sequenceGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.sequenceGroupBox.Location = new System.Drawing.Point(3, 124);
+            this.sequenceGroupBox.Location = new System.Drawing.Point(3, 129);
             this.sequenceGroupBox.Name = "sequenceGroupBox";
-            this.sequenceGroupBox.Size = new System.Drawing.Size(512, 200);
-            this.sequenceGroupBox.TabIndex = 4;
+            this.sequenceGroupBox.Size = new System.Drawing.Size(504, 200);
+            this.sequenceGroupBox.TabIndex = 7;
             this.sequenceGroupBox.TabStop = false;
             this.sequenceGroupBox.Text = "Evaluate returned value/data";
             // 
@@ -220,7 +274,7 @@
             this.errorGroupBox.Controls.Add(this.txtError);
             this.errorGroupBox.Location = new System.Drawing.Point(9, 147);
             this.errorGroupBox.Name = "errorGroupBox";
-            this.errorGroupBox.Size = new System.Drawing.Size(497, 44);
+            this.errorGroupBox.Size = new System.Drawing.Size(489, 44);
             this.errorGroupBox.TabIndex = 4;
             this.errorGroupBox.TabStop = false;
             this.errorGroupBox.Text = "Error check";
@@ -246,7 +300,7 @@
             "SmallerThan",
             "Between",
             "NotBetween"});
-            this.cboErrorMatchType.Location = new System.Drawing.Point(377, 18);
+            this.cboErrorMatchType.Location = new System.Drawing.Point(369, 18);
             this.cboErrorMatchType.Name = "cboErrorMatchType";
             this.cboErrorMatchType.Size = new System.Drawing.Size(110, 21);
             this.cboErrorMatchType.TabIndex = 1;
@@ -257,7 +311,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtError.Location = new System.Drawing.Point(6, 18);
             this.txtError.Name = "txtError";
-            this.txtError.Size = new System.Drawing.Size(365, 20);
+            this.txtError.Size = new System.Drawing.Size(357, 20);
             this.txtError.TabIndex = 0;
             this.txtError.Text = "[any]";
             // 
@@ -269,7 +323,7 @@
             this.warningGroupBox.Controls.Add(this.txtWarning);
             this.warningGroupBox.Location = new System.Drawing.Point(8, 97);
             this.warningGroupBox.Name = "warningGroupBox";
-            this.warningGroupBox.Size = new System.Drawing.Size(497, 44);
+            this.warningGroupBox.Size = new System.Drawing.Size(489, 44);
             this.warningGroupBox.TabIndex = 3;
             this.warningGroupBox.TabStop = false;
             this.warningGroupBox.Text = "Warning check";
@@ -295,7 +349,7 @@
             "SmallerThan",
             "Between",
             "NotBetween"});
-            this.cboWarningMatchType.Location = new System.Drawing.Point(378, 18);
+            this.cboWarningMatchType.Location = new System.Drawing.Point(370, 18);
             this.cboWarningMatchType.Name = "cboWarningMatchType";
             this.cboWarningMatchType.Size = new System.Drawing.Size(110, 21);
             this.cboWarningMatchType.TabIndex = 1;
@@ -306,7 +360,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtWarning.Location = new System.Drawing.Point(6, 18);
             this.txtWarning.Name = "txtWarning";
-            this.txtWarning.Size = new System.Drawing.Size(366, 20);
+            this.txtWarning.Size = new System.Drawing.Size(358, 20);
             this.txtWarning.TabIndex = 0;
             this.txtWarning.Text = "[null]";
             // 
@@ -318,7 +372,7 @@
             this.successGroupBox.Controls.Add(this.txtSuccess);
             this.successGroupBox.Location = new System.Drawing.Point(9, 47);
             this.successGroupBox.Name = "successGroupBox";
-            this.successGroupBox.Size = new System.Drawing.Size(497, 44);
+            this.successGroupBox.Size = new System.Drawing.Size(489, 44);
             this.successGroupBox.TabIndex = 2;
             this.successGroupBox.TabStop = false;
             this.successGroupBox.Text = "Success check";
@@ -344,7 +398,7 @@
             "SmallerThan",
             "Between",
             "NotBetween"});
-            this.cboSuccessMatchType.Location = new System.Drawing.Point(377, 18);
+            this.cboSuccessMatchType.Location = new System.Drawing.Point(369, 18);
             this.cboSuccessMatchType.Name = "cboSuccessMatchType";
             this.cboSuccessMatchType.Size = new System.Drawing.Size(110, 21);
             this.cboSuccessMatchType.TabIndex = 1;
@@ -355,7 +409,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSuccess.Location = new System.Drawing.Point(6, 18);
             this.txtSuccess.Name = "txtSuccess";
-            this.txtSuccess.Size = new System.Drawing.Size(365, 20);
+            this.txtSuccess.Size = new System.Drawing.Size(357, 20);
             this.txtSuccess.TabIndex = 0;
             this.txtSuccess.Text = "OK";
             // 
@@ -373,7 +427,7 @@
             "Warning, Error and then assume Good"});
             this.cboReturnCheckSequence.Location = new System.Drawing.Point(135, 19);
             this.cboReturnCheckSequence.Name = "cboReturnCheckSequence";
-            this.cboReturnCheckSequence.Size = new System.Drawing.Size(371, 21);
+            this.cboReturnCheckSequence.Size = new System.Drawing.Size(363, 21);
             this.cboReturnCheckSequence.TabIndex = 1;
             // 
             // label5
@@ -387,14 +441,15 @@
             // 
             // cmdEditSummaryQuery
             // 
+            this.cmdEditSummaryQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cmdEditSummaryQuery.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdEditSummaryQuery.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdEditSummaryQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdEditSummaryQuery.Image = global::QuickMon.Properties.Resources.settings_16;
-            this.cmdEditSummaryQuery.Location = new System.Drawing.Point(136, 2);
+            this.cmdEditSummaryQuery.Location = new System.Drawing.Point(138, 78);
             this.cmdEditSummaryQuery.Name = "cmdEditSummaryQuery";
             this.cmdEditSummaryQuery.Size = new System.Drawing.Size(36, 23);
-            this.cmdEditSummaryQuery.TabIndex = 1;
+            this.cmdEditSummaryQuery.TabIndex = 2;
             this.cmdEditSummaryQuery.UseVisualStyleBackColor = true;
             this.cmdEditSummaryQuery.Click += new System.EventHandler(this.cmdEditSummaryQuery_Click);
             // 
@@ -404,7 +459,7 @@
             this.cmdTestDB.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdTestDB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTestDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdTestDB.Location = new System.Drawing.Point(301, 446);
+            this.cmdTestDB.Location = new System.Drawing.Point(293, 451);
             this.cmdTestDB.Name = "cmdTestDB";
             this.cmdTestDB.Size = new System.Drawing.Size(75, 23);
             this.cmdTestDB.TabIndex = 9;
@@ -418,7 +473,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(152, 9);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(386, 20);
+            this.txtName.Size = new System.Drawing.Size(378, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -438,12 +493,23 @@
             this.cboOutputValueUnit.FormattingEnabled = true;
             this.cboOutputValueUnit.Items.AddRange(new object[] {
             "%",
-            "item(s)",
+            "byte(s)",
+            "Bytes/sec",
+            "C",
+            "Connections",
+            "GB",
             "KB",
-            "MB"});
-            this.cboOutputValueUnit.Location = new System.Drawing.Point(94, 448);
+            "IO/sec",
+            "Item(s)",
+            "MB",
+            "Operations/sec",
+            "Packets/sec",
+            "Queued/sec",
+            "Total/sec",
+            "Transfers/sec"});
+            this.cboOutputValueUnit.Location = new System.Drawing.Point(94, 453);
             this.cboOutputValueUnit.Name = "cboOutputValueUnit";
-            this.cboOutputValueUnit.Size = new System.Drawing.Size(201, 21);
+            this.cboOutputValueUnit.Size = new System.Drawing.Size(193, 21);
             this.cboOutputValueUnit.TabIndex = 8;
             // 
             // label10
@@ -451,7 +517,7 @@
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label10.AutoSize = true;
             this.label10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label10.Location = new System.Drawing.Point(13, 451);
+            this.label10.Location = new System.Drawing.Point(13, 456);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(59, 13);
             this.label10.TabIndex = 7;
@@ -463,7 +529,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(558, 481);
+            this.ClientSize = new System.Drawing.Size(550, 486);
             this.Controls.Add(this.cboOutputValueUnit);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtName);
@@ -479,7 +545,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(566, 372);
+            this.MinimumSize = new System.Drawing.Size(566, 525);
             this.Name = "WMIQueryCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit WMI Query Config";
@@ -488,6 +554,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageSummary.ResumeLayout(false);
             this.tabPageSummary.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudValueScale)).EndInit();
             this.sequenceGroupBox.ResumeLayout(false);
             this.errorGroupBox.ResumeLayout(false);
             this.errorGroupBox.PerformLayout();
@@ -530,5 +597,8 @@
         private System.Windows.Forms.ComboBox cboReturnCheckSequence;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkUseRowCountAsValue;
+        private System.Windows.Forms.CheckBox chkInverseScale;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown nudValueScale;
     }
 }

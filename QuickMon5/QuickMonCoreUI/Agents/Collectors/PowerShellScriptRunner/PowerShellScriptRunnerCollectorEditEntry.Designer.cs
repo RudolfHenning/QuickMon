@@ -58,6 +58,7 @@
             this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label4 = new System.Windows.Forms.Label();
             this.errorGroupBox.SuspendLayout();
             this.warningGroupBox.SuspendLayout();
             this.successGroupBox.SuspendLayout();
@@ -71,7 +72,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 473);
+            this.label2.Location = new System.Drawing.Point(12, 465);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(225, 13);
             this.label2.TabIndex = 8;
@@ -92,7 +93,7 @@
             "LargerThan",
             "SmallerThan",
             "Between"});
-            this.cboErrorMatchType.Location = new System.Drawing.Point(443, 18);
+            this.cboErrorMatchType.Location = new System.Drawing.Point(407, 18);
             this.cboErrorMatchType.Name = "cboErrorMatchType";
             this.cboErrorMatchType.Size = new System.Drawing.Size(110, 21);
             this.cboErrorMatchType.TabIndex = 1;
@@ -103,7 +104,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtError.Location = new System.Drawing.Point(6, 18);
             this.txtError.Name = "txtError";
-            this.txtError.Size = new System.Drawing.Size(431, 20);
+            this.txtError.Size = new System.Drawing.Size(395, 20);
             this.txtError.TabIndex = 0;
             this.txtError.Text = "[any]";
             this.txtError.TextChanged += new System.EventHandler(this.txtError_TextChanged);
@@ -114,9 +115,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.errorGroupBox.Controls.Add(this.cboErrorMatchType);
             this.errorGroupBox.Controls.Add(this.txtError);
-            this.errorGroupBox.Location = new System.Drawing.Point(9, 368);
+            this.errorGroupBox.Location = new System.Drawing.Point(9, 364);
             this.errorGroupBox.Name = "errorGroupBox";
-            this.errorGroupBox.Size = new System.Drawing.Size(563, 44);
+            this.errorGroupBox.Size = new System.Drawing.Size(527, 44);
             this.errorGroupBox.TabIndex = 6;
             this.errorGroupBox.TabStop = false;
             this.errorGroupBox.Text = "Error check";
@@ -136,7 +137,7 @@
             "LargerThan",
             "SmallerThan",
             "Between"});
-            this.cboWarningMatchType.Location = new System.Drawing.Point(444, 18);
+            this.cboWarningMatchType.Location = new System.Drawing.Point(408, 18);
             this.cboWarningMatchType.Name = "cboWarningMatchType";
             this.cboWarningMatchType.Size = new System.Drawing.Size(110, 21);
             this.cboWarningMatchType.TabIndex = 1;
@@ -147,7 +148,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtWarning.Location = new System.Drawing.Point(6, 18);
             this.txtWarning.Name = "txtWarning";
-            this.txtWarning.Size = new System.Drawing.Size(432, 20);
+            this.txtWarning.Size = new System.Drawing.Size(396, 20);
             this.txtWarning.TabIndex = 0;
             this.txtWarning.Text = "[null]";
             this.txtWarning.TextChanged += new System.EventHandler(this.txtWarning_TextChanged);
@@ -158,9 +159,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.warningGroupBox.Controls.Add(this.cboWarningMatchType);
             this.warningGroupBox.Controls.Add(this.txtWarning);
-            this.warningGroupBox.Location = new System.Drawing.Point(8, 321);
+            this.warningGroupBox.Location = new System.Drawing.Point(8, 317);
             this.warningGroupBox.Name = "warningGroupBox";
-            this.warningGroupBox.Size = new System.Drawing.Size(563, 44);
+            this.warningGroupBox.Size = new System.Drawing.Size(527, 44);
             this.warningGroupBox.TabIndex = 5;
             this.warningGroupBox.TabStop = false;
             this.warningGroupBox.Text = "Warning check";
@@ -180,7 +181,7 @@
             "LargerThan",
             "SmallerThan",
             "Between"});
-            this.cboSuccessMatchType.Location = new System.Drawing.Point(442, 18);
+            this.cboSuccessMatchType.Location = new System.Drawing.Point(406, 18);
             this.cboSuccessMatchType.Name = "cboSuccessMatchType";
             this.cboSuccessMatchType.Size = new System.Drawing.Size(110, 21);
             this.cboSuccessMatchType.TabIndex = 1;
@@ -191,7 +192,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSuccess.Location = new System.Drawing.Point(6, 18);
             this.txtSuccess.Name = "txtSuccess";
-            this.txtSuccess.Size = new System.Drawing.Size(430, 20);
+            this.txtSuccess.Size = new System.Drawing.Size(394, 20);
             this.txtSuccess.TabIndex = 0;
             this.txtSuccess.Text = "OK";
             this.txtSuccess.TextChanged += new System.EventHandler(this.txtSuccess_TextChanged);
@@ -202,9 +203,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.successGroupBox.Controls.Add(this.cboSuccessMatchType);
             this.successGroupBox.Controls.Add(this.txtSuccess);
-            this.successGroupBox.Location = new System.Drawing.Point(9, 275);
+            this.successGroupBox.Location = new System.Drawing.Point(9, 271);
             this.successGroupBox.Name = "successGroupBox";
-            this.successGroupBox.Size = new System.Drawing.Size(562, 44);
+            this.successGroupBox.Size = new System.Drawing.Size(526, 44);
             this.successGroupBox.TabIndex = 4;
             this.successGroupBox.TabStop = false;
             this.successGroupBox.Text = "Success check";
@@ -222,7 +223,7 @@
             this.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.LightSalmon;
             this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(487, 464);
+            this.cmdCancel.Location = new System.Drawing.Point(451, 460);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 10;
@@ -235,7 +236,7 @@
             this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(406, 464);
+            this.cmdOK.Location = new System.Drawing.Point(370, 460);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 9;
@@ -278,7 +279,7 @@
             this.txtScript.Multiline = true;
             this.txtScript.Name = "txtScript";
             this.txtScript.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtScript.Size = new System.Drawing.Size(557, 140);
+            this.txtScript.Size = new System.Drawing.Size(521, 120);
             this.txtScript.TabIndex = 0;
             this.txtScript.WordWrap = false;
             this.txtScript.TextChanged += new System.EventHandler(this.txtScript_TextChanged);
@@ -290,9 +291,9 @@
             this.panel1.Controls.Add(this.cmdLoadScript);
             this.panel1.Controls.Add(this.cmdImportScript);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 156);
+            this.panel1.Location = new System.Drawing.Point(3, 154);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(557, 28);
+            this.panel1.Size = new System.Drawing.Size(521, 28);
             this.panel1.TabIndex = 2;
             // 
             // llblScriptingTip
@@ -327,10 +328,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.scriptGroupBox.Controls.Add(this.txtScript);
+            this.scriptGroupBox.Controls.Add(this.label4);
             this.scriptGroupBox.Controls.Add(this.panel1);
-            this.scriptGroupBox.Location = new System.Drawing.Point(9, 34);
+            this.scriptGroupBox.Location = new System.Drawing.Point(9, 32);
             this.scriptGroupBox.Name = "scriptGroupBox";
-            this.scriptGroupBox.Size = new System.Drawing.Size(563, 187);
+            this.scriptGroupBox.Size = new System.Drawing.Size(527, 185);
             this.scriptGroupBox.TabIndex = 2;
             this.scriptGroupBox.TabStop = false;
             this.scriptGroupBox.Text = "PowerShell script";
@@ -339,16 +341,16 @@
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(75, 12);
+            this.txtName.Location = new System.Drawing.Point(75, 6);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(487, 20);
+            this.txtName.Size = new System.Drawing.Size(451, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 15);
+            this.label1.Location = new System.Drawing.Point(5, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
@@ -359,9 +361,9 @@
             this.sequenceGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sequenceGroupBox.Controls.Add(this.cboReturnCheckSequence);
-            this.sequenceGroupBox.Location = new System.Drawing.Point(9, 224);
+            this.sequenceGroupBox.Location = new System.Drawing.Point(9, 220);
             this.sequenceGroupBox.Name = "sequenceGroupBox";
-            this.sequenceGroupBox.Size = new System.Drawing.Size(563, 49);
+            this.sequenceGroupBox.Size = new System.Drawing.Size(527, 49);
             this.sequenceGroupBox.TabIndex = 3;
             this.sequenceGroupBox.TabStop = false;
             this.sequenceGroupBox.Text = "Check sequence";
@@ -380,7 +382,7 @@
             "Warning, Error and then assume Good"});
             this.cboReturnCheckSequence.Location = new System.Drawing.Point(10, 19);
             this.cboReturnCheckSequence.Name = "cboReturnCheckSequence";
-            this.cboReturnCheckSequence.Size = new System.Drawing.Size(543, 21);
+            this.cboReturnCheckSequence.Size = new System.Drawing.Size(507, 21);
             this.cboReturnCheckSequence.TabIndex = 2;
             // 
             // groupBox3
@@ -390,9 +392,9 @@
             this.groupBox3.Controls.Add(this.cboOutputValueUnit);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox3.Location = new System.Drawing.Point(8, 414);
+            this.groupBox3.Location = new System.Drawing.Point(8, 410);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(564, 45);
+            this.groupBox3.Size = new System.Drawing.Size(528, 45);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Display output";
@@ -414,7 +416,7 @@
             "Transfers/sec"});
             this.cboOutputValueUnit.Location = new System.Drawing.Point(92, 18);
             this.cboOutputValueUnit.Name = "cboOutputValueUnit";
-            this.cboOutputValueUnit.Size = new System.Drawing.Size(462, 21);
+            this.cboOutputValueUnit.Size = new System.Drawing.Size(426, 21);
             this.cboOutputValueUnit.TabIndex = 1;
             // 
             // label3
@@ -428,12 +430,25 @@
             this.label3.Text = "Output unit";
             this.toolTip1.SetToolTip(this.label3, "When output of the script is a number you can specify a value unit as well.");
             // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.MistyRose;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label4.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label4.Location = new System.Drawing.Point(3, 136);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(521, 18);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "By default - this collector is blocked while using Remote host to avoid security " +
+    "issues!";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // PowerShellScriptRunnerCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(577, 499);
+            this.ClientSize = new System.Drawing.Size(541, 495);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.errorGroupBox);
@@ -447,7 +462,7 @@
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(500, 450);
+            this.MinimumSize = new System.Drawing.Size(500, 480);
             this.Name = "PowerShellScriptRunnerCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit PowerShell Script RunnerCollector Entry";
@@ -500,5 +515,6 @@
         private System.Windows.Forms.ComboBox cboOutputValueUnit;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label4;
     }
 }

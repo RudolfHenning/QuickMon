@@ -39,8 +39,9 @@ namespace QuickMon.UI
                 txtNamespace.Text = selectedEntry.Namespace == null ? "root\\CIMV2" : selectedEntry.Namespace;
                 txtMachines.Text = selectedEntry.Machinename == null ? "." : selectedEntry.Machinename;
                 txtStateQuery.Text = selectedEntry.StateQuery;
-                //chkIsReturnValueInt.Checked = selectedEntry.ReturnValueIsInt;
-                //chkReturnValueNotInverted.Checked = !selectedEntry.ReturnValueInverted;
+
+                nudValueScale.Value = selectedEntry.OutputValueScaleFactor;
+                chkInverseScale.Checked = selectedEntry.OutputValueScaleFactorInverse;
                 chkUseRowCountAsValue.Checked = selectedEntry.UseRowCountAsValue;
 
                 cboReturnCheckSequence.SelectedIndex = (int)selectedEntry.ReturnCheckSequence;
@@ -50,9 +51,7 @@ namespace QuickMon.UI
                 cboWarningMatchType.SelectedIndex = (int)selectedEntry.WarningResultMatchType;
                 txtError.Text = selectedEntry.ErrorValue;
                 cboErrorMatchType.SelectedIndex = (int)selectedEntry.ErrorResultMatchType;
-
-                //txtDetailQuery.Text = selectedEntry.DetailQuery;
-                //txtColumnNames.Text = selectedEntry.ColumnNames.ToCSVString();
+                
                 cboOutputValueUnit.Text = selectedEntry.OutputValueUnit;
             }
         }
@@ -107,6 +106,9 @@ namespace QuickMon.UI
                     tmpWMIConfig.Namespace = namespaceName;
                     tmpWMIConfig.Machinename = machineName;
                     tmpWMIConfig.StateQuery = testScript;
+
+                    tmpWMIConfig.OutputValueScaleFactor = (int)nudValueScale.Value;
+                    tmpWMIConfig.OutputValueScaleFactorInverse = chkInverseScale.Checked;
 
                     tmpWMIConfig.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
                     tmpWMIConfig.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
@@ -171,6 +173,8 @@ namespace QuickMon.UI
                 selectedEntry.Namespace = txtNamespace.Text;
                 selectedEntry.Machinename = txtMachines.Text;
                 selectedEntry.StateQuery = txtStateQuery.Text;
+                selectedEntry.OutputValueScaleFactor = (int)nudValueScale.Value;
+                selectedEntry.OutputValueScaleFactorInverse = chkInverseScale.Checked;
                 selectedEntry.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
                 selectedEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                 selectedEntry.GoodValue = txtSuccess.Text;

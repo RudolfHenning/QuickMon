@@ -358,9 +358,11 @@
             // 
             // txtComputerName
             // 
+            this.txtComputerName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtComputerName.Location = new System.Drawing.Point(164, 40);
             this.txtComputerName.Name = "txtComputerName";
-            this.txtComputerName.Size = new System.Drawing.Size(152, 20);
+            this.txtComputerName.Size = new System.Drawing.Size(350, 20);
             this.txtComputerName.TabIndex = 2;
             this.txtComputerName.Text = ".";
             this.txtComputerName.TextChanged += new System.EventHandler(this.txtComputerName_TextChanged);
@@ -521,10 +523,15 @@
             this.cboOutputValueUnit.FormattingEnabled = true;
             this.cboOutputValueUnit.Items.AddRange(new object[] {
             "%",
+            "byte(s)",
             "Bytes/sec",
             "C",
             "Connections",
+            "GB",
+            "KB",
             "IO/sec",
+            "Item(s)",
+            "MB",
             "Operations/sec",
             "Packets/sec",
             "Queued/sec",

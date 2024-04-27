@@ -150,13 +150,17 @@ namespace QuickMon.Collectors
                 entry.Machinename = wmiQueryNode.ReadXmlElementAttr("machineName", ".");
                 entry.PrimaryUIValue = wmiQueryNode.ReadXmlElementAttr("primaryUIValue", false);
                 entry.OutputValueUnit = wmiQueryNode.ReadXmlElementAttr("outputValueUnit", "");
+                entry.OutputValueScaleFactor = wmiQueryNode.ReadXmlElementAttr("valueScale", 1);
+                if (entry.OutputValueScaleFactor == 0)
+                    entry.OutputValueScaleFactor = 1;
+                entry.OutputValueScaleFactorInverse = wmiQueryNode.ReadXmlElementAttr("valueScaleInverse", false);
 
                 XmlNode stateQueryNode = wmiQueryNode.SelectSingleNode("stateQuery");
                 entry.StateQuery = stateQueryNode.ReadXmlElementAttr("syntax", "");
                 //entry.ReturnValueIsInt = bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueIsInt", "True"));
                 //entry.ReturnValueInverted = bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueInverted", "False"));
 
-                if (bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueInverted", "False")))
+                if (stateQueryNode.ReadXmlElementAttr("returnValueInverted", false))
                 {
                     entry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.EWG;
                 }
@@ -170,7 +174,7 @@ namespace QuickMon.Collectors
                 entry.WarningValue = stateQueryNode.ReadXmlElementAttr("warningValue", "0");
                 entry.ErrorValue = stateQueryNode.ReadXmlElementAttr("errorValue", "0");
                 entry.GoodValue = stateQueryNode.ReadXmlElementAttr("successValue", "0");
-                entry.UseRowCountAsValue = bool.Parse(stateQueryNode.ReadXmlElementAttr("useRowCountAsValue", "True"));
+                entry.UseRowCountAsValue = stateQueryNode.ReadXmlElementAttr("useRowCountAsValue", true);
                 //XmlNode detailQueryNode = wmiQueryNode.SelectSingleNode("detailQuery");
                 //entry.DetailQuery = detailQueryNode.ReadXmlElementAttr("syntax", "");
                 //string columns = detailQueryNode.ReadXmlElementAttr("columnNames", "");
@@ -192,6 +196,10 @@ namespace QuickMon.Collectors
                 entry.Machinename = dataSourceNode.ReadXmlElementAttr("machineName", ".");
                 entry.PrimaryUIValue = dataSourceNode.ReadXmlElementAttr("primaryUIValue", false);
                 entry.OutputValueUnit = dataSourceNode.ReadXmlElementAttr("outputValueUnit", "");
+                entry.OutputValueScaleFactor = dataSourceNode.ReadXmlElementAttr("valueScale", 1);
+                if (entry.OutputValueScaleFactor == 0)
+                    entry.OutputValueScaleFactor = 1;
+                entry.OutputValueScaleFactorInverse = dataSourceNode.ReadXmlElementAttr("valueScaleInverse", false);
 
                 XmlNode stateQueryNode = dataSourceNode.SelectSingleNode("stateQuery");
                 //entry.ReturnValueIsInt = bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueIsInt", "False"));
@@ -246,6 +254,8 @@ namespace QuickMon.Collectors
                 dataSourceNode.SetAttributeValue("machineName", queryEntry.Machinename);
                 dataSourceNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
                 dataSourceNode.SetAttributeValue("outputValueUnit", queryEntry.OutputValueUnit);
+                dataSourceNode.SetAttributeValue("valueScale", queryEntry.OutputValueScaleFactor);
+                dataSourceNode.SetAttributeValue("valueScaleInverse", queryEntry.OutputValueScaleFactorInverse);
 
                 XmlElement stateQueryNode = dataSourceNode.AppendElementWithText("stateQuery", queryEntry.StateQuery);
                 //stateQueryNode.SetAttributeValue("returnValueIsInt", queryEntry.ReturnValueIsInt);
@@ -421,6 +431,8 @@ namespace QuickMon.Collectors
         //public bool ReturnValueIsInt { get; set; }
         //public bool ReturnValueInverted { get; set; }
         public bool UseRowCountAsValue { get; set; }
+        public int OutputValueScaleFactor { get; set; }
+        public bool OutputValueScaleFactorInverse { get; set; }
         //public string DetailQuery { get; set; }
         //public List<string> ColumnNames { get; set; }
 
@@ -438,21 +450,33 @@ namespace QuickMon.Collectors
         public object RunQuery()
         {
             object value = null;
-            //if (!ReturnValueIsInt)
-            //{
-            //    value = RunQueryWithSingleResult();
-            //}
-            //else
-            //{
-                if (UseRowCountAsValue)
+            if (UseRowCountAsValue)
+            {
+                value = RunQueryWithCountResult();
+            }
+            else
+            {
+                value = RunQueryWithSingleResult();
+            }
+            if (value != null && value.IsNumber())
+            {
+                double dvalue = double.Parse($"{value}");
+                if (OutputValueScaleFactor > 0)
                 {
-                    value = RunQueryWithCountResult();
+                    if (!OutputValueScaleFactorInverse)
+                        dvalue = dvalue * OutputValueScaleFactor;
+                    else
+                        dvalue = dvalue / OutputValueScaleFactor;
+                }
+                if (dvalue.IsIntegerTypeNumber())
+                {
+                    value = Convert.ToInt32(dvalue);
                 }
                 else
                 {
-                    value = RunQueryWithSingleResult();
-                }
-            //}
+                    value = dvalue.ToString("0.00");
+                }                
+            }
             return value;
         }
         //private CollectorState GetState(object value)
