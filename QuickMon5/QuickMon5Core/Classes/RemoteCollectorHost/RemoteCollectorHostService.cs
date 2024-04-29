@@ -79,7 +79,6 @@ namespace QuickMon
                     //Since there is only one CollectorHost
                     CollectorHost ch = m.CollectorHosts[0];
                     monitorState = ch.CollectorAgents[0].GetState();
-                    //monitorState = ch.CurrentState;
                     monitorState.RanAs = ch.CurrentState.RanAs;
                 }
                 else
@@ -211,11 +210,16 @@ namespace QuickMon
 
                 output = relay.GetQuickMonCoreVersion();
 
-                myChannelFactory.Close();
-                relay = null;
-                myChannelFactory = null;
-                myEndpoint = null;
-                myBinding = null;
+                try //force cleanups
+                {
+                    myChannelFactory.Close();
+                    relay = null;
+                    myChannelFactory = null;
+                    myEndpoint = null;
+                    myBinding = null;
+                    GC.Collect();
+                }
+                catch { }
             }
             catch (Exception ex)
             {
@@ -236,11 +240,16 @@ namespace QuickMon
 
                 list = relay.GetCurrentMonitorPacks();
 
-                myChannelFactory.Close();
-                relay = null;
-                myChannelFactory = null;
-                myEndpoint = null;
-                myBinding = null;                
+                try //force cleanups
+                {
+                    myChannelFactory.Close();
+                    relay = null;
+                    myChannelFactory = null;
+                    myEndpoint = null;
+                    myBinding = null;
+                    GC.Collect();
+                }
+                catch { }
             }
             catch (Exception ex)
             {

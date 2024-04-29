@@ -36,6 +36,32 @@ namespace QuickMon
             LoggingKeepLogFilesXDays = 180;
             lastLoggingCleanupEvent = new DateTime(2000, 1, 1);
         }
+        ~MonitorPack()
+        {
+            //in case background polling is still enabled
+            IsPollingEnabled = false;
+
+            //clear all lists
+            if (CollectorHosts != null && CollectorHosts.Count > 0)
+                CollectorHosts.Clear();
+            CollectorHosts = null;
+
+            if (NotifierHosts != null && NotifierHosts.Count > 0)
+                NotifierHosts.Clear();
+            NotifierHosts = null;
+
+            if (ConfigVariables != null && ConfigVariables.Count > 0)
+                ConfigVariables.Clear();
+            ConfigVariables = null;
+
+            if (BlockedCollectorAgentTypes != null && BlockedCollectorAgentTypes.Count > 0)
+                BlockedCollectorAgentTypes.Clear();
+            BlockedCollectorAgentTypes = null;
+
+            if (LoggingCollectorCategories != null && LoggingCollectorCategories.Count > 0)
+                LoggingCollectorCategories.Clear();
+            LoggingCollectorCategories = null;
+        }
 
         #region Properties
 

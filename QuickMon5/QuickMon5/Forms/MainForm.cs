@@ -720,6 +720,10 @@ namespace QuickMon
         {
             EditCollector();
         }
+        private void collectorHistoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditCollector(false, true);
+        }
         private void configureToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditCollector(true);
@@ -1084,7 +1088,7 @@ namespace QuickMon
                 RefreshMonitorPack(true, true);
             }
         }
-        private void EditCollector(bool editmode = false)
+        private void EditCollector(bool editmode = false, bool historyView = false)
         {
             if (tvwCollectors.SelectedNode != null)
             {
@@ -1100,6 +1104,8 @@ namespace QuickMon
                         collectorDetails.Identifier = ch.UniqueId;
                         collectorDetails.StartWithEditMode = editmode;
                         collectorDetails.ShowChildWindow(this);
+                        if (historyView)
+                            collectorDetails.StartHistoryView();
                     }
                     else
                     {
@@ -1109,6 +1115,8 @@ namespace QuickMon
                         childForm.Focus();
                         if (editmode)
                             ((CollectorDetails)childForm).StartEditMode();
+                        else if (historyView)
+                            ((CollectorDetails)childForm).StartHistoryView();
                     }
                 }
             }
@@ -1535,6 +1543,7 @@ namespace QuickMon
                 enableDisableCollectorToolStripButton.Text = ch.Enabled ? "Disable Collector" : "Enable Collector";
             }
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            collectorHistoryToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             collectorDetailToolStripButton.Enabled = tvwCollectors.SelectedNode != null;
             configureToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             editCollectorToolStripButton.Enabled = tvwCollectors.SelectedNode != null;

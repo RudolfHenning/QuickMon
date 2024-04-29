@@ -137,6 +137,7 @@ namespace QuickMon
             this.recentListTimer = new System.Windows.Forms.Timer(this.components);
             this.aboutContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.changeLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.collectorHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -612,6 +613,7 @@ namespace QuickMon
             this.collectorsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.collectorsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.detailsToolStripMenuItem,
+            this.collectorHistoryToolStripMenuItem,
             this.addCollectorToolStripMenuItem,
             this.configureToolStripMenuItem,
             this.deleteToolStripMenuItem,
@@ -627,7 +629,7 @@ namespace QuickMon
             this.globalHistoryToolStripMenuItem,
             this.viewByFilterToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(196, 406);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(196, 458);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // detailsToolStripMenuItem
@@ -1434,6 +1436,14 @@ namespace QuickMon
             this.changeLogToolStripMenuItem.Text = "Change log";
             this.changeLogToolStripMenuItem.Click += new System.EventHandler(this.changeLogToolStripMenuItem_Click);
             // 
+            // collectorHistoryToolStripMenuItem
+            // 
+            this.collectorHistoryToolStripMenuItem.Image = global::QuickMon.Properties.Resources.clock24x24;
+            this.collectorHistoryToolStripMenuItem.Name = "collectorHistoryToolStripMenuItem";
+            this.collectorHistoryToolStripMenuItem.Size = new System.Drawing.Size(195, 30);
+            this.collectorHistoryToolStripMenuItem.Text = "History";
+            this.collectorHistoryToolStripMenuItem.Click += new System.EventHandler(this.collectorHistoryToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1588,6 +1598,7 @@ namespace QuickMon
         private System.Windows.Forms.ContextMenuStrip aboutContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem changeLogToolStripMenuItem;
         private System.Windows.Forms.Button cmdVariables;
+        private System.Windows.Forms.ToolStripMenuItem collectorHistoryToolStripMenuItem;
     }
 }
 

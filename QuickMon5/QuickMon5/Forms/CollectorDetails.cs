@@ -232,6 +232,10 @@ namespace QuickMon
             
             CheckOkEnabled();            
         }
+        public void StartHistoryView()
+        {
+            optHistoricStateView.Checked = true;
+        }
         private void StopEditMode()
         {
             optAgentStates.Enabled = true;
