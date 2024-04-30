@@ -124,8 +124,6 @@ namespace QuickMon.Collectors
             InstanceValueAggregationStyle = AggregationStyle.None;
         }
 
-        //private PerformanceCounter pc = null;
-
         #region Properties
         public string Computer { get; set; }
         public string Category { get; set; }
@@ -255,6 +253,23 @@ namespace QuickMon.Collectors
         private void InitializePerfCounter()
         {
             string computername = ".";
+
+            //If the list had previous entries do cleanup first
+            try
+            {
+                if (pcList != null)
+                {
+                    foreach(PerformanceCounter p in pcList)
+                    {
+                        p.Close();
+                        p.Dispose();                        
+                    }
+                    pcList.Clear();
+                    pcList = null;
+                }
+            }
+            catch { }
+
             pcList = new List<PerformanceCounter>();
             if (Computer != "" && Computer.ToLower() != "localhost")
                 computername = Computer;

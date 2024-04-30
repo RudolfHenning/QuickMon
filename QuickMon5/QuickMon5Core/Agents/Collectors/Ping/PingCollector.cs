@@ -413,8 +413,7 @@ namespace QuickMon.Collectors
             {
                 if (Address.ToLower() == "localhost" || Address.ToLower() == System.Net.Dns.GetHostName().ToLower())
                 {
-                    System.Net.IPHostEntry host;
-                    host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+                    System.Net.IPHostEntry host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
                     foreach (System.Net.IPAddress ip in host.AddressList)
                     {
                         if (ip.AddressFamily == AddressFamily.InterNetwork)
@@ -425,6 +424,7 @@ namespace QuickMon.Collectors
                             break;
                         }
                     }
+                    host = null;
                 }
                 else
                 {
@@ -685,38 +685,40 @@ namespace QuickMon.Collectors
             result.ResponseDetails = "";
             try
             {
-                TcpClient tcpSocket = new TcpClient();
                 Stopwatch sw = new Stopwatch();
-                string s = "";
-
-                tcpSocket.ReceiveTimeout = receiveTimeOutMS;
-                tcpSocket.SendTimeout = sendTimeOutMS;
-                sw.Start();
-                tcpSocket.Connect(address, socketPort);
-                if (UseTelnetLogin)
+                using (TcpClient tcpSocket = new TcpClient())
                 {
-                    //the following is a Telnet protocol login so other protocals probably won't work with this.
-                    s = Read(tcpSocket);
-                    if (!s.TrimEnd().EndsWith(":"))
-                        throw new Exception("Failed to connect : no login prompt");
-                    WriteLine(tcpSocket, TelnetUserName);
-                    s += Read(tcpSocket);
-                    if (!s.TrimEnd().EndsWith(":"))
-                        throw new Exception("Failed to connect : no password prompt");
-                    WriteLine(tcpSocket, TelnetPassword);
+                    sw.Reset();
+                    string s = "";
+                    tcpSocket.ReceiveTimeout = receiveTimeOutMS;
+                    tcpSocket.SendTimeout = sendTimeOutMS;
+                    sw.Start();
+                    tcpSocket.Connect(address, socketPort);
+                    if (UseTelnetLogin)
+                    {
+                        //the following is a Telnet protocol login so other protocals probably won't work with this.
+                        s = Read(tcpSocket);
+                        if (!s.TrimEnd().EndsWith(":"))
+                            throw new Exception("Failed to connect : no login prompt");
+                        WriteLine(tcpSocket, TelnetUserName);
+                        s += Read(tcpSocket);
+                        if (!s.TrimEnd().EndsWith(":"))
+                            throw new Exception("Failed to connect : no password prompt");
+                        WriteLine(tcpSocket, TelnetPassword);
 
-                    s += Read(tcpSocket);
+                        s += Read(tcpSocket);
+                    }
+                    Write(tcpSocket, SocketPingMsgBody);
+                    s = Read(tcpSocket); // not doing anything with response
+                    sw.Stop();
                 }
-                Write(tcpSocket, SocketPingMsgBody);
-                s = Read(tcpSocket); // not doing anything with response
-                sw.Stop();
-                try
-                {
-                    if (tcpSocket != null)
-                        tcpSocket.Close();
-                    tcpSocket = null;
-                }
-                catch { }
+                //try
+                //{
+                //    if (tcpSocket != null)
+                //        tcpSocket.Close();
+                //    tcpSocket = null;
+                //}
+                //catch { }
                 result.PingTime = (int)sw.ElapsedMilliseconds;
                 result.ResponseDetails = "Success";
                 result.Success = true;

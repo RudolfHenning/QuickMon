@@ -407,7 +407,6 @@ namespace QuickMon.Collectors
         {
             get {
                 return Name;
-                //return string.Format("{0}: {1}\\{2} - {3} -> S:{4},W:{5},E:{6}", Name, Machinename, Namespace, StateQuery, SuccessValue, WarningValue, ErrorValue);
             }
         }
         public string TriggerSummary
@@ -536,7 +535,9 @@ namespace QuickMon.Collectors
         {
             decimal result = 0;
             ManagementScope managementScope = new ManagementScope(new ManagementPath(Namespace) { Server = Machinename });
-            using (ManagementObjectSearcher searcherInstance = new ManagementObjectSearcher(managementScope, new WqlObjectQuery(StateQuery), null))
+            EnumerationOptions enumerationOptions = new EnumerationOptions();
+            enumerationOptions.ReturnImmediately = true;
+            using (ManagementObjectSearcher searcherInstance = new ManagementObjectSearcher(managementScope, new WqlObjectQuery(StateQuery), enumerationOptions)) // null))
             {
                 if (searcherInstance != null)
                 {
@@ -546,12 +547,16 @@ namespace QuickMon.Collectors
                     }
                 }
             }
+            enumerationOptions = null;
+            managementScope = null;
             return result;
         }
         private object RunQueryWithSingleResult()
         {
             ManagementScope managementScope = new ManagementScope(new ManagementPath(Namespace) { Server = Machinename });
-            using (ManagementObjectSearcher searcherInstance = new ManagementObjectSearcher(managementScope, new WqlObjectQuery(StateQuery), null))
+            EnumerationOptions enumerationOptions = new EnumerationOptions();
+            enumerationOptions.ReturnImmediately = true;
+            using (ManagementObjectSearcher searcherInstance = new ManagementObjectSearcher(managementScope, new WqlObjectQuery(StateQuery), enumerationOptions))
             {
                 if (searcherInstance != null)
                 {
@@ -571,6 +576,8 @@ namespace QuickMon.Collectors
                     }
                 }
             }
+            enumerationOptions = null;
+            managementScope = null;
             return null;
         }
 

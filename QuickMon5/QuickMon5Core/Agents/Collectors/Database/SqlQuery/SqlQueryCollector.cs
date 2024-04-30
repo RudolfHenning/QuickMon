@@ -555,8 +555,10 @@ namespace QuickMon.Collectors
                 return ConnectionString;
             else
             {
+                string connectionString = "";
                 if (DataSourceType == Collectors.DataSourceType.SqlServer)
                 {
+
                     SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
                     sb.ApplicationName = ApplicationName;
                     sb.DataSource = Server;
@@ -567,7 +569,9 @@ namespace QuickMon.Collectors
                         sb.UserID = UserName;
                         sb.Password = Password;
                     }
-                    return sb.ConnectionString;
+
+                    connectionString = sb.ConnectionString;
+                    sb = null;
                 }
                 else
                 {
@@ -575,8 +579,10 @@ namespace QuickMon.Collectors
                     sb.DataSource = Server;
                     sb.Provider = ProviderName;
                     sb.FileName = FileName;
-                    return sb.ConnectionString;
+                    connectionString = sb.ConnectionString;
+                    sb = null;
                 }
+                return connectionString;
             }
         }
         private System.Data.Common.DbConnection GetConnection()
@@ -623,13 +629,14 @@ namespace QuickMon.Collectors
                 return new System.Data.OleDb.OleDbCommand(queryText, (System.Data.OleDb.OleDbConnection)conn) { CommandType = useSP ? CommandType.StoredProcedure : CommandType.Text, CommandTimeout = CmndTimeOut };
             }
         }
-        private void CloseConnection(bool closeNonPersistent = false)
+        private void CloseConnection(bool force = false) //bool closeNonPersistent = false)
         {
             try
             {
-                if (closeNonPersistent && UsePersistentConnection && PersistentConnection != null)
+                if ((force || !UsePersistentConnection) && PersistentConnection != null)
                 {
                     PersistentConnection.Close();
+                    PersistentConnection.Dispose();
                     PersistentConnection = null;
                 }
             }
