@@ -391,11 +391,15 @@ namespace QuickMon
                     mfi.Refresh();
                     if (mfi.Exists && (lastMonitorPackFileUpdate.AddSeconds(1) < mfi.LastWriteTime))
                     {
+                        //Get previous CollectorStateHistorySize (like when running under service)
+                        int collectorStateHistorySize = CollectorStateHistorySize;
+                        
                         //Load everything over again
                         Load();
+                        CollectorStateHistorySize = collectorStateHistorySize; //no need to keep history that no user cannot see anyway
                         lastMonitorPackFileUpdate = mfi.LastWriteTime;
-                        RaiseMonitorPackEventReported(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!", Name, MonitorPackPath, lastMonitorPackFileUpdate));
-                        WriteLogging(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!", Name, MonitorPackPath, lastMonitorPackFileUpdate));
+                        RaiseMonitorPackEventReported(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!\r\nCollectorStateHistorySize : {3}", Name, MonitorPackPath, lastMonitorPackFileUpdate, CollectorStateHistorySize));
+                        WriteLogging(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!\r\nCollectorStateHistorySize : {3}", Name, MonitorPackPath, lastMonitorPackFileUpdate, CollectorStateHistorySize));
                     }
                 }
                 catch (Exception ex)

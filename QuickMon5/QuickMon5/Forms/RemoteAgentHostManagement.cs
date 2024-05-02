@@ -668,7 +668,9 @@ namespace QuickMon.UI
                             sb.AppendLine("  " + ex.Message);
                     }
                 }
-                MessageBox.Show(sb.ToString(), "Monitor packs", MessageBoxButtons.OK, anyErrors ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+                Forms.ShowTextDialog dlg = new Forms.ShowTextDialog();
+                dlg.ShowText("Monitor packs", sb.ToString());
+                //MessageBox.Show(sb.ToString(), "Monitor packs", MessageBoxButtons.OK, anyErrors ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
             }
         }
 
@@ -680,8 +682,11 @@ namespace QuickMon.UI
                                        orderby i descending
                                        select i))
                 {
+                    RemoteAgentInfo remoteAgentInfo = (RemoteAgentInfo)lvwRemoteHosts.Items[index].Tag;
+                    Properties.Settings.Default.KnownRemoteHosts.Remove(remoteAgentInfo.ToString());
                     lvwRemoteHosts.Items.RemoveAt(index);
                 }
+                Properties.Settings.Default.Save();
             }
         }
 

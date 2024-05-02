@@ -331,10 +331,18 @@ namespace QuickMon.Collectors
                 output = stringBuilder.ToString();
 
                 //cleanups
-                if (results != null)
-                    results.Clear();
-                results = null;
-                stringBuilder = null;
+                try
+                {
+                    if (results != null)
+                    {
+                        results.Clear();
+                        results = null;
+                    }
+                    stringBuilder.Clear();
+                    stringBuilder = null;
+                    GC.Collect();
+                }
+                catch { }
             }
             catch (Exception ex)
             {
@@ -447,13 +455,22 @@ namespace QuickMon.Collectors
                 output = stringBuilder.ToString();
 
                 //cleanups
-                if (results != null)
-                    results.Clear();
-                results = null;
-                if (exitCodeResults != null)
-                    exitCodeResults.Clear();
-                exitCodeResults = null;
-                stringBuilder = null;
+                try
+                {
+                    if (results != null)
+                    {
+                        results.Clear();
+                        results = null;
+                    }
+                    if (exitCodeResults != null)
+                    {
+                        exitCodeResults.Clear();
+                        exitCodeResults = null;
+                    }
+                    stringBuilder = null;
+                    GC.Collect();
+                }
+                catch { }
             }
             catch (Exception ex)
             {
