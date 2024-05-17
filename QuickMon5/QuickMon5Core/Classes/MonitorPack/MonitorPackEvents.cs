@@ -25,6 +25,9 @@ namespace QuickMon
         {
             MonitorPackEventReported?.Invoke(message);
         }
+
+        public event SimpleMessageDelegate BeforeMonitorPackReload;
+        public event SimpleMessageDelegate AfterMonitorPackReload;
         #endregion
 
         #region Monitor Pack Logging

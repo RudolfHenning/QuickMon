@@ -73,6 +73,7 @@ namespace QuickMon
         public string TypeName { get; set; }
         public bool CorrectiveScriptsEnabled { get; set; }
         public string MonitorPackPath { get; set; }
+        public bool ReloadMonitorPackOnFileChange { get; set; } = true;
 
         public List<CollectorHost> CollectorHosts { get; private set; }
         public List<NotifierHost> NotifierHosts { get; private set; }
@@ -389,17 +390,25 @@ namespace QuickMon
                 {
                     //Update FileInfo object
                     mfi.Refresh();
-                    if (mfi.Exists && (lastMonitorPackFileUpdate.AddSeconds(1) < mfi.LastWriteTime))
+                    if (ReloadMonitorPackOnFileChange && mfi.Exists && (lastMonitorPackFileUpdate.AddSeconds(1) < mfi.LastWriteTime))
                     {
                         //Get previous CollectorStateHistorySize (like when running under service)
                         int collectorStateHistorySize = CollectorStateHistorySize;
-                        
+
+                        BeforeMonitorPackReload?.Invoke($"Reloading monitorpack since last update date changed from '{lastMonitorPackFileUpdate.ToString("yyyy-MM-dd HH:mm:ss")}' to '{mfi.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss")}'");
                         //Load everything over again
                         Load();
-                        CollectorStateHistorySize = collectorStateHistorySize; //no need to keep history that no user cannot see anyway
+                        CollectorStateHistorySize = collectorStateHistorySize; //set back to previous value in case it was set after load - like when running under a service
+                        //force collectors to set the historysize specified
+                        foreach (CollectorHost ch in CollectorHosts)
+                        {
+                            ch.MaxStateHistorySize = CollectorStateHistorySize;
+                        }
                         lastMonitorPackFileUpdate = mfi.LastWriteTime;
                         RaiseMonitorPackEventReported(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!\r\nCollectorStateHistorySize : {3}", Name, MonitorPackPath, lastMonitorPackFileUpdate, CollectorStateHistorySize));
                         WriteLogging(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!\r\nCollectorStateHistorySize : {3}", Name, MonitorPackPath, lastMonitorPackFileUpdate, CollectorStateHistorySize));
+
+                        AfterMonitorPackReload?.Invoke("Monitorpack reloaded");
                     }
                 }
                 catch (Exception ex)

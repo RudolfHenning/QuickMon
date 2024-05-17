@@ -83,6 +83,7 @@ namespace QuickMon
                 TypeName = root.ReadXmlElementAttr("typeName", "");
                 this.Version = root.ReadXmlElementAttr("version", "5.0.0.0");
                 Enabled = root.ReadXmlElementAttr("enabled", true);
+                ReloadMonitorPackOnFileChange = root.ReadXmlElementAttr("autoReload", true);
                 EnableStickyMainWindowLocation = root.ReadXmlElementAttr("enabledStickyMainWindowLocation", false);
                 CollectorStateHistorySize = root.ReadXmlElementAttr("stateHistorySize", 100); //Depricated
                 PollingFrequencyOverrideSec = root.ReadXmlElementAttr("pollingFreqSecOverride", 0); //Depricated
@@ -117,6 +118,8 @@ namespace QuickMon
                     foreach (CollectorHost collectorHost in CollectorHosts)
                     {
                         SetCollectorHostEvents(collectorHost);
+                        //If the CollectorStateHistorySize is different from the default then force collectorhost MaxStateHistorySize to the same value
+                        collectorHost.MaxStateHistorySize = CollectorStateHistorySize;
                     }
                 }
                 #endregion
@@ -278,6 +281,7 @@ namespace QuickMon
         }
         #endregion
 
+        
         #region Saving
         public bool Save()
         {
@@ -339,6 +343,7 @@ namespace QuickMon
             root.SetAttributeValue("lastChanged", LastChangeDate.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("typeName", TypeName);
             root.SetAttributeValue("enabled", Enabled);
+            root.SetAttributeValue("autoReload", ReloadMonitorPackOnFileChange);
             root.SetAttributeValue("enabledStickyMainWindowLocation", EnableStickyMainWindowLocation);
 
             #region security
@@ -347,9 +352,10 @@ namespace QuickMon
             #endregion
 
             #region Config variables
-            root.SelectSingleNode("configVars").InnerXml = GetConfigVarXml(); 
+            root.SelectSingleNode("configVars").InnerXml = GetConfigVarXml();
             #endregion
 
+            #region Collector Hosts
             XmlNode collectorHostsNode = root.SelectSingleNode("collectorHosts");
             collectorHostsNode.SetAttributeValue("runCorrectiveScripts", CorrectiveScriptsEnabled);
             collectorHostsNode.SetAttributeValue("stateHistorySize", CollectorStateHistorySize);
@@ -370,13 +376,17 @@ namespace QuickMon
                 XmlNode collectorHostNode = outDoc.ImportNode(collectorHost.ToXmlNode(), true);
                 collectorHostsNode.AppendChild(collectorHostNode);
             }
+            #endregion
+
+            #region Notifier Hosts
             XmlNode notifierHostsNode = root.SelectSingleNode("notifierHosts");
 
             foreach (NotifierHost notifierHost in NotifierHosts)
             {
                 XmlNode notifierHostNode = outDoc.ImportNode(notifierHost.ToXmlNode(), true);
                 notifierHostsNode.AppendChild(notifierHostNode);
-            }
+            } 
+            #endregion
 
             #region Logging
             XmlNode loggingNode = root.SelectSingleNode("logging");

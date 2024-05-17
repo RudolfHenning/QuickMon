@@ -563,7 +563,218 @@ namespace QuickMon
                 return sb.ToString();
         }
 
-        
+        #region History Export/Import related
+        public string ToCXml()
+        {
+            XmlDocument xdoc = new XmlDocument();
+            xdoc.LoadXml("<m st=\"NotAvailable\" />");
+            XmlElement root = xdoc.DocumentElement;
+            string timeStampStr = Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
+            string stateChangeTimeStr = StateChangedTime.ToString("yyyy-MM-dd HH:mm:ss");
+            root.SetAttributeValue("ts", timeStampStr);
+            root.SetAttributeValue("st", State.ToString());
+            if (timeStampStr != stateChangeTimeStr)
+                root.SetAttributeValue("stchtm", stateChangeTimeStr);
+            if (ForAgent != null && ForAgent.Length > 0)
+                root.SetAttributeValue("fa", ForAgent);
+            if (ForAgentType != null && ForAgentType.Length > 0)
+                root.SetAttributeValue("fat", ForAgentType);
+            if (ForAgentId > 0)
+                root.SetAttributeValue("fai", ForAgentId);
+            if (CallDurationMS > 0)
+                root.SetAttributeValue("cd", CallDurationMS);
+            if (RepeatCount > 0)
+                root.SetAttributeValue("rc", RepeatCount);
+            if (CurrentValue != null && CurrentValue.ToString().Length > 0)
+                root.SetAttributeValue("v", CurrentValue.ToString());
+            if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                root.SetAttributeValue("u", CurrentValueUnit);
+            if (PrimaryUIValue)
+                root.SetAttributeValue("pv", PrimaryUIValue);
+            if (ExecutedOnHostComputer != null && ExecutedOnHostComputer.Length > 0)
+                root.SetAttributeValue("eh", ExecutedOnHostComputer);
+            if (RanAs != null && RanAs.Length > 0)
+                root.SetAttributeValue("ra", RanAs);
+
+            if (AlertHeader != null && AlertHeader.Length > 0)
+            {
+                XmlElement alertHeaderNode = xdoc.CreateElement("ah");
+                alertHeaderNode.InnerText = AlertHeader;
+                root.AppendChild(alertHeaderNode);
+            }
+
+            if (AlertFooter != null && AlertFooter.Length > 0)
+            {
+                XmlElement alertFooterNode = xdoc.CreateElement("af");
+                alertFooterNode.InnerText = AlertFooter;
+                root.AppendChild(alertFooterNode);
+            }
+
+            if (AdditionalAlertText != null && AdditionalAlertText.Length > 0)
+            {
+                XmlElement additionalAlertTextNode = xdoc.CreateElement("aat");
+                additionalAlertTextNode.InnerText = AdditionalAlertText;
+                root.AppendChild(additionalAlertTextNode);
+            }
+
+            if (RawDetails != null && RawDetails.Length > 0)
+            {
+                XmlElement rawDetailsNode = xdoc.CreateElement("rd");
+                rawDetailsNode.InnerText = RawDetails;
+                root.AppendChild(rawDetailsNode);
+            }
+
+            if (HtmlDetails != null && HtmlDetails.Length > 0)
+            {
+                XmlElement htmlDetailsNode = xdoc.CreateElement("hd");
+                htmlDetailsNode.InnerText = HtmlDetails;
+                root.AppendChild(htmlDetailsNode);
+            }
+
+            if (AlertsRaised != null && AlertsRaised.Count > 0)
+            {
+                XmlElement alerts = xdoc.CreateElement("as");
+                foreach (string alert in AlertsRaised)
+                {
+                    XmlElement alertNode = xdoc.CreateElement("a");
+                    alertNode.InnerText = alert;
+                    alerts.AppendChild(alertNode);
+                }
+                root.AppendChild(alerts);
+            }
+
+            if (ScriptsRan != null && ScriptsRan.Count > 0)
+            {
+                XmlElement scriptsRanElement = xdoc.CreateElement("sr");
+                foreach (string scriptName in ScriptsRan)
+                {
+                    XmlElement scriptNode = xdoc.CreateElement("s");
+                    scriptNode.InnerText = scriptName;
+                    scriptsRanElement.AppendChild(scriptNode);
+                }
+                root.AppendChild(scriptsRanElement);
+            }
+
+            StringBuilder childStates = new StringBuilder();
+            if (ChildStates != null && ChildStates.Count > 0)
+            {
+                childStates.Append("<c>");
+                foreach (MonitorState childState in ChildStates)
+                {
+                    childStates.Append(childState.ToCXml());
+                }
+                childStates.Append("</c>");
+            }
+            string interimXml = xdoc.OuterXml;
+            if (interimXml.EndsWith(" />"))
+                return interimXml.Replace(" />", ">" + childStates.ToString() + "</m>");
+            else
+                return interimXml.Replace("</m>", childStates.ToString() + "</m>");
+        }
+        public void FromCXml(string content)
+        {
+            XmlDocument xdoc = new XmlDocument();
+            xdoc.LoadXml(content);
+            XmlElement root = xdoc.DocumentElement;
+            State = CollectorStateConverter.GetCollectorStateFromText(root.ReadXmlElementAttr("st", "NotAvailable"));
+            try
+            {
+                Timestamp = DateTime.Parse(root.ReadXmlElementAttr("ts", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+            }
+            catch { }
+            try
+            {
+                StateChangedTime = root.ReadXmlElementAttr("stchtm", Timestamp);
+            }
+            catch { }
+
+            try
+            {
+                CallDurationMS = root.ReadXmlElementAttr("cd", 0);
+            }
+            catch { }
+            ForAgent = root.ReadXmlElementAttr("fa", "");
+            ForAgentType = root.ReadXmlElementAttr("fat", "");
+            ForAgentId = root.ReadXmlElementAttr("fai", -1);
+            CurrentValue = root.ReadXmlElementAttr("v", "");
+            CurrentValueUnit = root.ReadXmlElementAttr("u", "");
+            PrimaryUIValue = root.ReadXmlElementAttr("pv", false);
+            ExecutedOnHostComputer = root.ReadXmlElementAttr("eh", "");
+            RanAs = root.ReadXmlElementAttr("ra", "");
+            RepeatCount = root.ReadXmlElementAttr("rc", 0);
+            try
+            {
+                XmlNode ah = root.SelectSingleNode("ah");
+                if (ah != null)
+                {
+                    AlertHeader = $"{ah.InnerText}";
+                }
+            }
+            catch { }
+            try
+            {
+                XmlNode af = root.SelectSingleNode("af");
+                if (af != null)
+                {
+                    AlertFooter = $"{af.InnerText}";
+                }
+            }
+            catch { }
+            try
+            {
+                XmlNode aat = root.SelectSingleNode("aat");
+                if (aat != null)
+                {
+                    AdditionalAlertText = $"{aat.InnerText}";
+                }
+            }
+            catch { }
+            XmlNode rd = root.SelectSingleNode("rd");
+            if (rd != null)
+            {
+                RawDetails = $"{rd.InnerText}";
+            }
+            XmlNode hd = root.SelectSingleNode("hd");
+            if (hd != null)
+            {
+                HtmlDetails = $"{hd.InnerText}";
+            }
+
+            AlertsRaised = new List<string>();
+            XmlNodeList alertNodes = root.SelectNodes("a");
+            if (alertNodes != null)
+            {
+                foreach (XmlNode alertNode in alertNodes)
+                {
+                    if (alertNode.InnerText.Trim().Length > 0)
+                        AlertsRaised.Add(alertNode.InnerText);
+                }
+            }
+
+            ScriptsRan = new List<string>();
+            XmlNodeList scriptsRanNodes = root.SelectNodes("sr");
+            if (scriptsRanNodes != null)
+            {
+                foreach (XmlNode scriptNode in scriptsRanNodes)
+                {
+                    if (scriptNode.InnerText.Trim().Length > 0)
+                        ScriptsRan.Add(scriptNode.InnerText);
+                }
+            }
+
+            ChildStates = new List<MonitorState>();
+            XmlNodeList childStates = root.SelectNodes("c/m");
+            if (childStates != null)
+            {
+                foreach (XmlNode childStateNode in childStates)
+                {
+                    MonitorState childState = new MonitorState();
+                    childState.FromCXml(childStateNode.OuterXml);
+                    ChildStates.Add(childState);
+                }
+            }
+        }
+        #endregion
     }
     public static class MonitorStateEx
     {

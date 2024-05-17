@@ -319,3 +319,8 @@ Add Value Scale modification to WMI Collector.
 Menu option on main window to view collector history.
 Some internal code cleanup in agents to optimize memory usage.
 View Remote host list updated to show entries as text.
+
+--------------
+Version 5.3.24 (2024-05-17)
+**************
+Monitor pack/Collector history persistance added.
