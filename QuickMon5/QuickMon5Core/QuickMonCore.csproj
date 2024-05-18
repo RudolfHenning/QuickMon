@@ -135,6 +135,7 @@
     <Compile Include="Classes\CollectorStateConverter.cs" />
     <Compile Include="Classes\ConfigVariable.cs" />
     <Compile Include="Classes\HistoryExporter\CollectorHistoryExport.cs" />
+    <Compile Include="Classes\HistoryExporter\MHIHandler.cs" />
     <Compile Include="Classes\HistoryExporter\MonitorPackHistoryExport.cs" />
     <Compile Include="Classes\MacroVariables.cs" />
     <Compile Include="Classes\MonitorPack\MonitorPack.cs" />

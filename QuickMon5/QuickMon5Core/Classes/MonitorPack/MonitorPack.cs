@@ -356,6 +356,16 @@ namespace QuickMon
         {
             CollectorHostRefreshCurrentState(collectorHost, true, true);
         }
+        public void WaitWhileStillPolling()
+        {
+            int maxSecondsToWait = 60;
+            DateTime start = DateTime.Now;
+            System.Threading.Thread.Sleep(1000);
+            while (IsBusyPolling && DateTime.Now.Subtract( start).TotalSeconds < maxSecondsToWait)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+        }
         #endregion
 
         #region Async refreshing
