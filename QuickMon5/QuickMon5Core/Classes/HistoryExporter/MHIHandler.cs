@@ -55,30 +55,33 @@ namespace QuickMon
                 string inputPath = GetMonitorPackMHIFile(monitorPack);
                 if (System.IO.File.Exists(inputPath))
                 {
-                    int collectorsLoaded = 0;
-                    int monitorStatesLoaded = 0;
-
-                    MonitorPackHistoryExport monitorPackHistoryExport = new MonitorPackHistoryExport();
-                    monitorPackHistoryExport.FromXml(System.IO.File.ReadAllText(inputPath));                    
-
-                    foreach (CollectorHistoryExport collectorHistoryExport in monitorPackHistoryExport.CollectorHistoryExports)
+                    lock (locker)
                     {
-                        CollectorHost ch = monitorPack.CollectorHosts.FirstOrDefault(c => c.UniqueId == collectorHistoryExport.CollectorUniqueId);
-                        if (ch != null)
+                        int collectorsLoaded = 0;
+                        int monitorStatesLoaded = 0;
+
+                        MonitorPackHistoryExport monitorPackHistoryExport = new MonitorPackHistoryExport();
+                        monitorPackHistoryExport.FromXml(System.IO.File.ReadAllText(inputPath));
+
+                        foreach (CollectorHistoryExport collectorHistoryExport in monitorPackHistoryExport.CollectorHistoryExports)
                         {
-                            collectorsLoaded++;
-                            if (!addHistory)
-                                ch.StateHistory.Clear();
-                            foreach (string hi in collectorHistoryExport.States)
+                            CollectorHost ch = monitorPack.CollectorHosts.FirstOrDefault(c => c.UniqueId == collectorHistoryExport.CollectorUniqueId);
+                            if (ch != null)
                             {
-                                try
+                                collectorsLoaded++;
+                                if (!addHistory)
+                                    ch.StateHistory.Clear();
+                                foreach (string hi in collectorHistoryExport.States)
                                 {
-                                    MonitorState ms = new MonitorState();
-                                    ms.FromCXml(hi);
-                                    ch.StateHistory.Add(ms);
-                                    monitorStatesLoaded++;
+                                    try
+                                    {
+                                        MonitorState ms = new MonitorState();
+                                        ms.FromCXml(hi);
+                                        ch.StateHistory.Add(ms);
+                                        monitorStatesLoaded++;
+                                    }
+                                    catch { }
                                 }
-                                catch { }
                             }
                         }
                     }

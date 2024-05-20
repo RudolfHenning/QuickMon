@@ -28,6 +28,7 @@ namespace QuickMon
 
         public event SimpleMessageDelegate BeforeMonitorPackReload;
         public event SimpleMessageDelegate AfterMonitorPackReload;
+        public event SimpleMessageDelegate AfterMonitorPackRefresh;
         #endregion
 
         #region Monitor Pack Logging
@@ -287,6 +288,11 @@ namespace QuickMon
                 System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRaiseMonitorPackError: {0}", ex.Message));
             }
         }
+        #endregion
+
+        #region Collector History Load/Save events
+        public event SimpleMessageDelegate HistoryLoaded;
+        public event SimpleMessageDelegate HistorySaved;
         #endregion
     }
 }

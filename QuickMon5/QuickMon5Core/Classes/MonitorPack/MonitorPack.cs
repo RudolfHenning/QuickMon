@@ -63,6 +63,8 @@ namespace QuickMon
             LoggingCollectorCategories = null;
         }
 
+        private string locker = "";
+
         #region Properties
 
         #region User configurable
@@ -246,6 +248,8 @@ namespace QuickMon
                 }
             }
 
+            AfterMonitorPackRefresh?.Invoke($"MonitorPack refreshed at {DateTime.Now}, State : {globalState}");
+
             return globalState;
         }
         private void CollectorHostRefreshCurrentState(CollectorHost collectorHost, bool disablePollingOverrides = false, bool forceSingleCollectorUpdate = false)
@@ -360,8 +364,8 @@ namespace QuickMon
         {
             int maxSecondsToWait = 60;
             DateTime start = DateTime.Now;
-            System.Threading.Thread.Sleep(1000);
-            while (IsBusyPolling && DateTime.Now.Subtract( start).TotalSeconds < maxSecondsToWait)
+            System.Threading.Thread.Sleep(10);
+            while (IsBusyPolling && DateTime.Now.Subtract(start).TotalSeconds < maxSecondsToWait)
             {
                 System.Threading.Thread.Sleep(1000);
             }
@@ -879,6 +883,98 @@ namespace QuickMon
             foreach(CollectorHost ch in CollectorHosts)
             {
                 ch.Close();
+            }
+        }
+        #endregion
+
+        #region Collector History Persistence
+        public void LoadMonitorPackHistory(bool addHistory = false)
+        {
+            //make sure polling is done.
+            WaitWhileStillPolling();
+            string inputPath = MHIHandler.GetMonitorPackMHIFile(this);
+            if (System.IO.File.Exists(inputPath))
+            {
+                lock (locker)
+                {
+                    int collectorsLoaded = 0;
+                    int monitorStatesLoaded = 0;
+
+                    MonitorPackHistoryExport monitorPackHistoryExport = new MonitorPackHistoryExport();
+                    monitorPackHistoryExport.FromXml(System.IO.File.ReadAllText(inputPath));
+
+                    foreach (CollectorHistoryExport collectorHistoryExport in monitorPackHistoryExport.CollectorHistoryExports)
+                    {
+                        CollectorHost ch = CollectorHosts.FirstOrDefault(c => c.UniqueId == collectorHistoryExport.CollectorUniqueId);
+                        if (ch != null)
+                        {
+                            collectorsLoaded++;
+                            List<MonitorState> list = new List<MonitorState>();
+                            foreach (string hi in collectorHistoryExport.States)
+                            {
+                                try
+                                {
+                                    MonitorState ms = new MonitorState();
+                                    ms.FromCXml(hi);
+                                    list.Add(ms);
+                                    monitorStatesLoaded++;
+                                }
+                                catch { }
+                            }
+                            if (!addHistory)
+                                ch.StateHistory.Clear();
+                            ch.StateHistory.AddRange(list.OrderBy(m => m.Timestamp).Take(CollectorStateHistorySize));
+
+                            //foreach (string hi in collectorHistoryExport.States)
+                            //{
+                            //    try
+                            //    {
+                            //        MonitorState ms = new MonitorState();
+                            //        ms.FromCXml(hi);
+                            //        ch.StateHistory.Add(ms);
+                            //        monitorStatesLoaded++;
+                            //    }
+                            //    catch { }
+                            //}
+                        }
+                    }
+                    HistoryLoaded?.Invoke($"{monitorPackHistoryExport.CollectorHistoryExports.Count} collector(s) histories imported from {inputPath}\r\n{collectorsLoaded} collectors loaded.\r\n{monitorStatesLoaded} monitor states loaded.");
+                }
+            }
+        }
+        public void SaveMonitorPackHistory()
+        {
+            //make sure it is not busy polling now
+            WaitWhileStillPolling();
+
+            int statesSaved = 0;
+            lock (locker)
+            {
+                MonitorPackHistoryExport monitorPackHistoryExport = new MonitorPackHistoryExport();
+                monitorPackHistoryExport.Name = Name;
+                monitorPackHistoryExport.MonitorPackPath = MonitorPackPath;
+                monitorPackHistoryExport.CollectorHistoryExports = new List<CollectorHistoryExport>();
+                foreach (CollectorHost ch in CollectorHosts)
+                {
+                    CollectorHistoryExport collectorHistoryExport = new CollectorHistoryExport();
+                    collectorHistoryExport.CollectorName = ch.Name;
+                    collectorHistoryExport.PathWithoutMP = ch.PathWithoutMP;
+                    collectorHistoryExport.CollectorUniqueId = ch.UniqueId;
+
+                    collectorHistoryExport.StateHistoryXML = new List<string>();
+                    collectorHistoryExport.States = new List<string>();
+                    foreach (MonitorState item in ch.StateHistory.OrderBy(m => m.Timestamp))
+                    {
+                        collectorHistoryExport.States.Add(item.ToCXml());
+                        statesSaved++;
+                    }
+                    monitorPackHistoryExport.CollectorHistoryExports.Add(collectorHistoryExport);
+                }
+                string mpser = monitorPackHistoryExport.ToXml();
+
+                string outputPath = MHIHandler.GetMonitorPackMHIFile(this);
+                System.IO.File.WriteAllText(outputPath, mpser, Encoding.UTF8);
+                HistorySaved?.Invoke($"{monitorPackHistoryExport.CollectorHistoryExports.Count} collector(s) histories exported to {outputPath}\r\n{statesSaved} states saved.");
             }
         }
         #endregion
