@@ -101,6 +101,7 @@ namespace QuickMon
                 {
                     CorrectiveScriptsEnabled = collectorHostsNode.ReadXmlElementAttr("correctiveScriptsEnabled", CorrectiveScriptsEnabled);
                     CollectorStateHistorySize = collectorHostsNode.ReadXmlElementAttr("stateHistorySize", CollectorStateHistorySize);
+                    PersistCollectorStateHistory = collectorHostsNode.ReadXmlElementAttr("persistHistory", false);
                     PollingFrequencyOverrideSec = collectorHostsNode.ReadXmlElementAttr("pollingFreqSecOverride", PollingFrequencyOverrideSec);
                     CollectorChildCheckBehaviourOverride = collectorHostsNode.ReadXmlElementAttr("childCheckBehaviourOverride", false);
                     CollectorChildCheckBehaviour = ChildCheckBehaviourConverter.FromString(collectorHostsNode.ReadXmlElementAttr("childCheckBehaviour", "OnlyRunOnSuccess"));
@@ -120,7 +121,7 @@ namespace QuickMon
                         SetCollectorHostEvents(collectorHost);
                         //If the CollectorStateHistorySize is different from the default then force collectorhost MaxStateHistorySize to the same value
                         collectorHost.MaxStateHistorySize = CollectorStateHistorySize;
-                    }
+                    }                    
                 }
                 #endregion
                 /***************** Load Notifiers ****************/
@@ -359,6 +360,7 @@ namespace QuickMon
             XmlNode collectorHostsNode = root.SelectSingleNode("collectorHosts");
             collectorHostsNode.SetAttributeValue("runCorrectiveScripts", CorrectiveScriptsEnabled);
             collectorHostsNode.SetAttributeValue("stateHistorySize", CollectorStateHistorySize);
+            collectorHostsNode.SetAttributeValue("persistHistory", PersistCollectorStateHistory);
             collectorHostsNode.SetAttributeValue("pollingFreqSecOverride", PollingFrequencyOverrideSec);
             collectorHostsNode.SetAttributeValue("childCheckBehaviourOverride", CollectorChildCheckBehaviourOverride);
             collectorHostsNode.SetAttributeValue("childCheckBehaviour", CollectorChildCheckBehaviour.ToString());

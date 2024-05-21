@@ -37,41 +37,47 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanelSettings = new System.Windows.Forms.FlowLayoutPanel();
             this.panelGeneralSettings = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblMonitorPackPath = new System.Windows.Forms.Label();
             this.chkEnableStickyMainWindowLocation = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.freqSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.txtType = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.cmdGeneralSettingsToggle = new System.Windows.Forms.Button();
-            this.lblMonitorPackPath = new System.Windows.Forms.Label();
             this.panelAgentSettings = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.chkCorrectiveScripts = new System.Windows.Forms.CheckBox();
             this.chkCollectorChildCheckBehaviourOverride = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.cboChildCheckBehaviour = new System.Windows.Forms.ComboBox();
-            this.label39 = new System.Windows.Forms.Label();
-            this.collectorStateHistorySizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.exportHistoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clipboardExportAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chkCorrectiveScripts = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.collectorStateHistorySizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.cmdAgentSettingsToggle = new System.Windows.Forms.Button();
             this.panelVariables = new System.Windows.Forms.Panel();
-            this.panelVarEdit = new System.Windows.Forms.Panel();
-            this.llblExpandConfigVarSection = new System.Windows.Forms.LinkLabel();
-            this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
-            this.label41 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStripVariables = new System.Windows.Forms.ToolStrip();
             this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.panelVarEdit = new System.Windows.Forms.Panel();
+            this.llblExpandConfigVarSection = new System.Windows.Forms.LinkLabel();
+            this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
             this.cmdVariablesToggle = new System.Windows.Forms.Button();
             this.label42 = new System.Windows.Forms.Label();
             this.panelSecuritySettings = new System.Windows.Forms.Panel();
@@ -80,6 +86,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cmdRemoveUserNameFromCache = new System.Windows.Forms.Button();
             this.cmdAddUserNameToCache = new System.Windows.Forms.Button();
+            this.lvwUserNameCache = new QuickMon.ListViewEx();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setPwdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,6 +104,22 @@
             this.txtMasterKeyFilePath = new System.Windows.Forms.TextBox();
             this.cmdSecuritySettingsToggle = new System.Windows.Forms.Button();
             this.panelLoggingSettings = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.chkLoggingEnabled = new System.Windows.Forms.CheckBox();
+            this.txtLoggingPath = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtLoggingCollectorCategories = new System.Windows.Forms.TextBox();
+            this.cmdLoggingPath = new System.Windows.Forms.Button();
+            this.nudKeepLogFilesXDays = new System.Windows.Forms.NumericUpDown();
+            this.chkLoggingCollectorEvents = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.chkLoggingNotifierEvents = new System.Windows.Forms.CheckBox();
+            this.chkLoggingServiceWindowEvents = new System.Windows.Forms.CheckBox();
+            this.chkLoggingAlertsRaised = new System.Windows.Forms.CheckBox();
+            this.chkLoggingPollingOverridesTriggered = new System.Windows.Forms.CheckBox();
+            this.chkLoggingCorrectiveScriptRun = new System.Windows.Forms.CheckBox();
+            this.cmdLoggingSettingsToggle = new System.Windows.Forms.Button();
             this.metricsExportGroupBox = new System.Windows.Forms.GroupBox();
             this.chkCollectorMetricsExportIncludeDisabled = new System.Windows.Forms.CheckBox();
             this.cmdBrowseCollectorMetricsExportPath = new System.Windows.Forms.Button();
@@ -101,54 +127,29 @@
             this.txtCollectorMetricsExportPath = new System.Windows.Forms.TextBox();
             this.chkCollectorMetricsExportToXMLEnabled = new System.Windows.Forms.CheckBox();
             this.chkCollectorMetricsExportToCSVEnabled = new System.Windows.Forms.CheckBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtLoggingCollectorCategories = new System.Windows.Forms.TextBox();
-            this.nudKeepLogFilesXDays = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.chkLoggingServiceWindowEvents = new System.Windows.Forms.CheckBox();
-            this.chkLoggingPollingOverridesTriggered = new System.Windows.Forms.CheckBox();
-            this.chkLoggingCorrectiveScriptRun = new System.Windows.Forms.CheckBox();
-            this.chkLoggingAlertsRaised = new System.Windows.Forms.CheckBox();
-            this.chkLoggingNotifierEvents = new System.Windows.Forms.CheckBox();
-            this.chkLoggingCollectorEvents = new System.Windows.Forms.CheckBox();
-            this.chkLoggingEnabled = new System.Windows.Forms.CheckBox();
-            this.cmdLoggingPath = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtLoggingPath = new System.Windows.Forms.TextBox();
-            this.cmdLoggingSettingsToggle = new System.Windows.Forms.Button();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.fbdLogging = new System.Windows.Forms.FolderBrowserDialog();
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.lvwConfigVars = new QuickMon.ListViewEx();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvwUserNameCache = new QuickMon.ListViewEx();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.chkPersistCollectorHistory = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelGeneralSettings.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.panelAgentSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
+            this.panel2.SuspendLayout();
             this.exportHistoryContextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.panelVariables.SuspendLayout();
-            this.panelVarEdit.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.toolStripVariables.SuspendLayout();
+            this.panelVarEdit.SuspendLayout();
             this.panelSecuritySettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.userCacheContextMenuStrip.SuspendLayout();
             this.panelLoggingSettings.SuspendLayout();
-            this.metricsExportGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).BeginInit();
+            this.metricsExportGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkEnabled
@@ -245,6 +246,41 @@
             this.panelGeneralSettings.TabIndex = 0;
             this.panelGeneralSettings.Resize += new System.EventHandler(this.panelGeneralSettings_Resize);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblMonitorPackPath);
+            this.panel1.Controls.Add(this.chkEnableStickyMainWindowLocation);
+            this.panel1.Controls.Add(this.lblName);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.txtName);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.chkEnabled);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.freqSecNumericUpDown);
+            this.panel1.Controls.Add(this.txtType);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 33);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(549, 138);
+            this.panel1.TabIndex = 12;
+            // 
+            // lblMonitorPackPath
+            // 
+            this.lblMonitorPackPath.AutoEllipsis = true;
+            this.lblMonitorPackPath.BackColor = System.Drawing.Color.Transparent;
+            this.lblMonitorPackPath.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblMonitorPackPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblMonitorPackPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMonitorPackPath.ForeColor = System.Drawing.Color.DimGray;
+            this.lblMonitorPackPath.Location = new System.Drawing.Point(0, 118);
+            this.lblMonitorPackPath.Name = "lblMonitorPackPath";
+            this.lblMonitorPackPath.Size = new System.Drawing.Size(549, 20);
+            this.lblMonitorPackPath.TabIndex = 11;
+            this.lblMonitorPackPath.Text = " <Path>";
+            this.lblMonitorPackPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblMonitorPackPath.DoubleClick += new System.EventHandler(this.lblMonitorPackPath_DoubleClick);
+            // 
             // chkEnableStickyMainWindowLocation
             // 
             this.chkEnableStickyMainWindowLocation.AutoSize = true;
@@ -286,6 +322,15 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "Sec";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 65);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(31, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "&Type";
+            // 
             // freqSecNumericUpDown
             // 
             this.freqSecNumericUpDown.Location = new System.Drawing.Point(126, 92);
@@ -309,15 +354,6 @@
             this.txtType.TabIndex = 6;
             this.txtType.TextChanged += new System.EventHandler(this.txtType_TextChanged);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 65);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(31, 13);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "&Type";
-            // 
             // cmdGeneralSettingsToggle
             // 
             this.cmdGeneralSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -336,22 +372,6 @@
             this.cmdGeneralSettingsToggle.UseVisualStyleBackColor = false;
             this.cmdGeneralSettingsToggle.Click += new System.EventHandler(this.cmdGeneralSettingsToggle_Click);
             // 
-            // lblMonitorPackPath
-            // 
-            this.lblMonitorPackPath.AutoEllipsis = true;
-            this.lblMonitorPackPath.BackColor = System.Drawing.Color.Transparent;
-            this.lblMonitorPackPath.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblMonitorPackPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.lblMonitorPackPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMonitorPackPath.ForeColor = System.Drawing.Color.DimGray;
-            this.lblMonitorPackPath.Location = new System.Drawing.Point(0, 118);
-            this.lblMonitorPackPath.Name = "lblMonitorPackPath";
-            this.lblMonitorPackPath.Size = new System.Drawing.Size(549, 20);
-            this.lblMonitorPackPath.TabIndex = 11;
-            this.lblMonitorPackPath.Text = " <Path>";
-            this.lblMonitorPackPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblMonitorPackPath.DoubleClick += new System.EventHandler(this.lblMonitorPackPath_DoubleClick);
-            // 
             // panelAgentSettings
             // 
             this.panelAgentSettings.Controls.Add(this.panel2);
@@ -360,6 +380,33 @@
             this.panelAgentSettings.Name = "panelAgentSettings";
             this.panelAgentSettings.Size = new System.Drawing.Size(549, 146);
             this.panelAgentSettings.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.chkPersistCollectorHistory);
+            this.panel2.Controls.Add(this.chkCorrectiveScripts);
+            this.panel2.Controls.Add(this.chkCollectorChildCheckBehaviourOverride);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.cboChildCheckBehaviour);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.label39);
+            this.panel2.Controls.Add(this.collectorStateHistorySizeNumericUpDown);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 33);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(549, 113);
+            this.panel2.TabIndex = 8;
+            // 
+            // chkCorrectiveScripts
+            // 
+            this.chkCorrectiveScripts.AutoSize = true;
+            this.chkCorrectiveScripts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkCorrectiveScripts.Location = new System.Drawing.Point(12, 7);
+            this.chkCorrectiveScripts.Name = "chkCorrectiveScripts";
+            this.chkCorrectiveScripts.Size = new System.Drawing.Size(184, 17);
+            this.chkCorrectiveScripts.TabIndex = 0;
+            this.chkCorrectiveScripts.Text = "&Allow corrective scripts to execute";
+            this.chkCorrectiveScripts.UseVisualStyleBackColor = true;
             // 
             // chkCollectorChildCheckBehaviourOverride
             // 
@@ -372,6 +419,15 @@
             this.chkCollectorChildCheckBehaviourOverride.TabIndex = 7;
             this.chkCollectorChildCheckBehaviourOverride.Text = "Override Collector host(s). If not selected use setting on each Collector host";
             this.chkCollectorChildCheckBehaviourOverride.UseVisualStyleBackColor = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(191, 36);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(139, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "# of collector states to keep";
             // 
             // cboChildCheckBehaviour
             // 
@@ -388,26 +444,6 @@
             this.cboChildCheckBehaviour.Size = new System.Drawing.Size(412, 21);
             this.cboChildCheckBehaviour.TabIndex = 6;
             // 
-            // label39
-            // 
-            this.label39.Location = new System.Drawing.Point(9, 61);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(125, 18);
-            this.label39.TabIndex = 5;
-            this.label39.Text = "Child check sequence behaviour";
-            // 
-            // collectorStateHistorySizeNumericUpDown
-            // 
-            this.collectorStateHistorySizeNumericUpDown.Location = new System.Drawing.Point(125, 34);
-            this.collectorStateHistorySizeNumericUpDown.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.collectorStateHistorySizeNumericUpDown.Name = "collectorStateHistorySizeNumericUpDown";
-            this.collectorStateHistorySizeNumericUpDown.Size = new System.Drawing.Size(55, 20);
-            this.collectorStateHistorySizeNumericUpDown.TabIndex = 3;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -415,7 +451,7 @@
             this.label2.Location = new System.Drawing.Point(9, 36);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 13);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 1;
             this.label2.Text = "Collector &history";
             // 
             // exportHistoryContextMenuStrip
@@ -448,25 +484,25 @@
             this.asXMLToolStripMenuItem.Text = "As XML";
             this.asXMLToolStripMenuItem.Click += new System.EventHandler(this.asXMLToolStripMenuItem_Click);
             // 
-            // chkCorrectiveScripts
+            // label39
             // 
-            this.chkCorrectiveScripts.AutoSize = true;
-            this.chkCorrectiveScripts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkCorrectiveScripts.Location = new System.Drawing.Point(12, 7);
-            this.chkCorrectiveScripts.Name = "chkCorrectiveScripts";
-            this.chkCorrectiveScripts.Size = new System.Drawing.Size(184, 17);
-            this.chkCorrectiveScripts.TabIndex = 1;
-            this.chkCorrectiveScripts.Text = "&Allow corrective scripts to execute";
-            this.chkCorrectiveScripts.UseVisualStyleBackColor = true;
+            this.label39.Location = new System.Drawing.Point(9, 61);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(125, 18);
+            this.label39.TabIndex = 5;
+            this.label39.Text = "Child check sequence behaviour";
             // 
-            // label3
+            // collectorStateHistorySizeNumericUpDown
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(191, 36);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(139, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "# of collector states to keep";
+            this.collectorStateHistorySizeNumericUpDown.Location = new System.Drawing.Point(125, 34);
+            this.collectorStateHistorySizeNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.collectorStateHistorySizeNumericUpDown.Name = "collectorStateHistorySizeNumericUpDown";
+            this.collectorStateHistorySizeNumericUpDown.Size = new System.Drawing.Size(55, 20);
+            this.collectorStateHistorySizeNumericUpDown.TabIndex = 2;
             // 
             // cmdAgentSettingsToggle
             // 
@@ -496,6 +532,109 @@
             this.panelVariables.Name = "panelVariables";
             this.panelVariables.Size = new System.Drawing.Size(549, 300);
             this.panelVariables.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.lvwConfigVars);
+            this.panel3.Controls.Add(this.toolStripVariables);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 33);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(549, 110);
+            this.panel3.TabIndex = 5;
+            // 
+            // lvwConfigVars
+            // 
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 1;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.valueColumnHeader});
+            this.lvwConfigVars.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.HideSelection = false;
+            this.lvwConfigVars.Location = new System.Drawing.Point(0, 25);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(549, 85);
+            this.lvwConfigVars.TabIndex = 2;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Search for";
+            this.nameColumnHeader.Width = 243;
+            // 
+            // valueColumnHeader
+            // 
+            this.valueColumnHeader.Text = "Replace by";
+            this.valueColumnHeader.Width = 262;
+            // 
+            // toolStripVariables
+            // 
+            this.toolStripVariables.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripVariables.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addConfigVarToolStripButton,
+            this.deleteConfigVarToolStripButton,
+            this.toolStripSeparator1,
+            this.moveUpConfigVarToolStripButton,
+            this.moveDownConfigVarToolStripButton});
+            this.toolStripVariables.Location = new System.Drawing.Point(0, 0);
+            this.toolStripVariables.Name = "toolStripVariables";
+            this.toolStripVariables.Size = new System.Drawing.Size(549, 25);
+            this.toolStripVariables.TabIndex = 1;
+            this.toolStripVariables.TabStop = true;
+            this.toolStripVariables.Text = "toolStrip1";
+            // 
+            // addConfigVarToolStripButton
+            // 
+            this.addConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
+            this.addConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addConfigVarToolStripButton.Name = "addConfigVarToolStripButton";
+            this.addConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.addConfigVarToolStripButton.Text = "Create new";
+            this.addConfigVarToolStripButton.ToolTipText = "Add entry";
+            this.addConfigVarToolStripButton.Click += new System.EventHandler(this.addConfigVarToolStripButton_Click);
+            // 
+            // deleteConfigVarToolStripButton
+            // 
+            this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteConfigVarToolStripButton.Enabled = false;
+            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.stop24x24;
+            this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
+            this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
+            this.deleteConfigVarToolStripButton.Click += new System.EventHandler(this.deleteConfigVarToolStripButton_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // moveUpConfigVarToolStripButton
+            // 
+            this.moveUpConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveUpConfigVarToolStripButton.Enabled = false;
+            this.moveUpConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
+            this.moveUpConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
+            this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
+            this.moveUpConfigVarToolStripButton.Click += new System.EventHandler(this.moveUpConfigVarToolStripButton_Click);
+            // 
+            // moveDownConfigVarToolStripButton
+            // 
+            this.moveDownConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveDownConfigVarToolStripButton.Enabled = false;
+            this.moveDownConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
+            this.moveDownConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
+            this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
+            this.moveDownConfigVarToolStripButton.Click += new System.EventHandler(this.moveDownConfigVarToolStripButton_Click);
             // 
             // panelVarEdit
             // 
@@ -563,71 +702,6 @@
             this.label41.Size = new System.Drawing.Size(69, 13);
             this.label41.TabIndex = 2;
             this.label41.Text = "Replace with";
-            // 
-            // toolStripVariables
-            // 
-            this.toolStripVariables.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStripVariables.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addConfigVarToolStripButton,
-            this.deleteConfigVarToolStripButton,
-            this.toolStripSeparator1,
-            this.moveUpConfigVarToolStripButton,
-            this.moveDownConfigVarToolStripButton});
-            this.toolStripVariables.Location = new System.Drawing.Point(0, 0);
-            this.toolStripVariables.Name = "toolStripVariables";
-            this.toolStripVariables.Size = new System.Drawing.Size(549, 25);
-            this.toolStripVariables.TabIndex = 1;
-            this.toolStripVariables.TabStop = true;
-            this.toolStripVariables.Text = "toolStrip1";
-            // 
-            // addConfigVarToolStripButton
-            // 
-            this.addConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
-            this.addConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addConfigVarToolStripButton.Name = "addConfigVarToolStripButton";
-            this.addConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.addConfigVarToolStripButton.Text = "Create new";
-            this.addConfigVarToolStripButton.ToolTipText = "Add entry";
-            this.addConfigVarToolStripButton.Click += new System.EventHandler(this.addConfigVarToolStripButton_Click);
-            // 
-            // deleteConfigVarToolStripButton
-            // 
-            this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteConfigVarToolStripButton.Enabled = false;
-            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.stop24x24;
-            this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
-            this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
-            this.deleteConfigVarToolStripButton.Click += new System.EventHandler(this.deleteConfigVarToolStripButton_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // moveUpConfigVarToolStripButton
-            // 
-            this.moveUpConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveUpConfigVarToolStripButton.Enabled = false;
-            this.moveUpConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
-            this.moveUpConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
-            this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
-            this.moveUpConfigVarToolStripButton.Click += new System.EventHandler(this.moveUpConfigVarToolStripButton_Click);
-            // 
-            // moveDownConfigVarToolStripButton
-            // 
-            this.moveDownConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveDownConfigVarToolStripButton.Enabled = false;
-            this.moveDownConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
-            this.moveDownConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
-            this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
-            this.moveDownConfigVarToolStripButton.Click += new System.EventHandler(this.moveDownConfigVarToolStripButton_Click);
             // 
             // cmdVariablesToggle
             // 
@@ -738,6 +812,44 @@
             this.cmdAddUserNameToCache.Text = "¬";
             this.cmdAddUserNameToCache.UseVisualStyleBackColor = true;
             this.cmdAddUserNameToCache.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
+            // 
+            // lvwUserNameCache
+            // 
+            this.lvwUserNameCache.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwUserNameCache.AutoResizeColumnEnabled = false;
+            this.lvwUserNameCache.AutoResizeColumnIndex = 0;
+            this.lvwUserNameCache.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.lvwUserNameCache.ContextMenuStrip = this.userCacheContextMenuStrip;
+            this.lvwUserNameCache.FullRowSelect = true;
+            this.lvwUserNameCache.HideSelection = false;
+            this.lvwUserNameCache.Location = new System.Drawing.Point(9, 107);
+            this.lvwUserNameCache.Name = "lvwUserNameCache";
+            this.lvwUserNameCache.Size = new System.Drawing.Size(486, 143);
+            this.lvwUserNameCache.SmallImageList = this.userCacheImageList;
+            this.lvwUserNameCache.TabIndex = 8;
+            this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
+            this.lvwUserNameCache.View = System.Windows.Forms.View.Details;
+            this.lvwUserNameCache.SelectedIndexChanged += new System.EventHandler(this.lvwUserNameCache_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "User name";
+            this.columnHeader1.Width = 316;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "In Cache";
+            this.columnHeader2.Width = 76;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Decryptable";
+            this.columnHeader3.Width = 82;
             // 
             // userCacheContextMenuStrip
             // 
@@ -874,6 +986,205 @@
             this.panelLoggingSettings.Size = new System.Drawing.Size(549, 350);
             this.panelLoggingSettings.TabIndex = 4;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.chkLoggingEnabled);
+            this.panel4.Controls.Add(this.txtLoggingPath);
+            this.panel4.Controls.Add(this.label14);
+            this.panel4.Controls.Add(this.label12);
+            this.panel4.Controls.Add(this.txtLoggingCollectorCategories);
+            this.panel4.Controls.Add(this.cmdLoggingPath);
+            this.panel4.Controls.Add(this.nudKeepLogFilesXDays);
+            this.panel4.Controls.Add(this.chkLoggingCollectorEvents);
+            this.panel4.Controls.Add(this.label13);
+            this.panel4.Controls.Add(this.chkLoggingNotifierEvents);
+            this.panel4.Controls.Add(this.chkLoggingServiceWindowEvents);
+            this.panel4.Controls.Add(this.chkLoggingAlertsRaised);
+            this.panel4.Controls.Add(this.chkLoggingPollingOverridesTriggered);
+            this.panel4.Controls.Add(this.chkLoggingCorrectiveScriptRun);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 33);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(549, 217);
+            this.panel4.TabIndex = 16;
+            // 
+            // chkLoggingEnabled
+            // 
+            this.chkLoggingEnabled.AutoSize = true;
+            this.chkLoggingEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingEnabled.Location = new System.Drawing.Point(8, 5);
+            this.chkLoggingEnabled.Name = "chkLoggingEnabled";
+            this.chkLoggingEnabled.Size = new System.Drawing.Size(112, 17);
+            this.chkLoggingEnabled.TabIndex = 1;
+            this.chkLoggingEnabled.Text = "Logging is enabled";
+            this.chkLoggingEnabled.UseVisualStyleBackColor = true;
+            // 
+            // txtLoggingPath
+            // 
+            this.txtLoggingPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLoggingPath.Location = new System.Drawing.Point(132, 32);
+            this.txtLoggingPath.Name = "txtLoggingPath";
+            this.txtLoggingPath.Size = new System.Drawing.Size(363, 20);
+            this.txtLoggingPath.TabIndex = 5;
+            this.txtLoggingPath.DoubleClick += new System.EventHandler(this.txtLoggingPath_DoubleClick);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(31, 84);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(203, 13);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Only for Collector categories (one per line)";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 35);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(65, 13);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "Log file path";
+            // 
+            // txtLoggingCollectorCategories
+            // 
+            this.txtLoggingCollectorCategories.Location = new System.Drawing.Point(34, 98);
+            this.txtLoggingCollectorCategories.Multiline = true;
+            this.txtLoggingCollectorCategories.Name = "txtLoggingCollectorCategories";
+            this.txtLoggingCollectorCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLoggingCollectorCategories.Size = new System.Drawing.Size(203, 104);
+            this.txtLoggingCollectorCategories.TabIndex = 9;
+            // 
+            // cmdLoggingPath
+            // 
+            this.cmdLoggingPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdLoggingPath.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdLoggingPath.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.cmdLoggingPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdLoggingPath.Location = new System.Drawing.Point(501, 30);
+            this.cmdLoggingPath.Name = "cmdLoggingPath";
+            this.cmdLoggingPath.Size = new System.Drawing.Size(42, 23);
+            this.cmdLoggingPath.TabIndex = 6;
+            this.cmdLoggingPath.Text = "- - -";
+            this.cmdLoggingPath.UseVisualStyleBackColor = true;
+            this.cmdLoggingPath.Click += new System.EventHandler(this.cmdLoggingPath_Click);
+            // 
+            // nudKeepLogFilesXDays
+            // 
+            this.nudKeepLogFilesXDays.Location = new System.Drawing.Point(243, 4);
+            this.nudKeepLogFilesXDays.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudKeepLogFilesXDays.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudKeepLogFilesXDays.Name = "nudKeepLogFilesXDays";
+            this.nudKeepLogFilesXDays.Size = new System.Drawing.Size(61, 20);
+            this.nudKeepLogFilesXDays.TabIndex = 3;
+            this.nudKeepLogFilesXDays.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
+            // chkLoggingCollectorEvents
+            // 
+            this.chkLoggingCollectorEvents.AutoSize = true;
+            this.chkLoggingCollectorEvents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingCollectorEvents.Location = new System.Drawing.Point(34, 61);
+            this.chkLoggingCollectorEvents.Name = "chkLoggingCollectorEvents";
+            this.chkLoggingCollectorEvents.Size = new System.Drawing.Size(100, 17);
+            this.chkLoggingCollectorEvents.TabIndex = 7;
+            this.chkLoggingCollectorEvents.Text = "Collector Events";
+            this.chkLoggingCollectorEvents.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(129, 6);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(108, 13);
+            this.label13.TabIndex = 2;
+            this.label13.Text = "Days to keep log files";
+            // 
+            // chkLoggingNotifierEvents
+            // 
+            this.chkLoggingNotifierEvents.AutoSize = true;
+            this.chkLoggingNotifierEvents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingNotifierEvents.Location = new System.Drawing.Point(250, 61);
+            this.chkLoggingNotifierEvents.Name = "chkLoggingNotifierEvents";
+            this.chkLoggingNotifierEvents.Size = new System.Drawing.Size(92, 17);
+            this.chkLoggingNotifierEvents.TabIndex = 10;
+            this.chkLoggingNotifierEvents.Text = "Notifier Events";
+            this.chkLoggingNotifierEvents.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingServiceWindowEvents
+            // 
+            this.chkLoggingServiceWindowEvents.AutoSize = true;
+            this.chkLoggingServiceWindowEvents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingServiceWindowEvents.Location = new System.Drawing.Point(250, 153);
+            this.chkLoggingServiceWindowEvents.Name = "chkLoggingServiceWindowEvents";
+            this.chkLoggingServiceWindowEvents.Size = new System.Drawing.Size(139, 17);
+            this.chkLoggingServiceWindowEvents.TabIndex = 14;
+            this.chkLoggingServiceWindowEvents.Text = "Service windows Events";
+            this.chkLoggingServiceWindowEvents.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingAlertsRaised
+            // 
+            this.chkLoggingAlertsRaised.AutoSize = true;
+            this.chkLoggingAlertsRaised.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingAlertsRaised.Location = new System.Drawing.Point(250, 84);
+            this.chkLoggingAlertsRaised.Name = "chkLoggingAlertsRaised";
+            this.chkLoggingAlertsRaised.Size = new System.Drawing.Size(80, 17);
+            this.chkLoggingAlertsRaised.TabIndex = 11;
+            this.chkLoggingAlertsRaised.Text = "Alert Events";
+            this.chkLoggingAlertsRaised.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingPollingOverridesTriggered
+            // 
+            this.chkLoggingPollingOverridesTriggered.AutoSize = true;
+            this.chkLoggingPollingOverridesTriggered.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingPollingOverridesTriggered.Location = new System.Drawing.Point(250, 130);
+            this.chkLoggingPollingOverridesTriggered.Name = "chkLoggingPollingOverridesTriggered";
+            this.chkLoggingPollingOverridesTriggered.Size = new System.Drawing.Size(180, 17);
+            this.chkLoggingPollingOverridesTriggered.TabIndex = 13;
+            this.chkLoggingPollingOverridesTriggered.Text = "Polling overrides triggered Events";
+            this.chkLoggingPollingOverridesTriggered.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingCorrectiveScriptRun
+            // 
+            this.chkLoggingCorrectiveScriptRun.AutoSize = true;
+            this.chkLoggingCorrectiveScriptRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLoggingCorrectiveScriptRun.Location = new System.Drawing.Point(250, 107);
+            this.chkLoggingCorrectiveScriptRun.Name = "chkLoggingCorrectiveScriptRun";
+            this.chkLoggingCorrectiveScriptRun.Size = new System.Drawing.Size(153, 17);
+            this.chkLoggingCorrectiveScriptRun.TabIndex = 12;
+            this.chkLoggingCorrectiveScriptRun.Text = "Corrective script run Events";
+            this.chkLoggingCorrectiveScriptRun.UseVisualStyleBackColor = true;
+            // 
+            // cmdLoggingSettingsToggle
+            // 
+            this.cmdLoggingSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdLoggingSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdLoggingSettingsToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdLoggingSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdLoggingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdLoggingSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdLoggingSettingsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdLoggingSettingsToggle.Name = "cmdLoggingSettingsToggle";
+            this.cmdLoggingSettingsToggle.Size = new System.Drawing.Size(549, 33);
+            this.cmdLoggingSettingsToggle.TabIndex = 0;
+            this.cmdLoggingSettingsToggle.Text = "Logging Settings";
+            this.cmdLoggingSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdLoggingSettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdLoggingSettingsToggle.UseVisualStyleBackColor = false;
+            this.cmdLoggingSettingsToggle.Click += new System.EventHandler(this.cmdLoggingSettingsToggle_Click);
+            // 
             // metricsExportGroupBox
             // 
             this.metricsExportGroupBox.Controls.Add(this.chkCollectorMetricsExportIncludeDisabled);
@@ -955,183 +1266,6 @@
             this.chkCollectorMetricsExportToCSVEnabled.Text = "Export to CSV";
             this.chkCollectorMetricsExportToCSVEnabled.UseVisualStyleBackColor = true;
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(31, 84);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(203, 13);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "Only for Collector categories (one per line)";
-            // 
-            // txtLoggingCollectorCategories
-            // 
-            this.txtLoggingCollectorCategories.Location = new System.Drawing.Point(34, 98);
-            this.txtLoggingCollectorCategories.Multiline = true;
-            this.txtLoggingCollectorCategories.Name = "txtLoggingCollectorCategories";
-            this.txtLoggingCollectorCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLoggingCollectorCategories.Size = new System.Drawing.Size(203, 104);
-            this.txtLoggingCollectorCategories.TabIndex = 9;
-            // 
-            // nudKeepLogFilesXDays
-            // 
-            this.nudKeepLogFilesXDays.Location = new System.Drawing.Point(243, 4);
-            this.nudKeepLogFilesXDays.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nudKeepLogFilesXDays.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudKeepLogFilesXDays.Name = "nudKeepLogFilesXDays";
-            this.nudKeepLogFilesXDays.Size = new System.Drawing.Size(61, 20);
-            this.nudKeepLogFilesXDays.TabIndex = 3;
-            this.nudKeepLogFilesXDays.Value = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(129, 6);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(108, 13);
-            this.label13.TabIndex = 2;
-            this.label13.Text = "Days to keep log files";
-            // 
-            // chkLoggingServiceWindowEvents
-            // 
-            this.chkLoggingServiceWindowEvents.AutoSize = true;
-            this.chkLoggingServiceWindowEvents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkLoggingServiceWindowEvents.Location = new System.Drawing.Point(250, 153);
-            this.chkLoggingServiceWindowEvents.Name = "chkLoggingServiceWindowEvents";
-            this.chkLoggingServiceWindowEvents.Size = new System.Drawing.Size(139, 17);
-            this.chkLoggingServiceWindowEvents.TabIndex = 14;
-            this.chkLoggingServiceWindowEvents.Text = "Service windows Events";
-            this.chkLoggingServiceWindowEvents.UseVisualStyleBackColor = true;
-            // 
-            // chkLoggingPollingOverridesTriggered
-            // 
-            this.chkLoggingPollingOverridesTriggered.AutoSize = true;
-            this.chkLoggingPollingOverridesTriggered.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkLoggingPollingOverridesTriggered.Location = new System.Drawing.Point(250, 130);
-            this.chkLoggingPollingOverridesTriggered.Name = "chkLoggingPollingOverridesTriggered";
-            this.chkLoggingPollingOverridesTriggered.Size = new System.Drawing.Size(180, 17);
-            this.chkLoggingPollingOverridesTriggered.TabIndex = 13;
-            this.chkLoggingPollingOverridesTriggered.Text = "Polling overrides triggered Events";
-            this.chkLoggingPollingOverridesTriggered.UseVisualStyleBackColor = true;
-            // 
-            // chkLoggingCorrectiveScriptRun
-            // 
-            this.chkLoggingCorrectiveScriptRun.AutoSize = true;
-            this.chkLoggingCorrectiveScriptRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkLoggingCorrectiveScriptRun.Location = new System.Drawing.Point(250, 107);
-            this.chkLoggingCorrectiveScriptRun.Name = "chkLoggingCorrectiveScriptRun";
-            this.chkLoggingCorrectiveScriptRun.Size = new System.Drawing.Size(153, 17);
-            this.chkLoggingCorrectiveScriptRun.TabIndex = 12;
-            this.chkLoggingCorrectiveScriptRun.Text = "Corrective script run Events";
-            this.chkLoggingCorrectiveScriptRun.UseVisualStyleBackColor = true;
-            // 
-            // chkLoggingAlertsRaised
-            // 
-            this.chkLoggingAlertsRaised.AutoSize = true;
-            this.chkLoggingAlertsRaised.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkLoggingAlertsRaised.Location = new System.Drawing.Point(250, 84);
-            this.chkLoggingAlertsRaised.Name = "chkLoggingAlertsRaised";
-            this.chkLoggingAlertsRaised.Size = new System.Drawing.Size(80, 17);
-            this.chkLoggingAlertsRaised.TabIndex = 11;
-            this.chkLoggingAlertsRaised.Text = "Alert Events";
-            this.chkLoggingAlertsRaised.UseVisualStyleBackColor = true;
-            // 
-            // chkLoggingNotifierEvents
-            // 
-            this.chkLoggingNotifierEvents.AutoSize = true;
-            this.chkLoggingNotifierEvents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkLoggingNotifierEvents.Location = new System.Drawing.Point(250, 61);
-            this.chkLoggingNotifierEvents.Name = "chkLoggingNotifierEvents";
-            this.chkLoggingNotifierEvents.Size = new System.Drawing.Size(92, 17);
-            this.chkLoggingNotifierEvents.TabIndex = 10;
-            this.chkLoggingNotifierEvents.Text = "Notifier Events";
-            this.chkLoggingNotifierEvents.UseVisualStyleBackColor = true;
-            // 
-            // chkLoggingCollectorEvents
-            // 
-            this.chkLoggingCollectorEvents.AutoSize = true;
-            this.chkLoggingCollectorEvents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkLoggingCollectorEvents.Location = new System.Drawing.Point(34, 61);
-            this.chkLoggingCollectorEvents.Name = "chkLoggingCollectorEvents";
-            this.chkLoggingCollectorEvents.Size = new System.Drawing.Size(100, 17);
-            this.chkLoggingCollectorEvents.TabIndex = 7;
-            this.chkLoggingCollectorEvents.Text = "Collector Events";
-            this.chkLoggingCollectorEvents.UseVisualStyleBackColor = true;
-            // 
-            // chkLoggingEnabled
-            // 
-            this.chkLoggingEnabled.AutoSize = true;
-            this.chkLoggingEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkLoggingEnabled.Location = new System.Drawing.Point(8, 5);
-            this.chkLoggingEnabled.Name = "chkLoggingEnabled";
-            this.chkLoggingEnabled.Size = new System.Drawing.Size(112, 17);
-            this.chkLoggingEnabled.TabIndex = 1;
-            this.chkLoggingEnabled.Text = "Logging is enabled";
-            this.chkLoggingEnabled.UseVisualStyleBackColor = true;
-            // 
-            // cmdLoggingPath
-            // 
-            this.cmdLoggingPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoggingPath.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
-            this.cmdLoggingPath.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
-            this.cmdLoggingPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdLoggingPath.Location = new System.Drawing.Point(501, 30);
-            this.cmdLoggingPath.Name = "cmdLoggingPath";
-            this.cmdLoggingPath.Size = new System.Drawing.Size(42, 23);
-            this.cmdLoggingPath.TabIndex = 6;
-            this.cmdLoggingPath.Text = "- - -";
-            this.cmdLoggingPath.UseVisualStyleBackColor = true;
-            this.cmdLoggingPath.Click += new System.EventHandler(this.cmdLoggingPath_Click);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 35);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(65, 13);
-            this.label12.TabIndex = 4;
-            this.label12.Text = "Log file path";
-            // 
-            // txtLoggingPath
-            // 
-            this.txtLoggingPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLoggingPath.Location = new System.Drawing.Point(132, 32);
-            this.txtLoggingPath.Name = "txtLoggingPath";
-            this.txtLoggingPath.Size = new System.Drawing.Size(363, 20);
-            this.txtLoggingPath.TabIndex = 5;
-            this.txtLoggingPath.DoubleClick += new System.EventHandler(this.txtLoggingPath_DoubleClick);
-            // 
-            // cmdLoggingSettingsToggle
-            // 
-            this.cmdLoggingSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cmdLoggingSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdLoggingSettingsToggle.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
-            this.cmdLoggingSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdLoggingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdLoggingSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdLoggingSettingsToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdLoggingSettingsToggle.Name = "cmdLoggingSettingsToggle";
-            this.cmdLoggingSettingsToggle.Size = new System.Drawing.Size(549, 33);
-            this.cmdLoggingSettingsToggle.TabIndex = 0;
-            this.cmdLoggingSettingsToggle.Text = "Logging Settings";
-            this.cmdLoggingSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdLoggingSettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdLoggingSettingsToggle.UseVisualStyleBackColor = false;
-            this.cmdLoggingSettingsToggle.Click += new System.EventHandler(this.cmdLoggingSettingsToggle_Click);
-            // 
             // llblRawEdit
             // 
             this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1156,137 +1290,17 @@
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
             // 
-            // lvwConfigVars
+            // chkPersistCollectorHistory
             // 
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 1;
-            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.valueColumnHeader});
-            this.lvwConfigVars.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.HideSelection = false;
-            this.lvwConfigVars.Location = new System.Drawing.Point(0, 25);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(549, 85);
-            this.lvwConfigVars.TabIndex = 2;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Search for";
-            this.nameColumnHeader.Width = 243;
-            // 
-            // valueColumnHeader
-            // 
-            this.valueColumnHeader.Text = "Replace by";
-            this.valueColumnHeader.Width = 262;
-            // 
-            // lvwUserNameCache
-            // 
-            this.lvwUserNameCache.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwUserNameCache.AutoResizeColumnEnabled = false;
-            this.lvwUserNameCache.AutoResizeColumnIndex = 0;
-            this.lvwUserNameCache.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.lvwUserNameCache.ContextMenuStrip = this.userCacheContextMenuStrip;
-            this.lvwUserNameCache.FullRowSelect = true;
-            this.lvwUserNameCache.HideSelection = false;
-            this.lvwUserNameCache.Location = new System.Drawing.Point(9, 107);
-            this.lvwUserNameCache.Name = "lvwUserNameCache";
-            this.lvwUserNameCache.Size = new System.Drawing.Size(486, 143);
-            this.lvwUserNameCache.SmallImageList = this.userCacheImageList;
-            this.lvwUserNameCache.TabIndex = 8;
-            this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
-            this.lvwUserNameCache.View = System.Windows.Forms.View.Details;
-            this.lvwUserNameCache.SelectedIndexChanged += new System.EventHandler(this.lvwUserNameCache_SelectedIndexChanged);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "User name";
-            this.columnHeader1.Width = 316;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "In Cache";
-            this.columnHeader2.Width = 76;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Decryptable";
-            this.columnHeader3.Width = 82;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lblMonitorPackPath);
-            this.panel1.Controls.Add(this.chkEnableStickyMainWindowLocation);
-            this.panel1.Controls.Add(this.lblName);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.txtName);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.chkEnabled);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.freqSecNumericUpDown);
-            this.panel1.Controls.Add(this.txtType);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 33);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(549, 138);
-            this.panel1.TabIndex = 12;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.chkCorrectiveScripts);
-            this.panel2.Controls.Add(this.chkCollectorChildCheckBehaviourOverride);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.cboChildCheckBehaviour);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.label39);
-            this.panel2.Controls.Add(this.collectorStateHistorySizeNumericUpDown);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 33);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(549, 113);
-            this.panel2.TabIndex = 8;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.lvwConfigVars);
-            this.panel3.Controls.Add(this.toolStripVariables);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 33);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(549, 110);
-            this.panel3.TabIndex = 5;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.chkLoggingEnabled);
-            this.panel4.Controls.Add(this.txtLoggingPath);
-            this.panel4.Controls.Add(this.label14);
-            this.panel4.Controls.Add(this.label12);
-            this.panel4.Controls.Add(this.txtLoggingCollectorCategories);
-            this.panel4.Controls.Add(this.cmdLoggingPath);
-            this.panel4.Controls.Add(this.nudKeepLogFilesXDays);
-            this.panel4.Controls.Add(this.chkLoggingCollectorEvents);
-            this.panel4.Controls.Add(this.label13);
-            this.panel4.Controls.Add(this.chkLoggingNotifierEvents);
-            this.panel4.Controls.Add(this.chkLoggingServiceWindowEvents);
-            this.panel4.Controls.Add(this.chkLoggingAlertsRaised);
-            this.panel4.Controls.Add(this.chkLoggingPollingOverridesTriggered);
-            this.panel4.Controls.Add(this.chkLoggingCorrectiveScriptRun);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 33);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(549, 217);
-            this.panel4.TabIndex = 16;
+            this.chkPersistCollectorHistory.AutoSize = true;
+            this.chkPersistCollectorHistory.BackColor = System.Drawing.Color.Transparent;
+            this.chkPersistCollectorHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkPersistCollectorHistory.Location = new System.Drawing.Point(339, 34);
+            this.chkPersistCollectorHistory.Name = "chkPersistCollectorHistory";
+            this.chkPersistCollectorHistory.Size = new System.Drawing.Size(87, 17);
+            this.chkPersistCollectorHistory.TabIndex = 4;
+            this.chkPersistCollectorHistory.Text = "Persist history";
+            this.chkPersistCollectorHistory.UseVisualStyleBackColor = false;
             // 
             // MonitorPackEditor
             // 
@@ -1312,31 +1326,31 @@
             this.ResizeEnd += new System.EventHandler(this.MonitorPackEditor_ResizeEnd);
             this.flowLayoutPanelSettings.ResumeLayout(false);
             this.panelGeneralSettings.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
             this.panelAgentSettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.exportHistoryContextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).EndInit();
             this.panelVariables.ResumeLayout(false);
-            this.panelVarEdit.ResumeLayout(false);
-            this.panelVarEdit.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.toolStripVariables.ResumeLayout(false);
             this.toolStripVariables.PerformLayout();
+            this.panelVarEdit.ResumeLayout(false);
+            this.panelVarEdit.PerformLayout();
             this.panelSecuritySettings.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.userCacheContextMenuStrip.ResumeLayout(false);
             this.panelLoggingSettings.ResumeLayout(false);
-            this.metricsExportGroupBox.ResumeLayout(false);
-            this.metricsExportGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).EndInit();
+            this.metricsExportGroupBox.ResumeLayout(false);
+            this.metricsExportGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1444,5 +1458,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.CheckBox chkPersistCollectorHistory;
     }
 }

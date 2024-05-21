@@ -82,6 +82,7 @@ namespace QuickMon
 
         #region Collector related properties
         public int CollectorStateHistorySize { get; set; }
+        public bool PersistCollectorStateHistory { get; set; }
         /// <summary>
         /// Polling frequency for background operations. Measured in milliseconds. Default 1 Second
         /// </summary>
@@ -874,6 +875,11 @@ namespace QuickMon
         #region Closing
         public void CloseMonitorPack()
         {
+            if (PersistCollectorStateHistory && RunningAttended == AttendedOption.OnlyAttended)
+            {
+                SaveMonitorPackHistory();
+            }
+
             CloseCollectorHosts();
             ClosePerformanceCounters();
             LoggingMonitorPackClosed();

@@ -324,3 +324,4 @@ View Remote host list updated to show entries as text.
 Version 5.3.24 (2024-05-17)
 **************
 Monitor pack/Collector history persistance added.
+Fix: EnableStickyMainWindowLocation was not always working as expected.

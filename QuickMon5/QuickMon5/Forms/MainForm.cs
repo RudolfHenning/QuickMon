@@ -219,7 +219,11 @@ namespace QuickMon
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            CreateJumplist();
+            try
+            {
+                CreateJumplist();
+            }
+            catch { }
             try
             {
                 InitializeGlobalPerformanceCounters();
@@ -1718,7 +1722,8 @@ namespace QuickMon
             {
                 if (monitorPack != null && monitorPack.EnableStickyMainWindowLocation && System.IO.File.Exists(monitorPack.MonitorPackPath))
                 {
-                    string qmAppDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
+                    string hitDir = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT");
+                    string qmAppDataPath = System.IO.Path.Combine(hitDir, "QuickMon 5");
                     string mpUISettingsName = System.IO.Path.GetFileNameWithoutExtension(monitorPack.MonitorPackPath);
                     string mpUISettingsPath = System.IO.Path.Combine(qmAppDataPath, mpUISettingsName + ".uisettings");
                     MonitorPackUISettings mpUISettings = new MonitorPackUISettings();
@@ -1726,6 +1731,10 @@ namespace QuickMon
                     mpUISettings.LocationY = this.Location.Y;
                     mpUISettings.Width = this.Size.Width;
                     mpUISettings.Height = this.Size.Height;
+                    if (!System.IO.Directory.Exists(hitDir))
+                        System.IO.Directory.CreateDirectory(hitDir);
+                    if (!System.IO.Directory.Exists(qmAppDataPath))
+                        System.IO.Directory.CreateDirectory(qmAppDataPath);
                     mpUISettings.Save(mpUISettingsPath);
                 }
             }
@@ -1855,6 +1864,10 @@ namespace QuickMon
                 monitorPack = new MonitorPack();
 
                 monitorPack.Load(monitorPackPath);
+                if (monitorPack.PersistCollectorStateHistory) //if enabled now try to load the history
+                {
+                    MHIHandler.LoadMonitorPackHistory(monitorPack);
+                }
                 monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
                 foreach (var ch in monitorPack.CollectorHosts.GroupBy(c => c.UniqueId))
                 {

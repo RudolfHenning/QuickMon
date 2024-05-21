@@ -168,6 +168,7 @@ namespace QuickMon
             chkEnabled.Checked = SelectedMonitorPack.Enabled;
             chkEnableStickyMainWindowLocation.Checked = SelectedMonitorPack.EnableStickyMainWindowLocation;
             collectorStateHistorySizeNumericUpDown.Value = SelectedMonitorPack.CollectorStateHistorySize;
+            chkPersistCollectorHistory.Checked = SelectedMonitorPack.PersistCollectorStateHistory;
             cboChildCheckBehaviour.SelectedIndex = (int)SelectedMonitorPack.CollectorChildCheckBehaviour;
             chkCollectorChildCheckBehaviourOverride.Checked = SelectedMonitorPack.CollectorChildCheckBehaviourOverride;
             SetFrequency(SelectedMonitorPack.PollingFrequencyOverrideSec);
@@ -619,6 +620,7 @@ namespace QuickMon
                 SelectedMonitorPack.Enabled = chkEnabled.Checked;
                 SelectedMonitorPack.EnableStickyMainWindowLocation = chkEnableStickyMainWindowLocation.Checked;
                 SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
+                SelectedMonitorPack.PersistCollectorStateHistory = chkPersistCollectorHistory.Checked;
                 SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
                 SelectedMonitorPack.CollectorChildCheckBehaviour = (ChildCheckBehaviour)cboChildCheckBehaviour.SelectedIndex;
                 SelectedMonitorPack.CollectorChildCheckBehaviourOverride = chkCollectorChildCheckBehaviourOverride.Checked;

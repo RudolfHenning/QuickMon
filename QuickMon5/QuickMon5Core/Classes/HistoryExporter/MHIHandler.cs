@@ -13,12 +13,15 @@ namespace QuickMon
         private static string locker = "";
         public static string GetMonitorPackMHIFile(MonitorPack monitorPack)
         {
-            string commonpath = GetFolderPath(SpecialFolder.CommonApplicationData);
-            var path = Path.Combine(commonpath, "Hen IT\\QuickMon 5");
+            //string commonpath = GetFolderPath(SpecialFolder.CommonApplicationData);
+            string hitDir = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT");
+            var path = Path.Combine(hitDir, "QuickMon 5");
+
+            if (!System.IO.Directory.Exists(hitDir))
+                System.IO.Directory.CreateDirectory(hitDir);
             if (!System.IO.Directory.Exists(path))
-            {
                 System.IO.Directory.CreateDirectory(path);
-            }
+            
             string monitorPackFilter = System.IO.Path.GetFileNameWithoutExtension(monitorPack.MonitorPackPath);
             string monitorPackMHIFile = "";
             foreach (string mhifile in System.IO.Directory.GetFiles(path, $"{monitorPackFilter}*.mhi"))
