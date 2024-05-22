@@ -48,7 +48,7 @@ namespace QuickMon.Notifiers
                 string viaHost = "N/A";
                 if (alertRaised.RaisedFor != null)
                 {
-                    collectorName = alertRaised.RaisedFor.Name;
+                    collectorName = alertRaised.RaisedFor.NameFormatted;
                     collectorAgents = string.Format("{0} agent(s)", alertRaised.RaisedFor.CollectorAgents.Count);
                     if (alertRaised.RaisedFor.CollectorAgents.Count > 0)
                     {

@@ -93,7 +93,7 @@ namespace QuickMon
                 string displayName = NameFormatted;
                 if (EnableRemoteExecute || ForceRemoteExcuteOnChildCollectors)
                 {
-                    displayName += " [" + (ForceRemoteExcuteOnChildCollectors ? "!" : "") + RemoteAgentHostAddressFormatted; // RemoteAgentHostAddress;
+                    displayName += " [" + (ForceRemoteExcuteOnChildCollectors ? "!" : "") + RemoteAgentHostAddressFormatted;
                     if (RemoteAgentHostPort != GlobalConstants.DefaultRemoteHostPort)
                         displayName += ":" + RemoteAgentHostPort.ToString();
                     displayName += "]";

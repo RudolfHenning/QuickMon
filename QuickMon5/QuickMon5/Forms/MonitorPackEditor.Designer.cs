@@ -49,6 +49,7 @@
             this.cmdGeneralSettingsToggle = new System.Windows.Forms.Button();
             this.panelAgentSettings = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chkPersistCollectorHistory = new System.Windows.Forms.CheckBox();
             this.chkCorrectiveScripts = new System.Windows.Forms.CheckBox();
             this.chkCollectorChildCheckBehaviourOverride = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -130,7 +131,8 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.fbdLogging = new System.Windows.Forms.FolderBrowserDialog();
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.chkPersistCollectorHistory = new System.Windows.Forms.CheckBox();
+            this.llblSaveCollectorHistoryNow = new System.Windows.Forms.LinkLabel();
+            this.llblRestoreCollectorHistoryNow = new System.Windows.Forms.LinkLabel();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelGeneralSettings.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -378,11 +380,13 @@
             this.panelAgentSettings.Controls.Add(this.cmdAgentSettingsToggle);
             this.panelAgentSettings.Location = new System.Drawing.Point(3, 180);
             this.panelAgentSettings.Name = "panelAgentSettings";
-            this.panelAgentSettings.Size = new System.Drawing.Size(549, 146);
+            this.panelAgentSettings.Size = new System.Drawing.Size(549, 174);
             this.panelAgentSettings.TabIndex = 1;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.llblRestoreCollectorHistoryNow);
+            this.panel2.Controls.Add(this.llblSaveCollectorHistoryNow);
             this.panel2.Controls.Add(this.chkPersistCollectorHistory);
             this.panel2.Controls.Add(this.chkCorrectiveScripts);
             this.panel2.Controls.Add(this.chkCollectorChildCheckBehaviourOverride);
@@ -394,8 +398,20 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 33);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(549, 113);
+            this.panel2.Size = new System.Drawing.Size(549, 141);
             this.panel2.TabIndex = 8;
+            // 
+            // chkPersistCollectorHistory
+            // 
+            this.chkPersistCollectorHistory.AutoSize = true;
+            this.chkPersistCollectorHistory.BackColor = System.Drawing.Color.Transparent;
+            this.chkPersistCollectorHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkPersistCollectorHistory.Location = new System.Drawing.Point(354, 34);
+            this.chkPersistCollectorHistory.Name = "chkPersistCollectorHistory";
+            this.chkPersistCollectorHistory.Size = new System.Drawing.Size(87, 17);
+            this.chkPersistCollectorHistory.TabIndex = 4;
+            this.chkPersistCollectorHistory.Text = "Persist history";
+            this.chkPersistCollectorHistory.UseVisualStyleBackColor = false;
             // 
             // chkCorrectiveScripts
             // 
@@ -413,17 +429,17 @@
             this.chkCollectorChildCheckBehaviourOverride.AutoSize = true;
             this.chkCollectorChildCheckBehaviourOverride.BackColor = System.Drawing.Color.Transparent;
             this.chkCollectorChildCheckBehaviourOverride.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkCollectorChildCheckBehaviourOverride.Location = new System.Drawing.Point(16, 84);
+            this.chkCollectorChildCheckBehaviourOverride.Location = new System.Drawing.Point(16, 110);
             this.chkCollectorChildCheckBehaviourOverride.Name = "chkCollectorChildCheckBehaviourOverride";
             this.chkCollectorChildCheckBehaviourOverride.Size = new System.Drawing.Size(377, 17);
-            this.chkCollectorChildCheckBehaviourOverride.TabIndex = 7;
+            this.chkCollectorChildCheckBehaviourOverride.TabIndex = 9;
             this.chkCollectorChildCheckBehaviourOverride.Text = "Override Collector host(s). If not selected use setting on each Collector host";
             this.chkCollectorChildCheckBehaviourOverride.UseVisualStyleBackColor = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(191, 36);
+            this.label3.Location = new System.Drawing.Point(206, 36);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(139, 13);
             this.label3.TabIndex = 3;
@@ -439,10 +455,10 @@
             "Only Run On Success",
             "Continue On Warning",
             "Continue On Warning Or Error"});
-            this.cboChildCheckBehaviour.Location = new System.Drawing.Point(125, 58);
+            this.cboChildCheckBehaviour.Location = new System.Drawing.Point(140, 81);
             this.cboChildCheckBehaviour.Name = "cboChildCheckBehaviour";
-            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(412, 21);
-            this.cboChildCheckBehaviour.TabIndex = 6;
+            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(397, 21);
+            this.cboChildCheckBehaviour.TabIndex = 8;
             // 
             // label2
             // 
@@ -486,15 +502,15 @@
             // 
             // label39
             // 
-            this.label39.Location = new System.Drawing.Point(9, 61);
+            this.label39.Location = new System.Drawing.Point(9, 84);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(125, 18);
-            this.label39.TabIndex = 5;
+            this.label39.TabIndex = 7;
             this.label39.Text = "Child check sequence behaviour";
             // 
             // collectorStateHistorySizeNumericUpDown
             // 
-            this.collectorStateHistorySizeNumericUpDown.Location = new System.Drawing.Point(125, 34);
+            this.collectorStateHistorySizeNumericUpDown.Location = new System.Drawing.Point(140, 34);
             this.collectorStateHistorySizeNumericUpDown.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -528,7 +544,7 @@
             this.panelVariables.Controls.Add(this.panelVarEdit);
             this.panelVariables.Controls.Add(this.cmdVariablesToggle);
             this.panelVariables.Controls.Add(this.label42);
-            this.panelVariables.Location = new System.Drawing.Point(3, 332);
+            this.panelVariables.Location = new System.Drawing.Point(3, 360);
             this.panelVariables.Name = "panelVariables";
             this.panelVariables.Size = new System.Drawing.Size(549, 300);
             this.panelVariables.TabIndex = 2;
@@ -737,7 +753,7 @@
             // 
             this.panelSecuritySettings.Controls.Add(this.groupBox2);
             this.panelSecuritySettings.Controls.Add(this.cmdSecuritySettingsToggle);
-            this.panelSecuritySettings.Location = new System.Drawing.Point(3, 638);
+            this.panelSecuritySettings.Location = new System.Drawing.Point(3, 666);
             this.panelSecuritySettings.Name = "panelSecuritySettings";
             this.panelSecuritySettings.Size = new System.Drawing.Size(549, 289);
             this.panelSecuritySettings.TabIndex = 3;
@@ -981,7 +997,7 @@
             this.panelLoggingSettings.Controls.Add(this.panel4);
             this.panelLoggingSettings.Controls.Add(this.cmdLoggingSettingsToggle);
             this.panelLoggingSettings.Controls.Add(this.metricsExportGroupBox);
-            this.panelLoggingSettings.Location = new System.Drawing.Point(3, 933);
+            this.panelLoggingSettings.Location = new System.Drawing.Point(3, 961);
             this.panelLoggingSettings.Name = "panelLoggingSettings";
             this.panelLoggingSettings.Size = new System.Drawing.Size(549, 350);
             this.panelLoggingSettings.TabIndex = 4;
@@ -1290,17 +1306,29 @@
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
             // 
-            // chkPersistCollectorHistory
+            // llblSaveCollectorHistoryNow
             // 
-            this.chkPersistCollectorHistory.AutoSize = true;
-            this.chkPersistCollectorHistory.BackColor = System.Drawing.Color.Transparent;
-            this.chkPersistCollectorHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkPersistCollectorHistory.Location = new System.Drawing.Point(339, 34);
-            this.chkPersistCollectorHistory.Name = "chkPersistCollectorHistory";
-            this.chkPersistCollectorHistory.Size = new System.Drawing.Size(87, 17);
-            this.chkPersistCollectorHistory.TabIndex = 4;
-            this.chkPersistCollectorHistory.Text = "Persist history";
-            this.chkPersistCollectorHistory.UseVisualStyleBackColor = false;
+            this.llblSaveCollectorHistoryNow.AutoSize = true;
+            this.llblSaveCollectorHistoryNow.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblSaveCollectorHistoryNow.Location = new System.Drawing.Point(137, 61);
+            this.llblSaveCollectorHistoryNow.Name = "llblSaveCollectorHistoryNow";
+            this.llblSaveCollectorHistoryNow.Size = new System.Drawing.Size(88, 13);
+            this.llblSaveCollectorHistoryNow.TabIndex = 5;
+            this.llblSaveCollectorHistoryNow.TabStop = true;
+            this.llblSaveCollectorHistoryNow.Text = "Save history now";
+            this.llblSaveCollectorHistoryNow.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblSaveCollectorHistoryNow_LinkClicked);
+            // 
+            // llblRestoreCollectorHistoryNow
+            // 
+            this.llblRestoreCollectorHistoryNow.AutoSize = true;
+            this.llblRestoreCollectorHistoryNow.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblRestoreCollectorHistoryNow.Location = new System.Drawing.Point(242, 61);
+            this.llblRestoreCollectorHistoryNow.Name = "llblRestoreCollectorHistoryNow";
+            this.llblRestoreCollectorHistoryNow.Size = new System.Drawing.Size(100, 13);
+            this.llblRestoreCollectorHistoryNow.TabIndex = 6;
+            this.llblRestoreCollectorHistoryNow.TabStop = true;
+            this.llblRestoreCollectorHistoryNow.Text = "Restore history now";
+            this.llblRestoreCollectorHistoryNow.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRestoreCollectorHistoryNow_LinkClicked);
             // 
             // MonitorPackEditor
             // 
@@ -1459,5 +1487,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.CheckBox chkPersistCollectorHistory;
+        private System.Windows.Forms.LinkLabel llblRestoreCollectorHistoryNow;
+        private System.Windows.Forms.LinkLabel llblSaveCollectorHistoryNow;
     }
 }

@@ -20,6 +20,5 @@ namespace QuickMon
         /// </summary>
         public string MessageHTML { get; set; }
         public CollectorHost RaisedFor { get; set; }
-        //public MonitorState State { get; set; }
     }
 }

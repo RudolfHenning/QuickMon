@@ -291,6 +291,7 @@ namespace QuickMon
         #endregion
 
         #region Collector History Load/Save events
+        public event SimpleMessageDelegate HistoryLoading;
         public event SimpleMessageDelegate HistoryLoaded;
         public event SimpleMessageDelegate HistorySaved;
         #endregion

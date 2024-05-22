@@ -40,20 +40,21 @@ namespace HenIT.Controls
             // panelTime
             // 
             this.panelTime.BackColor = System.Drawing.SystemColors.Window;
+            this.panelTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelTime.Controls.Add(this.txtMinute);
             this.panelTime.Controls.Add(this.txtHour);
             this.panelTime.Controls.Add(this.label2);
-            this.panelTime.Location = new System.Drawing.Point(84, 1);
+            this.panelTime.Location = new System.Drawing.Point(83, 1);
             this.panelTime.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.panelTime.Name = "panelTime";
             this.panelTime.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.panelTime.Size = new System.Drawing.Size(40, 21);
+            this.panelTime.Size = new System.Drawing.Size(40, 20);
             this.panelTime.TabIndex = 12;
             // 
             // txtMinute
             // 
             this.txtMinute.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMinute.Location = new System.Drawing.Point(18, 3);
+            this.txtMinute.Location = new System.Drawing.Point(21, 3);
             this.txtMinute.Name = "txtMinute";
             this.txtMinute.Size = new System.Drawing.Size(15, 13);
             this.txtMinute.TabIndex = 10;
@@ -66,7 +67,7 @@ namespace HenIT.Controls
             // txtHour
             // 
             this.txtHour.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtHour.Location = new System.Drawing.Point(0, 3);
+            this.txtHour.Location = new System.Drawing.Point(2, 3);
             this.txtHour.Name = "txtHour";
             this.txtHour.Size = new System.Drawing.Size(15, 13);
             this.txtHour.TabIndex = 8;
@@ -78,7 +79,7 @@ namespace HenIT.Controls
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(13, 2);
+            this.label2.Location = new System.Drawing.Point(15, 2);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(8, 13);
             this.label2.TabIndex = 9;
@@ -89,7 +90,7 @@ namespace HenIT.Controls
             this.dtDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtDate.Location = new System.Drawing.Point(0, 1);
             this.dtDate.Name = "dtDate";
-            this.dtDate.Size = new System.Drawing.Size(85, 20);
+            this.dtDate.Size = new System.Drawing.Size(83, 20);
             this.dtDate.TabIndex = 11;
             this.dtDate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtDate_KeyDown);
             // 
@@ -100,7 +101,7 @@ namespace HenIT.Controls
             this.cmdTimePicker.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdTimePicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdTimePicker.Font = new System.Drawing.Font("Wingdings", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cmdTimePicker.Location = new System.Drawing.Point(123, 1);
+            this.cmdTimePicker.Location = new System.Drawing.Point(124, 1);
             this.cmdTimePicker.Name = "cmdTimePicker";
             this.cmdTimePicker.Size = new System.Drawing.Size(20, 20);
             this.cmdTimePicker.TabIndex = 13;
@@ -118,7 +119,7 @@ namespace HenIT.Controls
             this.Controls.Add(this.panelTime);
             this.Controls.Add(this.dtDate);
             this.Name = "DateTimeChooser";
-            this.Size = new System.Drawing.Size(146, 25);
+            this.Size = new System.Drawing.Size(148, 25);
             this.panelTime.ResumeLayout(false);
             this.panelTime.PerformLayout();
             this.ResumeLayout(false);

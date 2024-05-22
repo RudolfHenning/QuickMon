@@ -279,7 +279,7 @@ namespace QuickMon
         }
         private bool ValidateInput()
         {
-            if (txtName.Text.Trim().Length == 0)
+            if (!IsValidMonitorPackName(txtName.Text))
             {
                 txtName.Focus();
                 return false;
@@ -293,6 +293,21 @@ namespace QuickMon
             else
                 return true;
         } 
+        private bool IsValidMonitorPackName(string name)
+        {
+            bool valid = false;
+            if ($"{name}" == "")
+                valid = false;
+            else if (name.Trim().Length == 0)
+                valid = false;
+            else if (name.Contains("\\"))
+                valid = false;
+            else if (name.Contains(","))
+                valid = false;
+            else
+                valid = true;
+            return valid;
+        }
         #endregion
 
         #region Config Vars
@@ -735,6 +750,59 @@ namespace QuickMon
 
             //cmdLoggingPath.Left = panelLoggingSettings.Width - cmdLoggingPath.Width - 5;
             //txtLoggingPath.Width = panelLoggingSettings.Width - cmdLoggingPath.Width - 10;
+        }
+
+        private void llblSaveCollectorHistoryNow_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (SelectedMonitorPack != null)
+            {
+                if (IsValidMonitorPackName(txtName.Text))
+                    SelectedMonitorPack.Name = txtName.Text;
+                if ($"{SelectedMonitorPack.Name}" != "" && IsValidMonitorPackName(SelectedMonitorPack.Name))
+                {
+                    try
+                    {
+                        SelectedMonitorPack.SaveMonitorPackHistory();
+                        MessageBox.Show("Collector history saved!", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show($"Collector history save failed!\r\n{ex.Message}", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Monitor pack name is invalid!", "Monitor pack name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void llblRestoreCollectorHistoryNow_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (SelectedMonitorPack != null)
+            {
+                if (IsValidMonitorPackName(txtName.Text))
+                    SelectedMonitorPack.Name = txtName.Text;
+                if ($"{SelectedMonitorPack.Name}" != "" && IsValidMonitorPackName(SelectedMonitorPack.Name))
+                {
+                    try
+                    {
+                        if (MessageBox.Show("Are you sure you want to load all collector history items? This will replace any current history entries.", "Restore", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            SelectedMonitorPack.LoadMonitorPackHistory();
+                            MessageBox.Show("Collector history restored!", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Collector history save failed!\r\n{ex.Message}", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Monitor pack name is invalid!", "Monitor pack name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

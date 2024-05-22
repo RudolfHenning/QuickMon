@@ -760,6 +760,72 @@ namespace QuickMon
         {
             ExportAllCollectorsHistoryToXML();
         }
+        private void saveAllCollectorHistoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (monitorPack != null)
+            {
+                if ($"{monitorPack.Name}" != "")
+                {
+                    if (monitorPack.IsBusyPolling)
+                    {
+                        MessageBox.Show("There are still collectors updating!\r\nPlease wait until they have finished.", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            monitorPack.SaveMonitorPackHistory();
+                            MessageBox.Show("Collector history saved!", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Collector history save failed!\r\n{ex.Message}", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Monitor pack name cannot be blank!", "Monitor pack name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void restoreAllCollectorHistoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (monitorPack != null)
+            {                
+                if ($"{monitorPack.Name}" != "")
+                {
+                    try
+                    {
+                        if (monitorPack.IsBusyPolling)
+                        {
+                            MessageBox.Show("There are still collectors updating!\r\nPlease wait until they have finished.", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else
+                        {
+                            string monitorPackMHIFile = MHIHandler.GetMonitorPackMHIFile(monitorPack);
+                            if (System.IO.File.Exists(monitorPackMHIFile) && MessageBox.Show($"Are you sure you want to load all collector history items for '{monitorPack.Name}'? This will replace any current history entries.", "Restore", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                monitorPack.LoadMonitorPackHistory();
+                                MessageBox.Show("Collector history restored!", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show($"No Collector history file found for {monitorPack.Name}!", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Collector history save failed!\r\n{ex.Message}", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Monitor pack name is invalid!", "Monitor pack name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
         private void globalHistoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowGlobalHistory();
@@ -2044,16 +2110,15 @@ namespace QuickMon
             {
                 monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
                 monitorPack.CollectorHostStateUpdated += monitorPack_CollectorHostStateUpdated;
-            //    monitorPack.RunCollectorHostCorrectiveWarningScript += monitorPack_RunCollectorHostCorrectiveWarningScript;
-            //    monitorPack.RunCollectorHostCorrectiveErrorScript += monitorPack_RunCollectorHostCorrectiveErrorScript;
-            //    monitorPack.RunCollectorHostRestorationScript += monitorPack_RunCollectorHostRestorationScript;
                 monitorPack.RunningAttended = AttendedOption.OnlyAttended;
                 monitorPack.NotifierAgentAlertRaised += MonitorPack_NotifierAgentAlertRaised;
 
                 monitorPack.ApplicationUserNameCacheFilePath = Properties.Settings.Default.ApplicationUserNameCacheFilePath;
                 monitorPack.ApplicationUserNameCacheMasterKey = Properties.Settings.Default.ApplicationMasterKey;
+
+                monitorPack.HistoryLoading += MonitorPack_HistoryLoading;
             }
-        }
+        }        
 
         private bool SaveMonitorPack()
         {
@@ -2400,6 +2465,13 @@ namespace QuickMon
                         childWindow.RefreshDetails();
                 });
             }
+        }
+        private void MonitorPack_HistoryLoading(string message)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                UpdateStatusbar(message);
+            });
         }
         private void UpdateParentFolderNode(TreeNodeEx parentNode)
         {

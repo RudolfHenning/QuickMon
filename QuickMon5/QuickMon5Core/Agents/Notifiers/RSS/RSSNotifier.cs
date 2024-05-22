@@ -35,7 +35,7 @@ namespace QuickMon.Notifiers
                 string alertLevel = alertRaised.Level.ToString();
                 string previousState = alertRaised.RaisedFor == null || alertRaised.RaisedFor.PreviousState == null ? "" :  alertRaised.RaisedFor.PreviousState.State.ToString();
                 string currentState = alertRaised.RaisedFor == null || alertRaised.RaisedFor.PreviousState == null ? "" : alertRaised.RaisedFor.CurrentState.State.ToString();
-                string collectorName = alertRaised.RaisedFor == null ? "" : alertRaised.RaisedFor.Name;
+                string collectorName = alertRaised.RaisedFor == null ? "" : alertRaised.RaisedFor.NameFormatted;
                 string lineTitle = currentConfig.LineTitle
                     .Replace("%DateTime%", DateTime.Now.ToString("F"))
                     .Replace("%AlertLevel%", alertLevel)

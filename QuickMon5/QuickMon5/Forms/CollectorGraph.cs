@@ -76,6 +76,7 @@ namespace QuickMon
         private void CollectorGraph_Load(object sender, EventArgs e)
         {
             SnappingEnabled = true;
+            filterFlowLayoutPanel.Visible = false;
             splitContainer1.Panel1Collapsed = !showFiltersToolStripButton.Checked;
             fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddDays(-1);
             toDateTimeChooser.SelectedDateTime = DateTime.Now;
@@ -105,7 +106,8 @@ namespace QuickMon
         }
         private void showFiltersToolStripButton_CheckStateChanged(object sender, EventArgs e)
         {
-            splitContainer1.Panel1Collapsed = !showFiltersToolStripButton.Checked;
+            filterFlowLayoutPanel.Visible = showFiltersToolStripButton.Checked;
+            
         }
         private void exportToolStripButton_Click(object sender, EventArgs e)
         {
@@ -257,25 +259,6 @@ namespace QuickMon
             }
             collectorTimeGraph.SetAutoMinMaxDateTimes(chkAutoFromTime.Checked, chkAutoToTime.Checked, chkAutoMaxValue.Checked);
 
-            //collectorTimeGraph.BackgroundGradientColor1 = Properties.Settings.Default.GraphBackgroundColor1;
-            //collectorTimeGraph.BackgroundGradientColor2 = Properties.Settings.Default.GraphBackgroundColor2;
-            //collectorTimeGraph.GridColor = Properties.Settings.Default.GraphGridColor;
-            //collectorTimeGraph.AxisLabelColor = Properties.Settings.Default.GraphAxisLabelsColor;
-            //collectorTimeGraph.TimeSelectionColor = Properties.Settings.Default.GraphSelectionBarColor;
-            ////collectorTimeGraph.GraphVerticalAxisType = (GraphVerticalAxisType)Properties.Settings.Default.GraphDefaultType;
-            //collectorTimeGraph.GradientDirection = (System.Drawing.Drawing2D.LinearGradientMode)Properties.Settings.Default.GraphGradientDirection;
-            //collectorTimeGraph.ClosestClickedValueColorType = (ClosestClickedValueColorType)Properties.Settings.Default.GraphClosestClickedValueType;
-            //collectorTimeGraph.ClosestClickedValueCustomColor = Properties.Settings.Default.GraphClosestClickedValueColor;
-
-            //collectorTimeGraph.ShowGraphHeader = Properties.Settings.Default.GraphHeaderVisible;
-            //collectorTimeGraph.ShowLegendText = Properties.Settings.Default.GraphLegendVisible;
-            //collectorTimeGraph.ShowHorisontalGridlines = Properties.Settings.Default.GraphHorisontalGridLinesVisible;
-            //collectorTimeGraph.ShowVerticalGridLines = Properties.Settings.Default.GraphVerticalGridLinesVisible;
-            //collectorTimeGraph.ShowSelectionBar = Properties.Settings.Default.GraphSelectionBarVisible;
-            //collectorTimeGraph.HighlightClickedSeries = Properties.Settings.Default.GraphHighlightClickedSeriesVisible;
-            //collectorTimeGraph.FillAreaBelowGraph = Properties.Settings.Default.GraphEnableFillAreaBelowSeries;
-            //collectorTimeGraph.FillAreaBelowGraphAlpha = Properties.Settings.Default.GraphFillAreaBelowSeriesAlpha;
-
             this.Invoke((MethodInvoker)delegate
             {
                 collectorTimeGraph.RefreshGraph();
@@ -286,7 +269,6 @@ namespace QuickMon
         {
             GraphSeries series = null;
             if (txtTextFilter.Text.Trim().Length < 2 || collector.PathWithoutMP.ContainEx(txtTextFilter.Text))
-            //if (txtTextFilter.Text.Trim().Length < 2 || collector.PathWithoutMP.ToLower().Contains(txtTextFilter.Text.ToLower()))
             {
                 string stateValue = "";
                 float v = 0;
@@ -326,35 +308,10 @@ namespace QuickMon
                     }
                     series.Values.AddRange(filteredList.GroupByMinutes(groupByMinutes));
                 }
-
-
-                //foreach (MonitorState agentState in (from hsm in collector.StateHistory
-                //                                     orderby hsm.Timestamp descending
-                //                                     select hsm).Take(lastXEntries))
-                //{
-                //    v = 0;
-                //    stateValue = agentState.ReadFirstValue(false);
-                //    if (stateValue != null && float.TryParse(stateValue, out v))
-                //    {
-                //        series.Values.Add(new TimeValue() { Time = agentState.Timestamp, Value = v });
-                //    }
-                //}
-                //v = 0;
-                //stateValue = collector.CurrentState.ReadFirstValue(false);
-                //if (stateValue != null && float.TryParse(stateValue, out v))
-                //{
-                //    series.Values.Add(new TimeValue() { Time = collector.CurrentState.Timestamp, Value = v });
-                //}
-
-
             }
             if (series != null && series.Values != null && series.Values.Count > 0)
                 return series;
-            //else if (series.Values.Count ==1)
-            //{
-            //    series.Name += " (Not enough data)";
-            //    return series;
-            //}
+
             else
                 return null;
         }
@@ -739,6 +696,9 @@ namespace QuickMon
             LoadControls();
         }
 
-
+        private void showCollectorListToolStripButton_CheckStateChanged(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = !showCollectorListToolStripButton.Checked;
+        }
     }
 }

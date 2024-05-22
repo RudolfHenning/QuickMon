@@ -72,7 +72,7 @@ namespace QuickMon.UI
                                 viaHost = string.Format("(via {0}:{1})", alertRaised.RaisedFor.RemoteAgentHostAddress, alertRaised.RaisedFor.RemoteAgentHostPort);
 
                             rtfBuilder.AppendLine().FontStyle(FontStyle.Bold).Append("Collector: ");
-                            rtfBuilder.AppendLine(alertRaised.RaisedFor.Name);
+                            rtfBuilder.AppendLine(alertRaised.RaisedFor.NameFormatted);
                             if (viaHost != null && viaHost.Length > 0)
                             {
                                 rtfBuilder.FontStyle(FontStyle.Bold).Append("Via: ");

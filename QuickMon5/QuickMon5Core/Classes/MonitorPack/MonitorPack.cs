@@ -614,61 +614,6 @@ namespace QuickMon
                     alertRaised.MessageRaw = alertRaised.RaisedFor.CurrentState.ReadAllRawDetails();
                 if (alertRaised.MessageHTML.Length == 0)
                     alertRaised.MessageHTML = alertRaised.RaisedFor.CurrentState.ReadAllHtmlDetails();
-
-                /*
-                if (alertRaised.Level != AlertLevel.Debug &&
-                        (
-                            (alertRaised.RaisedFor.AlertHeaderText != null && alertRaised.RaisedFor.AlertHeaderText.Length > 0) ||
-                            (alertRaised.RaisedFor.AlertFooterText != null && alertRaised.RaisedFor.AlertFooterText.Length > 0) ||
-                            (alertRaised.Level == AlertLevel.Error && alertRaised.RaisedFor.ErrorAlertText != null && alertRaised.RaisedFor.ErrorAlertText.Length > 0) ||
-                            (alertRaised.Level == AlertLevel.Warning && alertRaised.RaisedFor.WarningAlertText != null && alertRaised.RaisedFor.WarningAlertText.Length > 0) ||
-                            (alertRaised.Level == AlertLevel.Info && alertRaised.RaisedFor.GoodAlertText != null && alertRaised.RaisedFor.GoodAlertText.Length > 0)
-                        )
-                    )
-                {
-                    string additionalHeaderText = "";
-                    string additionalFooterText = "";
-                    string additionalLevelText = "";
-
-                    if (alertRaised.RaisedFor.AlertHeaderText != null && alertRaised.RaisedFor.AlertHeaderText.Length > 0)
-                    {
-                        additionalHeaderText = alertRaised.RaisedFor.AlertHeaderText;
-                    }
-                    if (alertRaised.RaisedFor.AlertFooterText != null && alertRaised.RaisedFor.AlertFooterText.Length > 0)
-                    {
-                        additionalFooterText = alertRaised.RaisedFor.AlertFooterText;
-                    }
-
-                    if (alertRaised.Level == AlertLevel.Error && alertRaised.RaisedFor.ErrorAlertText != null && alertRaised.RaisedFor.ErrorAlertText.Length > 0)
-                    {
-                        additionalLevelText = alertRaised.RaisedFor.ErrorAlertText;
-                    }
-                    if (alertRaised.Level == AlertLevel.Warning && alertRaised.RaisedFor.WarningAlertText != null && alertRaised.RaisedFor.WarningAlertText.Length > 0)
-                    {
-                        additionalLevelText = alertRaised.RaisedFor.WarningAlertText;
-                    }
-                    if (alertRaised.Level == AlertLevel.Info && alertRaised.RaisedFor.GoodAlertText != null && alertRaised.RaisedFor.GoodAlertText.Length > 0)
-                    {
-                        additionalLevelText = alertRaised.RaisedFor.GoodAlertText;
-                    }
-
-                    if (additionalLevelText.Length > 0)
-                    {
-                        alertRaised.MessageRaw = additionalLevelText + "\r\n" + alertRaised.MessageRaw;
-                        alertRaised.MessageHTML = "<p>" + additionalLevelText + "</p>" + alertRaised.MessageHTML;
-                    }
-                    if (additionalHeaderText.Length > 0)
-                    {
-                        alertRaised.MessageRaw = additionalHeaderText + "\r\n" + alertRaised.MessageRaw;
-                        alertRaised.MessageHTML = "<p>" + additionalHeaderText + "</p>" + alertRaised.MessageHTML;
-                    }
-                    if (additionalFooterText.Length > 0)
-                    {
-                        alertRaised.MessageRaw = alertRaised.MessageRaw.TrimEnd('\r', '\n') + "\r\n" + additionalFooterText;
-                        alertRaised.MessageHTML += "<p>" + additionalFooterText + "</p>";
-                    }
-                }
-                */
             }
 
             //If alerts are paused for CollectorHost...
@@ -685,7 +630,7 @@ namespace QuickMon
                                                            (int)n.AlertLevel <= (int)alertRaised.Level &&
                                                            (alertRaised.DetailLevel == DetailLevel.All || alertRaised.DetailLevel == n.DetailLevel) &&
                                                            (n.OnlyRecordAlertOnHosts == null || n.OnlyRecordAlertOnHosts.Count == 0 || n.OnlyRecordAlertOnHosts.Any(h => h.ToLower() == System.Net.Dns.GetHostName().ToLower())) &&
-                                                           (alertRaised.RaisedFor == null || n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(alertRaised.RaisedFor.Name)) &&
+                                                           (alertRaised.RaisedFor == null || n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(alertRaised.RaisedFor.Name) || n.AlertForCollectors.Contains(alertRaised.RaisedFor.NameFormatted)) &&
                                                            (alertRaised.RaisedFor == null || n.Categories == null || n.IsCollectorInCategory(alertRaised.RaisedFor))
 
                                                         select n))
@@ -726,7 +671,7 @@ namespace QuickMon
                                     string configSummary = ((INotifierConfig)notifierAgent.AgentConfig).ConfigSummary;
                                     alertsRecorded.Add(string.Format("{0} ({1})", notifierAgent.AgentClassDisplayName, configSummary));
                                     RaiseNotifierAgentAlertRaised(notifierAgent, alertRaised);
-                                    LoggingAlertsRaisedEvent(string.Format("Alert raised for Collector '{0}'\r\nNotifier: '{1}'\r\n{2}", alertRaised.RaisedFor.Name, notifierAgent.Name, alertRaised.MessageRaw));
+                                    LoggingAlertsRaisedEvent(string.Format("Alert raised for Collector '{0}'\r\nNotifier: '{1}'\r\n{2}", alertRaised.RaisedFor.NameFormatted, notifierAgent.Name, alertRaised.MessageRaw));
                                 }
                                 else
                                 {
@@ -742,7 +687,7 @@ namespace QuickMon
                             alertsRecorded.ForEach(araised => sbAlertsRaisedSummary.AppendLine("  " + araised));
                             alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(sbAlertsRaisedSummary.ToString());
                         }
-                        LoggingNotifierEvent(string.Format("Notifier '{0}' called for {1} alert on '{2}'", notifierEntry.Name, alertRaised.Level, (alertRaised.RaisedFor == null ? "Unknown Collector" : alertRaised.RaisedFor.Name)));
+                        LoggingNotifierEvent(string.Format("Notifier '{0}' called for {1} alert on '{2}'", notifierEntry.Name, alertRaised.Level, (alertRaised.RaisedFor == null ? "Unknown Collector" : alertRaised.RaisedFor.NameFormatted)));
                     }
                     catch (Exception ex)
                     {
@@ -903,6 +848,7 @@ namespace QuickMon
             {
                 lock (locker)
                 {
+                    HistoryLoading?.Invoke($"Loading collector histories for '{Name}'");
                     int collectorsLoaded = 0;
                     int monitorStatesLoaded = 0;
 
@@ -930,18 +876,6 @@ namespace QuickMon
                             if (!addHistory)
                                 ch.StateHistory.Clear();
                             ch.StateHistory.AddRange(list.OrderBy(m => m.Timestamp).Take(CollectorStateHistorySize));
-
-                            //foreach (string hi in collectorHistoryExport.States)
-                            //{
-                            //    try
-                            //    {
-                            //        MonitorState ms = new MonitorState();
-                            //        ms.FromCXml(hi);
-                            //        ch.StateHistory.Add(ms);
-                            //        monitorStatesLoaded++;
-                            //    }
-                            //    catch { }
-                            //}
                         }
                     }
                     HistoryLoaded?.Invoke($"{monitorPackHistoryExport.CollectorHistoryExports.Count} collector(s) histories imported from {inputPath}\r\n{collectorsLoaded} collectors loaded.\r\n{monitorStatesLoaded} monitor states loaded.");
