@@ -33,9 +33,9 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.refreshToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.showFiltersToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.showCollectorListToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.CustomizeGraphToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.exportToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.showCollectorListToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.refreshDetailsToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -146,7 +146,7 @@
             this.exportToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(900, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(939, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -172,6 +172,17 @@
             this.showFiltersToolStripButton.Text = "View Filters";
             this.showFiltersToolStripButton.CheckStateChanged += new System.EventHandler(this.showFiltersToolStripButton_CheckStateChanged);
             // 
+            // showCollectorListToolStripButton
+            // 
+            this.showCollectorListToolStripButton.CheckOnClick = true;
+            this.showCollectorListToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showCollectorListToolStripButton.Image = global::QuickMon.Properties.Resources.Panes;
+            this.showCollectorListToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showCollectorListToolStripButton.Name = "showCollectorListToolStripButton";
+            this.showCollectorListToolStripButton.Size = new System.Drawing.Size(28, 28);
+            this.showCollectorListToolStripButton.Text = "Add and Remove Collectors";
+            this.showCollectorListToolStripButton.CheckStateChanged += new System.EventHandler(this.showCollectorListToolStripButton_CheckStateChanged);
+            // 
             // CustomizeGraphToolStripButton
             // 
             this.CustomizeGraphToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -192,31 +203,20 @@
             this.exportToolStripButton.Text = "Export graph";
             this.exportToolStripButton.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 
-            // showCollectorListToolStripButton
-            // 
-            this.showCollectorListToolStripButton.CheckOnClick = true;
-            this.showCollectorListToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showCollectorListToolStripButton.Image = global::QuickMon.Properties.Resources.Panes;
-            this.showCollectorListToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.showCollectorListToolStripButton.Name = "showCollectorListToolStripButton";
-            this.showCollectorListToolStripButton.Size = new System.Drawing.Size(28, 28);
-            this.showCollectorListToolStripButton.Text = "toolStripButton1";
-            this.showCollectorListToolStripButton.CheckStateChanged += new System.EventHandler(this.showCollectorListToolStripButton_CheckStateChanged);
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshDetailsToolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 509);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(900, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(939, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // refreshDetailsToolStripStatusLabel
             // 
             this.refreshDetailsToolStripStatusLabel.Name = "refreshDetailsToolStripStatusLabel";
-            this.refreshDetailsToolStripStatusLabel.Size = new System.Drawing.Size(885, 17);
+            this.refreshDetailsToolStripStatusLabel.Size = new System.Drawing.Size(1441, 17);
             this.refreshDetailsToolStripStatusLabel.Spring = true;
             this.refreshDetailsToolStripStatusLabel.Text = ".";
             this.refreshDetailsToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -236,7 +236,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.collectorTimeGraph);
-            this.splitContainer1.Size = new System.Drawing.Size(900, 410);
+            this.splitContainer1.Size = new System.Drawing.Size(939, 410);
             this.splitContainer1.SplitterDistance = 131;
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 1;
@@ -255,7 +255,7 @@
             this.lvwCollectorStates.HideSelection = false;
             this.lvwCollectorStates.Location = new System.Drawing.Point(0, 0);
             this.lvwCollectorStates.Name = "lvwCollectorStates";
-            this.lvwCollectorStates.Size = new System.Drawing.Size(900, 131);
+            this.lvwCollectorStates.Size = new System.Drawing.Size(939, 131);
             this.lvwCollectorStates.SmallImageList = this.imagesCollectorTree;
             this.lvwCollectorStates.TabIndex = 0;
             this.lvwCollectorStates.UseCompatibleStateImageBehavior = false;
@@ -355,7 +355,7 @@
             this.collectorTimeGraph.ShowLegendText = true;
             this.collectorTimeGraph.ShowSelectionBar = true;
             this.collectorTimeGraph.ShowVerticalGridLines = true;
-            this.collectorTimeGraph.Size = new System.Drawing.Size(900, 273);
+            this.collectorTimeGraph.Size = new System.Drawing.Size(939, 273);
             this.collectorTimeGraph.StartDateTime = new System.DateTime(((long)(0)));
             this.collectorTimeGraph.TabIndex = 0;
             this.collectorTimeGraph.Text = "timeGraphControl1";
@@ -737,7 +737,7 @@
             this.filterFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.filterFlowLayoutPanel.Location = new System.Drawing.Point(0, 31);
             this.filterFlowLayoutPanel.Name = "filterFlowLayoutPanel";
-            this.filterFlowLayoutPanel.Size = new System.Drawing.Size(900, 68);
+            this.filterFlowLayoutPanel.Size = new System.Drawing.Size(939, 68);
             this.filterFlowLayoutPanel.TabIndex = 3;
             // 
             // panel6
@@ -754,7 +754,7 @@
             // 
             this.fromDateTimeChooser.AutoSize = true;
             this.fromDateTimeChooser.BackColor = System.Drawing.Color.Transparent;
-            this.fromDateTimeChooser.Location = new System.Drawing.Point(91, 1);
+            this.fromDateTimeChooser.Location = new System.Drawing.Point(91, 4);
             this.fromDateTimeChooser.Name = "fromDateTimeChooser";
             this.fromDateTimeChooser.SelectedDateTime = new System.DateTime(2020, 12, 20, 23, 59, 0, 0);
             this.fromDateTimeChooser.Size = new System.Drawing.Size(147, 25);
@@ -766,7 +766,7 @@
             this.chkAutoFromTime.Checked = true;
             this.chkAutoFromTime.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAutoFromTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkAutoFromTime.Location = new System.Drawing.Point(45, 2);
+            this.chkAutoFromTime.Location = new System.Drawing.Point(45, 5);
             this.chkAutoFromTime.Name = "chkAutoFromTime";
             this.chkAutoFromTime.Size = new System.Drawing.Size(45, 17);
             this.chkAutoFromTime.TabIndex = 1;
@@ -776,7 +776,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 4);
+            this.label10.Location = new System.Drawing.Point(3, 7);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(30, 13);
             this.label10.TabIndex = 0;
@@ -796,7 +796,7 @@
             // 
             this.toDateTimeChooser.AutoSize = true;
             this.toDateTimeChooser.BackColor = System.Drawing.Color.Transparent;
-            this.toDateTimeChooser.Location = new System.Drawing.Point(91, 1);
+            this.toDateTimeChooser.Location = new System.Drawing.Point(91, 4);
             this.toDateTimeChooser.Name = "toDateTimeChooser";
             this.toDateTimeChooser.SelectedDateTime = new System.DateTime(2020, 12, 20, 23, 59, 0, 0);
             this.toDateTimeChooser.Size = new System.Drawing.Size(147, 25);
@@ -808,7 +808,7 @@
             this.chkAutoToTime.Checked = true;
             this.chkAutoToTime.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAutoToTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkAutoToTime.Location = new System.Drawing.Point(45, 2);
+            this.chkAutoToTime.Location = new System.Drawing.Point(45, 5);
             this.chkAutoToTime.Name = "chkAutoToTime";
             this.chkAutoToTime.Size = new System.Drawing.Size(45, 17);
             this.chkAutoToTime.TabIndex = 1;
@@ -818,7 +818,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 4);
+            this.label11.Location = new System.Drawing.Point(3, 7);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(30, 13);
             this.label11.TabIndex = 0;
@@ -831,14 +831,14 @@
             this.panel8.Controls.Add(this.label12);
             this.panel8.Location = new System.Drawing.Point(505, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(196, 28);
+            this.panel8.Size = new System.Drawing.Size(208, 28);
             this.panel8.TabIndex = 4;
             // 
             // nudinitialMax
             // 
-            this.nudinitialMax.Location = new System.Drawing.Point(120, 3);
+            this.nudinitialMax.Location = new System.Drawing.Point(120, 5);
             this.nudinitialMax.Maximum = new decimal(new int[] {
-            100000,
+            1000000000,
             0,
             0,
             0});
@@ -848,7 +848,7 @@
             0,
             0});
             this.nudinitialMax.Name = "nudinitialMax";
-            this.nudinitialMax.Size = new System.Drawing.Size(68, 20);
+            this.nudinitialMax.Size = new System.Drawing.Size(85, 20);
             this.nudinitialMax.TabIndex = 2;
             this.nudinitialMax.Value = new decimal(new int[] {
             100,
@@ -862,7 +862,7 @@
             this.chkAutoMaxValue.Checked = true;
             this.chkAutoMaxValue.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAutoMaxValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkAutoMaxValue.Location = new System.Drawing.Point(36, 3);
+            this.chkAutoMaxValue.Location = new System.Drawing.Point(36, 5);
             this.chkAutoMaxValue.Name = "chkAutoMaxValue";
             this.chkAutoMaxValue.Size = new System.Drawing.Size(78, 17);
             this.chkAutoMaxValue.TabIndex = 1;
@@ -872,7 +872,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 5);
+            this.label12.Location = new System.Drawing.Point(3, 7);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(27, 13);
             this.label12.TabIndex = 0;
@@ -883,15 +883,15 @@
             this.panel9.Controls.Add(this.label13);
             this.panel9.Controls.Add(this.nudLastXEntries);
             this.panel9.Controls.Add(this.label14);
-            this.panel9.Location = new System.Drawing.Point(707, 3);
+            this.panel9.Location = new System.Drawing.Point(719, 3);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(174, 28);
+            this.panel9.Size = new System.Drawing.Size(155, 28);
             this.panel9.TabIndex = 5;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(129, 5);
+            this.label13.Location = new System.Drawing.Point(106, 7);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(39, 13);
             this.label13.TabIndex = 2;
@@ -899,20 +899,20 @@
             // 
             // nudLastXEntries
             // 
-            this.nudLastXEntries.Location = new System.Drawing.Point(36, 3);
+            this.nudLastXEntries.Location = new System.Drawing.Point(36, 5);
             this.nudLastXEntries.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
             this.nudLastXEntries.Name = "nudLastXEntries";
-            this.nudLastXEntries.Size = new System.Drawing.Size(87, 20);
+            this.nudLastXEntries.Size = new System.Drawing.Size(64, 20);
             this.nudLastXEntries.TabIndex = 1;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 5);
+            this.label14.Location = new System.Drawing.Point(3, 7);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(27, 13);
             this.label14.TabIndex = 0;
@@ -925,14 +925,14 @@
             this.panel10.Controls.Add(this.label16);
             this.panel10.Location = new System.Drawing.Point(3, 37);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(228, 28);
+            this.panel10.Size = new System.Drawing.Size(203, 28);
             this.panel10.TabIndex = 6;
             // 
             // label15
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(175, 7);
+            this.label15.Location = new System.Drawing.Point(150, 7);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(50, 13);
             this.label15.TabIndex = 3;
@@ -959,7 +959,7 @@
             "1440"});
             this.cboGroupBy.Location = new System.Drawing.Point(59, 4);
             this.cboGroupBy.Name = "cboGroupBy";
-            this.cboGroupBy.Size = new System.Drawing.Size(110, 21);
+            this.cboGroupBy.Size = new System.Drawing.Size(85, 21);
             this.cboGroupBy.TabIndex = 1;
             // 
             // label16
@@ -976,7 +976,7 @@
             this.panel11.Controls.Add(this.lblResetText);
             this.panel11.Controls.Add(this.txtTextFilter);
             this.panel11.Controls.Add(this.label18);
-            this.panel11.Location = new System.Drawing.Point(237, 37);
+            this.panel11.Location = new System.Drawing.Point(212, 37);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(252, 28);
             this.panel11.TabIndex = 7;
@@ -1007,7 +1007,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(900, 531);
+            this.ClientSize = new System.Drawing.Size(939, 531);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.filterFlowLayoutPanel);
             this.Controls.Add(this.statusStrip1);

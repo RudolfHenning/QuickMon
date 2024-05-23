@@ -86,7 +86,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(731, 33);
+            this.panel1.Size = new System.Drawing.Size(735, 33);
             this.panel1.TabIndex = 0;
             // 
             // lblResetText
@@ -100,7 +100,7 @@
             this.lblResetText.ForeColor = System.Drawing.Color.Red;
             this.lblResetText.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.lblResetText.LinkColor = System.Drawing.Color.Red;
-            this.lblResetText.Location = new System.Drawing.Point(535, 10);
+            this.lblResetText.Location = new System.Drawing.Point(539, 10);
             this.lblResetText.Name = "lblResetText";
             this.lblResetText.Size = new System.Drawing.Size(15, 13);
             this.lblResetText.TabIndex = 6;
@@ -119,7 +119,7 @@
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
             this.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefresh.Location = new System.Drawing.Point(703, 0);
+            this.cmdRefresh.Location = new System.Drawing.Point(707, 0);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(28, 33);
             this.cmdRefresh.TabIndex = 5;
@@ -135,7 +135,7 @@
             this.txtFilter.HideSelection = false;
             this.txtFilter.Location = new System.Drawing.Point(175, 6);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(357, 21);
+            this.txtFilter.Size = new System.Drawing.Size(361, 21);
             this.txtFilter.TabIndex = 2;
             this.txtFilter.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.txtFilter_EnterKeyPressed);
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
@@ -153,7 +153,7 @@
             "Warning",
             "Error",
             "Warn & Err"});
-            this.cboStateFilter.Location = new System.Drawing.Point(601, 5);
+            this.cboStateFilter.Location = new System.Drawing.Point(605, 5);
             this.cboStateFilter.Name = "cboStateFilter";
             this.cboStateFilter.Size = new System.Drawing.Size(92, 23);
             this.cboStateFilter.TabIndex = 4;
@@ -163,7 +163,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(556, 8);
+            this.label5.Location = new System.Drawing.Point(560, 8);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 16);
             this.label5.TabIndex = 3;
@@ -206,7 +206,7 @@
             this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 457);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(731, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(735, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -269,7 +269,7 @@
             // 
             this.agentStateSplitContainer.Panel2.Controls.Add(this.rtxDetails);
             this.agentStateSplitContainer.Panel2.Controls.Add(this.label3);
-            this.agentStateSplitContainer.Size = new System.Drawing.Size(731, 424);
+            this.agentStateSplitContainer.Size = new System.Drawing.Size(735, 424);
             this.agentStateSplitContainer.SplitterDistance = 254;
             this.agentStateSplitContainer.SplitterWidth = 8;
             this.agentStateSplitContainer.TabIndex = 14;
@@ -289,7 +289,7 @@
             this.lvwCollectorStates.HideSelection = false;
             this.lvwCollectorStates.Location = new System.Drawing.Point(0, 0);
             this.lvwCollectorStates.Name = "lvwCollectorStates";
-            this.lvwCollectorStates.Size = new System.Drawing.Size(731, 236);
+            this.lvwCollectorStates.Size = new System.Drawing.Size(735, 236);
             this.lvwCollectorStates.SmallImageList = this.imagesCollectorTree;
             this.lvwCollectorStates.TabIndex = 0;
             this.lvwCollectorStates.UseCompatibleStateImageBehavior = false;
@@ -387,7 +387,7 @@
             this.llblDetails.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.llblDetails.Location = new System.Drawing.Point(0, 236);
             this.llblDetails.Name = "llblDetails";
-            this.llblDetails.Size = new System.Drawing.Size(731, 18);
+            this.llblDetails.Size = new System.Drawing.Size(735, 18);
             this.llblDetails.TabIndex = 1;
             this.llblDetails.TabStop = true;
             this.llblDetails.Text = "Details";
@@ -403,7 +403,7 @@
             this.rtxDetails.Location = new System.Drawing.Point(0, 1);
             this.rtxDetails.Name = "rtxDetails";
             this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(731, 161);
+            this.rtxDetails.Size = new System.Drawing.Size(735, 161);
             this.rtxDetails.TabIndex = 3;
             this.rtxDetails.Text = "";
             // 
@@ -435,7 +435,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(731, 1);
+            this.label3.Size = new System.Drawing.Size(735, 1);
             this.label3.TabIndex = 1;
             // 
             // CollectorFilterView
@@ -443,7 +443,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(731, 479);
+            this.ClientSize = new System.Drawing.Size(735, 479);
             this.Controls.Add(this.agentStateSplitContainer);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);

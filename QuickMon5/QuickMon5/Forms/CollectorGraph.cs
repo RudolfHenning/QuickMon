@@ -106,8 +106,11 @@ namespace QuickMon
         }
         private void showFiltersToolStripButton_CheckStateChanged(object sender, EventArgs e)
         {
-            filterFlowLayoutPanel.Visible = showFiltersToolStripButton.Checked;
-            
+            filterFlowLayoutPanel.Visible = showFiltersToolStripButton.Checked;            
+        }
+        private void showCollectorListToolStripButton_CheckStateChanged(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = !showCollectorListToolStripButton.Checked;
         }
         private void exportToolStripButton_Click(object sender, EventArgs e)
         {
@@ -184,36 +187,6 @@ namespace QuickMon
                 }
             }
 
-            //Making seriesses
-            foreach (CollectorHost collector in SelectedCollectors)
-            {
-                Color seriesColor = seriesColors[graphSeriesList.Count % seriesColors.Count];
-                GraphSeries series = SeriesFromCollector(collector, seriesColor, (int)nudLastXEntries.Value);
-                if (series != null)
-                {
-                    if(collector.StateHistory.Count > 0)
-                    {
-                        MonitorState ms = (from m in collector.StateHistory
-                                           where m.ReadFirstValueUnit() != ""
-                                           select m).FirstOrDefault();
-
-                        if (ms != null)
-                        {
-                            series.ValueUnit = ms.ReadFirstValueUnit();
-                        }
-                    }
-
-                    seriesNames.Add(series.Name);
-                    float val = series.Values.OrderByDescending(v => v.Value).FirstOrDefault().Value;
-                    if (maxValue < val)
-                        maxValue = (long)val;
-                    DateTime firstTime = series.Values.OrderBy(v => v.Time).FirstOrDefault().Time;
-                    if (autoStartDateTime > firstTime)
-                        autoStartDateTime = firstTime;
-                    graphSeriesList.Add(series);
-                }
-            }
-
             if (chkAutoFromTime.Checked)
             {
                 fromTime = DateTime.Now;
@@ -235,6 +208,40 @@ namespace QuickMon
                 toTime = DateTime.Now;
                 toDateTimeChooser.SelectedDateTime = toTime;
             }
+
+            //Making seriesses
+            foreach (CollectorHost collector in SelectedCollectors)
+            {
+                Color seriesColor = seriesColors[graphSeriesList.Count % seriesColors.Count];
+                GraphSeries series = SeriesFromCollector(collector, seriesColor, (int)nudLastXEntries.Value, fromTime, toTime);
+                if (series != null)
+                {
+                    if(collector.StateHistory.Count > 0)
+                    {
+                        MonitorState ms = (from m in collector.StateHistory
+                                           where m.Timestamp > fromTime &&
+                                            m.ReadFirstValueUnit() != ""
+                                           select m).FirstOrDefault();
+
+                        if (ms != null)
+                        {
+                            series.ValueUnit = ms.ReadFirstValueUnit();
+                        }
+                    }
+
+                    seriesNames.Add(series.Name);
+                    float val = series.Values.OrderByDescending(v => v.Value).FirstOrDefault().Value;
+                    if (maxValue < val)
+                        maxValue = (long)val;
+                    DateTime firstTime = series.Values.OrderBy(v => v.Time).FirstOrDefault().Time;
+                    if (autoStartDateTime > firstTime)
+                        autoStartDateTime = firstTime;
+                    graphSeriesList.Add(series);
+                }
+            }
+
+            
+            
 
 
             collectorTimeGraph.PauseUpdates();
@@ -265,7 +272,7 @@ namespace QuickMon
                 refreshDetailsToolStripStatusLabel.Text = $"Last updated: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}";                
             });
         }
-        private GraphSeries SeriesFromCollector(CollectorHost collector, Color seriesColor, int lastXEntries)
+        private GraphSeries SeriesFromCollector(CollectorHost collector, Color seriesColor, int lastXEntries, DateTime fromTime, DateTime toTime)
         {
             GraphSeries series = null;
             if (txtTextFilter.Text.Trim().Length < 2 || collector.PathWithoutMP.ContainEx(txtTextFilter.Text))
@@ -276,6 +283,7 @@ namespace QuickMon
                 if (lastXEntries == 0)
                     lastXEntries = collector.StateHistory.Count;
                 foreach (MonitorState agentState in (from hsm in collector.StateHistory
+                                                     where hsm.Timestamp >= fromTime && hsm.Timestamp <= toTime
                                                      orderby hsm.Timestamp descending
                                                      select hsm).Take(lastXEntries))
                 {
@@ -385,6 +393,7 @@ namespace QuickMon
 
 
         #region Context menu events
+
         private void graphContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
             linearGraphTypeToolStripMenuItem.Checked = collectorTimeGraph.GraphVerticalAxisType == HenIT.Windows.Controls.Graphing.GraphVerticalAxisType.Standard;
@@ -680,6 +689,7 @@ namespace QuickMon
         }
         #endregion
 
+        #region Filter controls
         private void txtTextFilter_EnterKeyPressed()
         {
             LoadControls();
@@ -694,11 +704,7 @@ namespace QuickMon
         {
             txtTextFilter.Text = "";
             LoadControls();
-        }
-
-        private void showCollectorListToolStripButton_CheckStateChanged(object sender, EventArgs e)
-        {
-            splitContainer1.Panel1Collapsed = !showCollectorListToolStripButton.Checked;
-        }
+        } 
+        #endregion
     }
 }
