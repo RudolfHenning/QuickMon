@@ -327,3 +327,8 @@ Monitor pack/Collector history persistance added.
 Fix: EnableStickyMainWindowLocation was not always working as expected.
 Fix: Collector names containing variables were not formatted properly in alerts (notifiers).
 Collector graph window updated so filters are easier to work with.
+
+--------------
+Version 5.3.25 (2024-06-12)
+**************
+Added more error handling for when loading and saving Monitor pack/Collector history.

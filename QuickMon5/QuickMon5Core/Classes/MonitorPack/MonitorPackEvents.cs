@@ -294,6 +294,7 @@ namespace QuickMon
         public event SimpleMessageDelegate HistoryLoading;
         public event SimpleMessageDelegate HistoryLoaded;
         public event SimpleMessageDelegate HistorySaved;
+        public event SimpleMessageDelegate HistorySaveError;
         #endregion
     }
 }

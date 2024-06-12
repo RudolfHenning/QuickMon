@@ -1932,7 +1932,14 @@ namespace QuickMon
                 monitorPack.Load(monitorPackPath);
                 if (monitorPack.PersistCollectorStateHistory) //if enabled now try to load the history
                 {
-                    MHIHandler.LoadMonitorPackHistory(monitorPack);
+                    try
+                    {
+                        MHIHandler.LoadMonitorPackHistory(monitorPack);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show($"There was a problem loading the Collector History entries!\r\n{ex.Message}", "Collector History", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
                 foreach (var ch in monitorPack.CollectorHosts.GroupBy(c => c.UniqueId))
@@ -2117,8 +2124,12 @@ namespace QuickMon
                 monitorPack.ApplicationUserNameCacheMasterKey = Properties.Settings.Default.ApplicationMasterKey;
 
                 monitorPack.HistoryLoading += MonitorPack_HistoryLoading;
+                monitorPack.HistorySaved += MonitorPack_HistorySaved;
+                monitorPack.HistorySaveError += MonitorPack_HistorySaveError;
             }
-        }        
+        }
+
+        
 
         private bool SaveMonitorPack()
         {
@@ -2472,6 +2483,19 @@ namespace QuickMon
             {
                 UpdateStatusbar(message);
             });
+        }
+        private void MonitorPack_HistorySaved(string message)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                UpdateStatusbar(message);
+                //MessageBox.Show(message, "Collector history saving", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            });
+        }
+
+        private void MonitorPack_HistorySaveError(string message)
+        {
+            MessageBox.Show(message, "Collector history saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         private void UpdateParentFolderNode(TreeNodeEx parentNode)
         {

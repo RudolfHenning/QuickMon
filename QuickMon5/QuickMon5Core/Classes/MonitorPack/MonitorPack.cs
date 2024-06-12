@@ -878,7 +878,7 @@ namespace QuickMon
                             ch.StateHistory.AddRange(list.OrderBy(m => m.Timestamp).Take(CollectorStateHistorySize));
                         }
                     }
-                    HistoryLoaded?.Invoke($"{monitorPackHistoryExport.CollectorHistoryExports.Count} collector(s) histories imported from {inputPath}\r\n{collectorsLoaded} collectors loaded.\r\n{monitorStatesLoaded} monitor states loaded.");
+                    HistoryLoaded?.Invoke($"{monitorPackHistoryExport.CollectorHistoryExports.Count} collector(s) histories imported from {inputPath}. {collectorsLoaded} collectors loaded. {monitorStatesLoaded} monitor states loaded.");
                 }
             }
         }
@@ -913,8 +913,15 @@ namespace QuickMon
                 string mpser = monitorPackHistoryExport.ToXml();
 
                 string outputPath = MHIHandler.GetMonitorPackMHIFile(this);
-                System.IO.File.WriteAllText(outputPath, mpser, Encoding.UTF8);
-                HistorySaved?.Invoke($"{monitorPackHistoryExport.CollectorHistoryExports.Count} collector(s) histories exported to {outputPath}\r\n{statesSaved} states saved.");
+                try
+                {
+                    System.IO.File.WriteAllText(outputPath, mpser, Encoding.UTF8);
+                    HistorySaved?.Invoke($"{monitorPackHistoryExport.CollectorHistoryExports.Count} collector(s) histories exported to {outputPath}\r\n{statesSaved} states saved.");
+                }
+                catch(Exception ex)
+                {
+                    HistorySaveError?.Invoke($"There was a problem saving the collector histories to '{outputPath}'! {ex.Message}");
+                }
             }
         }
         #endregion
