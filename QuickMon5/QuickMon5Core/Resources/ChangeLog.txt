@@ -329,6 +329,6 @@ Fix: Collector names containing variables were not formatted properly in alerts 
 Collector graph window updated so filters are easier to work with.
 
 --------------
-Version 5.3.25 (2024-06-12)
+Version 5.3.25 (2024-06-22)
 **************
-Added more error handling for when loading and saving Monitor pack/Collector history.
+Added more error handling and UI feedback for when loading and saving Monitor pack/Collector history.

@@ -293,6 +293,7 @@ namespace QuickMon
         #region Collector History Load/Save events
         public event SimpleMessageDelegate HistoryLoading;
         public event SimpleMessageDelegate HistoryLoaded;
+        public event SimpleMessageDelegate HistorySaving;
         public event SimpleMessageDelegate HistorySaved;
         public event SimpleMessageDelegate HistorySaveError;
         #endregion

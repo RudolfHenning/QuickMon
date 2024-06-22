@@ -820,6 +820,8 @@ namespace QuickMon
         #region Closing
         public void CloseMonitorPack()
         {
+            if (IsPollingEnabled)
+                IsPollingEnabled = false;
             if (PersistCollectorStateHistory && RunningAttended == AttendedOption.OnlyAttended)
             {
                 SaveMonitorPackHistory();
@@ -841,6 +843,7 @@ namespace QuickMon
         #region Collector History Persistence
         public void LoadMonitorPackHistory(bool addHistory = false)
         {
+            HistoryLoading?.Invoke($"Start loading collector histories for '{Name}'");
             //make sure polling is done.
             WaitWhileStillPolling();
             string inputPath = MHIHandler.GetMonitorPackMHIFile(this);
@@ -884,12 +887,18 @@ namespace QuickMon
         }
         public void SaveMonitorPackHistory()
         {
+            HistorySaving?.Invoke($"Starting saving collector histories.");
             //make sure it is not busy polling now
             WaitWhileStillPolling();
 
             int statesSaved = 0;
             lock (locker)
             {
+                DateTime startTime = DateTime.Now;
+
+                string outputPath = MHIHandler.GetMonitorPackMHIFile(this);
+                HistorySaving?.Invoke($"Saving collector histories to {outputPath}.");
+
                 MonitorPackHistoryExport monitorPackHistoryExport = new MonitorPackHistoryExport();
                 monitorPackHistoryExport.Name = Name;
                 monitorPackHistoryExport.MonitorPackPath = MonitorPackPath;
@@ -911,12 +920,12 @@ namespace QuickMon
                     monitorPackHistoryExport.CollectorHistoryExports.Add(collectorHistoryExport);
                 }
                 string mpser = monitorPackHistoryExport.ToXml();
-
-                string outputPath = MHIHandler.GetMonitorPackMHIFile(this);
+                
                 try
                 {
                     System.IO.File.WriteAllText(outputPath, mpser, Encoding.UTF8);
-                    HistorySaved?.Invoke($"{monitorPackHistoryExport.CollectorHistoryExports.Count} collector(s) histories exported to {outputPath}\r\n{statesSaved} states saved.");
+                    TimeSpan ts = DateTime.Now.Subtract(startTime);
+                    HistorySaved?.Invoke($"{monitorPackHistoryExport.CollectorHistoryExports.Count} collector(s) histories exported to {outputPath}\r\n{statesSaved} states saved in {ts.TotalSeconds.ToString("0.00")} sec(s).");
                 }
                 catch(Exception ex)
                 {

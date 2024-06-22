@@ -44,6 +44,7 @@ namespace QuickMon
 
         #region Main timer
         private Timer autoRefreshTimer = new Timer() { Enabled = false, Interval = Properties.Settings.Default.PollFrequencySec * 1000 };
+        private Timer deplayedTimer = new Timer() { Enabled = false, Interval = 3000 };
         //private bool isPollingPaused = false;
         private bool isPollingEnabled = true;
         #endregion
@@ -160,14 +161,12 @@ namespace QuickMon
         private void MainForm_Load(object sender, EventArgs e)
         {
             bool stickyLocationUsed = false;
-            if (!StartWithNewMonitorPack && 
-                Properties.Settings.Default.LastMonitorPack != null && 
-                System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
+            if (!StartWithNewMonitorPack && Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
             {
-                stickyLocationUsed = MPStickyLoad(Properties.Settings.Default.LastMonitorPack);
+                stickyLocationUsed = MPStickyLoad2(Properties.Settings.Default.LastMonitorPack);
             }
 
-            if (!stickyLocationUsed)
+            if (!stickyLocationUsed) //!IsStickyMP()) //stickyLocationUsed)
             {
                 if ((Properties.Settings.Default.MainWindowLocation.X == 0) && (Properties.Settings.Default.MainWindowLocation.Y == 0)
                     && (Properties.Settings.Default.MainWindowSize.Width == 0))
@@ -207,15 +206,6 @@ namespace QuickMon
             adminModeToolStripStatusLabel.Visible = Security.UACTools.IsInAdminMode();
             adminModeToolStripMenuItem.Visible = !Security.UACTools.IsInAdminMode();
             cmdAdminMode.Visible = !Security.UACTools.IsInAdminMode();
-
-            //if (StartWithSelectRecent)
-            //{
-            //    SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
-            //    if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
-            //    {
-            //        Properties.Settings.Default.LastMonitorPack = selectRecentMonitorPackDialog.SelectedMonitorPack;
-            //    }                
-            //}
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
@@ -227,8 +217,10 @@ namespace QuickMon
             try
             {
                 InitializeGlobalPerformanceCounters();
+
+                //bool stickyLocationUsed = false;
                 if (!StartWithNewMonitorPack && Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
-                {
+                {                
                     LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
                 }
                 else
@@ -236,7 +228,43 @@ namespace QuickMon
                     monitorPack = null;
                     NewMonitorPack();
                 }
-                if (monitorPack != null)                
+
+                //if (!stickyLocationUsed)
+                //{
+                //    if ((Properties.Settings.Default.MainWindowLocation.X == 0) && (Properties.Settings.Default.MainWindowLocation.Y == 0)
+                //        && (Properties.Settings.Default.MainWindowSize.Width == 0))
+                //    {
+                //        this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
+                //    }
+                //    else if (Properties.Settings.Default.MainWindowStartLocationPersistent)
+                //    {
+                //        this.Location = Properties.Settings.Default.MainWindowLocation;
+                //        this.Size = Properties.Settings.Default.MainWindowSize;
+                //    }
+                //    else
+                //    {
+                //        this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
+                //    }
+                //}
+
+
+                //if (monitorPack == null)
+                //{
+                //    NewMonitorPack();
+                //}
+
+
+
+                //if (!StartWithNewMonitorPack && Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
+                //{
+                //    LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
+                //}
+                //else
+                //{
+                //    monitorPack = null;
+                //    NewMonitorPack();
+                //}
+                if (monitorPack != null)
                     monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
                 UpdatePauseButton();
             }
@@ -245,7 +273,6 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             tvwCollectors.Focus();
-            ResumePolling();
         }
 
         private static void CreateJumplist()
@@ -361,10 +388,20 @@ namespace QuickMon
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            isPollingEnabled = false;
             if (monitorPack != null)
             {
+                monitorPack.AbortPolling = true;
                 MPStickySave();
+                ShowMessageDialog showMessageDialog = new ShowMessageDialog();
+                if (monitorPack.PersistCollectorStateHistory)                
+                    showMessageDialog.MessageToShow = "Closing monitor pack/Saving collector histories. Please wait...";                
+                else 
+                    showMessageDialog.MessageToShow = "Closing monitor pack. Please wait...";
+                showMessageDialog.Show();
+                Application.DoEvents();
                 monitorPack.CloseMonitorPack();
+                showMessageDialog.Close();
             }
             PerformCleanShutdown();
         }
@@ -766,12 +803,12 @@ namespace QuickMon
             {
                 if ($"{monitorPack.Name}" != "")
                 {
-                    if (monitorPack.IsBusyPolling)
+                    if (!monitorPack.IsBusyPolling || MessageBox.Show("There are still collectors updating!\r\nContinue anyway?", "Collector history", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                     {
-                        MessageBox.Show("There are still collectors updating!\r\nPlease wait until they have finished.", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                    else
-                    {
+                    //    MessageBox.Show("There are still collectors updating!\r\nPlease wait until they have finished.", "Collector history", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    //}
+                    //else
+                    //{
                         try
                         {
                             monitorPack.SaveMonitorPackHistory();
@@ -975,6 +1012,7 @@ namespace QuickMon
                         toolStripStatusLabelStatus.Text = msg;
                         toolTip1.SetToolTip(statusStrip1, msg);
                     }
+                    Application.DoEvents();
                 }
             }
             catch { }
@@ -1488,6 +1526,7 @@ namespace QuickMon
                 splitButtonSave.ButtonText = "";
                 splitButtonCollectors.ButtonText = "";
                 splitButtonNotifiers.ButtonText = "";
+                cmdVariables.Text = "";
                 splitButtonRecent.ButtonText = "";
                 cmdSettings.Text = "";
                 cmdTemplates.Text = "";                
@@ -1509,6 +1548,7 @@ namespace QuickMon
                 splitButtonSave.ButtonText = nbsp + "Save";
                 splitButtonCollectors.ButtonText = nbsp + "Collectors";
                 splitButtonNotifiers.ButtonText = nbsp + "Notifiers";
+                cmdVariables.Text = nbsp + "Variables";
                 splitButtonRecent.ButtonText = nbsp + "Recent";
                 cmdSettings.Text = nbsp + "Settings";
                 cmdTemplates.Text = nbsp + "Templates";                
@@ -1713,6 +1753,67 @@ namespace QuickMon
                 RefreshMonitorPack(true, true);
             }
         }
+        private bool IsStickyMP()
+        {
+            bool isSticky = false;
+            if (monitorPack != null)
+            {
+                string monitorPackPath = $"{monitorPack.MonitorPackPath}";
+                string qmAppDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
+                string mpUISettingsName = System.IO.Path.GetFileNameWithoutExtension(monitorPackPath);
+                string mpUISettingsPath = System.IO.Path.Combine(qmAppDataPath, mpUISettingsName + ".uisettings");
+                isSticky = monitorPack.EnableStickyMainWindowLocation;
+            }
+            return isSticky;
+        }
+        private bool MPStickyLoad2(string monitorPackPath)
+        {
+            bool loaded = false;
+            try
+            {
+                MonitorPack tmpMP = null;
+                if (System.IO.File.Exists(monitorPackPath))
+                {
+                    tmpMP = new MonitorPack();
+                    tmpMP.Load(monitorPackPath);
+                }
+
+                if (monitorPackPath == "" & monitorPack != null)
+                {
+                    monitorPackPath = monitorPack.MonitorPackPath;
+                }
+
+                if (monitorPackPath != "")
+                {
+                    string qmAppDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
+                    string mpUISettingsName = System.IO.Path.GetFileNameWithoutExtension(monitorPackPath);
+                    string mpUISettingsPath = System.IO.Path.Combine(qmAppDataPath, mpUISettingsName + ".uisettings");
+                    bool useStickyPosition = false;
+                    if (monitorPack == null)
+                    {
+                        useStickyPosition = System.IO.File.Exists(mpUISettingsPath);
+                    }
+                    else
+                    {
+                        useStickyPosition = tmpMP.EnableStickyMainWindowLocation;
+                    }
+
+                    if (useStickyPosition && System.IO.File.Exists(mpUISettingsPath))
+                    {
+                        MonitorPackUISettings mpUISettings = new MonitorPackUISettings();
+                        mpUISettings.Load(mpUISettingsPath);
+                        if ((mpUISettings.Width > 0) && (mpUISettings.Height > 0))
+                        {
+                            this.Location = new Point(mpUISettings.LocationX, mpUISettings.LocationY);
+                            this.Size = new Size(mpUISettings.Width, mpUISettings.Height);
+                            loaded = true;
+                        }
+                    }
+                }
+            }
+            catch { }
+            return loaded;
+        }
         private bool MPStickyLoad(string monitorPackPath = "")
         {
             bool loaded = false;
@@ -1748,36 +1849,14 @@ namespace QuickMon
                     {
                         MonitorPackUISettings mpUISettings = new MonitorPackUISettings();
                         mpUISettings.Load(mpUISettingsPath);
-                        if (
-                            (mpUISettings.Width > 0) && (mpUISettings.Height > 0)
-                            )
+                        if ((mpUISettings.Width > 0) && (mpUISettings.Height > 0))
                         {
                             this.Location = new Point(mpUISettings.LocationX, mpUISettings.LocationY);
                             this.Size = new Size(mpUISettings.Width, mpUISettings.Height);
                             loaded = true;
                         }
                     }
-                }
-                
-                //if (monitorPack != null && monitorPack.EnableStickyMainWindowLocation)
-                //{
-                //    string qmAppDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
-                //    string mpUISettingsName = System.IO.Path.GetFileNameWithoutExtension(monitorPackPath);
-                //    string mpUISettingsPath = System.IO.Path.Combine(qmAppDataPath, mpUISettingsName + ".uisettings");
-                //    if (System.IO.File.Exists(mpUISettingsPath))
-                //    {
-                //        MonitorPackUISettings mpUISettings = new MonitorPackUISettings();
-                //        mpUISettings.Load(mpUISettingsPath);
-                //        if (
-                //            (mpUISettings.Width > 0) && (mpUISettings.Height > 0)
-                //            )
-                //        {
-                //            this.Location = new Point(mpUISettings.LocationX, mpUISettings.LocationY);
-                //            this.Size = new Size(mpUISettings.Width, mpUISettings.Height);
-                //            loaded = true;
-                //        }
-                //    }
-                //}
+                }                
             }
             catch { }
             return loaded;
@@ -1916,6 +1995,7 @@ namespace QuickMon
                 {
                     try
                     {
+                        UpdateStatusbar("Closing previous monitor pack");
                         CloseAllMPDetailWindows();
                         WaitForPollingToFinish(5);
                         MPStickySave();
@@ -1928,19 +2008,10 @@ namespace QuickMon
                     }
                 }
                 monitorPack = new MonitorPack();
-
                 monitorPack.Load(monitorPackPath);
-                if (monitorPack.PersistCollectorStateHistory) //if enabled now try to load the history
-                {
-                    try
-                    {
-                        MHIHandler.LoadMonitorPackHistory(monitorPack);
-                    }
-                    catch(Exception ex)
-                    {
-                        MessageBox.Show($"There was a problem loading the Collector History entries!\r\n{ex.Message}", "Collector History", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                MPStickyLoad();
+                LoadControlsFromMonitorPack();
+
                 monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
                 foreach (var ch in monitorPack.CollectorHosts.GroupBy(c => c.UniqueId))
                 {
@@ -1955,8 +2026,31 @@ namespace QuickMon
                     }
                 }
 
-                MPStickyLoad();
-                LoadControlsFromMonitorPack();
+                if (monitorPack.PersistCollectorStateHistory) //if enabled now try to load the history
+                {
+                    UpdateStatusbar("Loading Collector histories...");
+                    ShowMessageDialog showMessageDialog = new ShowMessageDialog();
+                    showMessageDialog.MessageToShow = "Loading collector histories. Please wait...";                    
+                    showMessageDialog.Show();
+                    Application.DoEvents();
+
+                    Stopwatch hisWatch = new Stopwatch();
+                    hisWatch.Start();
+                    try
+                    {
+                        MHIHandler.LoadMonitorPackHistory(monitorPack);
+                        hisWatch.Stop();
+                        UpdateStatusbar($"Collector histories loaded in {hisWatch.Elapsed.TotalSeconds.ToString("0.00")} sec(s)");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"There was a problem loading the Collector History entries!\r\n{ex.Message}", "Collector History", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    showMessageDialog.Close();
+
+
+                }
+
                 SetMonitorPackEvents();
 
                 AddMonitorPackFileToRecentList(monitorPackPath);
@@ -2124,6 +2218,7 @@ namespace QuickMon
                 monitorPack.ApplicationUserNameCacheMasterKey = Properties.Settings.Default.ApplicationMasterKey;
 
                 monitorPack.HistoryLoading += MonitorPack_HistoryLoading;
+                monitorPack.HistorySaving += MonitorPack_HistorySaving;
                 monitorPack.HistorySaved += MonitorPack_HistorySaved;
                 monitorPack.HistorySaveError += MonitorPack_HistorySaveError;
             }
@@ -2484,12 +2579,18 @@ namespace QuickMon
                 UpdateStatusbar(message);
             });
         }
+        private void MonitorPack_HistorySaving(string message)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                UpdateStatusbar(message);
+            });
+        }
         private void MonitorPack_HistorySaved(string message)
         {
             this.Invoke((MethodInvoker)delegate
             {
                 UpdateStatusbar(message);
-                //MessageBox.Show(message, "Collector history saving", MessageBoxButtons.OK, MessageBoxIcon.Information);
             });
         }
 
@@ -2801,7 +2902,8 @@ namespace QuickMon
 
             if (startImmediately)
             {
-                RefreshMonitorPack(false, true);
+                //RefreshMonitorPack(false, true);
+                DelayStartMonitorPack();
             }
             else
             {
@@ -2818,6 +2920,23 @@ namespace QuickMon
             UpdateAppTitle();
             UpdatePauseButton();
         }
+
+        private void DelayStartMonitorPack()
+        {
+            deplayedTimer = new Timer() { Enabled = false, Interval = 1000 };
+            deplayedTimer.Tick += DeplayerTimer_Tick;
+            deplayedTimer.Enabled = true;
+        }
+
+        private void DeplayerTimer_Tick(object sender, EventArgs e)
+        {
+            deplayedTimer.Enabled = false;
+            this.Invoke((MethodInvoker)delegate
+            {
+                RefreshMonitorPack(false, true);
+            });
+        }
+
         private void SetApplicationPollingFrequency(int frequencySec)
         {
             Properties.Settings.Default.OverridesMonitorPackFrequency = true;
@@ -3389,9 +3508,6 @@ namespace QuickMon
                 }
             }
         }
-
-
-
 
         #endregion
 
