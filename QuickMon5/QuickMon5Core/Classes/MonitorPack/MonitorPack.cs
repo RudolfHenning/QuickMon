@@ -826,9 +826,11 @@ namespace QuickMon
             {
                 SaveMonitorPackHistory();
             }
-
+            MonitorPackEventReported?.Invoke("Closing hosts...");
             CloseCollectorHosts();
+            MonitorPackEventReported?.Invoke("Closing Performance counters...");
             ClosePerformanceCounters();
+            MonitorPackEventReported?.Invoke("Closing Logging...");
             LoggingMonitorPackClosed();
         }
         private void CloseCollectorHosts()
@@ -843,10 +845,17 @@ namespace QuickMon
         #region Collector History Persistence
         public void LoadMonitorPackHistory(bool addHistory = false)
         {
+            Stopwatch sw = new Stopwatch();
             HistoryLoading?.Invoke($"Start loading collector histories for '{Name}'");
             //make sure polling is done.
+            sw.Start();
             WaitWhileStillPolling();
+            sw.Stop();
+            Trace.WriteLine($"LoadMonitorPackHistory > WaitWhileStillPolling > {sw.ElapsedMilliseconds} ms");
+            sw.Restart();
             string inputPath = MHIHandler.GetMonitorPackMHIFile(this);
+            sw.Stop();
+            Trace.WriteLine($"LoadMonitorPackHistory > GetMonitorPackMHIFile > {sw.ElapsedMilliseconds} ms");
             if (System.IO.File.Exists(inputPath))
             {
                 lock (locker)
@@ -856,8 +865,12 @@ namespace QuickMon
                     int monitorStatesLoaded = 0;
 
                     MonitorPackHistoryExport monitorPackHistoryExport = new MonitorPackHistoryExport();
+                    sw.Restart();
                     monitorPackHistoryExport.FromXml(System.IO.File.ReadAllText(inputPath));
+                    sw.Stop();
+                    Trace.WriteLine($"LoadMonitorPackHistory > monitorPackHistoryExport.FromXml > {sw.ElapsedMilliseconds} ms");
 
+                    sw.Restart();
                     foreach (CollectorHistoryExport collectorHistoryExport in monitorPackHistoryExport.CollectorHistoryExports)
                     {
                         CollectorHost ch = CollectorHosts.FirstOrDefault(c => c.UniqueId == collectorHistoryExport.CollectorUniqueId);
@@ -881,6 +894,8 @@ namespace QuickMon
                             ch.StateHistory.AddRange(list.OrderBy(m => m.Timestamp).Take(CollectorStateHistorySize));
                         }
                     }
+                    sw.Stop();
+                    Trace.WriteLine($"LoadMonitorPackHistory > Adding histories to Collectors > {sw.ElapsedMilliseconds} ms");
                     HistoryLoaded?.Invoke($"{monitorPackHistoryExport.CollectorHistoryExports.Count} collector(s) histories imported from {inputPath}. {collectorsLoaded} collectors loaded. {monitorStatesLoaded} monitor states loaded.");
                 }
             }

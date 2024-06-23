@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -50,11 +51,18 @@ namespace QuickMon
         }
         public static void LoadMonitorPackHistory(MonitorPack monitorPack, bool addHistory = false)
         {
+            Stopwatch sw = new Stopwatch();
             if (monitorPack != null)
             {
                 //make sure polling is done.
+                sw.Start();
                 monitorPack.WaitWhileStillPolling();
+                sw.Stop();
+                Trace.WriteLine($"MHIHandler.LoadMonitorPackHistory > WaitWhileStillPolling > {sw.ElapsedMilliseconds} ms");
+                sw.Restart();
                 string inputPath = GetMonitorPackMHIFile(monitorPack);
+                sw.Stop();
+                Trace.WriteLine($"MHIHandler.LoadMonitorPackHistory > GetMonitorPackMHIFile > {sw.ElapsedMilliseconds} ms");
                 if (System.IO.File.Exists(inputPath))
                 {
                     lock (locker)
@@ -63,8 +71,12 @@ namespace QuickMon
                         int monitorStatesLoaded = 0;
 
                         MonitorPackHistoryExport monitorPackHistoryExport = new MonitorPackHistoryExport();
+                        sw.Restart();
                         monitorPackHistoryExport.FromXml(System.IO.File.ReadAllText(inputPath));
+                        sw.Stop();
+                        Trace.WriteLine($"MHIHandler.LoadMonitorPackHistory > monitorPackHistoryExport.FromXml > {sw.ElapsedMilliseconds} ms");
 
+                        sw.Restart();
                         foreach (CollectorHistoryExport collectorHistoryExport in monitorPackHistoryExport.CollectorHistoryExports)
                         {
                             CollectorHost ch = monitorPack.CollectorHosts.FirstOrDefault(c => c.UniqueId == collectorHistoryExport.CollectorUniqueId);
@@ -80,12 +92,15 @@ namespace QuickMon
                                         MonitorState ms = new MonitorState();
                                         ms.FromCXml(hi);
                                         ch.StateHistory.Add(ms);
-                                        monitorStatesLoaded++;
+                                        monitorStatesLoaded++;                                        
                                     }
                                     catch { }
                                 }
+                                monitorPack.RaiseCollectorHistoryLoaded(ch);
                             }
                         }
+                        sw.Stop();
+                        Trace.WriteLine($"LoadMonitorPackHistory > Adding histories to Collectors > {sw.ElapsedMilliseconds} ms");
                     }
                 }
             }

@@ -27,5 +27,25 @@ namespace QuickMon
         {
             Close();
         }
+
+        private void ShowMessageDialog_Load(object sender, EventArgs e)
+        {
+            lblActivity.Text = "";
+            timerActivity.Enabled = true;
+        }
+
+        private void ShowMessageDialog_Shown(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void timerActivity_Tick(object sender, EventArgs e)
+        {            
+            this.Invoke((MethodInvoker)delegate
+            {
+                lblActivity.Text += "*";
+                Application.DoEvents();
+            });
+        }
     }
 }

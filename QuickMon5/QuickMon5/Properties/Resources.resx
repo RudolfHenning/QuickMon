@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Err" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Error32x32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="helpbwy24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\helpbwy24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -154,14 +151,14 @@
   <data name="Down16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Down16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="QMIcon2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMIcon2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="tools24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tools24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="folderOpen16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folderOpen16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="QM4BlueStateWarnA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QM4BlueStateWarnA.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -177,6 +174,9 @@
   </data>
   <data name="menu-alt-16w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu-alt-16w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Collectors24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Collectors24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="QM4BlueStateNAA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QM4BlueStateNAA.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -196,8 +196,8 @@
   <data name="pastewithedit24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pastewithedit24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="doc_new16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_new16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="QMIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BlankTemplateCollectorHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BlankTemplateCollectorHost.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -262,11 +262,17 @@
   <data name="QM5Splash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QM5Splash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Up16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Up16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cubes24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cubes24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="save1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="doc_var" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doc_var.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="triang_yellow24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\triang_yellow24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -283,8 +289,8 @@
   <data name="cubes3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cubes3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tools16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tools16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="doc_var-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doc_var-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="refresh24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -370,6 +376,9 @@
   <data name="ok16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ok16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Shield24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shield24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="QMSplash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QMSplash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -394,8 +403,8 @@
   <data name="131" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\131.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ok.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Err" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Error32x32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="OUTLLIBR_9825" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OUTLLIBR_9825.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -409,8 +418,8 @@
   <data name="DownTriAngleBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DownTriAngleBlue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="triang_yellow16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\triang_yellow16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="tools16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tools16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CLOCK02" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CLOCK02.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -433,11 +442,14 @@
   <data name="proc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\proc2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="doc_remove3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_remove3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="doc_new16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doc_new16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="QuickMon5Background2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QuickMon5Background2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FireWallRule" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FireWallRule.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="ok24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ok24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -454,9 +466,6 @@
   <data name="clock1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clock1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="doc_var-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_var-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="DocExport" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DocExport.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -466,8 +475,8 @@
   <data name="Blue3DGearEdit24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Blue3DGearEdit24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Shield24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Shield24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="triang_red24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\triang_red24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="info" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\info.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -481,20 +490,20 @@
   <data name="smlrightTriangle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\smlrightTriangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Collectors24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Collectors24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="LineGraph" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LineGraph.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Up16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Up16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Panes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Panes.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="scroll24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\scroll24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="doc_var" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_var.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="folderOpen16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folderOpen16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LineGraph" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LineGraph.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ok.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="folderOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folderOpen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -505,8 +514,8 @@
   <data name="lightningblue2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lightningblue2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="triang_red24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\triang_red24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="doc_remove3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doc_remove3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pastewithedit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pastewithedit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -514,10 +523,10 @@
   <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FireWallRule" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FireWallRule.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="triang_yellow16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\triang_yellow16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Panes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Panes.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="QMIcon3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMIcon3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

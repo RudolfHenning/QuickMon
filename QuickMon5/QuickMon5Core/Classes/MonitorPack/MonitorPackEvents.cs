@@ -296,6 +296,11 @@ namespace QuickMon
         public event SimpleMessageDelegate HistorySaving;
         public event SimpleMessageDelegate HistorySaved;
         public event SimpleMessageDelegate HistorySaveError;
+        public event SimpleMessageDelegate CollectorHistoryLoaded;
+        public void RaiseCollectorHistoryLoaded(CollectorHost collectorHost)
+        {
+            CollectorHistoryLoaded?.Invoke($"History loaded for {collectorHost.Name}");
+        }
         #endregion
     }
 }

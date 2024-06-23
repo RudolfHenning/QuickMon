@@ -393,15 +393,18 @@ namespace QuickMon
             {
                 monitorPack.AbortPolling = true;
                 MPStickySave();
-                ShowMessageDialog showMessageDialog = new ShowMessageDialog();
-                if (monitorPack.PersistCollectorStateHistory)                
-                    showMessageDialog.MessageToShow = "Closing monitor pack/Saving collector histories. Please wait...";                
-                else 
-                    showMessageDialog.MessageToShow = "Closing monitor pack. Please wait...";
-                showMessageDialog.Show();
-                Application.DoEvents();
+                ShowMessageDialog showMessageDialog = null;
+                if (monitorPack.PersistCollectorStateHistory)
+                {
+                    showMessageDialog = new ShowMessageDialog();
+                    showMessageDialog.MessageToShow = $"{monitorPack.Name}\r\nClosing monitor pack/Saving collector histories. Please wait...";
+                    showMessageDialog.Show();
+                    Application.DoEvents();
+                }
+                
                 monitorPack.CloseMonitorPack();
-                showMessageDialog.Close();
+                if (showMessageDialog != null)
+                    showMessageDialog.Close();
             }
             PerformCleanShutdown();
         }
@@ -433,7 +436,6 @@ namespace QuickMon
                 }
                 if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    //CloseAllDetailWindows();
                     CloseAllMPDetailWindows();
                     LoadMonitorPack(openFileDialogOpen.FileName);
                     RefreshMonitorPack(true, true);
@@ -1956,11 +1958,11 @@ namespace QuickMon
 
             if (isNewMonitorPack)
             {
-                monitorPack.MonitorPackPath = "";
-                LoadControlsFromMonitorPack();
+                monitorPack.MonitorPackPath = "";                
                 monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
                 monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
                 SetMonitorPackEvents();
+                LoadControlsFromMonitorPack();
                 monitorPackChanged = false;
                 if (!Properties.Settings.Default.UseTemplatesForNewObjects)
                     EditMonitorSettings();
@@ -1994,12 +1996,24 @@ namespace QuickMon
                 if (monitorPack != null)
                 {
                     try
-                    {
+                    {                        
                         UpdateStatusbar("Closing previous monitor pack");
+                        monitorPack.AbortPolling = true;
                         CloseAllMPDetailWindows();
                         WaitForPollingToFinish(5);
                         MPStickySave();
+
+                        ShowMessageDialog showMessageDialog = null;
+                        if (monitorPack.PersistCollectorStateHistory)
+                        {
+                            showMessageDialog = new ShowMessageDialog();
+                            showMessageDialog.MessageToShow = $"{monitorPack.Name}\r\nClosing monitor pack/Saving collector histories. Please wait...";
+                            showMessageDialog.Show();
+                            Application.DoEvents();
+                        }
                         monitorPack.CloseMonitorPack();
+                        if (showMessageDialog != null)
+                            showMessageDialog.Close();
                     }
                     catch { }
                     finally
@@ -2010,7 +2024,8 @@ namespace QuickMon
                 monitorPack = new MonitorPack();
                 monitorPack.Load(monitorPackPath);
                 MPStickyLoad();
-                LoadControlsFromMonitorPack();
+                SetMonitorPackEvents();
+                LoadControlsFromMonitorPack();                
 
                 monitorPack.ScriptsRepositoryDirectory = Properties.Settings.Default.ScriptRepositoryDirectory;
                 foreach (var ch in monitorPack.CollectorHosts.GroupBy(c => c.UniqueId))
@@ -2030,7 +2045,7 @@ namespace QuickMon
                 {
                     UpdateStatusbar("Loading Collector histories...");
                     ShowMessageDialog showMessageDialog = new ShowMessageDialog();
-                    showMessageDialog.MessageToShow = "Loading collector histories. Please wait...";                    
+                    showMessageDialog.MessageToShow = $"{monitorPack.Name}\r\nLoading collector histories. Please wait...";                    
                     showMessageDialog.Show();
                     Application.DoEvents();
 
@@ -2051,7 +2066,7 @@ namespace QuickMon
 
                 }
 
-                SetMonitorPackEvents();
+                //SetMonitorPackEvents();
 
                 AddMonitorPackFileToRecentList(monitorPackPath);
                 try
@@ -2221,10 +2236,10 @@ namespace QuickMon
                 monitorPack.HistorySaving += MonitorPack_HistorySaving;
                 monitorPack.HistorySaved += MonitorPack_HistorySaved;
                 monitorPack.HistorySaveError += MonitorPack_HistorySaveError;
+                monitorPack.MonitorPackEventReported += MonitorPack_MonitorPackEventReported;
+                monitorPack.CollectorHistoryLoaded += MonitorPack_CollectorHistoryLoaded;
             }
-        }
-
-        
+        }        
 
         private bool SaveMonitorPack()
         {
@@ -2593,6 +2608,20 @@ namespace QuickMon
                 UpdateStatusbar(message);
             });
         }
+        private void MonitorPack_MonitorPackEventReported(string message)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                UpdateStatusbar(message);
+            });
+        }
+        private void MonitorPack_CollectorHistoryLoaded(string message)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                UpdateStatusbar(message);
+            });
+        }
 
         private void MonitorPack_HistorySaveError(string message)
         {
@@ -2692,8 +2721,6 @@ namespace QuickMon
                     autoRefreshTimer.Enabled = true;
                     autoRefreshTimer.Start();
                 }
-                //if (!isPollingPaused)
-                //    ResumePolling();
             }
         }
         private void refreshBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)

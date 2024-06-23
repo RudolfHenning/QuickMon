@@ -510,6 +510,9 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\QMIcon3.png" />
+    <None Include="Resources\QMIcon2.png" />
+    <None Include="Resources\QMIcon.png" />
     <None Include="Resources\Panes.png" />
     <None Include="Resources\doc_var-24.png" />
     <None Include="Resources\doc_var.png" />
