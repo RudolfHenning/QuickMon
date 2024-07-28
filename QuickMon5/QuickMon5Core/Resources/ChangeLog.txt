@@ -332,3 +332,8 @@ Collector graph window updated so filters are easier to work with.
 Version 5.3.25 (2024-06-22)
 **************
 Added more error handling and UI feedback for when loading and saving Monitor pack/Collector history.
+
+--------------
+Version 5.3.26 (2024-07-28)
+**************
+Added 'Allow http' 4xx and 5xx options to Ping collector.

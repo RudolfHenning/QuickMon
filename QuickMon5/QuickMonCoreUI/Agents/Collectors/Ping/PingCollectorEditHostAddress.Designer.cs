@@ -30,38 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PingCollectorEditHostAddress));
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmdCancel = new System.Windows.Forms.Button();
-            this.cmdOK = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtAddress = new System.Windows.Forms.TextBox();
-            this.cmdTestAddress = new System.Windows.Forms.Button();
-            this.txtDescription = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.nudExpextedTime = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.nudTimeOut = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.cboPingType = new System.Windows.Forms.ComboBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.httpGroupBox = new System.Windows.Forms.GroupBox();
-            this.cboHttpsProtocol = new System.Windows.Forms.ComboBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtHTMLContent = new System.Windows.Forms.TextBox();
-            this.txtProxyPassword = new System.Windows.Forms.TextBox();
-            this.txtProxyUsername = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.txtHTTPHeaderPassword = new System.Windows.Forms.TextBox();
-            this.txtHTTPHeaderUsername = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.chkIgnoreInvalidHTTPSCerts = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtHttpProxy = new System.Windows.Forms.TextBox();
+            this.chkVerifyOnOK = new System.Windows.Forms.CheckBox();
             this.socketPingGroupBox = new System.Windows.Forms.GroupBox();
             this.label21 = new System.Windows.Forms.Label();
             this.txtSocketPingMsgBody = new System.Windows.Forms.TextBox();
@@ -79,18 +50,49 @@
             this.label14 = new System.Windows.Forms.Label();
             this.nudPortNumber = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chkVerifyOnOK = new System.Windows.Forms.CheckBox();
+            this.httpGroupBox = new System.Windows.Forms.GroupBox();
+            this.chkAllowHTTP5xx = new System.Windows.Forms.CheckBox();
+            this.chkAllowHTTP4xx = new System.Windows.Forms.CheckBox();
             this.chkAllowHTTP3xx = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.httpGroupBox.SuspendLayout();
+            this.cboHttpsProtocol = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtHTMLContent = new System.Windows.Forms.TextBox();
+            this.txtProxyPassword = new System.Windows.Forms.TextBox();
+            this.txtProxyUsername = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtHTTPHeaderPassword = new System.Windows.Forms.TextBox();
+            this.txtHTTPHeaderUsername = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.chkIgnoreInvalidHTTPSCerts = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtHttpProxy = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cboPingType = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.nudTimeOut = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nudExpextedTime = new System.Windows.Forms.NumericUpDown();
+            this.cmdOK = new System.Windows.Forms.Button();
+            this.cmdTestAddress = new System.Windows.Forms.Button();
             this.socketPingGroupBox.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudSendTimeout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudReceiveTimeout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPortNumber)).BeginInit();
+            this.httpGroupBox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -107,366 +109,20 @@
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
-            // cmdOK
+            // chkVerifyOnOK
             // 
-            this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.Enabled = false;
-            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
-            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(290, 506);
-            this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 5;
-            this.cmdOK.Text = "OK";
-            this.cmdOK.UseVisualStyleBackColor = true;
-            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 46);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Host/address";
-            // 
-            // txtAddress
-            // 
-            this.txtAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAddress.Location = new System.Drawing.Point(103, 43);
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(340, 20);
-            this.txtAddress.TabIndex = 3;
-            this.txtAddress.TextChanged += new System.EventHandler(this.txtAddress_TextChanged);
-            // 
-            // cmdTestAddress
-            // 
-            this.cmdTestAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTestAddress.Enabled = false;
-            this.cmdTestAddress.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
-            this.cmdTestAddress.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
-            this.cmdTestAddress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdTestAddress.Location = new System.Drawing.Point(217, 506);
-            this.cmdTestAddress.Name = "cmdTestAddress";
-            this.cmdTestAddress.Size = new System.Drawing.Size(67, 23);
-            this.cmdTestAddress.TabIndex = 4;
-            this.cmdTestAddress.Text = "Test";
-            this.cmdTestAddress.UseVisualStyleBackColor = true;
-            this.cmdTestAddress.Click += new System.EventHandler(this.cmdTestAddress_Click);
-            // 
-            // txtDescription
-            // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(103, 69);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(340, 20);
-            this.txtDescription.TabIndex = 6;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 72);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Description";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 97);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Warning time";
-            // 
-            // nudExpextedTime
-            // 
-            this.nudExpextedTime.Increment = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.nudExpextedTime.Location = new System.Drawing.Point(103, 95);
-            this.nudExpextedTime.Maximum = new decimal(new int[] {
-            90000,
-            0,
-            0,
-            0});
-            this.nudExpextedTime.Name = "nudExpextedTime";
-            this.nudExpextedTime.Size = new System.Drawing.Size(60, 20);
-            this.nudExpextedTime.TabIndex = 8;
-            this.nudExpextedTime.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(169, 97);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(184, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "milliseconds (maximum time expected)";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(169, 123);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(161, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "milliseconds (time-out/abort ping)";
-            // 
-            // nudTimeOut
-            // 
-            this.nudTimeOut.Increment = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.nudTimeOut.Location = new System.Drawing.Point(103, 121);
-            this.nudTimeOut.Maximum = new decimal(new int[] {
-            90000,
-            0,
-            0,
-            0});
-            this.nudTimeOut.Name = "nudTimeOut";
-            this.nudTimeOut.Size = new System.Drawing.Size(60, 20);
-            this.nudTimeOut.TabIndex = 11;
-            this.nudTimeOut.Value = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 123);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Error time";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 18);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(66, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Ping method";
-            // 
-            // cboPingType
-            // 
-            this.cboPingType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboPingType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboPingType.FormattingEnabled = true;
-            this.cboPingType.Items.AddRange(new object[] {
-            "ICMP Ping",
-            "HTTP(S)",
-            "Socket"});
-            this.cboPingType.Location = new System.Drawing.Point(103, 15);
-            this.cboPingType.Name = "cboPingType";
-            this.cboPingType.Size = new System.Drawing.Size(337, 21);
-            this.cboPingType.TabIndex = 1;
-            this.cboPingType.SelectedIndexChanged += new System.EventHandler(this.cboPingType_SelectedIndexChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.cboPingType);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtAddress);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.nudTimeOut);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.txtDescription);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.nudExpextedTime);
-            this.groupBox1.Location = new System.Drawing.Point(3, 1);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(450, 155);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "General settings";
-            // 
-            // httpGroupBox
-            // 
-            this.httpGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.httpGroupBox.Controls.Add(this.chkAllowHTTP3xx);
-            this.httpGroupBox.Controls.Add(this.cboHttpsProtocol);
-            this.httpGroupBox.Controls.Add(this.label22);
-            this.httpGroupBox.Controls.Add(this.label20);
-            this.httpGroupBox.Controls.Add(this.txtHTMLContent);
-            this.httpGroupBox.Controls.Add(this.txtProxyPassword);
-            this.httpGroupBox.Controls.Add(this.txtProxyUsername);
-            this.httpGroupBox.Controls.Add(this.label18);
-            this.httpGroupBox.Controls.Add(this.label19);
-            this.httpGroupBox.Controls.Add(this.txtHTTPHeaderPassword);
-            this.httpGroupBox.Controls.Add(this.txtHTTPHeaderUsername);
-            this.httpGroupBox.Controls.Add(this.label16);
-            this.httpGroupBox.Controls.Add(this.label17);
-            this.httpGroupBox.Controls.Add(this.chkIgnoreInvalidHTTPSCerts);
-            this.httpGroupBox.Controls.Add(this.label8);
-            this.httpGroupBox.Controls.Add(this.txtHttpProxy);
-            this.httpGroupBox.Location = new System.Drawing.Point(3, 162);
-            this.httpGroupBox.Name = "httpGroupBox";
-            this.httpGroupBox.Size = new System.Drawing.Size(450, 204);
-            this.httpGroupBox.TabIndex = 1;
-            this.httpGroupBox.TabStop = false;
-            this.httpGroupBox.Text = "HTTP(S) Ping";
-            // 
-            // cboHttpsProtocol
-            // 
-            this.cboHttpsProtocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboHttpsProtocol.FormattingEnabled = true;
-            this.cboHttpsProtocol.Items.AddRange(new object[] {
-            "Ssl3",
-            "Tls",
-            "Tls11",
-            "Tls12"});
-            this.cboHttpsProtocol.Location = new System.Drawing.Point(308, 100);
-            this.cboHttpsProtocol.Name = "cboHttpsProtocol";
-            this.cboHttpsProtocol.Size = new System.Drawing.Size(91, 21);
-            this.cboHttpsProtocol.TabIndex = 12;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(229, 103);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(73, 13);
-            this.label22.TabIndex = 11;
-            this.label22.Text = "Https protocol";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(11, 151);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(87, 13);
-            this.label20.TabIndex = 14;
-            this.label20.Text = "Contains content";
-            // 
-            // txtHTMLContent
-            // 
-            this.txtHTMLContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtHTMLContent.Location = new System.Drawing.Point(116, 148);
-            this.txtHTMLContent.Multiline = true;
-            this.txtHTMLContent.Name = "txtHTMLContent";
-            this.txtHTMLContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtHTMLContent.Size = new System.Drawing.Size(321, 50);
-            this.txtHTMLContent.TabIndex = 15;
-            // 
-            // txtProxyPassword
-            // 
-            this.txtProxyPassword.Location = new System.Drawing.Point(308, 75);
-            this.txtProxyPassword.Name = "txtProxyPassword";
-            this.txtProxyPassword.PasswordChar = '*';
-            this.txtProxyPassword.Size = new System.Drawing.Size(91, 20);
-            this.txtProxyPassword.TabIndex = 9;
-            // 
-            // txtProxyUsername
-            // 
-            this.txtProxyUsername.Location = new System.Drawing.Point(116, 75);
-            this.txtProxyUsername.Name = "txtProxyUsername";
-            this.txtProxyUsername.Size = new System.Drawing.Size(91, 20);
-            this.txtProxyUsername.TabIndex = 7;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(249, 78);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(53, 13);
-            this.label18.TabIndex = 8;
-            this.label18.Text = "Password";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(26, 78);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(63, 13);
-            this.label19.TabIndex = 6;
-            this.label19.Text = "Proxy user *";
-            this.toolTip1.SetToolTip(this.label19, "The Proxy Username and Password does not always work if the Proxy server is on an" +
-        " AD domain. This functionality is provided \'as is\' for troubleshooting.");
-            // 
-            // txtHTTPHeaderPassword
-            // 
-            this.txtHTTPHeaderPassword.Location = new System.Drawing.Point(308, 19);
-            this.txtHTTPHeaderPassword.Name = "txtHTTPHeaderPassword";
-            this.txtHTTPHeaderPassword.PasswordChar = '*';
-            this.txtHTTPHeaderPassword.Size = new System.Drawing.Size(91, 20);
-            this.txtHTTPHeaderPassword.TabIndex = 3;
-            // 
-            // txtHTTPHeaderUsername
-            // 
-            this.txtHTTPHeaderUsername.Location = new System.Drawing.Point(116, 19);
-            this.txtHTTPHeaderUsername.Name = "txtHTTPHeaderUsername";
-            this.txtHTTPHeaderUsername.Size = new System.Drawing.Size(91, 20);
-            this.txtHTTPHeaderUsername.TabIndex = 1;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(249, 22);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(53, 13);
-            this.label16.TabIndex = 2;
-            this.label16.Text = "Password";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(11, 22);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(99, 13);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "HTTP Header User";
-            // 
-            // chkIgnoreInvalidHTTPSCerts
-            // 
-            this.chkIgnoreInvalidHTTPSCerts.AutoSize = true;
-            this.chkIgnoreInvalidHTTPSCerts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkIgnoreInvalidHTTPSCerts.Location = new System.Drawing.Point(32, 101);
-            this.chkIgnoreInvalidHTTPSCerts.Name = "chkIgnoreInvalidHTTPSCerts";
-            this.chkIgnoreInvalidHTTPSCerts.Size = new System.Drawing.Size(180, 17);
-            this.chkIgnoreInvalidHTTPSCerts.TabIndex = 10;
-            this.chkIgnoreInvalidHTTPSCerts.Text = "Ignore invalid HTTPS certificates";
-            this.chkIgnoreInvalidHTTPSCerts.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(11, 52);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 13);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "HTTP Proxy";
-            // 
-            // txtHttpProxy
-            // 
-            this.txtHttpProxy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtHttpProxy.Location = new System.Drawing.Point(116, 49);
-            this.txtHttpProxy.Name = "txtHttpProxy";
-            this.txtHttpProxy.Size = new System.Drawing.Size(283, 20);
-            this.txtHttpProxy.TabIndex = 5;
+            this.chkVerifyOnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkVerifyOnOK.AutoSize = true;
+            this.chkVerifyOnOK.Checked = true;
+            this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkVerifyOnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkVerifyOnOK.Location = new System.Drawing.Point(93, 510);
+            this.chkVerifyOnOK.Name = "chkVerifyOnOK";
+            this.chkVerifyOnOK.Size = new System.Drawing.Size(120, 17);
+            this.chkVerifyOnOK.TabIndex = 3;
+            this.chkVerifyOnOK.Text = "Test on clicking \'OK\'";
+            this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkVerifyOnOK.UseVisualStyleBackColor = true;
             // 
             // socketPingGroupBox
             // 
@@ -680,20 +336,56 @@
             this.label15.TabIndex = 0;
             this.label15.Text = "Port number";
             // 
-            // chkVerifyOnOK
+            // httpGroupBox
             // 
-            this.chkVerifyOnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkVerifyOnOK.AutoSize = true;
-            this.chkVerifyOnOK.Checked = true;
-            this.chkVerifyOnOK.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkVerifyOnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkVerifyOnOK.Location = new System.Drawing.Point(93, 510);
-            this.chkVerifyOnOK.Name = "chkVerifyOnOK";
-            this.chkVerifyOnOK.Size = new System.Drawing.Size(120, 17);
-            this.chkVerifyOnOK.TabIndex = 3;
-            this.chkVerifyOnOK.Text = "Test on clicking \'OK\'";
-            this.chkVerifyOnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkVerifyOnOK.UseVisualStyleBackColor = true;
+            this.httpGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.httpGroupBox.Controls.Add(this.txtHTTPHeaderPassword);
+            this.httpGroupBox.Controls.Add(this.chkAllowHTTP5xx);
+            this.httpGroupBox.Controls.Add(this.chkAllowHTTP4xx);
+            this.httpGroupBox.Controls.Add(this.chkAllowHTTP3xx);
+            this.httpGroupBox.Controls.Add(this.cboHttpsProtocol);
+            this.httpGroupBox.Controls.Add(this.label22);
+            this.httpGroupBox.Controls.Add(this.label20);
+            this.httpGroupBox.Controls.Add(this.txtHTMLContent);
+            this.httpGroupBox.Controls.Add(this.txtProxyPassword);
+            this.httpGroupBox.Controls.Add(this.txtProxyUsername);
+            this.httpGroupBox.Controls.Add(this.label18);
+            this.httpGroupBox.Controls.Add(this.label19);
+            this.httpGroupBox.Controls.Add(this.txtHTTPHeaderUsername);
+            this.httpGroupBox.Controls.Add(this.label16);
+            this.httpGroupBox.Controls.Add(this.label17);
+            this.httpGroupBox.Controls.Add(this.chkIgnoreInvalidHTTPSCerts);
+            this.httpGroupBox.Controls.Add(this.label8);
+            this.httpGroupBox.Controls.Add(this.txtHttpProxy);
+            this.httpGroupBox.Location = new System.Drawing.Point(3, 162);
+            this.httpGroupBox.Name = "httpGroupBox";
+            this.httpGroupBox.Size = new System.Drawing.Size(450, 204);
+            this.httpGroupBox.TabIndex = 1;
+            this.httpGroupBox.TabStop = false;
+            this.httpGroupBox.Text = "HTTP(S) Ping";
+            // 
+            // chkAllowHTTP5xx
+            // 
+            this.chkAllowHTTP5xx.AutoSize = true;
+            this.chkAllowHTTP5xx.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkAllowHTTP5xx.Location = new System.Drawing.Point(244, 124);
+            this.chkAllowHTTP5xx.Name = "chkAllowHTTP5xx";
+            this.chkAllowHTTP5xx.Size = new System.Drawing.Size(100, 17);
+            this.chkAllowHTTP5xx.TabIndex = 15;
+            this.chkAllowHTTP5xx.Text = "Allow HTTP 5xx";
+            this.chkAllowHTTP5xx.UseVisualStyleBackColor = true;
+            // 
+            // chkAllowHTTP4xx
+            // 
+            this.chkAllowHTTP4xx.AutoSize = true;
+            this.chkAllowHTTP4xx.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkAllowHTTP4xx.Location = new System.Drawing.Point(138, 124);
+            this.chkAllowHTTP4xx.Name = "chkAllowHTTP4xx";
+            this.chkAllowHTTP4xx.Size = new System.Drawing.Size(100, 17);
+            this.chkAllowHTTP4xx.TabIndex = 14;
+            this.chkAllowHTTP4xx.Text = "Allow HTTP 4xx";
+            this.chkAllowHTTP4xx.UseVisualStyleBackColor = true;
             // 
             // chkAllowHTTP3xx
             // 
@@ -705,6 +397,340 @@
             this.chkAllowHTTP3xx.TabIndex = 13;
             this.chkAllowHTTP3xx.Text = "Allow HTTP 3xx";
             this.chkAllowHTTP3xx.UseVisualStyleBackColor = true;
+            // 
+            // cboHttpsProtocol
+            // 
+            this.cboHttpsProtocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboHttpsProtocol.FormattingEnabled = true;
+            this.cboHttpsProtocol.Items.AddRange(new object[] {
+            "Ssl3",
+            "Tls",
+            "Tls11",
+            "Tls12"});
+            this.cboHttpsProtocol.Location = new System.Drawing.Point(308, 100);
+            this.cboHttpsProtocol.Name = "cboHttpsProtocol";
+            this.cboHttpsProtocol.Size = new System.Drawing.Size(91, 21);
+            this.cboHttpsProtocol.TabIndex = 12;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(229, 103);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(73, 13);
+            this.label22.TabIndex = 11;
+            this.label22.Text = "Https protocol";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(11, 151);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(87, 13);
+            this.label20.TabIndex = 16;
+            this.label20.Text = "Contains content";
+            // 
+            // txtHTMLContent
+            // 
+            this.txtHTMLContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtHTMLContent.Location = new System.Drawing.Point(116, 148);
+            this.txtHTMLContent.Multiline = true;
+            this.txtHTMLContent.Name = "txtHTMLContent";
+            this.txtHTMLContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtHTMLContent.Size = new System.Drawing.Size(321, 50);
+            this.txtHTMLContent.TabIndex = 17;
+            // 
+            // txtProxyPassword
+            // 
+            this.txtProxyPassword.Location = new System.Drawing.Point(308, 75);
+            this.txtProxyPassword.Name = "txtProxyPassword";
+            this.txtProxyPassword.PasswordChar = '*';
+            this.txtProxyPassword.Size = new System.Drawing.Size(91, 20);
+            this.txtProxyPassword.TabIndex = 9;
+            // 
+            // txtProxyUsername
+            // 
+            this.txtProxyUsername.Location = new System.Drawing.Point(116, 75);
+            this.txtProxyUsername.Name = "txtProxyUsername";
+            this.txtProxyUsername.Size = new System.Drawing.Size(91, 20);
+            this.txtProxyUsername.TabIndex = 7;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(249, 78);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(53, 13);
+            this.label18.TabIndex = 8;
+            this.label18.Text = "Password";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(26, 78);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(63, 13);
+            this.label19.TabIndex = 6;
+            this.label19.Text = "Proxy user *";
+            this.toolTip1.SetToolTip(this.label19, "The Proxy Username and Password does not always work if the Proxy server is on an" +
+        " AD domain. This functionality is provided \'as is\' for troubleshooting.");
+            // 
+            // txtHTTPHeaderPassword
+            // 
+            this.txtHTTPHeaderPassword.Location = new System.Drawing.Point(308, 19);
+            this.txtHTTPHeaderPassword.Name = "txtHTTPHeaderPassword";
+            this.txtHTTPHeaderPassword.PasswordChar = '*';
+            this.txtHTTPHeaderPassword.Size = new System.Drawing.Size(91, 20);
+            this.txtHTTPHeaderPassword.TabIndex = 3;
+            // 
+            // txtHTTPHeaderUsername
+            // 
+            this.txtHTTPHeaderUsername.Location = new System.Drawing.Point(116, 19);
+            this.txtHTTPHeaderUsername.Name = "txtHTTPHeaderUsername";
+            this.txtHTTPHeaderUsername.Size = new System.Drawing.Size(91, 20);
+            this.txtHTTPHeaderUsername.TabIndex = 1;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(249, 22);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(53, 13);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "Password";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(11, 22);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(99, 13);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "HTTP Header User";
+            // 
+            // chkIgnoreInvalidHTTPSCerts
+            // 
+            this.chkIgnoreInvalidHTTPSCerts.AutoSize = true;
+            this.chkIgnoreInvalidHTTPSCerts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkIgnoreInvalidHTTPSCerts.Location = new System.Drawing.Point(32, 101);
+            this.chkIgnoreInvalidHTTPSCerts.Name = "chkIgnoreInvalidHTTPSCerts";
+            this.chkIgnoreInvalidHTTPSCerts.Size = new System.Drawing.Size(180, 17);
+            this.chkIgnoreInvalidHTTPSCerts.TabIndex = 10;
+            this.chkIgnoreInvalidHTTPSCerts.Text = "Ignore invalid HTTPS certificates";
+            this.chkIgnoreInvalidHTTPSCerts.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(11, 52);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "HTTP Proxy";
+            // 
+            // txtHttpProxy
+            // 
+            this.txtHttpProxy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtHttpProxy.Location = new System.Drawing.Point(116, 49);
+            this.txtHttpProxy.Name = "txtHttpProxy";
+            this.txtHttpProxy.Size = new System.Drawing.Size(283, 20);
+            this.txtHttpProxy.TabIndex = 5;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.cboPingType);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.txtAddress);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.nudTimeOut);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.txtDescription);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.nudExpextedTime);
+            this.groupBox1.Location = new System.Drawing.Point(3, 1);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(450, 155);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "General settings";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 18);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Ping method";
+            // 
+            // cboPingType
+            // 
+            this.cboPingType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboPingType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboPingType.FormattingEnabled = true;
+            this.cboPingType.Items.AddRange(new object[] {
+            "ICMP Ping",
+            "HTTP(S)",
+            "Socket"});
+            this.cboPingType.Location = new System.Drawing.Point(103, 15);
+            this.cboPingType.Name = "cboPingType";
+            this.cboPingType.Size = new System.Drawing.Size(337, 21);
+            this.cboPingType.TabIndex = 1;
+            this.cboPingType.SelectedIndexChanged += new System.EventHandler(this.cboPingType_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 46);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Host/address";
+            // 
+            // txtAddress
+            // 
+            this.txtAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAddress.Location = new System.Drawing.Point(103, 43);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(340, 20);
+            this.txtAddress.TabIndex = 3;
+            this.txtAddress.TextChanged += new System.EventHandler(this.txtAddress_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(169, 123);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(161, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "milliseconds (time-out/abort ping)";
+            // 
+            // nudTimeOut
+            // 
+            this.nudTimeOut.Increment = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.nudTimeOut.Location = new System.Drawing.Point(103, 121);
+            this.nudTimeOut.Maximum = new decimal(new int[] {
+            90000,
+            0,
+            0,
+            0});
+            this.nudTimeOut.Name = "nudTimeOut";
+            this.nudTimeOut.Size = new System.Drawing.Size(60, 20);
+            this.nudTimeOut.TabIndex = 11;
+            this.nudTimeOut.Value = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(11, 72);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Description";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(11, 123);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Error time";
+            // 
+            // txtDescription
+            // 
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDescription.Location = new System.Drawing.Point(103, 69);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(340, 20);
+            this.txtDescription.TabIndex = 6;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(169, 97);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(184, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "milliseconds (maximum time expected)";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 97);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Warning time";
+            // 
+            // nudExpextedTime
+            // 
+            this.nudExpextedTime.Increment = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.nudExpextedTime.Location = new System.Drawing.Point(103, 95);
+            this.nudExpextedTime.Maximum = new decimal(new int[] {
+            90000,
+            0,
+            0,
+            0});
+            this.nudExpextedTime.Name = "nudExpextedTime";
+            this.nudExpextedTime.Size = new System.Drawing.Size(60, 20);
+            this.nudExpextedTime.TabIndex = 8;
+            this.nudExpextedTime.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // cmdOK
+            // 
+            this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdOK.Enabled = false;
+            this.cmdOK.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdOK.Location = new System.Drawing.Point(290, 506);
+            this.cmdOK.Name = "cmdOK";
+            this.cmdOK.Size = new System.Drawing.Size(75, 23);
+            this.cmdOK.TabIndex = 5;
+            this.cmdOK.Text = "OK";
+            this.cmdOK.UseVisualStyleBackColor = true;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
+            // 
+            // cmdTestAddress
+            // 
+            this.cmdTestAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdTestAddress.Enabled = false;
+            this.cmdTestAddress.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.cmdTestAddress.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.cmdTestAddress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdTestAddress.Location = new System.Drawing.Point(217, 506);
+            this.cmdTestAddress.Name = "cmdTestAddress";
+            this.cmdTestAddress.Size = new System.Drawing.Size(67, 23);
+            this.cmdTestAddress.TabIndex = 4;
+            this.cmdTestAddress.Text = "Test";
+            this.cmdTestAddress.UseVisualStyleBackColor = true;
+            this.cmdTestAddress.Click += new System.EventHandler(this.cmdTestAddress_Click);
             // 
             // PingCollectorEditHostAddress
             // 
@@ -728,12 +754,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Ping entry details";
             this.Load += new System.EventHandler(this.PingCollectorEditHostAddress_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.httpGroupBox.ResumeLayout(false);
-            this.httpGroupBox.PerformLayout();
             this.socketPingGroupBox.ResumeLayout(false);
             this.socketPingGroupBox.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -741,6 +761,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudSendTimeout)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudReceiveTimeout)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPortNumber)).EndInit();
+            this.httpGroupBox.ResumeLayout(false);
+            this.httpGroupBox.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -800,5 +826,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox cboHttpsProtocol;
         private System.Windows.Forms.CheckBox chkAllowHTTP3xx;
+        private System.Windows.Forms.CheckBox chkAllowHTTP5xx;
+        private System.Windows.Forms.CheckBox chkAllowHTTP4xx;
     }
 }

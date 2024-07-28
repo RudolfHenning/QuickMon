@@ -57,7 +57,7 @@ namespace QuickMon.Collectors
         public List<ICollectorConfigEntry> Entries { get; set; }
         #endregion
 
-        #region IAgentConfig Members
+        #region IAgentConfig Members (FromXml and ToXml)
         public void FromXml(string configurationString)
         {
             XmlDocument config = new XmlDocument();
@@ -107,6 +107,8 @@ namespace QuickMon.Collectors
                 hostEntry.IgnoreInvalidHTTPSCerts = host.ReadXmlElementAttr("ignoreInvalidHTTPSCerts", false);
                 hostEntry.HttpsSecurityProtocol = host.ReadXmlElementAttr("httpsSecurityProtocol");
                 hostEntry.AllowHTTP3xx = host.ReadXmlElementAttr("allowHTTP3xx", false);
+                hostEntry.AllowHTTP4xx = host.ReadXmlElementAttr("allowHTTP4xx", false);
+                hostEntry.AllowHTTP5xx = host.ReadXmlElementAttr("allowHTTP5xx", false);
                 hostEntry.SocketPingMsgBody = host.ReadXmlElementAttr("socketPingMsgBody", "QuickMon Ping Test");
                 hostEntry.PrimaryUIValue = host.ReadXmlElementAttr("primaryUIValue", false);
 
@@ -140,6 +142,8 @@ namespace QuickMon.Collectors
                 hostXmlNode.SetAttributeValue("ignoreInvalidHTTPSCerts", hostEntry.IgnoreInvalidHTTPSCerts);
                 hostXmlNode.SetAttributeValue("httpsSecurityProtocol", hostEntry.HttpsSecurityProtocol);
                 hostXmlNode.SetAttributeValue("allowHTTP3xx", hostEntry.AllowHTTP3xx);
+                hostXmlNode.SetAttributeValue("allowHTTP4xx", hostEntry.AllowHTTP4xx);
+                hostXmlNode.SetAttributeValue("allowHTTP5xx", hostEntry.AllowHTTP5xx);
                 hostXmlNode.SetAttributeValue("socketPingMsgBody", hostEntry.SocketPingMsgBody);
                 hostXmlNode.SetAttributeValue("primaryUIValue", hostEntry.PrimaryUIValue);
 
@@ -374,6 +378,8 @@ namespace QuickMon.Collectors
         public string HttpsSecurityProtocol { get; set; }
         public bool IgnoreInvalidHTTPSCerts { get; set; }
         public bool AllowHTTP3xx { get; set; }
+        public bool AllowHTTP4xx { get; set; } = false;
+        public bool AllowHTTP5xx { get; set; } = false;
         #endregion
 
         #region Socket ping
@@ -593,43 +599,67 @@ namespace QuickMon.Collectors
                     sw.Stop();
                 }
 
+                result.ResponseDetails = $"HTTP code: {httpCode} ({httpCodeStr})";
+                lastStep = "Checking httpCode";
                 if (httpCode < 300)
                 {
                     result.PingTime = (int)sw.ElapsedMilliseconds;
                     result.Success = true;
-                    //if (sw.ElapsedMilliseconds < TimeOutMS)
-                    //{
-                    //    result.Success = true;
-                    //}
-                    //else
-                    //{
-                    //    result.Success = false;
-                    //}
-                } 
-                else if (httpCode < 400 && !AllowHTTP3xx)
-                {
-                    result.PingTime = -1; // (int)sw.ElapsedMilliseconds;
-                    result.Success = false;
-                    result.ResponseDetails = $"HTTP code: {httpCode}";
                 }
                 else if (httpCode < 400)
                 {
-                    result.PingTime = (int)sw.ElapsedMilliseconds;
-                    result.Success = true;
-                    //result.ResponseDetails = $"HTTP code: {httpCode}";
+                    if (AllowHTTP3xx)
+                    {
+                        result.PingTime = (int)sw.ElapsedMilliseconds;
+                        result.Success = true;
+                    } 
+                    else
+                    {
+                        result.PingTime = -1;
+                        result.Success = false;
+                        //result.ResponseDetails = $"HTTP code: {httpCode}";
+                    }
                 }
+                else if (httpCode < 500)
+                {
+                    if (AllowHTTP4xx)
+                    {
+                        result.PingTime = (int)sw.ElapsedMilliseconds;
+                        result.Success = true;
+                    }
+                    else
+                    {
+                        result.PingTime = -1;
+                        result.Success = false;
+                        //result.ResponseDetails = $"HTTP code: {httpCode}";
+                    }
+                }
+                else if(httpCode < 600)
+                {
+                    if (AllowHTTP5xx)
+                    {
+                        result.PingTime = (int)sw.ElapsedMilliseconds;
+                        result.Success = true;
+                    }
+                    else
+                    {
+                        result.PingTime = -1;
+                        result.Success = false;
+                        //result.ResponseDetails = $"HTTP code: {httpCode}";
+                    }
+                }                
                 else
                 {
                     result.Success = false;
                     result.PingTime = -1;
-                    result.ResponseDetails = $"HTTP code: {httpCode}";
+                    //result.ResponseDetails = $"HTTP code: {httpCode}";
                 }
 
             }
             catch (Exception ex)
             {
                 result.Success = false;
-                result.PingTime = -1;
+                result.PingTime = -1;                
 
                 if (ex is System.Net.WebException)
                 {
@@ -657,6 +687,7 @@ namespace QuickMon.Collectors
                     else
                         result.ResponseDetails = lastStep + " " + ex.Message;
                 }
+                result.ResponseDetails += $"\r\nHTTP code: {httpCode} ({httpCodeStr})";
             }
             return result;
         }

@@ -43,9 +43,9 @@ namespace QuickMon
             // 
             this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdClose.BackColor = System.Drawing.Color.Transparent;
-            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.Firebrick;
+            this.cmdClose.FlatAppearance.BorderColor = System.Drawing.Color.LightSkyBlue;
             this.cmdClose.FlatAppearance.BorderSize = 0;
-            this.cmdClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
+            this.cmdClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCoral;
             this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdClose.ForeColor = System.Drawing.Color.CornflowerBlue;
@@ -109,8 +109,8 @@ namespace QuickMon
             this.BackgroundImage = global::QuickMon.Properties.Resources.QMIcon3;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(571, 119);
-            this.Controls.Add(this.lblMsg);
             this.Controls.Add(this.cmdClose);
+            this.Controls.Add(this.lblMsg);
             this.Controls.Add(this.groupBox1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

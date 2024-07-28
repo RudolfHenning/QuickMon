@@ -466,7 +466,6 @@ namespace QuickMon
         public string ReadFirstValue(bool includeUnit = true)
         {
             StringBuilder sb = new StringBuilder();
-            //if (CurrentValue != null)
             if ($"{CurrentValue}".Length > 0) // && ms.PrimaryUIValue)
                 {
                 string[] lines = CurrentValue.ToString().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
