@@ -337,3 +337,8 @@ Added more error handling and UI feedback for when loading and saving Monitor pa
 Version 5.3.26 (2024-07-28)
 **************
 Added 'Allow http' 4xx and 5xx options to Ping collector.
+
+--------------
+Version 5.3.27 (2025-01-01)
+**************
+Waiting time for Monitor pack to finish so Collector history can be safed set max 5 seconds.

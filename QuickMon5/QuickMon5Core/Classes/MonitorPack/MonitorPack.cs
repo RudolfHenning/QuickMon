@@ -361,9 +361,9 @@ namespace QuickMon
         {
             CollectorHostRefreshCurrentState(collectorHost, true, true);
         }
-        public void WaitWhileStillPolling()
+        public void WaitWhileStillPolling(int maxSecondsToWait = 60)
         {
-            int maxSecondsToWait = 60;
+            //int maxSecondsToWait = 60;
             DateTime start = DateTime.Now;
             System.Threading.Thread.Sleep(10);
             while (IsBusyPolling && DateTime.Now.Subtract(start).TotalSeconds < maxSecondsToWait)
@@ -904,7 +904,7 @@ namespace QuickMon
         {
             HistorySaving?.Invoke($"Starting saving collector histories.");
             //make sure it is not busy polling now
-            WaitWhileStillPolling();
+            WaitWhileStillPolling(5);
 
             int statesSaved = 0;
             lock (locker)
