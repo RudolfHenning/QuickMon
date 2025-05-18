@@ -12,7 +12,7 @@ using HenIT.Data;
 
 namespace QuickMon
 {
-    public partial class CollectorGraph :  FadeSnapForm, IChildWindowIdentity
+    public partial class CollectorGraph : FadeSnapForm, IChildWindowIdentity
     {
         public CollectorGraph()
         {
@@ -80,18 +80,20 @@ namespace QuickMon
             splitContainer1.Panel1Collapsed = !showFiltersToolStripButton.Checked;
             fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddDays(-1);
             toDateTimeChooser.SelectedDateTime = DateTime.Now;
+            cboTimeRangle.SelectedIndex = 0;
             cboGroupBy.SelectedIndex = 0;
             lvwCollectorStates.AutoResizeColumnEnabled = true;
             toolTip1.SetToolTip(txtTextFilter, "You can use advanced filters like:\r\n\tX and Y or Z\r\n\tNot X\r\n\tmatchexactly X\r\n\tstartswith X\r\n\tendswith X");
             LoadDefaultGraphSettings();
 
-            //graphTypeToolStripMenuItem.Visible = false;
             grapthColorsToolStripMenuItem.Visible = false;
             graphVisibilityToolStripMenuItem.Visible = false;
         }
         private void CollectorGraph_Shown(object sender, EventArgs e)
         {
+            SetTimeRange();
             LoadControls(true);
+            cboTimeRangle.SelectedIndex = 0;
         }
         private void CollectorGraph_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -106,7 +108,7 @@ namespace QuickMon
         }
         private void showFiltersToolStripButton_CheckStateChanged(object sender, EventArgs e)
         {
-            filterFlowLayoutPanel.Visible = showFiltersToolStripButton.Checked;            
+            filterFlowLayoutPanel.Visible = showFiltersToolStripButton.Checked;
         }
         private void showCollectorListToolStripButton_CheckStateChanged(object sender, EventArgs e)
         {
@@ -122,20 +124,20 @@ namespace QuickMon
                 exportedGraph.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
                 exportedGraph.Dispose();
             }
-        } 
+        }
         #endregion
 
         private void LoadControls(bool reloadList = false)
         {
-            DateTime fromTime = fromDateTimeChooser.SelectedDateTime;
-            DateTime toTime = toDateTimeChooser.SelectedDateTime;
-            DateTime autoStartDateTime = DateTime.Now.AddMinutes(-1);
-            DateTime autoEndDateTime = DateTime.Now;
+            //DateTime fromTime = fromDateTimeChooser.SelectedDateTime;
+            //DateTime toTime = toDateTimeChooser.SelectedDateTime;
+            //DateTime autoStartDateTime = DateTime.Now.AddMinutes(-1);
+            //DateTime autoEndDateTime = DateTime.Now;
 
-            long initialMax = (long)nudinitialMax.Value;
-            long maxValue = 1;
-            List<string> seriesNames = new List<string>();
-            List<GraphSeries> graphSeriesList = new List<GraphSeries>();
+            //long initialMax = (long)nudinitialMax.Value;
+            //long maxValue = 1;
+            //List<string> seriesNames = new List<string>();
+            //List<GraphSeries> graphSeriesList = new List<GraphSeries>();
 
             if (reloadList)
             {
@@ -158,7 +160,7 @@ namespace QuickMon
                         itm.SubItems.Add(ex.Message);
                         itm.ImageIndex = 10;
                     }
-                    list.Add(itm);                    
+                    list.Add(itm);
                 }
                 lvwCollectorStates.Items.Clear();
                 lvwCollectorStates.Items.AddRange(list.ToArray());
@@ -186,6 +188,103 @@ namespace QuickMon
                     }
                 }
             }
+
+            textFilterPanel.Visible = SelectedCollectors.Count > 1;
+
+            RefreshGraph();
+
+            //if (chkAutoFromTime.Checked)
+            //{
+            //    fromTime = DateTime.Now;
+            //    foreach (CollectorHost collector in SelectedCollectors)
+            //    {
+            //        if (collector.StateHistory != null && collector.StateHistory.Count > 0)
+            //        {
+            //            MonitorState mp = collector.StateHistory.OrderBy(h => h.Timestamp).FirstOrDefault();
+            //            if (fromTime > mp.Timestamp)
+            //            {
+            //                fromTime = mp.Timestamp;
+            //            }
+            //        }
+            //    }
+            //    fromDateTimeChooser.SelectedDateTime = fromTime;
+            //}
+            //if (chkAutoToTime.Checked)
+            //{
+            //    toTime = DateTime.Now;
+            //    toDateTimeChooser.SelectedDateTime = toTime;
+            //}
+
+            ////Making seriesses
+            //foreach (CollectorHost collector in SelectedCollectors)
+            //{
+            //    Color seriesColor = seriesColors[graphSeriesList.Count % seriesColors.Count];
+            //    GraphSeries series = SeriesFromCollector(collector, seriesColor, (int)nudLastXEntries.Value, fromTime, toTime);
+            //    if (series != null)
+            //    {
+            //        if (collector.StateHistory.Count > 0)
+            //        {
+            //            MonitorState ms = (from m in collector.StateHistory
+            //                               where m.Timestamp > fromTime &&
+            //                                m.ReadFirstValueUnit() != ""
+            //                               select m).FirstOrDefault();
+
+            //            if (ms != null)
+            //            {
+            //                series.ValueUnit = ms.ReadFirstValueUnit();
+            //            }
+            //        }
+
+            //        seriesNames.Add(series.Name);
+            //        float val = series.Values.OrderByDescending(v => v.Value).FirstOrDefault().Value;
+            //        if (maxValue < val)
+            //            maxValue = (long)val;
+            //        DateTime firstTime = series.Values.OrderBy(v => v.Time).FirstOrDefault().Time;
+            //        if (autoStartDateTime > firstTime)
+            //            autoStartDateTime = firstTime;
+            //        graphSeriesList.Add(series);
+            //    }
+            //}
+
+            //collectorTimeGraph.PauseUpdates();
+            //collectorTimeGraph.StartDateTime = fromTime;
+            //collectorTimeGraph.EndDateTime = toTime;
+            //collectorTimeGraph.MaxGraphValue = initialMax;
+            //collectorTimeGraph.Series = graphSeriesList;
+            //if (graphSeriesList == null || graphSeriesList.Count == 0)
+            //{
+            //    collectorTimeGraph.GraphHeaderText = "No Series!";
+            //    Text = $"Collector Graph";
+            //}
+            //else if (graphSeriesList.Count == 1)
+            //{
+            //    collectorTimeGraph.GraphHeaderText = graphSeriesList[0].Name;
+            //    Text = $"Collector Graph - {graphSeriesList[0].Name}";
+            //}
+            //else
+            //{
+            //    collectorTimeGraph.GraphHeaderText = $"Collectors graph";
+            //    Text = $"Collector Graph";
+            //}
+            //collectorTimeGraph.SetAutoMinMaxDateTimes(chkAutoFromTime.Checked, chkAutoToTime.Checked, chkAutoMaxValue.Checked);
+
+            //this.Invoke((MethodInvoker)delegate
+            //{
+            //    collectorTimeGraph.RefreshGraph();
+            //    string timeRange = $"Time range: {cboTimeRangle.SelectedItem}";
+            //    refreshDetailsToolStripStatusLabel.Text = $"Last updated: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},{timeRange}";
+            //});
+        }
+        private void RefreshGraph()
+        {
+            DateTime fromTime = fromDateTimeChooser.SelectedDateTime;
+            DateTime toTime = toDateTimeChooser.SelectedDateTime;
+            DateTime autoStartDateTime = DateTime.Now.AddMinutes(-1);
+            DateTime autoEndDateTime = DateTime.Now;
+            long initialMax = (long)nudinitialMax.Value;
+            long maxValue = 1;
+            List<string> seriesNames = new List<string>();
+            List<GraphSeries> graphSeriesList = new List<GraphSeries>();
 
             if (chkAutoFromTime.Checked)
             {
@@ -216,7 +315,7 @@ namespace QuickMon
                 GraphSeries series = SeriesFromCollector(collector, seriesColor, (int)nudLastXEntries.Value, fromTime, toTime);
                 if (series != null)
                 {
-                    if(collector.StateHistory.Count > 0)
+                    if (collector.StateHistory.Count > 0)
                     {
                         MonitorState ms = (from m in collector.StateHistory
                                            where m.Timestamp > fromTime &&
@@ -239,10 +338,6 @@ namespace QuickMon
                     graphSeriesList.Add(series);
                 }
             }
-
-            
-            
-
 
             collectorTimeGraph.PauseUpdates();
             collectorTimeGraph.StartDateTime = fromTime;
@@ -269,7 +364,8 @@ namespace QuickMon
             this.Invoke((MethodInvoker)delegate
             {
                 collectorTimeGraph.RefreshGraph();
-                refreshDetailsToolStripStatusLabel.Text = $"Last updated: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}";                
+                string timeRange = $"Time range: {cboTimeRangle.SelectedItem}";
+                refreshDetailsToolStripStatusLabel.Text = $"Last updated: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},{timeRange}";
             });
         }
         private GraphSeries SeriesFromCollector(CollectorHost collector, Color seriesColor, int lastXEntries, DateTime fromTime, DateTime toTime)
@@ -282,6 +378,22 @@ namespace QuickMon
                 List<TimeValue> filteredList = new List<TimeValue>();
                 if (lastXEntries == 0)
                     lastXEntries = collector.StateHistory.Count;
+
+                //In the case fromTime > than some older values grab the newest of those and insert as 'start' value
+                MonitorState prevAgentState = (from hsm in collector.StateHistory
+                                               where hsm.Timestamp < fromTime
+                                               orderby hsm.Timestamp descending
+                                               select hsm).FirstOrDefault();
+                if (prevAgentState != null)
+                {
+                    v = 0;
+                    stateValue = prevAgentState.ReadFirstValue(false);
+                    if (stateValue != null && float.TryParse(stateValue, out v))
+                    {
+                        filteredList.Add(new TimeValue() { Time = prevAgentState.Timestamp, Value = v });
+                    }
+                }
+
                 foreach (MonitorState agentState in (from hsm in collector.StateHistory
                                                      where hsm.Timestamp >= fromTime && hsm.Timestamp <= toTime
                                                      orderby hsm.Timestamp descending
@@ -306,7 +418,7 @@ namespace QuickMon
                 if (cboGroupBy.SelectedIndex <= 0)
                 {
                     series.Values.AddRange(filteredList);
-                } 
+                }
                 else
                 {
                     int groupByMinutes = 1;
@@ -413,7 +525,7 @@ namespace QuickMon
             selectCollectors.ExcludeCollectors = SelectedCollectors;
             if (selectCollectors.ShowDialog() == DialogResult.OK)
             {
-                foreach(CollectorHost collector in selectCollectors.SelectedCollectors)
+                foreach (CollectorHost collector in selectCollectors.SelectedCollectors)
                 {
                     SelectedCollectors.Add(collector);
                 }
@@ -424,7 +536,7 @@ namespace QuickMon
         private void removeCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //List<CollectorHost> collectorsToBeRemoved = new List<CollectorHost>();
-            foreach(ListViewItem lvi in lvwCollectorStates.SelectedItems)
+            foreach (ListViewItem lvi in lvwCollectorStates.SelectedItems)
             {
                 CollectorHost collector = (CollectorHost)lvi.Tag;
                 SelectedCollectors.Remove(collector);
@@ -533,7 +645,7 @@ namespace QuickMon
                 {
                     Clipboard.SetText(colorDialog.Color.Name);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     System.Diagnostics.Trace.WriteLine(ex.Message);
                 }
@@ -704,7 +816,117 @@ namespace QuickMon
         {
             txtTextFilter.Text = "";
             LoadControls();
-        } 
+        }
         #endregion
+
+        private void cboTimeRangle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetTimeRange($"{cboTimeRangle.SelectedItem}");
+        }
+        private void SetTimeRange()
+        {
+            SetTimeRange($"{cboTimeRangle.SelectedItem}");
+        }
+
+        private void SetTimeRangeAndRefesh(string rangeName)
+        {
+            SetTimeRange(rangeName);
+            RefreshGraph();
+        }
+        private void SetTimeRange(string rangeName)
+        {
+            timeRangeToolStripDropDownButton.Text = rangeName;
+            timeRangeToolStripDropDownButton.ToolTipText = timeRangeToolStripDropDownButton.Text;
+            cboTimeRangle.SelectedItem = (from object itm in cboTimeRangle.Items
+                                          where $"{itm}" == timeRangeToolStripDropDownButton.Text
+                                          select itm).FirstOrDefault();
+            if (rangeName == "Custom")
+            {
+                showFiltersToolStripButton.Checked = true;
+                filterFlowLayoutPanel.Visible = showFiltersToolStripButton.Checked;
+                fromPanel.Visible = true;
+                toPanel.Visible = true;
+            }
+            else
+            {
+                fromPanel.Visible = true; //for test only
+                toPanel.Visible = true; //for test only
+                chkAutoFromTime.Checked = false;
+                chkAutoToTime.Checked = true;
+
+                switch (rangeName)
+                {
+                    case "Last 5 minutes":
+                        fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddMinutes(-5);
+                        toDateTimeChooser.SelectedDateTime = DateTime.Now;
+                        break;
+                    case "Last 30 minutes":
+                        fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddMinutes(-30);
+                        toDateTimeChooser.SelectedDateTime = DateTime.Now;
+                        break;
+                    case "Last hour":
+                        fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddHours(-1);
+                        toDateTimeChooser.SelectedDateTime = DateTime.Now;
+                        break;
+                    case "Last 3 hours":
+                        fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddHours(-3);
+                        toDateTimeChooser.SelectedDateTime = DateTime.Now;
+                        break;
+                    case "Last 12 hours":
+                        fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddHours(-12);
+                        toDateTimeChooser.SelectedDateTime = DateTime.Now;
+                        break;
+                    case "Last day":
+                        fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddHours(-24);
+                        toDateTimeChooser.SelectedDateTime = DateTime.Now;
+                        break;
+                    case "Last week":
+                        fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddDays(-7);
+                        toDateTimeChooser.SelectedDateTime = DateTime.Now;
+                        break;                    
+                    default:
+                        break;
+                }
+            }            
+        }
+
+        private void last5MinutesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Last 5 minutes"); 
+        }
+
+        private void last30MinutesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Last 30 minutes");
+        }
+
+        private void lastHourToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Last hour");
+        }
+
+        private void last3HoursToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Last 3 hours");
+        }
+        private void last12HoursToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Last 12 hours");
+        }
+        private void lastDayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Last day");
+        }
+
+        private void lastWeekToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Last week");
+        }
+
+        private void customToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Custom");            
+        }
+
     }
 }

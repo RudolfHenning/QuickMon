@@ -342,3 +342,8 @@ Added 'Allow http' 4xx and 5xx options to Ping collector.
 Version 5.3.27 (2025-01-01)
 **************
 Waiting time for Monitor pack to finish so Collector history can be safed set max 5 seconds.
+
+--------------
+Version 5.3.28 (2025-05-18)
+**************
+A few enhancements to Collector Graph view window. By default only show last 5 minutes.
