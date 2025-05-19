@@ -53,6 +53,7 @@ namespace QuickMon
             {
                 this.Invoke((MethodInvoker)delegate ()
                 {
+                    SetTimeRange();
                     LoadControls();
                 });
             }
