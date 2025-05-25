@@ -1,0 +1,46 @@
+<collectorHosts>
+  <collectorHost uniqueId="e71443e6-58fb-40f5-9e5d-b2ac04fd0ea8" dependOnParentId="" name="Memory %" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <!-- Alerting -->
+    <alerting>
+      <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+      <texts>
+        <header />
+        <footer />
+        <error />
+        <warning />
+        <good />
+      </texts>
+    </alerting>
+    <!-- Collector Agents -->
+    <collectorAgents agentCheckSequence="All">
+      <collectorAgent name="System healh" type="QuickMon.Collectors.PerfCounterCollector" enabled="True" primaryUIValue="True">
+        <config>
+          <performanceCounters>
+            <performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="80" errorValue="90" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="%" primaryUIValue="False" valueScale="1" valueScaleInverse="False" instanceAggrStyle="0" />
+          </performanceCounters>
+        </config>
+      </collectorAgent>
+    </collectorAgents>
+    <!-- Polling settings -->
+    <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+    <!-- Remote agent settings -->
+    <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+    <!-- Metrics Export settings -->
+    <metricsExport exclude="False" />
+    <!-- Corrective Scripts -->
+    <correctiveScripts enabled="True">
+      <warning warningMinRepeatTimeMin="0" />
+      <error errorMinRepeatTimeMin="0" />
+      <restoration restoreMinRepeatTimeMin="0" />
+    </correctiveScripts>
+    <!-- Action scripts -->
+    <actionScripts />
+    <!-- ServiceWindows -->
+    <serviceWindows />
+    <!-- Config variables -->
+    <configVars />
+    <!-- Categories -->
+    <categories />
+    <notes />
+  </collectorHost>
+</collectorHosts>

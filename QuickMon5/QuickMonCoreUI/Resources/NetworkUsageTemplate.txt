@@ -1,0 +1,49 @@
+<collectorHosts>
+  <collectorHost uniqueId="c9809f11-6a68-4771-912a-680306ada05e" dependOnParentId="" name="Network usage KB/s" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <!-- Alerting -->
+    <alerting>
+      <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+      <texts>
+        <header />
+        <footer />
+        <error />
+        <warning />
+        <good />
+      </texts>
+    </alerting>
+    <!-- Collector Agents -->
+    <collectorAgents agentCheckSequence="All">
+      <collectorAgent name="Network usage" type="QuickMon.Collectors.PerfCounterCollector" enabled="True" primaryUIValue="True">
+        <config>
+          <performanceCounters>
+            <performanceCounter computer="." category="Network Interface" counter="Bytes Total/sec" instance="*" warningValue="300" errorValue="1000" numberOfSamples="3" multiSampleWaitMS="100" outputValueUnit="KB/s" primaryUIValue="False" valueScale="1024" valueScaleInverse="True" instanceAggrStyle="1" />
+          </performanceCounters>
+        </config>
+      </collectorAgent>
+    </collectorAgents>
+    <!-- Polling settings -->
+    <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+    <!-- Remote agent settings -->
+    <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+    <!-- Metrics Export settings -->
+    <metricsExport exclude="False" />
+    <!-- Corrective Scripts -->
+    <correctiveScripts enabled="True">
+      <warning warningMinRepeatTimeMin="0" />
+      <error errorMinRepeatTimeMin="0" />
+      <restoration restoreMinRepeatTimeMin="0" />
+    </correctiveScripts>
+    <!-- Action scripts -->
+    <actionScripts />
+    <!-- ServiceWindows -->
+    <serviceWindows />
+    <!-- Config variables -->
+    <configVars />
+    <!-- Categories -->
+    <categories>
+      <category>Performance</category>
+      <category>Network</category>
+    </categories>
+    <notes />
+  </collectorHost>
+</collectorHosts>

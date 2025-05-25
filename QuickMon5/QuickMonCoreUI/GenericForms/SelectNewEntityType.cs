@@ -126,6 +126,36 @@ namespace QuickMon.UI
             lviPingCollector.Tag = CollectorHost.FromXml(Properties.Resources.HTTPPingTemplate).Clone(true);
             lvwAgentType.Items.Add(lviPingCollector);
 
+            ListViewItem lviCPUPercCollector = new ListViewItem("CPU %");
+            lviCPUPercCollector.SubItems.Add("Creates a collector with a Performance counter agent for CPU %");
+            lviCPUPercCollector.Group = generalGroup;
+            lviCPUPercCollector.Tag = CollectorHost.FromXml(Properties.Resources.CPUPercentTemplate).Clone(true);
+            lvwAgentType.Items.Add(lviCPUPercCollector);
+
+            ListViewItem lviMemPercCollector = new ListViewItem("Memory usage %");
+            lviMemPercCollector.SubItems.Add("Creates a collector with a Performance counter agent for Memory usage %");
+            lviMemPercCollector.Group = generalGroup;
+            lviMemPercCollector.Tag = CollectorHost.FromXml(Properties.Resources.MemoryPercTemplate).Clone(true);
+            lvwAgentType.Items.Add(lviMemPercCollector);
+
+            ListViewItem lviNetworkCollector = new ListViewItem("Network usage KB/s");
+            lviNetworkCollector.SubItems.Add("Creates a collector with a Performance counter agent for Network usage KB/s");
+            lviNetworkCollector.Group = generalGroup;
+            lviNetworkCollector.Tag = CollectorHost.FromXml(Properties.Resources.NetworkUsageTemplate).Clone(true);
+            lvwAgentType.Items.Add(lviNetworkCollector);
+
+            ListViewItem lviDriveSpaceFreeCollector = new ListViewItem("Drive Space Free");
+            lviDriveSpaceFreeCollector.SubItems.Add("Creates a collector with a Performance counter agent for Drive Space Free");
+            lviDriveSpaceFreeCollector.Group = generalGroup;
+            lviDriveSpaceFreeCollector.Tag = CollectorHost.FromXml(Properties.Resources.DriveSpaceFree).Clone(true);
+            lvwAgentType.Items.Add(lviDriveSpaceFreeCollector);
+
+            ListViewItem lviPingDefaultGatewayCollector = new ListViewItem("Ping default gateway");
+            lviPingDefaultGatewayCollector.SubItems.Add("Creates a collector with a PowerShell script to ping default gateway");
+            lviPingDefaultGatewayCollector.Group = generalGroup;
+            lviPingDefaultGatewayCollector.Tag = CollectorHost.FromXml(Properties.Resources.PingDefaultGatewayTemplate).Clone(true);
+            lvwAgentType.Items.Add(lviPingDefaultGatewayCollector);
+
             ListViewGroup templatesGroup = new ListViewGroup("Templates");
             lvwAgentType.Groups.Add(templatesGroup);
 

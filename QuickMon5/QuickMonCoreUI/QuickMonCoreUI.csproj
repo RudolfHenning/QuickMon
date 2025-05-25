@@ -683,7 +683,12 @@
     <None Include="Resources\PowerShellTips.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\PingDefaultGatewayTemplate.txt" />
+    <None Include="Resources\NetworkUsageTemplate.txt" />
+    <None Include="Resources\MemoryPercTemplate.txt" />
     <None Include="Resources\HTTPPingTemplate.txt" />
+    <None Include="Resources\CPUPercentTemplate.txt" />
+    <None Include="Resources\DriveSpaceFree.txt" />
     <Content Include="Resources\ICMPPingTemplate.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

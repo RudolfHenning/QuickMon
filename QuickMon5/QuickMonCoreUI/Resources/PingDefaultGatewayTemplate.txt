@@ -1,0 +1,69 @@
+<collectorHost uniqueId="12026f3e-2b69-40fc-9a86-3f9112363bc4" dependOnParentId="" name="Ping Default Gateway" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <!-- Alerting -->
+    <alerting>
+      <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+      <texts>
+        <header />
+        <footer />
+        <error />
+        <warning />
+        <good />
+      </texts>
+    </alerting>
+    <!-- Collector Agents -->
+    <collectorAgents agentCheckSequence="All">
+      <collectorAgent name="PowerShell Script Runner" type="QuickMon.Collectors.PowerShellScriptRunnerCollector" enabled="True" primaryUIValue="True">
+        <config>
+          <carvcesEntries>
+            <carvceEntry name="Ping Default Gateway" primaryUIValue="False" outputValueUnit="">
+              <dataSource>$Response = ''
+$defaultGateWay = ''
+$nics = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object { $_.DefaultIPGateway -ne $null } | select DefaultIPGateway 
+if ($nics -ne $null) {
+    $defaultGateWay = $nics[0].DefaultIPGateway
+}
+
+$Response = "IP: $defaultGateWay"
+
+$PingResults = $null
+$ErrorMsg = ''
+try { $PingResults = (Test-Connection -ComputerName $defaultGateWay -Count 1) } 
+catch { $ErrorMsg = $_.Exception.Message }
+if ($PingResults) {
+    $Response += " ($($PingResults.ResponseTime) ms)"
+} else {
+    $Response += "Err: $ErrorMsg"
+}
+$Response</dataSource>
+              <testConditions testSequence="GEW">
+                <success testType="DoesNotContain">Err:</success>
+                <warning testType="Match">[null]</warning>
+                <error testType="Contains">Err:</error>
+              </testConditions>
+            </carvceEntry>
+          </carvcesEntries>
+        </config>
+      </collectorAgent>
+    </collectorAgents>
+    <!-- Polling settings -->
+    <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+    <!-- Remote agent settings -->
+    <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+    <!-- Metrics Export settings -->
+    <metricsExport exclude="False" />
+    <!-- Corrective Scripts -->
+    <correctiveScripts enabled="True">
+      <warning warningMinRepeatTimeMin="0" />
+      <error errorMinRepeatTimeMin="0" />
+      <restoration restoreMinRepeatTimeMin="0" />
+    </correctiveScripts>
+    <!-- Action scripts -->
+    <actionScripts />
+    <!-- ServiceWindows -->
+    <serviceWindows />
+    <!-- Config variables -->
+    <configVars />
+    <!-- Categories -->
+    <categories />
+    <notes />
+</collectorHost>

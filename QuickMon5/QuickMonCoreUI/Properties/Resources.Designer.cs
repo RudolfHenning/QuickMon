@@ -137,6 +137,44 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;collectorHost uniqueId=&quot;&quot; dependOnParentId=&quot;&quot; name=&quot;CPU %&quot; enabled=&quot;True&quot; expandOnStart=&quot;Auto&quot; childCheckBehaviour=&quot;OnlyRunOnSuccess&quot; runAsEnabled=&quot;False&quot; runAs=&quot;&quot;&gt;
+        ///  &lt;!-- Alerting --&gt;
+        ///  &lt;alerting&gt;
+        ///    &lt;suppression repeatAlertInXMin=&quot;0&quot; alertOnceInXMin=&quot;0&quot; delayErrWarnAlertForXSec=&quot;0&quot; repeatAlertInXPolls=&quot;0&quot; alertOnceInXPolls=&quot;0&quot; delayErrWarnAlertForXPolls=&quot;0&quot; alertsPaused=&quot;False&quot; /&gt;
+        ///    &lt;texts&gt;
+        ///      &lt;header /&gt;
+        ///      &lt;footer /&gt;
+        ///      &lt;error /&gt;
+        ///      &lt;warning /&gt;
+        ///      &lt;good /&gt;
+        ///    &lt;/texts&gt;
+        ///  &lt;/a [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string CPUPercentTemplate {
+            get {
+                return ResourceManager.GetString("CPUPercentTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;collectorHost uniqueId=&quot;&quot; dependOnParentId=&quot;&quot; name=&quot;[[Drive Letter:C]] Drive Space Free&quot; enabled=&quot;True&quot; expandOnStart=&quot;Auto&quot; childCheckBehaviour=&quot;OnlyRunOnSuccess&quot; runAsEnabled=&quot;False&quot; runAs=&quot;&quot;&gt;
+        ///  &lt;!-- Alerting --&gt;
+        ///  &lt;alerting&gt;
+        ///    &lt;suppression repeatAlertInXMin=&quot;0&quot; alertOnceInXMin=&quot;0&quot; delayErrWarnAlertForXSec=&quot;0&quot; repeatAlertInXPolls=&quot;0&quot; alertOnceInXPolls=&quot;0&quot; delayErrWarnAlertForXPolls=&quot;0&quot; alertsPaused=&quot;False&quot; /&gt;
+        ///    &lt;texts&gt;
+        ///      &lt;header /&gt;
+        ///      &lt;footer /&gt;
+        ///      &lt;error /&gt;
+        ///      &lt;warning /&gt;
+        ///      [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DriveSpaceFree {
+            get {
+                return ResourceManager.GetString("DriveSpaceFree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to USE [QuickMon5]
         ///GO
         ///CREATE TABLE [dbo].[States](
@@ -151,9 +189,7 @@ namespace QuickMon.Properties {
         ///CREATE TABLE [dbo].[AlertLevels](
         ///	[AlertLevel] [tinyint] NOT NULL,
         ///	[Description] [nvarchar](50) NOT NULL,
-        /// CONSTRAINT [PK_AlertLevels] PRIMARY KEY CLUSTERED 
-        ///(
-        ///	[AlertLeve [rest of string was truncated]&quot;;.
+        /// CONSTRAINT [PK_AlertLevels] PRIMARY KEY CLUSTERED  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ExampleSqlDatabaseCreateScript {
             get {
@@ -171,7 +207,7 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;collectorHost uniqueId=&quot;&quot; dependOnParentId=&quot;&quot; name=&quot;[[NamePrefix:Ping ]][[!MachineName:localhost]]&quot;&gt;&lt;collectorAgents agentCheckSequence=&quot;All&quot;&gt;&lt;collectorAgent name=&quot;[[NamePrefix:Ping ]][[!MachineName:localhost]]&quot; type=&quot;QuickMon.Collectors.PingCollector&quot; enabled=&quot;True&quot;&gt;&lt;config&gt;&lt;entries&gt;&lt;entry pingMethod=&quot;Ping&quot; address=&quot;[[!MachineName:localhost]]&quot; maxTimeMS=&quot;[[maxTimeMS:1000]]&quot; timeOutMS=&quot;[[timeOutMS:5000]]&quot; /&gt;&lt;/entries&gt;&lt;/config&gt;&lt;/collectorAgent&gt;&lt;/collectorAgents&gt;&lt;/collectorHost&gt;.
+        ///   Looks up a localized string similar to &lt;collectorHost uniqueId=&quot;&quot; dependOnParentId=&quot;&quot; name=&quot;[[NamePrefix:Ping ]][[!MachineName:localhost]]&quot;&gt;&lt;collectorAgents agentCheckSequence=&quot;All&quot;&gt;&lt;collectorAgent name=&quot;[[NamePrefix:Ping ]][[!MachineName:localhost]]&quot; type=&quot;QuickMon.Collectors.PingCollector&quot; enabled=&quot;True&quot;&gt;&lt;config&gt;&lt;entries&gt;&lt;entry pingMethod=&quot;Ping&quot; address=&quot;[[Address:localhost]]&quot; maxTimeMS=&quot;[[maxTimeMS:1000]]&quot; timeOutMS=&quot;[[timeOutMS:5000]]&quot; /&gt;&lt;/entries&gt;&lt;/config&gt;&lt;/collectorAgent&gt;&lt;/collectorAgents&gt;&lt;/collectorHost&gt;.
         /// </summary>
         internal static string ICMPPingTemplate {
             get {
@@ -186,6 +222,39 @@ namespace QuickMon.Properties {
             get {
                 object obj = ResourceManager.GetObject("LongBlueShadeHorisontal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;collectorHosts&gt;
+        ///  &lt;collectorHost uniqueId=&quot;e71443e6-58fb-40f5-9e5d-b2ac04fd0ea8&quot; dependOnParentId=&quot;&quot; name=&quot;Memory %&quot; enabled=&quot;True&quot; expandOnStart=&quot;Auto&quot; childCheckBehaviour=&quot;OnlyRunOnSuccess&quot; runAsEnabled=&quot;False&quot; runAs=&quot;&quot;&gt;
+        ///    &lt;!-- Alerting --&gt;
+        ///    &lt;alerting&gt;
+        ///      &lt;suppression repeatAlertInXMin=&quot;0&quot; alertOnceInXMin=&quot;0&quot; delayErrWarnAlertForXSec=&quot;0&quot; repeatAlertInXPolls=&quot;0&quot; alertOnceInXPolls=&quot;0&quot; delayErrWarnAlertForXPolls=&quot;0&quot; alertsPaused=&quot;False&quot; /&gt;
+        ///      &lt;texts&gt;
+        ///        &lt;header /&gt;
+        ///        &lt;footer /&gt;
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string MemoryPercTemplate {
+            get {
+                return ResourceManager.GetString("MemoryPercTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;collectorHosts&gt;
+        ///  &lt;collectorHost uniqueId=&quot;c9809f11-6a68-4771-912a-680306ada05e&quot; dependOnParentId=&quot;&quot; name=&quot;Network usage KB/s&quot; enabled=&quot;True&quot; expandOnStart=&quot;Auto&quot; childCheckBehaviour=&quot;OnlyRunOnSuccess&quot; runAsEnabled=&quot;False&quot; runAs=&quot;&quot;&gt;
+        ///    &lt;!-- Alerting --&gt;
+        ///    &lt;alerting&gt;
+        ///      &lt;suppression repeatAlertInXMin=&quot;0&quot; alertOnceInXMin=&quot;0&quot; delayErrWarnAlertForXSec=&quot;0&quot; repeatAlertInXPolls=&quot;0&quot; alertOnceInXPolls=&quot;0&quot; delayErrWarnAlertForXPolls=&quot;0&quot; alertsPaused=&quot;False&quot; /&gt;
+        ///      &lt;texts&gt;
+        ///        &lt;header /&gt;
+        ///        &lt;f [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string NetworkUsageTemplate {
+            get {
+                return ResourceManager.GetString("NetworkUsageTemplate", resourceCulture);
             }
         }
         
@@ -206,6 +275,15 @@ namespace QuickMon.Properties {
             get {
                 object obj = ResourceManager.GetObject("OUTLLIBR_98251", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PingDefaultGatewayTemplate {
+            get {
+                return ResourceManager.GetString("PingDefaultGatewayTemplate", resourceCulture);
             }
         }
         

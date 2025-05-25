@@ -178,4 +178,19 @@
   <data name="HTTPPingTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HTTPPingTemplate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="CPUPercentTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CPUPercentTemplate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="DriveSpaceFree" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DriveSpaceFree.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="MemoryPercTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MemoryPercTemplate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="NetworkUsageTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetworkUsageTemplate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="PingDefaultGatewayTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PingDefaultGatewayTemplate.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>
