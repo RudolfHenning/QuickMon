@@ -347,3 +347,8 @@ Waiting time for Monitor pack to finish so Collector history can be safed set ma
 Version 5.3.28 (2025-05-18)
 **************
 A few enhancements to Collector Graph view window. By default only show last 5 minutes.
+
+--------------
+Version 5.3.29 (2025-05-26)
+**************
+Set QuickMon service installer to install the service by default under Local Service. Can be changed by user.

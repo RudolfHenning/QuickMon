@@ -23,14 +23,14 @@ namespace QuickMon
                 string workingPath = System.IO.Path.GetDirectoryName(serviceExePath);
                 string logPath = System.IO.Path.Combine(workingPath, "Install.log");
                 ServiceStartMode startmode = ServiceStartMode.Automatic;
-                ServiceAccount account = ServiceAccount.LocalService;
+                ServiceAccount account = ServiceAccount.LocalSystem;
                 string username = "";
                 string password = "";
                 bool delayedStart = true;
 
                 InstallerForm installerForm = new InstallerForm();
                 installerForm.StartType = ServiceStartMode.Automatic;
-                installerForm.AccountType = ServiceAccount.User;
+                installerForm.AccountType = ServiceAccount.LocalSystem;
                 installerForm.BringToFront();
                 installerForm.TopMost = true;
                 if (installerForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -43,7 +43,6 @@ namespace QuickMon
                         username = installerForm.UserName;
                         password = installerForm.Password;
                     }
-
 
                     Hashtable savedState = new Hashtable();
                     ProjectInstallerForHelper myProjectInstaller = new ProjectInstallerForHelper(delayedStart);

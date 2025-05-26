@@ -15,7 +15,7 @@ namespace QuickMon
         public ProjectInstallerForHelper(bool delayedAutoStart = true)
         {
             processInstaller = new ServiceProcessInstaller();
-            serviceInstaller = new System.ServiceProcess.ServiceInstaller();
+            serviceInstaller = new ServiceInstaller();
             serviceInstaller.DelayedAutoStart = delayedAutoStart;
 
             Installers.AddRange(new Installer[] {

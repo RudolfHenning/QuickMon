@@ -81,8 +81,6 @@ namespace QuickMon
                         displayName,
                         description,
                         serviceParameters);
-
-                    //InstallService();
                     return;
                 }
                 else if (args[0].ToUpper() == "-UNINSTALL")
@@ -90,8 +88,6 @@ namespace QuickMon
                     ServiceRegister.UnInstallService(
                        System.Reflection.Assembly.GetExecutingAssembly().Location,
                        serviceName);
-
-                    //UnInstallService();
                     return;
                 }
             }

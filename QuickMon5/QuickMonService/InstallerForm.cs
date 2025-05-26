@@ -85,10 +85,26 @@ namespace HenIT.Services
                 DelayedStart = chkDelayedStart.Checked;
                 StartType = cboStartup.SelectedIndex == 0 ? ServiceStartMode.Automatic :
                     cboStartup.SelectedIndex == 1 ? ServiceStartMode.Manual : ServiceStartMode.Disabled;
-                AccountType = cboUserAccountType.SelectedIndex == 3 ? ServiceAccount.User :
-                    cboUserAccountType.SelectedIndex == 2 ? ServiceAccount.NetworkService :
-                    cboUserAccountType.SelectedIndex == 1 ? ServiceAccount.LocalSystem : ServiceAccount.LocalService;
-                DialogResult = System.Windows.Forms.DialogResult.OK;
+
+                switch (cboUserAccountType.SelectedIndex)
+                {
+                    case 0:
+                        AccountType = ServiceAccount.LocalService;
+                        break;
+                    case 1:
+                        AccountType = ServiceAccount.NetworkService;
+                        break;
+                    case 2:
+                        AccountType = ServiceAccount.LocalSystem;
+                        break;
+                    case 3:
+                        AccountType = ServiceAccount.User;
+                        break;
+                    default:
+                        AccountType = ServiceAccount.LocalSystem;
+                        break;
+                }
+                DialogResult = DialogResult.OK;
                 Close();
             }
         }
