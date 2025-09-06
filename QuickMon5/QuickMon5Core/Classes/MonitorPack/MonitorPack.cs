@@ -929,8 +929,15 @@ namespace QuickMon
                     collectorHistoryExport.States = new List<string>();
                     foreach (MonitorState item in ch.StateHistory.OrderBy(m => m.Timestamp))
                     {
-                        collectorHistoryExport.States.Add(item.ToCXml());
-                        statesSaved++;
+                        try
+                        {
+                            collectorHistoryExport.States.Add(item.ToCXml());
+                            statesSaved++;
+                        }
+                        catch (Exception ex)
+                        {
+                            HistorySaveError?.Invoke($"There was a problem saving the collector history item '{item.Timestamp}'! {ex.Message}");
+                        }
                     }
                     monitorPackHistoryExport.CollectorHistoryExports.Add(collectorHistoryExport);
                 }

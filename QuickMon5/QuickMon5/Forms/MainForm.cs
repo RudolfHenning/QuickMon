@@ -394,17 +394,27 @@ namespace QuickMon
                 monitorPack.AbortPolling = true;
                 MPStickySave();
                 ShowMessageDialog showMessageDialog = null;
-                if (monitorPack.PersistCollectorStateHistory)
+                try
                 {
-                    showMessageDialog = new ShowMessageDialog();
-                    showMessageDialog.MessageToShow = $"{monitorPack.Name}\r\nClosing monitor pack/Saving collector histories. Please wait...";
-                    showMessageDialog.Show();
-                    Application.DoEvents();
+                    if (monitorPack.PersistCollectorStateHistory)
+                    {
+                        showMessageDialog = new ShowMessageDialog();
+                        showMessageDialog.MessageToShow = $"{monitorPack.Name}\r\nClosing monitor pack/Saving collector histories. Please wait...";
+                        showMessageDialog.Show();
+                        Application.DoEvents();
+                    }
+                    monitorPack.CloseMonitorPack();
+                    
                 }
-                
-                monitorPack.CloseMonitorPack();
-                if (showMessageDialog != null)
-                    showMessageDialog.Close();
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error closing monitor pack.\r\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                finally
+                {
+                    if (showMessageDialog != null)
+                        showMessageDialog.Close();
+                }
             }
             PerformCleanShutdown();
         }

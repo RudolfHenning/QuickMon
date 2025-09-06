@@ -352,3 +352,8 @@ A few enhancements to Collector Graph view window. By default only show last 5 m
 Version 5.3.29 (2025-05-26)
 **************
 Set QuickMon service installer to install the service by default under Local Service. Can be changed by user.
+
+--------------
+Version 5.3.30 (2025-09-6)
+**************
+Bug fix for error saving Collector history items that cause 'Out of memory error'
