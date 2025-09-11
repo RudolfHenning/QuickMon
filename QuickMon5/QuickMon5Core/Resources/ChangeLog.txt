@@ -357,3 +357,9 @@ Set QuickMon service installer to install the service by default under Local Ser
 Version 5.3.30 (2025-09-6)
 **************
 Bug fix for error saving Collector history items that cause 'Out of memory error'
+
+--------------
+Version 5.3.31 (2025-09-11)
+**************
+Add character limit on http ping
+Use HTTP status code check against explicit value (default = 200)

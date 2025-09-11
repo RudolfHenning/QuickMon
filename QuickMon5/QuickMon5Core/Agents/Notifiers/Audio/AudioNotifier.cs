@@ -75,8 +75,6 @@ namespace QuickMon.Notifiers
                 //if (CheckWMPInstalled())
                 try
                 {
-
-
                     // Calculate the volume that's being set. BTW: this is a trackbar!
                     int newVolume = ((ushort.MaxValue / 100) * volumePerc);
                     // Set the same volume for both the left and the right channels

@@ -6,6 +6,7 @@ using System.Text;
 using System.Xml;
 using System.Net.Sockets;
 using System.Diagnostics;
+using HenIT.Text;
 
 namespace QuickMon.Collectors
 {
@@ -92,6 +93,7 @@ namespace QuickMon.Collectors
                         hostEntry.HTMLContentContain = htmlContentMatchNode.InnerText;
                     }
                 }
+                hostEntry.HTMLMaxCharsLogged = host.ReadXmlElementAttr("htmlMaxCharsLogged", 1024);
 
                 if (int.TryParse(host.ReadXmlElementAttr("socketPort", "23"), out tmp))
                     hostEntry.SocketPort = tmp;
@@ -109,6 +111,8 @@ namespace QuickMon.Collectors
                 hostEntry.AllowHTTP3xx = host.ReadXmlElementAttr("allowHTTP3xx", false);
                 hostEntry.AllowHTTP4xx = host.ReadXmlElementAttr("allowHTTP4xx", false);
                 hostEntry.AllowHTTP5xx = host.ReadXmlElementAttr("allowHTTP5xx", false);
+                hostEntry.MustBeHTTPCode = host.ReadXmlElementAttr("onlyHTTPCode", false);
+                hostEntry.HTTPCodeExpected = host.ReadXmlElementAttr("HTTPCode", 200);
                 hostEntry.SocketPingMsgBody = host.ReadXmlElementAttr("socketPingMsgBody", "QuickMon Ping Test");
                 hostEntry.PrimaryUIValue = host.ReadXmlElementAttr("primaryUIValue", false);
 
@@ -144,6 +148,8 @@ namespace QuickMon.Collectors
                 hostXmlNode.SetAttributeValue("allowHTTP3xx", hostEntry.AllowHTTP3xx);
                 hostXmlNode.SetAttributeValue("allowHTTP4xx", hostEntry.AllowHTTP4xx);
                 hostXmlNode.SetAttributeValue("allowHTTP5xx", hostEntry.AllowHTTP5xx);
+                hostXmlNode.SetAttributeValue("onlyHTTPCode", hostEntry.MustBeHTTPCode);
+                hostXmlNode.SetAttributeValue("HTTPCode", hostEntry.HTTPCodeExpected);
                 hostXmlNode.SetAttributeValue("socketPingMsgBody", hostEntry.SocketPingMsgBody);
                 hostXmlNode.SetAttributeValue("primaryUIValue", hostEntry.PrimaryUIValue);
 
@@ -153,6 +159,7 @@ namespace QuickMon.Collectors
                     htmlContentMatchNode.InnerText = hostEntry.HTMLContentContain;
                     hostXmlNode.AppendChild(htmlContentMatchNode);
                 }
+                hostXmlNode.SetAttributeValue("htmlMaxCharsLogged", hostEntry.HTMLMaxCharsLogged);
                 hostsListNode.AppendChild(hostXmlNode);
             }
             return config.OuterXml;
@@ -295,7 +302,6 @@ namespace QuickMon.Collectors
             {
                 if (pingResult.PingTime >= TimeOutMS)
                 {
-                    //currentState.CurrentValue += " (Time out)";
                     currentState.CurrentValueUnit = "ms (Time out)";
                     currentState.State = CollectorState.Error;
                     currentState.RawDetails = string.Format("Operation timed out! Max time allowed: {0}ms, {1}", TimeOutMS, pingResult.ResponseDetails);
@@ -318,10 +324,14 @@ namespace QuickMon.Collectors
                 {
                     currentState.State = CollectorState.Good;
                     currentState.RawDetails = pingResult.ResponseDetails;
-                    if (pingResult.ResponseContent != null && pingResult.ResponseContent.Length > 0)
+                    int maxHtmlLen = 1024;
+                    if ($"{pingResult.ResponseContent}".Length > 0)
                     {
                         if (currentState.RawDetails.Length > 0) currentState.RawDetails += "\r\n";
-                        currentState.RawDetails += $"{pingResult.ResponseContent}";
+
+                        currentState.RawDetails += $"{pingResult.ResponseContent.Left(maxHtmlLen)}";
+                        if ($"{pingResult.ResponseContent}".Length > maxHtmlLen)
+                            currentState.RawDetails += "...";
                     }
                 }
             }
@@ -375,11 +385,14 @@ namespace QuickMon.Collectors
         public string HttpProxyUserName { get; set; }
         public string HttpProxyPassword { get; set; }
         public string HTMLContentContain { get; set; }
+        public int HTMLMaxCharsLogged { get; set; } = 1024;
         public string HttpsSecurityProtocol { get; set; }
         public bool IgnoreInvalidHTTPSCerts { get; set; }
         public bool AllowHTTP3xx { get; set; }
         public bool AllowHTTP4xx { get; set; } = false;
         public bool AllowHTTP5xx { get; set; } = false;
+        public bool MustBeHTTPCode { get; set; } = false;
+        public int HTTPCodeExpected { get; set; } = 200;
         #endregion
 
         #region Socket ping
@@ -583,6 +596,8 @@ namespace QuickMon.Collectors
                                 {
                                     break;
                                 }
+                                if (HTMLMaxCharsLogged > 0 && chars > HTMLMaxCharsLogged)
+                                    break;
                             }
                             if (chars > 1)
                             {                                
@@ -601,7 +616,13 @@ namespace QuickMon.Collectors
 
                 result.ResponseDetails = $"HTTP code: {httpCode} ({httpCodeStr})";
                 lastStep = "Checking httpCode";
-                if (httpCode < 300)
+
+                if (MustBeHTTPCode && httpCode != HTTPCodeExpected)
+                {
+                    result.Success = false;
+                    result.PingTime = -1;
+                }
+                else if (httpCode < 300)
                 {
                     result.PingTime = (int)sw.ElapsedMilliseconds;
                     result.Success = true;
@@ -617,7 +638,6 @@ namespace QuickMon.Collectors
                     {
                         result.PingTime = -1;
                         result.Success = false;
-                        //result.ResponseDetails = $"HTTP code: {httpCode}";
                     }
                 }
                 else if (httpCode < 500)
@@ -631,7 +651,6 @@ namespace QuickMon.Collectors
                     {
                         result.PingTime = -1;
                         result.Success = false;
-                        //result.ResponseDetails = $"HTTP code: {httpCode}";
                     }
                 }
                 else if(httpCode < 600)
@@ -645,15 +664,13 @@ namespace QuickMon.Collectors
                     {
                         result.PingTime = -1;
                         result.Success = false;
-                        //result.ResponseDetails = $"HTTP code: {httpCode}";
                     }
                 }                
                 else
                 {
                     result.Success = false;
                     result.PingTime = -1;
-                    //result.ResponseDetails = $"HTTP code: {httpCode}";
-                }
+                 }
 
             }
             catch (Exception ex)

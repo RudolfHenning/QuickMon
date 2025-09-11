@@ -195,6 +195,7 @@
     <Compile Include="Utils\GenericXmlSerializer.cs" />
     <Compile Include="Utils\InPutValidationException.cs" />
     <Compile Include="Utils\StringCompareUtils.cs" />
+    <Compile Include="Utils\StringEx.cs" />
     <Compile Include="Utils\XmlElementEx.cs" />
     <Compile Include="Utils\XmlFormattingUtils.cs" />
     <Compile Include="VersionInfo.cs" />

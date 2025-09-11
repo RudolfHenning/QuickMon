@@ -47,6 +47,7 @@ namespace QuickMon.UI
             txtProxyUsername.Text = HostEntry.HttpProxyUserName;
             txtProxyPassword.Text = HostEntry.HttpProxyPassword;
             txtHTMLContent.Text = HostEntry.HTMLContentContain;
+            nudMaxHTMLCharsLogged.Value = HostEntry.HTMLMaxCharsLogged;
             nudPortNumber.Value = HostEntry.SocketPort;
             nudReceiveTimeout.Value = HostEntry.ReceiveTimeOutMS;
             nudSendTimeout.Value = HostEntry.SendTimeOutMS;
@@ -58,6 +59,8 @@ namespace QuickMon.UI
             chkAllowHTTP3xx.Checked = HostEntry.AllowHTTP3xx;
             chkAllowHTTP4xx.Checked = HostEntry.AllowHTTP4xx;
             chkAllowHTTP5xx.Checked = HostEntry.AllowHTTP5xx;
+            chkMustBeHTTPCode.Checked = HostEntry.MustBeHTTPCode;
+            nudHTTPCodeExpected.Value = HostEntry.HTTPCodeExpected;
             if (HostEntry.HttpsSecurityProtocol != null)
             {
                 if (HostEntry.HttpsSecurityProtocol == "Tls")
@@ -93,10 +96,13 @@ namespace QuickMon.UI
                 HostEntry.HttpProxyUserName = txtProxyUsername.Text;
                 HostEntry.HttpProxyPassword = txtProxyPassword.Text;
                 HostEntry.HTMLContentContain = txtHTMLContent.Text;
+                HostEntry.HTMLMaxCharsLogged = (int)nudMaxHTMLCharsLogged.Value;
                 HostEntry.IgnoreInvalidHTTPSCerts = chkIgnoreInvalidHTTPSCerts.Checked;
                 HostEntry.AllowHTTP3xx = chkAllowHTTP3xx.Checked;
                 HostEntry.AllowHTTP4xx = chkAllowHTTP4xx.Checked;
                 HostEntry.AllowHTTP5xx = chkAllowHTTP5xx.Checked;
+                HostEntry.MustBeHTTPCode = chkMustBeHTTPCode.Checked;
+                HostEntry.HTTPCodeExpected = (int)nudHTTPCodeExpected.Value;
                 HostEntry.SocketPort = (int)nudPortNumber.Value;
                 HostEntry.ReceiveTimeOutMS = (int)nudReceiveTimeout.Value;
                 HostEntry.SendTimeOutMS = (int)nudSendTimeout.Value;
@@ -148,6 +154,7 @@ namespace QuickMon.UI
             tmpPingCollectorHostEntry.HttpProxyUserName = httpProxyUserName;
             tmpPingCollectorHostEntry.HttpProxyPassword = httpProxyPassword;
             tmpPingCollectorHostEntry.HTMLContentContain = htmlContentContain;
+            tmpPingCollectorHostEntry.HTMLMaxCharsLogged = (int)nudMaxHTMLCharsLogged.Value;
             tmpPingCollectorHostEntry.IgnoreInvalidHTTPSCerts = chkIgnoreInvalidHTTPSCerts.Checked;
             tmpPingCollectorHostEntry.SocketPort = (int)nudPortNumber.Value;
             tmpPingCollectorHostEntry.ReceiveTimeOutMS = (int)nudReceiveTimeout.Value;
@@ -160,6 +167,8 @@ namespace QuickMon.UI
             tmpPingCollectorHostEntry.AllowHTTP3xx = chkAllowHTTP3xx.Checked;
             tmpPingCollectorHostEntry.AllowHTTP4xx = chkAllowHTTP4xx.Checked;
             tmpPingCollectorHostEntry.AllowHTTP5xx = chkAllowHTTP5xx.Checked;
+            tmpPingCollectorHostEntry.MustBeHTTPCode = chkMustBeHTTPCode.Checked;
+            tmpPingCollectorHostEntry.HTTPCodeExpected = (int)nudHTTPCodeExpected.Value;
 
             result = tmpPingCollectorHostEntry.GetCurrentState();            
             return result;
