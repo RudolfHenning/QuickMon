@@ -363,3 +363,8 @@ Version 5.3.31 (2025-09-11)
 **************
 Add character limit on http ping
 Use HTTP status code check against explicit value (default = 200)
+
+Version 5.3.32 (2025-09-14)
+**************
+Add 10 and 15 minutes filters to collector graph window.
+Add quick graph scale toolbar drop down option.

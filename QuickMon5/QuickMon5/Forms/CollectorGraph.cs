@@ -506,11 +506,16 @@ namespace QuickMon
 
 
         #region Context menu events
-
+        private void graphScaleTypetoolStripDropDownButton_DropDownOpening(object sender, EventArgs e)
+        {
+            graphContextMenuStrip_Opening(null, null);
+        }
         private void graphContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
             linearGraphTypeToolStripMenuItem.Checked = collectorTimeGraph.GraphVerticalAxisType == HenIT.Windows.Controls.Graphing.GraphVerticalAxisType.Standard;
+            linearToolStripMenuItem.Checked = collectorTimeGraph.GraphVerticalAxisType == HenIT.Windows.Controls.Graphing.GraphVerticalAxisType.Standard;
             logarithmicGraphTypeToolStripMenuItem.Checked = collectorTimeGraph.GraphVerticalAxisType == HenIT.Windows.Controls.Graphing.GraphVerticalAxisType.Logarithmic;
+            logarithmicToolStripMenuItem.Checked = collectorTimeGraph.GraphVerticalAxisType == HenIT.Windows.Controls.Graphing.GraphVerticalAxisType.Logarithmic;
             graphHeaderVisibleToolStripMenuItem.Checked = collectorTimeGraph.ShowGraphHeader;
             legendVisibleToolStripMenuItem.Checked = collectorTimeGraph.ShowLegendText;
             graphSelectionbarVisibleToolStripMenuItem.Checked = collectorTimeGraph.ShowSelectionBar;
@@ -551,12 +556,18 @@ namespace QuickMon
         }
         private void linearGraphTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            logarithmicGraphTypeToolStripMenuItem.Checked = !linearGraphTypeToolStripMenuItem.Checked;
+            logarithmicGraphTypeToolStripMenuItem.Checked = false;
+            logarithmicToolStripMenuItem.Checked = false;
+            linearGraphTypeToolStripMenuItem.Checked = true;
+            linearToolStripMenuItem.Checked = true;
             SetAxisType();
         }
         private void logarithmicGraphTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            linearGraphTypeToolStripMenuItem.Checked = !logarithmicGraphTypeToolStripMenuItem.Checked;
+            linearGraphTypeToolStripMenuItem.Checked = false;
+            linearToolStripMenuItem.Checked = false;
+            logarithmicGraphTypeToolStripMenuItem.Checked = true;
+            logarithmicToolStripMenuItem.Checked = true;
             SetAxisType();
         }
         private void graphGradientColor1ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -841,8 +852,22 @@ namespace QuickMon
             cboTimeRangle.SelectedItem = (from object itm in cboTimeRangle.Items
                                           where $"{itm}" == timeRangeToolStripDropDownButton.Text
                                           select itm).FirstOrDefault();
+
+            last5MinutesToolStripMenuItem.Checked = false;
+            last10MinutesToolStripMenuItem.Checked = false;
+            last15MinutesToolStripMenuItem.Checked = false;
+            last30MinutesToolStripMenuItem.Checked = false;
+            lastHourToolStripMenuItem.Checked = false;
+            last3HoursToolStripMenuItem.Checked = false;
+            last6HoursToolStripMenuItem.Checked = false;
+            last12HoursToolStripMenuItem.Checked = false;
+            lastDayToolStripMenuItem.Checked = false;
+            lastWeekToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+
             if (rangeName == "Custom")
             {
+                customToolStripMenuItem.Checked = true;
                 showFiltersToolStripButton.Checked = true;
                 filterFlowLayoutPanel.Visible = showFiltersToolStripButton.Checked;
                 fromPanel.Visible = true;
@@ -858,30 +883,52 @@ namespace QuickMon
                 switch (rangeName)
                 {
                     case "Last 5 minutes":
+                        last5MinutesToolStripMenuItem.Checked = true;
                         fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddMinutes(-5);
                         toDateTimeChooser.SelectedDateTime = DateTime.Now;
                         break;
+                    case "Last 10 minutes":
+                        last10MinutesToolStripMenuItem.Checked = true;
+                        fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddMinutes(-10);
+                        toDateTimeChooser.SelectedDateTime = DateTime.Now;
+                        break;
+                    case "Last 15 minutes":
+                        last15MinutesToolStripMenuItem.Checked = true;
+                        fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddMinutes(-15);
+                        toDateTimeChooser.SelectedDateTime = DateTime.Now;
+                        break;
                     case "Last 30 minutes":
+                        last30MinutesToolStripMenuItem.Checked = true;
                         fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddMinutes(-30);
                         toDateTimeChooser.SelectedDateTime = DateTime.Now;
                         break;
                     case "Last hour":
+                        lastHourToolStripMenuItem.Checked = true;
                         fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddHours(-1);
                         toDateTimeChooser.SelectedDateTime = DateTime.Now;
                         break;
                     case "Last 3 hours":
+                        last3HoursToolStripMenuItem.Checked = true;
                         fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddHours(-3);
                         toDateTimeChooser.SelectedDateTime = DateTime.Now;
                         break;
+                    case "Last 6 hours":
+                        last6HoursToolStripMenuItem.Checked = true;
+                        fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddHours(-6);
+                        toDateTimeChooser.SelectedDateTime = DateTime.Now;
+                        break;
                     case "Last 12 hours":
+                        last12HoursToolStripMenuItem.Checked = true;
                         fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddHours(-12);
                         toDateTimeChooser.SelectedDateTime = DateTime.Now;
                         break;
                     case "Last day":
+                        lastDayToolStripMenuItem.Checked = true;
                         fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddHours(-24);
                         toDateTimeChooser.SelectedDateTime = DateTime.Now;
                         break;
                     case "Last week":
+                        lastWeekToolStripMenuItem.Checked = true;
                         fromDateTimeChooser.SelectedDateTime = DateTime.Now.AddDays(-7);
                         toDateTimeChooser.SelectedDateTime = DateTime.Now;
                         break;                    
@@ -895,7 +942,15 @@ namespace QuickMon
         {
             SetTimeRangeAndRefesh("Last 5 minutes"); 
         }
+        private void last10MinutesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Last 10 minutes");
+        }
 
+        private void last15MinutesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Last 15 minutes");
+        }
         private void last30MinutesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetTimeRangeAndRefesh("Last 30 minutes");
@@ -909,6 +964,10 @@ namespace QuickMon
         private void last3HoursToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetTimeRangeAndRefesh("Last 3 hours");
+        }
+        private void last6HoursToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTimeRangeAndRefesh("Last 6 hours");            
         }
         private void last12HoursToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -929,5 +988,6 @@ namespace QuickMon
             SetTimeRangeAndRefesh("Custom");            
         }
 
+        
     }
 }

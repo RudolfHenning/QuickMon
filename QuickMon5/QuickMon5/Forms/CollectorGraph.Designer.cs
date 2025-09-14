@@ -38,6 +38,17 @@
             this.exportToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.refreshDetailsToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timeRangeToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.last5MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.last10MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.last15MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.last30MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lastHourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.last3HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.last12HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lastDayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lastWeekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lvwCollectorStates = new QuickMon.ListViewEx();
             this.PathColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -118,15 +129,10 @@
             this.textFilterPanel = new System.Windows.Forms.Panel();
             this.txtTextFilter = new QuickMon.Controls.TextBoxEx();
             this.label18 = new System.Windows.Forms.Label();
-            this.timeRangeToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.last5MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.last30MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lastHourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.last3HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lastDayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lastWeekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.last12HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphScaleTypetoolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.linearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logarithmicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.last6HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -220,7 +226,8 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshDetailsToolStripStatusLabel,
-            this.timeRangeToolStripDropDownButton});
+            this.timeRangeToolStripDropDownButton,
+            this.graphScaleTypetoolStripDropDownButton});
             this.statusStrip1.Location = new System.Drawing.Point(0, 509);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(939, 22);
@@ -230,10 +237,101 @@
             // refreshDetailsToolStripStatusLabel
             // 
             this.refreshDetailsToolStripStatusLabel.Name = "refreshDetailsToolStripStatusLabel";
-            this.refreshDetailsToolStripStatusLabel.Size = new System.Drawing.Size(828, 17);
+            this.refreshDetailsToolStripStatusLabel.Size = new System.Drawing.Size(768, 17);
             this.refreshDetailsToolStripStatusLabel.Spring = true;
             this.refreshDetailsToolStripStatusLabel.Text = ".";
             this.refreshDetailsToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // timeRangeToolStripDropDownButton
+            // 
+            this.timeRangeToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.timeRangeToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.last5MinutesToolStripMenuItem,
+            this.last10MinutesToolStripMenuItem,
+            this.last15MinutesToolStripMenuItem,
+            this.last30MinutesToolStripMenuItem,
+            this.lastHourToolStripMenuItem,
+            this.last6HoursToolStripMenuItem,
+            this.last3HoursToolStripMenuItem,
+            this.last12HoursToolStripMenuItem,
+            this.lastDayToolStripMenuItem,
+            this.lastWeekToolStripMenuItem,
+            this.customToolStripMenuItem});
+            this.timeRangeToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("timeRangeToolStripDropDownButton.Image")));
+            this.timeRangeToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.timeRangeToolStripDropDownButton.Name = "timeRangeToolStripDropDownButton";
+            this.timeRangeToolStripDropDownButton.Size = new System.Drawing.Size(96, 20);
+            this.timeRangeToolStripDropDownButton.Text = "Last 5 minutes";
+            // 
+            // last5MinutesToolStripMenuItem
+            // 
+            this.last5MinutesToolStripMenuItem.Name = "last5MinutesToolStripMenuItem";
+            this.last5MinutesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.last5MinutesToolStripMenuItem.Text = "Last 5 minutes";
+            this.last5MinutesToolStripMenuItem.Click += new System.EventHandler(this.last5MinutesToolStripMenuItem_Click);
+            // 
+            // last10MinutesToolStripMenuItem
+            // 
+            this.last10MinutesToolStripMenuItem.Name = "last10MinutesToolStripMenuItem";
+            this.last10MinutesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.last10MinutesToolStripMenuItem.Text = "Last 10 minutes";
+            this.last10MinutesToolStripMenuItem.Click += new System.EventHandler(this.last10MinutesToolStripMenuItem_Click);
+            // 
+            // last15MinutesToolStripMenuItem
+            // 
+            this.last15MinutesToolStripMenuItem.Name = "last15MinutesToolStripMenuItem";
+            this.last15MinutesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.last15MinutesToolStripMenuItem.Text = "Last 15 minutes";
+            this.last15MinutesToolStripMenuItem.Click += new System.EventHandler(this.last15MinutesToolStripMenuItem_Click);
+            // 
+            // last30MinutesToolStripMenuItem
+            // 
+            this.last30MinutesToolStripMenuItem.Name = "last30MinutesToolStripMenuItem";
+            this.last30MinutesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.last30MinutesToolStripMenuItem.Text = "Last 30 minutes";
+            this.last30MinutesToolStripMenuItem.Click += new System.EventHandler(this.last30MinutesToolStripMenuItem_Click);
+            // 
+            // lastHourToolStripMenuItem
+            // 
+            this.lastHourToolStripMenuItem.Name = "lastHourToolStripMenuItem";
+            this.lastHourToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lastHourToolStripMenuItem.Text = "Last hour";
+            this.lastHourToolStripMenuItem.Click += new System.EventHandler(this.lastHourToolStripMenuItem_Click);
+            // 
+            // last3HoursToolStripMenuItem
+            // 
+            this.last3HoursToolStripMenuItem.Name = "last3HoursToolStripMenuItem";
+            this.last3HoursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.last3HoursToolStripMenuItem.Text = "Last 3 hours";
+            this.last3HoursToolStripMenuItem.Click += new System.EventHandler(this.last3HoursToolStripMenuItem_Click);
+            // 
+            // last12HoursToolStripMenuItem
+            // 
+            this.last12HoursToolStripMenuItem.Name = "last12HoursToolStripMenuItem";
+            this.last12HoursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.last12HoursToolStripMenuItem.Text = "Last 12 hours";
+            this.last12HoursToolStripMenuItem.Click += new System.EventHandler(this.last12HoursToolStripMenuItem_Click);
+            // 
+            // lastDayToolStripMenuItem
+            // 
+            this.lastDayToolStripMenuItem.Name = "lastDayToolStripMenuItem";
+            this.lastDayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lastDayToolStripMenuItem.Text = "Last day";
+            this.lastDayToolStripMenuItem.Click += new System.EventHandler(this.lastDayToolStripMenuItem_Click);
+            // 
+            // lastWeekToolStripMenuItem
+            // 
+            this.lastWeekToolStripMenuItem.Name = "lastWeekToolStripMenuItem";
+            this.lastWeekToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lastWeekToolStripMenuItem.Text = "Last week";
+            this.lastWeekToolStripMenuItem.Click += new System.EventHandler(this.lastWeekToolStripMenuItem_Click);
+            // 
+            // customToolStripMenuItem
+            // 
+            this.customToolStripMenuItem.Name = "customToolStripMenuItem";
+            this.customToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.customToolStripMenuItem.Text = "Custom";
+            this.customToolStripMenuItem.Click += new System.EventHandler(this.customToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
@@ -387,27 +485,27 @@
             this.graphVisibilityToolStripMenuItem,
             this.exportGraphToolStripMenuItem});
             this.graphContextMenuStrip.Name = "graphContextMenuStrip";
-            this.graphContextMenuStrip.Size = new System.Drawing.Size(148, 164);
+            this.graphContextMenuStrip.Size = new System.Drawing.Size(164, 164);
             this.graphContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.graphContextMenuStrip_Opening);
             // 
             // addCollectorToolStripMenuItem1
             // 
             this.addCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.addGreen24x24;
             this.addCollectorToolStripMenuItem1.Name = "addCollectorToolStripMenuItem1";
-            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(163, 22);
             this.addCollectorToolStripMenuItem1.Text = "Add Collector";
             this.addCollectorToolStripMenuItem1.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(160, 6);
             // 
             // filtersToolStripMenuItem
             // 
             this.filtersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.funnel24;
             this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
-            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.filtersToolStripMenuItem.Text = "Filters";
             this.filtersToolStripMenuItem.Click += new System.EventHandler(this.filtersToolStripMenuItem_Click);
             // 
@@ -415,7 +513,7 @@
             // 
             this.customizeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tools16x16;
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.customizeToolStripMenuItem.Text = "Customize";
             this.customizeToolStripMenuItem.Click += new System.EventHandler(this.seriesColorsToolStripMenuItem_Click);
             // 
@@ -426,23 +524,21 @@
             this.logarithmicGraphTypeToolStripMenuItem});
             this.graphTypeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.LineGraph;
             this.graphTypeToolStripMenuItem.Name = "graphTypeToolStripMenuItem";
-            this.graphTypeToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.graphTypeToolStripMenuItem.Text = "Graph Type";
+            this.graphTypeToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.graphTypeToolStripMenuItem.Text = "Graph scale Type";
             // 
             // linearGraphTypeToolStripMenuItem
             // 
-            this.linearGraphTypeToolStripMenuItem.CheckOnClick = true;
             this.linearGraphTypeToolStripMenuItem.Name = "linearGraphTypeToolStripMenuItem";
-            this.linearGraphTypeToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.linearGraphTypeToolStripMenuItem.Text = "Linear Graph Type";
+            this.linearGraphTypeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.linearGraphTypeToolStripMenuItem.Text = "Linear";
             this.linearGraphTypeToolStripMenuItem.Click += new System.EventHandler(this.linearGraphTypeToolStripMenuItem_Click);
             // 
             // logarithmicGraphTypeToolStripMenuItem
             // 
-            this.logarithmicGraphTypeToolStripMenuItem.CheckOnClick = true;
             this.logarithmicGraphTypeToolStripMenuItem.Name = "logarithmicGraphTypeToolStripMenuItem";
-            this.logarithmicGraphTypeToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.logarithmicGraphTypeToolStripMenuItem.Text = "Logarithmic Graph Type";
+            this.logarithmicGraphTypeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logarithmicGraphTypeToolStripMenuItem.Text = "Logarithmic";
             this.logarithmicGraphTypeToolStripMenuItem.Click += new System.EventHandler(this.logarithmicGraphTypeToolStripMenuItem_Click);
             // 
             // grapthColorsToolStripMenuItem
@@ -453,7 +549,7 @@
             this.graphAxisLabelColorsToolStripMenuItem,
             this.graphSelectionColorToolStripMenuItem});
             this.grapthColorsToolStripMenuItem.Name = "grapthColorsToolStripMenuItem";
-            this.grapthColorsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.grapthColorsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.grapthColorsToolStripMenuItem.Text = "Graph Colors";
             // 
             // graphBackgroundColorsToolStripMenuItem
@@ -464,7 +560,7 @@
             this.swapGraphGradientColorsToolStripMenuItem,
             this.graphGradientDirectionToolStripMenuItem});
             this.graphBackgroundColorsToolStripMenuItem.Name = "graphBackgroundColorsToolStripMenuItem";
-            this.graphBackgroundColorsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.graphBackgroundColorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.graphBackgroundColorsToolStripMenuItem.Text = "Background Colors";
             // 
             // graphGradientColor1ToolStripMenuItem
@@ -530,14 +626,14 @@
             // graphGridColorToolStripMenuItem
             // 
             this.graphGridColorToolStripMenuItem.Name = "graphGridColorToolStripMenuItem";
-            this.graphGridColorToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.graphGridColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.graphGridColorToolStripMenuItem.Text = "Grid Color";
             this.graphGridColorToolStripMenuItem.Click += new System.EventHandler(this.graphGridColorToolStripMenuItem_Click);
             // 
             // graphAxisLabelColorsToolStripMenuItem
             // 
             this.graphAxisLabelColorsToolStripMenuItem.Name = "graphAxisLabelColorsToolStripMenuItem";
-            this.graphAxisLabelColorsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.graphAxisLabelColorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.graphAxisLabelColorsToolStripMenuItem.Text = "Axis Label Colors";
             this.graphAxisLabelColorsToolStripMenuItem.Click += new System.EventHandler(this.graphAxisLabelColorsToolStripMenuItem_Click);
             // 
@@ -547,7 +643,7 @@
             this.graphSelectionBarColorToolStripMenuItem,
             this.graphClosestClickedValueColorToolStripMenuItem});
             this.graphSelectionColorToolStripMenuItem.Name = "graphSelectionColorToolStripMenuItem";
-            this.graphSelectionColorToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.graphSelectionColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.graphSelectionColorToolStripMenuItem.Text = "Selection Colors";
             // 
             // graphSelectionBarColorToolStripMenuItem
@@ -599,7 +695,7 @@
             this.graphHighlightClickedSeriesToolStripMenuItem,
             this.graphFillAreaBelowSeriesToolStripMenuItem});
             this.graphVisibilityToolStripMenuItem.Name = "graphVisibilityToolStripMenuItem";
-            this.graphVisibilityToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.graphVisibilityToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.graphVisibilityToolStripMenuItem.Text = "Visibility";
             // 
             // graphHeaderVisibleToolStripMenuItem
@@ -718,7 +814,7 @@
             // 
             this.exportGraphToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_export;
             this.exportGraphToolStripMenuItem.Name = "exportGraphToolStripMenuItem";
-            this.exportGraphToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.exportGraphToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.exportGraphToolStripMenuItem.Text = "Export Graph";
             this.exportGraphToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 
@@ -772,9 +868,12 @@
             this.cboTimeRangle.FormattingEnabled = true;
             this.cboTimeRangle.Items.AddRange(new object[] {
             "Last 5 minutes",
+            "Last 10 minutes",
+            "Last 15 minutes",
             "Last 30 minutes",
             "Last hour",
             "Last 3 hours",
+            "Last 6 hours",
             "Last 12 hours",
             "Last day",
             "Last week",
@@ -1056,79 +1155,39 @@
             this.label18.TabIndex = 9;
             this.label18.Text = "Text";
             // 
-            // timeRangeToolStripDropDownButton
+            // graphScaleTypetoolStripDropDownButton
             // 
-            this.timeRangeToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.timeRangeToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.last5MinutesToolStripMenuItem,
-            this.last30MinutesToolStripMenuItem,
-            this.lastHourToolStripMenuItem,
-            this.last3HoursToolStripMenuItem,
-            this.last12HoursToolStripMenuItem,
-            this.lastDayToolStripMenuItem,
-            this.lastWeekToolStripMenuItem,
-            this.customToolStripMenuItem});
-            this.timeRangeToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("timeRangeToolStripDropDownButton.Image")));
-            this.timeRangeToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.timeRangeToolStripDropDownButton.Name = "timeRangeToolStripDropDownButton";
-            this.timeRangeToolStripDropDownButton.Size = new System.Drawing.Size(96, 20);
-            this.timeRangeToolStripDropDownButton.Text = "Last 5 minutes";
+            this.graphScaleTypetoolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.graphScaleTypetoolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.linearToolStripMenuItem,
+            this.logarithmicToolStripMenuItem});
+            this.graphScaleTypetoolStripDropDownButton.Image = global::QuickMon.Properties.Resources.LineGraph;
+            this.graphScaleTypetoolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.graphScaleTypetoolStripDropDownButton.Name = "graphScaleTypetoolStripDropDownButton";
+            this.graphScaleTypetoolStripDropDownButton.Size = new System.Drawing.Size(29, 20);
+            this.graphScaleTypetoolStripDropDownButton.Text = "Graph scale type";
+            this.graphScaleTypetoolStripDropDownButton.DropDownOpening += new System.EventHandler(this.graphScaleTypetoolStripDropDownButton_DropDownOpening);
             // 
-            // last5MinutesToolStripMenuItem
+            // linearToolStripMenuItem
             // 
-            this.last5MinutesToolStripMenuItem.Name = "last5MinutesToolStripMenuItem";
-            this.last5MinutesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.last5MinutesToolStripMenuItem.Text = "Last 5 minutes";
-            this.last5MinutesToolStripMenuItem.Click += new System.EventHandler(this.last5MinutesToolStripMenuItem_Click);
+            this.linearToolStripMenuItem.Name = "linearToolStripMenuItem";
+            this.linearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.linearToolStripMenuItem.Text = "Linear";
+            this.linearToolStripMenuItem.Click += new System.EventHandler(this.linearGraphTypeToolStripMenuItem_Click);
             // 
-            // last30MinutesToolStripMenuItem
+            // logarithmicToolStripMenuItem
             // 
-            this.last30MinutesToolStripMenuItem.Name = "last30MinutesToolStripMenuItem";
-            this.last30MinutesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.last30MinutesToolStripMenuItem.Text = "Last 30 minutes";
-            this.last30MinutesToolStripMenuItem.Click += new System.EventHandler(this.last30MinutesToolStripMenuItem_Click);
+            this.logarithmicToolStripMenuItem.Name = "logarithmicToolStripMenuItem";
+            this.logarithmicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logarithmicToolStripMenuItem.Text = "Logarithmic";
+            this.logarithmicToolStripMenuItem.Click += new System.EventHandler(this.logarithmicGraphTypeToolStripMenuItem_Click);
             // 
-            // lastHourToolStripMenuItem
+            // last6HoursToolStripMenuItem
             // 
-            this.lastHourToolStripMenuItem.Name = "lastHourToolStripMenuItem";
-            this.lastHourToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.lastHourToolStripMenuItem.Text = "Last hour";
-            this.lastHourToolStripMenuItem.Click += new System.EventHandler(this.lastHourToolStripMenuItem_Click);
-            // 
-            // last3HoursToolStripMenuItem
-            // 
-            this.last3HoursToolStripMenuItem.Name = "last3HoursToolStripMenuItem";
-            this.last3HoursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.last3HoursToolStripMenuItem.Text = "Last 3 hours";
-            this.last3HoursToolStripMenuItem.Click += new System.EventHandler(this.last3HoursToolStripMenuItem_Click);
-            // 
-            // lastDayToolStripMenuItem
-            // 
-            this.lastDayToolStripMenuItem.Name = "lastDayToolStripMenuItem";
-            this.lastDayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.lastDayToolStripMenuItem.Text = "Last day";
-            this.lastDayToolStripMenuItem.Click += new System.EventHandler(this.lastDayToolStripMenuItem_Click);
-            // 
-            // lastWeekToolStripMenuItem
-            // 
-            this.lastWeekToolStripMenuItem.Name = "lastWeekToolStripMenuItem";
-            this.lastWeekToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.lastWeekToolStripMenuItem.Text = "Last week";
-            this.lastWeekToolStripMenuItem.Click += new System.EventHandler(this.lastWeekToolStripMenuItem_Click);
-            // 
-            // customToolStripMenuItem
-            // 
-            this.customToolStripMenuItem.Name = "customToolStripMenuItem";
-            this.customToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.customToolStripMenuItem.Text = "Custom";
-            this.customToolStripMenuItem.Click += new System.EventHandler(this.customToolStripMenuItem_Click);
-            // 
-            // last12HoursToolStripMenuItem
-            // 
-            this.last12HoursToolStripMenuItem.Name = "last12HoursToolStripMenuItem";
-            this.last12HoursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.last12HoursToolStripMenuItem.Text = "Last 12 hours";
-            this.last12HoursToolStripMenuItem.Click += new System.EventHandler(this.last12HoursToolStripMenuItem_Click);
+            this.last6HoursToolStripMenuItem.Name = "last6HoursToolStripMenuItem";
+            this.last6HoursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.last6HoursToolStripMenuItem.Text = "Last 6 hours";
+            this.last6HoursToolStripMenuItem.Click += new System.EventHandler(this.last6HoursToolStripMenuItem_Click);
             // 
             // CollectorGraph
             // 
@@ -1279,5 +1338,11 @@
         private System.Windows.Forms.ToolStripMenuItem lastWeekToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem last12HoursToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem last10MinutesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem last15MinutesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripDropDownButton graphScaleTypetoolStripDropDownButton;
+        private System.Windows.Forms.ToolStripMenuItem linearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logarithmicToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem last6HoursToolStripMenuItem;
     }
 }
