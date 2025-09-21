@@ -368,3 +368,8 @@ Version 5.3.32 (2025-09-14)
 **************
 Add 10 and 15 minutes filters to collector graph window.
 Add quick graph scale toolbar drop down option.
+
+Version 5.3.33 (2025-09-21)
+**************
+Add Audio Notifier template
+Add 'C' as unit type in PowerShell collector edit window.

@@ -1845,6 +1845,33 @@ else {
       </config>
     </collectorAgent>
   </template>
+  <template name="Audio Notifier" type="NotifierHost" class="NotifierHost" description="Audio Notifier">
+    <notifierHost name="Default Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+      <!-- collectorHosts -->
+      <collectorHosts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Categories -->
+      <categories>
+        <category>*</category>
+      </categories>
+      <!-- Config variables -->
+      <configVars />
+      <recordOnHosts />
+      <!-- notifierAgents -->
+      <notifierAgents>
+        <notifierAgent name="Audio Notifier" type="QuickMon.Notifiers.AudioNotifier" enabled="True">
+          <config>
+            <audioConfig>
+              <goodState enabled="False" useSystemSounds="True" soundPath="" systemSound="1" repeatCount="1" soundVolumePerc="-1" audioFilePath="" />
+              <warningState enabled="True" useSystemSounds="True" soundPath="" systemSound="3" repeatCount="1" soundVolumePerc="100" audioFilePath="" />
+              <errorState enabled="True" useSystemSounds="True" soundPath="" systemSound="0" repeatCount="1" soundVolumePerc="100" audioFilePath="" />
+            </audioConfig>
+          </config>
+        </notifierAgent>
+      </notifierAgents>
+    </notifierHost>
+  </template>
   <template name="Eventlog Notifier" type="NotifierHost" class="NotifierHost" description="Eventlog Notifier">
     <notifierHost name="Eventlog Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
       <!-- collectorHosts -->

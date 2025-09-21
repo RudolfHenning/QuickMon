@@ -50,6 +50,7 @@
             this.llblScriptingTip = new System.Windows.Forms.LinkLabel();
             this.cmdImportScript = new System.Windows.Forms.Button();
             this.scriptGroupBox = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
@@ -58,7 +59,6 @@
             this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label4 = new System.Windows.Forms.Label();
             this.errorGroupBox.SuspendLayout();
             this.warningGroupBox.SuspendLayout();
             this.successGroupBox.SuspendLayout();
@@ -337,6 +337,19 @@
             this.scriptGroupBox.TabStop = false;
             this.scriptGroupBox.Text = "PowerShell script";
             // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.MistyRose;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label4.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label4.Location = new System.Drawing.Point(3, 136);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(521, 18);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "By default - this collector is blocked while using Remote host to avoid security " +
+    "issues!";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // txtName
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -407,6 +420,7 @@
             this.cboOutputValueUnit.Items.AddRange(new object[] {
             "%",
             "Bytes/sec",
+            "C",
             "Connections",
             "IO/sec",
             "Operations/sec",
@@ -429,19 +443,6 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Output unit";
             this.toolTip1.SetToolTip(this.label3, "When output of the script is a number you can specify a value unit as well.");
-            // 
-            // label4
-            // 
-            this.label4.BackColor = System.Drawing.Color.MistyRose;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label4.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label4.Location = new System.Drawing.Point(3, 136);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(521, 18);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "By default - this collector is blocked while using Remote host to avoid security " +
-    "issues!";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // PowerShellScriptRunnerCollectorEditEntry
             // 
