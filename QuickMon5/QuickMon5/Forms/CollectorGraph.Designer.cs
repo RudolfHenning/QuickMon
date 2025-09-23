@@ -44,11 +44,15 @@
             this.last15MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.last30MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lastHourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.last6HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.last3HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.last12HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lastDayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lastWeekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphScaleTypetoolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.linearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logarithmicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lvwCollectorStates = new QuickMon.ListViewEx();
             this.PathColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -129,10 +133,6 @@
             this.textFilterPanel = new System.Windows.Forms.Panel();
             this.txtTextFilter = new QuickMon.Controls.TextBoxEx();
             this.label18 = new System.Windows.Forms.Label();
-            this.graphScaleTypetoolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.linearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logarithmicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.last6HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -251,8 +251,8 @@
             this.last15MinutesToolStripMenuItem,
             this.last30MinutesToolStripMenuItem,
             this.lastHourToolStripMenuItem,
-            this.last6HoursToolStripMenuItem,
             this.last3HoursToolStripMenuItem,
+            this.last6HoursToolStripMenuItem,
             this.last12HoursToolStripMenuItem,
             this.lastDayToolStripMenuItem,
             this.lastWeekToolStripMenuItem,
@@ -298,6 +298,13 @@
             this.lastHourToolStripMenuItem.Text = "Last hour";
             this.lastHourToolStripMenuItem.Click += new System.EventHandler(this.lastHourToolStripMenuItem_Click);
             // 
+            // last6HoursToolStripMenuItem
+            // 
+            this.last6HoursToolStripMenuItem.Name = "last6HoursToolStripMenuItem";
+            this.last6HoursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.last6HoursToolStripMenuItem.Text = "Last 6 hours";
+            this.last6HoursToolStripMenuItem.Click += new System.EventHandler(this.last6HoursToolStripMenuItem_Click);
+            // 
             // last3HoursToolStripMenuItem
             // 
             this.last3HoursToolStripMenuItem.Name = "last3HoursToolStripMenuItem";
@@ -332,6 +339,33 @@
             this.customToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.customToolStripMenuItem.Text = "Custom";
             this.customToolStripMenuItem.Click += new System.EventHandler(this.customToolStripMenuItem_Click);
+            // 
+            // graphScaleTypetoolStripDropDownButton
+            // 
+            this.graphScaleTypetoolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.graphScaleTypetoolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.linearToolStripMenuItem,
+            this.logarithmicToolStripMenuItem});
+            this.graphScaleTypetoolStripDropDownButton.Image = global::QuickMon.Properties.Resources.LineGraph;
+            this.graphScaleTypetoolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.graphScaleTypetoolStripDropDownButton.Name = "graphScaleTypetoolStripDropDownButton";
+            this.graphScaleTypetoolStripDropDownButton.Size = new System.Drawing.Size(29, 20);
+            this.graphScaleTypetoolStripDropDownButton.Text = "Graph scale type";
+            this.graphScaleTypetoolStripDropDownButton.DropDownOpening += new System.EventHandler(this.graphScaleTypetoolStripDropDownButton_DropDownOpening);
+            // 
+            // linearToolStripMenuItem
+            // 
+            this.linearToolStripMenuItem.Name = "linearToolStripMenuItem";
+            this.linearToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.linearToolStripMenuItem.Text = "Linear";
+            this.linearToolStripMenuItem.Click += new System.EventHandler(this.linearGraphTypeToolStripMenuItem_Click);
+            // 
+            // logarithmicToolStripMenuItem
+            // 
+            this.logarithmicToolStripMenuItem.Name = "logarithmicToolStripMenuItem";
+            this.logarithmicToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.logarithmicToolStripMenuItem.Text = "Logarithmic";
+            this.logarithmicToolStripMenuItem.Click += new System.EventHandler(this.logarithmicGraphTypeToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
@@ -530,14 +564,14 @@
             // linearGraphTypeToolStripMenuItem
             // 
             this.linearGraphTypeToolStripMenuItem.Name = "linearGraphTypeToolStripMenuItem";
-            this.linearGraphTypeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.linearGraphTypeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.linearGraphTypeToolStripMenuItem.Text = "Linear";
             this.linearGraphTypeToolStripMenuItem.Click += new System.EventHandler(this.linearGraphTypeToolStripMenuItem_Click);
             // 
             // logarithmicGraphTypeToolStripMenuItem
             // 
             this.logarithmicGraphTypeToolStripMenuItem.Name = "logarithmicGraphTypeToolStripMenuItem";
-            this.logarithmicGraphTypeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logarithmicGraphTypeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.logarithmicGraphTypeToolStripMenuItem.Text = "Logarithmic";
             this.logarithmicGraphTypeToolStripMenuItem.Click += new System.EventHandler(this.logarithmicGraphTypeToolStripMenuItem_Click);
             // 
@@ -560,7 +594,7 @@
             this.swapGraphGradientColorsToolStripMenuItem,
             this.graphGradientDirectionToolStripMenuItem});
             this.graphBackgroundColorsToolStripMenuItem.Name = "graphBackgroundColorsToolStripMenuItem";
-            this.graphBackgroundColorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.graphBackgroundColorsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.graphBackgroundColorsToolStripMenuItem.Text = "Background Colors";
             // 
             // graphGradientColor1ToolStripMenuItem
@@ -626,14 +660,14 @@
             // graphGridColorToolStripMenuItem
             // 
             this.graphGridColorToolStripMenuItem.Name = "graphGridColorToolStripMenuItem";
-            this.graphGridColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.graphGridColorToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.graphGridColorToolStripMenuItem.Text = "Grid Color";
             this.graphGridColorToolStripMenuItem.Click += new System.EventHandler(this.graphGridColorToolStripMenuItem_Click);
             // 
             // graphAxisLabelColorsToolStripMenuItem
             // 
             this.graphAxisLabelColorsToolStripMenuItem.Name = "graphAxisLabelColorsToolStripMenuItem";
-            this.graphAxisLabelColorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.graphAxisLabelColorsToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.graphAxisLabelColorsToolStripMenuItem.Text = "Axis Label Colors";
             this.graphAxisLabelColorsToolStripMenuItem.Click += new System.EventHandler(this.graphAxisLabelColorsToolStripMenuItem_Click);
             // 
@@ -643,7 +677,7 @@
             this.graphSelectionBarColorToolStripMenuItem,
             this.graphClosestClickedValueColorToolStripMenuItem});
             this.graphSelectionColorToolStripMenuItem.Name = "graphSelectionColorToolStripMenuItem";
-            this.graphSelectionColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.graphSelectionColorToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.graphSelectionColorToolStripMenuItem.Text = "Selection Colors";
             // 
             // graphSelectionBarColorToolStripMenuItem
@@ -1154,40 +1188,6 @@
             this.label18.Size = new System.Drawing.Size(28, 13);
             this.label18.TabIndex = 9;
             this.label18.Text = "Text";
-            // 
-            // graphScaleTypetoolStripDropDownButton
-            // 
-            this.graphScaleTypetoolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.graphScaleTypetoolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.linearToolStripMenuItem,
-            this.logarithmicToolStripMenuItem});
-            this.graphScaleTypetoolStripDropDownButton.Image = global::QuickMon.Properties.Resources.LineGraph;
-            this.graphScaleTypetoolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.graphScaleTypetoolStripDropDownButton.Name = "graphScaleTypetoolStripDropDownButton";
-            this.graphScaleTypetoolStripDropDownButton.Size = new System.Drawing.Size(29, 20);
-            this.graphScaleTypetoolStripDropDownButton.Text = "Graph scale type";
-            this.graphScaleTypetoolStripDropDownButton.DropDownOpening += new System.EventHandler(this.graphScaleTypetoolStripDropDownButton_DropDownOpening);
-            // 
-            // linearToolStripMenuItem
-            // 
-            this.linearToolStripMenuItem.Name = "linearToolStripMenuItem";
-            this.linearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.linearToolStripMenuItem.Text = "Linear";
-            this.linearToolStripMenuItem.Click += new System.EventHandler(this.linearGraphTypeToolStripMenuItem_Click);
-            // 
-            // logarithmicToolStripMenuItem
-            // 
-            this.logarithmicToolStripMenuItem.Name = "logarithmicToolStripMenuItem";
-            this.logarithmicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.logarithmicToolStripMenuItem.Text = "Logarithmic";
-            this.logarithmicToolStripMenuItem.Click += new System.EventHandler(this.logarithmicGraphTypeToolStripMenuItem_Click);
-            // 
-            // last6HoursToolStripMenuItem
-            // 
-            this.last6HoursToolStripMenuItem.Name = "last6HoursToolStripMenuItem";
-            this.last6HoursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.last6HoursToolStripMenuItem.Text = "Last 6 hours";
-            this.last6HoursToolStripMenuItem.Click += new System.EventHandler(this.last6HoursToolStripMenuItem_Click);
             // 
             // CollectorGraph
             // 
