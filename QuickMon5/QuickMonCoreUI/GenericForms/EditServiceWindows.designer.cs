@@ -58,6 +58,7 @@
             this.columnHeaderFrom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.daysColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.importFromExistingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -107,9 +108,9 @@
             this.cmdUpdate.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
             this.cmdUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.cmdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdUpdate.Location = new System.Drawing.Point(328, 39);
+            this.cmdUpdate.Location = new System.Drawing.Point(310, 39);
             this.cmdUpdate.Name = "cmdUpdate";
-            this.cmdUpdate.Size = new System.Drawing.Size(75, 23);
+            this.cmdUpdate.Size = new System.Drawing.Size(93, 23);
             this.cmdUpdate.TabIndex = 11;
             this.cmdUpdate.Text = "Add/Update";
             this.cmdUpdate.UseVisualStyleBackColor = true;
@@ -354,14 +355,15 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteToolStripMenuItem});
+            this.deleteToolStripMenuItem,
+            this.importFromExistingToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(108, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(183, 70);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -402,6 +404,13 @@
             // 
             this.daysColumnHeader.Text = "Days";
             this.daysColumnHeader.Width = 150;
+            // 
+            // importFromExistingToolStripMenuItem
+            // 
+            this.importFromExistingToolStripMenuItem.Name = "importFromExistingToolStripMenuItem";
+            this.importFromExistingToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.importFromExistingToolStripMenuItem.Text = "Import from existing";
+            this.importFromExistingToolStripMenuItem.Click += new System.EventHandler(this.importFromExistingToolStripMenuItem_Click);
             // 
             // EditServiceWindows
             // 
@@ -461,5 +470,6 @@
         private System.Windows.Forms.CheckBox chkAll;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importFromExistingToolStripMenuItem;
     }
 }

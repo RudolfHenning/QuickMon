@@ -1,16 +1,16 @@
 --------------
 Version 5.0.0
-*************
+**************
 First release of version 5.x
 
 --------------
 Version 5.0.1
-*************
+**************
 File/Directory collector: Search for text in the last X number of lines of a file (Text file implied). 
 
 --------------
 Version 5.0.2
-*************
+**************
 Quick recent list
 	Provide option to have it sorted or not.
 	More details about which alerts/notifications have been raised/fired in the Collector detail view
@@ -18,7 +18,7 @@ Quick recent list
 
 --------------
 Version 5.0.3
-*************
+**************
 Add Edit context menu option on main Window for Collectors.
 Added a few more templates (requires reset templates to become visible).
 Fixed use of template selection when creating new monitor packs, agent hosts.
@@ -364,12 +364,20 @@ Version 5.3.31 (2025-09-11)
 Add character limit on http ping
 Use HTTP status code check against explicit value (default = 200)
 
+--------------
 Version 5.3.32 (2025-09-14)
 **************
 Add 10 and 15 minutes filters to collector graph window.
 Add quick graph scale toolbar drop down option.
 
+--------------
 Version 5.3.33 (2025-09-21)
 **************
 Add Audio Notifier template
 Add 'C' as unit type in PowerShell collector edit window.
+
+
+--------------
+Version 5.3.34 (2025-11-08)
+**************
+Add ability to import service window from another Collector or notifier.

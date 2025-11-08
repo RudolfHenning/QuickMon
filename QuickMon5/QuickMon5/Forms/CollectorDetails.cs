@@ -2246,6 +2246,7 @@ namespace QuickMon
         {
             EditServiceWindows editServiceWindows = new EditServiceWindows();
             editServiceWindows.SelectedServiceWindows = editingCollectorHost.ServiceWindows;
+            editServiceWindows.CurrentMonitorPack = HostingMonitorPack;
             if (editServiceWindows.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 editingCollectorHost.ServiceWindows = editServiceWindows.SelectedServiceWindows;

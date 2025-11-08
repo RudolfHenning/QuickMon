@@ -815,6 +815,7 @@ namespace QuickMon.UI
         {
             EditServiceWindows editServiceWindows = new EditServiceWindows();
             editServiceWindows.SelectedServiceWindows = editingNotifierHost.ServiceWindows;
+            editServiceWindows.CurrentMonitorPack = HostingMonitorPack;
             if (editServiceWindows.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 editingNotifierHost.ServiceWindows = editServiceWindows.SelectedServiceWindows;

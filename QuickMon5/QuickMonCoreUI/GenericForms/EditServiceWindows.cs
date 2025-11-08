@@ -19,6 +19,7 @@ namespace QuickMon.Forms
         }
 
         public ServiceWindows SelectedServiceWindows { get; set; }
+        public MonitorPack CurrentMonitorPack { get; set; } = null;
 
         private void EditServiceWindows_Load(object sender, EventArgs e)
         {
@@ -252,6 +253,55 @@ namespace QuickMon.Forms
                 }
             }
         }
+        private void importFromExistingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CurrentMonitorPack != null)
+            {
+                SelectServiceWindow selectServiceWindow = new SelectServiceWindow();
+                selectServiceWindow.CurrentMonitorPack = CurrentMonitorPack;
+                if (selectServiceWindow.ShowDialog() == DialogResult.OK)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    string days = "";
+                    lvi.Text = selectServiceWindow.SelectedServiceWindow.From.ToString("HH:mm:ss");
+                    lvi.SubItems.Add(selectServiceWindow.SelectedServiceWindow.To.ToString("HH:mm:ss"));
+                    if (selectServiceWindow.SelectedServiceWindow.AllWeekDays)
+                        days = "All";
+                    else
+                    {
+                        selectServiceWindow.SelectedServiceWindow.Days.ForEach(d => days += d.ToString().Substring(0, 2).ToLower() + ",");
+                        days = days.Trim(',');
+                    }
+                    lvi.SubItems.Add(days);
+                    lvi.Tag = selectServiceWindow.SelectedServiceWindow;
+                    lvwTimes.Items.Add(lvi);
+                }
+
+                //StringBuilder sb = new StringBuilder();
+                //foreach (CollectorHost ch in CurrentMonitorPack.CollectorHosts)
+                //{
+                //    if (ch.ServiceWindows != null && ch.ServiceWindows.Entries.Count > 0)
+                //    {
+                //        foreach (var sv in ch.ServiceWindows.Entries)
+                //        {
+                //            sb.AppendLine(sv.ToString());
+                //        }
+                //    }
+                //}
+                //foreach (NotifierHost nh in CurrentMonitorPack.NotifierHosts)
+                //{
+                //    if (nh.ServiceWindows != null && nh.ServiceWindows.Entries.Count > 0)
+                //    {
+                //        foreach (var sv in nh.ServiceWindows.Entries)
+                //        {
+                //            sb.AppendLine(sv.ToString());
+                //        }
+                //    }
+                //}
+                //MessageBox.Show(sb.ToString(), "Service windows", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
 
         private void cmdAdd_Click(object sender, EventArgs e)
         {
@@ -302,6 +352,7 @@ namespace QuickMon.Forms
                 listBoxHolidays.Items.Clear();
             }
         }
+
 
     }
 }
