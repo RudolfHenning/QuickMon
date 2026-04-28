@@ -24,7 +24,8 @@ namespace QuickMon
         private PerformanceCounter collectorHostsQueryTime = null;
         private PerformanceCounter notifierHostsSendTime = null;
         #endregion
-        private void InitializeGlobalPerformanceCounters()
+
+        private void InitializeGlobalPerformanceCountersWithTimeout()
         {
             try
             {
@@ -80,13 +81,88 @@ namespace QuickMon
                 RaiseMonitorPackError(string.Format("Create global performance counters category error!: {0}", ex.Message));
             }
         }
-        private void ClosePerformanceCounters()
+        private void InitializeGlobalPerformanceCounters()
+        {
+            if (!MethodRunner.RunWithTimeout(new Action(InitializeGlobalPerformanceCountersWithTimeout), 5000))
+            {
+                RaiseMonitorPackError("Could not initialize performance counters category in time!");
+            }
+
+
+            //try
+            //{
+            //    CounterCreationData[] quickMonCreationData = new CounterCreationData[]
+            //        {
+            //            new CounterCreationData("Collector Host Success states/Sec", "Collector Host successful states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+            //            new CounterCreationData("Collector Host Warning states/Sec", "Collector Host warning states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+            //            new CounterCreationData("Collector Host Error states/Sec",   "Collector Host error states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+            //            new CounterCreationData("Collector Hosts queried/Sec",  "Number of Collector Hosts queried per second", PerformanceCounterType.RateOfCountsPerSecond32),
+            //            new CounterCreationData("Collector Agents queried/Sec", "Number of Collector Agents queried per second", PerformanceCounterType.RateOfCountsPerSecond32),
+
+            //            new CounterCreationData("Notifier Hosts called/Sec", "Number of Notifier Hosts called per second", PerformanceCounterType.RateOfCountsPerSecond32),
+            //            new CounterCreationData("Notifier Alerts send/Sec", "Notifier alerts send per second", PerformanceCounterType.RateOfCountsPerSecond32),
+
+            //            new CounterCreationData("Collector Hosts Query time", "Collector Hosts total query time (ms)", PerformanceCounterType.NumberOfItems32),
+            //            new CounterCreationData("Notifiers Hosts Send time", "Notifier Hosts total send time (ms)", PerformanceCounterType.NumberOfItems32)
+            //        };
+
+            //    if (PerformanceCounterCategory.Exists(quickMonPCCategory))
+            //    {
+            //        PerformanceCounterCategory pcC = new PerformanceCounterCategory(quickMonPCCategory);
+            //        if (pcC.GetCounters().Length != quickMonCreationData.Length)
+            //        {
+            //            PerformanceCounterCategory.Delete(quickMonPCCategory);
+            //        }
+            //    }
+
+            //    if (!PerformanceCounterCategory.Exists(quickMonPCCategory))
+            //    {
+            //        PerformanceCounterCategory.Create(quickMonPCCategory, "QuickMon General Counters", PerformanceCounterCategoryType.SingleInstance, new CounterCreationDataCollection(quickMonCreationData));
+            //    }
+            //    try
+            //    {
+            //        collectorHostErrorStatesPerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector Host Error states/Sec");
+            //        collectorHostWarningStatesPerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector Host Warning states/Sec");
+            //        collectorHostInfoStatesPerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector Host Success states/Sec");
+            //        collectorHostsQueriedPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Collector Hosts queried/Sec");
+            //        collectorAgentsQueriedPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Collector Agents queried/Sec");
+
+            //        notifierAlertSendPerSec = InitializePerfCounterInstance(quickMonPCCategory, "Notifier Alerts send/Sec");
+            //        notifiersCalledPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Notifier Hosts called/Sec");
+
+            //        collectorHostsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Collector Hosts Query time");
+            //        notifierHostsSendTime = InitializePerfCounterInstance(quickMonPCCategory, "Notifiers Hosts Send time");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        RaiseMonitorPackError(string.Format("Initialize global performance counters error!: {0}", ex.Message));
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    RaiseMonitorPackError(string.Format("Create global performance counters category error!: {0}", ex.Message));
+            //}
+        }
+        private void ClosePerformanceCountersWithTimeout()
         {
             try
             {
                 PCSetCollectorsQueryTime(0);
             }
             catch { }
+        }
+        private void ClosePerformanceCounters()
+        {
+            if (!MethodRunner.RunWithTimeout(new Action(InitializeGlobalPerformanceCountersWithTimeout), 5000))
+            {
+                RaiseMonitorPackError("Could not close performance counters in time!");
+            }
+
+            //try
+            //{
+            //    PCSetCollectorsQueryTime(0);
+            //}
+            //catch { }
         }
         private PerformanceCounter InitializePerfCounterInstance(string categoryName, string counterName)
         {

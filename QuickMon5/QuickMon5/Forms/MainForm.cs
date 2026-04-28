@@ -3304,7 +3304,7 @@ namespace QuickMon
         #endregion
 
         #region Performance counters
-        private void InitializeGlobalPerformanceCounters()
+        private void InitializeGlobalPerformanceCountersWithTimeout()
         {
             try
             {
@@ -3362,6 +3362,13 @@ namespace QuickMon
                     MessageBox.Show("Error creating application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void InitializeGlobalPerformanceCounters()
+        {
+            if (!MethodRunner.RunWithTimeout(new Action(InitializeGlobalPerformanceCountersWithTimeout), 10000))
+            {
+                MessageBox.Show("Could not initialize performance counters category in time!", "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private PerformanceCounter InitializePerfCounterInstance(string categoryName, string counterName)
         {
             PerformanceCounter counter = new PerformanceCounter(categoryName, counterName, false);
@@ -3370,10 +3377,20 @@ namespace QuickMon
             counter.EndInit();
             return counter;
         }
-        public void ClosePerformanceCounters()
+        public void ClosePerformanceCountersWithTimeout()
         {
             SetCounterValue(collectorsQueryTime, 0, "Collector total query time (ms)");
             SetCounterValue(selectedCollectorsQueryTime, 0, "Selected collector query time (ms)");
+        }
+        public void ClosePerformanceCounters()
+        {
+            if (!MethodRunner.RunWithTimeout(new Action(ClosePerformanceCountersWithTimeout), 5000))
+            {
+                //MessageBox.Show("Could not initialize performance counters category in time!", "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Diagnostics.Trace.WriteLine("Could not initialize performance counters category in time!");
+            }
+            //SetCounterValue(collectorsQueryTime, 0, "Collector total query time (ms)");
+            //SetCounterValue(selectedCollectorsQueryTime, 0, "Selected collector query time (ms)");
         }
         private void SetCounterValue(PerformanceCounter counter, long value, string description)
         {
