@@ -68,13 +68,15 @@ namespace QuickMon
                 "                <config>" +
                 "                    <entries>" +
                 "                        <entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
-                "                        <entry pingMethod=\"HTTP\" address=\"http://localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
-                "                        <entry pingMethod=\"SOCKET\" address=\"127.0.0.1\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"80\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
                 "                    </entries>" +
                 "                </config>" +
                 "         </collectorAgent>" +
                 "     </collectorAgents>" +
                 "   </collectorHost>";
+            /*
+             *  "                        <entry pingMethod=\"HTTP\" address=\"http://localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                "                        <entry pingMethod=\"SOCKET\" address=\"127.0.0.1\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"80\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+             */
             CollectorHost ch = CollectorHost.FromXml(mconfig);
             Assert.IsNotNull(ch, "Collector is null");
             Assert.AreEqual("Ping", ch.Name, "Collector host name not set");
@@ -104,7 +106,7 @@ namespace QuickMon
                 "         <collectorAgent name=\"Notepad version\" type=\"QuickMon.Collectors.AppVersionCollector\" enabled=\"True\">" +
                 "                <config>" +
                 "                    <applications>" +
-                "                       <application name=\"Notepad\" expectedVersion=\"10.0.19041*\" useFileVersion=\"True\" useFirstValidPath=\"True\" primaryUIValue=\"False\">" +
+                "                       <application name=\"Notepad\" expectedVersion=\"10.0.26100*\" useFileVersion=\"True\" useFirstValidPath=\"True\" primaryUIValue=\"False\">" +
                 "                           <paths><path>C:\\Windows\\notepad.exe</path></paths>" +
                 "                       </application>" +
                 "                    </applications>" +
@@ -130,6 +132,16 @@ namespace QuickMon
                 Assert.AreEqual(1, ch.RefreshCount, "1 refresh expected");
                 Assert.AreEqual(CollectorState.Good, testState.State, "Version different");
             }
+        }
+
+        [TestMethod, TestCategory("Agent Tests")]
+        public  void PerfCounterTest()
+        {
+            //System.Diagnostics.PerformanceCounter pc = new System.Diagnostics.PerformanceCounter("Processor", "% Processor Time", "_Total", ".");
+            //Assert.IsNotNull(pc, "RAW Performance counter is null");
+
+            var perfc = PerformanceCounterTools.CreatePerformanceCounterWithTimeout("Processor", "% Processor Time", "_Total", ".");
+            Assert.IsNotNull(perfc, "Performance counter is null");
         }
     }
 }

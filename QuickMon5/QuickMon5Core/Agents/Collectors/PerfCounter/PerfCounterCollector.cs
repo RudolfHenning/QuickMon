@@ -274,10 +274,22 @@ namespace QuickMon.Collectors
             if (Computer != "" && Computer.ToLower() != "localhost")
                 computername = Computer;
 
-            PerformanceCounterCategory pcCat = new PerformanceCounterCategory(Category, computername);
-            if (pcCat.CategoryType == PerformanceCounterCategoryType.SingleInstance)
+            //PerformanceCounterCategory pcCat = new PerformanceCounterCategory(Category, computername);
+            PerformanceCounterCategory pcCat = PerformanceCounterTools.CreatePerformanceCounterCategoryWithTimeout(Category, computername);
+            if (pcCat == null)
             {
-                PerformanceCounter pc = new PerformanceCounter(Category, Counter, "", computername);
+                System.Diagnostics.Trace.WriteLine($"InitializePerfCounter error : Performance counter category {Category} on {computername} cannot be found or failed!");
+            }
+            else if ($"{Instance}" != "" && !$"{Instance}".Contains("*")) //specific instance
+            {
+                PerformanceCounter pci = PerformanceCounterTools.CreatePerformanceCounterWithTimeout(Category, Counter, Instance, computername);
+                pci.NextValue();
+                pcList.Add(pci);
+            }
+            else if (($"{Instance}" == "" || $"{Instance}" == "*") && pcCat.CategoryType == PerformanceCounterCategoryType.SingleInstance)
+            {
+                //PerformanceCounter pc = new PerformanceCounter(Category, Counter, "", computername);
+                PerformanceCounter pc = PerformanceCounterTools.CreatePerformanceCounterWithTimeout(Category, Counter, "", computername);
                 pc.NextValue();
                 pcList.Add(pc);
             }
@@ -288,47 +300,17 @@ namespace QuickMon.Collectors
                                                      orderby s
                                                      select s))
                 {
-                    if (Instance == null || Instance == "" || Instance == "*" || Instance.ToLower() == instanceNameItem.ToLower() || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
+                    if ($"{Instance}" == "" || Instance == "*" || Instance.ToLower() == instanceNameItem.ToLower() || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
                     {
-                        PerformanceCounter pci = new PerformanceCounter(Category, Counter, instanceNameItem, computername);
+                        //PerformanceCounter pci = new PerformanceCounter(Category, Counter, instanceNameItem, computername);
+                        PerformanceCounter pci = PerformanceCounterTools.CreatePerformanceCounterWithTimeout(Category, Counter, instanceNameItem, computername);
+
                         float tmpval = pci.NextValue();
                         pcList.Add(pci);
                     }
                 }
             }
             lastInstanceRefresh = DateTime.Now;
-
-            //if (InstanceValueAggregationStyle == AggregationStyle.None)
-            //{
-            //    PerformanceCounter pc = new PerformanceCounter(Category, Counter, Instance, computername);
-            //    pc.NextValue();
-            //    pcList.Add(pc);
-            //}
-            //else
-            //{
-            //    //PerformanceCounterCategory pcCat = new PerformanceCounterCategory(Category, computername);
-            //    if (pcCat.CategoryType == PerformanceCounterCategoryType.MultiInstance)
-            //    {
-            //        string[] instances = pcCat.GetInstanceNames();
-            //        foreach (string instanceNameItem in (from string s in instances
-            //                                             orderby s
-            //                                             select s))
-            //        {
-            //            if (Instance == null || Instance == "" || !Instance.Contains("*") || (Instance.Contains("*") && HenIT.Data.StringCompareUtils.MatchStarWildcard(instanceNameItem, Instance)))
-            //            {
-            //                PerformanceCounter pci = new PerformanceCounter(Category, Counter, instanceNameItem, computername);
-            //                float tmpval = pci.NextValue();
-            //                pcList.Add(pci);
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        PerformanceCounter pc = new PerformanceCounter(Category, Counter, Instance, computername);
-            //        pc.NextValue();
-            //        pcList.Add(pc);
-            //    }
-            //}
         }
         public float GetNextValue(int retries = 3)
         {
