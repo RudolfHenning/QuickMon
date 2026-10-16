@@ -1,5 +1,4 @@
-<collectorHosts>
-  <collectorHost uniqueId="e71443e6-58fb-40f5-9e5d-b2ac04fd0ea8" dependOnParentId="" name="Memory %" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+<collectorHost uniqueId="e71443e6-58fb-40f5-9e5d-b2ac04fd0ea8" dependOnParentId="" name="Memory %" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
     <!-- Alerting -->
     <alerting>
       <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -42,5 +41,4 @@
     <!-- Categories -->
     <categories />
     <notes />
-  </collectorHost>
-</collectorHosts>
+</collectorHost>

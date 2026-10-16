@@ -1,5 +1,4 @@
-<collectorHosts>
-  <collectorHost uniqueId="c9809f11-6a68-4771-912a-680306ada05e" dependOnParentId="" name="Network usage KB/s" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+<collectorHost uniqueId="c9809f11-6a68-4771-912a-680306ada05e" dependOnParentId="" name="Network usage KB/s" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
     <!-- Alerting -->
     <alerting>
       <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -45,5 +44,4 @@
       <category>Network</category>
     </categories>
     <notes />
-  </collectorHost>
-</collectorHosts>
+</collectorHost>

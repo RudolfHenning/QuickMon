@@ -385,3 +385,8 @@ Add ability to import service window from another Collector or notifier.
 Version 5.3.35 (2026-04-28)
 **************
 When performance counters are corrupt on machine the application hangs. Added some code so the main window will at least show up.
+
+--------------
+Version 5.3.36 (2026-10-16)
+**************
+Fix Collector host templates
